@@ -14,7 +14,3 @@
 - include: filesystem.yml
   tags:
     - filesystem
-
-- include: user.yml
-  tags:
-    - user
