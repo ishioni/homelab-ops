@@ -6,7 +6,7 @@ if ! [ -x /usr/local/bin/brew ]; then
 fi
 
 brew install ansible direnv ipcalc jq kubectl pinentry \
-  sops terraform prettier kustomize \
+  sops prettier kustomize \
   go-task/tap/go-task fluxcd/tap/flux
 
 #Use gpg keychain because I'm lame like that
