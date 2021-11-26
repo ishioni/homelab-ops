@@ -25,6 +25,7 @@ k3s_server:
     - metrics-server
   disable-network-policy: true
   disable-cloud-controller: true
+  disable-kube-proxy: true
   write-kubeconfig-mode: "644"
   # Network CIDR to use for pod IPs
   cluster-cidr: "10.42.0.0/16"

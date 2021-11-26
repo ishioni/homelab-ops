@@ -26,6 +26,32 @@
     path: /proc/sys/net/bridge/bridge-nf-call-iptables
   register: bridge_nf_call_iptables_result
 
+- name: Load ipvs modules
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - ip_vs
+    - ip_vs_rr
+    - ip_vs_wrr
+    - ip_vs_lc
+    - ip_vs_sh
+    - nf_conntrack_ipv4
+
+- name: Set Kubernetes network modules load
+  ansible.builtin.blockinfile:
+    path: /etc/modules-load.d/k8s.conf
+    mode: 0644
+    create: true
+    block: |
+      ip_vs
+      ip_vs_rr
+      ip_vs_wrr
+      ip_vs_lc
+      ip_vs_sh
+      nf_conntrack_ipv4
+      br_netfilter
+
 - name: Set Kubernetes network configuration
   ansible.builtin.blockinfile:
     path: /etc/sysctl.d/99-kubernetes-cri.conf
