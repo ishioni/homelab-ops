@@ -19,6 +19,10 @@ spec:
     configInline:
       address-pools:
         - name: default
-          protocol: layer2
+          protocol: bgp
           addresses:
             - "${METALLB_LB_RANGE}"
+      peers:
+        - peer-address: 192.168.1.1
+          peer-asn: 64512
+          my-asn: 64512
