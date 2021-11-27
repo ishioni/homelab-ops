@@ -1,0 +1,12 @@
+---
+- name: Stop syslog socket
+  ansible.builtin.systemd:
+    name: syslog.socket
+    enabled: false
+    state: stopped
+
+- name: Stop syslogd
+  ansible.builtin.systemd:
+    name: rsyslog.service
+    enabled: false
+    state: stopped

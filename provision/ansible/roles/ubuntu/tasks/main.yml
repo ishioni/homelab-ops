@@ -14,3 +14,7 @@
 - include: filesystem.yml
   tags:
     - filesystem
+
+- include: logging.yml
+  tags:
+    - logging
