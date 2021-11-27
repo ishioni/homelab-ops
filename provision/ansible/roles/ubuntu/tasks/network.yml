@@ -36,7 +36,7 @@
     - ip_vs_wrr
     - ip_vs_lc
     - ip_vs_sh
-    - nf_conntrack_ipv4
+    - nf_conntrack
 
 - name: Set Kubernetes network modules load
   ansible.builtin.blockinfile:
@@ -49,7 +49,7 @@
       ip_vs_wrr
       ip_vs_lc
       ip_vs_sh
-      nf_conntrack_ipv4
+      nf_conntrack
       br_netfilter
 
 - name: Set Kubernetes network configuration
