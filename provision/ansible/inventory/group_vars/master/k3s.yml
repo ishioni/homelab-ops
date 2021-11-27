@@ -27,7 +27,7 @@ k3s_server:
     - local-storage
   disable-network-policy: true
   disable-cloud-controller: true
-  disable-kube-proxy: true
+  # disable-kube-proxy: true
   write-kubeconfig-mode: "644"
   # Network CIDR to use for pod IPs
   cluster-cidr: "172.16.0.0/16"
