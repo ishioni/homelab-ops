@@ -44,6 +44,9 @@ k3s_server:
   # Required to monitor kube-proxy with kube-prometheus-stack
   kube-proxy-arg:
     - "metrics-bind-address=0.0.0.0"
+    - "proxy-mode=ipvs"
+    - "ipvs-strict-arp=true"
+    - "ipvs-scheduler=lc"
   # Required to monitor kube-scheduler with kube-prometheus-stack
   kube-scheduler-arg:
     - "bind-address=0.0.0.0"
