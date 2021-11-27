@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: master
   url: https://github.com/ishioni/k3s-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
