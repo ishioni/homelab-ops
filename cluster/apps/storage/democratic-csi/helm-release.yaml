@@ -30,7 +30,7 @@ spec:
         zfs:
           datasetParentName: "SSD/k3s/volumes"
           detachedSnapshotsDatasetParentName: "SSD/k3s/snapshots"
-          zvolEnableReservation: false
+          zvolEnableReservation: "false"
           datasetProperties:
             "org.truenas:description": "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}/{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
         iscsi:
