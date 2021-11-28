@@ -58,7 +58,7 @@ spec:
         image: docker.io/democraticcsi/democratic-csi:v1.4.2
     storageClasses:
       - name: ssd-iscsi-democratic
-        defaultClass: true
+        defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
