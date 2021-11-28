@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: truenas-democratic-csi
+  namespace: storage
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://democratic-csi.github.io/charts/
+      chart: democratic-csi
+      version: 0.8.3
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: flux-system
+      interval: 5m
+  values:
+    driver:
+      config:
+        driver: freenas-api-iscsi
+        instance_id: quadrant
+        httpConnection:
+          protocol: "http"
+          host: "${TRUENAS_IP}"
+          port: "80"
+          apiKey: "${TRUENAS_APIKEY}"
+          apiVersion: "2"
+        zfs:
+          datasetParentName: "SSD/k3s/volumes"
+          detachedSnapshotsDatasetParentName: "SSD/k3s/snapshots"
+          datasetProperties:
+            "org.truenas:description": {{`"{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}/{{ parameters.[csi.storage.k8s.io/pvc/name] }}"`}}
+        iscsi:
+          targetPortal: "${TRUENAS_IP}:3260"
+          targetGroups:
+            - targetGroupPortalGroup: 5
+              targetGroupInitiatorGroup: 7
+              targetGroupAuthType: CHAP
+              targetGroupAuthGroup: 4
+          extentInsecureTpc: true
+          extentXenCompat: false
+          extentDisablePhysicalBlocksize: false
+          extentBlocksize: 4096
+          extentRpm: "SSD"
+          extentAvailThreshold: 0
+    csiDriver:
+      name: "org.democratic-csi.iscsi-truenas-api"
+    controller:
+      strategy: deployment
+      externalSnapshotter:
+        image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:v1.4.2
+    node:
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:v1.4.2
+    storageClasses:
+      - name: ssd-iscsi-democratic
+        defaultClass: true
+        reclaimPolicy: Delete
+        volumeBindingMode: WaitForFirstConsumer
+        allowVolumeExpansion: true
+        parameters:
+          fsType: ext4
+        mountOptions: []
+        secrets:
+          provisioner-secret:
+          controller-publish-secret:
+          node-stage-secret:
+            node-db.node.session.auth.authmethod: CHAP
+            node-db.node.session.auth.username: "${TRUENAS_ISCSI_USER}"
+            node-db.node.session.auth.password: "${TRUENAS_ISCSI_PASSWORD}"
+          node-publish-secret:
+          controller-expand-secret:
