@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - default
   - kube-system
-  - system-upgrade
-  - storage
-  - reverse-proxy
   - media
+  - reverse-proxy
+  - system-upgrade
