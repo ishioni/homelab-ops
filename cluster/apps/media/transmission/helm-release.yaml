@@ -21,9 +21,8 @@ spec:
       runAsUser: 1003
       runAsGroup: 2000
       fsGroup: 2000
-    controllerType: statefulset
-    strategy:
-      type: RollingUpdate
+    controller:
+      type: statefulset
     env:
       TZ: Europe/Warsaw
       TRANSMISSION_DOWNLOAD_DIR: "/downloads"
