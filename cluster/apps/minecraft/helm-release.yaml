@@ -1,0 +1,78 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: spigot
+  namespace: minecraft
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: minecraft
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    imageTag: 2021.22.0-java16-openj9
+    resources:
+      limits:
+        memory: 2500Mi
+      requests:
+        memory: 2000Mi
+    securityContext:
+      runAsUser: 1000
+      fsGroup: 1000
+    startupProbe:
+      enabled: true
+    extraEnv:
+      TZ: "Europe/Warsaw"
+      TUNE_VIRTUALIZED: true
+      ENABLE_ROLLING_LOGS: true
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: minecraft-data
+    minecraftServer:
+      eula: true
+      version: 1.17.1
+      type: SPIGOT
+      difficulty: normal
+      whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,ChrisTomo,Almethai,czarny_jobacz"
+      ops: "movi,GachouGoose,czarny_jobacz"
+      pvp: true
+      motd: Meh
+      worldSaveName: Kubeworld
+      forceReDownload: true
+      downloadModpackUrl: "https://github.com/webbukkit/dynmap/releases/download/v3.2.1/Dynmap-3.2.1-spigot.jar"
+      memory: 2G
+      rcon:
+        enabled: true
+        password: "${MINECRAFT_RCON_PASSWORD}"
+        serviceType: ClusterIP
+      serviceType: LoadBalancer
+      LoadBalancerIP: 192.168.2.3
+      extraPorts:
+        - name: map
+          containerPort: 8123
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: false
+            type: ClusterIP
+            port: 8123
+          ingress:
+            ingressClassName: nginx
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-production
+            hosts:
+              - name: "minecraft.${SECRET_DOMAIN}"
+                path: /
+            tls:
+              - secretName: "minecraft.${SECRET_DOMAIN}"
+                hosts:
+                  - "minecraft.${SECRET_DOMAIN}"

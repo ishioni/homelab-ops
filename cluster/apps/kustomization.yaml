@@ -4,5 +4,6 @@ resources:
   - default
   - kube-system
   - media
+  - minecraft
   - reverse-proxy
   - system-upgrade
