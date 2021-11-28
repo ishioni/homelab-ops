@@ -25,6 +25,7 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
+      TRANSMISSION_BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
       TRANSMISSION_DOWNLOAD_DIR: "/downloads"
       TRANSMISSION_INCOMPLETE_DIR_ENABLED: false
       TRANSMISSION_RATIO_LIMIT: 1
