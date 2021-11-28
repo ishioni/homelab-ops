@@ -101,6 +101,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "weather-sunset"
