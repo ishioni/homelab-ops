@@ -31,7 +31,7 @@ spec:
           datasetParentName: "SSD/k3s/volumes"
           detachedSnapshotsDatasetParentName: "SSD/k3s/snapshots"
           datasetProperties:
-            "org.truenas:description": {{`"{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}/{{ parameters.[csi.storage.k8s.io/pvc/name] }}"`}}
+            "org.truenas:description": "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}/{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
         iscsi:
           targetPortal: "${TRUENAS_IP}:3260"
           targetGroups:
