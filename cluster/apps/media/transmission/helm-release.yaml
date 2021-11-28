@@ -1,0 +1,90 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: transmission
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: transmission
+      version: 8.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    podSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
+    controllerType: statefulset
+    strategy:
+      type: RollingUpdate
+    env:
+      TZ: Europe/Warsaw
+      TRANSMISSION_DOWNLOAD_DIR: "/downloads"
+      TRANSMISSION_INCOMPLETE_DIR_ENABLED: false
+      TRANSMISSION_RATIO_LIMIT: 1
+      TRANSMISSION_RATIO_LIMIT_ENABLED: true
+      TRANSMISSION_RPC_PASSWORD: "${TRANSMISSION_RPC_PASSWORD}"
+      TRANSMISSION_SPEED_LIMIT_UP_ENABLED: true
+      TRANSMISSION_SPEED_LIMIT_UP: 8000
+      TRANSMISSION_UMASK: 7
+    service:
+      utptcp:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: transmission
+        loadBalancerIP: 192.168.2.2
+        externalTrafficPolicy: Local
+        ports:
+          utptcp:
+            enabled: true
+            port: 51413
+            protocol: TCP
+            targetPort: 51413
+      utpudp:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: transmission
+        loadBalancerIP: 192.168.2.2
+        externalTrafficPolicy: Local
+        ports:
+          utpudp:
+            enabled: true
+            port: 51413
+            protocol: UDP
+            targetPort: 51413
+    persistence:
+      downloads:
+        enabled: true
+        existingClaim: quadrant-media
+        mountPath: "/downloads"
+        subPath: Downloads
+    volumeClaimTemplates:
+      - accessMode: ReadWriteOnce
+        mountPath: /config
+        name: config
+        size: 100Mi
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: "torrent.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "torrent.${SECRET_DOMAIN}"
+            hosts:
+              - "torrent.${SECRET_DOMAIN}"

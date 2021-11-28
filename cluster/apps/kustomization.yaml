@@ -7,3 +7,4 @@ resources:
   - system-upgrade
   - storage
   - reverse-proxy
+  - media
