@@ -65,7 +65,9 @@ spec:
         allowVolumeExpansion: true
         parameters:
           fsType: ext4
-        mountOptions: []
+        mountOptions:
+          - discard
+          - noatime
         secrets:
           provisioner-secret:
           controller-publish-secret:
