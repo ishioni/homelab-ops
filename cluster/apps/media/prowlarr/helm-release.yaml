@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prowlarr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: prowlarr
+      version: 4.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    podSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
+    controller:
+      type: statefulset
+    env:
+      TZ: Europe/Warsaw
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        storageClass: ssd-iscsi-democratic
+        accessMode: ReadWriteOnce
+        size: 100Mi
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: "indexer.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: "indexer.${SECRET_DOMAIN}"
+            hosts:
+              - "indexer.${SECRET_DOMAIN}"
