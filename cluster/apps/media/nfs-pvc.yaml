@@ -19,6 +19,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: quadrant-media
+  namespace: media
 spec:
   accessModes:
     - ReadWriteMany
