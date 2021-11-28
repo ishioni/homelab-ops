@@ -5,3 +5,4 @@ resources:
   - kube-system
   - ingress
   - system-upgrade
+  - storage
