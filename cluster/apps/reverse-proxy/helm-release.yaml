@@ -1,0 +1,102 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: reverse-proxy
+  namespace: reverse-proxy
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: reverse-proxy
+      version: v1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  values:
+    instances:
+    - name: amt
+      enabled: true
+      externalName: "quadrant.${KUBENET}"
+      port: 8086
+      ingress:
+        ingressClassName: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        tls:
+        - hosts:
+          - "amt.${SECRET_DOMAIN}"
+          secretName: "amt.${SECRET_DOMAIN}"
+        hosts:
+        - host: "amt.${SECRET_DOMAIN}"
+          path: /
+    - name: homeassistant
+      enabled: true
+      externalName: "homeassistant.${IOT}"
+      port: 8123
+      ingress:
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        tls:
+        - hosts:
+          - "homeassistant.${SECRET_DOMAIN}"
+          secretName: "homeassistant.${SECRET_DOMAIN}"
+        hosts:
+        - host: "homeassistant.${SECRET_DOMAIN}"
+          path: /
+    - name: proxmox
+      enabled: true
+      externalName: "proxmox-1.${MANAGMENT}"
+      port: 8006
+      ingress:
+        ingressClassName: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        tls:
+        - hosts:
+          - "proxmox.${SECRET_DOMAIN}"
+          secretName: "proxmox.${SECRET_DOMAIN}"
+        hosts:
+        - host: "proxmox.${SECRET_DOMAIN}"
+          path: /
+    - name: truenas
+      enabled: true
+      externalName: "quadrant.${KUBENET}"
+      port: 443
+      ingress:
+        ingressClassName: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        tls:
+        - hosts:
+          - "truenas.${SECRET_DOMAIN}"
+          secretName: "truenas.${SECRET_DOMAIN}"
+        hosts:
+        - host: "truenas.${SECRET_DOMAIN}"
+          path: /
+    - name: unifi
+      enabled: true
+      externalName: "unifi.${MANAGMENT}"
+      port: 8443
+      ingress:
+        ingressClassName: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        tls:
+        - hosts:
+          - "unifi.${SECRET_DOMAIN}"
+          secretName: "unifi.${SECRET_DOMAIN}"
+        hosts:
+        - host: "unifi.${SECRET_DOMAIN}"
+          path: /
