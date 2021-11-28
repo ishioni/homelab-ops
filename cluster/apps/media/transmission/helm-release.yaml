@@ -67,9 +67,10 @@ spec:
         mountPath: "/downloads"
         subPath: Downloads
     volumeClaimTemplates:
-      - accessMode: ReadWriteOnce
+      - name: config
         mountPath: /config
-        name: config
+        storageClass: ssd-iscsi-democratic
+        accessMode: ReadWriteOnce
         size: 100Mi
     ingress:
       main:
