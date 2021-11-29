@@ -85,7 +85,7 @@ spec:
       image:
         tag: 10.5.12-debian-10-r82
       rootUser:
-        password: "${NEXTCLOUD_DBROOTPASSWORD}"
+        password: "${MARIA_ROOTPASSWORD}"
       db:
         name: nextcloud
         user: nextcloud
