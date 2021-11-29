@@ -82,6 +82,8 @@ spec:
       enabled: false
     mariadb:
       enabled: true
+      image:
+        tag: 10.5.12-debian-10-r82
       db:
         name: nextcloud
         user: nextcloud
