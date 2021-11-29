@@ -20,14 +20,18 @@ spec:
     imageTag: 2021.22.0-java16-openj9
     resources:
       limits:
-        memory: 2500Mi
+        memory: 3500Mi
       requests:
         memory: 2000Mi
     securityContext:
       runAsUser: 1000
       fsGroup: 1000
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
     startupProbe:
-      enabled: true
+      enabled: false
     extraEnv:
       TZ: "Europe/Warsaw"
       TUNE_VIRTUALIZED: true
