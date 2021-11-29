@@ -26,7 +26,17 @@ spec:
             - manager
           env:
             - name: vip_arp
+              value: "false"
+            - name: bgp_enable
               value: "true"
+            - name: bgp_routerinterface
+              value: "eth0"
+            - name: bgp_as
+              value: "64512"
+            - name: bgp_peeraddress
+              value: 192.168.1.1
+            - name: bgp_peeras
+              value: "64512"
             - name: vip_interface
               value: "eth0"
             - name: port
