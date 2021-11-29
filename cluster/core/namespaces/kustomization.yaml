@@ -7,3 +7,4 @@ resources:
   - reverse-proxy.yaml
   - media.yaml
   - minecraft.yaml
+  - nextcloud.yaml
