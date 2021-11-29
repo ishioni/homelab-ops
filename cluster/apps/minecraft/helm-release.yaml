@@ -47,7 +47,6 @@ spec:
       motd: Meh
       worldSaveName: Kubeworld
       forceReDownload: true
-      downloadModpackUrl: "https://github.com/webbukkit/dynmap/releases/download/v3.2.1/Dynmap-3.2.1-spigot.jar"
       memory: 2G
       rcon:
         enabled: true
