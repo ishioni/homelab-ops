@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      tag: v0.1.6.1184
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
