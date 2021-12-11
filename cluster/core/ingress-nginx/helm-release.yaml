@@ -29,6 +29,8 @@ spec:
       config:
         ssl-protocols: "TLSv1.3 TLSv1.2"
         proxy-body-size: "0"
+        proxy-read-timeout: "3600"
+        proxy-send-timeout: "3600"
         use-forwarded-headers: "true"
       metrics:
         enabled: false
