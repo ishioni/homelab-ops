@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - prowlarr
   - radarr
+  - readarr
   - sonarr
   - transmission
   - nfs-pvc.yaml
