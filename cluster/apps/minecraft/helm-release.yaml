@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    imageTag: 2021.22.0-java16-openj9
+    imageTag: java17
     resources:
       limits:
         memory: 3500Mi
