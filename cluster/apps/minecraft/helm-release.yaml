@@ -42,7 +42,7 @@ spec:
         existingClaim: minecraft-data
     minecraftServer:
       eula: true
-      version: 1.17.1
+      version: 1.18.1
       type: SPIGOT
       difficulty: normal
       whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,ChrisTomo,Almethai,czarny_jobacz"
