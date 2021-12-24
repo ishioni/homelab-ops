@@ -21,6 +21,7 @@ spec:
       enabled: true
       externalName: "quadrant.${KUBENET}"
       port: 8086
+      ingressClassName: "nginx"
       ingress:
         ingressClassName: "nginx"
         annotations:
@@ -38,6 +39,7 @@ spec:
       enabled: true
       externalName: "homeassistant.${IOT}"
       port: 8123
+      ingressClassName: "nginx"
       ingress:
         ingressClassName: "nginx"
         annotations:
@@ -53,6 +55,7 @@ spec:
       enabled: true
       externalName: "proxmox-1.${MANAGMENT}"
       port: 8006
+      ingressClassName: "nginx"
       ingress:
         ingressClassName: "nginx"
         annotations:
@@ -70,6 +73,7 @@ spec:
       enabled: true
       externalName: "quadrant.${KUBENET}"
       port: 443
+      ingressClassName: "nginx"
       ingress:
         ingressClassName: "nginx"
         annotations:
@@ -87,6 +91,7 @@ spec:
       enabled: true
       externalName: "unifi.${MANAGMENT}"
       port: 8443
+      ingressClassName: "nginx"
       ingress:
         ingressClassName: "nginx"
         annotations:
