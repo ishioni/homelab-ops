@@ -51,7 +51,7 @@ spec:
     controller:
       strategy: deployment
       externalSnapshotter:
-        image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
+        image: k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.0
       driver:
         image: docker.io/democraticcsi/democratic-csi:v1.4.4
     node:
