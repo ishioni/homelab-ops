@@ -59,6 +59,8 @@ spec:
               value: "{{ kubevip_bgp_peer_ip }}"
             - name: bgp_peeras
               value: "{{ kubevip_bgp_peer_as_number }}"
+            - name: svc_enable
+              value: "false"
             - vip_ddns
               value: "false"
             - name: address
