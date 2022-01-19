@@ -34,7 +34,6 @@ spec:
       enabled: false
     extraEnv:
       TZ: "Europe/Warsaw"
-      TUNE_VIRTUALIZED: true
       ENABLE_ROLLING_LOGS: true
     persistence:
       dataDir:
@@ -43,13 +42,14 @@ spec:
     minecraftServer:
       eula: true
       version: 1.18.1
-      type: SPIGOT
+      type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,ChrisTomo,Almethai,czarny_jobacz"
       ops: "movi,GachouGoose,czarny_jobacz"
       pvp: true
       motd: Meh
       worldSaveName: Kubeworld
+      viewDistance: 12
       forceReDownload: true
       memory: 2G
       rcon:
