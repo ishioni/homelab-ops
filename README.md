@@ -78,7 +78,19 @@ It is advisable to install [pre-commit](https://pre-commit.com/) and the pre-com
 After pre-commit is installed on your machine run:
 
 ```sh
-pre-commit install-hooks
+task pre-commit:init
+```
+**Remember to run this on each new clone of the repository for it to have effect.**
+
+Commands are of interest, for learning purposes:
+
+This command makes it so pre-commit runs on `git commit`, and also installs environments per the config file.
+```
+pre-commit install --install-hooks
+```
+This command checks for new versions of hooks, though it will occasionally make mistakes, so verify its results.
+```
+pre-commit autoupdate
 ```
 
 ## :open_file_folder:&nbsp; Repository structure
