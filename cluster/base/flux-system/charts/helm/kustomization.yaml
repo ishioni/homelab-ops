@@ -4,7 +4,6 @@ resources:
   - authentik-charts.yaml
   - bitnami-charts.yaml
   - deliveryhero-charts.yaml
-  - democratic-csi.yaml
   - descheduler-charts.yaml
   - external-dns-charts.yaml
   - grafana-charts.yaml
@@ -24,4 +23,5 @@ resources:
   - rook-ceph-charts.yaml
   - stakater-charts.yaml
   - traefik-charts.yaml
+  - truenas-csp.yaml
   - weaveworks-kured-charts.yaml
