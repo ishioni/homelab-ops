@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://democratic-csi.github.io/charts/
+      # renovate: registryUrl=https://hpe-storage.github.io/truenas-csp/
       chart: truenas-csp
       version: 1.1.0
       sourceRef:
