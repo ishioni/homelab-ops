@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: truenas-csp
+  namespace: flux-system
+spec:
+  interval: 15m
+  url: https://hpe-storage.github.io/truenas-csp/
+  timeout: 3m
