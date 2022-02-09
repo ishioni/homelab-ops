@@ -90,7 +90,7 @@ spec:
       primary:
         persistence:
           enabled: true
-          storageClass: ssd-iscsi-democratic
+          storageClass: truenas-ssd
           size: 2Gi
     redis:
       enabled: true

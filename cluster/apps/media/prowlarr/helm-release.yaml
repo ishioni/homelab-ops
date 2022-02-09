@@ -30,7 +30,7 @@ spec:
     volumeClaimTemplates:
       - name: config
         mountPath: /config
-        storageClass: ssd-iscsi-democratic
+        storageClass: truenas-ssd
         accessMode: ReadWriteOnce
         size: 100Mi
     ingress:

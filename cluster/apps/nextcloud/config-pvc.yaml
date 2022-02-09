@@ -7,7 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: ssd-iscsi-democratic
+  storageClassName: truenas-hdd
   resources:
     requests:
       storage: 100Gi
