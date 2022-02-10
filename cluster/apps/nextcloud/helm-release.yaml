@@ -18,6 +18,7 @@ spec:
       interval: 5m
   values:
     image:
+      repository: nextcloud
       tag: 23.0.0-fpm-alpine
     nextcloud:
       host: "cloud.${SECRET_DOMAIN}"
