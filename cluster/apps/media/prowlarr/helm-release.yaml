@@ -33,7 +33,7 @@ spec:
         mountPath: /config
         storageClass: truenas-ssd
         accessMode: ReadWriteOnce
-        size: 300Mi
+        size: 1Gi
     ingress:
       main:
         enabled: true
