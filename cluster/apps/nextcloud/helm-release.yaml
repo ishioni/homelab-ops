@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 23.0.1-fpm-alpine
+      tag: 23.0.2-fpm-alpine
     nextcloud:
       host: "cloud.${SECRET_DOMAIN}"
       username: cloudadmin
