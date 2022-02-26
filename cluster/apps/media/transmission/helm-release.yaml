@@ -83,6 +83,9 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/appName: Transmission
+          hajimari.io/enable: "true"
+          hajimari.io/icon: cloud-download
         hosts:
           - host: "torrent.${SECRET_DOMAIN}"
             paths:

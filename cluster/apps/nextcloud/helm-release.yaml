@@ -71,6 +71,9 @@ spec:
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
+        hajimari.io/appName: Nextcloud
+        hajimari.io/enable: "true"
+        hajimari.io/icon: file-cloud
       tls:
         - secretName: "cloud.${SECRET_DOMAIN}"
           hosts:

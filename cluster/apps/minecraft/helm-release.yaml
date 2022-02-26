@@ -72,6 +72,9 @@ spec:
             enabled: true
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-production
+              hajimari.io/appName: Minecraft
+              hajimari.io/enable: "true"
+              hajimari.io/icon: toy-brick-marker
             hosts:
               - name: "minecraft.${SECRET_DOMAIN}"
                 path: /

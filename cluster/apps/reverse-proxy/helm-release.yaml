@@ -27,6 +27,9 @@ spec:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hajimari.io/appName: AMT
+          hajimari.io/enable: "true"
+          hajimari.io/icon: remote-desktop
         tls:
         - hosts:
           - "amt.${SECRET_DOMAIN}"
@@ -42,6 +45,9 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/appName: Home Assistant
+          hajimari.io/enable: "true"
+          hajimari.io/icon: home-heart
         tls:
         - hosts:
           - "homeassistant.${SECRET_DOMAIN}"
@@ -59,6 +65,9 @@ spec:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hajimari.io/appName: Proxmox
+          hajimari.io/enable: "true"
+          hajimari.io/icon: server
         tls:
         - hosts:
           - "proxmox.${SECRET_DOMAIN}"
@@ -76,6 +85,9 @@ spec:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hajimari.io/appName: TrueNAS
+          hajimari.io/enable: "true"
+          hajimari.io/icon: nas
         tls:
         - hosts:
           - "truenas.${SECRET_DOMAIN}"
@@ -93,6 +105,9 @@ spec:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hajimari.io/appName: Unifi
+          hajimari.io/enable: "true"
+          hajimari.io/icon: lan
         tls:
         - hosts:
           - "unifi.${SECRET_DOMAIN}"
