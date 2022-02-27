@@ -34,7 +34,7 @@ spec:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "hajimari.${SECRET_DOMAIN}"
+          - host: "start.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
