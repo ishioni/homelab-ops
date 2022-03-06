@@ -41,7 +41,7 @@ spec:
         existingClaim: minecraft-data
     minecraftServer:
       eula: true
-      version: 1.18.1
+      version: 1.18.2
       type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,ChrisTomo,Almethai,czarny_jobacz"
