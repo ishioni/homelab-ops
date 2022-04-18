@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://hpe-storage.github.io/truenas-csp/
       chart: truenas-csp
-      version: 1.1.0
+      version: 1.1.1
       sourceRef:
         kind: HelmRepository
         name: truenas-csp
