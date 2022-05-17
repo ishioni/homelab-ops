@@ -42,15 +42,15 @@ spec:
           );
       mail:
         enabled: true
-        fromAddress: nullmailer
+        fromAddress: cloud
         domain: "${SECRET_DOMAIN}"
         smtp:
-          host: imap.gmail.com
+          host: smtp.fastmail.com
           secure: ssl
           port: 465
           authtype: LOGIN
-          name: "nullmailer@${SECRET_DOMAIN}"
-          password: "${NULLMAILLER_PASSWORD}"
+          name: "${NULLMAILER_USERNAME}"
+          password: "${NULLMAILER_PASSWORD}"
     livenessProbe:
       initialDelaySeconds: 0
     readinessProbe:
