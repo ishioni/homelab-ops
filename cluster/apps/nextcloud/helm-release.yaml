@@ -66,7 +66,6 @@ spec:
         cpu: 200m
         memory: 300Mi
       limits:
-        cpu: 600m
         memory: 600Mi
     cronjob:
       enabled: true
