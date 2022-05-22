@@ -19,3 +19,7 @@ spec:
   values:
     nameOverride: reloader
     fullnameOverride: reloader
+    resources:
+      limits:
+        cpu: 50m
+        memory: 50Mi

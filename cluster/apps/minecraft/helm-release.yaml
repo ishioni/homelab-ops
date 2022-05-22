@@ -21,8 +21,10 @@ spec:
       tag: java17
     resources:
       limits:
-        memory: 3500Mi
+        cpu: 2000m
+        memory: 3000Mi
       requests:
+        cpu: 1000m
         memory: 2000Mi
     securityContext:
       runAsUser: 1000

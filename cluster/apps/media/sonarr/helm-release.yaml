@@ -28,6 +28,12 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
+    resources:
+      requests:
+        cpu: 100m
+        memory: 250Mi
+      limits:
+        memory: 500Mi
     volumeClaimTemplates:
       - name: config
         mountPath: /config

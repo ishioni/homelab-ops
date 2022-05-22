@@ -37,6 +37,12 @@ spec:
       TRANSMISSION_SPEED_LIMIT_UP_ENABLED: true
       TRANSMISSION_SPEED_LIMIT_UP: 8000
       TRANSMISSION_UMASK: 7
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
     service:
       utptcp:
         enabled: true
