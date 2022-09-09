@@ -24,5 +24,5 @@ spec:
       - --metric-resolution=15s
     resources:
       limits:
-        cpu: 50m
-        memory: 50Mi
+        cpu: 200m
+        memory: 100Mi
