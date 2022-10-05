@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: flux-system
+  name: flux-cluster
   namespace: flux-system
 spec:
   interval: 1m0s
@@ -17,11 +17,12 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./cluster/base
+  path: ./cluster/flux
   prune: true
+  wait: false
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-cluster
   decryption:
     provider: sops
     secretRef:

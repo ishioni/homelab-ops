@@ -2,23 +2,22 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: core
+  name: apps
   namespace: flux-system
 spec:
-  interval: 5m0s
+  interval: 10m
   dependsOn:
-    - name: crds
-  path: ./cluster/core
-  prune: false
+    - name: core
+  path: ./cluster/apps
+  prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-cluster
   decryption:
     provider: sops
     secretRef:
       name: sops-gpg
   postBuild:
-    substitute: {}
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
