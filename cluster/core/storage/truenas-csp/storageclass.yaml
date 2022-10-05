@@ -24,7 +24,7 @@ parameters:
   sync: STANDARD
   compression: ZSTD
   volblocksize: 16K
-reclaimPolicy: Retain
+reclaimPolicy: Delete
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer
 ---
@@ -51,6 +51,6 @@ parameters:
   sync: STANDARD
   compression: ZSTD
   volblocksize: 16K
-reclaimPolicy: Retain
+reclaimPolicy: Delete
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer
