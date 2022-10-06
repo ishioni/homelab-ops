@@ -49,7 +49,7 @@ spec:
         type: LoadBalancer
         annotations:
           metallb.universe.tf/allow-shared-ip: transmission
-        loadBalancerIP: 192.168.2.2
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
         externalTrafficPolicy: Local
         ports:
           utptcp:
@@ -62,7 +62,7 @@ spec:
         type: LoadBalancer
         annotations:
           metallb.universe.tf/allow-shared-ip: transmission
-        loadBalancerIP: 192.168.2.2
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
         externalTrafficPolicy: Local
         ports:
           utpudp:

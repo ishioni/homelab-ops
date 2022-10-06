@@ -60,7 +60,8 @@ spec:
         password: "${MINECRAFT_RCON_PASSWORD}"
         serviceType: ClusterIP
       serviceType: LoadBalancer
-      LoadBalancerIP: 192.168.2.3
+      serviceAnnotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.2.3
       extraPorts:
         - name: map
           containerPort: 8123
