@@ -37,6 +37,7 @@ spec:
       TRANSMISSION_SPEED_LIMIT_UP_ENABLED: true
       TRANSMISSION_SPEED_LIMIT_UP: 8000
       TRANSMISSION_UMASK: 7
+      TRANSMISSION_WEB_HOME: "/app/web"
     resources:
       requests:
         cpu: 100m
