@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/transmission
-      tag: 3.00
+      tag: "3.00"
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
