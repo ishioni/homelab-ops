@@ -26,9 +26,19 @@ spec:
             - manager
           env:
             - name: vip_arp
+              value: "false"
+            - name: bgp_enable
               value: "true"
-            - name: vip_interface
-              value: "${BOOTSTRAP_ANSIBLE_KUBE_VIP_INTERFACE}"
+            - name: bgp_routerid
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: bgp_as
+              value: "${BOOTSTRAP_ANSIBLE_KUBE_VIP_BGP_AS}"
+            - name: bgp_peeras
+              value: "${BOOTSTRAP_ANSIBLE_KUBE_VIP_PEER_BGO_AS}"
+            - name: bgp_peeraddress
+              value: "${BOOTSTRAP_ANSIBLE_KUBE_VIP_PEER_BGP_ADDRESS}"
             - name: port
               value: "6443"
             - name: vip_cidr
@@ -39,7 +49,7 @@ spec:
               value: kube-system
             - name: svc_enable
               value: "false"
-            - name: vip_address
+            - name: address
               value: "${BOOTSTRAP_ANSIBLE_KUBE_VIP_ADDRESS}"
           securityContext:
             capabilities:
@@ -55,7 +65,18 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/master: "true"
       serviceAccountName: kube-vip
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
       tolerations:
-        - key: node-role.kubernetes.io/master
+        - effect: NoSchedule
           operator: Exists
-          effect: NoSchedule
+        - effect: NoExecute
+          operator: Exists
