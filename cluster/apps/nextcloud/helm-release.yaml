@@ -57,7 +57,7 @@ spec:
       initialDelaySeconds: 0
     startupProbe:
       enabled: true
-      initialDelaySeconds: 10
+      initialDelaySeconds: 30
     persistence:
       enabled: true
       existingClaim: nextcloud-app
@@ -69,7 +69,7 @@ spec:
         cpu: 200m
         memory: 300Mi
       limits:
-        memory: 600Mi
+        memory: 1000Mi
     cronjob:
       enabled: true
       schedule: "*/15 * * * *"
