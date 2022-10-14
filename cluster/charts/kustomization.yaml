@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - authentik-charts.yaml
   - bitnami-charts.yaml
+  - democratic-csi.yaml
   - deliveryhero-charts.yaml
   - descheduler-charts.yaml
   - external-dns-charts.yaml
