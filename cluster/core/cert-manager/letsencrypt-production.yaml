@@ -11,9 +11,12 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
-      - http01:
-          ingress:
-            class: "nginx"
+      - dns01:
+          cloudflare:
+            email: "${SECRET_CLOUDFLARE_EMAIL}"
+            apiKeySecretRef:
+              name: cloudflare-api-key
+              key: api-key
         selector:
           dnsZones:
             - ${SECRET_DOMAIN}
