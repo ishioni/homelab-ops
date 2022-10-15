@@ -25,6 +25,8 @@ spec:
         ingressClassName: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: AMT
@@ -45,6 +47,8 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           hajimari.io/appName: Home Assistant
           hajimari.io/enable: "true"
           hajimari.io/icon: home-heart
@@ -63,6 +67,8 @@ spec:
         ingressClassName: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: Proxmox
@@ -83,6 +89,8 @@ spec:
         ingressClassName: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: TrueNAS
@@ -103,6 +111,8 @@ spec:
         ingressClassName: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: Unifi

@@ -76,6 +76,8 @@ spec:
             enabled: true
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-production
+              external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+              external-dns/is-public: "true"
               hajimari.io/appName: Minecraft
               hajimari.io/enable: "true"
               hajimari.io/icon: toy-brick-marker
