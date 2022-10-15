@@ -3,9 +3,7 @@ terraform {
   backend "s3" {
     bucket = "terraform"
     key    = "cloudflare.tfstate"
-
     endpoint = "http://192.168.1.2:9000"
-
     region                      = "main"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
