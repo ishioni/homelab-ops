@@ -46,6 +46,8 @@ spec:
         ingressClassName: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/appName: Prowlarr
           hajimari.io/enable: "true"
