@@ -9,7 +9,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
     external-dns/is-public: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: public
   rules:
     - host: "flux-receiver.${SECRET_DOMAIN}"
       http:
