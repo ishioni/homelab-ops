@@ -86,7 +86,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        ingressClassName: public
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"

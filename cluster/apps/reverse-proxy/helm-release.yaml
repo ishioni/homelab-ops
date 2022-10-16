@@ -22,11 +22,9 @@ spec:
       externalName: "quadrant.${KUBENET}"
       port: 8086
       ingress:
-        ingressClassName: "nginx"
+        ingressClassName: private
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: AMT
@@ -34,17 +32,17 @@ spec:
           hajimari.io/icon: remote-desktop
         tls:
         - hosts:
-          - "amt.${SECRET_DOMAIN}"
-          secretName: "amt.${SECRET_DOMAIN}"
+          - "amt.${SECRET_INTERNAL_DOMAIN}"
+          secretName: "amt.${SECRET_INTERNAL_DOMAIN}"
         hosts:
-        - host: "amt.${SECRET_DOMAIN}"
+        - host: "amt.${SECRET_INTERNAL_DOMAIN}"
           path: /
     - name: homeassistant
       enabled: true
       externalName: "homeassistant.${IOT}"
       port: 8123
       ingress:
-        ingressClassName: "nginx"
+        ingressClassName: public
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
@@ -64,7 +62,7 @@ spec:
       externalName: "proxmox-1.${MANAGMENT}"
       port: 8006
       ingress:
-        ingressClassName: "nginx"
+        ingressClassName: public
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
@@ -86,7 +84,7 @@ spec:
       externalName: "quadrant.${KUBENET}"
       port: 443
       ingress:
-        ingressClassName: "nginx"
+        ingressClassName: public
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
@@ -108,7 +106,7 @@ spec:
       externalName: "unifi.${MANAGMENT}"
       port: 8443
       ingress:
-        ingressClassName: "nginx"
+        ingressClassName: public
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"

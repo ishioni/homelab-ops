@@ -72,7 +72,7 @@ spec:
             type: ClusterIP
             port: 8123
           ingress:
-            ingressClassName: nginx
+            ingressClassName: public
             enabled: true
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-production
