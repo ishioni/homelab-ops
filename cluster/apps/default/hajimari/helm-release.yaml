@@ -29,20 +29,17 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        ingressClassName: private
         annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "start.${SECRET_DOMAIN}"
+          - host: "start.${SECRET_INTERNAL_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "start.${SECRET_DOMAIN}"
+              - "start.${SECRET_INTERNAL_DOMAIN}"
             secretName: "hajimari-tls"
     persistence:
       data:
