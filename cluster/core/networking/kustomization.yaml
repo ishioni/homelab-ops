@@ -6,4 +6,3 @@ resources:
   - external-dns
   - ingress-nginx
   - kube-vip
-  - metallb
