@@ -15,7 +15,17 @@ spec:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
+    psp:
+      create: false
+    crds:
+      enabled: false
     controller:
       resources:
         limits:
