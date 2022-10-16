@@ -1,0 +1,8 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: kubenet-pool
+  namespace: networking
+spec:
+  addresses:
+  - ${METALLB_LB_RANGE}
