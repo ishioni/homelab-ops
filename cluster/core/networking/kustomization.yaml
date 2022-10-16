@@ -4,7 +4,8 @@ resources:
   - namespace.yaml
   - cert-manager
   - external-dns
-  - ingress-nginx
+  - ingress-public
+  - ingress-private
   - kube-vip
   - metallb
   - k8s-gateway

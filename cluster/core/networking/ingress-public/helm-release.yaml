@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ingress-nginx
+  name: ingress-public
   namespace: networking
 spec:
   interval: 5m
@@ -17,11 +17,11 @@ spec:
   values:
     controller:
       kind: DaemonSet
-      ingressClass: nginx
+      ingressClass: public
       ingressClassResource:
         default: true
         enabled: true
-        name: nginx
+        name: public
       service:
         type: LoadBalancer
         annotations:
