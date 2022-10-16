@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - metrics-server
   - reloader
+  - kured
