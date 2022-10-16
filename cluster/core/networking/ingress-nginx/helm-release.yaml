@@ -26,7 +26,6 @@ spec:
         type: LoadBalancer
         annotations:
           metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_LB}"
-        loadBalancerIP: "${INGRESS_NGINX_LB}"
         externalTrafficPolicy: Local
       config:
         ssl-protocols: "TLSv1.3 TLSv1.2"
