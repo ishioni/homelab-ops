@@ -9,17 +9,4 @@ spec:
   storageClassName: truenas-ssd
   resources:
     requests:
-      storage: 10Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nextcloud-data
-  namespace: nextcloud
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: truenas-ssd
-  resources:
-    requests:
-      storage: 300Gi
+      storage: 5Gi
