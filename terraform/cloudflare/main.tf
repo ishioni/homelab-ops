@@ -1,16 +1,10 @@
 terraform {
-
-  backend "s3" {
-    bucket = "terraform"
-    key    = "cloudflare.tfstate"
-    endpoint = "http://192.168.1.2:9000"
-    region                      = "main"
-    skip_credentials_validation = true
-    skip_metadata_api_check     = true
-    skip_region_validation      = true
-    force_path_style            = true
+  backend "remote" {
+    organization = "ishioni"
+    workspaces {
+      name = "cloudflare"
+    }
   }
-
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -107,21 +101,21 @@ resource "cloudflare_record" "dkim-3" {
 }
 
 resource "cloudflare_record" "mailmx-1" {
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
-  name    = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
-  value   = "in1-smtp.messagingengine.com"
-  type    = "MX"
+  zone_id  = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  name     = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
+  value    = "in1-smtp.messagingengine.com"
+  type     = "MX"
   priority = 10
-  ttl     = 1
+  ttl      = 1
 }
 
 resource "cloudflare_record" "mailmx-2" {
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
-  name    = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
-  value   = "in2-smtp.messagingengine.com"
-  type    = "MX"
+  zone_id  = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  name     = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
+  value    = "in2-smtp.messagingengine.com"
+  type     = "MX"
   priority = 20
-  ttl     = 1
+  ttl      = 1
 }
 
 resource "cloudflare_record" "txt_spf" {
