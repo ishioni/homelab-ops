@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: storage
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://democratic-csi.github.io/charts/
+      chart: snapshot-controller
+      version: 0.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi-charts
+        namespace: flux-system
+  values:
+    replicas: 1
+    rbac:
+      enabled: true
+    controller:
+      enabled: true
+      image:
+        repository: k8s.gcr.io/sig-storage/snapshot-controller
+      args:
+        - "--v=5"
+        - "--leader-election=true"
+
+    validatingWebhook:
+      enabled: false
+      image:
+        repository: k8s.gcr.io/sig-storage/snapshot-validation-webhook

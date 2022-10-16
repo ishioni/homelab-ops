@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cert-manager
   - metallb
+  - external-snapshotter

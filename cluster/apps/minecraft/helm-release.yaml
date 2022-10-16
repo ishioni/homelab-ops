@@ -42,6 +42,8 @@ spec:
       dataDir:
         enabled: true
         existingClaim: minecraft-data
+    serviceAnnotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.2.3
     minecraftServer:
       eula: true
       version: 1.18.2
@@ -60,7 +62,6 @@ spec:
         password: "${MINECRAFT_RCON_PASSWORD}"
         serviceType: ClusterIP
       serviceType: LoadBalancer
-      LoadBalancerIP: 192.168.2.3
       extraPorts:
         - name: map
           containerPort: 8123
@@ -75,6 +76,8 @@ spec:
             enabled: true
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-production
+              external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+              external-dns/is-public: "true"
               hajimari.io/appName: Minecraft
               hajimari.io/enable: "true"
               hajimari.io/icon: toy-brick-marker

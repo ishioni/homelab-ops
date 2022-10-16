@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 24.0.5-fpm-alpine
+      tag: 24.0.6-fpm-alpine
     nextcloud:
       host: "cloud.${SECRET_DOMAIN}"
       username: cloudadmin
@@ -57,16 +57,19 @@ spec:
       initialDelaySeconds: 0
     startupProbe:
       enabled: true
-      initialDelaySeconds: 10
+      initialDelaySeconds: 30
     persistence:
       enabled: true
-      existingClaim: nextcloud-data
+      existingClaim: nextcloud-app
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
     resources:
       requests:
         cpu: 200m
         memory: 300Mi
       limits:
-        memory: 600Mi
+        memory: 1000Mi
     cronjob:
       enabled: true
       schedule: "*/15 * * * *"
@@ -77,9 +80,35 @@ spec:
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
         hajimari.io/appName: Nextcloud
         hajimari.io/enable: "true"
         hajimari.io/icon: file-cloud
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+
+          rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+          location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+          }
+          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+            deny all;
+          }
+          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+            deny all;
+          }
       tls:
         - secretName: "cloud.${SECRET_DOMAIN}"
           hosts:
