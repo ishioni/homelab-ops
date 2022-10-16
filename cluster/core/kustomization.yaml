@@ -6,5 +6,6 @@ resources:
   - external-dns
   - ingress-nginx
   - storage
+  - networking
   - kube-system
   - system-upgrade

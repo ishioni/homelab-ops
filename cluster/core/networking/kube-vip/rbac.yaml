@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kube-vip
-  namespace: kube-system
+  namespace: networking
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -30,4 +30,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kube-vip
-  namespace: kube-system
+  namespace: networking
