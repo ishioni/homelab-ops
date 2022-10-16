@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: kube-vip
-  namespace: kube-system
+  namespace: networking
   labels:
     app.kubernetes.io/instance: kube-vip
     app.kubernetes.io/name: kube-vip
@@ -46,7 +46,7 @@ spec:
             - name: cp_enable
               value: "true"
             - name: cp_namespace
-              value: kube-system
+              value: networking
             - name: svc_enable
               value: "false"
             - name: address

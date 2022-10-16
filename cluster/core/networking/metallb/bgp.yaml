@@ -2,7 +2,7 @@ apiVersion: metallb.io/v1beta2
 kind: BGPPeer
 metadata:
   name: rootnode
-  namespace: kube-system
+  namespace: networking
 spec:
   myASN: 64512
   peerASN: 64512
@@ -12,7 +12,7 @@ apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
 metadata:
   name: rootnode-kubenet
-  namespace: kube-system
+  namespace: networking
 spec:
   ipAddressPools:
   - kubenet-pool
