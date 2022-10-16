@@ -21,7 +21,7 @@ spec:
         default: true
         enabled: true
         name: public
-        controllerValue: "k8s.io/ingress-nginx-private"
+        controllerValue: "k8s.io/ingress-nginx-public"
       service:
         type: LoadBalancer
         annotations:
