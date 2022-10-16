@@ -7,3 +7,4 @@ resources:
   - ingress-nginx
   - kube-vip
   - metallb
+  - k8s-gateway
