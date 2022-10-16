@@ -106,14 +106,6 @@ resource "cloudflare_record" "dkim-3" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "wildcard" {
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
-  name    = "*.${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]}"
-  value   = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
-  type    = "CNAME"
-  ttl     = 60
-}
-
 resource "cloudflare_record" "mailmx-1" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
