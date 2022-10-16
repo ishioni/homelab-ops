@@ -24,7 +24,6 @@ spec:
       ingress:
         ingressClassName: private
         annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: AMT
@@ -62,11 +61,8 @@ spec:
       externalName: "proxmox-1.${MANAGMENT}"
       port: 8006
       ingress:
-        ingressClassName: public
+        ingressClassName: private
         annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: Proxmox
@@ -74,21 +70,18 @@ spec:
           hajimari.io/icon: server
         tls:
         - hosts:
-          - "proxmox.${SECRET_DOMAIN}"
-          secretName: "proxmox.${SECRET_DOMAIN}"
+          - "proxmox.${SECRET_INTERNAL_DOMAIN}"
+          secretName: "proxmox.${SECRET_INTERNAL_DOMAIN}"
         hosts:
-        - host: "proxmox.${SECRET_DOMAIN}"
+        - host: "proxmox.${SECRET_INTERNAL_DOMAIN}"
           path: /
     - name: truenas
       enabled: true
       externalName: "quadrant.${KUBENET}"
       port: 443
       ingress:
-        ingressClassName: public
+        ingressClassName: private
         annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: TrueNAS
@@ -96,21 +89,18 @@ spec:
           hajimari.io/icon: nas
         tls:
         - hosts:
-          - "truenas.${SECRET_DOMAIN}"
-          secretName: "truenas.${SECRET_DOMAIN}"
+          - "truenas.${SECRET_INTERNAL_DOMAIN}"
+          secretName: "truenas.${SECRET_INTERNAL_DOMAIN}"
         hosts:
-        - host: "truenas.${SECRET_DOMAIN}"
+        - host: "truenas.${SECRET_INTERNAL_DOMAIN}"
           path: /
     - name: unifi
       enabled: true
       externalName: "unifi.${MANAGMENT}"
       port: 8443
       ingress:
-        ingressClassName: public
+        ingressClassName: private
         annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: "${INGRESS_IP_WHITELIST}"
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/appName: Unifi
@@ -118,8 +108,8 @@ spec:
           hajimari.io/icon: lan
         tls:
         - hosts:
-          - "unifi.${SECRET_DOMAIN}"
-          secretName: "unifi.${SECRET_DOMAIN}"
+          - "unifi.${SECRET_INTERNAL_DOMAIN}"
+          secretName: "unifi.${SECRET_INTERNAL_DOMAIN}"
         hosts:
-        - host: "unifi.${SECRET_DOMAIN}"
+        - host: "unifi.${SECRET_INTERNAL_DOMAIN}"
           path: /
