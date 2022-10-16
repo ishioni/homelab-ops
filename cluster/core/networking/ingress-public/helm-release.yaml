@@ -17,11 +17,11 @@ spec:
   values:
     controller:
       kind: DaemonSet
-      ingressClass: public
       ingressClassResource:
         default: true
         enabled: true
         name: public
+        controllerValue: "k8s.io/ingress-nginx-private"
       service:
         type: LoadBalancer
         annotations:

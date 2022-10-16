@@ -17,11 +17,11 @@ spec:
   values:
     controller:
       kind: Deployment
-      ingressClass: private
       ingressClassResource:
         default: false
         enabled: true
         name: private
+        controllerValue: "k8s.io/ingress-nginx-private"
       service:
         type: LoadBalancer
         annotations:
