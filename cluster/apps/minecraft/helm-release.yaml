@@ -46,7 +46,7 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 192.168.2.3
     minecraftServer:
       eula: true
-      version: 1.18.2
+      version: 1.19.2
       type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,Almethai,czarny_jobacz"
