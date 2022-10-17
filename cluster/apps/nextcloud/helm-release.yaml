@@ -75,7 +75,7 @@ spec:
       initialDelaySeconds: 0
     startupProbe:
       enabled: true
-      initialDelaySeconds: 30
+      initialDelaySeconds: 60
     persistence:
       enabled: true
       existingClaim: nextcloud-app
