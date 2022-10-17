@@ -14,6 +14,12 @@ spec:
         kind: HelmRepository
         name: ingress-nginx-charts
         namespace: flux-system
+    install:
+      remediation:
+        retries: 5
+    upgrade:
+      remediation:
+        retries: 5
   values:
     controller:
       kind: DaemonSet
@@ -28,6 +34,7 @@ spec:
           metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_LB}"
         externalTrafficPolicy: Local
       config:
+        custom-http-errors: 400,401,403,404,500,502,503,504
         ssl-protocols: "TLSv1.3 TLSv1.2"
         proxy-body-size: "0"
         proxy-read-timeout: "3600"
@@ -43,3 +50,14 @@ spec:
           cpu: 100m
         limits:
           memory: 500Mi
+    defaultBackend:
+      enabled: true
+      image:
+        repository: ghcr.io/tarampampam/error-pages
+        tag: 2.18.0
+      replicaCount: 1
+      extraEnvs:
+        - name: TEMPLATE_NAME
+          value: lost-in-space
+        - name: SHOW_DETAILS
+          value: "false"
