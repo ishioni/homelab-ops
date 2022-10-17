@@ -16,6 +16,12 @@ spec:
         name: nextcloud-charts
         namespace: flux-system
       interval: 5m
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     image:
       repository: nextcloud
@@ -40,6 +46,24 @@ spec:
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
+        s3.config.php: |-
+          <?php
+          $CONFIG = array (
+            'objectstore' => array(
+              'class' => '\\OC\\Files\\ObjectStore\\S3',
+              'arguments' => array(
+                'hostname'       => 's3.services.${SECRET_DOMAIN}',
+                'port'           => 9000,
+                'use_path_style' => true,
+                'bucket'         => 'nextcloud',
+                'autocreate'     => false,
+                'key'            => 'nextcloud',
+                'secret'         => '${NEXTCLOUD_S3_SECRET_KEY}',
+                'region'         => 'us-east-1',
+                'use_ssl'        => true,
+              ),
+            ),
+          );
       mail:
         enabled: true
         fromAddress: cloud
@@ -57,13 +81,10 @@ spec:
       initialDelaySeconds: 0
     startupProbe:
       enabled: true
-      initialDelaySeconds: 30
+      initialDelaySeconds: 60
     persistence:
       enabled: true
       existingClaim: nextcloud-app
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-data
     resources:
       requests:
         cpu: 200m
