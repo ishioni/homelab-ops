@@ -14,12 +14,12 @@ spec:
         kind: HelmRepository
         name: ingress-nginx-charts
         namespace: flux-system
-    install:
-      remediation:
-        retries: 5
-    upgrade:
-      remediation:
-        retries: 5
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     controller:
       kind: DaemonSet
