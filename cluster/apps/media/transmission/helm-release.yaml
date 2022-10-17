@@ -5,17 +5,23 @@ metadata:
   name: transmission
   namespace: media
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: transmission
-      version: 8.4.3
+      chart: app-template
+      version: 0.2.2
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
-      interval: 5m
+      interval: 15m
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     image:
       repository: ghcr.io/onedr0p/transmission
@@ -28,16 +34,16 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
-      TRANSMISSION_BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
-      TRANSMISSION_DOWNLOAD_DIR: "/downloads"
-      TRANSMISSION_INCOMPLETE_DIR_ENABLED: false
-      TRANSMISSION_RATIO_LIMIT: 1
-      TRANSMISSION_RATIO_LIMIT_ENABLED: true
-      TRANSMISSION_RPC_PASSWORD: "${TRANSMISSION_RPC_PASSWORD}"
-      TRANSMISSION_SPEED_LIMIT_UP_ENABLED: true
-      TRANSMISSION_SPEED_LIMIT_UP: 8000
-      TRANSMISSION_UMASK: 7
-      TRANSMISSION_WEB_HOME: "/app/web"
+      TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
+      TRANSMISSION__DOWNLOAD_DIR: "/downloads"
+      TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
+      TRANSMISSION__RATIO_LIMIT: 1
+      TRANSMISSION__RATIO_LIMIT_ENABLED: true
+      TRANSMISSION__RPC_PASSWORD: "${TRANSMISSION_RPC_PASSWORD}"
+      TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
+      TRANSMISSION__SPEED_LIMIT_UP: 8000
+      TRANSMISSION__UMASK: 7
+      TRANSMISSION__WEB_HOME: "/app/web"
     resources:
       requests:
         cpu: 100m
