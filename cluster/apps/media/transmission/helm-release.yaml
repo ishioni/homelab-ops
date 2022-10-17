@@ -8,7 +8,7 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts/
       chart: app-template
       version: 0.2.2
       sourceRef:
