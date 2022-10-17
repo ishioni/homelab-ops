@@ -50,14 +50,14 @@ spec:
           cpu: 100m
         limits:
           memory: 500Mi
-        defaultBackend:
-          enabled: true
-          image:
-            repository: ghcr.io/tarampampam/error-pages
-            tag: 2.18.0
-          replicaCount: 1
-          extraEnvs:
-            - name: TEMPLATE_NAME
-              value: lost-in-space
-            - name: SHOW_DETAILS
-              value: "false"
+      defaultBackend:
+        enabled: true
+        image:
+          repository: ghcr.io/tarampampam/error-pages
+          tag: 2.18.0
+        replicaCount: 1
+        extraEnvs:
+          - name: TEMPLATE_NAME
+            value: lost-in-space
+          - name: SHOW_DETAILS
+            value: "false"
