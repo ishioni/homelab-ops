@@ -5,10 +5,10 @@ metadata:
   name: readarr
   namespace: media
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts/
       chart: app-template
       version: 0.2.2
       sourceRef:
@@ -40,6 +40,23 @@ spec:
         memory: 100Mi
       limits:
         memory: 500Mi
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          exec:
+            command:
+            - /usr/bin/env
+            - bash
+            - -c
+            - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+              read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+          failureThreshold: 5
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
     volumeClaimTemplates:
       - name: config
         mountPath: /config
@@ -52,6 +69,11 @@ spec:
         existingClaim: quadrant-media
         mountPath: /media
         retain: true
+    service:
+      main:
+        ports:
+          http:
+            port: 8787
     ingress:
       main:
         enabled: true

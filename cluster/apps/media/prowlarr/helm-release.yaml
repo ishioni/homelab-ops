@@ -5,10 +5,10 @@ metadata:
   name: prowlarr
   namespace: media
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts/
       chart: app-template
       version: 0.2.2
       sourceRef:
@@ -46,6 +46,11 @@ spec:
         storageClass: truenas-ssd
         accessMode: ReadWriteOnce
         size: 1Gi
+    service:
+      main:
+        ports:
+          http:
+            port: 9696
     ingress:
       main:
         enabled: true
