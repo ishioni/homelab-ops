@@ -50,7 +50,18 @@ spec:
         memory: 100Mi
       limits:
         memory: 500Mi
+    probes:
+      liveness:
+        spec:
+          timeoutSeconds: 30
+      readiness:
+        spec:
+          timeoutSeconds: 30
     service:
+      main:
+        ports:
+          http:
+            port: 9091
       utptcp:
         enabled: true
         type: LoadBalancer
