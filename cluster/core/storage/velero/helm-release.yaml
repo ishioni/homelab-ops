@@ -1,0 +1,79 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: velero
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://vmware-tanzu.github.io/helm-charts
+      chart: velero
+      version: 2.32.1
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu-charts
+        namespace: flux-system
+      interval: 15m
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    configuration:
+      provider: aws
+      backupStorageLocation:
+        name: minio
+        bucket: velero
+        default: true
+        config:
+          region: us-east-1
+          s3ForcePathStyle: true
+          s3Url: https://s3.services.${SECRET_DOMAIN}:9000
+      volumeSnapshotLocation:
+        name: aws
+        config:
+          region: us-east-1
+      resticTimeout: 6h
+    credentials:
+      secretContents:
+        cloud: |
+          [default]
+          aws_access_key_id = ${SECRET_MINIO_ACCESS_KEY}
+          aws_secret_access_key = ${SECRET_MINIO_SECRET_KEY}
+    snapshotsEnabled: true
+    deployRestic: true
+    restic:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
+    initContainers:
+    - name: velero-plugin-for-aws
+      image: velero/velero-plugin-for-aws:v1.5.1
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+      - mountPath: /target
+        name: plugins
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 25m
+      limits:
+        memory: 1500Mi
+    upgradeCRDs: false
+    schedules:
+      daily-backup:
+        schedule: "0 6 * * *"
+        template:
+          ttl: "120h"
