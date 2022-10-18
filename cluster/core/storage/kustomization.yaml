@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - snapshot-controller
   - truenas-csp
+  - velero
