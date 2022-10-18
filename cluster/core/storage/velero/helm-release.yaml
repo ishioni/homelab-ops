@@ -37,7 +37,6 @@ spec:
         name: aws
         config:
           region: us-east-1
-      defaultVolumesToRestic: true
       resticTimeout: 6h
     credentials:
       secretContents:
