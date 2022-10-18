@@ -23,6 +23,8 @@ spec:
   values:
     controller:
       kind: Deployment
+      electionID: "nginx-private-leader"
+      ingressClassByName: true
       ingressClassResource:
         default: false
         enabled: true
