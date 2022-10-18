@@ -37,6 +37,7 @@ spec:
         name: aws
         config:
           region: us-east-1
+      defaultVolumesToRestic: true
       resticTimeout: 6h
     credentials:
       secretContents:
@@ -46,7 +47,6 @@ spec:
           aws_secret_access_key = ${VELERO_S3_SECRET_KEY}
     snapshotsEnabled: true
     deployRestic: true
-    defaultVolumesToRestic: true
     restic:
       podVolumePath: /var/lib/kubelet/pods
       privileged: false
