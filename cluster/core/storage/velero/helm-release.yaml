@@ -42,8 +42,8 @@ spec:
       secretContents:
         cloud: |
           [default]
-          aws_access_key_id = ${SECRET_MINIO_ACCESS_KEY}
-          aws_secret_access_key = ${SECRET_MINIO_SECRET_KEY}
+          aws_access_key_id = velero
+          aws_secret_access_key = ${VELERO_S3_SECRET_KEY}
     snapshotsEnabled: true
     deployRestic: true
     restic:
