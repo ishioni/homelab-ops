@@ -23,6 +23,8 @@ spec:
   values:
     controller:
       kind: DaemonSet
+      electionID: "nginx-public-leader"
+      ingressClassByName: true
       ingressClassResource:
         default: true
         enabled: true
