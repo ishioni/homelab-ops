@@ -41,7 +41,7 @@ spec:
       limits:
         memory: 500Mi
     podAnnotations:
-      backup.velero.io/backup-volumes-excludes=media
+      backup.velero.io/backup-volumes-excludes: media
     volumeClaimTemplates:
       - name: config
         mountPath: /config
