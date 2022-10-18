@@ -46,6 +46,7 @@ spec:
           aws_secret_access_key = ${VELERO_S3_SECRET_KEY}
     snapshotsEnabled: true
     deployRestic: true
+    defaultVolumesToRestic: true
     restic:
       podVolumePath: /var/lib/kubelet/pods
       privileged: false
