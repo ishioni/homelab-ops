@@ -85,6 +85,8 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud-app
+    podAnnotations:
+      backup.velero.io/backup-volumes: nextcloud-main
     resources:
       requests:
         cpu: 200m
@@ -159,6 +161,8 @@ spec:
           enabled: true
           storageClass: truenas-ssd
           size: 2Gi
+        podAnnotations:
+          backup.velero.io/backup-volumes: data
     redis:
       enabled: true
       architecture: standalone

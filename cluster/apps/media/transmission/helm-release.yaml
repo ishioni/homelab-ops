@@ -51,7 +51,7 @@ spec:
       limits:
         memory: 500Mi
     podAnnotations:
-      backup.velero.io/backup-volumes-excludes: downloads
+      backup.velero.io/backup-volumes: config
     probes:
       liveness:
         spec:
