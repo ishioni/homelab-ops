@@ -75,6 +75,25 @@ spec:
         hosts:
         - host: "proxmox.${SECRET_INTERNAL_DOMAIN}"
           path: /
+    - name: s3
+      enabled: true
+      externalName: "s3.services.${SECRET_DOMAIN}"
+      port: 9001
+      ingress:
+        ingressClassName: private
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hajimari.io/appName: Minio
+          hajimari.io/enable: "true"
+          hajimari.io/icon: file-cabinet
+        tls:
+        - hosts:
+          - "s3.${SECRET_INTERNAL_DOMAIN}"
+          secretName: "s3.${SECRET_INTERNAL_DOMAIN}"
+        hosts:
+        - host: "s3.${SECRET_INTERNAL_DOMAIN}"
+          path: /
     - name: truenas
       enabled: true
       externalName: "quadrant.${KUBENET}"
