@@ -10,12 +10,11 @@ resource "minio_s3_bucket" "nextcloud" {
 
 data "minio_iam_policy_document" "nextcloud" {
   statement {
-    sid = "1"
 
     actions = [
-      "s3:PutObject",
-      "s3:GetObject",
       "s3:ListBucket",
+      "s3:GetObject",
+      "s3:PutObject",
       "s3:GetBucketVersioning",
       "s3:DeleteObject"
     ]
