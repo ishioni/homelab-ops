@@ -16,3 +16,4 @@ resources:
   - nextcloud-charts.yaml
   - stakater-charts.yaml
   - truenas-csp.yaml
+  - vmware-tanzu-charts.yaml
