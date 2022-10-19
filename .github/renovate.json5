@@ -26,14 +26,14 @@
   "kubernetes": {
     "fileMatch": [
       "cluster/.+\\.ya?ml$",
-      "provision/ansible/.+\\.ya?ml.j2$"
+      "ansible/.+\\.ya?ml.j2$"
     ]
   },
   "regexManagers": [
     {
       "description": "Process CRD dependencies",
       "fileMatch": [
-        "cluster/crds/.+\\.ya?ml$"
+        "cluster/.+\\.ya?ml$"
       ],
       "matchStrings": [
         // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
@@ -46,7 +46,7 @@
     {
       "description": "Process various other dependencies",
       "fileMatch": [
-        "provision/ansible/.+\\.ya?ml$",
+        "ansible/.+\\.ya?ml$",
         "cluster/.+\\.ya?ml$"
       ],
       "matchStrings": [

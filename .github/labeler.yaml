@@ -1,0 +1,9 @@
+---
+area/ansible:
+  - "ansible/**/*"
+area/github:
+  - ".github/**/*"
+area/cluster:
+  - "cluster/**/*"
+area/terraform:
+  - "terraform/**/*"
