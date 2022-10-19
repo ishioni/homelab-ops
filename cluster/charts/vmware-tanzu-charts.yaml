@@ -7,4 +7,3 @@ metadata:
 spec:
   interval: 1h
   url: https://vmware-tanzu.github.io/helm-charts
-  timeout: 3m

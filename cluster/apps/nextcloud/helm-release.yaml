@@ -5,7 +5,7 @@ metadata:
   name: nextcloud
   namespace: nextcloud
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://nextcloud.github.io/helm/
@@ -15,7 +15,6 @@ spec:
         kind: HelmRepository
         name: nextcloud-charts
         namespace: flux-system
-      interval: 5m
   install:
     remediation:
       retries: 5

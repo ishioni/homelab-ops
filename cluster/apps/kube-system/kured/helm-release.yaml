@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: kubereboot
         namespace: flux-system
-      interval: 15m
   install:
     remediation:
       retries: 5
