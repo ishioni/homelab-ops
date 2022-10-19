@@ -5,6 +5,5 @@ metadata:
   name: nextcloud-charts
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 1h
   url: https://nextcloud.github.io/helm/
-  timeout: 3m

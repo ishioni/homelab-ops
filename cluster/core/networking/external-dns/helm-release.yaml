@@ -15,7 +15,6 @@ spec:
         kind: HelmRepository
         name: external-dns
         namespace: flux-system
-      interval: 15m
   install:
     remediation:
       retries: 5

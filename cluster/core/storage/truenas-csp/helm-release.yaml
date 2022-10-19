@@ -5,7 +5,7 @@ metadata:
   name: truenas-csp
   namespace: storage
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://hpe-storage.github.io/truenas-csp/
@@ -15,5 +15,10 @@ spec:
         kind: HelmRepository
         name: truenas-csp
         namespace: flux-system
-      interval: 5m
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:

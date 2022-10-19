@@ -5,7 +5,7 @@ metadata:
   name: snapshot-controller
   namespace: storage
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://democratic-csi.github.io/charts/
@@ -15,6 +15,12 @@ spec:
         kind: HelmRepository
         name: democratic-csi-charts
         namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     replicas: 1
     rbac:

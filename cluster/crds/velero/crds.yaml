@@ -5,7 +5,7 @@ metadata:
   name: velero-source
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 12h
   url: https://github.com/vmware-tanzu/helm-charts.git
   ref:
     # renovate: registryUrl=https://vmware-tanzu.github.io/helm-charts
@@ -22,7 +22,7 @@ metadata:
   name: velero-crds
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   prune: false
   wait: true
   sourceRef:

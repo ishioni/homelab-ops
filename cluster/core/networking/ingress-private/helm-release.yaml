@@ -4,7 +4,7 @@ metadata:
   name: ingress-private
   namespace: networking
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://kubernetes.github.io/ingress-nginx
