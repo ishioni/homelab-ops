@@ -105,7 +105,7 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Group snapshot-controller image"
+      "description": "Group snapshot-controller image",
       "groupName": "snapshot-controller",
       "matchPackagePatterns": [
         "snapshot-controller",
