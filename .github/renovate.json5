@@ -19,6 +19,9 @@
     "prIgnoreNotification"
   ],
   "rebaseWhen": "conflicted",
+  "schedule": [
+      "before 2am"
+  ],
   "ignoreDeps": [
     "ghcr.io/fluxcd/helm-controller",
     "ghcr.io/fluxcd/image-automation-controller",
