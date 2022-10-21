@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - cert-manager
   - metallb
-  - external-snapshotter
+  - snapshot-controller
   - velero
