@@ -82,7 +82,7 @@
       ],
       "datasourceTemplate": "helm"
     },
-    // regexManager to read and process velero CRD's
+    // regexManager to read and process velero and metallb CRD's
     {
       "fileMatch": [
         "cluster/crds/velero/.+\\.yaml$"
@@ -95,7 +95,8 @@
     // regexManager to read and process External Snapshotter CRD's
     {
       "fileMatch": [
-        "cluster/crds/snapshot-controller/.+\\.yaml$"
+        "cluster/crds/snapshot-controller/.+\\.yaml$",
+        "cluster/crds/metallb/.+\\.yaml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
