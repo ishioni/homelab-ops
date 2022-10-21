@@ -1,5 +1,17 @@
 {
+  "extends": [
+    ":enableRenovate",
+    "config:base",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separatePatchReleases",
+    "docker:enableMajor",
+    "github>ishioni/homelab-ops//.github/renovate/labels",
+    "github>ishioni/homelab-ops//.github/renovate/semanticCommits"
+  ],
   "enabled": true,
+  "timezone": "Europe/Warsaw",
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
@@ -7,11 +19,24 @@
     "prIgnoreNotification"
   ],
   "rebaseWhen": "conflicted",
-  "schedule": [
-    "every sunday"
+  "ignoreDeps": [
+    "ghcr.io/fluxcd/helm-controller",
+    "ghcr.io/fluxcd/image-automation-controller",
+    "ghcr.io/fluxcd/image-reflector-controller",
+    "ghcr.io/fluxcd/kustomize-controller",
+    "ghcr.io/fluxcd/notification-controller",
+    "ghcr.io/fluxcd/source-controller"
   ],
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
   "pre-commit": {
     "enabled": true
+  },
+  "helmv3": {
+    "fileMatch": [
+      "charts/.+/Chart\\.yaml$"
+    ]
   },
   "flux": {
     "fileMatch": [
@@ -27,33 +52,52 @@
     "fileMatch": [
       "cluster/.+\\.ya?ml$",
       "ansible/.+\\.ya?ml.j2$"
+    ],
+    "ignorePaths": [
+      "cluster/base/"
     ]
   },
   "regexManagers": [
+    // regexManager to read and process HelmRelease files
     {
-      "description": "Process CRD dependencies",
       "fileMatch": [
-        "cluster/.+\\.ya?ml$"
+        "cluster/.+\\.yaml$"
       ],
       "matchStrings": [
-        // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
-        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
-        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
-        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
+        // helm releases
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
+      "datasourceTemplate": "helm"
     },
+    // regexManager to read and process cert-manager CRD's
     {
-      "description": "Process various other dependencies",
       "fileMatch": [
-        "ansible/.+\\.ya?ml$",
-        "cluster/.+\\.ya?ml$"
+        "cluster/crds/cert-manager/.+\\.yaml$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process velero CRD's
+    {
+      "fileMatch": [
+        "cluster/crds/velero/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process External Snapshotter CRD's
+    {
+      "fileMatch": [
+        "cluster/crds/snapshot-controller/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "github-releases"
     }
   ],
   "packageRules": [
@@ -105,94 +149,18 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Group snapshot-controller image",
-      "groupName": "snapshot-controller",
+      "matchDatasources": [
+        "github-releases",
+        "docker"
+      ],
       "matchPackagePatterns": [
-        "snapshot-controller",
-        "snapshot-validation-webhook",
-        "external-snapshotter"
+        "external-snapshotter",
+        "snapshot-controller"
       ],
-      "matchDatasources": [
-        "helm",
-        "github-releases"
-      ],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
+      "groupName": "external-snapshotter-suite",
+      "description": "Group snapshot-controller CRD and chart",
+      "additionalBranchPrefix": "",
       "separateMinorPatch": true
-    },
-    // add labels according to package and update types
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "labels": [
-        "renovate/image",
-        "dep/major"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "labels": [
-        "renovate/image",
-        "dep/minor"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "labels": [
-        "renovate/image",
-        "dep/patch"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "helm"
-      ],
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "labels": [
-        "renovate/helm",
-        "dep/major"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "helm"
-      ],
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "labels": [
-        "renovate/helm",
-        "dep/minor"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "helm"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "labels": [
-        "renovate/helm",
-        "dep/patch"
-      ]
     }
   ]
 }
