@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: democratic-csi-charts
+  name: piraeus-charts
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://democratic-csi.github.io/charts/
+  url: https://piraeus.io/helm-charts/

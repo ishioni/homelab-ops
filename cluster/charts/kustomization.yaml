@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - bjw-s-charts.yaml
-  - democratic-csi.yaml
   - external-dns-charts.yaml
   - hajimari-charts.yaml
   - ingress-nginx-charts.yaml
@@ -14,6 +13,7 @@ resources:
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
   - nextcloud-charts.yaml
+  - piraeus-charts.yaml
   - stakater-charts.yaml
   - truenas-csp.yaml
   - vmware-tanzu-charts.yaml
