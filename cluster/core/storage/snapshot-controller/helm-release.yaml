@@ -8,7 +8,7 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://democratic-csi.github.io/charts/
+      # renovate: registryUrl=https://piraeus.io/helm-charts/
       chart: snapshot-validation-webhook
       version: 1.6.0
       sourceRef:
@@ -32,7 +32,7 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://democratic-csi.github.io/charts/
+      # renovate: registryUrl=https://piraeus.io/helm-charts/
       chart: snapshot-controller
       version: 1.6.0
       sourceRef:
