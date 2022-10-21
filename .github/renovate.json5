@@ -104,6 +104,23 @@
       },
       "separateMinorPatch": true
     },
+    {
+      "description": "Group snapshot-controller image"
+      "groupName": "snapshot-controller",
+      "matchPackagePatterns": [
+        "snapshot-controller",
+        "snapshot-validation-webhook",
+        "external-snapshotter"
+      ],
+      "matchDatasources": [
+        "helm",
+        "github-releases"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
     // add labels according to package and update types
     {
       "matchDatasources": [
