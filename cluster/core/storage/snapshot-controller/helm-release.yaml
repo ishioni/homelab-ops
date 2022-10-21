@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: snapshot-controller
+  name: snapshot-validation-webhook
   namespace: storage
 spec:
   interval: 15m
