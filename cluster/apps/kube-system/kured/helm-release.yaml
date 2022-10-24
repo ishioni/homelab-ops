@@ -28,7 +28,7 @@ spec:
       logFormat: "text"
       timeZone: "${TIMEZONE}"
     tolerations:
-    - key: "arm"
-      operator: "Exists"
-    - key: "node-role.kubernetes.io/master"
-      operator: "Exists"
+      - key: "arm"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
