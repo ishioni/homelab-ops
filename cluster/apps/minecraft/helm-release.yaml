@@ -50,7 +50,7 @@ spec:
         enabled: true
         existingClaim: minecraft-data
     serviceAnnotations:
-        metallb.universe.tf/loadBalancerIPs: 192.168.2.3
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.3
     minecraftServer:
       eula: true
       version: 1.19.2
