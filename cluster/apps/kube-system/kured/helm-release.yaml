@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kured
-      version: 4.0.2
+      version: 4.0.3
       sourceRef:
         kind: HelmRepository
         name: kubereboot
@@ -28,7 +28,7 @@ spec:
       logFormat: "text"
       timeZone: "${TIMEZONE}"
     tolerations:
-    - key: "arm"
-      operator: "Exists"
-    - key: "node-role.kubernetes.io/master"
-      operator: "Exists"
+      - key: "arm"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
