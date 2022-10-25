@@ -65,6 +65,9 @@ spec:
       forceReDownload: true
       memory: ""
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      spigetResources:
+      # Dynmap
+        - 274
       rcon:
         enabled: true
         password: "${MINECRAFT_RCON_PASSWORD}"
