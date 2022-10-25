@@ -63,7 +63,8 @@ spec:
       worldSaveName: Kubeworld
       viewDistance: 12
       forceReDownload: true
-      memory: 2G
+      memory: ""
+      jvmXXOpts: "-XX:MaxRAMPercentage=75"
       rcon:
         enabled: true
         password: "${MINECRAFT_RCON_PASSWORD}"
