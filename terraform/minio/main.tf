@@ -26,7 +26,7 @@ data "sops_file" "minio_secrets" {
 provider "minio" {
   minio_server = data.sops_file.minio_secrets.data["minio_server"]
   # minio_region = "us-east-1"
-  minio_user = data.sops_file.minio_secrets.data["minio_access_key"]
+  minio_user     = data.sops_file.minio_secrets.data["minio_access_key"]
   minio_password = data.sops_file.minio_secrets.data["minio_secret_key"]
-  minio_ssl        = true
+  minio_ssl      = true
 }
