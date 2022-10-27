@@ -5,14 +5,50 @@ vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/terraform"
+
+dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
+  KUBECONFIG: "{{.PROJECT_DIR}}/ansible/k3s/kubeconfig"
 
 includes:
-  ansible: .taskfiles/ansible.yml
-  flux: .taskfiles/flux.yml
-  format: .taskfiles/format.yml
-  lint: .taskfiles/lint.yml
-  pre-commit: .taskfiles/pre-commit.yml
+  ansible: .taskfiles/AnsibleTasks.yml
+  cluster: .taskfiles/ClusterTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yml
+  cloudflare: .taskfiles/CloudflareTasks.yml
+  minio: .taskfiles/MinioTasks.yml
+  sops: .taskfiles/SopsTasks.yml
+
+tasks:
+
+  init:
+    desc: Initialize workstation dependencies with Brew
+    cmds:
+      - brew install {{.DEPS}} {{.CLI_ARGS}}
+    preconditions:
+      - sh: command -v brew
+        msg: |
+          Homebrew is not installed. Using MacOS, Linux or WSL?
+          Head over to https://brew.sh to get up and running.
+    vars:
+      DEPS: >-
+        age
+        ansible
+        direnv
+        fluxcd/tap/flux
+        go-task/tap/go-task
+        helm
+        ipcalc
+        jq
+        kubernetes-cli
+        kustomize
+        pre-commit
+        prettier
+        sops
+        stern
+        terraform
+        tflint
+        yamllint
+        yq

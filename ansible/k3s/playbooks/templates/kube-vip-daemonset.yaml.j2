@@ -34,11 +34,11 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: bgp_as
-              value: "64512"
+              value: "{{ calico_bgp_as_number }}"
             - name: bgp_peeraddress
-              value: 192.168.1.1
+              value: "{{ calico_bgp_peer_ip }}"
             - name: bgp_peeras
-              value: "64512"
+              value: "{{ calico_bgp_as_number }}"
             - name: port
               value: "6443"
             - name: vip_cidr
@@ -50,7 +50,7 @@ spec:
             - name: svc_enable
               value: "false"
             - name: address
-              value: "10.1.4.3"
+              value: "{{ k3s_registration_address }}"
           securityContext:
             capabilities:
               add:
