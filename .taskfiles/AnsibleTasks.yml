@@ -9,7 +9,6 @@ vars:
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/k3s/inventory"
 
 tasks:
-
   init:
     desc: Install / Upgrade Ansible galaxy deps
     dir: ansible/k3s

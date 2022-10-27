@@ -2,7 +2,6 @@
 version: "3"
 
 tasks:
-
   verify:
     desc: Verify flux meets the prerequisites
     cmds:
