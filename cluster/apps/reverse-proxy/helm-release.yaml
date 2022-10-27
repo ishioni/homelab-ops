@@ -23,118 +23,118 @@ spec:
       retries: 5
   values:
     instances:
-    - name: amt
-      enabled: true
-      externalName: "quadrant.${KUBENET}"
-      port: 8086
-      ingress:
-        ingressClassName: private
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          hajimari.io/appName: AMT
-          hajimari.io/enable: "true"
-          hajimari.io/icon: remote-desktop
-        tls:
-        - hosts:
-          - "amt.${SECRET_INTERNAL_DOMAIN}"
-          secretName: "amt.${SECRET_INTERNAL_DOMAIN}"
-        hosts:
-        - host: "amt.${SECRET_INTERNAL_DOMAIN}"
-          path: /
-    - name: homeassistant
-      enabled: true
-      externalName: "homeassistant.${IOT}"
-      port: 8123
-      ingress:
-        ingressClassName: public
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
-          hajimari.io/appName: Home Assistant
-          hajimari.io/enable: "true"
-          hajimari.io/icon: home-heart
-        tls:
-        - hosts:
-          - "homeassistant.${SECRET_DOMAIN}"
-          secretName: "homeassistant.${SECRET_DOMAIN}"
-        hosts:
-        - host: "homeassistant.${SECRET_DOMAIN}"
-          path: /
-    - name: proxmox
-      enabled: true
-      externalName: "proxmox-1.${MANAGMENT}"
-      port: 8006
-      ingress:
-        ingressClassName: private
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          hajimari.io/appName: Proxmox
-          hajimari.io/enable: "true"
-          hajimari.io/icon: server
-        tls:
-        - hosts:
-          - "proxmox.${SECRET_INTERNAL_DOMAIN}"
-          secretName: "proxmox.${SECRET_INTERNAL_DOMAIN}"
-        hosts:
-        - host: "proxmox.${SECRET_INTERNAL_DOMAIN}"
-          path: /
-    - name: s3
-      enabled: true
-      externalName: "s3.services.${SECRET_DOMAIN}"
-      port: 9001
-      ingress:
-        ingressClassName: private
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          hajimari.io/appName: Minio
-          hajimari.io/enable: "true"
-          hajimari.io/icon: file-cabinet
-        tls:
-        - hosts:
-          - "s3.${SECRET_INTERNAL_DOMAIN}"
-          secretName: "s3.${SECRET_INTERNAL_DOMAIN}"
-        hosts:
-        - host: "s3.${SECRET_INTERNAL_DOMAIN}"
-          path: /
-    - name: truenas
-      enabled: true
-      externalName: "quadrant.${KUBENET}"
-      port: 443
-      ingress:
-        ingressClassName: private
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          hajimari.io/appName: TrueNAS
-          hajimari.io/enable: "true"
-          hajimari.io/icon: nas
-        tls:
-        - hosts:
-          - "truenas.${SECRET_INTERNAL_DOMAIN}"
-          secretName: "truenas.${SECRET_INTERNAL_DOMAIN}"
-        hosts:
-        - host: "truenas.${SECRET_INTERNAL_DOMAIN}"
-          path: /
-    - name: unifi
-      enabled: true
-      externalName: "unifi.${MANAGMENT}"
-      port: 8443
-      ingress:
-        ingressClassName: private
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          hajimari.io/appName: Unifi
-          hajimari.io/enable: "true"
-          hajimari.io/icon: lan
-        tls:
-        - hosts:
-          - "unifi.${SECRET_INTERNAL_DOMAIN}"
-          secretName: "unifi.${SECRET_INTERNAL_DOMAIN}"
-        hosts:
-        - host: "unifi.${SECRET_INTERNAL_DOMAIN}"
-          path: /
+      - name: amt
+        enabled: true
+        externalName: "quadrant.${KUBENET}"
+        port: 8086
+        ingress:
+          ingressClassName: private
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hajimari.io/appName: AMT
+            hajimari.io/enable: "true"
+            hajimari.io/icon: remote-desktop
+          tls:
+            - hosts:
+                - "amt.${SECRET_INTERNAL_DOMAIN}"
+              secretName: "amt.${SECRET_INTERNAL_DOMAIN}"
+          hosts:
+            - host: "amt.${SECRET_INTERNAL_DOMAIN}"
+              path: /
+      - name: homeassistant
+        enabled: true
+        externalName: "homeassistant.${IOT}"
+        port: 8123
+        ingress:
+          ingressClassName: public
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+            external-dns/is-public: "true"
+            hajimari.io/appName: Home Assistant
+            hajimari.io/enable: "true"
+            hajimari.io/icon: home-heart
+          tls:
+            - hosts:
+                - "homeassistant.${SECRET_DOMAIN}"
+              secretName: "homeassistant.${SECRET_DOMAIN}"
+          hosts:
+            - host: "homeassistant.${SECRET_DOMAIN}"
+              path: /
+      - name: proxmox
+        enabled: true
+        externalName: "proxmox-1.${MANAGMENT}"
+        port: 8006
+        ingress:
+          ingressClassName: private
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hajimari.io/appName: Proxmox
+            hajimari.io/enable: "true"
+            hajimari.io/icon: server
+          tls:
+            - hosts:
+                - "proxmox.${SECRET_INTERNAL_DOMAIN}"
+              secretName: "proxmox.${SECRET_INTERNAL_DOMAIN}"
+          hosts:
+            - host: "proxmox.${SECRET_INTERNAL_DOMAIN}"
+              path: /
+      - name: s3
+        enabled: true
+        externalName: "s3.services.${SECRET_DOMAIN}"
+        port: 9001
+        ingress:
+          ingressClassName: private
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hajimari.io/appName: Minio
+            hajimari.io/enable: "true"
+            hajimari.io/icon: file-cabinet
+          tls:
+            - hosts:
+                - "s3.${SECRET_INTERNAL_DOMAIN}"
+              secretName: "s3.${SECRET_INTERNAL_DOMAIN}"
+          hosts:
+            - host: "s3.${SECRET_INTERNAL_DOMAIN}"
+              path: /
+      - name: truenas
+        enabled: true
+        externalName: "quadrant.${KUBENET}"
+        port: 443
+        ingress:
+          ingressClassName: private
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hajimari.io/appName: TrueNAS
+            hajimari.io/enable: "true"
+            hajimari.io/icon: nas
+          tls:
+            - hosts:
+                - "truenas.${SECRET_INTERNAL_DOMAIN}"
+              secretName: "truenas.${SECRET_INTERNAL_DOMAIN}"
+          hosts:
+            - host: "truenas.${SECRET_INTERNAL_DOMAIN}"
+              path: /
+      - name: unifi
+        enabled: true
+        externalName: "unifi.${MANAGMENT}"
+        port: 8443
+        ingress:
+          ingressClassName: private
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hajimari.io/appName: Unifi
+            hajimari.io/enable: "true"
+            hajimari.io/icon: lan
+          tls:
+            - hosts:
+                - "unifi.${SECRET_INTERNAL_DOMAIN}"
+              secretName: "unifi.${SECRET_INTERNAL_DOMAIN}"
+          hosts:
+            - host: "unifi.${SECRET_INTERNAL_DOMAIN}"
+              path: /
