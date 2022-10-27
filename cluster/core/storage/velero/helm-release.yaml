@@ -49,8 +49,8 @@ spec:
       podVolumePath: /var/lib/kubelet/pods
       privileged: false
       tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
       resources:
         requests:
           memory: 200Mi
@@ -58,12 +58,12 @@ spec:
         limits:
           memory: 3000Mi
     initContainers:
-    - name: velero-plugin-for-aws
-      image: velero/velero-plugin-for-aws:v1.5.1
-      imagePullPolicy: IfNotPresent
-      volumeMounts:
-      - mountPath: /target
-        name: plugins
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.5.1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
     resources:
       requests:
         memory: 300Mi

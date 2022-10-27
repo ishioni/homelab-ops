@@ -30,4 +30,3 @@ provider "minio" {
   minio_password = data.sops_file.minio_secrets.data["minio_secret_key"]
   minio_ssl        = true
 }
-

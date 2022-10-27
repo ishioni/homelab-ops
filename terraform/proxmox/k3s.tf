@@ -89,4 +89,3 @@ module "k3s_workers" {
   domain     = local.dns_domain
   networktag = 4
 }
-

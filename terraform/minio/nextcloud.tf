@@ -35,4 +35,3 @@ resource "minio_iam_user_policy_attachment" "nextcloud" {
   user_name   = minio_iam_user.nextcloud.id
   policy_name = minio_iam_policy.nextcloud.id
 }
-

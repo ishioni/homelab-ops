@@ -50,4 +50,3 @@ resource "minio_iam_user_policy_attachment" "velero" {
   user_name   = minio_iam_user.velero.id
   policy_name = minio_iam_policy.velero.id
 }
-
