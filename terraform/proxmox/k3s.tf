@@ -50,8 +50,8 @@ module "k3s_masters" {
   numa         = true
   hotplug      = "network,disk,usb,memory,cpu"
   diskconfig = {
-    size    = "40G"
-    storage = local.k3s_storage
+    size     = "40G"
+    storage  = local.k3s_storage
     discard  = "on"
     iothread = 1
     ssd      = 1
@@ -77,8 +77,8 @@ module "k3s_workers" {
   numa         = true
   hotplug      = "network,disk,usb,memory,cpu"
   diskconfig = {
-    size    = "40G"
-    storage = local.k3s_storage
+    size     = "40G"
+    storage  = local.k3s_storage
     discard  = "on"
     iothread = 1
     ssd      = 1
@@ -89,4 +89,3 @@ module "k3s_workers" {
   domain     = local.dns_domain
   networktag = 4
 }
-

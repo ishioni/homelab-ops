@@ -1,3 +1,4 @@
+---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -5,4 +6,4 @@ metadata:
   namespace: networking
 spec:
   addresses:
-  - ${METALLB_LB_RANGE}
+    - ${METALLB_LB_RANGE}

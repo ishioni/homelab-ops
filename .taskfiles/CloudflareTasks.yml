@@ -2,7 +2,6 @@
 version: "3"
 
 tasks:
-
   init:
     desc: Initialize terraform dependencies
     dir: terraform/cloudflare

@@ -1,3 +1,4 @@
+---
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
 metadata:
@@ -15,4 +16,4 @@ metadata:
   namespace: networking
 spec:
   ipAddressPools:
-  - kubenet-pool
+    - kubenet-pool

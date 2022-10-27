@@ -1,6 +1,5 @@
 ---
 # (string) Timezone for the servers
 timezone: "Europe/Warsaw"
-
 # (list) Additional ssh public keys to add to the nodes
 # ssh_authorized_keys:

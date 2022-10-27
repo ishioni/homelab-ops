@@ -46,4 +46,3 @@ resource "minio_iam_user_policy_attachment" "k3s" {
   user_name   = minio_iam_user.k3s.id
   policy_name = minio_iam_policy.k3s.id
 }
-
