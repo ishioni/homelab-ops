@@ -11,7 +11,7 @@ k3s_release_version: "v1.24.6+k3s1"
 k3s_install_hard_links: true
 
 # (bool) Escalate user privileges for all tasks
-k3s_become_for_all: true
+k3s_become: true
 
 # (bool) Enable debug logging on the k3s service
 k3s_debug: false
@@ -23,11 +23,19 @@ k3s_etcd_datastore: true
 k3s_use_unsupported_config: true
 
 # (string) Control Plane registration address
-k3s_registration_address: "{{ kubevip_address }}"
+k3s_registration_address: 10.1.4.3
+
+k3s_registries:
+  configs:
+    registry-1.docker.io:
+      auth:
+        username: "{{ SECRET_DOCKERHUB_USERNAME }}"
+        password: "{{ SECRET_DOCKERHUB_APITOKEN }}"
+
 
 # (list) A list of URLs to deploy on the primary control plane. Read notes below.
 k3s_server_manifests_urls:
-  - url: https://docs.projectcalico.org/archive/v3.23/manifests/tigera-operator.yaml
+  - url: https://docs.projectcalico.org/archive/v3.24/manifests/tigera-operator.yaml
     filename: tigera-operator.yaml
   - url: https://kube-vip.io/manifests/rbac.yaml
     filename: kube-vip-rbac.yaml
@@ -37,3 +45,6 @@ k3s_server_manifests_urls:
 k3s_server_manifests_templates:
   - "calico-installation.yaml.j2"
   - "kube-vip-daemonset.yaml.j2"
+
+k3s_server_config_yaml_d_files:
+  - "etcd-snapshots.yaml.j2"

@@ -42,26 +42,6 @@
   retries: 5
   until: apt_install_common is success
 
-# - name: Democratic csi multipath block
-#   ansible.builtin.blockinfile:
-#     path: /etc/multipath.conf
-#     mode: 0644
-#     create: true
-#     block: |
-#       defaults {
-#         user_friendly_names yes
-#         find_multipaths yes
-#       }
-#   register: multipath_conf
-#
-# - name: Restart multipathd
-#   ansible.builtin.systemd:
-#     name: multipathd
-#     enabled: true
-#     state: restarted
-#   when:
-#     - multipath_conf.changed
-
 - name: Copy 20auto-upgrades unattended-upgrades config
   ansible.builtin.blockinfile:
     path: /etc/apt/apt.conf.d/20auto-upgrades

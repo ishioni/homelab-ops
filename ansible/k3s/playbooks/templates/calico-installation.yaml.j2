@@ -5,11 +5,14 @@ metadata:
   name: default
 spec:
   calicoNetwork:
+    nodeAddressAutodetectionV4:
+      cidrs:
+        - "{{ calico_node_cidr }}"
     # Note: The ipPools section cannot be modified post-install.
     ipPools:
       - blockSize: 26
         cidr: "{{ k3s_server['cluster-cidr'] }}"
-        encapsulation: "VXLANCrossSubnet"
+        encapsulation: "{{ calico_encapsulation }}"
         natOutgoing: Enabled
         nodeSelector: all()
   nodeMetricsPort: 9091

@@ -10,24 +10,21 @@ k3s_server:
   node-ip: "{{ ansible_host }}"
   tls-san:
     # kube-vip
-    - "{{ kubevip_address }}"
+    - 10.1.4.3
   # Disable Docker - this will use the default containerd CRI
   docker: false
   flannel-backend: "none" # This needs to be in quotes
+  # https://github.com/k3s-io/k3s/issues/5835
+  # https://github.com/k3s-io/k3s/issues/5633
+  egress-selector-mode: disabled
   disable:
-    # Disable flannel - replaced with Calico
     - flannel
-    # Disable traefik - installed with Flux
     - traefik
-    # Disable servicelb - replaced with metallb and install with Flux
     - servicelb
-    # Disable metrics-server - installed with Flux
     - metrics-server
-    # Disable local storage
     - local-storage
   disable-network-policy: true
   disable-cloud-controller: true
-  # disable-kube-proxy: true
   write-kubeconfig-mode: "644"
   # Network CIDR to use for pod IPs
   cluster-cidr: "172.16.0.0/16"
@@ -36,11 +33,17 @@ k3s_server:
   kubelet-arg:
     # Enables the kubelet to gracefully evict pods during a node shutdown
     - "feature-gates=GracefulNodeShutdown=true"
-    # Allow k8s services to contain TCP and UDP on the same port
-    - "feature-gates=MixedProtocolLBService=true"
+    # Allow pods to be rescheduled quicker in the case of a node failure
+    # https://github.com/k3s-io/k3s/issues/1264
+    - "node-status-update-frequency=4s"
   # Required to monitor kube-controller-manager with kube-prometheus-stack
   kube-controller-manager-arg:
     - "bind-address=0.0.0.0"
+    # Allow pods to be rescheduled quicker in the case of a node failure
+    # https://github.com/k3s-io/k3s/issues/1264
+    - "node-monitor-period=4s"
+    - "node-monitor-grace-period=16s"
+    - "pod-eviction-timeout=20s"
   # Required to monitor kube-proxy with kube-prometheus-stack
   kube-proxy-arg:
     - "metrics-bind-address=0.0.0.0"
@@ -50,8 +53,14 @@ k3s_server:
   # Required to monitor kube-scheduler with kube-prometheus-stack
   kube-scheduler-arg:
     - "bind-address=0.0.0.0"
-  # Required to monitor etcd with kube-prometheus-stack
+    # Allow k8s services to contain TCP and UDP on the same port
   etcd-expose-metrics: true
   # Required for HAProxy health-checks
   kube-apiserver-arg:
     - "anonymous-auth=true"
+    # Allow k8s services to contain TCP and UDP on the same port
+    - "feature-gates=MixedProtocolLBService=true"
+    # Allow pods to be rescheduled quicker in the case of a node failure
+    # https://github.com/k3s-io/k3s/issues/1264
+    - "default-not-ready-toleration-seconds=20"
+    - "default-unreachable-toleration-seconds=20"

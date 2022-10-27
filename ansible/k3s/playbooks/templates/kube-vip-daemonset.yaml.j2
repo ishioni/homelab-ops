@@ -18,16 +18,6 @@ spec:
         app.kubernetes.io/instance: kube-vip
         app.kubernetes.io/name: kube-vip
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/master
-                operator: Exists
-            - matchExpressions:
-              - key: node-role.kubernetes.io/control-plane
-                operator: Exists
       containers:
         - name: kube-vip
           image: ghcr.io/kube-vip/kube-vip:v0.5.5
@@ -37,8 +27,18 @@ spec:
           env:
             - name: vip_arp
               value: "false"
-            - name: vip_interface
-              value: lo
+            - name: bgp_enable
+              value: "true"
+            - name: bgp_routerid
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: bgp_as
+              value: "{{ calico_bgp_as_number }}"
+            - name: bgp_peeraddress
+              value: "{{ calico_bgp_peer_ip }}"
+            - name: bgp_peeras
+              value: "{{ calico_bgp_as_number }}"
             - name: port
               value: "6443"
             - name: vip_cidr
@@ -46,32 +46,35 @@ spec:
             - name: cp_enable
               value: "true"
             - name: cp_namespace
-              value: kube-system
-            - name: vip_startleader
-              value: "false"
-            - name: bgp_enable
-              value: "true"
-            - name: bgp_routerinterface
-              value: "{{ kubevip_interface }}"
-            - name: bgp_as
-              value: "{{ kubevip_bgp_as_number }}"
-            - name: bgp_peeraddress
-              value: "{{ kubevip_bgp_peer_ip }}"
-            - name: bgp_peeras
-              value: "{{ kubevip_bgp_peer_as_number }}"
+              value: networking
             - name: svc_enable
               value: "false"
-            - vip_ddns
-              value: "false"
             - name: address
-              value: "{{ kubevip_address }}"
+              value: "{{ k3s_registration_address }}"
           securityContext:
             capabilities:
               add:
                 - NET_ADMIN
                 - NET_RAW
+                - SYS_TIME
+      hostAliases:
+        - hostnames:
+            - kubernetes
+          ip: 127.0.0.1
       hostNetwork: true
+      nodeSelector:
+        node-role.kubernetes.io/master: "true"
       serviceAccountName: kube-vip
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
       tolerations:
         - effect: NoSchedule
           operator: Exists
