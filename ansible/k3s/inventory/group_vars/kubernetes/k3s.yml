@@ -32,7 +32,6 @@ k3s_registries:
         username: "{{ SECRET_DOCKERHUB_USERNAME }}"
         password: "{{ SECRET_DOCKERHUB_APITOKEN }}"
 
-
 # (list) A list of URLs to deploy on the primary control plane. Read notes below.
 k3s_server_manifests_urls:
   - url: https://docs.projectcalico.org/archive/v3.24/manifests/tigera-operator.yaml
