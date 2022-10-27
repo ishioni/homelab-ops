@@ -16,9 +16,10 @@ env:
 includes:
   ansible: .taskfiles/AnsibleTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
-  # precommit: .taskfiles/PrecommitTasks.yml
-  # terraform: .taskfiles/TerraformTasks.yml
-  # sops: .taskfiles/SopsTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yml
+  cloudflare: .taskfiles/CloudflareTasks.yml
+  minio: .taskfiles/MinioTasks.yml
+  sops: .taskfiles/SopsTasks.yml
 
 tasks:
 
