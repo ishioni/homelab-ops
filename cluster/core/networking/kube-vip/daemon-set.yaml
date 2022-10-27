@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: kube-vip
-  namespace: networking
+  namespace: kube-system
   labels:
     app.kubernetes.io/instance: kube-vip
     app.kubernetes.io/name: kube-vip
