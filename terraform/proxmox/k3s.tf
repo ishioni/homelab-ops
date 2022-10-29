@@ -49,6 +49,7 @@ module "k3s_masters" {
   memory       = 4 * 1024
   numa         = true
   hotplug      = "network,disk,usb,memory,cpu"
+  onboot       = true
   diskconfig = {
     size     = "40G"
     storage  = local.k3s_storage
@@ -72,10 +73,13 @@ module "k3s_workers" {
   machine_name = each.value.name
   deploy_node  = each.value.node
   vm_pool      = local.k3s_pool
-  cores        = 4
+  cores        = 8
+  max_cpu      = 8
   memory       = 12 * 1024
   numa         = true
   hotplug      = "network,disk,usb,memory,cpu"
+  onboot       = true
+
   diskconfig = {
     size     = "40G"
     storage  = local.k3s_storage

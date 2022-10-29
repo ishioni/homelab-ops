@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "vm" {
     bridge = "vmbr0"
     tag    = var.networktag
   }
-  ipconfig0    = "ip=dhcp,ip6=auto"
+  ipconfig0    = "ip=dhcp"
   searchdomain = var.domain
   nameserver   = var.nameserver
 
