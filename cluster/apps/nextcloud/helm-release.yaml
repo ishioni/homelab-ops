@@ -94,9 +94,6 @@ spec:
         memory: 1000Mi
     cronjob:
       enabled: true
-      schedule: "*/15 * * * *"
-      failedJobsHistoryLimit: 1
-      successfulJobsHistoryLimit: 1
     ingress:
       enabled: true
       className: public
