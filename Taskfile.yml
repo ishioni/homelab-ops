@@ -14,7 +14,6 @@ env:
   KUBECONFIG: "{{.PROJECT_DIR}}/ansible/k3s/kubeconfig"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
   cloudflare: .taskfiles/CloudflareTasks.yml
