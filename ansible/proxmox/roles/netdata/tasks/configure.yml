@@ -1,0 +1,9 @@
+---
+- name: Write netdata configuration
+  ansible.builtin.template:
+    src: netdata.conf.j2
+    dest: /etc/netdata/netdata.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart Netdata
