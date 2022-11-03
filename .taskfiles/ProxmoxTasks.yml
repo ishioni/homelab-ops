@@ -1,0 +1,52 @@
+---
+version: "3"
+
+env:
+  ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible/proxmox/ansible.cfg"
+
+vars:
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/proxmox/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/proxmox/inventory"
+
+tasks:
+  init:
+    desc: Install / Upgrade Ansible galaxy deps
+    dir: ansible/proxmox
+    cmds:
+      - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
+      - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
+
+  setup:
+    desc: Run Ansible setup playbook on the nodes
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/proxmox-setup.yml
+
+  ping:
+    desc: Ping all the hosts
+    dir: ansible/proxmox
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -m 'ping'
+
+  uptime:
+    desc: Uptime of all the hosts
+    dir: ansible/proxmox
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
+
+  tfinit:
+    desc: Initialize terraform dependencies
+    dir: terraform/proxmox
+    cmds:
+      - terraform init {{.CLI_ARGS}}
+
+  tfplan:
+    desc: Show the changes terraform will make
+    dir: terraform/proxmox
+    cmds:
+      - terraform plan {{.CLI_ARGS}}
+
+  tfapply:
+    desc: Apply the terraform code to proxmox nodes
+    dir: terraform/proxmox
+    cmds:
+      - terraform plan {{.CLI_ARGS}}

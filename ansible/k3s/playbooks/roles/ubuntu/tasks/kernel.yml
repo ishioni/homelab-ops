@@ -13,6 +13,8 @@
     - ip_vs_lc
     - ip_vs_sh
     - nf_conntrack
+    - acpiphp
+    - pci_hotplug
 
 - name: Enable kernel modules on boot
   ansible.builtin.copy:
@@ -29,6 +31,8 @@
     - ip_vs_lc
     - ip_vs_sh
     - nf_conntrack
+    - acpiphp
+    - pci_hotplug
 
 - name: Disable mitigations
   ansible.builtin.replace:

@@ -1,0 +1,24 @@
+---
+- ansible.builtin.import_tasks: locale.yml
+  tags:
+    - locale
+
+- ansible.builtin.import_tasks: packages.yml
+  tags:
+    - packages
+
+- ansible.builtin.import_tasks: kernel.yml
+  tags:
+    - kernel
+
+- ansible.builtin.import_tasks: network.yml
+  tags:
+    - network
+
+- ansible.builtin.import_tasks: filesystem.yml
+  tags:
+    - filesystem
+
+- ansible.builtin.import_tasks: logging.yml
+  tags:
+    - logging
