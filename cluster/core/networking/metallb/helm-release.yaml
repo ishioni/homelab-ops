@@ -32,6 +32,7 @@ spec:
           cpu: 50m
           memory: 50Mi
     speaker:
+      tolerateMaster: false
       resources:
         limits:
           cpu: 50m
