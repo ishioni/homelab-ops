@@ -34,19 +34,17 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: bgp_as
-              value: "64512"
+              value: "64501"
             - name: bgp_peeraddress
-              value: 192.168.1.1
+              value: "192.168.1.1"
             - name: bgp_peeras
-              value: "64512"
+              value: "64500"
             - name: port
               value: "6443"
             - name: vip_cidr
               value: "32"
             - name: cp_enable
               value: "true"
-            - name: cp_namespace
-              value: networking
             - name: svc_enable
               value: "false"
             - name: address
