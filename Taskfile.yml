@@ -17,6 +17,7 @@ includes:
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
   cloudflare: .taskfiles/CloudflareTasks.yml
+  k3s: .taskfiles/K3STasks.yml
   proxmmox: .taskfiles/ProxmoxTasks.yml
   minio: .taskfiles/MinioTasks.yml
   sops: .taskfiles/SopsTasks.yml
