@@ -5,8 +5,8 @@ metadata:
   name: rootnode
   namespace: networking
 spec:
-  myASN: 64512
-  peerASN: 64512
+  myASN: 64501
+  peerASN: 64500
   peerAddress: 192.168.1.1
 ---
 apiVersion: metallb.io/v1beta1
