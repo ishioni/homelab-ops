@@ -62,25 +62,6 @@ spec:
           hosts:
             - host: "homeassistant.${SECRET_DOMAIN}"
               path: /
-      - name: proxmox
-        enabled: true
-        externalName: "proxmox-1.${MANAGMENT}"
-        port: 8006
-        ingress:
-          ingressClassName: private
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-            hajimari.io/appName: Proxmox
-            hajimari.io/enable: "true"
-            hajimari.io/icon: server
-          tls:
-            - hosts:
-                - "proxmox.${SECRET_INTERNAL_DOMAIN}"
-              secretName: "proxmox.${SECRET_INTERNAL_DOMAIN}"
-          hosts:
-            - host: "proxmox.${SECRET_INTERNAL_DOMAIN}"
-              path: /
       - name: s3
         enabled: true
         externalName: "s3.services.${SECRET_DOMAIN}"
@@ -99,25 +80,6 @@ spec:
               secretName: "s3.${SECRET_INTERNAL_DOMAIN}"
           hosts:
             - host: "s3.${SECRET_INTERNAL_DOMAIN}"
-              path: /
-      - name: truenas
-        enabled: true
-        externalName: "quadrant.${KUBENET}"
-        port: 443
-        ingress:
-          ingressClassName: private
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-            hajimari.io/appName: TrueNAS
-            hajimari.io/enable: "true"
-            hajimari.io/icon: nas
-          tls:
-            - hosts:
-                - "truenas.${SECRET_INTERNAL_DOMAIN}"
-              secretName: "truenas.${SECRET_INTERNAL_DOMAIN}"
-          hosts:
-            - host: "truenas.${SECRET_INTERNAL_DOMAIN}"
               path: /
       - name: unifi
         enabled: true
