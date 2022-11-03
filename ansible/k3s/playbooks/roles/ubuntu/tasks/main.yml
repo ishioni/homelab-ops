@@ -1,24 +1,24 @@
 ---
-- include: locale.yml
+- ansible.builtin.import_tasks: locale.yml
   tags:
     - locale
 
-- include: packages.yml
+- ansible.builtin.import_tasks: packages.yml
   tags:
     - packages
 
-- import_tasks: kernel.yml
+- ansible.builtin.import_tasks: kernel.yml
   tags:
     - kernel
 
-- include: network.yml
+- ansible.builtin.import_tasks: network.yml
   tags:
     - network
 
-- include: filesystem.yml
+- ansible.builtin.import_tasks: filesystem.yml
   tags:
     - filesystem
 
-- include: logging.yml
+- ansible.builtin.import_tasks: logging.yml
   tags:
     - logging
