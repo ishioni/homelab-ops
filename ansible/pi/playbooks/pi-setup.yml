@@ -6,22 +6,36 @@
   any_errors_fatal: true
 
   tasks:
-    - name: Stop syslogd
-      ansible.builtin.systemd:
-        name: rsyslog.service
-        enabled: false
-        state: stopped
+    # - name: Stop syslogd
+    #   ansible.builtin.systemd:
+    #     name: rsyslog.service
+    #     enabled: false
+    #     state: stopped
 
-    - name: Setup packages
-      ansible.builtin.include_tasks: tasks/packages.yml
+    # - name: Setup packages
+    #   ansible.builtin.include_tasks: tasks/packages.yml
 
-    - name: Install netdata
-      ansible.builtin.include_role:
-        name: netdata
-      vars:
-        claim_token: '{{ netdata_claim_token }}'
-        claim_rooms: '{{ netdata_claim_room }}'
+    # - name: Install netdata
+    #   ansible.builtin.include_role:
+    #     name: netdata
+    #   vars:
+    #     claim_token: '{{ netdata_claim_token }}'
+    #     claim_rooms: '{{ netdata_claim_room }}'
 
-    - name: Install docker
-      ansible.builtin.include_role:
-        name: geerlingguy.docker
+    # - name: Install docker
+    #   ansible.builtin.include_role:
+    #     name: geerlingguy.docker
+
+    # - name: Install acme.sh
+    #   ansible.builtin.include_role:
+    #     name: acmesh
+    #   vars:
+    #     acme_user_email: 'homelab@{{ secret_domain  }}'
+
+    # - name: Setup cert
+    #   ansible.builtin.import_tasks: tasks/cert.yml
+    #   become: true
+
+    - name: Setup haproxy
+      ansible.builtin.import_tasks: tasks/haproxy.yml
+      become: true

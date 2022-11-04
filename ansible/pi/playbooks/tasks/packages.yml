@@ -12,6 +12,7 @@
     name:
       - ca-certificates
       - curl
+      - haproxy
       - htop
       - unattended-upgrades
       - git

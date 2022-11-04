@@ -1,9 +1,23 @@
 ---
-- name: Install packages
-  ansible.builtin.apt:
+# - name: Install packages
+#   ansible.builtin.apt:
+#     name: haproxy
+#     install_recommends: false
+#     update_cache: true
+#     cache_valid_time: 3600
+#     autoclean: true
+#     autoremove: true
+
+- name: Configure haproxy
+  ansible.builtin.template:
+    src: templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0644
+  register: haproxy_config
+
+- name: Reload haproxy
+  ansible.builtin.systemd:
     name: haproxy
-    install_recommends: false
-    update_cache: true
-    cache_valid_time: 3600
-    autoclean: true
-    autoremove: true
+    state: reloaded
+    enabled: true
+  when: haproxy_config.changed
