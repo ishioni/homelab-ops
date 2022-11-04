@@ -18,6 +18,7 @@ includes:
   precommit: .taskfiles/PrecommitTasks.yml
   cloudflare: .taskfiles/CloudflareTasks.yml
   k3s: .taskfiles/K3STasks.yml
+  pi: .taskfiles/PiTasks.yml
   proxmmox: .taskfiles/ProxmoxTasks.yml
   minio: .taskfiles/MinioTasks.yml
   sops: .taskfiles/SopsTasks.yml

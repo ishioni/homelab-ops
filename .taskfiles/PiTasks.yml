@@ -1,0 +1,34 @@
+---
+version: "3"
+
+env:
+  ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible/pi/ansible.cfg"
+
+vars:
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/pi/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/pi/inventory"
+
+tasks:
+  init:
+    desc: Install / Upgrade Ansible galaxy deps
+    dir: ansible/pi
+    cmds:
+      - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
+      - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
+
+  setup:
+    desc: Run Ansible setup playbook on the nodes
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/pi-setup.yml
+
+  ping:
+    desc: Ping all the hosts
+    dir: ansible/pi
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -m 'ping'
+
+  uptime:
+    desc: Uptime of all the hosts
+    dir: ansible/pi
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
