@@ -1,0 +1,27 @@
+---
+- name: Setup bastion
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+
+  tasks:
+    - name: Stop syslogd
+      ansible.builtin.systemd:
+        name: rsyslog.service
+        enabled: false
+        state: stopped
+
+    - name: Setup packages
+      ansible.builtin.include_tasks: tasks/packages.yml
+
+    - name: Install netdata
+      ansible.builtin.include_role:
+        name: netdata
+      vars:
+        claim_token: '{{ netdata_claim_token }}'
+        claim_rooms: '{{ netdata_claim_room }}'
+
+    - name: Install docker
+      ansible.builtin.include_role:
+        name: geerlingguy.docker

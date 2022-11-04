@@ -1,0 +1,9 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: haproxy
+    install_recommends: false
+    update_cache: true
+    cache_valid_time: 3600
+    autoclean: true
+    autoremove: true

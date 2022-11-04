@@ -1,0 +1,29 @@
+---
+# Variables for Netdata
+
+# Set Netdata Cloud claiming details. To find your `claim_token` and
+# `claim_room`, go to Netdata Cloud, then click on your Space's name in the top
+# navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
+# panel that appears, which displays a script with `token` and `room` strings.
+# Copy those strings into the variables below. `claim_url` should be
+# `https://app.netdata.cloud`. Read more:
+# https://learn.netdata.cloud/docs/agent/claim
+claim_token: XXXXX
+claim_rooms: XXXXX
+claim_url: https://app.netdata.cloud
+
+# Force re-claiming of nodes to Netdata Cloud. Read more:
+# https://learn.netdata.cloud/docs/agent/claim#remove-and-reclaim-a-node
+reclaim: false
+
+# Set Netdata's metrics retention policy via the disk size for the database
+# engine. Value is in MiB. Read more:
+# https://learn.netdata.cloud/docs/store/change-metrics-storage
+dbengine_multihost_disk_space: 2048
+
+# Set whether to run the Agent web server/dashboard/API, or disable them.
+# Because we're connecting this node to Netdata Cloud and will view dashboards
+# there, we'll set this to `none` to disable the local dashboard. Set to
+# `static-threaded` if you want to keep it running. Read more:
+# https://learn.netdata.cloud/docs/configure/secure-nodes
+web_mode: none
