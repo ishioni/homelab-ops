@@ -33,15 +33,9 @@ defaults
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
 
-listen stats
-    bind *:8084
-    stats enable
-    stats uri /monitor
-    stats refresh 5s
-
 frontend default
     bind :80
-    bind :443 ssl crt /etc/haproxy/*.services."{{ secret_domain }}".pem
+    bind :443 ssl crt /etc/haproxy/*.services.{{ secret_domain }}.pem
     mode http
     option http-server-close
     http-request set-header X-Forwarded-For %[src]
@@ -52,10 +46,14 @@ frontend default
     use_backend %[req.hdr(Host),lower]
     timeout client 65000
 
-backend proxmox.services."{{ secret_domain }}"
+backend proxmox.services.{{ secret_domain }}
     timeout server 65000
     stick-table type ip size 200k expire 60m
     stick on src
 {% for host in proxmox_hosts %}
     server {{ host }} {{ host }}.services.{{ secret_domain }}:443 check ssl verify required ca-file ca-certificates.crt
 {% endfor %}
+
+backend amt.services.{{ secret_domain }}
+    timeout server 65000
+    server localhost localhost:8086 check ssl verify none
