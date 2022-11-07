@@ -21,6 +21,11 @@ tasks:
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/proxmox-setup.yml
 
+  upgrade:
+    desc: Update system packages
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/proxmox-upgrade.yml
+
   ping:
     desc: Ping all the hosts
     dir: ansible/proxmox
