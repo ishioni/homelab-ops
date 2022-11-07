@@ -17,6 +17,7 @@
       - unattended-upgrades
       - git
       - lm-sensors
+      - python3-pip
     install_recommends: false
     update_cache: true
     cache_valid_time: 3600
