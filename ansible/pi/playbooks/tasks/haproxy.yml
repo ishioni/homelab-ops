@@ -1,0 +1,14 @@
+---
+- name: Configure haproxy
+  ansible.builtin.template:
+    src: templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0644
+  register: haproxy_config
+
+- name: Reload haproxy
+  when: haproxy_config.changed
+  ansible.builtin.systemd:
+    name: haproxy
+    state: reloaded
+    enabled: true

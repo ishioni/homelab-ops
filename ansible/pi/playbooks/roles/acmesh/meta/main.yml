@@ -1,6 +1,6 @@
 galaxy_info:
   author: ishioni
-  description: Installs netdata and claims it
+  description: Installs acme.sh
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -29,8 +29,7 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - "buster"
-        - "bullseye"
+        - all
   # - name: SomePlatform
   #   versions:
   #   - all

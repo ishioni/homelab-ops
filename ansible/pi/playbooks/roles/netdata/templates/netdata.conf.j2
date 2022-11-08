@@ -1,0 +1,20 @@
+# Netdata configuration
+
+[global]
+  run as user = netdata
+  # the default database size - 1 hour
+  history = 3600
+  # some defaults to run netdata with least priority
+  process scheduling policy = idle
+  OOM score = 1000
+
+  hostname = {{ ansible_facts['nodename'] }}
+  dbengine multihost disk space = {{ dbengine_multihost_disk_space }}
+
+[ml]
+  enabled = yes
+
+[web]
+  web files owner = root
+  web files group = netdata
+    mode = {{ web_mode }}

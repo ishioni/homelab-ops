@@ -1,0 +1,67 @@
+---
+- name: Upgrade all system packages
+  ansible.builtin.apt:
+    upgrade: full
+    update_cache: true
+    cache_valid_time: 3600
+    autoclean: true
+    autoremove: true
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - haproxy
+      - htop
+      - unattended-upgrades
+      - git
+      - lm-sensors
+      - python3-pip
+    install_recommends: false
+    update_cache: true
+    cache_valid_time: 3600
+    autoclean: true
+    autoremove: true
+
+- name: Enable unattended upgrades
+  block:
+    - name: Copy 20auto-upgrades unattended-upgrades config
+      ansible.builtin.blockinfile:
+        path: /etc/apt/apt.conf.d/20auto-upgrades
+        mode: 0644
+        create: true
+        block: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Download-Upgradeable-Packages "1";
+          APT::Periodic::AutocleanInterval "3";
+          APT::Periodic::Unattended-Upgrade "1";
+
+    - name: Copy 50unattended-upgrades unattended-upgrades config
+      ansible.builtin.blockinfile:
+        path: /etc/apt/apt.conf.d/50unattended-upgrades
+        mode: 0644
+        create: true
+        block: |
+          // The Raspberry Pi Foundation doesn't use separate a separate security upgrades channel.
+          // To make sure your RPi has the latest security fixes, you have to install all updates.
+
+          Unattended-Upgrade::Origins-Pattern {
+                  "origin=Raspbian,codename=${distro_codename},label=Raspbian";
+                  "origin=Raspberry Pi Foundation,codename=${distro_codename},label=Raspberry Pi Foundation";
+          };
+
+          // Automatically reboot *WITHOUT CONFIRMATION* if
+          //  the file /var/run/reboot-required is found after the upgrade
+          Unattended-Upgrade::Automatic-Reboot "true";
+
+          // If automatic reboot is enabled and needed, reboot at the specific
+          // time instead of immediately
+          //  Default: "now"
+          Unattended-Upgrade::Automatic-Reboot-Time "03:00";
+
+    - name: Start unattended-upgrades service
+      ansible.builtin.systemd:
+        name: unattended-upgrades
+        enabled: true
+        state: restarted

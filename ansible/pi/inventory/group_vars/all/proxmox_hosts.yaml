@@ -1,0 +1,6 @@
+---
+proxmox_hosts:
+  - proxmox-1
+  - proxmox-2
+  - proxmox-3
+  - proxmox-4
