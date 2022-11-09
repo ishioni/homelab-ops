@@ -6,13 +6,9 @@
   any_errors_fatal: true
 
   tasks:
-    - name: Upgrade all system packages
-      ansible.builtin.apt:
-        upgrade: full
-        update_cache: true
-        cache_valid_time: 3600
-        autoclean: true
-        autoremove: true
+    - name: Setup package updates
+      ansible.builtin.import_tasks: tasks/packages.yml
+      become: true
 
     - name: Stop syslogd
       ansible.builtin.systemd:
