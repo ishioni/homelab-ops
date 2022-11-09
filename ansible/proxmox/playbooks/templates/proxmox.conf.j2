@@ -1,7 +1,3 @@
-upstream proxmox {
-    server {{ ansible_hostname }}.services.{{ secret_domain }};
-}
-
 server {
     listen 80 default_server;
     rewrite ^(.*) https://$host$1 permanent;
