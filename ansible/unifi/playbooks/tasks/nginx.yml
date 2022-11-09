@@ -10,7 +10,7 @@
 
 - name: Check wildcard cert
   ansible.builtin.stat:
-    path: '/etc/acmesh/unifi.services.{{ secret_domain }}/unifi.services.{{ secret_domain }}.cer'
+    path: "/etc/acmesh/unifi.services.{{ secret_domain }}/unifi.services.{{ secret_domain }}.cer"
   register: unifi_cert
 
 - name: Request cert
@@ -22,11 +22,11 @@
       - --dns
       - dns_cf
       - -d
-      - 'unifi.services.{{ secret_domain }}'
+      - "unifi.services.{{ secret_domain }}"
   environment:
-    CF_Token: '{{ cloudflare_token }}'
-    CF_Account_ID: '{{ cloudflare_account_id }}'
-    CF_Zone_ID: '{{ cloudflare_zone_id }}'
+    CF_Token: "{{ cloudflare_token }}"
+    CF_Account_ID: "{{ cloudflare_account_id }}"
+    CF_Zone_ID: "{{ cloudflare_zone_id }}"
     LE_WORKING_DIR: "/usr/local/bin"
     LE_CONFIG_HOME: "/etc/acmesh"
 
@@ -42,7 +42,7 @@
       - acme.sh
       - --installcert
       - -d
-      - 'unifi.services.{{ secret_domain }}'
+      - "unifi.services.{{ secret_domain }}"
       - --fullchainpath
       - /etc/ssl/private/unifi.pem
       - --keypath

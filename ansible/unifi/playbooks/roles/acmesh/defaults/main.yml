@@ -3,4 +3,4 @@
 acme_install_dir: /usr/local/bin
 acme_config_dir: /etc/acmesh
 acme_cert_provider: letsencrypt
-acme_user_email: ''
+acme_user_email: ""
