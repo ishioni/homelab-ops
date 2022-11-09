@@ -23,25 +23,6 @@ spec:
       retries: 5
   values:
     instances:
-      - name: amt
-        enabled: true
-        externalName: "quadrant.${KUBENET}"
-        port: 8086
-        ingress:
-          ingressClassName: private
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-            hajimari.io/appName: AMT
-            hajimari.io/enable: "true"
-            hajimari.io/icon: remote-desktop
-          tls:
-            - hosts:
-                - "amt.${SECRET_INTERNAL_DOMAIN}"
-              secretName: "amt.${SECRET_INTERNAL_DOMAIN}"
-          hosts:
-            - host: "amt.${SECRET_INTERNAL_DOMAIN}"
-              path: /
       - name: homeassistant
         enabled: true
         externalName: "homeassistant.${IOT}"
@@ -80,23 +61,4 @@ spec:
               secretName: "s3.${SECRET_INTERNAL_DOMAIN}"
           hosts:
             - host: "s3.${SECRET_INTERNAL_DOMAIN}"
-              path: /
-      - name: unifi
-        enabled: true
-        externalName: "unifi.${MANAGMENT}"
-        port: 8443
-        ingress:
-          ingressClassName: private
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-            hajimari.io/appName: Unifi
-            hajimari.io/enable: "true"
-            hajimari.io/icon: lan
-          tls:
-            - hosts:
-                - "unifi.${SECRET_INTERNAL_DOMAIN}"
-              secretName: "unifi.${SECRET_INTERNAL_DOMAIN}"
-          hosts:
-            - host: "unifi.${SECRET_INTERNAL_DOMAIN}"
               path: /
