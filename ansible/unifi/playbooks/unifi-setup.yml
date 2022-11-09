@@ -1,0 +1,69 @@
+---
+- name: Setup unifi
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+
+  tasks:
+    - name: Upgrade all system packages
+      ansible.builtin.apt:
+        upgrade: full
+        update_cache: true
+        cache_valid_time: 3600
+        autoclean: true
+        autoremove: true
+
+    - name: Stop syslogd
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: false
+        state: stopped
+      loop:
+        - syslog.socket
+        - rsyslog.service
+
+    - name: Set journald to volatile
+      ansible.builtin.include_role:
+        name: igor_nikiforov.journald
+      vars:
+        journald_config:
+          Storage: volatile
+
+    - name: Install java
+      ansible.builtin.include_role:
+        name: geerlingguy.java
+      vars:
+        java_packages: "openjdk-8-jre-headless"
+
+    - name: Install mongo
+      ansible.builtin.import_tasks: tasks/mongo.yml
+      become: true
+
+    - name: Install unifi
+      ansible.builtin.import_tasks: tasks/unifi.yml
+      become: true
+
+    - name: Symlink config.gateway.json
+      ansible.builtin.file:
+        force: true
+        src: /usr/lib/unifi/data/sites/default/config.gateway.json
+        dest: /root/config.gateway.json
+        state: link
+        follow: false
+
+    - name: Install acme.sh
+      ansible.builtin.include_role:
+        name: acmesh
+      vars:
+        acme_user_email: 'homelab@{{ secret_domain }}'
+
+    - name: Setup nginx
+      ansible.builtin.import_tasks: tasks/nginx.yml
+      become: true
+
+  handlers:
+    - name: Restart nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: restarted

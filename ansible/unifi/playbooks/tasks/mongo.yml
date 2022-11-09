@@ -1,0 +1,38 @@
+---
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - apt-transport-https
+      - ca-certificates
+    state: present
+  become: true
+
+- name: Add mongodb repo key
+  ansible.builtin.get_url:
+    url: https://pgp.mongodb.com/server-3.6.asc
+    dest: /etc/apt/trusted.gpg.d/mongodb.asc
+    mode: 0644
+
+- name: Add mongodb repo
+  ansible.builtin.apt_repository:
+    repo: "deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse"
+    state: present
+    filename: mongo
+
+# Will be needed for ubuntu >= 22.04
+# - name: Install legacy openssl for mongo
+#   ansible.builtin.apt:
+#     deb: http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.10_amd64.deb
+
+- name: Install dependencies
+  ansible.builtin.apt:
+    name: mongodb-server
+    state: present
+  become: true
+
+- name: Stop default mongo service
+  ansible.builtin.systemd:
+    name: mongodb.service
+    state: stopped
+    enabled: false

@@ -1,0 +1,48 @@
+---
+# tasks file for acmesh
+- name: Check if acme.sh is installed
+  ansible.builtin.stat:
+    path: '{{ acme_install_dir }}/acme.sh'
+  register: acmesh_installed
+  ignore_errors: true
+
+- name: Install acme.sh
+  when: not acmesh_installed.stat.exists
+  block:
+    - name: Ensure dependencies
+      ansible.builtin.apt:
+        name: socat
+    - name: Create tmpdir
+      ansible.builtin.tempfile:
+        state: directory
+      register: tmpdir
+    - name: Get acme.sh
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
+        dest: '{{ tmpdir.path }}'
+        mode: 0755
+      register: download
+    - name: Install acme.sh
+      become: true
+      ansible.builtin.command:
+        argv:
+          - '{{ download.dest }}'
+          - --install-online
+          - --home
+          - '{{ acme_install_dir }}'
+          - --config-home
+          - '{{ acme_config_dir }}'
+          - --accountemail
+          - '{{ acme_user_email }}'
+
+- name: Set default cert provider
+  become: true
+  ansible.builtin.command:
+    argv:
+      - '{{ acme_install_dir }}/acme.sh'
+      - --set-default-ca
+      - --server
+      - '{{ acme_cert_provider }}'
+  environment:
+    LE_WORKING_DIR: '{{ acme_install_dir }}'
+    LE_CONFIG_HOME: '{{ acme_config_dir }}'

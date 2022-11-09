@@ -1,0 +1,9 @@
+---
+roles:
+  - name: igor_nikiforov.journald
+    src: https://github.com/igor-nikiforov/ansible-role-journald.git
+    version: v1.0.0
+  - name: geerlingguy.java
+  # - name: nephelaiio.unifi_controller
+  #   src: https://github.com/nephelaiio/ansible-role-unifi-controller
+  #   version: 3.0.0

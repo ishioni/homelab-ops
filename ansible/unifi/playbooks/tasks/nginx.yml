@@ -1,0 +1,66 @@
+---
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    install_recommends: true
+    update_cache: true
+    cache_valid_time: 3600
+    autoclean: true
+    autoremove: true
+
+- name: Check wildcard cert
+  ansible.builtin.stat:
+    path: '/etc/acmesh/unifi.services.{{ secret_domain }}/unifi.services.{{ secret_domain }}.cer'
+  register: unifi_cert
+
+- name: Request cert
+  when: not unifi_cert.stat.exists
+  ansible.builtin.command:
+    argv:
+      - acme.sh
+      - --issue
+      - --dns
+      - dns_cf
+      - -d
+      - 'unifi.services.{{ secret_domain }}'
+  environment:
+    CF_Token: '{{ cloudflare_token }}'
+    CF_Account_ID: '{{ cloudflare_account_id }}'
+    CF_Zone_ID: '{{ cloudflare_zone_id }}'
+    LE_WORKING_DIR: "/usr/local/bin"
+    LE_CONFIG_HOME: "/etc/acmesh"
+
+- name: Check if cert installed
+  ansible.builtin.stat:
+    path: /etc/ssl/private/unifi.key
+  register: unifi_cert_installed
+
+- name: Install cert
+  when: not unifi_cert_installed.stat.exists
+  ansible.builtin.command:
+    argv:
+      - acme.sh
+      - --installcert
+      - -d
+      - 'unifi.services.{{ secret_domain }}'
+      - --fullchainpath
+      - /etc/ssl/private/unifi.pem
+      - --keypath
+      - /etc/ssl/private/unifi.key
+      - --reloadcmd
+      - "systemctl reload nginx"
+  environment:
+    LE_WORKING_DIR: "/usr/local/bin"
+    LE_CONFIG_HOME: "/etc/acmesh"
+
+- name: Disable default nginx config
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Configure nginx for proxmox
+  ansible.builtin.template:
+    src: unifi.conf.j2
+    dest: /etc/nginx/conf.d/unifi.conf
+    mode: 0644
+  notify: Restart nginx

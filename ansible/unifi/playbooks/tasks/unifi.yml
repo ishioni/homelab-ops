@@ -1,0 +1,32 @@
+---
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - apt-transport-https
+      - ca-certificates
+    state: present
+  become: true
+
+- name: Add unifi repo key
+  ansible.builtin.get_url:
+    url: https://dl.ui.com/unifi/unifi-repo.gpg
+    dest: /etc/apt/trusted.gpg.d/unifi-repo.gpg
+    mode: 0644
+
+- name: Add unifi repo
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/unifi-repo.gpg] https://www.ui.com/downloads/unifi/debian stable ubiquiti"
+    state: present
+    filename: unifi
+
+- name: Install unifi controller
+  ansible.builtin.apt:
+    name:
+      - unifi
+
+- name: Ensure unifi service is enabled
+  ansible.builtin.systemd:
+    name: unifi.service
+    state: started
+    enabled: true
