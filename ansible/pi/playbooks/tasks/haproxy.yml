@@ -1,14 +1,54 @@
 ---
+- name: Install haproxy
+  ansible.builtin.apt:
+    name: haproxy
+
+- name: Check wildcard cert
+  ansible.builtin.stat:
+    path: "/etc/acmesh/*.services.{{ secret_domain }}/*.services.{{ secret_domain }}.cer"
+  register: wildcard_cert
+
+- name: Get wildcard cert
+  when: not wildcard_cert.stat.exists
+  ansible.builtin.command:
+    argv:
+      - acme.sh
+      - --issue
+      - --dns
+      - dns_cf
+      - -d
+      - "*.services.{{ secret_domain }}"
+  environment:
+    CF_Token: "{{ cloudflare_token }}"
+    CF_Account_ID: "{{ cloudflare_account_id }}"
+    CF_Zone_ID: "{{ cloudflare_zone_id }}"
+    LE_WORKING_DIR: "/usr/local/bin"
+    LE_CONFIG_HOME: "/etc/acmesh"
+
+- name: Check if haproxy cert installed
+  ansible.builtin.stat:
+    path: "/etc/haproxy/*.services.{{ secret_domain }}.pem"
+  register: haproxy_pem
+
+- name: Install wildcard cert
+  when: not haproxy_pem.stat.exists
+  ansible.builtin.command:
+    argv:
+      - acme.sh
+      - --deploy
+      - -d
+      - "*.services.{{ secret_domain }}"
+      - --deploy-hook
+      - haproxy
+  environment:
+    DEPLOY_HAPROXY_PEM_PATH: /etc/haproxy
+    DEPLOY_HAPROXY_RELOAD: "systemctl reload haproxy"
+    LE_WORKING_DIR: "/usr/local/bin"
+    LE_CONFIG_HOME: "/etc/acmesh"
+
 - name: Configure haproxy
   ansible.builtin.template:
     src: templates/haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
     mode: 0644
-  register: haproxy_config
-
-- name: Reload haproxy
-  when: haproxy_config.changed
-  ansible.builtin.systemd:
-    name: haproxy
-    state: reloaded
-    enabled: true
+  notify: "Reload haproxy"

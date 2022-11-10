@@ -1,0 +1,38 @@
+---
+- name: Install nut
+  ansible.builtin.apt:
+    name:
+      - nut-server
+    install_recommends: false
+
+- name: Configure nut
+  ansible.builtin.copy:
+    src: "files/{{ item }}"
+    dest: "/etc/nut/{{ item }}"
+    mode: 0440
+    group: nut
+  loop:
+    - nut.conf
+    - ups.conf
+    - upsd.conf
+    - upssched.conf
+  notify: "Restart nut"
+
+- name: Configure nut (2)
+  ansible.builtin.template:
+    src: "templates/{{ item }}"
+    dest: "/etc/nut/{{ item }}"
+    mode: 0440
+  loop:
+    - upsd.users.j2
+    - upsmon.conf.j2
+  notify: "Restart nut"
+
+- name: Restart nut
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - nut-server.service
+    - nut-monitor.service
