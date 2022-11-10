@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: security
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.goauthentik.io/
+      chart: authentik
+      version: 2022.10.0
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    replicas: 1
+    worker:
+      replicas: 1
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2022.10.0
+    authentik:
+      email:
+        host: smtp.fastmail.com
+        port: 465
+        use_tls: true
+        username: "${NULLMAILER_USERNAME}"
+        password: "${NULLMAILER_PASSWORD}"
+        from: "Authentik <auth@${SECRET_DOMAIN}>"
+      secret_key: "${SECRET_AUTHENTIK_SECRET_KEY}"
+      log_level: debug
+      error_reporting:
+        enabled: false
+      postgresql:
+        user: authentik
+        password: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
+      redis:
+        host: '{{ .Release.Name }}-redis-master'
+        password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
+    ingress:
+      enabled: true
+      ingressClassName: public
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+      hosts:
+        - host: "auth.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: "auth.${SECRET_DOMAIN}"
+          hosts:
+            - "auth.${SECRET_DOMAIN}"
+    postgresql:
+      enabled: true
+      primary:
+        podAnnotations:
+          backup.velero.io/backup-volumes: data
+      persistence:
+        enabled: true
+        existingClaim: authentik-postgresql
+      postgresqlUsername: authentik
+      postgresqlDatabase: authentik
+      postgresqlPassword: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
+
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+        password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
+      persistence:
+        enabled: false
