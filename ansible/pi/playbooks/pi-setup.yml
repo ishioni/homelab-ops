@@ -19,8 +19,8 @@
       ansible.builtin.include_role:
         name: netdata
       vars:
-        claim_token: '{{ netdata_claim_token }}'
-        claim_rooms: '{{ netdata_claim_room }}'
+        claim_token: "{{ netdata_claim_token }}"
+        claim_rooms: "{{ netdata_claim_room }}"
 
     - name: Install docker
       ansible.builtin.include_role:
@@ -30,7 +30,7 @@
       ansible.builtin.include_role:
         name: acmesh
       vars:
-        acme_user_email: 'homelab@{{ secret_domain }}'
+        acme_user_email: "homelab@{{ secret_domain }}"
 
     - name: Setup haproxy
       ansible.builtin.import_tasks: tasks/haproxy.yml

@@ -5,7 +5,7 @@
 
 - name: Check wildcard cert
   ansible.builtin.stat:
-    path: '/etc/acmesh/*.services.{{ secret_domain }}/*.services.{{ secret_domain }}.cer'
+    path: "/etc/acmesh/*.services.{{ secret_domain }}/*.services.{{ secret_domain }}.cer"
   register: wildcard_cert
 
 - name: Get wildcard cert
@@ -17,17 +17,17 @@
       - --dns
       - dns_cf
       - -d
-      - '*.services.{{ secret_domain }}'
+      - "*.services.{{ secret_domain }}"
   environment:
-    CF_Token: '{{ cloudflare_token }}'
-    CF_Account_ID: '{{ cloudflare_account_id }}'
-    CF_Zone_ID: '{{ cloudflare_zone_id }}'
+    CF_Token: "{{ cloudflare_token }}"
+    CF_Account_ID: "{{ cloudflare_account_id }}"
+    CF_Zone_ID: "{{ cloudflare_zone_id }}"
     LE_WORKING_DIR: "/usr/local/bin"
     LE_CONFIG_HOME: "/etc/acmesh"
 
 - name: Check if haproxy cert installed
   ansible.builtin.stat:
-    path: '/etc/haproxy/*.services.{{ secret_domain }}.pem'
+    path: "/etc/haproxy/*.services.{{ secret_domain }}.pem"
   register: haproxy_pem
 
 - name: Install wildcard cert
@@ -37,12 +37,12 @@
       - acme.sh
       - --deploy
       - -d
-      - '*.services.{{ secret_domain }}'
+      - "*.services.{{ secret_domain }}"
       - --deploy-hook
       - haproxy
   environment:
     DEPLOY_HAPROXY_PEM_PATH: /etc/haproxy
-    DEPLOY_HAPROXY_RELOAD: 'systemctl reload haproxy'
+    DEPLOY_HAPROXY_RELOAD: "systemctl reload haproxy"
     LE_WORKING_DIR: "/usr/local/bin"
     LE_CONFIG_HOME: "/etc/acmesh"
 
