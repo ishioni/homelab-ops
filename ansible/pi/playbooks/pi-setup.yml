@@ -32,10 +32,6 @@
       vars:
         acme_user_email: 'homelab@{{ secret_domain }}'
 
-    - name: Setup cert
-      ansible.builtin.import_tasks: tasks/cert.yml
-      become: true
-
     - name: Setup haproxy
       ansible.builtin.import_tasks: tasks/haproxy.yml
       become: true

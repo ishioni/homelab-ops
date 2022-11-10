@@ -12,17 +12,12 @@
     name:
       - ca-certificates
       - curl
-      - haproxy
       - htop
       - unattended-upgrades
       - git
       - lm-sensors
       - python3-pip
     install_recommends: false
-    update_cache: true
-    cache_valid_time: 3600
-    autoclean: true
-    autoremove: true
 
 - name: Enable unattended upgrades
   block:
@@ -36,6 +31,7 @@
           APT::Periodic::Download-Upgradeable-Packages "1";
           APT::Periodic::AutocleanInterval "3";
           APT::Periodic::Unattended-Upgrade "1";
+      notify: Restart unattended-upgrades
 
     - name: Copy 50unattended-upgrades unattended-upgrades config
       ansible.builtin.blockinfile:
@@ -59,9 +55,10 @@
           // time instead of immediately
           //  Default: "now"
           Unattended-Upgrade::Automatic-Reboot-Time "03:00";
+      notify: Restart unattended-upgrades
 
     - name: Start unattended-upgrades service
       ansible.builtin.systemd:
         name: unattended-upgrades
         enabled: true
-        state: restarted
+        state: started
