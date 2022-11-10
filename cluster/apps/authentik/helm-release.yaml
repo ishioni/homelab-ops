@@ -44,7 +44,6 @@ spec:
         user: authentik
         password: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
       redis:
-        host: "{{ .Release.Name }}-redis-master"
         password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
     ingress:
       enabled: true
