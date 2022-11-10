@@ -39,3 +39,27 @@
     - name: Setup haproxy
       ansible.builtin.import_tasks: tasks/haproxy.yml
       become: true
+
+    - name: Setup NUT
+      ansible.builtin.import_tasks: tasks/nut.yml
+      become: true
+
+  handlers:
+    - name: Restart nut
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: restarted
+        enabled: true
+      loop:
+        - nut-server.service
+        - nut-monitor.service
+
+    - name: Reload haproxy
+      ansible.builtin.systemd:
+        name: haproxy
+        state: reloaded
+
+    - name: Start unattended-upgrades service
+      ansible.builtin.systemd:
+        name: unattended-upgrades
+        state: restarted
