@@ -82,4 +82,4 @@ spec:
           backup.velero.io/backup-volumes: redis-data
         persistence:
           enabled: true
-          size: 4Gi
+          existingClaim: authentik-redis

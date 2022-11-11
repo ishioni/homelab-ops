@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: authentik-postgresql
+  name: authentik-redis
   namespace: security
 spec:
   accessModes:
