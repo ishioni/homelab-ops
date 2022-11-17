@@ -32,7 +32,7 @@ spec:
       email:
         host: smtp.fastmail.com
         port: 465
-        use_tls: true
+        use_ssl: true
         username: "${NULLMAILER_USERNAME}"
         password: "${NULLMAILER_PASSWORD}"
         from: "Authentik <auth@${SECRET_DOMAIN}>"
