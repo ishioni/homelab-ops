@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: weave-gitops
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: weave-gitops
+      version: 4.0.7
+      sourceRef:
+        kind: HelmRepository
+        name: weave-gitops-charts
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    adminUser:
+      create: true
+      username: admin
+    ingress:
+      enabled: true
+      className: private
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+        hajimari.io/appName: Gitops
+        hajimari.io/enable: "true"
+        hajimari.io/icon: source-branch-sync
+      hosts:
+        - host: &host "gitops.${SECRET_INTERNAL_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+  valuesFrom:
+    - kind: Secret
+      name: weave-gitops
+      valuesKey: adminPassword
+      targetPath: adminUser.passwordHash
