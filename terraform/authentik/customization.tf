@@ -74,3 +74,9 @@ resource "authentik_policy_binding" "readarr" {
   group  = authentik_group.media.id
   order  = 0
 }
+
+resource "authentik_policy_binding" "uptime-kuma" {
+  target = authentik_application.uptime-kuma.uuid
+  group  = data.authentik_group.admins.id
+  order  = 0
+}

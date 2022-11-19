@@ -7,7 +7,8 @@ resource "authentik_outpost" "media-outpost" {
     resource.authentik_provider_proxy.prowlarr.id,
     resource.authentik_provider_proxy.sonarr.id,
     resource.authentik_provider_proxy.radarr.id,
-    resource.authentik_provider_proxy.readarr.id
+    resource.authentik_provider_proxy.readarr.id,
+    resource.authentik_provider_proxy.uptime-kuma.id
   ]
   config = jsonencode({
     authentik_host          = "https://auth.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
@@ -71,6 +72,24 @@ resource "authentik_provider_proxy" "readarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
+resource "authentik_provider_proxy" "uptime-kuma" {
+  name               = "uptime-kuma-provider"
+  external_host      = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode               = "forward_single"
+  token_validity     = "hours=1"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  skip_path_regex    = <<-EOT
+  ^/$
+  ^/status
+  ^/assets/
+  ^/assets
+  ^/icon.svg
+  ^/api/.*
+  ^/upload/.*
+  ^/metrics
+  EOT
+}
+
 resource "authentik_application" "transmission" {
   name              = "Transmission"
   slug              = "torrent"
@@ -118,5 +137,16 @@ resource "authentik_application" "readarr" {
   protocol_provider = resource.authentik_provider_proxy.readarr.id
   meta_icon         = "https://github.com/Readarr/Readarr/raw/develop/Logo/128.png"
   meta_description  = "Books"
+  open_in_new_tab   = true
+}
+
+resource "authentik_application" "uptime-kuma" {
+  name              = "Uptime-kuma"
+  slug              = "uptime"
+  group             = "infrastructure"
+  protocol_provider = resource.authentik_provider_proxy.uptime-kuma.id
+  meta_icon         = "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg"
+  meta_description  = "Uptime"
+  meta_launch_url   = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}/dashboard"
   open_in_new_tab   = true
 }
