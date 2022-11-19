@@ -43,6 +43,7 @@ spec:
       tls:
         - hosts:
             - *host
+          secretName: *host
   valuesFrom:
     - kind: Secret
       name: weave-gitops
