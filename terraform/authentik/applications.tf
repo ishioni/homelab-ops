@@ -1,5 +1,5 @@
-resource "authentik_outpost" "media-outpost" {
-  name               = "media-outpost"
+resource "authentik_outpost" "proxyoutpost" {
+  name               = "proxy-outpost"
   type               = "proxy"
   service_connection = authentik_service_connection_kubernetes.local.id
   protocol_providers = [
