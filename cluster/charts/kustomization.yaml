@@ -18,4 +18,5 @@ resources:
   - piraeus-charts.yaml
   - stakater-charts.yaml
   - truenas-csp.yaml
+  - weave-gitops-charts.yaml
   - vmware-tanzu-charts.yaml
