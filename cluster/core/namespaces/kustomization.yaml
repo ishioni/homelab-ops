@@ -10,4 +10,5 @@ resources:
   - security.yaml
   - media.yaml
   - minecraft.yaml
+  - monitoring.yaml
   - nextcloud.yaml
