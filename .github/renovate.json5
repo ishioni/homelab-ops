@@ -156,11 +156,13 @@
     {
       "matchDatasources": [
         "github-releases",
-        "docker"
+        "docker",
+        "helm"
       ],
       "matchPackagePatterns": [
         "external-snapshotter",
-        "snapshot-controller"
+        "snapshot-controller",
+        "snapshot-validation-webhook"
       ],
       "groupName": "external-snapshotter-suite",
       "description": "Group snapshot-controller CRD and chart",
