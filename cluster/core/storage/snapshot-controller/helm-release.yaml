@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://piraeus.io/helm-charts/
       chart: snapshot-validation-webhook
-      version: 1.6.0
+      version: 1.6.1
       sourceRef:
         kind: HelmRepository
         name: piraeus-charts
@@ -34,7 +34,7 @@ spec:
     spec:
       # renovate: registryUrl=https://piraeus.io/helm-charts/
       chart: snapshot-controller
-      version: 1.6.0
+      version: 1.6.1
       sourceRef:
         kind: HelmRepository
         name: piraeus-charts
