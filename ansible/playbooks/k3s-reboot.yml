@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Reboot k3s nodes
+  hosts:
     - master
     - worker
   become: true

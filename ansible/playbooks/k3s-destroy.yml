@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: K3s destroy
+  hosts:
     - master
     - worker
   become: true

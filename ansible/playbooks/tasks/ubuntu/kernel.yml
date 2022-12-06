@@ -44,7 +44,8 @@
     grub_config:
       mitigations: "off"
   register: grub_status
-- name: Reconfigure grub and initramfs
+
+- name: Reconfigure grub and initramfs # noqa no-handler
   ansible.builtin.command: "{{ item }}"
   loop:
     - update-grub

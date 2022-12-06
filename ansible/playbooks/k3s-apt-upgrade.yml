@@ -1,12 +1,13 @@
 ---
-- hosts:
+- name: K3s upgrade packages
+  hosts:
     - master
     - worker
   become: true
   gather_facts: true
   any_errors_fatal: true
   tasks:
-    - name: upgrade
+    - name: Upgrade packages
       ansible.builtin.apt:
         upgrade: full
         update_cache: true

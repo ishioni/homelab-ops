@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: K3s installation
+  hosts:
     - master
     - worker
   become: true
@@ -29,7 +30,7 @@
       vars:
         k3s_state: installed
 
-    - name: Get absolute path to this Git repository
+    - name: Get absolute path to this Git repository # noqa: command-instead-of-module no-changed-when run_once[task]
       delegate_to: localhost
       become: false
       run_once: true
@@ -38,7 +39,7 @@
         git rev-parse --show-toplevel
       register: repo_abs_path
 
-    - name: Copy kubeconfig to provision folder
+    - name: Copy kubeconfig to provision folder # noqa run_once[task]
       run_once: true
       ansible.builtin.fetch:
         src: "/etc/rancher/k3s/k3s.yaml"
@@ -48,7 +49,7 @@
         - k3s_control_node is defined
         - k3s_control_node
 
-    - name: Update kubeconfig with the correct IPv4 address
+    - name: Update kubeconfig with the correct IPv4 address # noqa run_once[task]
       delegate_to: localhost
       become: false
       run_once: true
