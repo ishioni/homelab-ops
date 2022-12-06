@@ -1,5 +1,0 @@
----
-roles:
-  - name: igor_nikiforov.journald
-    src: https://github.com/igor-nikiforov/ansible-role-journald.git
-    version: v1.0.0
