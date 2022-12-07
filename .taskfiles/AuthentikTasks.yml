@@ -4,18 +4,18 @@ version: "3"
 tasks:
   init:
     desc: Initialize terraform dependencies
-    dir: terraform/proxmox
+    dir: terraform/authentik
     cmds:
       - terraform init {{.CLI_ARGS}}
 
   plan:
     desc: Show the changes terraform will make
-    dir: terraform/proxmox
+    dir: terraform/authentik
     cmds:
       - terraform plan {{.CLI_ARGS}}
 
   apply:
-    desc: Apply the terraform code to proxmox nodes
-    dir: terraform/proxmox
+    desc: Apply the changes to Cloudflare
+    dir: terraform/authentik
     cmds:
-      - terraform plan {{.CLI_ARGS}}
+      - terraform apply {{.CLI_ARGS}}

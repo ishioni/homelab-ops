@@ -16,11 +16,9 @@ env:
 includes:
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
-  cloudflare: .taskfiles/CloudflareTasks.yml
   ansible: .taskfiles/AnsibleTasks.yml
-  # proxmmox: .taskfiles/ProxmoxTasks.yml
-  minio: .taskfiles/MinioTasks.yml
   sops: .taskfiles/SopsTasks.yml
+  terraform: .taskfiles/TerraformTasks.yml
 
 tasks:
   init:
