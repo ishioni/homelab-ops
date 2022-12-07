@@ -36,13 +36,9 @@ spec:
         username: "${NULLMAILER_USERNAME}"
         password: "${NULLMAILER_PASSWORD}"
         from: "Authentik <auth@${SECRET_DOMAIN}>"
-      secret_key: "${SECRET_AUTHENTIK_SECRET_KEY}"
       log_level: debug
       error_reporting:
         enabled: false
-      postgresql:
-        user: authentik
-        password: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
       redis:
         password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
     ingress:
@@ -69,17 +65,43 @@ spec:
       persistence:
         enabled: true
         existingClaim: authentik-postgresql
-      postgresqlUsername: authentik
       postgresqlDatabase: authentik
-      postgresqlPassword: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
     redis:
       enabled: true
       auth:
         enabled: true
-        password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
       master:
         podAnnotations:
           backup.velero.io/backup-volumes: redis-data
         persistence:
           enabled: true
           existingClaim: authentik-redis
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: secretKey
+      targetPath: authentik.secret_key
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: postgresUser
+      targetPath: authentik.postgresql.user
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: postgresPassword
+      targetPath: authentik.postgresql.password
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: postgresUser
+      targetPath: postgresql.postgresqlUsername
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: postgresPassword
+      targetPath: postgresql.postgresqlPassword
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: redisPassword
+      targetPath: authentik.redis.password
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: redisPassword
+      targetPath: redis.auth.password
