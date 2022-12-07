@@ -26,11 +26,17 @@
         journald_config:
           Storage: volatile
 
+    - name: Set timezone
+      community.general.timezone:
+        name: "{{ timezone }}"
+      when:
+        - timezone is defined
+
     - name: Install java
       ansible.builtin.include_role:
         name: geerlingguy.java
       vars:
-        java_packages: "openjdk-8-jre-headless"
+        java_packages: "openjdk-11-jre-headless"
 
     - name: Install mongo
       ansible.builtin.import_tasks: tasks/unifi/mongo.yml
