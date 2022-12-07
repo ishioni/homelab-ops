@@ -27,7 +27,6 @@ spec:
       tag: 25.0.1-fpm-alpine
     nextcloud:
       host: "cloud.${SECRET_DOMAIN}"
-      username: cloudadmin
       configs:
         local.config.php: |-
           <?php

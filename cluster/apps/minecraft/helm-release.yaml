@@ -70,7 +70,6 @@ spec:
         - 274
       rcon:
         enabled: true
-        password: "${MINECRAFT_RCON_PASSWORD}"
         serviceType: ClusterIP
       serviceType: LoadBalancer
       extraPorts:
