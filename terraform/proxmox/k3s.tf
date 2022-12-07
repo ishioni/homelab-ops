@@ -1,6 +1,5 @@
 locals {
   k3s_clonesource = "ubuntu2004-cloud"
-  k3s_pool        = "k3s"
   k3s_storage     = "local-zfs"
   dns_server      = "10.1.4.1"
   dns_domain      = "managment.internal"
@@ -44,7 +43,7 @@ module "k3s_masters" {
 
   machine_name = each.value.name
   deploy_node  = each.value.node
-  vm_pool      = local.k3s_pool
+  vm_pool      = "k3s-masters"
   cores        = 2
   memory       = 4 * 1024
   numa         = true
@@ -72,7 +71,7 @@ module "k3s_workers" {
 
   machine_name = each.value.name
   deploy_node  = each.value.node
-  vm_pool      = local.k3s_pool
+  vm_pool      = "k3s-workers"
   cores        = 8
   max_cpu      = 8
   memory       = 12 * 1024
