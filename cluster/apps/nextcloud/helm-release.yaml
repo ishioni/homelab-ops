@@ -27,8 +27,6 @@ spec:
       tag: 25.0.1-fpm-alpine
     nextcloud:
       host: "cloud.${SECRET_DOMAIN}"
-      username: cloudadmin
-      password: "${NEXTCLOUD_PASSWORD}"
       configs:
         local.config.php: |-
           <?php
@@ -44,24 +42,6 @@ spec:
             ),
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
-          );
-        s3.config.php: |-
-          <?php
-          $CONFIG = array (
-            'objectstore' => array(
-              'class' => '\\OC\\Files\\ObjectStore\\S3',
-              'arguments' => array(
-                'hostname'       => 's3.services.${SECRET_DOMAIN}',
-                'port'           => 9000,
-                'use_path_style' => true,
-                'bucket'         => 'nextcloud',
-                'autocreate'     => false,
-                'key'            => 'nextcloud',
-                'secret'         => '${NEXTCLOUD_S3_SECRET_KEY}',
-                'region'         => 'us-east-1',
-                'use_ssl'        => true,
-              ),
-            ),
           );
       mail:
         enabled: true
@@ -147,11 +127,6 @@ spec:
       enabled: false
     mariadb:
       enabled: true
-      auth:
-        rootPassword: "${MARIA_ROOTPASSWORD}"
-        database: nextcloud
-        username: nextcloud
-        password: "${NEXTCLOUD_DBPASSWORD}"
       primary:
         persistence:
           enabled: true
@@ -164,7 +139,39 @@ spec:
       architecture: standalone
       auth:
         enabled: true
-        password: "${NEXTCLOUD_REDISPASSWORD}"
       master:
         persistence:
           enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: adminUsername
+      targetPath: nextcloud.username
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: adminPassword
+      targetPath: nextcloud.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: dbUsername
+      targetPath: mariadb.auth.username
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: dbName
+      targetPath: mariadb.auth.database
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: dbPassword
+      targetPath: mariadb.auth.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: dbRootPassword
+      targetPath: mariadb.auth.rootPassword
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: redisPassword
+      targetPath: redis.auth.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: s3.config.php
+      targetPath: nextcloud.configs."s3\.config\.php"

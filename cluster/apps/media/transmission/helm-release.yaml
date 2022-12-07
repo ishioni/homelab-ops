@@ -38,7 +38,6 @@ spec:
       TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
       TRANSMISSION__RATIO_LIMIT: 1
       TRANSMISSION__RATIO_LIMIT_ENABLED: true
-      TRANSMISSION__RPC_PASSWORD: "${TRANSMISSION_RPC_PASSWORD}"
       TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
       TRANSMISSION__SPEED_LIMIT_UP: 8000
       TRANSMISSION__UMASK: 7
@@ -125,3 +124,8 @@ spec:
           - secretName: "torrent.${SECRET_DOMAIN}"
             hosts:
               - "torrent.${SECRET_DOMAIN}"
+  valuesFrom:
+    - kind: Secret
+      name: transmission-rpc-password
+      valuesKey: rpcPassword
+      targetPath: env.TRANSMISSION__RPC_PASSWORD

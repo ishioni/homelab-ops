@@ -38,11 +38,7 @@ spec:
           region: us-east-1
       resticTimeout: 6h
     credentials:
-      secretContents:
-        cloud: |
-          [default]
-          aws_access_key_id = velero
-          aws_secret_access_key = ${VELERO_S3_SECRET_KEY}
+      existingSecret: velero-s3-credentials
     snapshotsEnabled: true
     deployRestic: true
     restic:

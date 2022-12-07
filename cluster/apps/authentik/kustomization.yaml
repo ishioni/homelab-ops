@@ -5,3 +5,4 @@ resources:
   - helm-release.yaml
   - authentik-postgresql-pvc.yaml
   - authentik-redis-pvc.yaml
+  - secrets.sops.yaml

@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "${SECRET_EMAIL}"
+    email: "k3sadmin@${SECRET_DOMAIN}"
     preferredChain: "ISRG Root X1"
     privateKeySecretRef:
       name: letsencrypt-production

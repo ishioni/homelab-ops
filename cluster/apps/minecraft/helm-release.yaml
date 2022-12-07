@@ -66,11 +66,10 @@ spec:
       memory: ""
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       spigetResources:
-      # Dynmap
+        # Dynmap
         - 274
       rcon:
         enabled: true
-        password: "${MINECRAFT_RCON_PASSWORD}"
         serviceType: ClusterIP
       serviceType: LoadBalancer
       extraPorts:
@@ -99,3 +98,8 @@ spec:
               - secretName: "minecraft.${SECRET_DOMAIN}"
                 hosts:
                   - "minecraft.${SECRET_DOMAIN}"
+  valuesFrom:
+    - kind: Secret
+      name: minecraft-rcon-password
+      valuesKey: rconPassword
+      targetPath: minecraftServer.rcon.password
