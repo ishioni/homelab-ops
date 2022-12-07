@@ -74,3 +74,8 @@ tasks:
     desc: Update proxmox packages
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/proxmox-apt-upgrade.yml
+
+  unifi-setup:
+    desc: Setup the unifi controller
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/unifi-setup.yml
