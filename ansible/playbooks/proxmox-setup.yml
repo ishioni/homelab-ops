@@ -46,8 +46,8 @@
       ansible.builtin.include_role:
         name: netdata
       vars:
-        claim_token: '{{ netdata_claim_token }}'
-        claim_rooms: '{{ netdata_claim_room }}'
+        claim_token: "{{ netdata_claim_token }}"
+        claim_rooms: "{{ netdata_claim_room }}"
 
     - name: Install common packages
       ansible.builtin.apt:
@@ -135,18 +135,18 @@
 
         - name: Download pve-fake-subscription
           ansible.builtin.get_url:
-            url: '{{ json_reponse.json.assets[0].browser_download_url }}'
-            dest: '{{ tmpdir.path }}'
+            url: "{{ json_reponse.json.assets[0].browser_download_url }}"
+            dest: "{{ tmpdir.path }}"
             mode: 0644
           register: download
 
         - name: Install pve-fake-subscription
           ansible.builtin.apt:
-            deb: '{{ download.dest }}'
+            deb: "{{ download.dest }}"
 
     - name: Disable rsyslog
       ansible.builtin.systemd:
-        name: '{{ item }}'
+        name: "{{ item }}"
         enabled: false
         state: stopped
       loop:

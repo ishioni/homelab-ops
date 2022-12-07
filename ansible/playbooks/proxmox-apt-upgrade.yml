@@ -6,7 +6,6 @@
   gather_facts: true
   any_errors_fatal: true
   tasks:
-
     - name: Upgrade packages
       ansible.builtin.apt:
         upgrade: full

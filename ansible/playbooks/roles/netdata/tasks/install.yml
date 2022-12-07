@@ -3,7 +3,7 @@
   ansible.builtin.get_url:
     url: https://packagecloud.io/netdata/netdata/gpgkey
     dest: /etc/apt/trusted.gpg.d/netdata.asc
-    mode: '644'
+    mode: "644"
 
 - name: Add netdata repo
   ansible.builtin.apt_repository:
