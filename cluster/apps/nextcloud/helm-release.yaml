@@ -43,6 +43,24 @@ spec:
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
+        s3.config.php: |-
+          <?php
+          $CONFIG = array (
+            'objectstore' => array(
+              'class' => '\\OC\\Files\\ObjectStore\\S3',
+              'arguments' => array(
+                'hostname'       => 's3.services.${SECRET_DOMAIN}',
+                'port'           => 9000,
+                'use_path_style' => true,
+                'bucket'         => 'nextcloud',
+                'autocreate'     => false,
+                'key'            => 'nextcloud',
+                'secret'         => '${NEXTCLOUD_MINIO_KEY}',
+                'region'         => 'us-east-1',
+                'use_ssl'        => true,
+              ),
+            ),
+          );
       mail:
         enabled: true
         fromAddress: cloud
@@ -171,7 +189,3 @@ spec:
       name: nextcloud-secrets
       valuesKey: redisPassword
       targetPath: redis.auth.password
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: s3Config
-      targetPath: nextcloud.configs.s3\.config\.php
