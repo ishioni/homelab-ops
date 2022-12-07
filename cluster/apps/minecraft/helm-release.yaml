@@ -66,7 +66,7 @@ spec:
       memory: ""
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
       spigetResources:
-      # Dynmap
+        # Dynmap
         - 274
       rcon:
         enabled: true
