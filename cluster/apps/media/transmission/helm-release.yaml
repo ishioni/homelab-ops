@@ -125,3 +125,8 @@ spec:
           - secretName: "torrent.${SECRET_DOMAIN}"
             hosts:
               - "torrent.${SECRET_DOMAIN}"
+  valuesFrom:
+    - kind: Secret
+      name: transmission-rpc-password
+      valuesKey: rpcPassword
+      targetPath: env.TRANSMISSION__RPC_PASSWORD
