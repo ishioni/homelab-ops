@@ -174,4 +174,4 @@ spec:
     - kind: Secret
       name: nextcloud-secrets
       valuesKey: s3.config.php
-      targetPath: nextcloud.configs."s3\.config\.php"
+      targetPath: nextcloud.configs.s3\.config\.php
