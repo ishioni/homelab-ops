@@ -99,3 +99,8 @@ spec:
               - secretName: "minecraft.${SECRET_DOMAIN}"
                 hosts:
                   - "minecraft.${SECRET_DOMAIN}"
+  valuesFrom:
+    - kind: Secret
+      name: minecraft-rcon-password
+      valuesKey: rconPassword
+      targetPath: minecraftServer.rcon.password
