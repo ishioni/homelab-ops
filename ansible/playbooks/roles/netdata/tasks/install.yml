@@ -1,0 +1,16 @@
+---
+- name: Add netdata repo key
+  ansible.builtin.get_url:
+    url: https://packagecloud.io/netdata/netdata/gpgkey
+    dest: /etc/apt/trusted.gpg.d/netdata.asc
+    mode: "644"
+
+- name: Add netdata repo
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/netdata.asc] https://packagecloud.io/netdata/netdata/debian/ {{ ansible_distribution_release }} main"
+    state: present
+    filename: netdata
+
+- name: Install netdata
+  ansible.builtin.apt:
+    name: netdata

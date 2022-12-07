@@ -1,0 +1,52 @@
+---
+- name: Enable kernel modules runtime
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - br_netfilter
+    - overlay
+    - rbd
+    - ip_vs
+    - ip_vs_rr
+    - ip_vs_wrr
+    - ip_vs_lc
+    - ip_vs_sh
+    - nf_conntrack
+    - acpiphp
+    - pci_hotplug
+
+- name: Enable kernel modules on boot
+  ansible.builtin.copy:
+    mode: 0644
+    content: "{{ item }}"
+    dest: "/etc/modules-load.d/{{ item }}.conf"
+  loop:
+    - br_netfilter
+    - overlay
+    - rbd
+    - ip_vs
+    - ip_vs_rr
+    - ip_vs_wrr
+    - ip_vs_lc
+    - ip_vs_sh
+    - nf_conntrack
+    - acpiphp
+    - pci_hotplug
+
+- name: Disable mitigations
+  ansible.builtin.replace:
+    path: /etc/default/grub
+    regexp: '^(GRUB_CMDLINE_LINUX=(?:(?![" ]{{ item.key | regex_escape }}=).)*)(?:[" ]{{ item.key | regex_escape }}=\S+)?(.*")$'
+    replace: '\1 {{ item.key }}={{ item.value }}\2'
+  with_dict: "{{ grub_config }}"
+  vars:
+    grub_config:
+      mitigations: "off"
+  register: grub_status
+
+- name: Reconfigure grub and initramfs # noqa no-handler
+  ansible.builtin.command: "{{ item }}"
+  loop:
+    - update-grub
+  when: grub_status.changed

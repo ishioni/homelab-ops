@@ -40,6 +40,7 @@ jobs:
                 fromJSON('
                   [
                     "ACTION_ACTIONLINT",
+                    "ANSIBLE_ANSIBLE_LINT",
                     "KUBERNETES_KUBEVAL",
                     "MARKDOWN_MARKDOWNLINT",
                     "REPOSITORY_GIT_DIFF",

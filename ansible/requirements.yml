@@ -1,0 +1,25 @@
+---
+collections:
+  - name: community.general
+    version: 5.8.1
+  - name: community.sops
+    version: 1.4.1
+  - name: ansible.posix
+    version: 1.4.0
+roles:
+  - name: xanmanning.k3s
+    src: https://github.com/PyratLabs/ansible-role-k3s.git
+    version: v3.3.1
+  - name: igor_nikiforov.journald
+    src: https://github.com/igor-nikiforov/ansible-role-journald.git
+    version: v1.0.0
+  - name: geerlingguy.java
+  - name: geerlingguy.pip
+    src: https://github.com/geerlingguy/ansible-role-pip.git
+    version: 2.2.0
+  - name: geerlingguy.docker
+    src: https://github.com/geerlingguy/ansible-role-docker.git
+    version: 6.0.4
+  - name: igor_nikiforov.journald
+    src: https://github.com/igor-nikiforov/ansible-role-journald.git
+    version: v1.0.0

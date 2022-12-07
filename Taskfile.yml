@@ -11,20 +11,18 @@ vars:
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/ansible/k3s/kubeconfig"
+  KUBECONFIG: "{{.PROJECT_DIR}}/ansible/kubeconfig"
 
 includes:
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
   cloudflare: .taskfiles/CloudflareTasks.yml
-  k3s: .taskfiles/K3STasks.yml
-  pi: .taskfiles/PiTasks.yml
-  proxmmox: .taskfiles/ProxmoxTasks.yml
+  ansible: .taskfiles/AnsibleTasks.yml
+  # proxmmox: .taskfiles/ProxmoxTasks.yml
   minio: .taskfiles/MinioTasks.yml
   sops: .taskfiles/SopsTasks.yml
 
 tasks:
-
   init:
     desc: Initialize workstation dependencies with Brew
     cmds:
