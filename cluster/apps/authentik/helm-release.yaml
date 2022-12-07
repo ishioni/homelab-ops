@@ -39,8 +39,6 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
-      redis:
-        password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
     ingress:
       enabled: true
       ingressClassName: public
