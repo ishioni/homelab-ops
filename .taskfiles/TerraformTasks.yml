@@ -1,0 +1,8 @@
+---
+version: "3"
+
+includes:
+  authentik: AuthentikTasks.yml
+  cloudflare: CloudflareTasks.yml
+  minio: MinioTasks.yml
+  proxmox: ProxmoxTasks.yml
