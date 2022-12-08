@@ -55,7 +55,7 @@
         name: haproxy
         state: reloaded
 
-    - name: Start unattended-upgrades service
+    - name: Restart unattended-upgrades
       ansible.builtin.systemd:
         name: unattended-upgrades
         state: restarted
