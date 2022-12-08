@@ -1,17 +1,24 @@
 ---
-- name: Setup bastion
+- name: Setup bastion (as root)
+  hosts: bastion
+  gather_facts: true
+  any_errors_fatal: true
+  remote_user: root
+
+  tasks:
+  - name: Setup system options
+    ansible.builtin.import_tasks: tasks/bastion/settings.yml
+
+  - name: Create non-root user
+    ansible.builtin.import_tasks: tasks/bastion/user.yml
+
+- name: Setup bastion (as user)
   hosts: bastion
   become: true
   gather_facts: true
   any_errors_fatal: true
 
   tasks:
-    - name: Stop syslogd
-      ansible.builtin.systemd:
-        name: rsyslog.service
-        enabled: false
-        state: stopped
-
     - name: Setup packages
       ansible.builtin.include_tasks: tasks/bastion/packages.yml
 
@@ -26,6 +33,9 @@
       ansible.builtin.include_role:
         name: geerlingguy.docker
 
+    - name: Setup meshcentral
+      ansible.builtin.include_tasks: tasks/bastion/meshcentral.yml
+
     - name: Install acme.sh
       ansible.builtin.include_role:
         name: acmesh
@@ -39,6 +49,19 @@
     - name: Setup NUT
       ansible.builtin.import_tasks: tasks/bastion/nut.yml
       become: true
+
+    - name: Disable SSH root login
+      ansible.builtin.lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: "PermitRootLogin no"
+        state: present
+      notify: Restart sshd
+
+    - name: Disable root password
+      ansible.builtin.user:
+        name: root
+        password: "*"
 
   handlers:
     - name: Restart nut
@@ -58,4 +81,9 @@
     - name: Restart unattended-upgrades
       ansible.builtin.systemd:
         name: unattended-upgrades
+        state: restarted
+
+    - name: Restart sshd
+      ansible.builtin.systemd:
+        name: sshd
         state: restarted
