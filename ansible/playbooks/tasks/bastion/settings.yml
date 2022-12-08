@@ -1,0 +1,14 @@
+---
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: bastion
+
+- name: Set timezone
+  community.general.timezone:
+    name: Europe/Warsaw
+
+- name: Stop syslogd
+  ansible.builtin.systemd:
+    name: rsyslog.service
+    enabled: false
+    state: stopped
