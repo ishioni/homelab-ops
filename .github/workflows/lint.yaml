@@ -55,6 +55,10 @@ jobs:
             }}
           ANSIBLE_DIRECTORY: ansible
           ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: .ansible-lint
+          ANSIBLE_ANSIBLE_LINT_PRE_COMMANDS:
+            - command: ansible-galaxy install -r requirements.yml --collections-path ~/.ansible/collections --force
+              cwd: workspace
+              continue_if_failed: false
           KUBERNETES_DIRECTORY: cluster
           KUBERNETES_KUBEVAL_ARGUMENTS: --ignore-missing-schemas
           KUBERNETES_KUBEVAL_FILTER_REGEX_INCLUDE: "(kubernetes)"
