@@ -2,5 +2,5 @@
 warn_list:
   - unnamed-task
 mock_modules:
-  - "ansible.posix.mount"
-  - "community.general.timezone"
+  - "ansible.posix"
+  - "community.general"
