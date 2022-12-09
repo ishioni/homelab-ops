@@ -5,6 +5,7 @@ resources:
   - cert-manager.yaml
   - external-dns.yaml
   - ingress.yaml
+  - immich.yaml
   - storage.yaml
   - reverse-proxy.yaml
   - security.yaml
