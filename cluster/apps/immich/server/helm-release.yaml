@@ -38,7 +38,7 @@ spec:
       - ./start-server.sh
     envFrom:
       - secretRef:
-          name: immich-secret
+          name: immich-secrets
       - configMapRef:
           name: immich-configmap
     service:

@@ -40,7 +40,7 @@ spec:
       - ./start-microservices.sh
     envFrom:
       - secretRef:
-          name: immich-secret
+          name: immich-secrets
       - configMapRef:
           name: immich-configmap
     service:

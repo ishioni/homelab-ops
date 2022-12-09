@@ -33,7 +33,7 @@ spec:
       tag: v1.37.0_58-dev
     envFrom:
       - secretRef:
-          name: immich-secret
+          name: immich-secrets
       - configMapRef:
           name: immich-configmap
     service:
