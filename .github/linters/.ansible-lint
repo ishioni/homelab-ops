@@ -1,4 +1,6 @@
 # .ansible-lint
 warn_list:
   - unnamed-task
-offline: false
+mock_modules:
+  - "ansible.posix.mount"
+  - "community.general.timezone"
