@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: immich-postgres
+  namespace: immich
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: postgresql
+      version: 11.8.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    persistence:
+      enabled: true
+      existingClaim: immich-postgresql
+  valuesFrom:
+    - kind: Secret
+      name: immich-secrets
+      valuesKey: DB_USERNAME
+      path: auth.username
+    - kind: Secret
+      name: immich-secrets
+      valuesKey: DB_PASSWORD
+      path: auth.password
+    - kind: ConfigMap
+      name: immich-configmap
+      valuesKey: DB_DATABASE_NAME
+      path: auth.database

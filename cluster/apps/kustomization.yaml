@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - authentik
   - default
+  - immich
   - kube-system
   - media
   - minecraft
