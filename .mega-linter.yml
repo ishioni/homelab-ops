@@ -1,4 +1,4 @@
 ANSIBLE_ANSIBLE_LINT_PRE_COMMANDS:
-  - command: ansible-galaxy install -r requirements.yml --collections-path ~/.ansible/collections --force
+  - command: ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
     cwd: workspace
     continue_if_failed: false
