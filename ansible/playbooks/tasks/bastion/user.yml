@@ -5,6 +5,7 @@
     groups: users, sudo
     append: true
     password: "{{ bastion_user_pass | password_hash('sha512') }}"
+    shell: /bin/bash
 
 - name: Add authorized key
   ansible.posix.authorized_key:
