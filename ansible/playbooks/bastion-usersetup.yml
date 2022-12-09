@@ -1,0 +1,13 @@
+---
+- name: Setup bastion user
+  hosts: bastion
+  gather_facts: true
+  any_errors_fatal: true
+  remote_user: root
+
+  tasks:
+  - name: Setup system options
+    ansible.builtin.import_tasks: tasks/bastion/settings.yml
+
+  - name: Create non-root user
+    ansible.builtin.import_tasks: tasks/bastion/user.yml

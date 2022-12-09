@@ -1,17 +1,4 @@
 ---
-- name: Setup bastion (as root)
-  hosts: bastion
-  gather_facts: true
-  any_errors_fatal: true
-  remote_user: root
-
-  tasks:
-  - name: Setup system options
-    ansible.builtin.import_tasks: tasks/bastion/settings.yml
-
-  - name: Create non-root user
-    ansible.builtin.import_tasks: tasks/bastion/user.yml
-
 - name: Setup bastion (as user)
   hosts: bastion
   become: true
@@ -19,71 +6,78 @@
   any_errors_fatal: true
 
   tasks:
-    - name: Setup packages
-      ansible.builtin.include_tasks: tasks/bastion/packages.yml
+    # - name: Setup packages
+    #   ansible.builtin.include_tasks: tasks/bastion/packages.yml
 
-    - name: Install netdata
-      ansible.builtin.include_role:
-        name: netdata
-      vars:
-        claim_token: "{{ netdata_claim_token }}"
-        claim_rooms: "{{ netdata_claim_room }}"
+    # - name: Install netdata
+    #   ansible.builtin.include_role:
+    #     name: netdata
+    #   vars:
+    #     claim_token: "{{ netdata_claim_token }}"
+    #     claim_rooms: "{{ netdata_claim_room }}"
 
     - name: Install docker
       ansible.builtin.include_role:
         name: geerlingguy.docker
 
+    - name: Install docker-compose
+      ansible.builtin.pip:
+        name: "{{ item }}"
+      loop:
+        - docker>=5.0.0
+        - docker-compose
+
     - name: Setup meshcentral
       ansible.builtin.include_tasks: tasks/bastion/meshcentral.yml
 
-    - name: Install acme.sh
-      ansible.builtin.include_role:
-        name: acmesh
-      vars:
-        acme_user_email: "homelab@{{ secret_domain }}"
+  #   - name: Install acme.sh
+  #     ansible.builtin.include_role:
+  #       name: acmesh
+  #     vars:
+  #       acme_user_email: "homelab@{{ secret_domain }}"
 
     - name: Setup haproxy
       ansible.builtin.import_tasks: tasks/bastion/haproxy.yml
       become: true
 
-    - name: Setup NUT
-      ansible.builtin.import_tasks: tasks/bastion/nut.yml
-      become: true
+  #   - name: Setup NUT
+  #     ansible.builtin.import_tasks: tasks/bastion/nut.yml
+  #     become: true
 
-    - name: Disable SSH root login
-      ansible.builtin.lineinfile:
-        dest: /etc/ssh/sshd_config
-        regexp: '^PermitRootLogin'
-        line: "PermitRootLogin no"
-        state: present
-      notify: Restart sshd
+  #   - name: Disable SSH root login
+  #     ansible.builtin.lineinfile:
+  #       dest: /etc/ssh/sshd_config
+  #       regexp: '^PermitRootLogin'
+  #       line: "PermitRootLogin no"
+  #       state: present
+  #     notify: Restart sshd
 
-    - name: Disable root password
-      ansible.builtin.user:
-        name: root
-        password: "*"
+  #   - name: Disable root password
+  #     ansible.builtin.user:
+  #       name: root
+  #       password: "*"
 
   handlers:
-    - name: Restart nut
-      ansible.builtin.systemd:
-        name: "{{ item }}"
-        state: restarted
-        enabled: true
-      loop:
-        - nut-server.service
-        - nut-monitor.service
+  #   - name: Restart nut
+  #     ansible.builtin.systemd:
+  #       name: "{{ item }}"
+  #       state: restarted
+  #       enabled: true
+  #     loop:
+  #       - nut-server.service
+  #       - nut-monitor.service
 
     - name: Reload haproxy
       ansible.builtin.systemd:
         name: haproxy
         state: reloaded
 
-    - name: Restart unattended-upgrades
-      ansible.builtin.systemd:
-        name: unattended-upgrades
-        state: restarted
+  #   - name: Restart unattended-upgrades
+  #     ansible.builtin.systemd:
+  #       name: unattended-upgrades
+  #       state: restarted
 
-    - name: Restart sshd
-      ansible.builtin.systemd:
-        name: sshd
-        state: restarted
+  #   - name: Restart sshd
+  #     ansible.builtin.systemd:
+  #       name: sshd
+  #       state: restarted

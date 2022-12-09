@@ -1,0 +1,27 @@
+---
+- name: Create meshcentral dir
+  ansible.builtin.file:
+    path: "/home/{{ bastion_user }}/Docker/meshcentral"
+    state: directory
+    owner: "{{ bastion_user }}"
+    group: "{{ bastion_user }}"
+    recurse: true
+  register: meshcentral_dir
+
+- name: Install meshcentral docker-compose
+  ansible.builtin.copy:
+    src: files/meshcentral.yaml
+    dest: "{{ meshcentral_dir.path }}/docker-compose.yaml"
+    mode: 0644
+  # notify: Restart meshcentral
+
+- name: Install meshcentral envs
+  ansible.builtin.template:
+    src: templates/meshcentral.env.j2
+    dest: "{{ meshcentral_dir.path }}/meshcentral.env"
+    mode: 0644
+
+- name: Run meshcentral
+  community.docker.docker_compose:
+    project_src: "{{ meshcentral_dir.path }}"
+    state: present

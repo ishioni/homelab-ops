@@ -56,4 +56,4 @@ backend proxmox.services.{{ secret_domain }}
 
 backend amt.services.{{ secret_domain }}
     timeout server 65000
-    server localhost localhost:8086 check
+    server localhost localhost:8086 check ssl verify none

@@ -1,7 +1,7 @@
 ---
 - name: Setup proxmox nodes
   hosts:
-    - nodes
+    - proxmox
   become: true
   gather_facts: true
   any_errors_fatal: true
@@ -53,6 +53,7 @@
       ansible.builtin.apt:
         name:
           - vim
+          - ethtool
           - htop
           - linux-cpupower
           - lm-sensors
