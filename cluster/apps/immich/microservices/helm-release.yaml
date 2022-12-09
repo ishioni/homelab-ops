@@ -22,9 +22,9 @@ spec:
     remediation:
       retries: 5
   dependsOn:
-    - name: postgres
+    - name: immich-postgres
       namespace: immich
-    - name: redis
+    - name: immich-redis
       namespace: immich
     - name: immich-server
       namespace: immich
