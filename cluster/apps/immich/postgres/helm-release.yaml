@@ -29,12 +29,12 @@ spec:
     - kind: Secret
       name: immich-secrets
       valuesKey: DB_USERNAME
-      path: auth.username
+      targetPath: auth.username
     - kind: Secret
       name: immich-secrets
       valuesKey: DB_PASSWORD
-      path: auth.password
+      targetPath: auth.password
     - kind: ConfigMap
       name: immich-configmap
       valuesKey: DB_DATABASE_NAME
-      path: auth.database
+      targetPath: auth.database
