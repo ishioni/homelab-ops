@@ -1,0 +1,21 @@
+---
+- name: Create local user
+  ansible.builtin.user:
+    name: "{{ bastion_user }}"
+    groups: users, sudo
+    append: true
+    password: "{{ bastion_user_pass | password_hash('sha512') }}"
+
+- name: Add authorized key
+  ansible.posix.authorized_key:
+    user: "{{ bastion_user }}"
+    state: present
+    key: https://github.com/ishioni.keys
+
+- name: Add sudo permissions
+  community.general.sudoers:
+    name: "{{ bastion_user }}"
+    user: "{{ bastion_user }}"
+    nopassword: true
+    runas: ALL
+    commands: ALL

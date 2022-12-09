@@ -29,7 +29,7 @@ jobs:
           private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: MegaLinter
-        uses: oxsecurity/megalinter@v6.15.0
+        uses: oxsecurity/megalinter/flavors/terraform@v6
         env:
           GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
           PRINT_ALPACA: false
@@ -40,7 +40,6 @@ jobs:
                 fromJSON('
                   [
                     "ACTION_ACTIONLINT",
-                    "ANSIBLE_ANSIBLE_LINT",
                     "KUBERNETES_KUBEVAL",
                     "MARKDOWN_MARKDOWNLINT",
                     "REPOSITORY_GIT_DIFF",
@@ -54,7 +53,8 @@ jobs:
               )
             }}
           ANSIBLE_DIRECTORY: ansible
-          ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: .ansible-lint
+          ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: .github/linters/.ansible-lint
+          ANSIBLE_ANSIBLE_LINT_PRE_COMMANDS: '[{"command":"ansible-galaxy collection install -r ansible/requirements.yml --collections-path ~/.ansible/collections --force","continue_if_failed":false,"cwd":"workspace"}]'
           KUBERNETES_DIRECTORY: cluster
           KUBERNETES_KUBEVAL_ARGUMENTS: --ignore-missing-schemas
           KUBERNETES_KUBEVAL_FILTER_REGEX_INCLUDE: "(kubernetes)"

@@ -20,12 +20,12 @@
 
 - name: Configure nut (2)
   ansible.builtin.template:
-    src: "templates/{{ item }}"
+    src: "templates/{{ item }}.j2"
     dest: "/etc/nut/{{ item }}"
     mode: 0440
   loop:
-    - upsd.users.j2
-    - upsmon.conf.j2
+    - upsd.users
+    - upsmon.conf
   notify: "Restart nut"
 
 - name: Restart nut
@@ -34,5 +34,6 @@
     state: started
     enabled: true
   loop:
+    - nut-driver.service
     - nut-server.service
     - nut-monitor.service

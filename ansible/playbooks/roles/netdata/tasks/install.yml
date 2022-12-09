@@ -7,7 +7,7 @@
 
 - name: Add netdata repo
   ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/netdata.asc] https://packagecloud.io/netdata/netdata/debian/ {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/netdata.asc] https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main"
     state: present
     filename: netdata
 
