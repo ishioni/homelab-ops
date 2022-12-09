@@ -6,13 +6,13 @@ metadata:
   namespace: immich
 data:
   DB_DATABASE_NAME: immich
-  DB_HOSTNAME: immich-postgres.immich.svc.cluster.local
+  DB_HOSTNAME: immich-postgres-postgresql.immich.svc.cluster.local
   DB_PORT: "5432"
   DISABLE_REVERSE_GEOCODING: "true"
   ENABLE_MAPBOX: "false"
   LOG_LEVEL: verbose
   NODE_ENV: "production"
-  REDIS_HOSTNAME: immich-redis.immich.svc.cluster.local
+  REDIS_HOSTNAME: immich-redis-master.immich.svc.cluster.local
   REDIS_PORT: "6379"
   REDIS_DBINDEX: "0"
   IMMICH_WEB_URL: http://immich-web.immich.svc.cluster.local:3000
