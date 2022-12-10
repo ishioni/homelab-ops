@@ -19,18 +19,18 @@ data "authentik_group" "admins" {
   name = "authentik Admins"
 }
 
-resource "authentik_group" "nextcloud-users" {
-  name         = "nextcloud-users"
-  is_superuser = false
-  parent       = resource.authentik_group.users.id
-  attributes = jsonencode({
-    nextcloud_quota = "1 GB"
-  })
-}
+# resource "authentik_group" "nextcloud-users" {
+#   name         = "nextcloud-users"
+#   is_superuser = false
+#   parent       = resource.authentik_group.users.id
+#   attributes = jsonencode({
+#     nextcloud_quota = "1 GB"
+#   })
+# }
 
-resource "authentik_group" "nextcloud-admins" {
-  name = "nextcloud-admins"
-  attributes = jsonencode({
-    nextcloud_admin = true
-  })
-}
+# resource "authentik_group" "nextcloud-admins" {
+#   name = "nextcloud-admins"
+#   attributes = jsonencode({
+#     nextcloud_admin = true
+#   })
+# }

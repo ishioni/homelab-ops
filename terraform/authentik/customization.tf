@@ -51,27 +51,27 @@ data "authentik_scope_mapping" "scopes" {
   ]
 }
 
-resource "authentik_scope_mapping" "oidc-scope-nextcloud-quota" {
-  name       = "OIDC-scope-nextcloud-quota"
-  scope_name = "nextcloud_quota"
-  expression = <<EOF
-if user.attributes.get("nextcloud_quota") is not None:
-  return user.attributes.get("nextcloud_quota")
-else:
-  return user.group_attributes().get("nextcloud_quota", "1 GB")
-EOF
-}
+# resource "authentik_scope_mapping" "oidc-scope-nextcloud-quota" {
+#   name       = "OIDC-scope-nextcloud-quota"
+#   scope_name = "nextcloud_quota"
+#   expression = <<EOF
+# if user.attributes.get("nextcloud_quota") is not None:
+#   return user.attributes.get("nextcloud_quota")
+# else:
+#   return user.group_attributes().get("nextcloud_quota", "1 GB")
+# EOF
+# }
 
-resource "authentik_scope_mapping" "oidc-scope-nextcloud-groups" {
-  name       = "OIDC-scope-nextcloud-groups"
-  scope_name = "nextcloud_groups"
-  expression = <<EOF
-if user.group_attributes().get("nextcloud_admin") is True:
-  return "admin"
-else:
-  return "users"
-EOF
-}
+# resource "authentik_scope_mapping" "oidc-scope-nextcloud-groups" {
+#   name       = "OIDC-scope-nextcloud-groups"
+#   scope_name = "nextcloud_groups"
+#   expression = <<EOF
+# if user.group_attributes().get("nextcloud_admin") is True:
+#   return "admin"
+# else:
+#   return "users"
+# EOF
+# }
 ## Group bindings
 
 resource "authentik_policy_binding" "transmission" {

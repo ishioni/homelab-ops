@@ -103,9 +103,9 @@ resource "authentik_provider_oauth2" "oidc" {
   access_code_validity = "minutes=10"
   token_validity = "days=30"
   property_mappings = concat(
-    data.authentik_scope_mapping.scopes.ids,
-    formatlist(authentik_scope_mapping.oidc-scope-nextcloud-quota.id),
-    formatlist(authentik_scope_mapping.oidc-scope-nextcloud-groups.id)
+    data.authentik_scope_mapping.scopes.ids
+    # formatlist(authentik_scope_mapping.oidc-scope-nextcloud-quota.id),
+    # formatlist(authentik_scope_mapping.oidc-scope-nextcloud-groups.id)
     )
   redirect_uris = [
     "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}/auth/login",
@@ -174,9 +174,14 @@ resource "authentik_application" "uptime-kuma" {
   open_in_new_tab   = true
 }
 
-# resource "authentik_application" "immich" {
-#   name = "immich"
-#   slug = "immich"
-#   group = "media"
+resource "authentik_application" "immich" {
+  name = "immich"
+  slug = "immich"
+  group = "media"
+  protocol_provider = resource.authentik_provider_oauth2.oidc.id
+  meta_icon = "https://github.com/immich-app/immich/raw/main/web/static/favicon.png"
+  meta_description = "Photo managment"
+  meta_launch_url = "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  open_in_new_tab = true
 
-# }
+}
