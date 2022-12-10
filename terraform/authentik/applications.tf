@@ -90,6 +90,29 @@ resource "authentik_provider_proxy" "uptime-kuma" {
   EOT
 }
 
+resource "authentik_provider_oauth2" "oidc" {
+  name = "oidc-provider"
+  client_id = data.sops_file.authentik_secrets.data["oidc_client_id"]
+  client_secret = data.sops_file.authentik_secrets.data["oidc_client_secret"]
+  authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  signing_key                = data.authentik_certificate_key_pair.generated.id
+  client_type = "confidential"
+  include_claims_in_id_token = true
+  issuer_mode = "per_provider"
+  sub_mode = "user_username"
+  access_code_validity = "minutes=10"
+  token_validity = "days=30"
+  property_mappings = concat(
+    data.authentik_scope_mapping.scopes.ids,
+    formatlist(authentik_scope_mapping.oidc-scope-nextcloud-quota.id),
+    formatlist(authentik_scope_mapping.oidc-scope-nextcloud-groups.id)
+    )
+  redirect_uris = [
+    "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}/auth/login",
+    "app.immich:/"
+  ]
+}
+
 resource "authentik_application" "transmission" {
   name              = "Transmission"
   slug              = "torrent"
@@ -150,3 +173,10 @@ resource "authentik_application" "uptime-kuma" {
   meta_launch_url   = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}/dashboard"
   open_in_new_tab   = true
 }
+
+# resource "authentik_application" "immich" {
+#   name = "immich"
+#   slug = "immich"
+#   group = "media"
+
+# }
