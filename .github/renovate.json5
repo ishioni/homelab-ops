@@ -154,6 +154,20 @@
       "separateMinorPatch": true
     },
     {
+      "description": "Immich images",
+      "groupName": "Immich",
+      "matchPackagePatterns": [
+        "immich"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "matchDatasources": [
         "github-releases",
         "docker",
