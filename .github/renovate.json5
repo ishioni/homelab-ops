@@ -165,7 +165,8 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
+      "separateMinorPatch": true,
+      "versioning": "loose"
     },
     {
       "matchDatasources": [
