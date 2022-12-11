@@ -61,6 +61,26 @@ spec:
               ),
             ),
           );
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 3600
+          default_phone_region = PL
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+
+          pm = dynamic
+          pm.max_children = 57
+          pm.start_servers = 14
+          pm.min_spare_servers = 14
+          pm.max_spare_servers = 42
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
       mail:
         enabled: true
         fromAddress: cloud
@@ -89,7 +109,7 @@ spec:
         cpu: 200m
         memory: 300Mi
       limits:
-        memory: 1000Mi
+        memory: 2000Mi
     cronjob:
       enabled: true
     ingress:
