@@ -166,6 +166,7 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true,
+      "allowedVersions": "<10",
       "versioning": "loose"
     },
     {
