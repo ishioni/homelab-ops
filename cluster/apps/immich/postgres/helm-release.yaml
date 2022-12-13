@@ -25,7 +25,6 @@ spec:
   values:
     persistence:
       enabled: true
-      existingClaim: immich-postgresql
   valuesFrom:
     - kind: Secret
       name: immich-secrets

@@ -28,7 +28,6 @@ spec:
       enabled: true
     persistence:
       enabled: true
-      existingClaim: immich-redis
   valuesFrom:
     - kind: Secret
       name: immich-secrets
