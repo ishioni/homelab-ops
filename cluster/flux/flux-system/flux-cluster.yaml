@@ -1,5 +1,6 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/gitrepository-source-v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
   name: flux-cluster
@@ -10,6 +11,7 @@ spec:
     branch: master
   url: https://github.com/ishioni/homelab-ops
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/kustomization-kustomize-v1beta2.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
