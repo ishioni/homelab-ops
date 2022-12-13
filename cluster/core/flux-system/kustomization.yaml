@@ -5,4 +5,3 @@ resources:
   - namespace.yaml
   - webhooks
   - notifications
-  - fail
