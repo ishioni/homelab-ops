@@ -5,5 +5,4 @@ resources:
   - cert-manager
   - metallb
   - snapshot-controller
-  - kube-prometheus-stack
   - velero
