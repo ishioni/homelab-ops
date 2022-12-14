@@ -17,6 +17,7 @@ resources:
   - minecraft-server-charts.yaml
   - nextcloud-charts.yaml
   - piraeus-charts.yaml
+  - prometheus-community.yaml
   - stakater-charts.yaml
   - truenas-csp.yaml
   - weave-gitops-charts.yaml
