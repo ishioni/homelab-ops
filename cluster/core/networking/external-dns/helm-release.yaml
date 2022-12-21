@@ -39,7 +39,7 @@ spec:
             key: api-token
     extraArgs:
       - --annotation-filter=external-dns/is-public in (true)
-    policy: sync
+    policy: upsert-only
     sources:
       - ingress
     txtPrefix: "k8s."
