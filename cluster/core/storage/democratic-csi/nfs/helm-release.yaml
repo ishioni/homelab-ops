@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: democratic-csi-nfs
+  namespace: storage
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://hpe-storage.github.io/truenas-csp/
+      chart: democratic-csi
+      version: 0.13.5
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    csiDriver:
+      name: "org.democratic-csi.nfs"
+    storageClasses:
+      - name: truenas-hdd-nfs
+        defaultClass: false
+        reclaimPolicy: Delete
+        volumeBindingMode: Immediate
+        allowVolumeExpansion: true
+        parameters:
+          fsType: nfs
+        mountOptions:
+          - nfsvers=4.2
+          - nconnect=8
+          - hard
+          - intr
+          - noatime
+          - nodiratime
+        secrets:
+          provisioner-secret:
+          controller-publish-secret:
+          node-stage-secret:
+          node-publish-secret:
+          controller-expand-secret:
+    volumeSnapshotClasses:
+      - name: freenas-nfs-csi
+        parameters:
+        secrets:
+          snapshotter-secret:
+    driver:
+      config:
+        driver: freenas-api-nfs
+      existingConfigSecret: truenas-config-nfs
