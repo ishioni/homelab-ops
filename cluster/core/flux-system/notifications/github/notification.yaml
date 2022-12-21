@@ -8,6 +8,7 @@ metadata:
 spec:
   type: github
   address: https://github.com/ishioni/homelab-ops
+  interval: 10m
   secretRef:
     name: github-token
 ---

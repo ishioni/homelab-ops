@@ -8,6 +8,7 @@ metadata:
 spec:
   type: telegram
   channel: "879509412"
+  interval: 10m
   secretRef:
     name: telegram-token
 ---
