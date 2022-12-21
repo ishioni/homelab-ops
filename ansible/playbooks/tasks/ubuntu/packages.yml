@@ -42,6 +42,12 @@
   retries: 5
   until: apt_install_common is success
 
+- name: Install hwe kernel
+  ansible.builtin.apt:
+    name: linux-generic-hwe-20.04
+    install_recommends: true
+  notify: Reboot node
+
 - name: Copy 20auto-upgrades unattended-upgrades config
   ansible.builtin.blockinfile:
     path: /etc/apt/apt.conf.d/20auto-upgrades
@@ -76,6 +82,5 @@
 - name: Restart unattended-upgrades service
   ansible.builtin.service:
     name: unattended-upgrades.service
-    daemon_reload: true
     enabled: true
     state: restarted

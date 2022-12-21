@@ -28,3 +28,7 @@
 
     - name: Configure logging options
       ansible.builtin.import_tasks: tasks/ubuntu/logging.yml
+
+  handlers:
+    - name: Reboot node
+      ansible.builtin.reboot:
