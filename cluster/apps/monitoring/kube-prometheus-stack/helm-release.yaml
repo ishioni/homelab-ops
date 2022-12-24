@@ -223,8 +223,8 @@ spec:
     - kind: Secret
       name: prometheus-secrets
       valuesKey: telegram_bot_token
-      targetPath: alertmanager.config.receivers[1].telegram_config[0].bot_token
+      targetPath: alertmanager.config.receivers[1].telegram_configs[0].bot_token
     - kind: Secret
       name: prometheus-secrets
       valuesKey: telegram_chat_id
-      targetPath: alertmanager.config.receivers[1].telegram_config[0].chat_id
+      targetPath: alertmanager.config.receivers[1].telegram_configs[0].chat_id
