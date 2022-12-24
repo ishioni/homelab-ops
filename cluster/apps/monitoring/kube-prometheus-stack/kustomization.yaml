@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - thanos-objstore-config.sops.yaml
   - helm-release.yaml
+  - prometheus-secrets.sops.yaml
