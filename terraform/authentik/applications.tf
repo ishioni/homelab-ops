@@ -134,7 +134,7 @@ resource "authentik_provider_oauth2" "grafana" {
 resource "authentik_application" "transmission" {
   name              = "Transmission"
   slug              = "torrent"
-  group             = "media"
+  group             = "Media"
   protocol_provider = resource.authentik_provider_proxy.transmission.id
   meta_icon         = "https://github.com/transmission/transmission/raw/main/web/assets/img/logo.png"
   meta_description  = "Torrent client"
@@ -144,7 +144,7 @@ resource "authentik_application" "transmission" {
 resource "authentik_application" "prowlarr" {
   name              = "Prowlarr"
   slug              = "indexer"
-  group             = "media"
+  group             = "Media"
   protocol_provider = resource.authentik_provider_proxy.prowlarr.id
   meta_icon         = "https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/128.png"
   meta_description  = "Torrent indexer"
@@ -154,7 +154,7 @@ resource "authentik_application" "prowlarr" {
 resource "authentik_application" "radarr" {
   name              = "Sonarr"
   slug              = "movies"
-  group             = "media"
+  group             = "Media"
   protocol_provider = resource.authentik_provider_proxy.radarr.id
   meta_icon         = "https://github.com/Radarr/Radarr/raw/develop/Logo/128.png"
   meta_description  = "Movies"
@@ -164,7 +164,7 @@ resource "authentik_application" "radarr" {
 resource "authentik_application" "sonarr" {
   name              = "Sonarr"
   slug              = "tv"
-  group             = "media"
+  group             = "Media"
   protocol_provider = resource.authentik_provider_proxy.sonarr.id
   meta_icon         = "https://github.com/Sonarr/Sonarr/raw/develop/Logo/128.png"
   meta_description  = "TV"
@@ -174,7 +174,7 @@ resource "authentik_application" "sonarr" {
 resource "authentik_application" "readarr" {
   name              = "Readarr"
   slug              = "books"
-  group             = "media"
+  group             = "Media"
   protocol_provider = resource.authentik_provider_proxy.readarr.id
   meta_icon         = "https://github.com/Readarr/Readarr/raw/develop/Logo/128.png"
   meta_description  = "Books"
@@ -184,7 +184,7 @@ resource "authentik_application" "readarr" {
 resource "authentik_application" "immich" {
   name              = "immich"
   slug              = "immich"
-  group             = "media"
+  group             = "Media"
   protocol_provider = resource.authentik_provider_oauth2.oidc.id
   meta_icon         = "https://github.com/immich-app/immich/raw/main/web/static/favicon.png"
   meta_description  = "Photo managment"
@@ -196,7 +196,7 @@ resource "authentik_application" "immich" {
 resource "authentik_application" "uptime-kuma" {
   name              = "Uptime-kuma"
   slug              = "uptime"
-  group             = "infrastructure"
+  group             = "Infrastructure"
   protocol_provider = resource.authentik_provider_proxy.uptime-kuma.id
   meta_icon         = "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg"
   meta_description  = "Uptime"
@@ -207,7 +207,7 @@ resource "authentik_application" "uptime-kuma" {
 resource "authentik_application" "grafana" {
   name              = "Grafana"
   slug              = "grafana"
-  group             = "infrastructure"
+  group             = "Infrastructure"
   protocol_provider = resource.authentik_provider_oauth2.grafana.id
   meta_icon         = "https://raw.githubusercontent.com/grafana/grafana/main/public/img/icons/mono/grafana.svg"
   meta_description  = "Infrastructure graphs"
