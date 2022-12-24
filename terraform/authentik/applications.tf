@@ -91,25 +91,43 @@ resource "authentik_provider_proxy" "uptime-kuma" {
 }
 
 resource "authentik_provider_oauth2" "oidc" {
-  name = "oidc-provider"
-  client_id = data.sops_file.authentik_secrets.data["oidc_client_id"]
-  client_secret = data.sops_file.authentik_secrets.data["oidc_client_secret"]
+  name                       = "oidc-provider"
+  client_id                  = data.sops_file.authentik_secrets.data["oidc_client_id"]
+  client_secret              = data.sops_file.authentik_secrets.data["oidc_client_secret"]
   authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   signing_key                = data.authentik_certificate_key_pair.generated.id
-  client_type = "confidential"
+  client_type                = "confidential"
   include_claims_in_id_token = true
-  issuer_mode = "per_provider"
-  sub_mode = "user_username"
-  access_code_validity = "minutes=10"
-  token_validity = "days=30"
+  issuer_mode                = "per_provider"
+  sub_mode                   = "user_username"
+  access_code_validity       = "minutes=10"
+  token_validity             = "days=30"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
     # formatlist(authentik_scope_mapping.oidc-scope-nextcloud-quota.id),
     # formatlist(authentik_scope_mapping.oidc-scope-nextcloud-groups.id)
-    )
+  )
   redirect_uris = [
     "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}/auth/login",
     "app.immich:/"
+  ]
+}
+
+resource "authentik_provider_oauth2" "grafana" {
+  name                 = "grafana-oidc"
+  client_id            = data.sops_file.authentik_secrets.data["grafana_client_id"]
+  client_secret        = data.sops_file.authentik_secrets.data["grafana_client_secret"]
+  authorization_flow   = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  signing_key          = data.authentik_certificate_key_pair.generated.id
+  client_type          = "confidential"
+  issuer_mode          = "per_provider"
+  access_code_validity = "minutes=10"
+  token_validity       = "days=30"
+  property_mappings = concat(
+    data.authentik_scope_mapping.scopes.ids
+  )
+  redirect_uris = [
+    "https://grafana.internal.${data.sops_file.authentik_secrets.data["cluster_domain"]}/login/generic_oauth"
   ]
 }
 
@@ -163,6 +181,18 @@ resource "authentik_application" "readarr" {
   open_in_new_tab   = true
 }
 
+resource "authentik_application" "immich" {
+  name              = "immich"
+  slug              = "immich"
+  group             = "media"
+  protocol_provider = resource.authentik_provider_oauth2.oidc.id
+  meta_icon         = "https://github.com/immich-app/immich/raw/main/web/static/favicon.png"
+  meta_description  = "Photo managment"
+  meta_launch_url   = "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  open_in_new_tab   = true
+
+}
+
 resource "authentik_application" "uptime-kuma" {
   name              = "Uptime-kuma"
   slug              = "uptime"
@@ -174,14 +204,13 @@ resource "authentik_application" "uptime-kuma" {
   open_in_new_tab   = true
 }
 
-resource "authentik_application" "immich" {
-  name = "immich"
-  slug = "immich"
-  group = "media"
-  protocol_provider = resource.authentik_provider_oauth2.oidc.id
-  meta_icon = "https://github.com/immich-app/immich/raw/main/web/static/favicon.png"
-  meta_description = "Photo managment"
-  meta_launch_url = "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  open_in_new_tab = true
-
+resource "authentik_application" "grafana" {
+  name              = "Grafana"
+  slug              = "grafana"
+  group             = "infrastructure"
+  protocol_provider = resource.authentik_provider_oauth2.grafana.id
+  meta_icon         = "https://raw.githubusercontent.com/grafana/grafana/main/public/img/icons/mono/grafana.svg"
+  meta_description  = "Infrastructure graphs"
+  meta_launch_url   = "https://grafana.internal.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  open_in_new_tab   = true
 }
