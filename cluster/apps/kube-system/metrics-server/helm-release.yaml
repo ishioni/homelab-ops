@@ -32,5 +32,7 @@ spec:
       limits:
         cpu: 200m
         memory: 100Mi
+    metrics:
+      enabled: true
     serviceMonitor:
       enabled: true
