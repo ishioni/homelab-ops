@@ -62,7 +62,7 @@ spec:
           - name: "null"
           - name: "telegram"
             telegram_configs:
-              - parse_mode: ""
+              - parse_mode: "HTML"
                 disable_notifications: false
                 send_resolved: true
                 api_url: https://api.telegram.org
