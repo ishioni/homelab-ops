@@ -45,9 +45,12 @@ spec:
         proxy-send-timeout: "3600"
         use-forwarded-headers: "true"
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
-          enabled: false
+          enabled: true
+          namespace: networking
+          namespaceSelector:
+            any: true
       resources:
         requests:
           memory: 100Mi

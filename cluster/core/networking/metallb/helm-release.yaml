@@ -38,3 +38,8 @@ spec:
         limits:
           cpu: 50m
           memory: 50Mi
+    prometheus:
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true

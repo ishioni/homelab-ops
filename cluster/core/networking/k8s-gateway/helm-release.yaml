@@ -33,3 +33,12 @@ spec:
       port: 53
       annotations:
         metallb.universe.tf/loadBalancerIPs: "${GATEWAY_DNS_LB}"
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
