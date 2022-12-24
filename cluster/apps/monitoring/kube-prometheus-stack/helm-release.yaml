@@ -66,8 +66,6 @@ spec:
                 disable_notifications: false
                 send_resolved: true
                 api_url: https://api.telegram.org
-                bot_token: "${TELEGRAM_BOT_TOKEN}"
-                chat_id: "${TELEGRAM_CHAT_ID}"
         inhibit_rules:
           - source_match:
               severity: "critical"
@@ -211,4 +209,22 @@ spec:
             memory: 2000Mi
           limits:
             memory: 8000Mi
-        additionalScrapeConfigs: []
+        additionalScrapeConfigs:
+          - job_name: minio
+            metrics_path: /minio/v2/metrics/cluster
+            scheme: https
+            static_configs:
+              - targets: ['s3.${SECRET_INTERNAL_DOMAIN}:9000']
+  valuesFrom:
+    - kind: Secret
+      name: prometheus-secrets
+      valuesKey: minio_bearer_token
+      targetPath: prometheus.prometheusSpec.additionalScrapeConfigs[0].bearer_token
+    - kind: Secret
+      name: prometheus-secrets
+      valuesKey: telegram_bot_token
+      targetPath: alertmanager.config.receivers[1].telegram_config[0].bot_token
+    - kind: Secret
+      name: prometheus-secrets
+      valuesKey: telegram_chat_id
+      targetPath: alertmanager.config.receivers[1].telegram_config[0].chat_id
