@@ -181,6 +181,14 @@ spec:
       master:
         persistence:
           enabled: false
+    metrics:
+      enabled: true
+      https: true
+      image:
+        repository: xperimental/nextcloud-exporter
+        tag: 0.6.0
+      serviceMonitor:
+        enabled: true
   valuesFrom:
     - kind: Secret
       name: nextcloud-secrets
@@ -210,3 +218,7 @@ spec:
       name: nextcloud-secrets
       valuesKey: redisPassword
       targetPath: redis.auth.password
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: nextcloudToken
+      targetPath: metrics.token
