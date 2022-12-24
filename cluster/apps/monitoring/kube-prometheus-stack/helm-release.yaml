@@ -167,7 +167,7 @@ spec:
         podAntiAffinity: hard
         replicaExternalLabelName: __replica__
         externalLabels:
-          cluster: homelab-ops
+          cluster: ${CLUSTER_NAME}
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
