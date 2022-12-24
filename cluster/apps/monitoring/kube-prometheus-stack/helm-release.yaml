@@ -62,9 +62,12 @@ spec:
           - name: "null"
           - name: "telegram"
             telegram_configs:
-              - parse_mode: MarkdownV2
+              - parse_mode: ""
                 disable_notifications: false
                 send_resolved: true
+                api_url: https://api.telegram.org
+                bot_token: "${TELEGRAM_BOT_TOKEN}"
+                chat_id: "${TELEGRAM_CHAT_ID}"
         inhibit_rules:
           - source_match:
               severity: "critical"
@@ -209,12 +212,3 @@ spec:
           limits:
             memory: 8000Mi
         additionalScrapeConfigs: []
-  valuesFrom:
-    - kind: Secret
-      name: alertmanager-secret
-      valuesKey: telegram_token
-      targetPath: alertmanager.config.receivers[1].telegram_configs[0].bot_token
-    - kind: Secret
-      name: alertmanager-secret
-      valuesKey: telegram_channel
-      targetPath: alertmanager.config.receivers[1].telegram_configs[0].chat_id
