@@ -22,6 +22,9 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  values:
+    serviceMonitor:
+      create: true
 
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
