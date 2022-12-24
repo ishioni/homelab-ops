@@ -30,8 +30,8 @@ spec:
     alertmanager:
       ingress:
         enabled: true
+        ingressClassName: private
         annotations:
-          kubernetes.io/ingress.class: private
           hajimari.io/appName: "Alert Manager"
           hajimari.io/icon: mdi:alert-decagram-outline
           cert-manager.io/cluster-issuer: "letsencrypt-production"
