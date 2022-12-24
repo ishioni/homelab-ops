@@ -162,21 +162,6 @@ spec:
         enabled: true
       thanosServiceMonitor:
         enabled: true
-      thanosIngress:
-        enabled: true
-        pathType: Prefix
-        ingressClassName: private
-        annotations:
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "false"
-        hosts:
-          - &host thanos-sidecar.${SECRET_INTERNAL_DOMAIN}
-        tls:
-          - hosts:
-              - *host
-            secretName: *host
       prometheusSpec:
         replicas: 1
         podAntiAffinity: hard
