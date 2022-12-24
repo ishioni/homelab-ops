@@ -39,6 +39,7 @@ spec:
           cpu: 50m
           memory: 50Mi
     prometheus:
+      serviceAccount: kube-prometheus-stack-prometheus
       serviceMonitor:
         enabled: true
       prometheusRule:
