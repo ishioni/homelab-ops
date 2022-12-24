@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   type: telegram
-  channel: "${TELEGRAM_CHAT_ID}"
+  channel: "879509412"
   interval: 10m
   secretRef:
     name: telegram-token
