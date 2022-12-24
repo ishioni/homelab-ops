@@ -64,6 +64,8 @@ spec:
             telegram_configs:
               - parse_mode: "HTML"
                 disable_notifications: false
+                bearer_token: "${TELEGRAM_BOT_TOKEN}"
+                chat_id: "879509412"
                 send_resolved: true
                 api_url: https://api.telegram.org
         inhibit_rules:
@@ -213,18 +215,6 @@ spec:
           - job_name: minio
             metrics_path: /minio/v2/metrics/cluster
             scheme: https
+            bearer_token: "${MINIO_BEARER_TOKEN}"
             static_configs:
               - targets: ['s3.${SECRET_INTERNAL_DOMAIN}:9000']
-  valuesFrom:
-    - kind: Secret
-      name: prometheus-secrets
-      valuesKey: minio_bearer_token
-      targetPath: prometheus.prometheusSpec.additionalScrapeConfigs[0].bearer_token
-    - kind: Secret
-      name: prometheus-secrets
-      valuesKey: telegram_bot_token
-      targetPath: alertmanager.config.receivers[1].telegram_configs[0].bot_token
-    - kind: Secret
-      name: prometheus-secrets
-      valuesKey: telegram_chat_id
-      targetPath: alertmanager.config.receivers[1].telegram_configs[0].chat_id
