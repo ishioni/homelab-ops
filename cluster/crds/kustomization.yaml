@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - cert-manager
   - metallb
+  - prometheus-operator
   - snapshot-controller
   - velero
