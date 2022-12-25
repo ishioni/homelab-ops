@@ -65,8 +65,8 @@ spec:
             telegram_configs:
               - parse_mode: "HTML"
                 disable_notifications: false
-                bearer_token: "${TELEGRAM_BOT_TOKEN}"
-                chat_id: "879509412"
+                bot_token: "${TELEGRAM_BOT_TOKEN}"
+                chat_id: 879509412
                 send_resolved: true
                 api_url: https://api.telegram.org
         inhibit_rules:
