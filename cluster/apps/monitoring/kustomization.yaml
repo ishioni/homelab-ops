@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - grafana
   - kube-prometheus-stack
+  - speedtest-exporter
   - thanos
   - uptime-kuma
   - weave-gitops
