@@ -7,3 +7,4 @@ resources:
   - thanos
   - uptime-kuma
   - weave-gitops
+  - unpoller
