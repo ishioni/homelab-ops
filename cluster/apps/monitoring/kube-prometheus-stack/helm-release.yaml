@@ -204,3 +204,13 @@ spec:
             bearer_token: "${MINIO_BEARER_TOKEN}"
             static_configs:
               - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
+          - job_name: 'pve'
+            metrics_path: /pve
+            params:
+              module: [default]
+            static_configs:
+              - targets:
+                  - "proxmox-1.services.${SECRET_DOMAIN}"
+                  - "proxmox-2.services.${SECRET_DOMAIN}"
+                  - "proxmox-3.services.${SECRET_DOMAIN}"
+                  - "proxmox-4.services.${SECRET_DOMAIN}"
