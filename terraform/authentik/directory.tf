@@ -15,6 +15,11 @@ resource "authentik_group" "nextcloud" {
   parent       = resource.authentik_group.users.id
 }
 
+resource "authentik_group" "infrastructure" {
+  name         = "infrastructure"
+  is_superuser = false
+}
+
 data "authentik_group" "admins" {
   name = "authentik Admins"
 }
