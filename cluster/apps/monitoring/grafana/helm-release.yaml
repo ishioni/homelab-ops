@@ -76,7 +76,7 @@ spec:
       tls:
         - hosts:
             - *host
-          secret: *host
+          secretName: *host
     datasources:
       datasources.yaml:
         apiVersion: 1
