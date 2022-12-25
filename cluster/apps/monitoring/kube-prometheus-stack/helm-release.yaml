@@ -134,6 +134,9 @@ spec:
         - 10.1.4.4
         - 10.1.4.5
         - 10.1.4.6
+        - worker-1.k3s.internal
+        - worker-2.k3s.internal
+        - worker-3.k3s.internal
     kubeEtcd:
       enabled: true
       endpoints:
