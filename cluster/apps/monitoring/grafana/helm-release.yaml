@@ -33,7 +33,7 @@ spec:
         oauth_auto_login: false
       auth.basic:
         enabled: false
-        # disable_login_form: false
+        disable_login_form: false
       auth.anonymous:
         enabled: true
         org_name: HomeOps
@@ -49,7 +49,6 @@ spec:
         use_pkce: true
       auth.generic_oauth.group_mapping:
         role_attribute_path: |
-          # Optionally map user groups to Grafana roles
           role_attribute_path = contains(groups[*], 'infrastructure') && 'Admin' || 'Viewer'
         org_id: 1
       grafana_net:
