@@ -204,13 +204,23 @@ spec:
             bearer_token: "${MINIO_BEARER_TOKEN}"
             static_configs:
               - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "proxmox-1.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-2.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-3.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-4.services.${SECRET_DOMAIN}:9100"
           - job_name: 'pve'
             metrics_path: /pve
             params:
               module: [default]
             static_configs:
               - targets:
-                  - "proxmox-1.services.${SECRET_DOMAIN}"
-                  - "proxmox-2.services.${SECRET_DOMAIN}"
-                  - "proxmox-3.services.${SECRET_DOMAIN}"
-                  - "proxmox-4.services.${SECRET_DOMAIN}"
+                  - "proxmox-1.services.${SECRET_DOMAIN}:9221"
+                  - "proxmox-2.services.${SECRET_DOMAIN}:9221"
+                  - "proxmox-3.services.${SECRET_DOMAIN}:9221"
+                  - "proxmox-4.services.${SECRET_DOMAIN}:9221"
