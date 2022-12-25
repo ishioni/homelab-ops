@@ -160,6 +160,10 @@
         journald_config:
           Storage: volatile
 
+    - name: Install node-exporter
+      ansible.builtin.include_role:
+        name: cloudalchemy.node_exporter
+
   handlers:
     - name: Configure CPU mode to powersave
       ansible.builtin.command:
