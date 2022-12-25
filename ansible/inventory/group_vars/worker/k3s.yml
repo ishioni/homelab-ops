@@ -13,3 +13,8 @@ k3s_agent:
     - "feature-gates=GracefulNodeShutdown=true"
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
+  kube-proxy-arg:
+    - "metrics-bind-address=0.0.0.0"
+    - "proxy-mode=ipvs"
+    - "ipvs-strict-arp=true"
+    - "ipvs-scheduler=lc"
