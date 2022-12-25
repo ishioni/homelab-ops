@@ -70,7 +70,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/icon: simple-icons:grafana
-        hajimari.io/enabled: true
+        hajimari.io/enabled: "true"
       ingressClassName: private
       hosts:
         - &host grafana.${SECRET_INTERNAL_DOMAIN}
