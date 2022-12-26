@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: spigot
+  namespace: minecraft
+spec:
+  endpoints:
+    - interval: 30s
+      path: /
+      port: metrics
+  selector:
+    matchLabels:
+      app: spigot-minecraft-metrics
+      release: spigot
