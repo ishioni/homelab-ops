@@ -38,3 +38,10 @@ spec:
         limits:
           cpu: 50m
           memory: 50Mi
+    prometheus:
+      serviceAccount: kube-prometheus-stack-prometheus
+      namespace: networking
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true

@@ -44,6 +44,10 @@
       ansible.builtin.import_tasks: tasks/bastion/nut.yml
       become: true
 
+    - name: Install node-exporter
+      ansible.builtin.include_role:
+        name: cloudalchemy.node_exporter
+
     - name: Disable SSH root login
       ansible.builtin.lineinfile:
         dest: /etc/ssh/sshd_config

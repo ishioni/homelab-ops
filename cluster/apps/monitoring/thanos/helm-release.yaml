@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: thanos
+      version: 11.6.5
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
+  values:
+    objstoreConfig:
+      type: s3
+    query:
+      enabled: true
+      replicaCount: 1
+      podAntiAffinityPreset: hard
+      replicaLabel:
+        - __replica__
+      dnsDiscovery:
+        sidecarsService: kube-prometheus-stack-thanos-discovery
+        sidecarsNamespace: monitoring
+      ingress:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/enable: "false"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hostname: &host thanos.${SECRET_INTERNAL_DOMAIN}
+        tls: true
+    queryFrontend:
+      enabled: false
+    bucketweb:
+      enabled: true
+    compactor:
+      enabled: true
+      extraFlags:
+        - "--compact.concurrency"
+        - "4"
+      retentionResolutionRaw: 14d
+      retentionResolution5m: 14d
+      retentionResolution1h: 30d
+      persistence:
+        enabled: true
+        storageClass: "truenas-ssd"
+        size: 15Gi
+    storegateway:
+      enabled: true
+      persistence:
+        enabled: true
+        storageClass: "truenas-ssd"
+        size: 512Mi
+    ruler:
+      enabled: true
+      alertmanagers:
+        - http://kube-prometheus-stack-alertmanager.monitoring:9093
+      clusterName: ${CLUSTER_NAME}
+      config: |-
+        groups:
+          - name: "PrometheusWatcher"
+            rules:
+              - alert: "PrometheusDown"
+                expr: absent(up{job="kube-prometheus-stack-prometheus"})
+      dnsDiscovery:
+        enabled: true
+      persistence:
+        enabled: true
+        storageClass: "truenas-ssd"
+        size: 512Mi
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  valuesFrom:
+    - kind: Secret
+      name: thanos-secrets
+      valuesKey: minio_host
+      targetPath: objstoreConfig.config.endpoint
+    - kind: Secret
+      name: thanos-secrets
+      valuesKey: minio_bucket
+      targetPath: objstoreConfig.config.bucket
+    - kind: Secret
+      name: thanos-secrets
+      valuesKey: minio_access_key
+      targetPath: objstoreConfig.config.access_key
+    - kind: Secret
+      name: thanos-secrets
+      valuesKey: minio_secret_key
+      targetPath: objstoreConfig.config.secret_key

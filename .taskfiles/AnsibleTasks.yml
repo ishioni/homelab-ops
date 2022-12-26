@@ -3,6 +3,10 @@ version: "3"
 
 env:
   ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
+  PATH: "/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+  # https://github.com/ansible/ansible/issues/76322
+  OBJC_DISABLE_INITIALIZE_FORK_SAFETY: "YES"
+
 
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"

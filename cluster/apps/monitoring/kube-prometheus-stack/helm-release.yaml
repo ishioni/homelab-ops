@@ -1,0 +1,230 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 43.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  install:
+    # createNamespace: true
+    # crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    # crds: CreateReplace
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: truenas-csp
+      namespace: storage
+  values:
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/appName: "Alert Manager"
+          hajimari.io/icon: mdi:alert-decagram-outline
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - &host "alerts.${SECRET_INTERNAL_DOMAIN}"
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+        path: /
+        pathType: Prefix
+      config:
+        global:
+          resolve_timeout: 5m
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: "telegram"
+          routes:
+            - receiver: "null"
+              matchers:
+                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+              continue: false
+            - receiver: "telegram"
+        receivers:
+          - name: "null"
+          - name: "telegram"
+            telegram_configs:
+              - parse_mode: "HTML"
+                disable_notifications: false
+                bot_token: "${TELEGRAM_BOT_TOKEN}"
+                chat_id: 879509412
+                send_resolved: true
+                api_url: https://api.telegram.org
+        inhibit_rules:
+          - source_match:
+              severity: "critical"
+            target_match:
+              severity: "warning"
+            equal: ["alertname", "namespace"]
+        templates:
+          - /etc/alertmanager/config/*.tmpl
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: truenas-ssd
+              resources:
+                requests:
+                  storage: 1Gi
+    kube-state-metrics:
+      metricLabelsAllowlist:
+        - "persistentvolumeclaims=[*]"
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 10.1.4.4
+        - 10.1.4.5
+        - 10.1.4.6
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 10.1.4.4
+        - 10.1.4.5
+        - 10.1.4.6
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 10.1.4.4
+        - 10.1.4.5
+        - 10.1.4.6
+        - 10.1.4.8
+        - 10.1.4.9
+        - 10.1.4.10
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - 10.1.4.4
+        - 10.1.4.5
+        - 10.1.4.6
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/appName: "Prometheus"
+          hajimari.io/icon: simple-icons:prometheus
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        pathType: Prefix
+        hosts:
+          - &host prometheus.${SECRET_INTERNAL_DOMAIN}
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 1
+        podAntiAffinity: hard
+        replicaExternalLabelName: __replica__
+        externalLabels:
+          cluster: ${CLUSTER_NAME}
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retention: 14d
+        retentionSize: 45GB
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: truenas-ssd
+              resources:
+                requests:
+                  storage: 50Gi
+        thanos:
+          image: quay.io/thanos/thanos:v0.29.0
+          # renovate: datasource=docker depName=quay.io/thanos/thanos
+          version: "v0.29.0"
+          objectStorageConfig:
+            name: thanos-objstore-config
+            key: minio.yaml
+        resources:
+          requests:
+            cpu: 10m
+            memory: 2000Mi
+          limits:
+            memory: 8000Mi
+        additionalScrapeConfigs:
+          - job_name: minio
+            metrics_path: /minio/v2/metrics/cluster
+            scheme: https
+            bearer_token: "${MINIO_BEARER_TOKEN}"
+            static_configs:
+              - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
+          - job_name: node-exporter
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "proxmox-1.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-2.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-3.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-4.services.${SECRET_DOMAIN}:9100"
+                  - "bastion.managment.internal:9100"
+          # - job_name: "pve"
+          #   metrics_path: /pve
+          #   params:
+          #     module: [default]
+          #   static_configs:
+          #     - targets:
+          #         - "proxmox-1.services.${SECRET_DOMAIN}:9221"
+          #         - "proxmox-2.services.${SECRET_DOMAIN}:9221"
+          #         - "proxmox-3.services.${SECRET_DOMAIN}:9221"
+          #         - "proxmox-4.services.${SECRET_DOMAIN}:9221"

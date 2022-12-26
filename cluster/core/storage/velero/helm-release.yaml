@@ -81,19 +81,19 @@ spec:
       prometheusRule:
         enabled: true
         spec:
-          - alert: VeleroDailyBackupPartialFailures
+          - alert: VeleroBackupPartialFailures
             annotations:
-              message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partially failed backups.
+              message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
             expr: |-
-              velero_backup_partial_failure_total{schedule="velero-daily-backup"} / velero_backup_attempt_total{schedule="velero-daily-backup"} > 1
+              velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
             for: 15m
             labels:
               severity: warning
-          - alert: VeleroDailyBackupFailures
+          - alert: VeleroBackupFailures
             annotations:
               message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
             expr: |-
-              velero_backup_failure_total{schedule="velero-daily-backup"} / velero_backup_attempt_total{schedule="velero-daily-backup"} > 1
+              velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
             for: 15m
             labels:
               severity: warning

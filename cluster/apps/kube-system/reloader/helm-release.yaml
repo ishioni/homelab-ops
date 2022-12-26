@@ -29,3 +29,6 @@ spec:
       limits:
         cpu: 50m
         memory: 50Mi
+    reloader:
+      podMonitor:
+        enabled: true
