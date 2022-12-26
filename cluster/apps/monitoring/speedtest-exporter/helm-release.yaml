@@ -41,7 +41,7 @@ spec:
             scheme: http
             path: /metrics
             interval: 15m
-            scrapeTimeout: 20s
+            scrapeTimeout: 300s
   valuesFrom:
     - kind: Secret
       name: unifi-secrets
