@@ -77,13 +77,13 @@ spec:
       serviceType: LoadBalancer
       extraPorts:
         - name: metrics
-          containerPort: 9940
+          containerPort: 9225
           protocol: TCP
           service:
             enabled: true
             embedded: false
             type: ClusterIP
-            port: 9940
+            port: 9225
           ingress:
             enabled: false
         - name: map
