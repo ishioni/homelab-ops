@@ -76,7 +76,7 @@ spec:
         serviceType: ClusterIP
       serviceType: LoadBalancer
       extraPorts:
-        - name: prometheus
+        - name: metrics
           containerPort: 9940
           protocol: TCP
           service:
