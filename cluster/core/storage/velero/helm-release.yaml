@@ -24,6 +24,8 @@ spec:
       retries: 5
   values:
     configuration:
+      extraEnvVars:
+        TZ: "Europe/Warsaw"
       provider: aws
       backupStorageLocation:
         name: minio
@@ -33,18 +35,17 @@ spec:
           region: us-east-1
           s3ForcePathStyle: true
           s3Url: https://s3.services.${SECRET_DOMAIN}:9000
+          publicUrl: https://s3.${SECRET_INTERNAL_DOMAIN}
       volumeSnapshotLocation:
         name: aws
         config:
           region: us-east-1
-      resticTimeout: 6h
+      fsBackupTimeout: 6h
     credentials:
       existingSecret: velero-s3-credentials
     snapshotsEnabled: true
-    deployRestic: true
-    restic:
-      podVolumePath: /var/lib/kubelet/pods
-      privileged: false
+    deployNodeAgent: true
+    nodeAgent:
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
@@ -73,3 +74,26 @@ spec:
         schedule: "0 6 * * *"
         template:
           ttl: "120h"
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
+        spec:
+          - alert: VeleroDailyBackupPartialFailures
+            annotations:
+              message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partially failed backups.
+            expr: |-
+              velero_backup_partial_failure_total{schedule="velero-daily-backup"} / velero_backup_attempt_total{schedule="velero-daily-backup"} > 1
+            for: 15m
+            labels:
+              severity: warning
+          - alert: VeleroDailyBackupFailures
+            annotations:
+              message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+            expr: |-
+              velero_backup_failure_total{schedule="velero-daily-backup"} / velero_backup_attempt_total{schedule="velero-daily-backup"} > 1
+            for: 15m
+            labels:
+              severity: warning
