@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pve-exporter
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    image:
+      repository: prompve/prometheus-pve-exporter
+      tag: "2.2.4"
+    env:
+      TZ: Europe/Warsaw
+      PVE_VERIFY_SSL: true
+    service:
+      main:
+        ports:
+          http:
+            port: 9221
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: http
+            scheme: http
+            path: /pve
+            scrapeTimeout: 10s
+            params:
+              module: [default]
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+            static_configs:
+              - targets:
+                  - proxmox-1.services.${SECRET_DOMAIN}
+                  - proxmox-2.services.${SECRET_DOMAIN}
+                  - proxmox-3.services.${SECRET_DOMAIN}
+                  - proxmox-4.services.${SECRET_DOMAIN}
+  valuesFrom:
+    - kind: Secret
+      name: pve-secrets
+      valuesKey: pve_exporter_username
+      targetPath: env.PVE_USER
+    - kind: Secret
+      name: pve-secrets
+      valuesKey: pve_exporter_token_name
+      targetPath: env.PVE_TOKEN_NAME
+    - kind: Secret
+      name: pve-secrets
+      valuesKey: pve_exporter_token_value
+      targetPath: env.PVE_TOKEN_VALUE
