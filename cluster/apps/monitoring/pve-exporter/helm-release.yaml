@@ -44,17 +44,15 @@ spec:
             scrapeTimeout: 10s
             params:
               module: [default]
-            relabel_configs:
-              - source_labels: [__address__]
-                target_label: __param_target
-              - source_labels: [__param_target]
-                target_label: instance
-            static_configs:
-              - targets:
-                  - proxmox-1.services.${SECRET_DOMAIN}
-                  - proxmox-2.services.${SECRET_DOMAIN}
-                  - proxmox-3.services.${SECRET_DOMAIN}
-                  - proxmox-4.services.${SECRET_DOMAIN}
+              target:
+                - proxmox-1.services.movishell.pl
+                - proxmox-2.services.movishell.pl
+                - proxmox-3.services.movishell.pl
+                - proxmox-4.services.movishell.pl
+            relabelings:
+              - sourceLabels:
+                  - __param_target
+                targetLabel: target
   valuesFrom:
     - kind: Secret
       name: pve-secrets
