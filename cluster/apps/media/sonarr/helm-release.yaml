@@ -24,8 +24,8 @@ spec:
       retries: 5
   values:
     image:
-      repository: ghcr.io/onedr0p/sonarr
-      tag: 3.0.9.1549
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.316
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
