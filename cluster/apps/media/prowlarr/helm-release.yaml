@@ -34,6 +34,7 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
+      PROWLARR__AUTHENTICATION_METHOD: External
     resources:
       requests:
         cpu: 100m
