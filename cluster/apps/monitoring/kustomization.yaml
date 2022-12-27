@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - grafana
   - nut-exporter
+  - pve-exporter
   - kube-prometheus-stack
   - speedtest-exporter
   - thanos

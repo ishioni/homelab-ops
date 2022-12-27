@@ -10,6 +10,5 @@ resources:
   - minecraft
   - monitoring
   - nextcloud
-  - pve-exporter
   - reverse-proxy
   - system-upgrade
