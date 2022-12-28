@@ -28,7 +28,7 @@ spec:
       tag: "1.4.2"
     env:
       TZ: Europe/Warsaw
-      DNSMASQ_SERVERS: "192.168.1.1"
+      DNSMASQ_SERVERS: "192.168.1.1:53"
       EXPORTER_LISTEN_ADDR: "0.0.0.0:9153"
     service:
       main:
