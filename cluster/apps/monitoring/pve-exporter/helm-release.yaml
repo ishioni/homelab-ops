@@ -23,6 +23,8 @@ spec:
     remediation:
       retries: 3
   values:
+    controller:
+      strategy: RollingUpdate
     image:
       repository: prompve/prometheus-pve-exporter
       tag: "2.2.4"

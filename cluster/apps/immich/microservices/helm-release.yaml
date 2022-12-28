@@ -31,6 +31,7 @@ spec:
       namespace: immich
   values:
     controller:
+      strategy: RollingUpdate
       annotations:
         reloader.stakater.com/auto: "true"
     image:
