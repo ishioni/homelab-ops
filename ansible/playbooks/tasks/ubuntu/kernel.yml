@@ -43,6 +43,7 @@
   vars:
     grub_config:
       mitigations: "off"
+      systemd.unified_cgroup_hierarchy: "1"
   register: grub_status
 
 - name: Reconfigure grub and initramfs # noqa no-handler
