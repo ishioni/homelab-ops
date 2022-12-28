@@ -32,3 +32,8 @@
   handlers:
     - name: Reboot node
       ansible.builtin.reboot:
+
+    - name: Reload journald
+      ansible.builtin.systemd:
+        name: systemd-journald
+        state: restarted

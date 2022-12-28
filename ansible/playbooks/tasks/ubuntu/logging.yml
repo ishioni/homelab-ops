@@ -10,3 +10,16 @@
     name: rsyslog.service
     enabled: false
     state: stopped
+
+- name: Ensure journald conf folder exists
+  ansible.builtin.file:
+    path: /etc/systemd/journald.conf.d
+    state: directory
+    mode: 0755
+
+- name: Set journald options
+  ansible.builtin.copy:
+    src: files/journald-ubuntu-size.conf
+    dest: /etc/systemd/journald.conf.d/00-journal-size.conf
+    mode: 0644
+  notify: Reload journald
