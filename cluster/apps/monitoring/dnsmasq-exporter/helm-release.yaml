@@ -29,7 +29,7 @@ spec:
     env:
       TZ: Europe/Warsaw
       DNSMASQ_SERVERS: "192.168.1.1"
-      EXPORTER_LISTEN_ADDR: "0.0.0.0"
+      EXPORTER_LISTEN_ADDR: "0.0.0.0:9153"
     service:
       main:
         ports:
