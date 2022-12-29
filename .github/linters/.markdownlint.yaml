@@ -21,3 +21,8 @@ MD013:
   strict: false
   # Stern length checking
   stern: false
+MD033:
+  allowed_elements:
+    - "div"
+    - "img"
+    - "br"
