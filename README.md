@@ -2,7 +2,7 @@
 
 <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
-### My Kubernetes Lab cluster :sailboat:
+### My Kubernetes Lab cluster ⛵️
 
 _... managed with Flux and Renovate_ :robot:
 
@@ -12,15 +12,11 @@ _... managed with Flux and Renovate_ :robot:
 
 <div align="center">
 
-
 [![k3s](https://img.shields.io/badge/k3s-v1.24.7-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
 [![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot&logoColor=white)](https://github.com/renovatebot/renovate)
 
 </div>
-
-
-
 
 ---
 
@@ -85,7 +81,6 @@ This Git repository contains the following directories under [cluster](./cluster
 - Kube-vip provides the apiserver LB on the Nodes VLAN, only from the master nodes
 - MetalLB provides the LoadBalancer resources only from the worker nodes
 
-
 ---
 
 ## ☁️ Cloud Dependencies
@@ -130,7 +125,6 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 ---
 
 ## 🔧 Hardware
-
 
 | Device                    | Count | OS Disk Size | Data Disk Size              | Ram  | Operating System | Purpose             |
 |---------------------------|-------|--------------|-----------------------------|------|------------------|---------------------|
