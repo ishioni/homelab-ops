@@ -6,3 +6,4 @@ resources:
   - config-pvc.yaml
   - secrets.sops.yaml
   - servicemonitor.yaml
+  - minecraft-grafana-dashboard.yaml
