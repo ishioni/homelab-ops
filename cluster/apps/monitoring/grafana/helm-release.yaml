@@ -115,11 +115,6 @@ spec:
           gnetId: 1860
           revision: 29
           datasource: Prometheus
-        speedtest:
-          # Ref: https://grafana.com/grafana/dashboards/13665
-          gnetId: 13665
-          revision: 4
-          datasource: Prometheus
         ingress:
           # Ref: https://grafana.com/grafana/dashboards/9614
           gnetId: 9614
@@ -127,7 +122,7 @@ spec:
           datasource: Prometheus
         unifi-usw:
           # Ref: https://unpoller.com/docs/install/grafana
-          gnetID: 11312
+          gnetId: 11312
           revision: 8
           datasource: Prometheus
         unifi-usg:
@@ -139,7 +134,7 @@ spec:
           revision: 9
           datasource: Prometheus
         unifi-clients:
-          gnetID: 11315
+          gnetId: 11315
           revision: 8
           datasource: Prometheus
 
