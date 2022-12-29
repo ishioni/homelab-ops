@@ -128,7 +128,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 
 | Device                    | Count | OS Disk Size | Data Disk Size              | Ram  | Operating System | Purpose             |
 |---------------------------|-------|--------------|-----------------------------|------|------------------|---------------------|
-| Unifi USG4                | 1     | 2G eMMC      | -                           | 4GB  | Debian 7 (Wheezy)| Router              |
+| Unifi USG4                | 1     | 2G eMMC      | -                           | 4GB  | Debian 7         | Router              |
 | Unifi USW-24-PoE          | 1     | -            | -                           | -    | -                | Network Switch      |
 | Dell Optiplex 7040        | 4     | 256GB NVMe   | -                           | 32GB | Debian 11 (PVE)  | Virtualization Host |
 | Cyberpower OR600ERM1U     | 1     | -            | -                           | -    | -                | UPS                 |
