@@ -34,6 +34,7 @@ spec:
       defaultSearchProvider: "Startpage"
       showAppGroups: true
       showAppUrls: false
+      showAppStatus: false
       namespaceSelector:
         any: true
       title: "Start"
