@@ -140,6 +140,24 @@ resource "authentik_provider_oauth2" "grafana" {
   ]
 }
 
+resource "authentik_provider_oauth2" "proxmox" {
+  name                 = "proxmox-oidc"
+  client_id            = data.sops_file.authentik_secrets.data["proxmox_client_id"]
+  client_secret        = data.sops_file.authentik_secrets.data["proxmox_client_secret"]
+  authorization_flow   = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  signing_key          = data.authentik_certificate_key_pair.generated.id
+  client_type          = "confidential"
+  issuer_mode          = "per_provider"
+  access_code_validity = "minutes=10"
+  token_validity       = "days=30"
+  property_mappings = concat(
+    data.authentik_scope_mapping.scopes.ids
+  )
+  redirect_uris = [
+    "https://proxmox.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  ]
+}
+
 resource "authentik_application" "transmission" {
   name              = "Transmission"
   slug              = "torrent"
@@ -231,5 +249,16 @@ resource "authentik_application" "grafana" {
   meta_icon         = "https://raw.githubusercontent.com/grafana/grafana/main/public/img/icons/mono/grafana.svg"
   meta_description  = "Infrastructure graphs"
   meta_launch_url   = "https://grafana.internal.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  open_in_new_tab   = true
+}
+
+resource "authentik_application" "proxmox" {
+  name              = "Proxmox"
+  slug              = "proxmox"
+  group             = "Infrastructure"
+  protocol_provider = resource.authentik_provider_oauth2.proxmox.id
+  meta_icon         = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
+  meta_description  = "Virtualization"
+  meta_launch_url   = "https://proxmox.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   open_in_new_tab   = true
 }

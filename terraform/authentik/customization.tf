@@ -121,3 +121,9 @@ resource "authentik_policy_binding" "grafana" {
   group  = authentik_group.infrastructure.id
   order  = 0
 }
+
+resource "authentik_policy_binding" "proxmox" {
+  target = authentik_application.proxmox.uuid
+  group = authentik_group.infrastructure.id
+  order = 0
+}
