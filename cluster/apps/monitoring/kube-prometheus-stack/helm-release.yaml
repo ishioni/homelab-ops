@@ -34,7 +34,7 @@ spec:
         ingressClassName: private
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enabled: "true"
+          hajimari.io/enable: "true"
           hajimari.io/appName: Alert Manager
           hajimari.io/icon: mdi:alert-decagram-outline
           hajimari.io/group: infrastructure
@@ -155,7 +155,7 @@ spec:
         ingressClassName: private
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enabled: "true"
+          hajimari.io/enable: "true"
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
           hajimari.io/group: infrastructure
