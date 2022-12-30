@@ -26,6 +26,8 @@ spec:
     image:
       repository: ghcr.io/toboshii/hajimari
       tag: v0.3.1
+    controller:
+      strategy: RollingUpdate
     hajimari:
       defaultEnable: false
       alwaysTargetBlank: true
