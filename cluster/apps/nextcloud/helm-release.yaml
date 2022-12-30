@@ -120,9 +120,10 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt-production
         external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
         external-dns/is-public: "true"
-        hajimari.io/appName: Nextcloud
         hajimari.io/enable: "true"
-        hajimari.io/icon: file-cloud
+        hajimari.io/appName: Nextcloud
+        hajimari.io/icon: simple-icons:nextcloud
+        hajimari.io/group: Groupware
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
