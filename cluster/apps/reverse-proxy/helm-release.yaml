@@ -34,9 +34,10 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
             external-dns/is-public: "true"
-            hajimari.io/appName: Home Assistant
             hajimari.io/enable: "true"
-            hajimari.io/icon: home-heart
+            hajimari.io/appName: Home Assistant
+            hajimari.io/group: Home Automation
+            hajimari.io/icon: simple-icons:homeassistant
           tls:
             - hosts:
                 - "homeassistant.${SECRET_DOMAIN}"
@@ -53,9 +54,10 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-            hajimari.io/appName: Minio
             hajimari.io/enable: "true"
-            hajimari.io/icon: file-cabinet
+            hajimari.io/appName: Minio
+            hajimari.io/group: Infrastructure
+            hajimari.io/icon: simple-icons:amazons3
           tls:
             - hosts:
                 - "s3.${SECRET_INTERNAL_DOMAIN}"

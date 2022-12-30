@@ -31,11 +31,10 @@ spec:
       className: private
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
-        external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-        external-dns/is-public: "true"
-        hajimari.io/appName: Gitops
         hajimari.io/enable: "true"
-        hajimari.io/icon: source-branch-sync
+        hajimari.io/appName: Weave Gitops
+        hajimari.io/icon: simple-icons:git
+        hajimari.io/group: Infrastructure
       hosts:
         - host: &host "gitops.${SECRET_INTERNAL_DOMAIN}"
           paths:

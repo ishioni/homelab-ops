@@ -33,9 +33,11 @@ spec:
         enabled: true
         ingressClassName: private
         annotations:
-          hajimari.io/appName: "Alert Manager"
-          hajimari.io/icon: mdi:alert-decagram-outline
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/enabled: "true"
+          hajimari.io/appName: Alert Manager
+          hajimari.io/icon: mdi:alert-decagram-outline
+          hajimari.io/group: Infrastructure
         hosts:
           - &host "alerts.${SECRET_INTERNAL_DOMAIN}"
         tls:
@@ -152,9 +154,11 @@ spec:
         enabled: true
         ingressClassName: private
         annotations:
-          hajimari.io/appName: "Prometheus"
-          hajimari.io/icon: simple-icons:prometheus
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/enabled: "true"
+          hajimari.io/appName: Prometheus
+          hajimari.io/icon: simple-icons:prometheus
+          hajimari.io/group: Infrastructure
         pathType: Prefix
         hosts:
           - &host prometheus.${SECRET_INTERNAL_DOMAIN}

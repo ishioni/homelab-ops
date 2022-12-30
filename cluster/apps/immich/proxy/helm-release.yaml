@@ -48,6 +48,10 @@ spec:
         enabled: true
         ingressClassName: "public"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: simple-icons:googlephotos
+          hajimari.io/group: Media
+          hajimari.io/appName: Immich
           nginx.ingress.kubernetes.io/proxy-body-size: "0"
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"

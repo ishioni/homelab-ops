@@ -8,6 +8,7 @@ resource "authentik_outpost" "proxyoutpost" {
     resource.authentik_provider_proxy.sonarr.id,
     resource.authentik_provider_proxy.radarr.id,
     resource.authentik_provider_proxy.readarr.id,
+    resource.authentik_provider_proxy.hajimari.id,
     resource.authentik_provider_proxy.uptime-kuma.id
   ]
   config = jsonencode({
@@ -25,7 +26,7 @@ resource "authentik_outpost" "proxyoutpost" {
     kubernetes_ingress_annotations = {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
     },
-    kubernetes_ingress_secret_name = "media-outpost-tls",
+    kubernetes_ingress_secret_name = "proxy-outpost-tls",
     kubernetes_service_type        = "ClusterIP",
     kubernetes_disabled_components = [],
     kubernetes_image_pull_secrets  = []
@@ -69,6 +70,14 @@ resource "authentik_provider_proxy" "readarr" {
   external_host      = "https://books.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   token_validity     = "hours=1"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+}
+
+resource "authentik_provider_proxy" "hajimari" {
+  name               = "hajimari-provider"
+  external_host      = "https://start.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode               = "forward_single"
+  token_validity     = "hours=24"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -178,6 +187,16 @@ resource "authentik_application" "readarr" {
   protocol_provider = resource.authentik_provider_proxy.readarr.id
   meta_icon         = "https://github.com/Readarr/Readarr/raw/develop/Logo/128.png"
   meta_description  = "Books"
+  open_in_new_tab   = true
+}
+
+resource "authentik_application" "hajimari" {
+  name              = "Startpage"
+  slug              = "startpage"
+  group             = "Start"
+  protocol_provider = resource.authentik_provider_proxy.hajimari.id
+  meta_icon         = "https://github.com/toboshii/hajimari/blob/main/assets/logo.png"
+  meta_description  = "Startpage"
   open_in_new_tab   = true
 }
 

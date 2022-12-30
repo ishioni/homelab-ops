@@ -110,6 +110,12 @@ resource "authentik_policy_binding" "uptime-kuma" {
   order  = 0
 }
 
+resource "authentik_policy_binding" "hajimari" {
+  target = authentik_application.hajimari.uuid
+  group  = authentik_group.users.id
+  order  = 0
+}
+
 resource "authentik_policy_binding" "grafana" {
   target = authentik_application.grafana.uuid
   group  = authentik_group.infrastructure.id

@@ -28,28 +28,88 @@ spec:
       tag: v0.3.1
     hajimari:
       defaultEnable: false
+      alwaysTargetBlank: true
+      defaultSearchProvider: "Startpage"
       namespaceSelector:
         any: true
       title: "Start"
+      customApps:
+        - group: Infrastructure
+          apps:
+            - name: Unifi
+              url: "https://unifi.services.${SECRET_DOMAIN}"
+              icon: "mdi:wifi"
+            - name: Proxmox
+              url: "https://proxmox.services.${SECRET_DOMAIN}"
+              icon: "mdi:server"
+            - name: TrueNAS
+              url: "https://truenas.services.${SECRET_DOMAIN}"
+              icon: "mdi:harddisk"
+            - name: MeshCommander
+              url: "https://amt.services.${SECRET_DOMAIN}"
+              icon: "mdi:monitor-multiple"
+      globalBookmarks:
+        - group: Media
+          bookmarks:
+            - name: Youtube
+              url: https://youtube.com
+            - name: Odysee
+              url: https://odysee.com
+            - name: Rumble
+              url: https://rumble.com
+        - group: Tech
+          bookmarks:
+            - name: HackerNews
+              url: https://news.ycombinator.com
+            - name: Anandtech
+              url: https://www.anandtech.com
+            - name: Moronix
+              url: https://www.phoronix.com
+        - groups: Social
+          bookmarks:
+            - name: Kiwifarms
+              url: https://kiwifarms.net
+            - name: Poast
+              url: https://poa.st
+            - name: zzzChan
+              url: https://zzzchan.xyz
+      searchProviders:
+        - name: Startpage
+          token: s
+          icon: mdi:alpha-s
+          searchUrl: https://www.startpage.com/sp/search?query={query}
+          url: https://www.startpage.com
+        - name: Google
+          token: g
+          icon: simple-icons:google
+          searchUrl: https://www.google.com/search?q={query}
+          url: https://www.google.com
+        - name: DuckDuckGo
+          token: d
+          icon: simple-icons:duckduckgo
+          searchUrl: https://duckduckgo.com/?q={query}
+          url: https://duckduckgo.com
     ingress:
       main:
         enabled: true
         ingressClassName: private
         annotations:
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/auth-response-headers: Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-signin: https://start.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Host $http_host;
+          nginx.ingress.kubernetes.io/auth-url: http://ak-outpost-proxy-outpost.security.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
         hosts:
-          - host: "start.${SECRET_INTERNAL_DOMAIN}"
+          - host: &host "start.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "start.${SECRET_INTERNAL_DOMAIN}"
-            secretName: "hajimari-tls"
-    persistence:
-      data:
-        enabled: true
-        existingClaim: hajimari-config
+              - *host
+            secretName: *host
     podAnnotations:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
     resources:
