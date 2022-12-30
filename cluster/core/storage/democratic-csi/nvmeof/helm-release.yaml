@@ -42,7 +42,7 @@ spec:
         volumeBindingMode: Immediate
         allowVolumeExpansion: true
         parameters:
-          fsType: xfs
+          fsType: ext4
         mountOptions: []
         secrets:
           provisioner-secret:

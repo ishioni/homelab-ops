@@ -10,4 +10,4 @@ spec:
   storageClassName: truenas-ssd-nvmeof
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi
