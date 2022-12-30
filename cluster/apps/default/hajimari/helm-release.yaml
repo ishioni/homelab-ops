@@ -47,7 +47,7 @@ spec:
             - name: TrueNAS
               url: "https://truenas.services.${SECRET_DOMAIN}"
               icon: "simple-icons:truenas"
-            - name: MeshCommander
+            - name: Mesh Commander
               url: "https://amt.services.${SECRET_DOMAIN}"
               icon: "mdi:monitor-multiple"
       globalBookmarks:
