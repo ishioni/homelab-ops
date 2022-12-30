@@ -67,7 +67,7 @@ spec:
               url: https://www.anandtech.com
             - name: Moronix
               url: https://www.phoronix.com
-        - groups: Social
+        - group: Social
           bookmarks:
             - name: Kiwifarms
               url: https://kiwifarms.net
