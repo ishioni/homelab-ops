@@ -195,7 +195,7 @@ resource "authentik_application" "hajimari" {
   slug              = "startpage"
   group             = "Start"
   protocol_provider = resource.authentik_provider_proxy.hajimari.id
-  meta_icon         = "https://github.com/toboshii/hajimari/blob/main/assets/logo.png"
+  meta_icon         = "https://github.com/toboshii/hajimari/raw/main/assets/logo.png"
   meta_description  = "Startpage"
   open_in_new_tab   = true
 }
