@@ -158,7 +158,7 @@ resource "authentik_provider_oauth2" "proxmox" {
     "https://proxmox-1.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
     "https://proxmox-2.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
     "https://proxmox-3.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
-    "https://proxmox-4.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
+    "https://proxmox-4.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   ]
 }
 
