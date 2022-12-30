@@ -31,6 +31,7 @@ spec:
       alwaysTargetBlank: true
       defaultSearchProvider: "Startpage"
       showAppGroups: true
+      showAppUrls: false
       namespaceSelector:
         any: true
       title: "Start"
