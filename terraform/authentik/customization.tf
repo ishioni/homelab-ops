@@ -124,6 +124,6 @@ resource "authentik_policy_binding" "grafana" {
 
 resource "authentik_policy_binding" "proxmox" {
   target = authentik_application.proxmox.uuid
-  group = authentik_group.infrastructure.id
-  order = 0
+  group  = authentik_group.infrastructure.id
+  order  = 0
 }
