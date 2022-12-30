@@ -104,7 +104,7 @@ spec:
               hajimari.io/appName: Minecraft
               hajimari.io/enable: "true"
               hajimari.io/icon: simple-icons:minecraft
-              hajimari.io/group: Games
+              hajimari.io/group: games
             hosts:
               - name: "minecraft.${SECRET_DOMAIN}"
                 path: /

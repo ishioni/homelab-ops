@@ -36,7 +36,7 @@ spec:
         any: true
       title: "Start"
       customApps:
-        - group: Infrastructure
+        - group: infrastructure
           apps:
             - name: Unifi
               url: "https://unifi.services.${SECRET_DOMAIN}"
@@ -51,7 +51,7 @@ spec:
               url: "https://amt.services.${SECRET_DOMAIN}"
               icon: "mdi:monitor-multiple"
       globalBookmarks:
-        - group: Media
+        - group: media
           bookmarks:
             - name: Youtube
               url: https://youtube.com

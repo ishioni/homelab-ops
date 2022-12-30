@@ -36,7 +36,7 @@ spec:
             external-dns/is-public: "true"
             hajimari.io/enable: "true"
             hajimari.io/appName: Home Assistant
-            hajimari.io/group: Home Automation
+            hajimari.io/group: home automation
             hajimari.io/icon: simple-icons:homeassistant
           tls:
             - hosts:
@@ -56,7 +56,7 @@ spec:
             nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
             hajimari.io/enable: "true"
             hajimari.io/appName: Minio
-            hajimari.io/group: Infrastructure
+            hajimari.io/group: infrastructure
             hajimari.io/icon: simple-icons:amazons3
           tls:
             - hosts:

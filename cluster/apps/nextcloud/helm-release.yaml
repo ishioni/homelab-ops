@@ -123,7 +123,7 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/appName: Nextcloud
         hajimari.io/icon: simple-icons:nextcloud
-        hajimari.io/group: Groupware
+        hajimari.io/group: groupware
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;

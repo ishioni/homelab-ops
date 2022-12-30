@@ -70,7 +70,7 @@ spec:
         hajimari.io/enabled: "true"
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
-        hajimari.io/group: Infrastructure
+        hajimari.io/group: infrastructure
       ingressClassName: private
       hosts:
         - &host grafana.${SECRET_INTERNAL_DOMAIN}

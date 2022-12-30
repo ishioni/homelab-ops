@@ -43,7 +43,7 @@ spec:
       annotations:
         hajimari.io/enable: "true"
         hajimari.io/icon: simple-icons:webauthn
-        hajimari.io/group: Infrastructure
+        hajimari.io/group: infrastructure
         hajimari.io/appName: Authentik
         cert-manager.io/cluster-issuer: letsencrypt-production
         external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"

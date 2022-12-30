@@ -34,7 +34,7 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/appName: Weave Gitops
         hajimari.io/icon: simple-icons:git
-        hajimari.io/group: Infrastructure
+        hajimari.io/group: infrastructure
       hosts:
         - host: &host "gitops.${SECRET_INTERNAL_DOMAIN}"
           paths:
