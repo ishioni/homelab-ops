@@ -39,13 +39,13 @@ spec:
           apps:
             - name: Unifi
               url: "https://unifi.services.${SECRET_DOMAIN}"
-              icon: "mdi:wifi"
+              icon: "simple-icons:ubiquiti"
             - name: Proxmox
               url: "https://proxmox.services.${SECRET_DOMAIN}"
-              icon: "mdi:server"
+              icon: "simple-icons:proxmox"
             - name: TrueNAS
               url: "https://truenas.services.${SECRET_DOMAIN}"
-              icon: "mdi:harddisk"
+              icon: "simple-icons:truenas"
             - name: MeshCommander
               url: "https://amt.services.${SECRET_DOMAIN}"
               icon: "mdi:monitor-multiple"
