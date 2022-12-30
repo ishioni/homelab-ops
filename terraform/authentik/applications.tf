@@ -154,7 +154,11 @@ resource "authentik_provider_oauth2" "proxmox" {
     data.authentik_scope_mapping.scopes.ids
   )
   redirect_uris = [
-    "https://proxmox.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+    "https://proxmox.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
+    "https://proxmox-1.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
+    "https://proxmox-2.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
+    "https://proxmox-3.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
+    "https://proxmox-4.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
   ]
 }
 
