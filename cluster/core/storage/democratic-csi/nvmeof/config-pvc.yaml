@@ -10,4 +10,17 @@ spec:
   storageClassName: truenas-ssd-nvmeof
   resources:
     requests:
-      storage: 1Gi
+      storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: iscsitest
+  namespace: nvmetest
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: truenas-ssd
+  resources:
+    requests:
+      storage: 20Gi

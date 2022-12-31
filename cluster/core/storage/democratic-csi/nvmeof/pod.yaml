@@ -13,7 +13,12 @@ spec:
       volumeMounts:
         - mountPath: "/var/www/html"
           name: mypd
+        - mountPath: "/var/www/iscsi"
+          name: mypdiscsi
   volumes:
     - name: mypd
       persistentVolumeClaim:
         claimName: nvmetest
+    - name: mypdiscsi
+      persistentVolumeClaim:
+        claimName: iscsitest
