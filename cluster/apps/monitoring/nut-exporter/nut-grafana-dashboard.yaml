@@ -672,8 +672,8 @@ data:
           "fieldConfig": {
             "defaults": {
               "mappings": [],
-              "max": 140,
-              "min": 90,
+              "max": 270,
+              "min": 190,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -682,19 +682,24 @@ data:
                     "value": null
                   },
                   {
+                    "color": "dark-yellow",
+                    "value": 207
+                  },
+                  {
                     "color": "dark-green",
-                    "value": 95
+                    "value": 217
                   },
                   {
                     "color": "dark-yellow",
-                    "value": 125
+                    "value": 240
                   },
                   {
                     "color": "dark-red",
-                    "value": 135
+                    "value": 253
                   }
                 ]
-              }
+              },
+              "unit": "volt"
             },
             "overrides": []
           },
@@ -845,8 +850,8 @@ data:
                   "type": "special"
                 }
               ],
-              "max": 30,
-              "min": 0,
+              "max": 15,
+              "min": 10,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -855,16 +860,16 @@ data:
                     "value": null
                   },
                   {
-                    "color": "dark-green",
-                    "value": 22
+                    "color": "dark-yellow",
+                    "value": 12
                   },
                   {
-                    "color": "dark-red",
-                    "value": 28
+                    "color": "dark-green",
+                    "value": 13
                   }
                 ]
               },
-              "unit": "short"
+              "unit": "volt"
             },
             "overrides": []
           },
