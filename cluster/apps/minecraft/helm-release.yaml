@@ -32,8 +32,6 @@ spec:
       requests:
         cpu: 1000m
         memory: 2000Mi
-    podAnnotations:
-      backup.velero.io/backup-volumes: datadir
     securityContext:
       runAsUser: 1000
       fsGroup: 1000

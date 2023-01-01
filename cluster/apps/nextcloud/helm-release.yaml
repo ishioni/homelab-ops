@@ -103,8 +103,6 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud-app
-    podAnnotations:
-      backup.velero.io/backup-volumes: nextcloud-main
     resources:
       requests:
         cpu: 200m

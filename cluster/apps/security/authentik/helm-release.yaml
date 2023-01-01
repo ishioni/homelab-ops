@@ -59,9 +59,6 @@ spec:
             - "auth.${SECRET_DOMAIN}"
     postgresql:
       enabled: true
-      primary:
-        podAnnotations:
-          backup.velero.io/backup-volumes: data
       persistence:
         enabled: true
         existingClaim: authentik-postgresql
@@ -71,8 +68,6 @@ spec:
       auth:
         enabled: true
       master:
-        podAnnotations:
-          backup.velero.io/backup-volumes: redis-data
         persistence:
           enabled: true
           existingClaim: authentik-redis
