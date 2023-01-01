@@ -1,0 +1,14 @@
+---
+apiVersion: snapshot.storage.k8s.io/v1
+deletionPolicy: Delete
+driver: csi.hpe.com
+kind: VolumeSnapshotClass
+metadata:
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "true"
+  name: truenas-csp-snapshot
+parameters:
+  csi.storage.k8s.io/snapshotter-list-secret-name: truenas-secret
+  csi.storage.k8s.io/snapshotter-list-secret-namespace: storage
+  csi.storage.k8s.io/snapshotter-secret-name: truenas-secret
+  csi.storage.k8s.io/snapshotter-secret-namespace: storage

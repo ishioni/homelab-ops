@@ -6,4 +6,3 @@ resources:
   - metallb
   - prometheus-operator
   - snapshot-controller
-  - velero

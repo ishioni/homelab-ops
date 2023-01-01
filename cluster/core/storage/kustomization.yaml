@@ -5,4 +5,4 @@ resources:
   - democratic-csi
   - snapshot-controller
   - truenas-csp
-  - velero
+  - volsync
