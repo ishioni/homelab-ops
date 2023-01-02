@@ -37,9 +37,9 @@ spec:
       name: "org.democratic-csi.nvmeof"
     storageClasses:
       - name: truenas-ssd-nvmeof
-        defaultClass: false
+        defaultClass: true
         reclaimPolicy: Delete
-        volumeBindingMode: Immediate
+        volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
         parameters:
           fsType: ext4
@@ -50,7 +50,13 @@ spec:
           node-stage-secret:
           node-publish-secret:
           controller-expand-secret:
-    volumeSnapshotClasses: []
+    volumeSnapshotClasses:
+      - name: truenas-ssd-nvmeof
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
     driver:
       config:
         driver: zfs-generic-nvmeof
