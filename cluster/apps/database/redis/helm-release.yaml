@@ -50,7 +50,8 @@ spec:
       enabled: true
     metrics:
       enabled: true
-      serviceMonitor: true
+      serviceMonitor:
+        enabled: true
   valuesFrom:
     - kind: Secret
       name: redis-secret
