@@ -2,15 +2,19 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: postgres-v1
   namespace: database
 spec:
-  instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.1
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.6
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
     storageClass: truenas-ssd-nvmeof
+  postgresql:
+    parameters:
+      max_connections: "300"
+      shared_buffers: 512MB
   superuserSecret:
     name: postgres-superuser
   monitoring:
@@ -34,7 +38,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://postgres/
       endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
-      serverName: postgres
+      serverName: postgres-v1
       s3Credentials:
         accessKeyId:
           name: barman-postgres-secrets
