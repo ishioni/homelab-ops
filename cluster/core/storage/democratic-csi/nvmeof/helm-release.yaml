@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: democratic-csi-nfs
+  name: democratic-csi-nvmeof-test
   namespace: storage
 spec:
   interval: 15m
@@ -23,30 +23,41 @@ spec:
     remediation:
       retries: 5
   values:
+    controller:
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:next
+        logLevel: debug
+        imagePullPolicy: Always
+    node:
+      driver:
+        image: docker.io/democraticcsi/democratic-csi:next
+        logLevel: debug
+        imagePullPolicy: Always
     csiDriver:
-      name: "org.democratic-csi.nfs"
+      name: "org.democratic-csi.nvmeof"
     storageClasses:
-      - name: truenas-hdd-nfs
-        defaultClass: false
+      - name: truenas-ssd-nvmeof
+        defaultClass: true
         reclaimPolicy: Delete
-        volumeBindingMode: Immediate
+        volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
         parameters:
-          fsType: nfs
-        mountOptions:
-          - nfsvers=4.2
-          - nconnect=8
-          - hard
-          - intr
-          - noatime
-          - nodiratime
+          fsType: ext4
+        mountOptions: []
         secrets:
           provisioner-secret:
           controller-publish-secret:
           node-stage-secret:
           node-publish-secret:
           controller-expand-secret:
+    volumeSnapshotClasses:
+      - name: truenas-ssd-nvmeof
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
     driver:
       config:
-        driver: freenas-api-nfs
-      existingConfigSecret: truenas-config-nfs
+        driver: zfs-generic-nvmeof
+      existingConfigSecret: democratic-config-nvmeof

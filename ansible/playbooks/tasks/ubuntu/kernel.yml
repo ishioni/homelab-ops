@@ -15,6 +15,9 @@
     - nf_conntrack
     - acpiphp
     - pci_hotplug
+    - nvme_core
+    - nvme_fabric
+    - nvme_tcp
 
 - name: Enable kernel modules on boot
   ansible.builtin.copy:
@@ -33,6 +36,9 @@
     - nf_conntrack
     - acpiphp
     - pci_hotplug
+    - nvme_core
+    - nvme_fabric
+    - nvme_tcp
 
 - name: Disable mitigations
   ansible.builtin.replace:
