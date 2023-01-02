@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: database
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: redis
+      version: 17.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: democratic-csi-nvmeof
+      namespace: storage
+  values:
+    env:
+      TZ: "${TIMEZONE}"
+    global:
+      storageClass: "truenas-ssd-nvmeof"
+      redis:
+        password: "${SECRET_REDIS_PASSWORD}"
+    architecture: replication
+    auth:
+      enabled: true
+      sentinel: true
+    master:
+      persistence:
+        size: 5Gi
+    replica:
+      replicaCount: 3
+      persistence:
+        size: 5Gi
+    sentinel:
+      enabled: true
+    metrics:
+      enabled: true
+      serviceMonitor: true
+  valuesFrom:
+    - kind: Secret
+      name: redis-secret
+      valuesKey: redisPassword
+      targetPath: global.redis.password
