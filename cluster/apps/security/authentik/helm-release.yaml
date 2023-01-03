@@ -35,6 +35,7 @@ spec:
     authentik:
       email:
         use_ssl: true
+        port: "465"
         from: "Authentik <auth@${SECRET_DOMAIN}>"
       log_level: debug
       error_reporting:
@@ -84,10 +85,6 @@ spec:
       targetPath: authentik.email.host
     - kind: Secret
       name: authentik-secret
-      valuesKey: SMTP_PORT
-      targetPath: authentik.email.port
-    - kind: Secret
-      name: authentik-secret
       valuesKey: SMTP_USERNAME
       targetPath: authentik.email.username
     - kind: Secret
@@ -114,3 +111,7 @@ spec:
       name: authentik-secret
       valuesKey: REDIS_PASSWORD
       targetPath: authentik.redis.password
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: REDIS_PASSWORD
+      targetPath: redis.auth.password
