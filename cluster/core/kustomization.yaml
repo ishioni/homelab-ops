@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - namespaces
   - flux-system
+  - security
   - storage
   - networking
   - system-upgrade
