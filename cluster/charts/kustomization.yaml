@@ -8,6 +8,7 @@ resources:
   - bjw-s-charts.yaml
   - cloudnative-pg-charts.yaml
   - democratic-csi-charts.yaml
+  - ext-postgres-operator-charts.yaml
   - external-dns-charts.yaml
   - external-secrets-charts.yaml
   - grafana-charts.yaml
