@@ -30,6 +30,6 @@ spec:
       enabled: false
   valuesFrom:
     - kind: Secret
-      name: immich-secrets
+      name: immich-secret
       valuesKey: REDIS_PASSWORD
       targetPath: auth.password
