@@ -23,16 +23,18 @@ spec:
     remediation:
       retries: 5
   values:
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.6
+        envFrom:
+          - secretRef:
+              name: immich-secret
     replicas: 1
     worker:
       replicas: 1
     authentik:
       email:
-        host: smtp.fastmail.com
-        port: 465
         use_ssl: true
-        username: "${NULLMAILER_USERNAME}"
-        password: "${NULLMAILER_PASSWORD}"
         from: "Authentik <auth@${SECRET_DOMAIN}>"
       log_level: debug
       error_reporting:
@@ -57,12 +59,12 @@ spec:
         - secretName: "auth.${SECRET_DOMAIN}"
           hosts:
             - "auth.${SECRET_DOMAIN}"
-    postgresql:
-      enabled: true
-      persistence:
-        enabled: true
-        existingClaim: authentik-postgresql
-      postgresqlDatabase: authentik
+    # postgresql:
+    #   enabled: true
+    #   persistence:
+    #     enabled: true
+    #     existingClaim: authentik-postgresql
+    #   postgresqlDatabase: authentik
     redis:
       enabled: true
       auth:
@@ -73,30 +75,42 @@ spec:
           existingClaim: authentik-redis
   valuesFrom:
     - kind: Secret
-      name: authentik-secrets
-      valuesKey: secretKey
+      name: authentik-secret
+      valuesKey: AUTHENTIK_SECRET_KEY
       targetPath: authentik.secret_key
     - kind: Secret
-      name: authentik-secrets
-      valuesKey: postgresUser
+      name: authentik-secret
+      valuesKey: SMTP_HOST
+      targetPath: authentik.email.host
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: SMTP_PORT
+      targetPath: authentik.email.port
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: SMTP_USERNAME
+      targetPath: authentik.email.username
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: SMTP_PASSWORD
+      targetPath: authentik.email.password
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: POSTGRES_HOST
+      targetPath: authentik.postgresql.host
+    - kind: Secret
+      name: authentik-secret
+      valuesKey: POSTGRES_USER
       targetPath: authentik.postgresql.user
     - kind: Secret
-      name: authentik-secrets
-      valuesKey: postgresPassword
+      name: authentik-secret
+      valuesKey: POSTGRES_PASSWORD
       targetPath: authentik.postgresql.password
     - kind: Secret
-      name: authentik-secrets
-      valuesKey: postgresUser
-      targetPath: postgresql.postgresqlUsername
+      name: authentik-secret
+      valuesKey: POSTGRES_DB
+      targetPath: authentik.postgresql.name
     - kind: Secret
-      name: authentik-secrets
-      valuesKey: postgresPassword
-      targetPath: postgresql.postgresqlPassword
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: redisPassword
+      name: authentik-secret
+      valuesKey: REDIS_PASSWORD
       targetPath: authentik.redis.password
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: redisPassword
-      targetPath: redis.auth.password

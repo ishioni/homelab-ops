@@ -20,13 +20,6 @@ spec:
   monitoring:
     enablePodMonitor: true
 
-  # bootstrap:
-  #   initdb:
-  #     database: nextcloud
-  #     owner: nextcloud
-  #     secret:
-  #       name: postgres-nextcloud
-
   # recovery:
   #  source: postgres
 
