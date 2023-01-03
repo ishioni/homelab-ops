@@ -22,7 +22,7 @@ metadata:
   name: external-secrets-crds
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   prune: true
   wait: true
   sourceRef:
