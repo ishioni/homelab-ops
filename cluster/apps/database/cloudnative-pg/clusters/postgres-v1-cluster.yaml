@@ -16,7 +16,7 @@ spec:
       max_connections: "300"
       shared_buffers: 512MB
   superuserSecret:
-    name: postgres-superuser
+    name: cloudnative-pg-secrets
   monitoring:
     enablePodMonitor: true
 
@@ -41,8 +41,8 @@ spec:
       serverName: postgres-v1
       s3Credentials:
         accessKeyId:
-          name: barman-postgres-secrets
-          key: MINIO_ACCESS_KEY
+          name: cloudnative-pg-secrets
+          key: s3-access-key
         secretAccessKey:
-          name: barman-postgres-secrets
-          key: MINIO_SECRET_KEY
+          name: cloudnative-pg-secrets
+          key: s3-secret-key
