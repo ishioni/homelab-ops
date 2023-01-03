@@ -101,7 +101,7 @@ spec:
       targetPath: authentik.postgresql.user
     - kind: Secret
       name: authentik-secret
-      valuesKey: POSTGRES_PASSWORD
+      valuesKey: POSTGRES_PASS
       targetPath: authentik.postgresql.password
     - kind: Secret
       name: authentik-secret
