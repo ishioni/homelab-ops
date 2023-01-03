@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: immich-server
-  namespace: immich
+  namespace: fileservers
 spec:
   interval: 15m
   chart:
@@ -28,7 +28,6 @@ spec:
     keepHistory: false
   dependsOn:
     - name: immich-redis
-      namespace: immich
   values:
     initContainers:
       init-db:
