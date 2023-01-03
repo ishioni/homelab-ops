@@ -27,7 +27,7 @@ spec:
     auth:
       enabled: true
     persistence:
-      enabled: true
+      enabled: false
   valuesFrom:
     - kind: Secret
       name: immich-secrets
