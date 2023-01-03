@@ -30,8 +30,9 @@ spec:
     - name: cloudnative-pg
       namespace: database
   values:
-    host: postgres-v1-rw.database.svc.cluster.local
-    user: postgres
+    postgres:
+      host: postgres-v1-rw.database.svc.cluster.local
+      user: postgres
   valuesFrom:
     - kind: Secret
       name: cloudnative-pg-secrets
