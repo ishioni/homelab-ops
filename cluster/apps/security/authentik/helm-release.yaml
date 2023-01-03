@@ -28,7 +28,7 @@ spec:
         image: ghcr.io/onedr0p/postgres-initdb:14.6
         envFrom:
           - secretRef:
-              name: immich-secret
+              name: authentik-secret
     replicas: 1
     worker:
       replicas: 1
