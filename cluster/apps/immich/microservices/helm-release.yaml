@@ -15,20 +15,19 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+  maxHistory: 3
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   dependsOn:
-    - name: immich-postgres
-      namespace: immich
-    - name: immich-redis
-      namespace: immich
     - name: immich-server
-      namespace: immich
   values:
     controller:
       strategy: RollingUpdate
@@ -42,7 +41,7 @@ spec:
       - ./start-microservices.sh
     envFrom:
       - secretRef:
-          name: immich-secrets
+          name: immich-secret
       - configMapRef:
           name: immich-configmap
     service:

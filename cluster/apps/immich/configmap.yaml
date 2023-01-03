@@ -5,8 +5,6 @@ metadata:
   name: immich-configmap
   namespace: immich
 data:
-  DB_DATABASE_NAME: immich
-  DB_HOSTNAME: immich-postgres-postgresql.immich.svc.cluster.local
   DB_PORT: "5432"
   DISABLE_REVERSE_GEOCODING: "true"
   ENABLE_MAPBOX: "false"
@@ -18,7 +16,8 @@ data:
   IMMICH_WEB_URL: http://immich-web.immich.svc.cluster.local:3000
   IMMICH_SERVER_URL: http://immich-server.immich.svc.cluster.local:3001
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.immich.svc.cluster.local:3003
-  OAUTH_ENABLED: "true"
-  OAUTH_AUTO_REGISTER: "true"
-  OAUTH_BUTTON_TEXT: Login with Authentik
-  OAUTH_ISSUER_URL: https://auth.${SECRET_DOMAIN}/application/o/immich/.well-known/openid-configuration
+  # No longer able to set these with env vars :(
+  # OAUTH_ENABLED: "true"
+  # OAUTH_AUTO_REGISTER: "true"
+  # OAUTH_BUTTON_TEXT: Login with Authentik
+  # OAUTH_ISSUER_URL: https://auth.${SECRET_DOMAIN}/application/o/immich/.well-known/openid-configuration
