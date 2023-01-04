@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - database
   - default
-  - immich
+  - fileservers
   - kube-system
   - media
   - minecraft

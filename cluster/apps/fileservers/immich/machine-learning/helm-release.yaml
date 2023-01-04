@@ -3,8 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: immich-microservices
-  namespace: immich
+  name: immich-machine-learning
+  namespace: fileservers
 spec:
   interval: 15m
   chart:
@@ -15,39 +15,40 @@ spec:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+  maxHistory: 3
   install:
     createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   dependsOn:
-    - name: immich-postgres
-      namespace: immich
-    - name: immich-redis
-      namespace: immich
     - name: immich-server
-      namespace: immich
   values:
     controller:
       strategy: RollingUpdate
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/immich-app/immich-server
+      repository: ghcr.io/immich-app/immich-machine-learning
       tag: v1.40.1_63-dev
     command: /bin/sh
     args:
-      - ./start-microservices.sh
+      - ./entrypoint.sh
     envFrom:
       - secretRef:
-          name: immich-secrets
+          name: immich-secret
       - configMapRef:
           name: immich-configmap
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            port: 3003
     persistence:
       library:
         enabled: true

@@ -4,11 +4,10 @@ kind: Kustomization
 resources:
   - machine-learning
   - microservices
-  - postgres
   - proxy
   - redis
   - server
   - web
   - configmap.yaml
   - nfs-pvc.yaml
-  - secrets.sops.yaml
+  - externalsecret.yaml
