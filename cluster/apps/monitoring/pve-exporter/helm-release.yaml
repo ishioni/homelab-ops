@@ -47,10 +47,10 @@ spec:
             params:
               module: [default]
               target:
-                - proxmox-1.services.movishell.pl
-                - proxmox-2.services.movishell.pl
-                - proxmox-3.services.movishell.pl
-                - proxmox-4.services.movishell.pl
+                - proxmox-1.services.${SECRET_DOMAIN}
+                - proxmox-2.services.${SECRET_DOMAIN}
+                - proxmox-3.services.${SECRET_DOMAIN}
+                - proxmox-4.services.${SECRET_DOMAIN}
             relabelings:
               - sourceLabels:
                   - __param_target
