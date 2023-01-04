@@ -72,7 +72,8 @@ spec:
         enabled: true
       master:
         persistence:
-          enabled: false
+          enabled: true
+          existingClaim: authentik-redis
   valuesFrom:
     - kind: Secret
       name: authentik-secret
