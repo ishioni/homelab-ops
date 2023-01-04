@@ -4,8 +4,8 @@ resource "authentik_flow" "authentication" {
   title              = "Welcome!"
   slug               = "authentication-flow"
   designation        = "authentication"
-  background         = "/static/dist/assets/images/flow_background.jpg"
   policy_engine_mode = "all"
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "authentication-flow-binding-00" {
@@ -34,6 +34,7 @@ resource "authentik_flow" "invalidation" {
   policy_engine_mode = "any"
   designation        = "invalidation"
   denied_action      = "continue"
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "invalidation-flow-binding-00" {
@@ -49,6 +50,7 @@ resource "authentik_flow" "recovery" {
   slug               = "password-recovery"
   designation        = "recovery"
   compatibility_mode = true
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "recovery-flow-binding-00" {
@@ -82,6 +84,7 @@ resource "authentik_flow" "enrollment-invitation" {
   slug               = "enrollmment-invitation"
   designation        = "enrollment"
   compatibility_mode = true
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-00" {
@@ -116,6 +119,7 @@ resource "authentik_flow" "user-settings" {
   policy_engine_mode = "any"
   denied_action      = "message_continue"
   designation        = "stage_configuration"
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "user-settings-flow-binding-20" {
@@ -138,4 +142,5 @@ resource "authentik_flow" "provider-authorization-implicit-consent" {
   policy_engine_mode = "any"
   denied_action      = "message_continue"
   designation        = "authorization"
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
 }
