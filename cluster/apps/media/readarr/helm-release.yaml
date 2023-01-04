@@ -43,7 +43,7 @@ spec:
     volumeClaimTemplates:
       - name: config
         mountPath: /config
-        storageClass: truenas-ssd
+        storageClass: truenas-ssd-nvmeof
         accessMode: ReadWriteOnce
         size: 1Gi
     persistence:
