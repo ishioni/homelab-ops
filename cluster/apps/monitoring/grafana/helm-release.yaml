@@ -40,7 +40,7 @@ spec:
         org_role: Viewer
       auth.generic_oauth:
         enabled: true
-        name: Movishell
+        name: ${SECRET_DOMAIN}
         scopes: openid email profile
         auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
         token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
