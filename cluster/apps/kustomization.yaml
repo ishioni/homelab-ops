@@ -7,7 +7,7 @@ resources:
   - fileservers
   - kube-system
   - media
-  - minecraft
+  - games
   - monitoring
   - nextcloud
   - reverse-proxy
