@@ -89,7 +89,7 @@ spec:
       targetPath: authentik.email.username
     - kind: Secret
       name: authentik-secret
-      valuesKey: SMTP_PASSWORD
+      valuesKey: SMTP_PASS
       targetPath: authentik.email.password
     - kind: Secret
       name: authentik-secret
@@ -109,9 +109,9 @@ spec:
       targetPath: authentik.postgresql.name
     - kind: Secret
       name: authentik-secret
-      valuesKey: REDIS_PASSWORD
+      valuesKey: REDIS_PASS
       targetPath: authentik.redis.password
     - kind: Secret
       name: authentik-secret
-      valuesKey: REDIS_PASSWORD
+      valuesKey: REDIS_PASS
       targetPath: redis.auth.password
