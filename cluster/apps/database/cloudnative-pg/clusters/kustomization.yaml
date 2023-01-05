@@ -5,3 +5,4 @@ resources:
   - external-secret.yaml
   - postgres-v1-cluster.yaml
   - scheduledbackup.yaml
+  - loadbalancer.yaml
