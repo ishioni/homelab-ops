@@ -5,7 +5,6 @@ resources:
   - database.yaml
   - fileservers.yaml
   - games.yaml
-  - ingress.yaml
   - storage.yaml
   - reverse-proxy.yaml
   - security.yaml
