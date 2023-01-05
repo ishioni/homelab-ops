@@ -6,6 +6,7 @@ resources:
   - database.yaml
   - external-dns.yaml
   - fileservers.yaml
+  - games.yaml
   - ingress.yaml
   - immich.yaml
   - storage.yaml

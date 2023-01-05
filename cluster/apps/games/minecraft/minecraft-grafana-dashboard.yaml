@@ -1,10 +1,11 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
     grafana_dashboard: "1"
   name: grafana-minecraft
-  namespace: minecraft
+  namespace: games
 data:
   minecraft.json: |-
     {
