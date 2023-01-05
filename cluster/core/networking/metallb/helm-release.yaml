@@ -16,12 +16,17 @@ spec:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
+  maxHistory: 3
   install:
+    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     psp:
       create: false
@@ -30,14 +35,12 @@ spec:
     controller:
       resources:
         limits:
-          cpu: 50m
-          memory: 50Mi
+          memory: 100Mi
     speaker:
       tolerateMaster: false
       resources:
         limits:
-          cpu: 50m
-          memory: 50Mi
+          memory: 100Mi
     prometheus:
       serviceAccount: kube-prometheus-stack-prometheus
       namespace: networking
