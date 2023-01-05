@@ -187,7 +187,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: truenas-ssd
+              storageClassName: truenas-ssd-nvmeof
               resources:
                 requests:
                   storage: 10Gi
