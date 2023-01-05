@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: spigot
+  name: minecraft
   namespace: games
 spec:
   endpoints:
