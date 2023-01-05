@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: spigot
+  name: minecraft
   namespace: minecraft
 spec:
   interval: 15m
@@ -24,10 +24,10 @@ spec:
       retries: 5
   values:
     image:
-      tag: java17
+      repository: itzg/minecraft-server
+      tag: 2022.16.0-java17
     resources:
       limits:
-        cpu: 2000m
         memory: 3000Mi
       requests:
         cpu: 1000m
