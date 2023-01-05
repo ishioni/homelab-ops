@@ -59,13 +59,13 @@ spec:
       retentionResolution1h: 30d
       persistence:
         enabled: true
-        storageClass: "truenas-ssd"
-        size: 15Gi
+        storageClass: "truenas-ssd-nvmeof"
+        size: 2Gi
     storegateway:
       enabled: true
       persistence:
         enabled: true
-        storageClass: "truenas-ssd"
+        storageClass: "truenas-ssd-nvmeof"
         size: 512Mi
     ruler:
       enabled: true
@@ -82,7 +82,7 @@ spec:
         enabled: true
       persistence:
         enabled: true
-        storageClass: "truenas-ssd"
+        storageClass: "truenas-ssd-nvmeof"
         size: 512Mi
     metrics:
       enabled: true

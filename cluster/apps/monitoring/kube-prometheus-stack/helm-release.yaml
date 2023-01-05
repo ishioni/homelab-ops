@@ -83,7 +83,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: truenas-ssd
+              storageClassName: truenas-ssd-nvmeof
               resources:
                 requests:
                   storage: 1Gi
@@ -180,8 +180,8 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 14d
-        retentionSize: 45GB
+        retention: 3d
+        retentionSize: 8GB
         enableAdminAPI: true
         walCompression: true
         storageSpec:
@@ -190,7 +190,7 @@ spec:
               storageClassName: truenas-ssd
               resources:
                 requests:
-                  storage: 50Gi
+                  storage: 10Gi
         thanos:
           image: quay.io/thanos/thanos:v0.30.0
           # renovate: datasource=docker depName=quay.io/thanos/thanos
