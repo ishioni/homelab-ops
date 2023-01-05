@@ -11,5 +11,5 @@ spec:
       port: metrics
   selector:
     matchLabels:
-      app: spigot-minecraft-metrics
-      release: spigot
+      app: minecraft-minecraft-metrics
+      release: minecraft
