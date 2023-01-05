@@ -16,12 +16,17 @@ spec:
         kind: HelmRepository
         name: minecraft-server-charts
         namespace: flux-system
+  maxHistory: 3
   install:
+    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     image:
       repository: itzg/minecraft-server
@@ -64,9 +69,8 @@ spec:
       forceReDownload: true
       memory: ""
       jvmXXOpts: "-XX:MaxRAMPercentage=75"
-      # spigetResources:
-      #   # Prometheus exporter
-      #   - 36618
+      spigetResources:
+        - 36618
       #   # Dynmap
       #   - 274
       rcon:
