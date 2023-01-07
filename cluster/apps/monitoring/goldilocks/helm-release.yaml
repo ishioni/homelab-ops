@@ -27,7 +27,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
+    # controller:
       # resources:
       #   requests:
       #     cpu: 15m
@@ -53,7 +53,7 @@ spec:
           - hosts:
               - *host
             secretName: *host
-      resources: []
+      # resources:
         # requests:
         #   cpu: 15m
         #   memory: 64M
