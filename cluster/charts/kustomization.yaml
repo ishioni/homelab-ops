@@ -11,6 +11,7 @@ resources:
   - ext-postgres-operator-charts.yaml
   - external-dns-charts.yaml
   - external-secrets-charts.yaml
+  - fairwinds-charts.yaml
   - grafana-charts.yaml
   - hajimari-charts.yaml
   - ingress-nginx-charts.yaml
