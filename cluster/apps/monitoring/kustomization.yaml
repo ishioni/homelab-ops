@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - dnsmasq-exporter
   - grafana
+  - goldilocks
   - nut-exporter
   - pve-exporter
   - kube-prometheus-stack
@@ -11,4 +12,5 @@ resources:
   - thanos
   - uptime-kuma
   - weave-gitops
+  - vpa
   - unpoller
