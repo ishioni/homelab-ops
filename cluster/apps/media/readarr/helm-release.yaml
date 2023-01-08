@@ -34,12 +34,6 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
-    resources:
-      requests:
-        cpu: 200m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
     volumeClaimTemplates:
       - name: config
         mountPath: /config
@@ -82,3 +76,9 @@ spec:
           - secretName: "books.${SECRET_DOMAIN}"
             hosts:
               - "books.${SECRET_DOMAIN}"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 100Mi
+      limits:
+        memory: 500Mi

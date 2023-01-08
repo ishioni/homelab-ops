@@ -60,12 +60,19 @@ spec:
         - secretName: "auth.${SECRET_DOMAIN}"
           hosts:
             - "auth.${SECRET_DOMAIN}"
-    # postgresql:
-    #   enabled: true
-    #   persistence:
-    #     enabled: true
-    #     existingClaim: authentik-postgresql
-    #   postgresqlDatabase: authentik
+    resources:
+      server:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 800Mi
+      worker:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 800Mi
     redis:
       enabled: true
       auth:

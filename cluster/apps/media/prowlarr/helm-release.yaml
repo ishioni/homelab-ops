@@ -35,12 +35,6 @@ spec:
     env:
       TZ: Europe/Warsaw
       PROWLARR__AUTHENTICATION_METHOD: External
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
     volumeClaimTemplates:
       - name: config
         mountPath: /config
@@ -77,3 +71,9 @@ spec:
           - secretName: "indexer.${SECRET_DOMAIN}"
             hosts:
               - "indexer.${SECRET_DOMAIN}"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 100Mi
+      limits:
+        memory: 300Mi

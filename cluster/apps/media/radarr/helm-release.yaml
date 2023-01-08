@@ -40,12 +40,6 @@ spec:
         storageClass: truenas-ssd-nvmeof
         accessMode: ReadWriteOnce
         size: 1Gi
-    resources:
-      requests:
-        cpu: 100m
-        memory: 250Mi
-      limits:
-        memory: 500Mi
     probes:
       liveness:
         enabled: true
@@ -99,3 +93,9 @@ spec:
           - secretName: "movies.${SECRET_DOMAIN}"
             hosts:
               - "movies.${SECRET_DOMAIN}"
+    resources:
+      requests:
+        cpu: 50m
+        memory: 200Mi
+      limits:
+        memory: 500Mi

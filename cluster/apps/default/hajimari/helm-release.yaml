@@ -119,7 +119,7 @@ spec:
       configmap.reloader.stakater.com/reload: "hajimari-settings"
     resources:
       requests:
-        cpu: 100m
+        cpu: 50m
         memory: 50Mi
       limits:
         memory: 100Mi

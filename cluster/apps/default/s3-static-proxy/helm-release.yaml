@@ -32,10 +32,8 @@ spec:
       registry: docker.io
       repository: bitnami/nginx
       tag: 1.23.3
-
     service:
       type: ClusterIP
-
     serverBlock: |-
       server {
         listen 8080;
@@ -53,3 +51,7 @@ spec:
         external-dns/is-public: "true"
         cert-manager.io/cluster-issuer: "letsencrypt-production"
       tls: true
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
