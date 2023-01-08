@@ -81,6 +81,13 @@ spec:
         persistence:
           enabled: true
           existingClaim: authentik-redis
+      resources:
+        server:
+          requests:
+            cpu: 15m
+            memory: 50Mi
+          limits:
+            memory: 100Mi
   valuesFrom:
     - kind: Secret
       name: authentik-secret
