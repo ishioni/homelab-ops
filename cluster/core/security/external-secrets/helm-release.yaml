@@ -28,13 +28,30 @@ spec:
     keepHistory: false
   values:
     installCRDs: false
-    replicaCount: 3
+    replicaCount: 1
     leaderElect: true
     serviceMonitor:
       enabled: true
     webhook:
       serviceMonitor:
         enabled: true
+      resources:
+        requests:
+          cpu: 15m
+          memory: 50Mi
+        limits:
+          memory: 100Mi
     certController:
       serviceMonitor:
         enabled: true
+      resources:
+        cpu: 15m
+        memory: 80Mi
+      limits:
+        memory: 150Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 50Mi
+      limits:
+        memory: 100Mi
