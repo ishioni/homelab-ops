@@ -45,10 +45,11 @@ spec:
       serviceMonitor:
         enabled: true
       resources:
-        cpu: 15m
-        memory: 80Mi
-      limits:
-        memory: 150Mi
+        requests:
+          cpu: 15m
+          memory: 80Mi
+        limits:
+          memory: 150Mi
     resources:
       requests:
         cpu: 15m
