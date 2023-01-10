@@ -45,3 +45,9 @@ spec:
             scheme: http
             path: /ups_metrics
             scrapeTimeout: 10s
+    resources:
+      requests:
+        cpu: 15m
+        memory: 30Mi
+      limits:
+        memory: 50Mi

@@ -35,6 +35,12 @@ spec:
         ports:
           http:
             port: 9798
+    resources:
+      requests:
+        cpu: 15m
+        memory: 30Mi
+      limits:
+        memory: 50Mi
     serviceMonitor:
       main:
         enabled: true
