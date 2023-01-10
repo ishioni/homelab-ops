@@ -24,6 +24,9 @@ spec:
       retries: 5
   values:
     controller:
+      extraEnvs:
+        - name: TZ
+          value: Europe/Warsaw
       kind: DaemonSet
       electionID: "nginx-public-leader"
       ingressClassByName: true
@@ -38,11 +41,17 @@ spec:
           metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_LB}"
         externalTrafficPolicy: Local
       config:
+        client-body-buffer-size: "100M"
+        client-body-timeout: 120
+        client-header-timeout: 120
+        enable-brotli: "true"
+        keep-alive-requests: 10000
+        keep-alive: 120
         custom-http-errors: 400,401,403,404,500,502,503,504
         ssl-protocols: "TLSv1.3 TLSv1.2"
         proxy-body-size: "0"
-        proxy-read-timeout: "3600"
-        proxy-send-timeout: "3600"
+        proxy-read-timeout: 120
+        proxy-send-timeout: 120
         use-forwarded-headers: "true"
       metrics:
         enabled: true
@@ -53,16 +62,22 @@ spec:
             any: true
       resources:
         requests:
+          cpu: 50m
           memory: 100Mi
-          cpu: 100m
         limits:
-          memory: 500Mi
+          memory: 300Mi
     defaultBackend:
       enabled: true
       image:
         repository: ghcr.io/tarampampam/error-pages
         tag: 2.19.0
       replicaCount: 1
+      resources:
+        requests:
+          cpu: 15m
+          memory: 30Mi
+        limits:
+          memory: 35Mi
       extraEnvs:
         - name: TEMPLATE_NAME
           value: lost-in-space

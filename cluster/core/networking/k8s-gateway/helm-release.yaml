@@ -33,6 +33,12 @@ spec:
       port: 53
       annotations:
         metallb.universe.tf/loadBalancerIPs: "${GATEWAY_DNS_LB}"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 30Mi
+      limits:
+        memory: 50Mi
     serviceMonitor:
       main:
         enabled: true
