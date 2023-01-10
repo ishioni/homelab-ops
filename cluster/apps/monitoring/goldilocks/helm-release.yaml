@@ -27,13 +27,14 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    # controller:
-      # resources:
-      #   requests:
-      #     cpu: 15m
-      #     memory: 145M
-      #   limits:
-      #     memory: 174M
+    controller:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100Mi
+        limits:
+          cpu: 100m
+          memory: 200Mi
     dashboard:
       replicaCount: 1
       ingress:
@@ -53,9 +54,10 @@ spec:
           - hosts:
               - *host
             secretName: *host
-      # resources:
-        # requests:
-        #   cpu: 15m
-        #   memory: 64M
-        # limits:
-        #   memory: 64M
+      resources:
+        requests:
+          cpu: 15m
+          memory: 64M
+        limits:
+          cpu: 100m
+          memory: 64M
