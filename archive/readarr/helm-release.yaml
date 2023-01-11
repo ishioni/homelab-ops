@@ -56,8 +56,7 @@ spec:
         enabled: true
         ingressClassName: public
         annotations:
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
+          external-dns.home.arpa/enabled: "true"
           cert-manager.io/cluster-issuer: letsencrypt-production
           hajimari.io/enable: "true"
           hajimari.io/appName: Readarr

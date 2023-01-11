@@ -16,36 +16,39 @@ spec:
         kind: HelmRepository
         name: external-dns
         namespace: flux-system
+  maxHistory: 3
   install:
+    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
-    interval: 5m
-    logLevel: debug
+    interval: 2m
+    # logLevel: debug
     provider: cloudflare
     env:
       - name: CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: external-dns-cloud-credentials
+            name: external-dns-secret
             key: email
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: external-dns-cloud-credentials
+            name: external-dns-secret
             key: api-token
     extraArgs:
-      - --annotation-filter=external-dns/is-public in (true)
-    policy: upsert-only
-    sources:
-      - ingress
+      - --annotation-filter=external-dns.home.arpa/enabled in (true)
+    policy: sync
+    sources: ["ingress"]
     txtPrefix: "k8s."
     txtOwnerId: "default"
-    domainFilters:
-      - "${SECRET_DOMAIN}"
+    domainFilters: ["${SECRET_DOMAIN}"]
     resources:
       requests:
         memory: 100Mi
@@ -54,3 +57,5 @@ spec:
         memory: 250Mi
     serviceMonitor:
       enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: externaldns-secret

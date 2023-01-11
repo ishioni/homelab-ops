@@ -32,8 +32,7 @@ spec:
           ingressClassName: public
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
-            external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-            external-dns/is-public: "true"
+            external-dns.home.arpa/enabled: "true"
             hajimari.io/enable: "true"
             hajimari.io/appName: Home Assistant
             hajimari.io/group: home automation
