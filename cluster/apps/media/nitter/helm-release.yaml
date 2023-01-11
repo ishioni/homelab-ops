@@ -44,7 +44,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: 'public'
+        ingressClassName: "public"
         annotations:
           external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
           external-dns/is-public: "true"
@@ -54,7 +54,7 @@ spec:
           hajimari.io/icon: simple-icons:twitter
           hajimari.io/group: media
         hosts:
-          - host: &host 'nitter.${SECRET_DOMAIN}'
+          - host: &host "nitter.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
