@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -128,7 +128,15 @@ spec:
       endpoints: ["10.1.4.4", "10.1.4.5", "10.1.4.6"]
     kubeProxy:
       enabled: true
-      endpoints: ["10.1.4.4", "10.1.4.5", "10.1.4.6", "10.1.4.8", "10.1.4.9", "10.1.4.10"]
+      endpoints:
+        [
+          "10.1.4.4",
+          "10.1.4.5",
+          "10.1.4.6",
+          "10.1.4.8",
+          "10.1.4.9",
+          "10.1.4.10",
+        ]
     kubeEtcd:
       enabled: true
       endpoints: ["10.1.4.4", "10.1.4.5", "10.1.4.6"]
