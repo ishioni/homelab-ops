@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - cloudnative-pg
   - redis
+  - redis-lb
