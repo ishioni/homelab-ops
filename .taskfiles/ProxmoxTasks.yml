@@ -18,4 +18,4 @@ tasks:
     desc: Apply the terraform code to proxmox nodes
     dir: terraform/proxmox
     cmds:
-      - terraform plan {{.CLI_ARGS}}
+      - terraform apply {{.CLI_ARGS}}
