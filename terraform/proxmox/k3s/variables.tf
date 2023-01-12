@@ -2,6 +2,10 @@ variable "machine_name" {
   type = string
 }
 
+variable "tags" {
+  type = string
+}
+
 variable "clonesource" {
   type = string
 }
