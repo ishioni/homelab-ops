@@ -40,6 +40,9 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
+      redis:
+        host: redis-lb.database.svc.cluster.local
+        db: "1"
     ingress:
       enabled: true
       ingressClassName: public
@@ -73,20 +76,6 @@ spec:
           memory: 500Mi
         limits:
           memory: 800Mi
-    redis:
-      enabled: true
-      auth:
-        enabled: true
-      master:
-        persistence:
-          enabled: true
-          existingClaim: authentik-redis
-        resources:
-          requests:
-            cpu: 15m
-            memory: 50Mi
-          limits:
-            memory: 100Mi
   valuesFrom:
     - kind: Secret
       name: authentik-secret
@@ -120,11 +109,3 @@ spec:
       name: authentik-secret
       valuesKey: POSTGRES_DB
       targetPath: authentik.postgresql.name
-    - kind: Secret
-      name: authentik-secret
-      valuesKey: REDIS_PASS
-      targetPath: authentik.redis.password
-    - kind: Secret
-      name: authentik-secret
-      valuesKey: REDIS_PASS
-      targetPath: redis.auth.password
