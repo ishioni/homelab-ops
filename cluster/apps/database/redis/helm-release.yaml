@@ -42,7 +42,7 @@ spec:
           cpu: 15m
           memory: 20Mi
         limits:
-          memory: 50Mi
+          memory: 100Mi
     replica:
       persistence:
         enabled: false
@@ -51,12 +51,14 @@ spec:
           cpu: 15m
           memory: 20Mi
         limits:
-          memory: 50Mi
+          memory: 100Mi
     commonConfiguration: |-
       # Enable AOF https://redis.io/topics/persistence#append-only-file
       appendonly yes
       # Disable RDB persistence, AOF persistence already enabled.
       save ""
+      maxmemory 94371840
+      maxmemory-policy allkeys-lru
     sentinel:
       enabled: true
       masterSet: redis-master
@@ -65,7 +67,19 @@ spec:
         failureThreshold: 2
       persistence:
         enabled: false
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+        limits:
+          memory: 50Mi
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 10Mi
+        limits:
+          memory: 20Mi
