@@ -36,7 +36,8 @@ spec:
       # existingSecret: *app
     master:
       persistence:
-        enabled: false
+        enabled: true
+        size: 1Gi
       resources:
         requests:
           cpu: 15m
@@ -45,7 +46,8 @@ spec:
           memory: 100Mi
     replica:
       persistence:
-        enabled: false
+        enabled: true
+        size: 1Gi
       resources:
         requests:
           cpu: 15m
