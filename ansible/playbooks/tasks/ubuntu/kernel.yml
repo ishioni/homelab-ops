@@ -16,7 +16,7 @@
     - acpiphp
     - pci_hotplug
     - nvme_core
-    - nvme_fabric
+    - nvme_fabrics
     - nvme_tcp
 
 - name: Enable kernel modules on boot
