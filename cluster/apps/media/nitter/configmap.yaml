@@ -18,7 +18,7 @@ data:
     [Cache]
     listMinutes = 240  # how long to cache list info (not the tweets, so keep it high)
     rssMinutes = 10  # how long to cache rss queries
-    redisHost = "redis.database.svc.cluster.local."  # Change to "nitter-redis" if using docker-compose
+    redisHost = "redis-lb.database.svc.cluster.local."  # Change to "nitter-redis" if using docker-compose
     redisPort = 6379
     redisPassword = ""
     redisConnections = 20  # connection pool size
