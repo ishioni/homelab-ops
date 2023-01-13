@@ -28,11 +28,13 @@ spec:
         image: docker.io/democraticcsi/democratic-csi:next
         logLevel: debug
         imagePullPolicy: Always
+        priorityClassName: system-cluster-critical
     node:
       driver:
         image: docker.io/democraticcsi/democratic-csi:next
         logLevel: debug
         imagePullPolicy: Always
+        priorityClassName: system-node-critical
     csiDriver:
       name: "org.democratic-csi.nvmeof"
     storageClasses:
