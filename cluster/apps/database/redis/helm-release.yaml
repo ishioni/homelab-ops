@@ -37,9 +37,24 @@ spec:
     master:
       persistence:
         enabled: false
+      resources:
+        cpu: 15m
+        memory: 20Mi
+      limits:
+        memory: 50Mi
     replica:
       persistence:
         enabled: false
+      resources:
+        cpu: 15m
+        memory: 20Mi
+      limits:
+        memory: 50Mi
+    commonConfiguration: |-
+      # Enable AOF https://redis.io/topics/persistence#append-only-file
+      appendonly yes
+      # Disable RDB persistence, AOF persistence already enabled.
+      save ""
     sentinel:
       enabled: true
       masterSet: redis-master
