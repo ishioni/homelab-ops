@@ -23,6 +23,20 @@
         k3s_server_manifests_urls: []
       when: k3s_check_installed.stat.exists
 
+    - name: Create rancher dirs
+      ansible.builtin.file:
+        path: /etc/rancher
+        owner: root
+        group: root
+        mode: 0755
+        state: directory
+
+    - name: Install kubelet config
+      ansible.builtin.copy:
+        src: files/kubelet.conf
+        dest: /etc/rancher/k3s/kubelet.conf
+        mode: 0644
+
     - name: Install Kubernetes
       ansible.builtin.include_role:
         name: xanmanning.k3s

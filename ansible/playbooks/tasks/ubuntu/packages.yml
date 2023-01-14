@@ -73,6 +73,11 @@
           "${distro_id} ${distro_codename}-updates";
       };
 
+- name: Delete the inhibitor setting
+  ansible.builtin.file:
+    path: /lib/systemd/logind.conf.d/unattended-upgrades-logind-maxdelay.conf
+    state: absent
+
 - name: Start unattended-upgrades service
   ansible.builtin.systemd:
     name: unattended-upgrades
