@@ -139,6 +139,14 @@ spec:
           gnetId: 11315
           revision: 8
           datasource: Prometheus
+        redis-ha:
+          gnetId: 11835
+          revision: 1
+          datasource: Prometheus
+        haproxy:
+          gnetId: 12693
+          revision: 5
+          datasource: Prometheus
 
     plugins:
       - natel-discrete-panel
