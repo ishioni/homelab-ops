@@ -6,6 +6,6 @@ resources:
   - external-secret.yaml
   - grafana-dashboard.yaml
   - postgres-v1-cluster.yaml
-  - promethus.yaml
+  - prometheus.yaml
   - scheduledbackup.yaml
   - loadbalancer.yaml
