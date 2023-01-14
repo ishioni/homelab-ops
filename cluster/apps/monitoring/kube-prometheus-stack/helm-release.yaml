@@ -169,8 +169,6 @@ spec:
         replicas: 1
         podAntiAffinity: hard
         replicaExternalLabelName: __replica__
-        externalLabels:
-          cluster: ${CLUSTER_NAME}
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false

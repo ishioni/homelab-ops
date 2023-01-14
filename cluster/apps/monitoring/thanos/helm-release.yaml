@@ -71,7 +71,6 @@ spec:
       enabled: true
       alertmanagers:
         - http://kube-prometheus-stack-alertmanager.monitoring:9093
-      clusterName: ${CLUSTER_NAME}
       config: |-
         groups:
           - name: "PrometheusWatcher"
