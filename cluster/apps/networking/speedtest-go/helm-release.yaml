@@ -52,7 +52,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: private
+        ingressClassName: public
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.home.arpa/enabled: "true"
@@ -62,7 +62,7 @@ spec:
           hajimari.io/icon: mdi:speedometer
           hajimari.io/group: infrastructure
         hosts:
-          - host: &host speedtest.internal.${SECRET_DOMAIN}
+          - host: &host speedtest.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
