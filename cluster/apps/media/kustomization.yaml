@@ -8,4 +8,3 @@ resources:
   - sonarr
   - transmission
   - nfs-pvc.yaml
-  - nitter
