@@ -75,7 +75,7 @@ spec:
           cpu: 50m
           memory: 500Mi
         limits:
-          memory: 800Mi
+          memory: 1200Mi
   valuesFrom:
     - kind: Secret
       name: authentik-secret
