@@ -27,10 +27,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: redis-lb
-      namespace: database
-    - name: redis
-      namespace: database
+    - name: immich-redis
   values:
     initContainers:
       init-db:
