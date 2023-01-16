@@ -59,11 +59,42 @@
           - lm-sensors
           - fwupdate
           - nginx
+          - pve-headers
+          - dkms
         install_recommends: true
         update_cache: true
         cache_valid_time: 3600
         autoclean: true
         autoremove: true
+
+    - name: Install r8125 dkms driver
+      block:
+        - name: Determine latest GitHub release (local)
+          ansible.builtin.uri:
+            url: "https://api.github.com/repos/awesometic/realtek-r8125-dkms/releases/latest"
+            body_format: json
+          delegate_to: localhost
+          become: false
+          register: r8125_release
+          until: r8125_release.status == 200
+          retries: 1
+        - name: Install r8125
+          ansible.builtin.apt:
+            deb: "{{ r8125_release.json.assets[0].browser_download_url }}"
+          notify: "Recreate initramfs"
+        - name: Unload r8169
+          community.general.modprobe:
+            name: r8169
+            state: absent
+        - name: Blacklist r8169
+          ansible.builtin.copy:
+            mode: 0644
+            content: "blacklist r8169"
+            dest: /etc/modprobe.d/r8169.conf
+        - name: Load r8125
+          community.general.modprobe:
+            name: r8125
+            state: present
 
     - name: Load lm_sensors modules
       community.general.modprobe:
@@ -177,3 +208,7 @@
     - name: Reload systemd
       ansible.builtin.systemd:
         daemon_reload: true
+
+    - name: Recreate initramfs
+      ansible.builtin.command:
+        cmd: /usr/sbin/update-initramfs -u
