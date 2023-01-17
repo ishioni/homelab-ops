@@ -60,7 +60,7 @@ spec:
       persistence:
         enabled: true
         storageClass: "truenas-ssd-nvmeof"
-        size: 2Gi
+        size: 5Gi
     storegateway:
       enabled: true
       persistence:
