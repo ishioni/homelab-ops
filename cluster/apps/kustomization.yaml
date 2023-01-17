@@ -8,7 +8,6 @@ resources:
   - fileservers
   - kube-system
   - media
-  - networking
   - games
   - monitoring
   - nextcloud
