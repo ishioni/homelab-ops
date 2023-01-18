@@ -6,9 +6,11 @@ resources:
   - servicemonitor.yaml
 configMapGenerator:
   - name: felix-dashboard
+    namespace: calico-system
     files:
       - felix-dashboard.json=felix-dashboard.json
   - name: typha-dashboard
+    namespace: calico-system
     files:
       - typha-dashboard.json=typha-dashboard.json
 generatorOptions:
