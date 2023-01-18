@@ -147,6 +147,14 @@ spec:
           gnetId: 12693
           revision: 5
           datasource: Prometheus
+        felix:
+          gnetId: 12175
+          revision: 5
+          datasource: Prometheus
+        calico:
+          gnetId: 3244
+          revision: 1
+          datasource: Prometheus
 
     plugins:
       - natel-discrete-panel
