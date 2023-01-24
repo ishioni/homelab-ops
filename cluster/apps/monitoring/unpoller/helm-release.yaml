@@ -27,7 +27,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/unpoller/unpoller
-      tag: v2.7.10
+      tag: v2.7.11
     env:
       TZ: Europe/Warsaw
       UP_UNIFI_DEFAULT_ROLE: home-ops
