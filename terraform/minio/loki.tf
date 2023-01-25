@@ -24,7 +24,6 @@ data "minio_iam_policy_document" "loki" {
     effect = "Allow"
 
     actions = [
-      "s3:ListObjects",
       "s3:ListBucket",
       "s3:PutObject",
       "s3:GetObject",
@@ -33,8 +32,11 @@ data "minio_iam_policy_document" "loki" {
 
     resources = [
       "${minio_s3_bucket.loki-chunks.arn}",
+      "${minio_s3_bucket.loki-chunks.arn}/*",
       "${minio_s3_bucket.loki-ruler.arn}",
-      "${minio_s3_bucket.loki-admin.arn}"
+      "${minio_s3_bucket.loki-ruler.arn}/*",
+      "${minio_s3_bucket.loki-admin.arn}",
+      "${minio_s3_bucket.loki-admin.arn}/*"
     ]
   }
 }
