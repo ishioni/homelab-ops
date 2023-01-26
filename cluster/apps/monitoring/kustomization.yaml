@@ -11,5 +11,6 @@ resources:
   - speedtest-exporter
   - thanos
   - uptime-kuma
+  - vector
   - vpa
   - unpoller
