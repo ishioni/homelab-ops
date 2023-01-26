@@ -6,4 +6,3 @@ resources:
   - datasource.yaml
   - externalsecret.yaml
   - helmrelease.yaml
-  - servicemonitor.yaml

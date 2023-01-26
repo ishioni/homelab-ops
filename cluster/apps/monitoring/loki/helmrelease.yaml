@@ -158,7 +158,7 @@ spec:
       rules:
         enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
       selfMonitoring:
         enabled: false
         grafanaAgent:
