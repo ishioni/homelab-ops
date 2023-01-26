@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 4.3.0
+      version: 4.4.1
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
@@ -52,11 +52,12 @@ spec:
                 period: 24h
         common:
           path_prefix: /var/loki
-          replication_factor: 3
+          replication_factor: 1
           storage:
             s3:
               s3: null
-              insecure: true
+              bucketnames: loki
+              endpoint: s3.services.${SECRET_DOMAIN}:9000
               s3forcepathstyle: true
           ring:
             kvstore:
@@ -94,12 +95,14 @@ spec:
           reporting_enabled: false
     gateway:
       enabled: true
-      replicas: 3
+      replicas: 1
       ingress:
         enabled: true
         ingressClassName: "private"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: &host "loki.internal.${SECRET_DOMAIN}"
+          - host: &host "loki.internal.${SECRET_DOMAIN}.pl"
             paths:
               - path: /
                 pathType: Prefix
@@ -108,35 +111,54 @@ spec:
               - *host
             secretName: *host
     write:
-      replicas: 3
+      replicas: 1
       persistence:
         size: 10Gi
         storageClass: truenas-ssd-nvmeof
     read:
-      replicas: 3
+      replicas: 1
+    backend:
+      replicas: 1
       extraVolumeMounts:
-        - name: loki-rules
-          mountPath: /rules/fake
-        - name: loki-rules-tmp
+        - name: rules
+          mountPath: /rules
+        - name: scratch
           mountPath: /tmp/scratch
-        - name: loki-tmp
-          mountPath: /tmp/loki-tmp
       extraVolumes:
-        - name: loki-rules
-          configMap:
-            name: loki-alerting-rules
-        - name: loki-rules-tmp
+        - name: rules
           emptyDir: {}
-        - name: loki-tmp
+        - name: scratch
           emptyDir: {}
+      # extraVolumeMounts:
+      #   - name: loki-rules
+      #     mountPath: /rules/fake
+      #   - name: loki-rules-tmp
+      #     mountPath: /tmp/scratch
+      #   - name: loki-tmp
+      #     mountPath: /tmp/loki-tmp
+      # extraVolumes:
+      #   - name: loki-rules
+      #     configMap:
+      #       name: loki-alerting-rules
+      #   - name: loki-rules-tmp
+      #     emptyDir: {}
+      #   - name: loki-tmp
+      #     emptyDir: {}
       persistence:
         size: 10Gi
         storageClass: truenas-ssd-nvmeof
     monitoring:
+      dashboards:
+        enabled: true
+        annotations:
+          kustomize.toolkit.fluxcd.io/substitute: disabled
+          grafana_folder: Loki
+        labels:
+          grafana_dashboard: "true"
+      rules:
+        enabled: true
       serviceMonitor:
         enabled: false
-        metricsInstance:
-          enabled: false
       selfMonitoring:
         enabled: false
         grafanaAgent:
@@ -146,19 +168,11 @@ spec:
     test:
       enabled: false
   valuesFrom:
-    - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.bucketnames
-      name: loki-ceph-bucket
-      valuesKey: BUCKET_NAME
-    - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.endpoint
-      name: loki-ceph-bucket
-      valuesKey: BUCKET_HOST
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.access_key_id
-      name: loki-ceph-bucket
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: loki-external-secret
+      valuesKey: S3_ACCESS_KEY
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
-      name: loki-ceph-bucket
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: loki-external-secret
+      valuesKey: S3_SECRET_KEY

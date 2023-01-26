@@ -3,18 +3,8 @@ resource "minio_iam_user" "loki" {
   secret = data.sops_file.minio_secrets.data["minio_loki_password"]
 }
 
-resource "minio_s3_bucket" "loki-chunks" {
-  bucket = "loki-chunks"
-  acl    = "private"
-}
-
-resource "minio_s3_bucket" "loki-ruler" {
-  bucket = "loki-ruler"
-  acl    = "private"
-}
-
-resource "minio_s3_bucket" "loki-admin" {
-  bucket = "loki-admin"
+resource "minio_s3_bucket" "loki" {
+  bucket = "loki"
   acl    = "private"
 }
 
@@ -31,12 +21,8 @@ data "minio_iam_policy_document" "loki" {
     ]
 
     resources = [
-      "${minio_s3_bucket.loki-chunks.arn}",
-      "${minio_s3_bucket.loki-chunks.arn}/*",
-      "${minio_s3_bucket.loki-ruler.arn}",
-      "${minio_s3_bucket.loki-ruler.arn}/*",
-      "${minio_s3_bucket.loki-admin.arn}",
-      "${minio_s3_bucket.loki-admin.arn}/*"
+      "${minio_s3_bucket.loki.arn}",
+      "${minio_s3_bucket.loki.arn}/*"
     ]
   }
 }
