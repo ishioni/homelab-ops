@@ -24,10 +24,10 @@ spec:
       retries: 5
   values:
     controller:
+      replicaCount: 3
       extraEnvs:
         - name: TZ
           value: Europe/Warsaw
-      kind: DaemonSet
       electionID: "nginx-public-leader"
       ingressClassByName: true
       ingressClassResource:
@@ -76,6 +76,14 @@ spec:
           memory: 250Mi
         limits:
           memory: 450Mi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/component: controller
     defaultBackend:
       enabled: true
       image:
