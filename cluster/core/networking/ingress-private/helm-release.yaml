@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controller:
-      replicaCount: 3
+      replicaCount: 2
       extraEnvs:
         - name: TZ
           value: Europe/Warsaw
@@ -77,6 +77,15 @@ spec:
           memory: 250Mi
         limits:
           memory: 350Mi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/component: controller
+              app.kubernetes.io/instance: ingress-private
     defaultBackend:
       enabled: true
       image:
