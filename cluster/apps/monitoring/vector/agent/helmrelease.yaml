@@ -27,28 +27,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: daemonset
-      strategy: RollingUpdate
-    env:
-      PROCFS_ROOT: /host/proc
-      SYSFS_ROOT: /host/sys
-      VECTOR_SELF_NODE_NAME:
-        valueFrom:
-          fieldRef:
-            apiVersion: v1
-            fieldPath: spec.nodeName
-      VECTOR_SELF_POD_NAME:
-        valueFrom:
-          fieldRef:
-            apiVersion: v1
-            fieldPath: metadata.name
-      VECTOR_SELF_POD_NAMESPACE:
-        valueFrom:
-          fieldRef:
-            apiVersion: v1
-            fieldPath: metadata.namespace
+    image:
+      repository: timberio/vector
+      tag: 0.23.0-debian
     role: "Agent"
+    securityContext:
+      privileged: true
     podMonitor:
       enabled: true
     service:
@@ -62,18 +46,27 @@ spec:
         enabled: false
       # Sources
       sources:
-        kubernetes_logs:
+        journald_source:
+          type: journald
+          journal_directory: /var/log/journal
+        kubernetes_source:
           type: kubernetes_logs
           pod_annotation_fields:
-            container_image: "image"
-            pod_annotations: "pod_annotations"
-            pod_labels: "pod_labels"
-            pod_name: "pod_name"
-      # Sinks
+            container_image: container_image
+            container_name: container_name
+            pod_annotations: pod_annotations
+            pod_labels: pod_labels
+            pod_name: pod_name
       sinks:
-        loki_kubernetes_sink:
+        journald:
           type: vector
-          inputs:
-            - kubernetes_logs
-          address: "vector-aggregator.monitoring:6000"
           version: "2"
+          address: vector-aggregator.monitoring.svc.cluster.local:6000
+          inputs:
+            - journald_source
+        kubernetes:
+          type: vector
+          version: "2"
+          address: vector-aggregator.monitoring.svc.cluster.local:6010
+          inputs:
+            - kubernetes_source

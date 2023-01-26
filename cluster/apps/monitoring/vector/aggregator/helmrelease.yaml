@@ -28,108 +28,81 @@ spec:
     keepHistory: false
   values:
     role: "Stateless-Aggregator"
+    replicas: 3
     podMonitor:
       enabled: true
     service:
       enabled: true
       type: LoadBalancer
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - Stateless-Aggregator
+              topologyKey: kubernetes.io/hostname
     customConfig:
       data_dir: /vector-data-dir
       api:
-        enabled: false
-      # Sources
+        enabled: true
+        address: 0.0.0.0:8686
       sources:
-        kubernetes_logs:
-          address: 0.0.0.0:6000
+        journald_source:
           type: vector
           version: "2"
-      # Transformas
+          address: 0.0.0.0:6000
+        kubernetes_source:
+          type: vector
+          version: "2"
+          address: 0.0.0.0:6010
       transforms:
-        kernel_hostname_transform:
+        kubernetes_remap:
           type: remap
           inputs:
-            - talos_kernel_logs
-          source: |-
-            r1 = replace!(.__host, "10.0.40.16", "k8s-1")
-            r2 = replace(r1, "10.0.40.17", "k8s-2")
-            r3 = replace(r2, "10.0.40.18", "k8s-3")
-            r4 = replace(r3, "10.0.40.19", "k8s-4")
-            r5 = replace(r4, "10.0.40.20", "k8s-5")
-            r6 = replace(r5, "10.0.40.21", "k8s-6")
-            .node = r6
-        service_hostname_transform:
-          type: remap
-          inputs:
-            - talos_service_logs
-          source: |-
-            r1 = replace!(.__host, "10.0.40.16", "k8s-1")
-            r2 = replace(r1, "10.0.40.17", "k8s-2")
-            r3 = replace(r2, "10.0.40.18", "k8s-3")
-            r4 = replace(r3, "10.0.40.19", "k8s-4")
-            r5 = replace(r4, "10.0.40.20", "k8s-5")
-            r6 = replace(r5, "10.0.40.21", "k8s-6")
-            r7 = replace(r6, r'10.*', "talos")
-            .node = r7
-      # Sinks
+            - kubernetes_source
+          source: |
+            # Standardize 'app' index
+            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
       sinks:
-        loki_kubernetes:
+        journald:
           type: loki
-          inputs:
-            - kubernetes_logs
-          endpoint: http://loki-gateway:80
+          batch:
+            max_bytes: 2049000
           encoding:
             codec: json
-          batch:
-            max_bytes: 524288
-          out_of_order_action: rewrite_timestamp
+          endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+          inputs:
+            - journald_source
+          labels:
+            hostname: >-
+              {{`{{ host }}`}}
+          out_of_order_action: accept
           remove_label_fields: true
           remove_timestamp: true
+        kubernetes:
+          type: loki
+          batch:
+            max_bytes: 2049000
+          encoding:
+            codec: json
+          endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+          inputs:
+            - kubernetes_remap
           labels:
-            container: >-
-              {{`{{ kubernetes.container_name }}`}}
+            app: >-
+              {{`{{ custom_app_name }}`}}
             namespace: >-
               {{`{{ kubernetes.pod_namespace }}`}}
             node: >-
               {{`{{ kubernetes.pod_node_name }}`}}
-            cluster: "${CONFIG_CLUSTER_NAME}"
-        talos_kernel:
-          type: loki
-          inputs:
-            - kernel_hostname_transform
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-            except_fields:
-              - __host
-          batch:
-            max_bytes: 524288
-          out_of_order_action: rewrite_timestamp
-          labels:
-            node: >-
-              {{`{{ node }}`}}
-            facility: >-
-              {{`{{ facility }}`}}
-            cluster: "${CONFIG_CLUSTER_NAME}"
-            namespace: "talos:kernel"
-        talos_service:
-          type: loki
-          inputs:
-            - service_hostname_transform
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-            except_fields:
-              - __host
-          batch:
-            max_bytes: 524288
-          out_of_order_action: rewrite_timestamp
-          labels:
-            node: >-
-              {{`{{ node }}`}}
-            talos_service: >-
-              {{`{{ "talos-service" }}`}}
-            cluster: "${CONFIG_CLUSTER_NAME}"
-            namespace: "talos:service"
+          out_of_order_action: accept
+          remove_label_fields: true
+          remove_timestamp: true
   postRenderers:
     - kustomize:
         patchesJson6902:
@@ -140,7 +113,7 @@ spec:
               - op: add
                 path: /metadata/annotations
                 value:
-                  metallb.universe.tf/loadBalancerIPs: ${CONFIG_SVC_VECTOR_AGGREGATOR_ADDR}
+                  metallb.universe.tf/loadBalancerIPs: 192.168.2.6
               - op: replace
                 path: /spec/externalTrafficPolicy
                 value: Local
