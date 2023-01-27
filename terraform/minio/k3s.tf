@@ -1,48 +1,57 @@
-resource "minio_iam_user" "k3s" {
-  name   = "k3s"
-  secret = data.sops_file.minio_secrets.data["minio_k3s_password"]
+module "s3_k3s" {
+  source      = "./modules/minio"
+  vault       = "Homelab"
+  bucket_name = "k3s"
+  # The OP provider converts the fields with toLower!
+  user_secret_item = "s3_secret_key"
 }
 
-resource "minio_s3_bucket" "k3s" {
-  bucket = "k3s"
-  acl    = "private"
-}
+# resource "minio_iam_user" "k3s" {
+#   name   = "k3s"
+#   secret = data.sops_file.minio_secrets.data["minio_k3s_password"]
+# }
 
-data "minio_iam_policy_document" "k3s" {
-  statement {
-    effect = "Allow"
+# resource "minio_s3_bucket" "k3s" {
+#   bucket = "k3s"
+#   acl    = "private"
+#   force_destroy = true
+# }
 
-    actions = [
-      "s3:ListBucket"
-    ]
+# data "minio_iam_policy_document" "k3s" {
+#   statement {
+#     effect = "Allow"
 
-    resources = [
-      minio_s3_bucket.k3s.arn
-    ]
-  }
-  statement {
-    effect = "Allow"
+#     actions = [
+#       "s3:ListBucket"
+#     ]
 
-    actions = [
-      "s3:ListMultipartUploadParts",
-      "s3:PutObject",
-      "s3:AbortMultipartUpload",
-      "s3:DeleteObject",
-      "s3:GetObject"
-    ]
+#     resources = [
+#       minio_s3_bucket.k3s.arn
+#     ]
+#   }
+#   statement {
+#     effect = "Allow"
 
-    resources = [
-      "${minio_s3_bucket.k3s.arn}/*",
-    ]
-  }
-}
+#     actions = [
+#       "s3:ListMultipartUploadParts",
+#       "s3:PutObject",
+#       "s3:AbortMultipartUpload",
+#       "s3:DeleteObject",
+#       "s3:GetObject"
+#     ]
 
-resource "minio_iam_policy" "k3s" {
-  name   = "k3s"
-  policy = data.minio_iam_policy_document.k3s.json
-}
+#     resources = [
+#       "${minio_s3_bucket.k3s.arn}/*",
+#     ]
+#   }
+# }
 
-resource "minio_iam_user_policy_attachment" "k3s" {
-  user_name   = minio_iam_user.k3s.id
-  policy_name = minio_iam_policy.k3s.id
-}
+# resource "minio_iam_policy" "k3s" {
+#   name   = "k3s"
+#   policy = data.minio_iam_policy_document.k3s.json
+# }
+
+# resource "minio_iam_user_policy_attachment" "k3s" {
+#   user_name   = minio_iam_user.k3s.id
+#   policy_name = minio_iam_policy.k3s.id
+# }

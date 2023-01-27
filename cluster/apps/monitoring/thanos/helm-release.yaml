@@ -54,9 +54,9 @@ spec:
       extraFlags:
         - "--compact.concurrency"
         - "4"
-      retentionResolutionRaw: 14d
-      retentionResolution5m: 14d
-      retentionResolution1h: 30d
+      retentionResolutionRaw: 2d
+      retentionResolution5m: 4d
+      retentionResolution1h: 14d
       persistence:
         enabled: true
         storageClass: "truenas-ssd-nvmeof"

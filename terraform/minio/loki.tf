@@ -1,38 +1,47 @@
-resource "minio_iam_user" "loki" {
-  name   = "loki"
-  secret = data.sops_file.minio_secrets.data["minio_loki_password"]
+module "s3_loki" {
+  source      = "./modules/minio"
+  vault       = "Homelab"
+  bucket_name = "loki"
+  # The OP provider converts the fields with toLower!
+  user_secret_item = "s3_secret_key"
 }
 
-resource "minio_s3_bucket" "loki" {
-  bucket = "loki"
-  acl    = "private"
-}
+# resource "minio_iam_user" "loki" {
+#   name   = "loki"
+#   secret = data.sops_file.minio_secrets.data["minio_loki_password"]
+# }
 
-data "minio_iam_policy_document" "loki" {
-  statement {
+# resource "minio_s3_bucket" "loki" {
+#   bucket = "loki"
+#   acl    = "private"
+#   force_destroy = true
+# }
 
-    effect = "Allow"
+# data "minio_iam_policy_document" "loki" {
+#   statement {
 
-    actions = [
-      "s3:ListBucket",
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:DeleteObject"
-    ]
+#     effect = "Allow"
 
-    resources = [
-      "${minio_s3_bucket.loki.arn}",
-      "${minio_s3_bucket.loki.arn}/*"
-    ]
-  }
-}
+#     actions = [
+#       "s3:ListBucket",
+#       "s3:PutObject",
+#       "s3:GetObject",
+#       "s3:DeleteObject"
+#     ]
 
-resource "minio_iam_policy" "loki" {
-  name   = "loki"
-  policy = data.minio_iam_policy_document.loki.json
-}
+#     resources = [
+#       "${minio_s3_bucket.loki.arn}",
+#       "${minio_s3_bucket.loki.arn}/*"
+#     ]
+#   }
+# }
 
-resource "minio_iam_user_policy_attachment" "loki" {
-  user_name   = minio_iam_user.loki.id
-  policy_name = minio_iam_policy.loki.id
-}
+# resource "minio_iam_policy" "loki" {
+#   name   = "loki"
+#   policy = data.minio_iam_policy_document.loki.json
+# }
+
+# resource "minio_iam_user_policy_attachment" "loki" {
+#   user_name   = minio_iam_user.loki.id
+#   policy_name = minio_iam_policy.loki.id
+# }
