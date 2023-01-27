@@ -10,7 +10,7 @@ spec:
   address: https://github.com/ishioni/homelab-ops
   interval: 10m
   secretRef:
-    name: github-token
+    name: flux-github-token
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/notification.toolkit.fluxcd.io/alert_v1beta2.json
 apiVersion: notification.toolkit.fluxcd.io/v1beta2
