@@ -49,4 +49,4 @@ spec:
     driver:
       config:
         driver: freenas-api-nfs
-      existingConfigSecret: truenas-config-nfs
+      existingConfigSecret: dcsi-nfs-secret

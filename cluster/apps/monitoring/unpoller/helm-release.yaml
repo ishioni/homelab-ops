@@ -39,6 +39,9 @@ spec:
       UP_INFLUXDB_DISABLE: true
       UP_PROMETHEUS_DISABLE: false
       UP_PROMETHEUS_NAMESPACE: unifipoller
+    envFrom:
+      - secretRef:
+          name: unpoller-credentials
     service:
       main:
         ports:

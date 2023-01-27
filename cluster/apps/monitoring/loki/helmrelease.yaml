@@ -170,9 +170,9 @@ spec:
   valuesFrom:
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.access_key_id
-      name: loki-external-secret
+      name: loki-s3
       valuesKey: S3_ACCESS_KEY
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
-      name: loki-external-secret
+      name: loki-s3
       valuesKey: S3_SECRET_KEY
