@@ -23,10 +23,15 @@ data "sops_file" "minio_secrets" {
   source_file = "secret.sops.yaml"
 }
 
+module "onepassword_item_minio" {
+  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  vault  = "Homelab"
+  item   = "minio"
+}
+
 provider "minio" {
-  minio_server = data.sops_file.minio_secrets.data["minio_server"]
-  # minio_region = "us-east-1"
-  minio_user     = data.sops_file.minio_secrets.data["minio_access_key"]
-  minio_password = data.sops_file.minio_secrets.data["minio_secret_key"]
+  minio_server   = module.onepassword_item_minio.fields.server
+  minio_user     = module.onepassword_item_minio.fields.username
+  minio_password = module.onepassword_item_minio.fields.password
   minio_ssl      = true
 }
