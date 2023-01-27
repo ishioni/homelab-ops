@@ -31,6 +31,9 @@ spec:
     env:
       TZ: Europe/Warsaw
       PVE_VERIFY_SSL: true
+    envFrom:
+      - secretRef:
+          name: pve-exporter
     service:
       main:
         ports:
@@ -61,16 +64,3 @@ spec:
               - sourceLabels:
                   - __param_target
                 targetLabel: target
-  valuesFrom:
-    - kind: Secret
-      name: pve-secrets
-      valuesKey: pve_exporter_username
-      targetPath: env.PVE_USER
-    - kind: Secret
-      name: pve-secrets
-      valuesKey: pve_exporter_token_name
-      targetPath: env.PVE_TOKEN_NAME
-    - kind: Secret
-      name: pve-secrets
-      valuesKey: pve_exporter_token_value
-      targetPath: env.PVE_TOKEN_VALUE

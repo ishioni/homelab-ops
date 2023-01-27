@@ -43,6 +43,9 @@ spec:
       TRANSMISSION__SPEED_LIMIT_UP: 8000
       TRANSMISSION__UMASK: 7
       TRANSMISSION__WEB_HOME: "/app/web"
+    envFrom:
+      - secretRef:
+          name: transmission-rpc
     probes:
       liveness:
         spec:
@@ -124,8 +127,3 @@ spec:
         memory: 64Mi
       limits:
         memory: 300Mi
-  valuesFrom:
-    - kind: Secret
-      name: transmission-rpc-password
-      valuesKey: rpcPassword
-      targetPath: env.TRANSMISSION__RPC_PASSWORD

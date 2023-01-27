@@ -69,6 +69,21 @@ spec:
           initialDelaySeconds: 15
       startup:
         enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: &host "opconnect.internal.${SECRET_DOMAIN_NAME}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
     additionalContainers:
       sync:
         name: sync

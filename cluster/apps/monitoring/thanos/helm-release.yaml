@@ -89,18 +89,18 @@ spec:
         enabled: true
   valuesFrom:
     - kind: Secret
-      name: thanos-secrets
-      valuesKey: minio_host
+      name: thanos-s3
+      valuesKey: S3_ENDPOINT
       targetPath: objstoreConfig.config.endpoint
     - kind: Secret
-      name: thanos-secrets
-      valuesKey: minio_bucket
+      name: thanos-s3
+      valuesKey: S3_BUCKET
       targetPath: objstoreConfig.config.bucket
     - kind: Secret
-      name: thanos-secrets
-      valuesKey: minio_access_key
+      name: thanos-s3
+      valuesKey: S3_ACCESS_KEY
       targetPath: objstoreConfig.config.access_key
     - kind: Secret
-      name: thanos-secrets
-      valuesKey: minio_secret_key
+      name: thanos-s3
+      valuesKey: S3_SECRET_KEY
       targetPath: objstoreConfig.config.secret_key

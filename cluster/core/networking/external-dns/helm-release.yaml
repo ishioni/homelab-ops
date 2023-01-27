@@ -35,13 +35,13 @@ spec:
       - name: CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: external-dns-secret
-            key: email
+            name: externaldns-cloudflare-token
+            key: EMAIL
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: external-dns-secret
-            key: api-token
+            name: externaldns-cloudflare-token
+            key: API_TOKEN
     extraArgs:
       - --annotation-filter=external-dns.home.arpa/enabled in (true)
     policy: sync

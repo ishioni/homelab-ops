@@ -62,7 +62,7 @@ spec:
       server:
         root_url: https://grafana.${SECRET_INTERNAL_DOMAIN}
     envFromSecrets:
-      - name: grafana-secrets
+      - name: grafana-oidc
     ingress:
       enabled: true
       annotations:
