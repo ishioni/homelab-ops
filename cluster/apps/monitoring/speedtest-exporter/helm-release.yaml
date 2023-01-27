@@ -50,8 +50,3 @@ spec:
             path: /metrics
             interval: 15m
             scrapeTimeout: 300s
-  valuesFrom:
-    - kind: Secret
-      name: unifi-secrets
-      valuesKey: unifi-password
-      targetPath: env.UP_UNIFI_DEFAULT_PASS
