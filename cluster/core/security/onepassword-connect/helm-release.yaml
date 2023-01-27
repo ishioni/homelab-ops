@@ -76,7 +76,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: &host "opconnect.internal.${SECRET_DOMAIN_NAME}"
+          - host: &host "opconnect.internal.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
