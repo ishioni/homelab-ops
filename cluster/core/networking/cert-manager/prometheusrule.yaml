@@ -4,7 +4,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: cert-manager.rules
-  namespace: cert-manager
+  namespace: networking
 spec:
   groups:
     - name: cert-manager
