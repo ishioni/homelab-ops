@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: public
   rules:
-    - host: "flux-receiver.${SECRET_DOMAIN}"
+    - host: &host "flux-receiver.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /hook/
@@ -23,5 +23,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - "flux-receiver.${SECRET_DOMAIN}"
-      secretName: flux-receiver-tls
+        - *host
+      secretName: *host
