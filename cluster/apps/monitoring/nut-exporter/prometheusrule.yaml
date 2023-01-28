@@ -28,7 +28,8 @@ spec:
             severity: warning
         - alert: UpsLowRuntime
           annotations:
-            description: ZPM {{ $labels.instance }} battery is low and the system is getting
+            description:
+              ZPM {{ $labels.instance }} battery is low and the system is getting
               ready to shutdown.
             summary: ZPM battery is low.
           expr: |
