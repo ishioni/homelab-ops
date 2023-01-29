@@ -10,6 +10,7 @@ resources:
   - storage.yaml
   - reverse-proxy.yaml
   - security.yaml
+  - kyverno.yaml
   - media.yaml
   - monitoring.yaml
   - nextcloud.yaml
