@@ -53,6 +53,8 @@ spec:
         annotations:
           external-dns.home.arpa/enabled: "true"
           authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://indexer.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           hajimari.io/enable: "true"
           hajimari.io/appName: Prowlarr
           hajimari.io/icon: mdi:cloud-search

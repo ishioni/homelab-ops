@@ -75,6 +75,8 @@ spec:
         annotations:
           external-dns.home.arpa/enabled: "true"
           authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://movies.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           hajimari.io/enable: "true"
           hajimari.io/appName: Radarr
           hajimari.io/icon: filmstrip
