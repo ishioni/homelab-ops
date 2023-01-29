@@ -66,7 +66,6 @@ spec:
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana

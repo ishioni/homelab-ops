@@ -101,7 +101,6 @@ spec:
         annotations:
           authentik.home.arpa/enabled: "true"
           external-dns.home.arpa/enabled: "true"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: &host "start.${SECRET_DOMAIN}"
             paths:
