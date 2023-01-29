@@ -80,14 +80,14 @@ spec:
           hajimari.io/icon: filmstrip
           hajimari.io/group: media
         hosts:
-          - host: "movies.${SECRET_DOMAIN}"
+          - host: &host "movies.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "movies.${SECRET_DOMAIN}"
+          - secretName: *host
             hosts:
-              - "movies.${SECRET_DOMAIN}"
+              - *host
     resources:
       requests:
         cpu: 50m

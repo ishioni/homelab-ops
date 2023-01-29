@@ -108,14 +108,14 @@ spec:
           hajimari.io/icon: mdi:cloud-download
           hajimari.io/group: media
         hosts:
-          - host: "torrent.${SECRET_DOMAIN}"
+          - host: &host "torrent.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "torrent.${SECRET_DOMAIN}"
+          - secretName: *host
             hosts:
-              - "torrent.${SECRET_DOMAIN}"
+              - *host
     resources:
       requests:
         cpu: 50m

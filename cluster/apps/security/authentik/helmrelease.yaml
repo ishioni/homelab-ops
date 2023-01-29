@@ -50,14 +50,14 @@ spec:
         hajimari.io/group: infrastructure
         hajimari.io/appName: Authentik
       hosts:
-        - host: "auth.${SECRET_DOMAIN}"
+        - host: &host "auth.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "auth.${SECRET_DOMAIN}"
+        - secretName: *host
           hosts:
-            - "auth.${SECRET_DOMAIN}"
+            - *host
     resources:
       server:
         requests:

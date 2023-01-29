@@ -106,12 +106,12 @@ spec:
               hajimari.io/icon: simple-icons:minecraft
               hajimari.io/group: games
             hosts:
-              - name: "minecraft.${SECRET_DOMAIN}"
+              - name: &host "minecraft.${SECRET_DOMAIN}"
                 path: /
             tls:
-              - secretName: "minecraft.${SECRET_DOMAIN}"
+              - secretName: *host
                 hosts:
-                  - "minecraft.${SECRET_DOMAIN}"
+                  - *host
   valuesFrom:
     - kind: Secret
       name: minecraft-rcon

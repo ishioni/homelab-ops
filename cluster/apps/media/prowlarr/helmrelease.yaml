@@ -58,14 +58,14 @@ spec:
           hajimari.io/icon: mdi:cloud-search
           hajimari.io/group: media
         hosts:
-          - host: "indexer.${SECRET_DOMAIN}"
+          - host: &host "indexer.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: "indexer.${SECRET_DOMAIN}"
+          - secretName: *host
             hosts:
-              - "indexer.${SECRET_DOMAIN}"
+              - *host
     resources:
       requests:
         cpu: 50m

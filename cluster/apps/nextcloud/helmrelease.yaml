@@ -27,7 +27,7 @@ spec:
       repository: nextcloud
       tag: 25.0.3-fpm-alpine
     nextcloud:
-      host: "cloud.${SECRET_DOMAIN}"
+      host: &host "cloud.${SECRET_DOMAIN}"
       configs:
         local.config.php: |-
           <?php
@@ -145,9 +145,9 @@ spec:
             deny all;
           }
       tls:
-        - secretName: "cloud.${SECRET_DOMAIN}"
+        - secretName: *host
           hosts:
-            - "cloud.${SECRET_DOMAIN}"
+            - *host
     nginx:
       enabled: true
       config:
