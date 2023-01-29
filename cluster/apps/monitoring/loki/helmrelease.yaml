@@ -99,8 +99,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: "private"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: &host "loki.internal.${SECRET_DOMAIN}"
             paths:

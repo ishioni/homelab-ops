@@ -27,7 +27,7 @@ spec:
       repository: nextcloud
       tag: 25.0.3-fpm-alpine
     nextcloud:
-      host: "cloud.${SECRET_DOMAIN}"
+      host: &host "cloud.${SECRET_DOMAIN}"
       configs:
         local.config.php: |-
           <?php
@@ -115,9 +115,7 @@ spec:
       enabled: true
       className: public
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
         external-dns.home.arpa/enabled: "true"
-        external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
         hajimari.io/enable: "true"
         hajimari.io/appName: Nextcloud
         hajimari.io/icon: simple-icons:nextcloud
@@ -147,9 +145,9 @@ spec:
             deny all;
           }
       tls:
-        - secretName: "cloud.${SECRET_DOMAIN}"
+        - secretName: *host
           hosts:
-            - "cloud.${SECRET_DOMAIN}"
+            - *host
     nginx:
       enabled: true
       config:

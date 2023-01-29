@@ -44,22 +44,20 @@ spec:
       enabled: true
       ingressClassName: public
       annotations:
+        external-dns.home.arpa/enabled: "true"
         hajimari.io/enable: "true"
         hajimari.io/icon: simple-icons:webauthn
         hajimari.io/group: infrastructure
         hajimari.io/appName: Authentik
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        external-dns.home.arpa/enabled: "true"
-        external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
       hosts:
-        - host: "auth.${SECRET_DOMAIN}"
+        - host: &host "auth.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: "auth.${SECRET_DOMAIN}"
+        - secretName: *host
           hosts:
-            - "auth.${SECRET_DOMAIN}"
+            - *host
     resources:
       server:
         requests:

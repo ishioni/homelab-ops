@@ -101,7 +101,8 @@ spec:
         annotations:
           authentik.home.arpa/enabled: "true"
           external-dns.home.arpa/enabled: "true"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://start.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
         hosts:
           - host: &host "start.${SECRET_DOMAIN}"
             paths:
