@@ -40,6 +40,8 @@ spec:
       ingress:
         enabled: true
         ingressClassName: private
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hostname: thanos.${SECRET_INTERNAL_DOMAIN}
         tls: true
     queryFrontend:
