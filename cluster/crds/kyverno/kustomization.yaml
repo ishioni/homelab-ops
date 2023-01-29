@@ -3,10 +3,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - cert-manager
-  - external-secrets
-  - kyverno
-  - metallb
-  - prometheus-operator
-  - snapshot-controller
-  - cloudnative-pg
+  - crds.yaml
