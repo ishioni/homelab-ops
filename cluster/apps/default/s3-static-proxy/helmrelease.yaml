@@ -50,6 +50,7 @@ spec:
       ingressClassName: public
       annotations:
         external-dns.home.arpa/enabled: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-production
       tls: true
     resources:
       requests:
