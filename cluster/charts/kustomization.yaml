@@ -20,6 +20,7 @@ resources:
   - k8s-at-home-charts.yaml
   - k8s-gateway-charts.yaml
   - kubereboot-charts.yaml
+  - kyverno-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
