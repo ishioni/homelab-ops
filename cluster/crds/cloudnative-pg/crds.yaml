@@ -9,7 +9,7 @@ spec:
   interval: 12h
   url: https://github.com/cloudnative-pg/cloudnative-pg.git
   ref:
-    # renovate: datasource=github-releases depName=cloudnative-pg/cloudnative-pg
+    # renovate: datasource=github-releases
     tag: v1.18.1
   ignore: |
     # exclude all
