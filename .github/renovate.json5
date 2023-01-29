@@ -75,7 +75,8 @@
     {
       "fileMatch": [
         "cluster/crds/snapshot-controller/.+\\.yaml$",
-        "cluster/crds/metallb/.+\\.yaml$"
+        "cluster/crds/metallb/.+\\.yaml$",
+        "cluster/crds/cloudnative-pg/.+\\.yaml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
