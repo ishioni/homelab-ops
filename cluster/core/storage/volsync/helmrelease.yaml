@@ -39,7 +39,7 @@ spec:
       disableAuth: true
     resources:
       limits:
-        cpu: ""
+        cpu:
         memory: 300Mi
       requests:
         cpu: 15m
