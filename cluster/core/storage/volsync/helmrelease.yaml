@@ -24,13 +24,15 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
   dependsOn:
-    - name: truenas-csp
+    - name: democratic-csi-nvmeof
       namespace: storage
     - name: democratic-csi-nfs
       namespace: storage
-  uninstall:
-    keepHistory: false
+    - name: snapshot-controller
+      namespace: storage
   values:
     manageCRDs: false
     metrics:
