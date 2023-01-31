@@ -4,7 +4,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: nextcloud-restic-s3
-  namespace: media
+  namespace: nextcloud
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -49,7 +49,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: nextclouddb-restic-s3
-  namespace: media
+  namespace: nextcloud
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
