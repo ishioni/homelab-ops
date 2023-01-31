@@ -9,7 +9,6 @@ resources:
   - fileservers
   - kube-system
   - media
-  - games
   - monitoring
   - nextcloud
   - reverse-proxy
