@@ -38,8 +38,8 @@ spec:
     pruneIntervalDays: 10
     repository: nextcloud-restic-s3
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: truenas-ssd-nvmeof
-    storageClassName: truenas-ssd-nvmeof
+    volumeSnapshotClassName: truenas-snapshot
+    storageClassName: truenas-ssd
     retain:
       daily: 10
       within: 3d
@@ -83,8 +83,8 @@ spec:
     pruneIntervalDays: 10
     repository: nextclouddb-restic-s3
     cacheCapacity: 2Gi
-    volumeSnapshotClassName: truenas-ssd-nvmeof
-    storageClassName: truenas-ssd-nvmeof
+    volumeSnapshotClassName: truenas-snapshot
+    storageClassName: truenas-ssd
     retain:
       daily: 10
       within: 3d
