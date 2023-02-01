@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.2.1
+      version: 1.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -82,7 +82,7 @@ spec:
           - hosts:
               - *host
             secretName: *host
-    additionalContainers:
+    sidecars:
       sync:
         name: sync
         image: docker.io/1password/connect-sync:1.6.0
