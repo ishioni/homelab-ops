@@ -82,7 +82,7 @@ spec:
           - hosts:
               - *host
             secretName: *host
-    sidecars:
+    additionalContainers:
       sync:
         name: sync
         image: docker.io/1password/connect-sync:1.6.0
