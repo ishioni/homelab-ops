@@ -62,4 +62,4 @@ spec:
     driver:
       config:
         driver: zfs-generic-nvmeof
-      existingConfigSecret: democratic-config-nvmeof
+      existingConfigSecret: dcsi-nvmeof-secret
