@@ -9,13 +9,6 @@
     - name: Setup packages
       ansible.builtin.include_tasks: tasks/bastion/packages.yml
 
-    - name: Install netdata
-      ansible.builtin.include_role:
-        name: netdata
-      vars:
-        claim_token: "{{ netdata_claim_token }}"
-        claim_rooms: "{{ netdata_claim_room }}"
-
     - name: Install docker
       ansible.builtin.include_role:
         name: geerlingguy.docker

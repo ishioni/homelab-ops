@@ -42,13 +42,6 @@
         fstype: vfat
         state: mounted
 
-    - name: Install Netdata
-      ansible.builtin.include_role:
-        name: netdata
-      vars:
-        claim_token: "{{ netdata_claim_token }}"
-        claim_rooms: "{{ netdata_claim_room }}"
-
     - name: Install common packages
       ansible.builtin.apt:
         name:
