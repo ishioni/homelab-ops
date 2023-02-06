@@ -122,6 +122,7 @@ spec:
       className: public
       annotations:
         external-dns.home.arpa/enabled: "true"
+        nginx.ingress.kubernetes.io/custom-http-errors: "500"
         hajimari.io/enable: "true"
         hajimari.io/appName: Nextcloud
         hajimari.io/icon: simple-icons:nextcloud
