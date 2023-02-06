@@ -56,7 +56,7 @@ spec:
           "path": "$uri", "request_query": "$args", "request_length": $request_length,
           "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
           "http_user_agent": "$http_user_agent"}
-        custom-http-errors: 400,401,403,404,500,502,503,504
+        custom-http-errors: 400,403,404,500,502,503,504
         ssl-protocols: "TLSv1.3 TLSv1.2"
         proxy-body-size: "0"
         proxy-buffer-size: "16k"
