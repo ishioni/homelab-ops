@@ -10,7 +10,6 @@ resources:
   - kube-system
   - media
   - monitoring
-  - nextcloud
   - reverse-proxy
   - security
   - system-upgrade

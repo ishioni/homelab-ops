@@ -3,11 +3,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-app
-  namespace: nextcloud
+  namespace: fileservers
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: truenas-ssd
+  storageClassName: truenas-hdd-nfs
   resources:
     requests:
       storage: 5Gi
