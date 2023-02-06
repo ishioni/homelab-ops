@@ -41,6 +41,7 @@ spec:
             array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
+            'default_phone_region' => 'PL',
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
@@ -67,7 +68,6 @@ spec:
           post_max_size = 16G
           max_input_time = 3600
           max_execution_time = 3600
-          default_phone_region = PL
         www.conf: |
           [www]
           user = www-data
