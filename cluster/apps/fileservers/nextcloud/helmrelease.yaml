@@ -53,10 +53,10 @@ spec:
                 'hostname'       => 's3.services.${SECRET_DOMAIN}',
                 'port'           => 9000,
                 'use_path_style' => true,
-                'bucket'         => 'nextcloud',
+                'bucket'         => getenv('S3_ACCESS_KEY'),
                 'autocreate'     => false,
-                'key'            => 'nextcloud',
-                'secret'         => '${NEXTCLOUD_MINIO_KEY}',
+                'key'            => getenv('S3_ACCESS_KEY'),
+                'secret'         => getenv('S3_SECRET_KEY'),
                 'use_ssl'        => true,
               ),
             ),
@@ -135,6 +135,17 @@ spec:
         envFrom:
           - secretRef:
               name: nextcloud-secrets
+    extraEnv:
+      - name: S3_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: nextcloud-secrets
+            key: S3_ACCESS_KEY
+      - name: S3_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: nextcloud-secrets
+            key: S3_SECRET_KEY
     redis:
       enabled: true
       architecture: standalone
