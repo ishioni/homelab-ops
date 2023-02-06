@@ -89,6 +89,12 @@ spec:
           secure: ssl
           port: 465
           authtype: LOGIN
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-initdb:14.6
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
     persistence:
       enabled: true
       existingClaim: nextcloud-app
@@ -129,12 +135,6 @@ spec:
       enabled: true
       type: postgresql
       database: nextcloud
-    extraInitContainers:
-      - name: init-db
-        image: ghcr.io/onedr0p/postgres-initdb:14.6
-        envFrom:
-          - secretRef:
-              name: nextcloud-secrets
     extraEnv:
       - name: S3_ACCESS_KEY
         valueFrom:
