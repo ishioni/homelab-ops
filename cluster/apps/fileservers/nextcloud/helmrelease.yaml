@@ -95,6 +95,17 @@ spec:
           envFrom:
             - secretRef:
                 name: nextcloud-secrets
+      extraEnv:
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: S3_SECRET_KEY
     persistence:
       enabled: true
       existingClaim: nextcloud-app
@@ -135,17 +146,6 @@ spec:
       enabled: true
       type: postgresql
       database: nextcloud
-    extraEnv:
-      - name: S3_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: nextcloud-secrets
-            key: S3_ACCESS_KEY
-      - name: S3_SECRET_KEY
-        valueFrom:
-          secretKeyRef:
-            name: nextcloud-secrets
-            key: S3_SECRET_KEY
     redis:
       enabled: true
       architecture: standalone
