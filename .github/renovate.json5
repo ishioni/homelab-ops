@@ -36,29 +36,14 @@
   "pre-commit": {
     "enabled": true
   },
-  "helmv3": {
-    "fileMatch": [
-      "charts/.+/Chart\\.yaml$"
-    ]
-  },
   "flux": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$",
-      "ansible/.+\\.ya?ml.j2$"
-    ],
-    "ignorePaths": [
-      "cluster/base/"
-    ]
+    "fileMatch": [ "cluster/.+\\.ya?ml$"]
   },
   "regexManagers": [
     // regexManager to read and process cert-manager CRD's
@@ -74,10 +59,10 @@
     // regexManager to read and process External Snapshotter CRD's
     {
       "fileMatch": [
-        "cluster/crds/snapshot-controller/.+\\.yaml$",
-        "cluster/crds/metallb/.+\\.yaml$",
         "cluster/crds/cloudnative-pg/.+\\.yaml$",
         "cluster/crds/external-secrets/.+\\.yaml$",
+        "cluster/crds/metallb/.+\\.yaml$",
+        "cluster/crds/snapshot-controller/.+\\.yaml$",
         "cluster/crds/volsync/.+\\.yaml$"
       ],
       "matchStrings": [
