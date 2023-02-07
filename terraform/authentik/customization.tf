@@ -56,7 +56,7 @@ resource "authentik_scope_mapping" "openid-nextcloud" {
   scope_name = "nextcloud"
   expression = <<EOF
 return {
-  "nextcloudAdmin": user.attributes.get("nextcloudAdmin", "false"),
+  "nextcloudAdmin": user.attributes.get("nextcloudAdmin"),
   "nextcloudQuota": user.attributes.get("nextcloudQuota",user.group_attributes().get("defaultQuota", "100 MB"))
 }
 EOF
