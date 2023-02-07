@@ -11,4 +11,3 @@ data:
   GATEWAY_DNS_LB: 192.168.2.10
   TRUENAS_IP: 10.1.4.2
   TIMEZONE: Europe/Warsaw
-  CLUSTER_NAME: homelab-ops
