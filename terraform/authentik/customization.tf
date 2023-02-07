@@ -117,3 +117,9 @@ resource "authentik_policy_binding" "proxmox" {
   group  = authentik_group.infrastructure.id
   order  = 0
 }
+
+resource "authentik_policy_binding" "nextcloud" {
+  target = authentik_application.nextcloud.uuid
+  group  = authentik_group.nextcloud.id
+  order  = 0
+}
