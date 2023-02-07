@@ -38,17 +38,17 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop ubuntu proxmox VMs  usi
 
 ### Core Components
 
-- [calico](https://github.com/projectcalico/calico): Internal Kubernetes networking plugin.
+- [calico](https://github.com/projectcalico/calico): Internal Kubernetes networking plugin
 - [kube-vip](https://kube-vip.io/): Announces the kubeserver api via BGP
 - [metallb](https://metallb.universe.tf/): Announces loadbalancers via BGP
-- [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
-- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
+- [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster
+- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider
+- [external-secrets](https://github.com/external-secrets/external-secrets/): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect)
 - [k8s-gateway](https://gateway-api.sigs.k8s.io/): Runs a separate internal-only DNS zone for some services
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS.
-- [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes, Ansible and Terraform which are commited to Git.
-- [TrueNAS CSP](https://github.com/hpe-storage/truenas-csp): Provides block storage provisioning
-- [Democratic CSI](https://github.com/democratic-csi/democratic-csi): Provides NFS storage provisioning
-- [velero](https://velero.io/): Backup and recovery of persistent volume claims and cluster resources
+- [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS
+- [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes, Ansible and Terraform which are commited to Git
+- [Democratic CSI](https://github.com/democratic-csi/democratic-csi): Provides block and NFS storage provisioning
+- [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims
 
 ### GitOps
 
@@ -89,12 +89,14 @@ While most of my infrastructure and workloads are selfhosted I do rely upon the 
 
 The alternative solution to these two problems would be to host a Kubernetes cluster in the cloud and deploy applications like [HCVault](https://www.vaultproject.io/), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [ntfy](https://ntfy.sh/), and [Gatus](https://gatus.io/). However, maintaining another cluster and monitoring another group of workloads is a lot more time and effort than I am willing to put in and only saves me roughly $18/month.
 
-| Service                                      | Use                                                               | Cost          |
-|----------------------------------------------|-------------------------------------------------------------------|---------------|
-| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments    | Free          |
-| [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                                  | Free          |
-| [Terraform Cloud](https://www.terraform.io/) | Storing Terraform state                                           | Free          |
-|                                              |                                                                   | Total: Nada   |
+| Service                                      | Use                                                               | Cost             |
+|----------------------------------------------|-------------------------------------------------------------------|------------------|
+| [1Password](https://1password.com/)          | Secrets with [External Secrets](https://external-secrets.io/)     | 73Eur/yr         |
+| [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                                  | Free             |
+| [Fastmail](https://fastmail.com/)            | Email hosting                                                     | $75/yr           |
+| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments    | Free             |
+| [Terraform Cloud](https://www.terraform.io/) | Storing Terraform state                                           | Free             |
+|                                              |                                                                   | Total: $12.75/mo |
 
 ---
 
