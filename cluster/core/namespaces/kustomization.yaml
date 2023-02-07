@@ -13,4 +13,3 @@ resources:
   - kyverno.yaml
   - media.yaml
   - monitoring.yaml
-  - nextcloud.yaml
