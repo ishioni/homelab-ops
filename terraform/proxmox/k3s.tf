@@ -38,7 +38,7 @@ locals {
 module "k3s_masters" {
   source   = "./k3s"
   for_each = { for vm in local.k3s_masters : vm.name => vm }
-  tags = "kube-master;ubuntu"
+  tags     = "kube-master;ubuntu"
 
   clonesource = local.k3s_clonesource
 
@@ -67,7 +67,7 @@ module "k3s_masters" {
 module "k3s_workers" {
   source   = "./k3s"
   for_each = { for vm in local.k3s_workers : vm.name => vm }
-  tags = "kube-worker;ubuntu"
+  tags     = "kube-worker;ubuntu"
 
   clonesource = local.k3s_clonesource
 
