@@ -9,7 +9,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://hpe-storage.github.io/truenas-csp/
       chart: democratic-csi
       version: 0.13.5
       sourceRef:
