@@ -28,6 +28,41 @@ spec:
       tag: 25.0.3-fpm-alpine
     nextcloud:
       host: &host "files.${SECRET_DOMAIN}"
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-initdb:14.6
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
+      extraEnv:
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: S3_SECRET_KEY
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_ID
+        - name: OIDC_CLIENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_PASSWORD
+      mail:
+        enabled: true
+        fromAddress: files
+        domain: "${SECRET_DOMAIN}"
+        smtp:
+          secure: ssl
+          port: 465
+          authtype: LOGIN
       configs:
         local.config.php: |-
           <?php
@@ -107,41 +142,6 @@ spec:
           pm.max_spare_servers = 42
           pm.max_requests = 500
           pm.process_idle_timeout = 10s
-      mail:
-        enabled: true
-        fromAddress: files
-        domain: "${SECRET_DOMAIN}"
-        smtp:
-          secure: ssl
-          port: 465
-          authtype: LOGIN
-      extraInitContainers:
-        - name: init-db
-          image: ghcr.io/onedr0p/postgres-initdb:14.6
-          envFrom:
-            - secretRef:
-                name: nextcloud-secrets
-      extraEnv:
-        - name: S3_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-secrets
-              key: S3_ACCESS_KEY
-        - name: S3_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-secrets
-              key: S3_SECRET_KEY
-        - name: OIDC_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-secrets
-              key: OIDC_CLIENT_ID
-        - name: OIDC_CLIENT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-secrets
-              key: OIDC_CLIENT_PASSWORD
     persistence:
       enabled: true
       existingClaim: nextcloud-app
