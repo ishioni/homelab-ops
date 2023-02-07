@@ -42,7 +42,7 @@ spec:
         ingressClassName: private
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-        hostname: thanos.${SECRET_INTERNAL_DOMAIN}
+        hostname: thanos.internal.${SECRET_DOMAIN}
         tls: true
     queryFrontend:
       enabled: false

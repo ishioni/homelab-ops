@@ -40,7 +40,7 @@ spec:
           hajimari.io/icon: mdi:alert-decagram-outline
           hajimari.io/group: infrastructure
         hosts:
-          - &host "alerts.${SECRET_INTERNAL_DOMAIN}"
+          - &host "alerts.internal.${SECRET_DOMAIN}"
         tls:
           - hosts:
               - *host
@@ -154,7 +154,7 @@ spec:
           hajimari.io/group: infrastructure
         pathType: Prefix
         hosts:
-          - &host prometheus.${SECRET_INTERNAL_DOMAIN}
+          - &host prometheus.internal.${SECRET_DOMAIN}
         tls:
           - hosts:
               - *host

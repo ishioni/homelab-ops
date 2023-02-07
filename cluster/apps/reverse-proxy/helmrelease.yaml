@@ -26,7 +26,7 @@ spec:
     instances:
       - name: homeassistant
         enabled: true
-        externalName: "homeassistant.${IOT}"
+        externalName: "homeassistant.iot.internal"
         port: 8123
         ingress:
           ingressClassName: public
@@ -58,8 +58,8 @@ spec:
             hajimari.io/icon: simple-icons:amazons3
           tls:
             - hosts:
-                - "s3.${SECRET_INTERNAL_DOMAIN}"
-              secretName: "s3.${SECRET_INTERNAL_DOMAIN}"
+                - "s3.internal.${SECRET_DOMAIN}"
+              secretName: "s3.internal.${SECRET_DOMAIN}"
           hosts:
-            - host: "s3.${SECRET_INTERNAL_DOMAIN}"
+            - host: "s3.internal.${SECRET_DOMAIN}"
               path: /

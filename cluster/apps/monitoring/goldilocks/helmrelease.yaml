@@ -45,7 +45,7 @@ spec:
           hajimari.io/icon: mdi:align-vertical-top
           hajimari.io/group: infrastructure
         hosts:
-          - host: &host "goldilocks.${SECRET_INTERNAL_DOMAIN}"
+          - host: &host "goldilocks.internal.${SECRET_DOMAIN}"
             paths:
               - path: /
                 type: Prefix

@@ -26,7 +26,7 @@ spec:
       namespace: networking
   values:
     fullnameOverride: k8s-gateway
-    domain: ${SECRET_INTERNAL_DOMAIN}
+    domain: internal.${SECRET_DOMAIN}
     ttl: 1
     service:
       type: LoadBalancer

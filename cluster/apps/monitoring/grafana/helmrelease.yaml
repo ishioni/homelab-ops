@@ -60,7 +60,7 @@ spec:
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
       server:
-        root_url: https://grafana.${SECRET_INTERNAL_DOMAIN}
+        root_url: https://grafana.internal.${SECRET_DOMAIN}
     envFromSecrets:
       - name: grafana-oidc
     ingress:
@@ -72,7 +72,7 @@ spec:
         hajimari.io/group: infrastructure
       ingressClassName: private
       hosts:
-        - &host grafana.${SECRET_INTERNAL_DOMAIN}
+        - &host grafana.internal.${SECRET_DOMAIN}
       tls:
         - hosts:
             - *host
