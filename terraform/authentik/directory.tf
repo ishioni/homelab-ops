@@ -13,6 +13,9 @@ resource "authentik_group" "nextcloud" {
   name         = "nextcloud"
   is_superuser = false
   parent       = resource.authentik_group.users.id
+  attributes = jsonencode({
+    defaultQuota = "20 GB"
+  })
 }
 
 resource "authentik_group" "infrastructure" {

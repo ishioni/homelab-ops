@@ -1,6 +1,6 @@
 resource "proxmox_vm_qemu" "vm" {
   name        = var.machine_name
-  tags = var.tags
+  tags        = var.tags
   target_node = var.deploy_node
   full_clone  = true
 

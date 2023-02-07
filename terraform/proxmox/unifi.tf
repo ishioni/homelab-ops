@@ -1,6 +1,6 @@
 resource "proxmox_lxc" "unifi-controller" {
   hostname        = "unifi"
-  tags = "ubuntu"
+  tags            = "ubuntu"
   target_node     = "proxmox-4"
   pool            = "infrastructure"
   ostemplate      = "ISO:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
