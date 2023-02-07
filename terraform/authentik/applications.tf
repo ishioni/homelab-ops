@@ -99,10 +99,10 @@ resource "authentik_provider_proxy" "uptime-kuma" {
 EOF
 }
 
-resource "authentik_provider_oauth2" "oidc" {
-  name                       = "oidc-provider"
-  client_id                  = data.sops_file.authentik_secrets.data["oidc_client_id"]
-  client_secret              = data.sops_file.authentik_secrets.data["oidc_client_secret"]
+resource "authentik_provider_oauth2" "immich" {
+  name                       = "immich-oidc"
+  client_id                  = data.sops_file.authentik_secrets.data["immich_client_id"]
+  client_secret              = data.sops_file.authentik_secrets.data["immich_client_secret"]
   authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   signing_key                = data.authentik_certificate_key_pair.generated.id
   client_type                = "confidential"
@@ -113,8 +113,6 @@ resource "authentik_provider_oauth2" "oidc" {
   token_validity             = "days=30"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
-    # formatlist(authentik_scope_mapping.oidc-scope-nextcloud-quota.id),
-    # formatlist(authentik_scope_mapping.oidc-scope-nextcloud-groups.id)
   )
   redirect_uris = [
     "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}/auth/login",
@@ -247,7 +245,7 @@ resource "authentik_application" "immich" {
   name              = "immich"
   slug              = "immich"
   group             = "Media"
-  protocol_provider = resource.authentik_provider_oauth2.oidc.id
+  protocol_provider = resource.authentik_provider_oauth2.immich.id
   meta_icon         = "https://github.com/immich-app/immich/raw/main/web/static/favicon.png"
   meta_description  = "Photo managment"
   meta_launch_url   = "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
