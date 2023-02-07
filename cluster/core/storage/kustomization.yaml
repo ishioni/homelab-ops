@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - democratic-csi
   - snapshot-controller
-  - truenas-csp
   - volsync
