@@ -72,19 +72,19 @@
       "datasourceTemplate": "helm"
     },
     // regexManager to read and process External Snapshotter CRD's
-    // {
-    //   "fileMatch": [
-    //     "cluster/crds/snapshot-controller/.+\\.yaml$",
-    //     "cluster/crds/metallb/.+\\.yaml$",
-    //     "cluster/crds/cloudnative-pg/.+\\.yaml$",
-    //     "cluster/crds/external-secrets/.+\\.yaml$",
-    //     "cluster/crds/volsync/.+\\.yaml$"
-    //   ],
-    //   "matchStrings": [
-    //     "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
-    //   ],
-    //   "datasourceTemplate": "github-releases"
-    // },
+    {
+      "fileMatch": [
+        "cluster/crds/snapshot-controller/.+\\.yaml$",
+        "cluster/crds/metallb/.+\\.yaml$",
+        "cluster/crds/cloudnative-pg/.+\\.yaml$",
+        "cluster/crds/external-secrets/.+\\.yaml$",
+        "cluster/crds/volsync/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
     {
       "description": "Process various other dependencies",
       "fileMatch": [
