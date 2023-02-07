@@ -45,6 +45,33 @@ spec:
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
+        sso.config.php: |-
+          <?php
+          $CONFIG = array (
+            'allow_user_to_change_display_name' => false,
+            'lost_password_link' => 'disabled',
+            'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
+            'oidc_login_client_secret' => getenv('OIDC_CLIENT_PASSWORD'),
+            'oidc_login_provider_url' => 'https://auth.${SECRET_DOMAIN}/application/o/nextcloud/',
+            'oidc_login_end_session_redirect' => true,
+            'oidc_login_logout_url' => 'https://auth.${SECRET_DOMAIN}/application/o/nextcloud/end-session/',
+            'oidc_login_default_quota' => '1000000000',
+            'oidc_login_hide_password_form' => true,
+            'oidc_login_disable_registration' => false,
+            'oidc_login_webdav_enabled' => true,
+            'oidc_login_attributes' => array (
+                  'id' => 'sub',
+                  'name' => 'name',
+                  'mail' => 'email',
+                  'quota' => 'nextcloudQuota',
+                  'is_admin' => 'nextcloudAdmin',
+              ),
+            'oidc_login_scope' => 'openid profile email nextcloud',
+            'oidc_login_default_group' => 'cloud',
+            'oidc_create_groups' => true,
+            'oidc_login_code_challenge_method' => 'S256',
+            'oidc_login_auto_redirect' => true, //login?noredir=1
+          );
         s3.config.php: |-
           <?php
           $CONFIG = array (
@@ -73,7 +100,6 @@ spec:
           user = www-data
           group = www-data
           listen = 127.0.0.1:9000
-
           pm = dynamic
           pm.max_children = 57
           pm.start_servers = 14
@@ -106,6 +132,16 @@ spec:
             secretKeyRef:
               name: nextcloud-secrets
               key: S3_SECRET_KEY
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_ID
+        - name: OIDC_CLIENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_PASSWORD
     persistence:
       enabled: true
       existingClaim: nextcloud-app
@@ -122,7 +158,7 @@ spec:
       className: public
       annotations:
         external-dns.home.arpa/enabled: "true"
-        nginx.ingress.kubernetes.io/custom-http-errors: "500"
+        nginx.ingress.kubernetes.io/custom-http-errors: "418"
         hajimari.io/enable: "true"
         hajimari.io/appName: Nextcloud
         hajimari.io/icon: simple-icons:nextcloud

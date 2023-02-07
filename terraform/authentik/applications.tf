@@ -87,16 +87,16 @@ resource "authentik_provider_proxy" "uptime-kuma" {
   mode               = "forward_single"
   token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  skip_path_regex    = <<-EOT
-  ^/$
-  ^/status
-  ^/assets/
-  ^/assets
-  ^/icon.svg
-  ^/api/.*
-  ^/upload/.*
-  ^/metrics
-  EOT
+  skip_path_regex    = <<EOF
+^/$
+^/status
+^/assets/
+^/assets
+^/icon.svg
+^/api/.*
+^/upload/.*
+^/metrics
+EOF
 }
 
 resource "authentik_provider_oauth2" "oidc" {
@@ -159,6 +159,27 @@ resource "authentik_provider_oauth2" "proxmox" {
     "https://proxmox-2.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
     "https://proxmox-3.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
     "https://proxmox-4.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  ]
+}
+
+resource "authentik_provider_oauth2" "nextcloud" {
+  name                       = "nextcloud-oidc"
+  client_id                  = data.sops_file.authentik_secrets.data["nextcloud_client_id"]
+  client_secret              = data.sops_file.authentik_secrets.data["nextcloud_client_secret"]
+  authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  signing_key                = data.authentik_certificate_key_pair.generated.id
+  client_type                = "confidential"
+  issuer_mode                = "per_provider"
+  access_code_validity       = "minutes=10"
+  token_validity             = "days=30"
+  sub_mode                   = "user_username"
+  include_claims_in_id_token = false
+  property_mappings = concat(
+    data.authentik_scope_mapping.scopes.ids,
+    formatlist(authentik_scope_mapping.openid-nextcloud.id)
+  )
+  redirect_uris = [
+    "https://files.${data.sops_file.authentik_secrets.data["cluster_domain"]}/apps/oidc_login/oidc"
   ]
 }
 
@@ -264,5 +285,16 @@ resource "authentik_application" "proxmox" {
   meta_icon         = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
   meta_description  = "Virtualization"
   meta_launch_url   = "https://proxmox.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  open_in_new_tab   = true
+}
+
+resource "authentik_application" "nextcloud" {
+  name              = "Nextcloud"
+  slug              = "nextcloud"
+  group             = "Groupware"
+  protocol_provider = resource.authentik_provider_oauth2.nextcloud.id
+  meta_icon         = "https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
+  meta_description  = "Files"
+  meta_launch_url   = "https://files.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   open_in_new_tab   = true
 }
