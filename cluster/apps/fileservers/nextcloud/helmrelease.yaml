@@ -30,7 +30,7 @@ spec:
       host: &host "files.${SECRET_DOMAIN}"
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/onedr0p/postgres-initdb:14.6
+          image: ghcr.io/onedr0p/postgres-initdb:14.7
           envFrom:
             - secretRef:
                 name: nextcloud-secrets
