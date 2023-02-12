@@ -115,6 +115,9 @@ spec:
         storageClass: truenas-ssd-nvmeof
     read:
       replicas: 1
+      persistence:
+        size: 10Gi
+        storageClass: truenas-ssd-nvmeof
     backend:
       replicas: 1
       extraVolumeMounts:
