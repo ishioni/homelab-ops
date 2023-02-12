@@ -118,6 +118,12 @@ spec:
       persistence:
         size: 10Gi
         storageClass: truenas-ssd-nvmeof
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules
+      extraVolumes:
+        - name: rules
+          emptyDir: {}
     backend:
       replicas: 1
       extraVolumeMounts:
