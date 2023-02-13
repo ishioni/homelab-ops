@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/external-secrets.io/externalsecret_v1beta1.json
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: uptimekuma-restic-s3
+  namespace: media
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: uptimekuma-restic-s3
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/uptimekuma'
+        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
+        AWS_ACCESS_KEY_ID: '{{ .S3_ACCESS_KEY }}'
+        AWS_SECRET_ACCESS_KEY: '{{ .S3_SECRET_KEY }}'
+  dataFrom:
+    - extract:
+        key: volsync
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: uptimekuma
+  namespace: monitoring
+spec:
+  sourcePVC: uptime-kuma-data
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: uptimekuma-restic-s3
+    cacheCapacity: 2Gi
+    volumeSnapshotClassName: truenas-ssd-nvmeof
+    storageClassName: truenas-ssd-nvmeof
+    retain:
+      daily: 10
+      within: 3d
