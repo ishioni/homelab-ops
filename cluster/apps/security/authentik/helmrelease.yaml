@@ -29,9 +29,9 @@ spec:
         envFrom:
           - secretRef:
               name: authentik-secret
-    replicas: 1
+    replicas: 2
     worker:
-      replicas: 1
+      replicas: 2
     authentik:
       email:
         use_ssl: true

@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicas: 1
+      replicas: 3
       strategy: RollingUpdate
       rollingUpdate:
         unavailable: 2
