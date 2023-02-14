@@ -246,7 +246,7 @@ resource "authentik_application" "immich" {
   slug              = "immich"
   group             = "Media"
   protocol_provider = resource.authentik_provider_oauth2.immich.id
-  meta_icon         = "https://github.com/immich-app/immich/raw/main/web/static/favicon.png"
+  meta_icon         = "https://github.com/immich-app/immich/raw/main/docs/static/img/favicon.png"
   meta_description  = "Photo managment"
   meta_launch_url   = "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   open_in_new_tab   = true
