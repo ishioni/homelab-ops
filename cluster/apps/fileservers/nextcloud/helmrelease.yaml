@@ -28,6 +28,14 @@ spec:
       tag: 25.0.3-fpm-alpine
     nextcloud:
       host: &host "files.${SECRET_DOMAIN}"
+      defaultConfigs:
+        .htaccess: false
+        redis.config.php: false
+        apache-pretty-urls.config.php: false
+        apcu.config.php: true
+        apps.config.php: true
+        autoconfig.php: true
+        smtp.config.php: true
       extraInitContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-initdb:14.7
@@ -124,6 +132,17 @@ spec:
               ),
             ),
           );
+        redis.config.php: |-
+          <?php
+          $CONFIG = array(
+            'memcache.distributed' => '\OC\Memcache\Redis',
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => [
+              'host' => 'redis-lb.database.svc.cluster.local',
+              'port' => 6379,
+              'dbindex' => 2,
+            ],
+          );
       phpConfigs:
         uploadLimit.ini: |
           upload_max_filesize = 16G
@@ -183,14 +202,6 @@ spec:
       enabled: true
       type: postgresql
       database: nextcloud
-    redis:
-      enabled: true
-      architecture: standalone
-      auth:
-        enabled: true
-      master:
-        persistence:
-          enabled: false
     metrics:
       enabled: true
       https: true
@@ -220,10 +231,6 @@ spec:
       name: nextcloud-secrets
       valuesKey: POSTGRES_PASS
       targetPath: externalDatabase.password
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: REDIS_PASSWORD
-      targetPath: redis.auth.password
     - kind: Secret
       name: nextcloud-secrets
       valuesKey: SMTP_HOST
