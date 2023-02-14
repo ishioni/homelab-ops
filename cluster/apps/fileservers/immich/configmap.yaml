@@ -10,9 +10,9 @@ data:
   ENABLE_MAPBOX: "false"
   LOG_LEVEL: verbose
   NODE_ENV: "production"
-  REDIS_HOSTNAME: immich-redis-master.fileservers.svc.cluster.local
+  REDIS_HOSTNAME: redis-lb.database.svc.cluster.local
   REDIS_PORT: "6379"
-  REDIS_DBINDEX: "0"
+  REDIS_DBINDEX: "2"
   IMMICH_WEB_URL: http://immich-web.fileservers.svc.cluster.local:3000
   IMMICH_SERVER_URL: http://immich-server.fileservers.svc.cluster.local:3001
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.fileservers.svc.cluster.local:3003
