@@ -61,7 +61,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "redis-ui.${SECRET_DOMAIN}"
+          - host: "redis-ui.internal.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
