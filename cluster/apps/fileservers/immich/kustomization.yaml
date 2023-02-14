@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - machine-learning
   - microservices
-  - redis
+  # - redis
   - server
   - web
   - configmap.yaml
