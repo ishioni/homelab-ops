@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.2.1
+      version: 1.3.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -28,13 +28,16 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicas: 3
+      replicas: 1
       strategy: RollingUpdate
+      rollingUpdate:
+        unavailable: 2
+        surge: 0
       annotations:
         reloader.stakater.com/auto: "true"
     image:
       repository: public.ecr.aws/docker/library/haproxy
-      tag: 2.7.1-alpine
+      tag: "2.7.2"
     service:
       main:
         type: ClusterIP
@@ -51,6 +54,17 @@ spec:
           redis-sentinel:
             port: 26379
             targetPort: 26379
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: "redis-ui.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
     serviceMonitor:
       main:
         enabled: true
