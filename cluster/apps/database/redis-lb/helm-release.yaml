@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: public.ecr.aws/docker/library/haproxy
-      tag: "2.7.2"
+      tag: "2.7.3"
     service:
       main:
         type: ClusterIP
