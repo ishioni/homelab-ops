@@ -148,6 +148,18 @@
       "versioning": "loose"
     },
     {
+      "description": "Cloudnative-pg",
+      "groupName": "Cloudnative-pg",
+      "matchPackagePatterns": [
+        "cloudnative-pg"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}}"
+      },
+      "separateMinorPatch": true,
+      "versioning": "loose"
+    },
+    {
       "matchDatasources": [
         "github-releases",
         "docker",
