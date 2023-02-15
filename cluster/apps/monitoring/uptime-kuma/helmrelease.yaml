@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: docker.io/louislam/uptime-kuma
-      tag: 1.20.0-alpine
+      tag: 1.20.1-alpine
     env:
       TZ: "${TIMEZONE}"
     # Waiting on rootless image first:
