@@ -21,7 +21,7 @@ resource "authentik_outpost" "proxyoutpost" {
     docker_map_ports        = true,
     docker_labels           = null,
     container_image         = null,
-    kubernetes_replicas     = 2,
+    kubernetes_replicas     = 1,
     kubernetes_namespace    = "security",
     kubernetes_ingress_annotations = {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
