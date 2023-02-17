@@ -120,8 +120,8 @@ resource "authentik_policy_binding" "proxmox" {
 
 resource "authentik_policy_binding" "immich" {
   target = authentik_application.immich.uuid
-  group = authentik_group.media.id
-  order = 0
+  group  = authentik_group.media.id
+  order  = 0
 }
 
 resource "authentik_policy_binding" "nextcloud" {

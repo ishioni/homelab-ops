@@ -37,7 +37,6 @@ resource "authentik_provider_proxy" "transmission" {
   name               = "transmission-provider"
   external_host      = "https://torrent.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -45,7 +44,6 @@ resource "authentik_provider_proxy" "prowlarr" {
   name               = "prowlarr-provider"
   external_host      = "https://indexer.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -53,7 +51,6 @@ resource "authentik_provider_proxy" "radarr" {
   name               = "radarr-provider"
   external_host      = "https://movies.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -61,7 +58,6 @@ resource "authentik_provider_proxy" "sonarr" {
   name               = "sonarr-provider"
   external_host      = "https://tv.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -69,7 +65,6 @@ resource "authentik_provider_proxy" "readarr" {
   name               = "readarr-provider"
   external_host      = "https://books.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -77,7 +72,6 @@ resource "authentik_provider_proxy" "hajimari" {
   name               = "hajimari-provider"
   external_host      = "https://start.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=24"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
 }
 
@@ -85,7 +79,6 @@ resource "authentik_provider_proxy" "uptime-kuma" {
   name               = "uptime-kuma-provider"
   external_host      = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
-  token_validity     = "hours=1"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   skip_path_regex    = <<EOF
 ^/$
@@ -110,7 +103,6 @@ resource "authentik_provider_oauth2" "immich" {
   issuer_mode                = "per_provider"
   sub_mode                   = "user_username"
   access_code_validity       = "minutes=10"
-  token_validity             = "days=30"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
   )
@@ -129,7 +121,6 @@ resource "authentik_provider_oauth2" "grafana" {
   client_type          = "confidential"
   issuer_mode          = "per_provider"
   access_code_validity = "minutes=10"
-  token_validity       = "days=30"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
   )
@@ -147,7 +138,6 @@ resource "authentik_provider_oauth2" "proxmox" {
   client_type          = "confidential"
   issuer_mode          = "per_provider"
   access_code_validity = "minutes=10"
-  token_validity       = "days=30"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
   )
@@ -169,7 +159,6 @@ resource "authentik_provider_oauth2" "nextcloud" {
   client_type                = "confidential"
   issuer_mode                = "per_provider"
   access_code_validity       = "minutes=10"
-  token_validity             = "days=30"
   sub_mode                   = "user_username"
   include_claims_in_id_token = false
   property_mappings = concat(

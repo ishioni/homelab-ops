@@ -1,4 +1,5 @@
 resource "authentik_stage_prompt_field" "username" {
+  name      = "username"
   field_key = "username"
   required  = true
   type      = "text"
@@ -15,6 +16,7 @@ resource "authentik_stage_prompt_field" "username" {
 }
 
 resource "authentik_stage_prompt_field" "name" {
+  name                   = "name"
   field_key              = "name"
   type                   = "text"
   required               = true
@@ -25,6 +27,7 @@ resource "authentik_stage_prompt_field" "name" {
 }
 
 resource "authentik_stage_prompt_field" "email" {
+  name                   = "email"
   field_key              = "email"
   type                   = "email"
   required               = true
@@ -35,6 +38,7 @@ resource "authentik_stage_prompt_field" "email" {
 }
 
 resource "authentik_stage_prompt_field" "locale" {
+  name                   = "locale"
   field_key              = "attributes.settings.locale"
   type                   = "ak-locale"
   required               = true
@@ -45,6 +49,7 @@ resource "authentik_stage_prompt_field" "locale" {
 }
 
 resource "authentik_stage_prompt_field" "password" {
+  name        = "password"
   field_key   = "password"
   type        = "password"
   label       = "Password"
@@ -54,6 +59,7 @@ resource "authentik_stage_prompt_field" "password" {
 }
 
 resource "authentik_stage_prompt_field" "password-repeat" {
+  name        = "password-repeat"
   field_key   = "password-repeat"
   type        = "password"
   label       = "Password (repeat)"
