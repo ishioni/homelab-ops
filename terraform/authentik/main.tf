@@ -14,7 +14,7 @@ terraform {
     }
     authentik = {
       source  = "goauthentik/authentik"
-      version = "2023.2.0"
+      version = "2023.2.1"
     }
   }
 }
