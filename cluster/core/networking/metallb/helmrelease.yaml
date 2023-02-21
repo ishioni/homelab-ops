@@ -9,7 +9,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://metallb.github.io/metallb
       chart: metallb
       version: 0.13.9
       sourceRef:

@@ -9,7 +9,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://piraeus.io/helm-charts/
       chart: snapshot-validation-webhook
       version: 1.7.1
       sourceRef:
@@ -37,7 +36,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://piraeus.io/helm-charts/
       chart: snapshot-controller
       version: 1.7.2
       sourceRef:

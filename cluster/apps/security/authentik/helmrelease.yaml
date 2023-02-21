@@ -9,7 +9,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://charts.goauthentik.io/
       chart: authentik
       version: 2023.2.2
       sourceRef:
