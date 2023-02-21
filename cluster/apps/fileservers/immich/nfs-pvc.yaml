@@ -32,3 +32,16 @@ spec:
   resources:
     requests:
       storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-modelcache
+  namespace: fileservers
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: truenas-hdd-nfs
+  resources:
+    requests:
+      storage: 5Gi

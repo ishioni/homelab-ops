@@ -35,10 +35,10 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/immich-app/immich-machine-learning
-      tag: v1.47.3
-    command: /bin/sh
+      tag: v1.48.0
+    command: python
     args:
-      - ./entrypoint.sh
+      - src/main.py
     envFrom:
       - secretRef:
           name: immich-secret
@@ -54,9 +54,13 @@ spec:
         enabled: true
         existingClaim: immich-nfs
         mountPath: /usr/src/app/upload
+      modelcache:
+        enabled: true
+        existingClaim: immich-modelcache
+        mountPath: /cache
     resources:
       requests:
         cpu: 100m
         memory: 250Mi
       limits:
-        memory: 1000Mi
+        memory: 2000Mi
