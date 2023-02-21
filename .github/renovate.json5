@@ -39,7 +39,6 @@
     "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "regexManagers": [
-    // regexManager to read and process cert-manager CRD's
     {
       "description": "cert-manager regex",
       "fileMatch": ["cluster/crds/cert-manager/.+\\.yaml$"],
