@@ -61,7 +61,6 @@
       "fileMatch": [
         "cluster/crds/cloudnative-pg/.+\\.yaml$",
         "cluster/crds/external-secrets/.+\\.yaml$",
-        "cluster/crds/metallb/.+\\.yaml$",
         "cluster/crds/snapshot-controller/.+\\.yaml$",
         "cluster/crds/volsync/.+\\.yaml$"
       ],
