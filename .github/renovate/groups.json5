@@ -38,6 +38,20 @@
       ],
       "group": {"commitMessageTopic": "{{{groupName}}}"},
       "separateMinorPatch": true
+    },
+    {
+      "description": "1Password Connect and Sync images",
+      "groupName": "1Password",
+      "matchPackagePatterns": [
+        "1password"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}}"
+      },
+      "separateMinorPatch": true
     }
   ]
 }
