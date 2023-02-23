@@ -11,4 +11,4 @@ spec:
   prune: false
   sourceRef:
     kind: GitRepository
-    name: flux-cluster
+    name: homelab-ops
