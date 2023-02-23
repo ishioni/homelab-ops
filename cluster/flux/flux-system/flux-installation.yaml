@@ -35,12 +35,12 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./manifests/install
+  path: ./
   prune: false
   wait: true
   sourceRef:
-    kind: GitRepository
-    name: flux-installation
+    kind: OCIRepository
+    name: flux-manifests
   patches:
     - patch: |
         $patch: delete
