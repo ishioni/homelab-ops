@@ -20,7 +20,7 @@ metadata:
 spec:
   interval: 10m
   path: ./cluster/flux
-  prune: false
+  prune: true
   wait: false
   sourceRef:
     kind: GitRepository
