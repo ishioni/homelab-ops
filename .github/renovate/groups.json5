@@ -22,17 +22,17 @@
       "separateMinorPatch": true,
       "versioning": "loose"
     },
-      {
-        "description": "volsync group",
-        "groupName": "volsync",
-        "matchPackagePatterns": [
-          "volsync"
-        ],
-        "group": {
-          "commitMessageTopic": "{{{groupName}}}"
-        },
-        "separateMinorPatch": true
+    {
+      "description": "volsync group",
+      "groupName": "volsync",
+      "matchPackagePatterns": [
+        "volsync"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}}"
       },
+      "separateMinorPatch": true
+    },
     {
       "description": "metallb group",
       "groupName": "metallb",
