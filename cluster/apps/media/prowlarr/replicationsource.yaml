@@ -40,6 +40,10 @@ spec:
     cacheCapacity: 1Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
+    moverSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
     retain:
       daily: 10
       within: 3d
