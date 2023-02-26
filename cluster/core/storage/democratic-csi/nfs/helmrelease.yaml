@@ -24,10 +24,10 @@ spec:
   values:
     controller:
       driver:
-        image: docker pull ghcr.io/democratic-csi/democratic-csi:v1.8.1
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.1
     node:
       driver:
-        image: docker pull ghcr.io/democratic-csi/democratic-csi:v1.8.1
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.1
     csiDriver:
       name: "org.democratic-csi.nfs"
     storageClasses:
