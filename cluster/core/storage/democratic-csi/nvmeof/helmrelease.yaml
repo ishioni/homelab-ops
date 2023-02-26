@@ -34,6 +34,8 @@ spec:
         logLevel: debug
         imagePullPolicy: Always
       priorityClassName: system-node-critical
+    csiProxy:
+      image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:
       name: "org.democratic-csi.nvmeof"
     storageClasses:
