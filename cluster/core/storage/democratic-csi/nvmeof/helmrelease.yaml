@@ -24,13 +24,13 @@ spec:
   values:
     controller:
       driver:
-        image: docker.io/democraticcsi/democratic-csi:next
+        image: docker pull ghcr.io/democratic-csi/democratic-csi:v1.8.1
         logLevel: debug
         imagePullPolicy: Always
       priorityClassName: system-cluster-critical
     node:
       driver:
-        image: docker.io/democraticcsi/democratic-csi:next
+        image: docker pull ghcr.io/democratic-csi/democratic-csi:v1.8.1
         logLevel: debug
         imagePullPolicy: Always
       priorityClassName: system-node-critical
