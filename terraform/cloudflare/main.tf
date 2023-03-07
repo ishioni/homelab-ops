@@ -121,7 +121,7 @@ resource "cloudflare_record" "mailmx-2" {
 resource "cloudflare_record" "txt_spf" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
-  value   = "v=spf1 include:spf.messagingengine.com ?all"
+  value   = "v=spf1 include:spf.messagingengine.com -all"
   type    = "TXT"
   ttl     = 1
 }
