@@ -126,6 +126,14 @@ resource "cloudflare_record" "txt_spf" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "txt_dmarc" {
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  name    = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
+  value   = "v=DMARC1;p=quarantine;pct=100;rua=mailto:postmaster@${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]};ruf=mailto:postmaster@${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]}"
+  type    = "TXT"
+  ttl     = 1
+}
+
 resource "cloudflare_record" "fastmail-caldavs" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_caldavs._tcp.${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]}"
