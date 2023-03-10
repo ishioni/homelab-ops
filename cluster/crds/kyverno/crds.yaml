@@ -8,7 +8,7 @@ spec:
   interval: 12h
   url: https://github.com/kyverno/kyverno.git
   ref:
-    tag: kyverno-chart-2.7.0
+    tag: kyverno-chart-2.7.1
   ignore: |
     # exclude all
     /*
