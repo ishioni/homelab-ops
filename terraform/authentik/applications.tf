@@ -102,7 +102,7 @@ resource "authentik_provider_oauth2" "immich" {
   include_claims_in_id_token = true
   issuer_mode                = "per_provider"
   sub_mode                   = "user_username"
-  access_code_validity       = "minutes=10"
+  access_code_validity       = "hours=24"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
   )
@@ -120,7 +120,7 @@ resource "authentik_provider_oauth2" "grafana" {
   signing_key          = data.authentik_certificate_key_pair.generated.id
   client_type          = "confidential"
   issuer_mode          = "per_provider"
-  access_code_validity = "minutes=10"
+  access_code_validity = "hours=24"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
   )
@@ -137,7 +137,7 @@ resource "authentik_provider_oauth2" "proxmox" {
   signing_key          = data.authentik_certificate_key_pair.generated.id
   client_type          = "confidential"
   issuer_mode          = "per_provider"
-  access_code_validity = "minutes=10"
+  access_code_validity = "hours=24"
   property_mappings = concat(
     data.authentik_scope_mapping.scopes.ids
   )
@@ -158,7 +158,7 @@ resource "authentik_provider_oauth2" "nextcloud" {
   signing_key                = data.authentik_certificate_key_pair.generated.id
   client_type                = "confidential"
   issuer_mode                = "per_provider"
-  access_code_validity       = "minutes=10"
+  access_code_validity       = "hours=24"
   sub_mode                   = "user_username"
   include_claims_in_id_token = false
   property_mappings = concat(
