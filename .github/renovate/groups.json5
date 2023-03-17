@@ -51,6 +51,12 @@
       "separateMinorPatch": true
     },
     {
+      "description": "external-secrets group",
+      "groupName": "external-secrets",
+      "matchPackagePatterns": ["external-secrets"],
+      "group": {"commitMessageTopic": "{{{groupName}}}"}
+    },
+    {
       "description": "1Password Connect and Sync images",
       "groupName": "1Password",
       "matchPackagePatterns": [
