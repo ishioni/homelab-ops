@@ -32,6 +32,9 @@ spec:
   values:
     crds:
       create: false
+    image:
+      repository: ghcr.io/cloudnative-pg/cloudnative-pg
+      tag: 1.19.0
     resources:
       requests:
         cpu: 15m
