@@ -10,7 +10,7 @@ spec:
   url: https://github.com/cloudnative-pg/cloudnative-pg.git
   ref:
     # renovate: datasource=github-releases
-    tag: v1.19.0
+    tag: v1.19.1
   ignore: |
     # exclude all
     /*
