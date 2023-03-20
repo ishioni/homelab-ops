@@ -43,9 +43,6 @@ spec:
     image:
       repository: docker.io/typesense/typesense
       tag: 0.24.0
-    command: /bin/sh
-    args:
-      - ./start-server.sh
     envFrom:
       - secretRef:
           name: immich-secret
