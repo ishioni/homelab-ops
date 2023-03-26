@@ -70,6 +70,17 @@ spec:
           memory: 500Mi
         limits:
           memory: 1200Mi
+    volumes:
+      - name: authentik-media
+        persistentVolumeClaim:
+          claimName: authentik-media
+    volumeMounts:
+      - name: authentik-media
+        mountPath: /media
+        subPath: media
+      - name: authentik-media
+        mountPath: /templates
+        subPath: custom-templates
     redis:
       enabled: true
       auth:
