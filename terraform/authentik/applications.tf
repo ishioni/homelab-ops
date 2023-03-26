@@ -38,6 +38,7 @@ resource "authentik_provider_proxy" "transmission" {
   external_host      = "https://torrent.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "prowlarr" {
@@ -45,6 +46,7 @@ resource "authentik_provider_proxy" "prowlarr" {
   external_host      = "https://indexer.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "radarr" {
@@ -52,6 +54,7 @@ resource "authentik_provider_proxy" "radarr" {
   external_host      = "https://movies.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "sonarr" {
@@ -59,6 +62,7 @@ resource "authentik_provider_proxy" "sonarr" {
   external_host      = "https://tv.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "readarr" {
@@ -66,6 +70,7 @@ resource "authentik_provider_proxy" "readarr" {
   external_host      = "https://books.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "hajimari" {
@@ -73,6 +78,7 @@ resource "authentik_provider_proxy" "hajimari" {
   external_host      = "https://start.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "uptime-kuma" {
@@ -80,6 +86,7 @@ resource "authentik_provider_proxy" "uptime-kuma" {
   external_host      = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   mode               = "forward_single"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  access_token_validity = "hours=24"
   skip_path_regex    = <<EOF
 ^/$
 ^/status
