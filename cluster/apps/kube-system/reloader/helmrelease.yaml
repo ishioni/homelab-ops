@@ -30,4 +30,4 @@ spec:
         memory: 50Mi
     reloader:
       podMonitor:
-        enabled: true
+        enabled: false

@@ -183,4 +183,4 @@ spec:
       inMemory:
         enabled: true
     serviceMonitor:
-      enabled: true
+      enabled: false

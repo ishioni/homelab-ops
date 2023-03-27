@@ -44,6 +44,6 @@ spec:
       serviceAccount: kube-prometheus-stack-prometheus
       namespace: networking
       serviceMonitor:
-        enabled: true
+        enabled: false
       prometheusRule:
-        enabled: true
+        enabled: false

@@ -41,7 +41,7 @@ spec:
         memory: 50Mi
     serviceMonitor:
       main:
-        enabled: true
+        enabled: false
         endpoints:
           - port: metrics
             scheme: http
