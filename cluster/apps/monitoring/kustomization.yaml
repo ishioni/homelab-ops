@@ -5,11 +5,8 @@ kind: Kustomization
 resources:
   - grafana
   - nut-exporter
-  - pve-exporter
   - kube-prometheus-stack
-  - loki
   - speedtest-exporter
   - thanos
   - uptime-kuma
-  - vector
   - unpoller
