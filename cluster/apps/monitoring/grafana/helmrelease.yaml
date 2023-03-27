@@ -128,19 +128,19 @@ spec:
         unifi-usw:
           # Ref: https://unpoller.com/docs/install/grafana
           gnetId: 11312
-          revision: 8
+          revision: 9
           datasource: Prometheus
         unifi-usg:
           gnetId: 11313
-          revision: 8
+          revision: 9
           datasource: Prometheus
         unifi-uap:
           gnetId: 11314
-          revision: 9
+          revision: 10
           datasource: Prometheus
         unifi-clients:
           gnetId: 11315
-          revision: 8
+          revision: 9
           datasource: Prometheus
         redis-ha:
           gnetId: 11835
