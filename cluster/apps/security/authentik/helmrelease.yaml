@@ -103,7 +103,7 @@ spec:
         maxmemory 94371840
         maxmemory-policy allkeys-lru
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           enabled: true
         resources:
