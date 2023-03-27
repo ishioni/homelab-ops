@@ -83,9 +83,9 @@ spec:
         storageClass: "truenas-ssd-nvmeof"
         size: 512Mi
     metrics:
-      enabled: true
+      enabled: false
       serviceMonitor:
-        enabled: true
+        enabled: false
   valuesFrom:
     - kind: Secret
       name: thanos-s3

@@ -214,13 +214,13 @@ spec:
           limits:
             memory: 20Mi
     metrics:
-      enabled: true
+      enabled: false
       https: true
       image:
         repository: xperimental/nextcloud-exporter
         tag: 0.6.0
       serviceMonitor:
-        enabled: true
+        enabled: false
   valuesFrom:
     - kind: Secret
       name: nextcloud-secrets
