@@ -31,10 +31,10 @@ spec:
     replicaCount: 1
     leaderElect: true
     serviceMonitor:
-      enabled: true
+      enabled: false
     webhook:
       serviceMonitor:
-        enabled: true
+        enabled: false
       resources:
         requests:
           cpu: 15m
@@ -43,7 +43,7 @@ spec:
           memory: 100Mi
     certController:
       serviceMonitor:
-        enabled: true
+        enabled: false
       resources:
         requests:
           cpu: 15m
