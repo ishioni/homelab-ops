@@ -43,6 +43,6 @@ resource "proxmox_vm_qemu" "vm" {
     discard  = var.diskconfig.discard
     iothread = var.diskconfig.iothread
     type     = "scsi"
-    backup   = 1
+    backup   = true
   }
 }
