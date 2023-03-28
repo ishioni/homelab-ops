@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 25.0.4-fpm-alpine
+      tag: 25.0.5-fpm-alpine
     nextcloud:
       host: &host "files.${SECRET_DOMAIN}"
       extraInitContainers:
