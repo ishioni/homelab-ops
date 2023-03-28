@@ -133,7 +133,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 | Unifi USG4                | 1     | 2G eMMC      | -                           | 4GB  | Debian 7         | Router              |
 | Unifi USW-24-PoE          | 1     | -            | -                           | -    | -                | Network Switch      |
 | Unifi USW-Aggregation     | 1     | -            | -                           |      | -                | Network Switch      |
-| Dell Optiplex 7040        | 4     | 256GB NVMe   | -                           | 32GB | Debian 11 (PVE)  | Virtualization Host |
+| Dell Optiplex 7040        | 4     | 256GB NVMe   | -                           | 64GB | Debian 11 (PVE)  | Virtualization Host |
 | Cyberpower OR600ERM1U     | 1     | -            | -                           | -    | -                | UPS                 |
 | QNAP TVS-682              | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD     | 32GB | TrueNAS Scale    | NAS                 |
 | Odroid C4                 | 1     | 32GB eMMC    | -                           | 4GB  | Ubuntu           | Misc services       |

@@ -76,7 +76,7 @@ module "k3s_workers" {
   vm_pool      = "k3s-workers"
   cores        = 8
   max_cpu      = 8
-  memory       = 16 * 1024
+  memory       = 32 * 1024
   numa         = true
   hotplug      = "network,disk,usb,memory,cpu"
   onboot       = true
