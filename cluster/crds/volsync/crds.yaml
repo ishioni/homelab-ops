@@ -10,7 +10,7 @@ spec:
   # renovate: datasource=github-releases
   url: https://github.com/backube/volsync.git
   ref:
-    tag: v0.7.0
+    tag: v0.7.1
   ignore: |
     # exclude all
     /*
