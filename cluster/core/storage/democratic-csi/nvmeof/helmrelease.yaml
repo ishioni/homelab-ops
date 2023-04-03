@@ -26,13 +26,13 @@ spec:
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:v1.8.2
         logLevel: debug
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
       priorityClassName: system-cluster-critical
     node:
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:v1.8.2
         logLevel: debug
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
       priorityClassName: system-node-critical
     csiProxy:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
