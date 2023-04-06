@@ -24,10 +24,10 @@ spec:
   values:
     controller:
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.2
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
     node:
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.2
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
     csiProxy:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:

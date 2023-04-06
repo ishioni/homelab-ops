@@ -24,13 +24,13 @@ spec:
   values:
     controller:
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.2
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-cluster-critical
     node:
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.2
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-node-critical
