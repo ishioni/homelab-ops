@@ -192,7 +192,7 @@ resource "authentik_provider_oauth2" "tandoor" {
     data.authentik_scope_mapping.scopes.ids
   )
   redirect_uris = [
-    "https://recipes.${data.sops_file.authentik_secrets.data["cluster_domain"]}/accounts/tandoor/login/callback/"
+    "https://recipes.${data.sops_file.authentik_secrets.data["cluster_domain"]}/accounts/authentik/login/callback/"
   ]
 }
 

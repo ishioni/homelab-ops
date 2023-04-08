@@ -15,6 +15,7 @@ data:
   COMMENT_PREF_DEFAULT: "1"
   SHOPPING_MIN_AUTOSYNC_INTERVAL: "5"
   SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
+  ENABLE_SIGNUP: "1"
 ---
 apiVersion: v1
 kind: ConfigMap
