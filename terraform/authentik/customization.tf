@@ -129,3 +129,9 @@ resource "authentik_policy_binding" "nextcloud" {
   group  = authentik_group.nextcloud.id
   order  = 0
 }
+
+resource "authentik_policy_binding" "tandoor" {
+  target = authentik_application.tandoor.uuid
+  group  = authentik_group.nextcloud.id
+  order  = 0
+}

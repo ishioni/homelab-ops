@@ -34,60 +34,60 @@ resource "authentik_outpost" "proxyoutpost" {
 }
 
 resource "authentik_provider_proxy" "transmission" {
-  name               = "transmission-provider"
-  external_host      = "https://torrent.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "transmission-provider"
+  external_host         = "https://torrent.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "prowlarr" {
-  name               = "prowlarr-provider"
-  external_host      = "https://indexer.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "prowlarr-provider"
+  external_host         = "https://indexer.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "radarr" {
-  name               = "radarr-provider"
-  external_host      = "https://movies.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "radarr-provider"
+  external_host         = "https://movies.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "sonarr" {
-  name               = "sonarr-provider"
-  external_host      = "https://tv.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "sonarr-provider"
+  external_host         = "https://tv.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "readarr" {
-  name               = "readarr-provider"
-  external_host      = "https://books.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "readarr-provider"
+  external_host         = "https://books.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "hajimari" {
-  name               = "hajimari-provider"
-  external_host      = "https://start.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "hajimari-provider"
+  external_host         = "https://start.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
 }
 
 resource "authentik_provider_proxy" "uptime-kuma" {
-  name               = "uptime-kuma-provider"
-  external_host      = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode               = "forward_single"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  name                  = "uptime-kuma-provider"
+  external_host         = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  mode                  = "forward_single"
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   access_token_validity = "hours=24"
-  skip_path_regex    = <<EOF
+  skip_path_regex       = <<EOF
 ^/$
 ^/status
 ^/assets/
@@ -177,6 +177,25 @@ resource "authentik_provider_oauth2" "nextcloud" {
   ]
 }
 
+resource "authentik_provider_oauth2" "tandoor" {
+  name                       = "tandoor-oidc"
+  client_id                  = data.sops_file.authentik_secrets.data["tandoor_client_id"]
+  client_secret              = data.sops_file.authentik_secrets.data["tandoor_client_secret"]
+  authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  signing_key                = data.authentik_certificate_key_pair.generated.id
+  client_type                = "confidential"
+  issuer_mode                = "per_provider"
+  access_code_validity       = "hours=24"
+  sub_mode                   = "user_username"
+  include_claims_in_id_token = false
+  property_mappings = concat(
+    data.authentik_scope_mapping.scopes.ids
+  )
+  redirect_uris = [
+    "https://recipes.${data.sops_file.authentik_secrets.data["cluster_domain"]}/accounts/tandoor/login/callback/"
+  ]
+}
+
 resource "authentik_application" "transmission" {
   name              = "Transmission"
   slug              = "torrent"
@@ -246,7 +265,6 @@ resource "authentik_application" "immich" {
   meta_description  = "Photo managment"
   meta_launch_url   = "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   open_in_new_tab   = true
-
 }
 
 resource "authentik_application" "uptime-kuma" {
@@ -290,5 +308,16 @@ resource "authentik_application" "nextcloud" {
   meta_icon         = "https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
   meta_description  = "Files"
   meta_launch_url   = "https://files.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+  open_in_new_tab   = true
+}
+
+resource "authentik_application" "tandoor" {
+  name              = "Recipes"
+  slug              = "tandoor"
+  group             = "Groupware"
+  protocol_provider = resource.authentik_provider_oauth2.tandoor.id
+  meta_icon         = "https://raw.githubusercontent.com/TandoorRecipes/recipes/develop/docs/logo_color.svg"
+  meta_description  = "Groupware"
+  meta_launch_url   = "https://recipes.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
   open_in_new_tab   = true
 }
