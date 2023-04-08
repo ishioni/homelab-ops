@@ -105,7 +105,7 @@ spec:
             containerPort: 80
             protocol: TCP
         volumeMounts:
-          - name: nginx-config
+          - name: tandoor-nginx
             readOnly: true
             mountPath: /etc/nginx/nginx.conf
             subPath: nginx-config
