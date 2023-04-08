@@ -13,7 +13,7 @@ spec:
       version: 1.3.2
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -38,7 +38,9 @@ spec:
       tag: "1.4.8"
     envFrom:
       - secretRef:
-          name: *app
+          name: tandoor-secret
+      - configMapRef:
+          name: tandoor-configmap
     service:
       main:
         ports:
@@ -59,6 +61,10 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+              - path: /accounts/signup
+                service:
+                  name: blackhole
+                pathType: Prefix
         tls:
           - secretName: *host
             hosts:
@@ -67,13 +73,11 @@ spec:
       files:
         enabled: true
         existingClaim: tandoor-files
-        mountPath: /opt/recipes/mediafiles
-        subPath: mediafiles
-      static:
-        enabled: true
-        existingClaim: tandoor-files
-        mountPath: /opt/recipes/staticfiles
-        subPath: static
+        subPath:
+          - path: mediafiles
+            mountPath: /opt/recipes/mediafiles
+          - path: staticfiles
+            mountPath: /opt/recipes/staticfiles
       nginx-config:
         enabled: "true"
         mountPath: /etc/nginx/nginx.conf
@@ -105,11 +109,13 @@ spec:
             containerPort: 80
             protocol: TCP
         volumeMounts:
-          - name: tandoor-nginx
+          - name: nginx-config
             readOnly: true
             mountPath: /etc/nginx/nginx.conf
             subPath: nginx-config
           - name: files
             mountPath: /media
-          - name: static
+            subPath: mediafiles
+          - name: files
             mountPath: /static
+            subPath: staticfiles
