@@ -45,22 +45,32 @@ spec:
       main:
         ports:
           http:
+            primary: true
             port: 80
+          gunicorn:
+            port: 8080
     probes:
       liveness: &probes
         enabled: true
         custom: true
         spec:
           httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 15
+            path: /accounts/login/
+            port: gunicorn
+          initialDelaySeconds: 0
           periodSeconds: 10
           timeoutSeconds: 1
           failureThreshold: 3
       readiness: *probes
       startup:
-        enabled: false
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /accounts/login/
+            port: gunicorn
+          failureThreshold: 30
+          periodSeconds: 10
     ingress:
       main:
         enabled: true
