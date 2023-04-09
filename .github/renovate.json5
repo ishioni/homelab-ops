@@ -29,6 +29,7 @@
     "ghcr.io/fluxcd/notification-controller",
     "ghcr.io/fluxcd/source-controller"
   ],
+  "ignorePaths": ["archive/**"],
   "flux": {
     "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
