@@ -33,6 +33,9 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
+      PROWLARR__INSTANCE_NAME: Prowlarr
+      PROWLARR__PORT: &port 80
+      PROWLARR__LOG_LEVEL: info
       PROWLARR__AUTHENTICATION_METHOD: External
     volumeClaimTemplates:
       - name: config
@@ -44,7 +47,22 @@ spec:
       main:
         ports:
           http:
-            port: 9696
+            port: *port
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true

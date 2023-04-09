@@ -33,40 +33,42 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
+      RADARR__INSTANCE_NAME: Radarr
+      RADARR__PORT: &port 80
+      RADARR__APPLICATION_URL: "https://movies.${SECRET_DOMAIN}"
+      RADARR__LOG_LEVEL: info
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     volumeClaimTemplates:
       - name: config
         mountPath: /config
         storageClass: truenas-ssd-nvmeof
         accessMode: ReadWriteOnce
         size: 1Gi
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
-                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          failureThreshold: 5
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
     persistence:
       media:
         enabled: true
         existingClaim: quadrant-media
         mountPath: /media
         retain: true
-    service:
-      main:
-        ports:
-          http:
-            port: 7878
     ingress:
       main:
         enabled: true

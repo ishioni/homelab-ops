@@ -33,23 +33,29 @@ spec:
       type: statefulset
     env:
       TZ: Europe/Warsaw
+      SONARR__INSTANCE_NAME: Sonarr
+      SONARR__PORT: &port 80
+      SONARR__LOG_LEVEL: info
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     probes:
-      liveness:
+      liveness: &probes
         enabled: true
         custom: true
         spec:
-          exec:
-            command:
-              - /usr/bin/env
-              - bash
-              - -c
-              - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
-                read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-          failureThreshold: 5
-          initialDelaySeconds: 60
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
           periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     volumeClaimTemplates:
       - name: config
         mountPath: /config
@@ -62,11 +68,6 @@ spec:
         existingClaim: quadrant-media
         mountPath: /media
         retain: true
-    service:
-      main:
-        ports:
-          http:
-            port: 8989
     ingress:
       main:
         enabled: true
