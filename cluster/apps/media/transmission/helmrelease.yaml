@@ -36,6 +36,8 @@ spec:
       TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
       TRANSMISSION__DOWNLOAD_DIR: "/downloads"
       TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
+      TRANSMISSION__RPC_PORT: &port 9091
+      TRANSMISSION__PEER_PORT: &peerport 51413
       TRANSMISSION__RATIO_LIMIT: 1
       TRANSMISSION__RATIO_LIMIT_ENABLED: true
       TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
@@ -50,7 +52,33 @@ spec:
       main:
         ports:
           http:
-            port: &port 9091
+            port: *port
+      utptcp:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: transmission
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
+        externalTrafficPolicy: Local
+        ports:
+          utptcp:
+            enabled: true
+            port: *peerport
+            protocol: TCP
+            targetPort: *peerport
+      utpudp:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: transmission
+          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
+        externalTrafficPolicy: Local
+        ports:
+          utpudp:
+            enabled: true
+            port: *peerport
+            protocol: UDP
+            targetPort: *peerport
     probes:
       liveness: &probes
         enabled: true
@@ -66,32 +94,6 @@ spec:
       readiness: *probes
       startup:
         enabled: false
-      utptcp:
-        enabled: true
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/allow-shared-ip: transmission
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
-        externalTrafficPolicy: Local
-        ports:
-          utptcp:
-            enabled: true
-            port: 51413
-            protocol: TCP
-            targetPort: 51413
-      utpudp:
-        enabled: true
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/allow-shared-ip: transmission
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
-        externalTrafficPolicy: Local
-        ports:
-          utpudp:
-            enabled: true
-            port: 51413
-            protocol: UDP
-            targetPort: 51413
     persistence:
       downloads:
         enabled: true
