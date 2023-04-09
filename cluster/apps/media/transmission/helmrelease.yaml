@@ -46,18 +46,26 @@ spec:
     envFrom:
       - secretRef:
           name: transmission-rpc
-    probes:
-      liveness:
-        spec:
-          timeoutSeconds: 30
-      readiness:
-        spec:
-          timeoutSeconds: 30
     service:
       main:
         ports:
           http:
-            port: 9091
+            port: &port 9091
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /transmission/web/
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
       utptcp:
         enabled: true
         type: LoadBalancer
