@@ -23,7 +23,7 @@ spec:
       retries: 5
   values:
     image:
-      repository: ghcr.io/onedr0p/prowlarr-develop
+      repository: ghcr.io/onedr0p/prowlarr
       tag: 1.3.2.3006
     podSecurityContext:
       runAsUser: 1003
