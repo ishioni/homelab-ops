@@ -103,7 +103,7 @@ spec:
         image: thecodingmachine/gotenberg:7.8.2
         imagePullPolicy: IfNotPresent
         env:
-          - { name: DISABLE_GOOGLE_CHROME, value: "1" }
+          - {name: DISABLE_GOOGLE_CHROME, value: "1"}
       redis:
         image: public.ecr.aws/docker/library/redis:7.0.10
         imagePullPolicy: IfNotPresent
