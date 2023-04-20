@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: nginx
-      version: 13.2.33
+      version: 13.2.34
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
