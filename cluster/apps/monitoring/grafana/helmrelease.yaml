@@ -23,6 +23,9 @@ spec:
     remediation:
       retries: 3
   values:
+    image:
+      repository: ghcr.io/onedr0p/grafana
+      tag: 9.4.7
     replicas: 1
     rbac:
       pspEnabled: false
@@ -177,7 +180,7 @@ spec:
         enabled: true
         searchNamespace: ALL
     imageRenderer:
-      enabled: true
+      enabled: false
     persistence:
       enabled: false
       inMemory:
