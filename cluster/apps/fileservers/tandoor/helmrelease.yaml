@@ -127,7 +127,7 @@ spec:
     additionalContainers:
       nginx:
         name: nginx
-        image: docker.io/nginx:1.24.0
+        image: public.ecr.aws/nginx/nginx:1.24.0
         imagePullPolicy: IfNotPresent
         ports:
           - name: http

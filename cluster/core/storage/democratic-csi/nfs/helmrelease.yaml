@@ -26,6 +26,8 @@ spec:
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
     node:
+      cleanup:
+        image: public.ecr.aws/docker/library/busybox:1.32.0
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
     csiProxy:
