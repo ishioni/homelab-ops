@@ -23,7 +23,7 @@ spec:
       retries: 5
   values:
     image:
-      repository: nextcloud
+      repository: docker.io/nextcloud
       tag: 25.0.5-fpm-alpine
     nextcloud:
       host: &host "files.${SECRET_DOMAIN}"
@@ -168,6 +168,9 @@ spec:
             - *host
     nginx:
       enabled: true
+      image:
+        repository: docker.io/nginx
+        tag: 1.24-bullseye
       config:
         default: true
       resources:
