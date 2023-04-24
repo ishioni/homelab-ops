@@ -241,7 +241,7 @@ spec:
       enabled: false
       https: true
       image:
-        repository: xperimental/nextcloud-exporter
+        repository: docker.io/xperimental/nextcloud-exporter
         tag: 0.6.0
       serviceMonitor:
         enabled: false
