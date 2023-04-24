@@ -32,7 +32,7 @@ spec:
     image:
       registry: docker.io
       repository: bitnami/nginx
-      tag: 1.23.4
+      tag: 1.24.0
     service:
       type: ClusterIP
     serverBlock: |-
