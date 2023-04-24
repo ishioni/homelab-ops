@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/radarr-develop
-      tag: 4.4.4.7068
+      tag: 4.5.0.7106
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
