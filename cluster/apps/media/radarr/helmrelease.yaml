@@ -23,7 +23,7 @@ spec:
       retries: 5
   values:
     image:
-      repository: ghcr.io/onedr0p/radarr-develop
+      repository: ghcr.io/onedr0p/radarr
       tag: 4.4.4.7068
     podSecurityContext:
       runAsUser: 1003
