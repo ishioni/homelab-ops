@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/grafana
-      tag: 9.4.7
+      tag: 9.5.1
     replicas: 1
     rbac:
       pspEnabled: false
