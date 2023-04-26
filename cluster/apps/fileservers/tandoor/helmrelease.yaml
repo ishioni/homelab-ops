@@ -34,7 +34,7 @@ spec:
           - secretRef:
               name: tandoor-secret
     image:
-      repository: docker.io/vabene1111/recipes
+      repository: ghcr.io/tandoorrecipes/recipes
       tag: "1.4.9"
     envFrom:
       - secretRef:
