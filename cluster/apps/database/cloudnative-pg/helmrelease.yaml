@@ -34,7 +34,7 @@ spec:
       create: false
     image:
       repository: ghcr.io/cloudnative-pg/cloudnative-pg
-      tag: 1.19.2
+      tag: 1.20.0
     resources:
       requests:
         cpu: 15m
