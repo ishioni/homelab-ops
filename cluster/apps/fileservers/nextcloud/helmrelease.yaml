@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 3.5.3
+      version: 3.5.12
       sourceRef:
         kind: HelmRepository
         name: nextcloud-charts
@@ -54,6 +54,14 @@ spec:
             secretKeyRef:
               name: nextcloud-secrets
               key: OIDC_CLIENT_PASSWORD
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: ADMIN_USER
+        passwordKey: ADMIN_PASS
+        tokenKey: METRICS_TOKEN
+        smtpUsernameKey: SMTP_USERNAME
+        smtpPasswordKey: SMTP_PASSWORD
       mail:
         enabled: true
         fromAddress: files
@@ -206,11 +214,18 @@ spec:
       enabled: true
       type: postgresql
       database: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: POSTGRES_USER
+        passwordKey: POSTGRES_PASS
     redis:
       enabled: true
       architecture: standalone
       auth:
         enabled: true
+        existingSecret: nextctloud-secrets
+        existingSecretPasswordKey: REDIS_PASSWORD
       master:
         persistence:
           enabled: false
@@ -248,41 +263,9 @@ spec:
   valuesFrom:
     - kind: Secret
       name: nextcloud-secrets
-      valuesKey: ADMIN_USER
-      targetPath: nextcloud.username
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: ADMIN_PASS
-      targetPath: nextcloud.password
-    - kind: Secret
-      name: nextcloud-secrets
       valuesKey: POSTGRES_HOST
       targetPath: externalDatabase.host
     - kind: Secret
       name: nextcloud-secrets
-      valuesKey: POSTGRES_USER
-      targetPath: externalDatabase.user
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: POSTGRES_PASS
-      targetPath: externalDatabase.password
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: REDIS_PASSWORD
-      targetPath: redis.auth.password
-    - kind: Secret
-      name: nextcloud-secrets
       valuesKey: SMTP_HOST
       targetPath: nextcloud.mail.smtp.host
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: SMTP_USERNAME
-      targetPath: nextcloud.mail.smtp.name
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: SMTP_PASSWORD
-      targetPath: nextcloud.mail.smtp.password
-    - kind: Secret
-      name: nextcloud-secrets
-      valuesKey: METRICS_TOKEN
-      targetPath: metrics.token
