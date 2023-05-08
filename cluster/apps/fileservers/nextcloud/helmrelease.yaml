@@ -224,7 +224,7 @@ spec:
       architecture: standalone
       auth:
         enabled: true
-        existingSecret: nextctloud-secrets
+        existingSecret: nextcloud-secrets
         existingSecretPasswordKey: REDIS_PASSWORD
       master:
         persistence:
