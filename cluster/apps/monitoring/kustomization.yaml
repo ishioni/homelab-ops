@@ -8,5 +8,4 @@ resources:
   - kube-prometheus-stack
   - speedtest-exporter
   - thanos
-  - uptime-kuma
   - unpoller

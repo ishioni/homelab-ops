@@ -8,8 +8,7 @@ resource "authentik_outpost" "proxyoutpost" {
     resource.authentik_provider_proxy.sonarr.id,
     resource.authentik_provider_proxy.radarr.id,
     resource.authentik_provider_proxy.readarr.id,
-    resource.authentik_provider_proxy.hajimari.id,
-    resource.authentik_provider_proxy.uptime-kuma.id
+    resource.authentik_provider_proxy.hajimari.id
   ]
   config = jsonencode({
     authentik_host          = "https://auth.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
@@ -81,23 +80,23 @@ resource "authentik_provider_proxy" "hajimari" {
   access_token_validity = "hours=24"
 }
 
-resource "authentik_provider_proxy" "uptime-kuma" {
-  name                  = "uptime-kuma-provider"
-  external_host         = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
-  skip_path_regex       = <<EOF
-^/$
-^/status
-^/assets/
-^/assets
-^/icon.svg
-^/api/.*
-^/upload/.*
-^/metrics
-EOF
-}
+# resource "authentik_provider_proxy" "uptime-kuma" {
+#   name                  = "uptime-kuma-provider"
+#   external_host         = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
+#   mode                  = "forward_single"
+#   authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+#   access_token_validity = "hours=24"
+#   skip_path_regex       = <<EOF
+# ^/$
+# ^/status
+# ^/assets/
+# ^/assets
+# ^/icon.svg
+# ^/api/.*
+# ^/upload/.*
+# ^/metrics
+# EOF
+# }
 
 resource "authentik_provider_oauth2" "immich" {
   name                       = "immich-oidc"
@@ -267,16 +266,16 @@ resource "authentik_application" "immich" {
   open_in_new_tab   = true
 }
 
-resource "authentik_application" "uptime-kuma" {
-  name              = "Uptime-kuma"
-  slug              = "uptime"
-  group             = "Infrastructure"
-  protocol_provider = resource.authentik_provider_proxy.uptime-kuma.id
-  meta_icon         = "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg"
-  meta_description  = "Uptime"
-  meta_launch_url   = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}/dashboard"
-  open_in_new_tab   = true
-}
+# resource "authentik_application" "uptime-kuma" {
+#   name              = "Uptime-kuma"
+#   slug              = "uptime"
+#   group             = "Infrastructure"
+#   protocol_provider = resource.authentik_provider_proxy.uptime-kuma.id
+#   meta_icon         = "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg"
+#   meta_description  = "Uptime"
+#   meta_launch_url   = "https://status.${data.sops_file.authentik_secrets.data["cluster_domain"]}/dashboard"
+#   open_in_new_tab   = true
+# }
 
 resource "authentik_application" "grafana" {
   name              = "Grafana"
