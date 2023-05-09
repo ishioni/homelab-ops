@@ -94,11 +94,11 @@ resource "authentik_policy_binding" "readarr" {
   order  = 0
 }
 
-resource "authentik_policy_binding" "uptime-kuma" {
-  target = authentik_application.uptime-kuma.uuid
-  group  = authentik_group.infrastructure.id
-  order  = 0
-}
+# resource "authentik_policy_binding" "uptime-kuma" {
+#   target = authentik_application.uptime-kuma.uuid
+#   group  = authentik_group.infrastructure.id
+#   order  = 0
+# }
 
 resource "authentik_policy_binding" "hajimari" {
   target = authentik_application.hajimari.uuid
