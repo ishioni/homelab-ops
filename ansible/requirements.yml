@@ -1,7 +1,7 @@
 ---
 collections:
   - name: community.docker
-    version: 3.4.5
+    version: 3.4.6
   - name: community.general
     version: 7.0.0
   - name: community.sops
