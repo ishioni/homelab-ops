@@ -9,7 +9,7 @@ spec:
   interval: 12h
   url: https://github.com/external-secrets/external-secrets.git
   ref:
-    tag: v0.8.1
+    tag: v0.8.2
   ignore: |
     # exclude all
     /*
