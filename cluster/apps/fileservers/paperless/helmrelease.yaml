@@ -100,7 +100,7 @@ spec:
         memory: 5000Mi
     sidecars:
       gotenburg:
-        image: docker.io/thecodingmachine/gotenberg:7.8.2
+        image: docker.io/thecodingmachine/gotenberg:7.8.3
         imagePullPolicy: IfNotPresent
         env:
           - {name: DISABLE_GOOGLE_CHROME, value: "1"}
