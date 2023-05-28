@@ -35,7 +35,7 @@ spec:
               name: tandoor-secret
     image:
       repository: ghcr.io/tandoorrecipes/recipes
-      tag: "1.4.11"
+      tag: "1.4.12"
     envFrom:
       - secretRef:
           name: tandoor-secret
