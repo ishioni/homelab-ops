@@ -10,7 +10,7 @@ spec:
   # renovate: datasource=github-releases
   url: https://github.com/metallb/metallb.git
   ref:
-    tag: v0.13.9
+    tag: v0.13.10
   ignore: |
     # exclude all
     /*
