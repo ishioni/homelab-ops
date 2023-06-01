@@ -28,18 +28,18 @@ spec:
   values:
     installCRDs: false
     serviceMonitor:
-      enabled: true
+      enabled: false
     backgroundController:
       serviceMonitor:
-        enabled: true
+        enabled: false
     cleanupController:
       serviceMonitor:
-        enabled: true
+        enabled: false
     reportsController:
       serviceMonitor:
-        enabled: true
+        enabled: false
     grafana:
-      enabled: true
+      enabled: false
     # topologySpreadConstraints:
     #   - maxSkew: 1
     #     topologyKey: kubernetes.io/hostname
