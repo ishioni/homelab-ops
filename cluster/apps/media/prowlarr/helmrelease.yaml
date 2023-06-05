@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/prowlarr
-      tag: 1.4.1.3258
+      tag: 1.5.2.3484
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
