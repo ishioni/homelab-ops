@@ -37,6 +37,9 @@ spec:
           memory: 100Mi
     speaker:
       tolerateMaster: false
+      frr:
+        # FIXME this is the default now, debug why it isn't working
+        enabled: false
       resources:
         limits:
           memory: 100Mi
