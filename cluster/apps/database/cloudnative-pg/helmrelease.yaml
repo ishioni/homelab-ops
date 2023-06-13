@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: cloudnative-pg
-      version: 0.18.0
+      version: 0.18.1
       sourceRef:
         kind: HelmRepository
         name: cloudnative-pg-charts
@@ -34,7 +34,7 @@ spec:
       create: false
     image:
       repository: ghcr.io/cloudnative-pg/cloudnative-pg
-      tag: 1.20.0
+      tag: 1.20.1
     resources:
       requests:
         cpu: 15m
