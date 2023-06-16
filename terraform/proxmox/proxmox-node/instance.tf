@@ -2,10 +2,11 @@ resource "macaddress" "node" {
 }
 
 resource "unifi_user" "node" {
-  mac        = macaddress.node.address
-  name       = var.machine_name
-  fixed_ip   = var.ip_address
-  network_id = var.network_id
+  mac              = macaddress.node.address
+  name             = var.machine_name
+  local_dns_record = var.machine_name
+  fixed_ip         = var.ip_address
+  network_id       = var.network_id
 }
 
 resource "time_sleep" "node" {
