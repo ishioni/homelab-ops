@@ -1,0 +1,73 @@
+---
+autoDirectNodeRoutes: true
+
+cluster:
+  name: "talos"
+  id: "1"
+bgpControlPlane:
+  enabled: true
+
+bgp:
+  enabled: false
+  announce:
+    loadbalancerIP: true
+    podCIDR: false
+
+kubeProxyReplacement: strict
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+k8sServiceHost: 10.1.4.100
+k8sServicePort: 6443
+ipv4NativeRoutingCIDR: 172.16.0.0/16
+
+securityContext:
+  privileged: true
+  capabilities:
+    ciliumAgent: "{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}"
+    cleanCiliumState: "{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}"
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+containerRuntime:
+  integration: containerd
+
+endpointRoutes:
+  enabled: true
+
+ipam:
+  mode: kubernetes
+
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+
+localRedirectPolicy: true
+
+operator:
+  enabled: true
+  rollOutPods: true
+
+rollOutCiliumPods: true
+
+tunnel: disabled
+
+hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+  relay:
+    enabled: true
+    rollOutPods: true
+  ui:
+    enabled: true
+    rollOutPods: true
+    ingress:
+      enabled: false
