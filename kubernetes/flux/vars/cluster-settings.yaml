@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  CONFIG_BGP_POOL_CIDR: 192.168.3.0/24
+  CONFIG_INGRESS_PUBLIC_IP: 192.168.3.2
+  CONFIG_INGRESS_PRIVATE_IP: 192.168.3.3
+  CONFIG_GATEWAY_DNS_IP: 192.168.3.1
+  CONFIG_TRUENAS_IP: 10.1.4.2
+  CONFIG_TIMEZONE: Europe/Warsaw
