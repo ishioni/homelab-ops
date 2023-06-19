@@ -18,6 +18,6 @@ spec:
       interval: 30m
   values:
     metrics:
-      enabled: true
+      enabled: false
     serviceMonitor:
-      enabled: true
+      enabled: false
