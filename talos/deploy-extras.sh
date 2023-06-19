@@ -5,7 +5,7 @@ pushd extras >/dev/null 2>&1
 if test -d cni/charts; then
   rm -rf cni/charts
 fi
-envsubst < ../../kubernetes/apps/kube-system/cillium/app/cillium-values.yaml  > cni/values.yaml
+envsubst < ../../kubernetes/apps/kube-system/cillium/app/values.yaml  > cni/values.yaml
 kustomize build --enable-helm cni | kubectl apply -f -
 rm -r cni/values.yaml cni/charts
 
