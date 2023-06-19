@@ -16,11 +16,3 @@ spec:
       neighbors:
         - peerAddress: 192.168.1.1/32
           peerASN: 64500
----
-apiVersion: cilium.io/v2alpha1
-kind: CiliumLoadBalancerIPPool
-metadata:
-  name: main-pool
-spec:
-  cidrs:
-    - cidr: ${CONFIG_BGP_POOL_CIDR}
