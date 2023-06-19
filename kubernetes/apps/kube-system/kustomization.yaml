@@ -6,4 +6,4 @@ resources:
   - ./namespace.yaml
   - ./cilium/ks.yaml
   - ./metrics-server/ks.yaml
-  - ./kubelet-csr-appover/ks.yaml
+  - ./kubelet-csr-approver/ks.yaml
