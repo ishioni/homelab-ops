@@ -1,0 +1,141 @@
+---
+clusterName: ${clusterName}
+
+talosVersion: v1.4.5
+kubernetesVersion: 1.27.2
+endpoint: "https://${clusterName}-api.${secretKDomain}:6443"
+
+clusterPodNets:
+  - 172.16.0.0/16
+clusterSvcNets:
+  - 10.100.0.0/16
+cniConfig:
+  name: none
+
+additionalApiServerCertSans:
+  - ${clusterEndpointIP}
+
+additionalMachineCertSans:
+  - ${clusterEndpointIP}
+  - ${clusterName}-api.k3s.internal
+
+domain: cluster.local
+
+nodes:
+  - hostname: talos-master-0.${secretKDomain}
+    disableSearchDomain: true
+    ipAddress: 10.1.4.20
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
+  - hostname: talos-master-1.${secretKDomain}
+    disableSearchDomain: true
+    ipAddress: 10.1.4.21
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
+  - hostname: talos-master-2.${secretKDomain}
+    disableSearchDomain: true
+    ipAddress: 10.1.4.22
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
+  - hostname: talos-worker-0.${secretKDomain}
+    disableSearchDomain: true
+    ipAddress: 10.1.4.30
+    controlPlane: false
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+  - hostname: talos-worker-1.${secretKDomain}
+    disableSearchDomain: true
+    ipAddress: 10.1.4.31
+    controlPlane: false
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+  - hostname: talos-worker-2.${secretKDomain}
+    disableSearchDomain: true
+    ipAddress: 10.1.4.32
+    controlPlane: false
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+
+controlPlane:
+  patches:
+    - |-
+      cluster:
+        apiServer:
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        discovery:
+          registries:
+            service:
+              disabled: true
+        proxy:
+          disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+      machine:
+        files:
+          - content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+            path: /etc/cri/conf.d/20-customization.part
+            op: create
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true
+            rotate-server-certificates: "true"
+        sysctls:
+          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_user_instances: "8192"
+
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+worker:
+  patches:
+    - |-
+      machine:
+        files:
+          - content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+            path: /etc/cri/conf.d/20-customization.part
+            op: create
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true
+            rotate-server-certificates: "true"
+        sysctls:
+          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_user_instances: "8192"

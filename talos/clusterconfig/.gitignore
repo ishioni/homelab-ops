@@ -1,0 +1,7 @@
+talos-talos-master-0.k3s.internal.yaml
+talos-talos-master-1.k3s.internal.yaml
+talos-talos-master-2.k3s.internal.yaml
+talos-talos-worker-0.k3s.internal.yaml
+talos-talos-worker-1.k3s.internal.yaml
+talos-talos-worker-2.k3s.internal.yaml
+talosconfig
