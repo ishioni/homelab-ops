@@ -1,0 +1,34 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-system-cilium
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/kube-system/cilium/app
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  prune: true
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-system-cilium-bgp
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/kube-system/cilium/bgp
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  dependsOn:
+    - name: kube-system-cilium
+  prune: true
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
