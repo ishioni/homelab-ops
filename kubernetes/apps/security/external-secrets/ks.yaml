@@ -10,7 +10,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: homelab-ops
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -24,7 +24,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: homelab-ops
   wait: true
   dependsOn:
     - name: security-external-secrets
