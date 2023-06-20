@@ -8,4 +8,5 @@ resources:
   - ./democratic-csi.yaml
   - ./external-secrets.yaml
   - ./kubernetes-sigs-metrics-server.yaml
+  - ./piraeus.yaml
   - ./postfinance.yaml
