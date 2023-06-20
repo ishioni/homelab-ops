@@ -24,7 +24,7 @@ spec:
   values:
     controller:
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
+        image: ghcr.io/democratic-csi/democratic-csi:next
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-cluster-critical
@@ -32,7 +32,7 @@ spec:
       cleanup:
         image: public.ecr.aws/docker/library/busybox:1.36.1
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
+        image: ghcr.io/democratic-csi/democratic-csi:next
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-node-critical
