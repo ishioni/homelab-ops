@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: democratic-csi-nfs
+  namespace: storage
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: democratic-csi
+      version: 0.13.7
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    controller:
+      driver:
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
+    node:
+      cleanup:
+        image: public.ecr.aws/docker/library/busybox:1.36.1
+      driver:
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
+    csiProxy:
+      image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
+    csiDriver:
+      name: "org.democratic-csi.nfs"
+    storageClasses:
+      - name: truenas-hdd-nfs
+        defaultClass: false
+        reclaimPolicy: Delete
+        volumeBindingMode: Immediate
+        allowVolumeExpansion: true
+        parameters:
+          fsType: nfs
+        mountOptions:
+          - nfsvers=4.2
+          - nconnect=8
+          - hard
+          - intr
+          - noatime
+          - nodiratime
+        secrets:
+          provisioner-secret:
+          controller-publish-secret:
+          node-stage-secret:
+          node-publish-secret:
+          controller-expand-secret:
+    driver:
+      config:
+        driver: freenas-api-nfs
+      existingConfigSecret: dcsi-nfs-secret
