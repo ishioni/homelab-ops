@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: storage-volsync
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/storage/volsync/app
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  prune: true
+  wait: true
+  dependsOn:
+    - name: storage-democratic-csi-nvmeof
+    - name: storage-snapshot-controller
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
