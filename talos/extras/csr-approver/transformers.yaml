@@ -14,7 +14,7 @@ kind: AnnotationsTransformer
 metadata:
   name: annotations
 annotations:
-  meta.helm.sh/release-name: cilium
+  meta.helm.sh/release-name: kubelet-csr-approver
   meta.helm.sh/release-namespace: kube-system
 fieldSpecs:
   - path: metadata/annotations
