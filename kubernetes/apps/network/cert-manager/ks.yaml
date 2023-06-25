@@ -21,7 +21,7 @@ metadata:
   name: network-cert-manager-issuers
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/network/ingress-nginx/private
+  path: ./kubernetes/apps/network/cert-manager/issuers
   sourceRef:
     kind: GitRepository
     name: homelab-ops
