@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: kyverno
-  namespace: kyverno
+  namespace: security
 spec:
   interval: 15m
   chart:
