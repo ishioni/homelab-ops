@@ -7,7 +7,9 @@ resources:
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./democratic-csi.yaml
+  - ./external-dns.yaml
   - ./external-secrets.yaml
+  - ./k8s-gateway.yaml
   - ./kubernetes-sigs-metrics-server.yaml
   - ./kyverno.yaml
   - ./minecraft-server.yaml
