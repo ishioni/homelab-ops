@@ -23,6 +23,9 @@ spec:
               annotations:
                 authentik.home.arpa/enabled: "true"
       mutate:
+        targets:
+          - apiVersion: v1
+            kind: Ingress
         patchStrategicMerge:
           metadata:
             annotations:
