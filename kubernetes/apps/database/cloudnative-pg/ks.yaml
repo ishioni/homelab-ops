@@ -29,7 +29,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: homelab-ops
   wait: true
   interval: 30m
   retryInterval: 1m
