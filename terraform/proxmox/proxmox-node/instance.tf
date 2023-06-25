@@ -23,6 +23,7 @@ resource "proxmox_vm_qemu" "node" {
 
   oncreate = var.oncreate
   onboot   = var.onboot
+  startup  = var.startup
 
   cpu     = "host"
   sockets = 1
