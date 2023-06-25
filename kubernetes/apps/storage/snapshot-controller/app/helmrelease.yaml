@@ -17,12 +17,25 @@ spec:
         namespace: flux-system
   install:
     crds: CreateReplace
+    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    volumeSnapshotClasses:
+      - name: truenas-ssd-nvmeof
+        driver: org.democratic-csi.nvmeof
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
 
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
