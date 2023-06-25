@@ -9,6 +9,7 @@ resources:
   - ./democratic-csi.yaml
   - ./external-secrets.yaml
   - ./kubernetes-sigs-metrics-server.yaml
+  - ./kyverno.yaml
   - ./minecraft-server.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml
