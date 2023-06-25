@@ -6,6 +6,11 @@ variable "tags" {
   type = string
 }
 
+variable "vmid" {
+  type = number
+  default = 0
+}
+
 variable "target_node" {
   type = string
 }

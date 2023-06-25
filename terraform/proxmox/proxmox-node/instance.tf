@@ -17,6 +17,7 @@ resource "time_sleep" "node" {
 resource "proxmox_vm_qemu" "node" {
   name        = var.machine_name
   tags        = var.tags
+  vmid        = var.vmid
   target_node = var.target_node
   iso         = var.iso_path
   qemu_os     = "l26"
