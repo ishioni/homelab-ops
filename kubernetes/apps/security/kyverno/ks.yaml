@@ -5,7 +5,7 @@ metadata:
   name: security-kyverno
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/kyverno/kyverno/app
+  path: ./kubernetes/apps/security/kyverno/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops
@@ -22,7 +22,7 @@ metadata:
   name: security-kyverno-policies
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/kyverno/kyverno/policies
+  path: ./kubernetes/apps/security/kyverno/policies
   sourceRef:
     kind: GitRepository
     name: homelab-ops
