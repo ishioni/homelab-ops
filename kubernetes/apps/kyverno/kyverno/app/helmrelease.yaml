@@ -30,7 +30,7 @@ spec:
     crds:
       install: true
     admissionController:
-      replicas: 2
+      replicas: 3
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
