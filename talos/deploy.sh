@@ -32,7 +32,7 @@ talosctl apply-config -i -n 10.1.4.31 -f ./clusterconfig/talos-talos-worker-1*.y
 talosctl apply-config -i -n 10.1.4.32 -f ./clusterconfig/talos-talos-worker-2*.yaml
 
 echo "Waiting for installation"
-#sleep 120
+sleep 120
 
 talosctl config node talos-master-0.k3s.internal talos-master-1.k3s.internal talos-master-2.k3s.internal\
                     talos-worker-0.k3s.internal talos-worker-1.k3s.internal talos-worker-2.k3s.internal;
