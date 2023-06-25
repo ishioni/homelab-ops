@@ -29,7 +29,7 @@ tunnel: disabled
 containerRuntime:
   integration: containerd
 hubble:
-  enabled: true
+  enabled: false
   serviceMonitor:
     enabled: false
   metrics:
