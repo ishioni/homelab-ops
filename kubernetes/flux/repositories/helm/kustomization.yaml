@@ -6,6 +6,7 @@ resources:
   - ./backube.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
+  - ./cloudnative-pg.yaml
   - ./democratic-csi.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
