@@ -15,10 +15,13 @@ spec:
         kind: HelmRepository
         name: k8s-gateway
         namespace: flux-system
+  maxHistory: 3
   install:
+    createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
   values:
