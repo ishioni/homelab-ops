@@ -9,8 +9,6 @@ helmCharts:
     releaseName: kubelet-csr-approver
     namespace: kube-system
     valuesFile: values.yaml
-commonAnnotations:
-  meta.helm.sh/release-name: kubelet-csr-approver
-  meta.helm.sh/release-namespace: kube-system
-commonLabels:
-  app.kubernetes.io/managed-by: Helm
+
+transformers:
+  - transformers.yaml
