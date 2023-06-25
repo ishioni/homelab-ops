@@ -28,6 +28,8 @@ spec:
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-cluster-critical
+      externalAttacher:
+        enabled: true
     node:
       cleanup:
         image: public.ecr.aws/docker/library/busybox:1.36.1
@@ -40,6 +42,7 @@ spec:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:
       name: "org.democratic-csi.nvmeof"
+      attachRequired: true
     storageClasses:
       - name: truenas-ssd-nvmeof
         defaultClass: true
