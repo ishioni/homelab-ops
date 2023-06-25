@@ -24,6 +24,11 @@ variable "onboot" {
   default = true
 }
 
+variable "startup" {
+  type    = string
+  default = ""
+}
+
 variable "cpu_cores" {
   type    = number
   default = 1

@@ -5,6 +5,7 @@ module "controlplanes" {
   tags         = "talos,control-plane"
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.proxmox_image
+  startup      = "down=300"
   cpu_cores    = 4
   memory       = 8 * 1024
   network_tag  = 4
@@ -21,6 +22,7 @@ module "workers" {
   tags         = "talos,worker"
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.proxmox_image
+  startup      = "down=600"
   cpu_cores    = 8
   memory       = 8 * 1024
   network_tag  = 4
