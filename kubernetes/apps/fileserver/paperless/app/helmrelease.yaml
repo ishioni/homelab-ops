@@ -59,7 +59,7 @@ spec:
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
       PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
       PAPERLESS_TIME_ZONE: Europe/Warsaw
-      PAPERLESS_URL: &host https://documents.internal.${SECRET_DOMAIN}
+      PAPERLESS_URL: https://documents.internal.${SECRET_DOMAIN}
       USERMAP_UID: 1003
       USERMAP_GID: 2000
     envFrom:
@@ -80,7 +80,7 @@ spec:
           hajimari.io/icon: mdi:file-multiple
           hajimari.io/group: groupware
         hosts:
-          - host: *host
+          - host: &host documents.internal.movishell.pl
             paths:
               - path: /
         tls:
