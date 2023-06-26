@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: radarr
+  namespace: media
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    # Use an existing PVC, don't provision a new one
+    destinationPVC: config-radarr-0
+    copyMethod: Direct
+    storageClassName: truenas-ssd-nvmeof
+    repository: radarr-restic-s3
+    moverSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
