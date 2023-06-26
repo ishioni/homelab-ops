@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: nextcloud
+  namespace: fileserver
+spec:
+  sourcePVC: nextcloud-app
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: nextcloud-restic-s3
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: truenas-hdd-nfs
+    storageClassName: truenas-hdd-nfs
+    retain:
+      daily: 10
+      within: 3d
