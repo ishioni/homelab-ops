@@ -57,8 +57,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/allow-shared-ip: transmission
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
+          io.cilium/lb-ipam-ips: "${CONFIG_TRANSMISSION_IP}"
         externalTrafficPolicy: Local
         ports:
           utptcp:
@@ -70,8 +69,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/allow-shared-ip: transmission
-          metallb.universe.tf/loadBalancerIPs: 192.168.2.2
+          io.cilium/lb-ipam-ips: "${CONFIG_TRANSMISSION_IP}"
         externalTrafficPolicy: Local
         ports:
           utpudp:
