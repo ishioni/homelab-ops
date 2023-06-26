@@ -14,3 +14,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  dependsOn:
+    - name: storage-democratic-csi-nvmeof
+    - name: storage-snapshot-controller
+    - name: security-external-secrets

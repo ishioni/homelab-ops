@@ -1,28 +1,4 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/external-secrets.io/externalsecret_v1beta1.json
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: sonarr-restic-s3
-  namespace: media
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: onepassword-connect
-  target:
-    name: sonarr-restic-s3
-    creationPolicy: Owner
-    template:
-      engineVersion: v2
-      data:
-        RESTIC_REPOSITORY: '{{ .REPOSITORY_TEMPLATE }}/sonarr'
-        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
-        AWS_ACCESS_KEY_ID: '{{ .S3_ACCESS_KEY }}'
-        AWS_SECRET_ACCESS_KEY: '{{ .S3_SECRET_KEY }}'
-  dataFrom:
-    - extract:
-        key: volsync
----
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/replicationsource_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
