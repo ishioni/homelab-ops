@@ -6,7 +6,7 @@ metadata:
   name: security-authentik
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/security/external-secrets/app
+  path: ./kubernetes/apps/security/authentik/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops
