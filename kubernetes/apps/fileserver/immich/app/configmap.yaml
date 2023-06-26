@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: immich-configmap
-  namespace: fileservers
+  namespace: fileserver
 data:
   DB_PORT: "5432"
   DISABLE_REVERSE_GEOCODING: "true"
