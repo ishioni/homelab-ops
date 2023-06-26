@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-v2
+  namespace: database
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.8
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 20Gi
+    storageClass: truenas-ssd-nvmeof
+  postgresql:
+    parameters:
+      max_connections: "300"
+      shared_buffers: 512MB
+  superuserSecret:
+    name: cloudnative-pg-secret
+  monitoring:
+    enablePodMonitor: false
+  bootstrap:
+    recovery:
+      source: postgres-v1
+
+  externalClusters:
+    - name: postgres-v1
+      barmanObjectStore:
+        destinationPath: s3://cloudnative-pg/
+        endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-secret
+            key: s3-access-key
+          secretAccessKey:
+            name: cloudnative-pg-secret
+            key: s3-secret-key
+
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 4
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
+      serverName: postgres-v2
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: s3-access-key
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: s3-secret-key
