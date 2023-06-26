@@ -43,7 +43,7 @@ spec:
         }
       }
     ingress:
-      enabled: false
+      enabled: true
       hostname: static.${SECRET_DOMAIN}
       ingressClassName: public
       annotations:
