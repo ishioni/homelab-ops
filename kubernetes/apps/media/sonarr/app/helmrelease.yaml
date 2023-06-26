@@ -75,7 +75,7 @@ spec:
         retain: true
     ingress:
       main:
-        enabled: false
+        enabled: true
         ingressClassName: public
         annotations:
           external-dns.home.arpa/enabled: "true"
