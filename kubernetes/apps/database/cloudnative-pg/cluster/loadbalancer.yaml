@@ -13,5 +13,5 @@ spec:
       protocol: TCP
       targetPort: 5432
   selector:
-    postgresql: postgres-v1
+    postgresql: test-postgres-v2
     role: primary
