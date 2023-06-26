@@ -71,7 +71,7 @@ spec:
         enabled: false
     ingress:
       main:
-        enabled: false
+        enabled: true
         ingressClassName: private
         hosts:
           - host: &host opconnect.internal.${SECRET_DOMAIN}
