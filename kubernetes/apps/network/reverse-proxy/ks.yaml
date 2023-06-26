@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-reverse-proxy
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/network/reverse-proxy/app
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  prune: true
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

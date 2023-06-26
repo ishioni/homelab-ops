@@ -8,3 +8,4 @@ resources:
   - ./ingress-nginx/ks.yaml
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
+  # - ./reverse-proxy/ks.yaml
