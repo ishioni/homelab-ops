@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-nfs
+spec:
+  storageClassName: nfs
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: ${CONFIG_TRUENAS_IP}
+    path: /mnt/HDD/k3s/paperless
+  mountOptions:
+    - nfsvers=4.2
+    - nconnect=8
+    - hard
+    - noatime
+    - nodiratime
+    - intr
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-nfs
+  namespace: fileserver
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
