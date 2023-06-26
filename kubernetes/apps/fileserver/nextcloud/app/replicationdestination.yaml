@@ -13,4 +13,4 @@ spec:
     destinationPVC: nextcloud-app
     copyMethod: Direct
     storageClassName: truenas-hdd-nfs
-    repository: tandoor-restic-s3
+    repository: nextcloud-restic-s3
