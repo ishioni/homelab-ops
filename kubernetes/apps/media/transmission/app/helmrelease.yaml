@@ -97,7 +97,7 @@ spec:
     persistence:
       downloads:
         enabled: true
-        existingClaim: quadrant-media
+        existingClaim: media-datastore
         mountPath: "/downloads"
         subPath: Downloads
     volumeClaimTemplates:
