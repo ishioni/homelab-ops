@@ -30,7 +30,7 @@ metadata:
   name: immich
   namespace: fileservers
 spec:
-  sourcePVC: immich-typesense-0
+  sourcePVC: config-immich-typesense-0
   trigger:
     schedule: "0 0 * * *"
   restic:
