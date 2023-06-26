@@ -70,7 +70,7 @@ spec:
     persistence:
       media:
         enabled: true
-        existingClaim: quadrant-media
+        existingClaim: media-datastore
         mountPath: /media
         retain: true
     ingress:
