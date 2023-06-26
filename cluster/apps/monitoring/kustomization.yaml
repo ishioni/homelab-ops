@@ -3,9 +3,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - grafana
-  - nut-exporter
-  - kube-prometheus-stack
-  - speedtest-exporter
-  - thanos
-  - unpoller
+  # - grafana
+  # - nut-exporter
+  # - kube-prometheus-stack
+  # - speedtest-exporter
+  # - thanos
+  # - unpoller
