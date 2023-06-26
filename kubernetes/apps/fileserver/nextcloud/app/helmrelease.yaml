@@ -1,0 +1,271 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: fileserver
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 3.5.12
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    image:
+      repository: public.ecr.aws/docker/library/nextcloud
+      tag: 26.0.2-fpm-alpine
+    nextcloud:
+      host: &host "files.${SECRET_DOMAIN}"
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-initdb:14.8
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
+      extraEnv:
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: S3_SECRET_KEY
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_ID
+        - name: OIDC_CLIENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_PASSWORD
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: ADMIN_USER
+        passwordKey: ADMIN_PASS
+        tokenKey: METRICS_TOKEN
+        smtpUsernameKey: SMTP_USERNAME
+        smtpPasswordKey: SMTP_PASSWORD
+      mail:
+        enabled: true
+        fromAddress: files
+        domain: "${SECRET_DOMAIN}"
+        smtp:
+          secure: ssl
+          port: 465
+          authtype: LOGIN
+      configs:
+        local.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' =>
+            array (
+              0 => '127.0.0.1',
+              1 => '172.16.0.0/16',
+            ),
+            'forwarded_for_headers' =>
+            array (
+              0 => 'HTTP_X_FORWARDED_FOR',
+            ),
+            'default_phone_region' => 'PL',
+            'trashbin_retention_obligation' => 'auto, 30',
+            'auth.bruteforce.protection.enabled' => true,
+          );
+        sso.config.php: |-
+          <?php
+          $CONFIG = array (
+            'allow_user_to_change_display_name' => false,
+            'lost_password_link' => 'disabled',
+            'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
+            'oidc_login_client_secret' => getenv('OIDC_CLIENT_PASSWORD'),
+            'oidc_login_provider_url' => 'https://auth.${SECRET_DOMAIN}/application/o/nextcloud/',
+            'oidc_login_end_session_redirect' => true,
+            'oidc_login_logout_url' => 'https://auth.${SECRET_DOMAIN}/application/o/nextcloud/end-session/',
+            'oidc_login_default_quota' => '1000000000',
+            'oidc_login_hide_password_form' => true,
+            'oidc_login_disable_registration' => false,
+            'oidc_login_webdav_enabled' => true,
+            'oidc_login_attributes' => array (
+                  'id' => 'sub',
+                  'name' => 'name',
+                  'mail' => 'email',
+                  'quota' => 'nextcloudQuota',
+                  'is_admin' => 'nextcloudAdmin',
+              ),
+            'oidc_login_scope' => 'openid profile email nextcloud',
+            'oidc_login_default_group' => 'cloud',
+            'oidc_create_groups' => true,
+            'oidc_login_code_challenge_method' => 'S256',
+            'oidc_login_auto_redirect' => true, //login?noredir=1
+          );
+        s3.config.php: |-
+          <?php
+          $CONFIG = array (
+            'objectstore' => array(
+              'class' => '\\OC\\Files\\ObjectStore\\S3',
+              'arguments' => array(
+                'hostname'       => 's3.services.${SECRET_DOMAIN}',
+                'port'           => 9000,
+                'use_path_style' => true,
+                'bucket'         => getenv('S3_ACCESS_KEY'),
+                'autocreate'     => false,
+                'key'            => getenv('S3_ACCESS_KEY'),
+                'secret'         => getenv('S3_SECRET_KEY'),
+                'use_ssl'        => true,
+              ),
+            ),
+          );
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 3600
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 57
+          pm.start_servers = 14
+          pm.min_spare_servers = 14
+          pm.max_spare_servers = 42
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-app
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+      limits:
+        memory: 2000Mi
+    startupProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 60
+      successThreshold: 1
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    cronjob:
+      enabled: true
+    ingress:
+      enabled: true
+      className: public
+      annotations:
+        external-dns.home.arpa/enabled: "true"
+        nginx.ingress.kubernetes.io/custom-http-errors: "418"
+        hajimari.io/enable: "true"
+        hajimari.io/appName: Nextcloud
+        hajimari.io/icon: simple-icons:nextcloud
+        hajimari.io/group: groupware
+      tls:
+        - secretName: *host
+          hosts:
+            - *host
+    nginx:
+      enabled: true
+      image:
+        repository: public.ecr.aws/nginx/nginx
+        tag: "1.25.1"
+      config:
+        default: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 20Mi
+        limits:
+          memory: 100Mi
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      database: nextcloud
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+        usernameKey: POSTGRES_USER
+        passwordKey: POSTGRES_PASS
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: true
+        existingSecret: nextcloud-secrets
+        existingSecretPasswordKey: REDIS_PASSWORD
+      master:
+        persistence:
+          enabled: false
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            memory: 100Mi
+      commonConfiguration: |-
+        # Enable AOF https://redis.io/topics/persistence#append-only-file
+        appendonly yes
+        # Disable RDB persistence, AOF persistence already enabled.
+        save ""
+        maxmemory 94371840
+        maxmemory-policy allkeys-lru
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            memory: 20Mi
+    metrics:
+      enabled: false
+      https: true
+      image:
+        repository: docker.io/xperimental/nextcloud-exporter
+        tag: 0.6.1
+      serviceMonitor:
+        enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: POSTGRES_HOST
+      targetPath: externalDatabase.host
+    - kind: Secret
+      name: nextcloud-secrets
+      valuesKey: SMTP_HOST
+      targetPath: nextcloud.mail.smtp.host
