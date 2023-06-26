@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: immich-typesense
+  namespace: fileserver
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    # Use an existing PVC, don't provision a new one
+    destinationPVC: config-immich-typesense-0
+    copyMethod: Direct
+    storageClassName: truenas-ssd-nvmeof
+    repository: immich-restic-s3
