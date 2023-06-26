@@ -33,3 +33,4 @@ spec:
   resources:
     requests:
       storage: 1Mi
+  volumeName: paperless-nfs
