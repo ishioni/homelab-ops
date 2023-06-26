@@ -5,5 +5,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./nextcloud/ks.yaml
-  - ./paperless.ks.yaml
+  - ./paperless/ks.yaml
   - ./tandoor/ks.yaml
