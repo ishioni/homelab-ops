@@ -55,6 +55,11 @@ spec:
           node-stage-secret:
           node-publish-secret:
           controller-expand-secret:
+    volumeSnapshotClasses:
+      - name: truenas-hdd-nfs
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
     driver:
       config:
         driver: freenas-api-nfs
