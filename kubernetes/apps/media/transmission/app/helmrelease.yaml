@@ -108,7 +108,7 @@ spec:
         size: 100Mi
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: public
         annotations:
           external-dns.home.arpa/enabled: "true"
