@@ -100,7 +100,7 @@ spec:
           url: https://duckduckgo.com
     ingress:
       main:
-        enabled: false
+        enabled: true
         ingressClassName: public
         annotations:
           authentik.home.arpa/enabled: "true"
