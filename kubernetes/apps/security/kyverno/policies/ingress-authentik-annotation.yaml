@@ -12,7 +12,6 @@ metadata:
       the `authentik.home.arpa/enabled` annotation is `true` it
       applies the nginx auth annotations for use with Authentik.
 spec:
-  mutateExistingOnPolicyUpdate: true
   generateExistingOnPolicyUpdate: true
   rules:
     - name: auth
@@ -23,9 +22,6 @@ spec:
               annotations:
                 authentik.home.arpa/enabled: "true"
       mutate:
-        targets:
-          - apiVersion: v1
-            kind: Ingress
         patchStrategicMerge:
           metadata:
             annotations:
