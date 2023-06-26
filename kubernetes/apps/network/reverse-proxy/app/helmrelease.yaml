@@ -1,0 +1,69 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: reverse-proxy
+  namespace: network
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: reverse-proxy
+      version: 2.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    instances:
+      - name: homeassistant
+        enabled: true
+        externalName: "homeassistant.iot.internal"
+        port: 8123
+        ingress:
+          ingressClassName: public
+          annotations:
+            external-dns.home.arpa/enabled: "true"
+            hajimari.io/enable: "true"
+            hajimari.io/appName: Home Assistant
+            hajimari.io/group: home automation
+            hajimari.io/icon: simple-icons:homeassistant
+          hosts:
+            - host: &host homeassistant.${SECRET_DOMAIN}
+              path: /
+          tls:
+            - secretName: *host
+              hosts:
+                - *host
+      - name: s3
+        enabled: true
+        externalName: "s3.services.${SECRET_DOMAIN}"
+        port: 9001
+        ingress:
+          ingressClassName: private
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hajimari.io/enable: "true"
+            hajimari.io/appName: Minio
+            hajimari.io/group: infrastructure
+            hajimari.io/icon: simple-icons:amazons3
+          hosts:
+            - host: &host "s3.internal.${SECRET_DOMAIN}"
+              path: /
+          tls:
+            - secretName: *host
+              hosts:
+                - *host
