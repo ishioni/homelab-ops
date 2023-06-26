@@ -6,6 +6,6 @@ resources:
   - dashboard.yaml
   - externalsecret.yaml
   - loadbalancer.yaml
-  - postgres-v1-cluster.yaml
+  # - postgres-v1-cluster.yaml
   - prometheusrule.yaml
   - scheduledbackup.yaml
