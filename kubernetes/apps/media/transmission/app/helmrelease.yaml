@@ -42,6 +42,7 @@ spec:
       TRANSMISSION__RATIO_LIMIT_ENABLED: true
       TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
       TRANSMISSION__SPEED_LIMIT_UP: 8000
+      TRANSMISSION__UTP_ENABLED: false
       TRANSMISSION__UMASK: 7
       #For changing webui
       #TRANSMISSION_WEB_HOME: "/app/web"
@@ -64,18 +65,6 @@ spec:
             enabled: true
             port: *peerport
             protocol: TCP
-            targetPort: *peerport
-      utpudp:
-        enabled: true
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: "${CONFIG_TRANSMISSION_IP}"
-        externalTrafficPolicy: Local
-        ports:
-          utpudp:
-            enabled: true
-            port: *peerport
-            protocol: UDP
             targetPort: *peerport
     probes:
       liveness: &probes
