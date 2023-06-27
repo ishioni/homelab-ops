@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: monitor-thanos
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/monitor/thanos/app
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  prune: true
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  dependsOn:
+    - name: storage-democratic-csi-nvmeof
+    - name: security-external-secrets
+    - name: monitor-kube-prometheus-stack

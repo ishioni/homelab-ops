@@ -37,6 +37,13 @@ spec:
       name: cilium-values
   values:
     hubble:
+      metrics:
+        serviceMonitor:
+          enabled: true
+      relay:
+        prometheus:
+          serviceMonitor:
+            enabled: true
       ui:
         ingress:
           enabled: true
@@ -52,3 +59,12 @@ spec:
             - hosts:
                 - *host
               secretName: *host
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true

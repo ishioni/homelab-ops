@@ -12,6 +12,7 @@ resources:
   - ./democratic-csi.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
+  - ./grafana.yaml
   - ./hajimari.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
@@ -23,4 +24,5 @@ resources:
   - ./nextcloud.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml
+  - ./prometheus-community.yaml
   - ./stakater.yaml
