@@ -79,18 +79,18 @@ spec:
         enabled: true
   valuesFrom:
     - kind: Secret
-      name: thanos-objstore-secret
+      name: thanos-objectstore-secret
       valuesKey: S3_ENDPOINT
       targetPath: objstoreConfig.config.endpoint
     - kind: Secret
-      name: thanos-objstore-secret
+      name: thanos-objectstore-secret
       valuesKey: S3_BUCKET
       targetPath: objstoreConfig.config.bucket
     - kind: Secret
-      name: thanos-objstore-secret
+      name: thanos-objectstore-secret
       valuesKey: S3_ACCESS_KEY
       targetPath: objstoreConfig.config.access_key
     - kind: Secret
-      name: thanos-objstore-secret
+      name: thanos-objectstore-secret
       valuesKey: S3_SECRET_KEY
       targetPath: objstoreConfig.config.secret_key
