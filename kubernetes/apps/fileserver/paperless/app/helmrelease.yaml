@@ -87,6 +87,12 @@ spec:
           - hosts:
               - *host
             secretName: *host
+    volumeClaimTemplates:
+      - name: library
+        mountPath: /newlibrary
+        storageClass: truenas-ssd-nvmeof
+        accessMode: ReadWriteOnce
+        size: 10Gi
     persistence:
       library:
         enabled: true
