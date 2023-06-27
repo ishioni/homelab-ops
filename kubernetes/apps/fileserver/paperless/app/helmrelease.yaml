@@ -80,7 +80,7 @@ spec:
           hajimari.io/icon: mdi:file-multiple
           hajimari.io/group: groupware
         hosts:
-          - host: &host documents.internal.movishell.pl
+          - host: &host documents.internal.${SECRET_DOMAIN}
             paths:
               - path: /
         tls:
