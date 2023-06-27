@@ -55,7 +55,7 @@ spec:
         - hosts:
             - *host
           secretName: *host
-    env:
+    # env:
     envFromSecrets:
       - name: grafana-oidc
     grafana.ini:
