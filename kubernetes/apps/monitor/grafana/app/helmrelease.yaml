@@ -61,6 +61,7 @@ spec:
     grafana.ini:
       analytics:
         check_for_updates: false
+        check_for_plugin_updates: false
       auth:
         oauth_auto_login: true
       auth.basic:
@@ -72,10 +73,14 @@ spec:
       auth.generic_oauth:
         enabled: true
         name: ${SECRET_DOMAIN}
-        scopes: openid email profile
         auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
         token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
         api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
+        scopes: openid email profile
+        empty_scopes: false
+        login_attribute_path: preferred_username
+        groups_attribute_path: groups
+        name_attribute_path: name
         use_pkce: true
       auth.generic_oauth.group_mapping:
         role_attribute_path: |
