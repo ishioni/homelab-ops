@@ -18,10 +18,12 @@ spec:
   maxHistory: 3
   install:
     createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
   uninstall:
@@ -58,3 +60,178 @@ spec:
         nodeExporterRecording: true
         prometheus: true
         prometheusOperator: true
+    kubeControllerManager:
+      enabled: true
+      endpoints: &cp ["10.1.4.20", "10.1.4.21", "10.1.4.22"]
+    kubeEtcd:
+      enabled: false
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
+      endpoints: *cp
+    kubeProxy:
+      enabled: false
+    kubeScheduler:
+      enabled: true
+      endpoints: *cp
+    kubeStateMetrics:
+      enabled: true
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Alert Manager
+          hajimari.io/icon: mdi:alert-decagram-outline
+          hajimari.io/group: infrastructure
+        hosts:
+          - &host "alerts.internal.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+      config:
+        global:
+          resolve_timeout: 5m
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: "telegram"
+          routes:
+            - receiver: "null"
+              matchers:
+                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+              continue: false
+            - receiver: "telegram"
+        receivers:
+          - name: "null"
+          - name: "telegram"
+            telegram_configs:
+              - parse_mode: "HTML"
+                disable_notifications: false
+                bot_token: "${TELEGRAM_BOT_TOKEN}"
+                chat_id: 879509412
+                send_resolved: true
+                api_url: https://api.telegram.org
+        inhibit_rules:
+          - source_matchers: ["severity = 'critical'"]
+            target_matchers: ["severity = 'warning'"]
+            equal: ["alertname", "namespace"]
+        templates:
+          - /etc/alertmanager/config/*.tmpl
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: truenas-ssd-nvmeof
+              resources:
+                requests:
+                  storage: 1Gi
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Prometheus
+          hajimari.io/icon: simple-icons:prometheus
+          hajimari.io/group: infrastructure
+        pathType: Prefix
+        hosts:
+          - &host prometheus.internal.${SECRET_DOMAIN}
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 1
+        replicaExternalLabelName: "__replica__"
+        scrapeInterval: 1m
+        podAntiAffinity: hard
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        enableAdminAPI: true
+        walCompression: true
+        retention: 2d
+        retentionSize: 6GB
+        ruleSelector: {}
+        ruleNamespaceSelector: {}
+        serviceMonitorSelector: {}
+        serviceMonitorNamespaceSelector: {}
+        podMonitorSelector: {}
+        podMonitorNamespaceSelector: {}
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: truenas-ssd-nvmeof
+              resources:
+                requests:
+                  storage: 10Gi
+        thanos:
+          image: quay.io/thanos/thanos:v0.31.0
+          objectStorageConfig:
+            name: thanos-objstore-secret
+            key: minio.yaml
+        additionalScrapeConfigs:
+          - job_name: minio
+            metrics_path: /minio/v2/metrics/cluster
+            scheme: https
+            bearer_token: "${MINIO_BEARER_TOKEN}"
+            static_configs:
+              - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
+          - job_name: node-exporter
+            scrape_interval: 30s
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "proxmox-1.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-2.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-3.services.${SECRET_DOMAIN}:9100"
+                  - "proxmox-4.services.${SECRET_DOMAIN}:9100"
+                  - "bastion.managment.internal:9100"
+                  - "quadrant.managment.internal:9100"
