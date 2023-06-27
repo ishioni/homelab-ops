@@ -11,17 +11,17 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: authentik-media
-  namespace: security
-spec:
-  resources:
-    requests:
-      storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  storageClassName: truenas-hdd-nfs
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: authentik-media
+#   namespace: security
+# spec:
+#   resources:
+#     requests:
+#       storage: 1Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: truenas-hdd-nfs
