@@ -35,3 +35,19 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: cilium-values
+  values:
+    hubble:
+      ui:
+        ingress:
+          enabled: true
+          annotations:
+            hajimari.io/enable: "true"
+            hajimari.io/appName: Hubble
+            hajimari.io/icon: mdi:network
+            hajimari.io/group: infrastructure
+          className: private
+          hosts:
+            - &host hubble.internal.${SECRET_DOMAIN}
+          tls:
+            - hosts:
+                - *host
