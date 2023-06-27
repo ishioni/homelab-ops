@@ -3,12 +3,12 @@ module "controlplanes" {
   machine_name = "talos-master-${count.index}"
   vmid         = sum([1000,count.index])
   source       = "./proxmox-node"
-  tags         = "talos,control-plane"
+  tags         = "control-plane;talos"
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.proxmox_image
   startup      = "down=300"
   cpu_cores    = 4
-  memory       = 8 * 1024
+  memory       = 4 * 1024
   network_tag  = 4
   storage      = "local-zfs"
   storage_size = "20G"
@@ -21,12 +21,12 @@ module "workers" {
   machine_name = "talos-worker-${count.index}"
   vmid         = sum([2000,count.index])
   source       = "./proxmox-node"
-  tags         = "talos,worker"
+  tags         = "talos;worker"
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.proxmox_image
   startup      = "down=600"
   cpu_cores    = 8
-  memory       = 8 * 1024
+  memory       = 24 * 1024
   network_tag  = 4
   storage      = "local-zfs"
   storage_size = "40G"
