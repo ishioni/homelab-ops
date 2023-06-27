@@ -3,7 +3,7 @@ area/ansible:
   - "ansible/**/*"
 area/github:
   - ".github/**/*"
-area/cluster:
-  - "cluster/**/*"
+area/kubernetes:
+  - "kubernetes/**/*"
 area/terraform:
   - "terraform/**/*"
