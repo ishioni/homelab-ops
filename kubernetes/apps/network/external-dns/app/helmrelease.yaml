@@ -43,7 +43,7 @@ spec:
             key: API_TOKEN
     extraArgs:
       - --annotation-filter=external-dns.home.arpa/enabled in (true)
-    policy: upsert-only
+    policy: sync
     sources: ["ingress"]
     txtPrefix: "talos."
     txtOwnerId: "talos"
