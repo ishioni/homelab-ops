@@ -51,3 +51,4 @@ spec:
           tls:
             - hosts:
                 - *host
+              secretName: *host
