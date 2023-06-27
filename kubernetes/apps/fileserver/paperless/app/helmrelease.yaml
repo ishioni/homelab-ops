@@ -89,15 +89,15 @@ spec:
             secretName: *host
     volumeClaimTemplates:
       - name: library
-        mountPath: /newlibrary
+        mountPath: /library
         storageClass: truenas-ssd-nvmeof
         accessMode: ReadWriteOnce
         size: 10Gi
     persistence:
-      library:
+      oldlibrary:
         enabled: true
         existingClaim: paperless-nfs
-        mountPath: /library
+        mountPath: /oldlibrary
     resources:
       requests:
         cpu: 100m
