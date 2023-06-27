@@ -10,6 +10,11 @@ spec:
   ref:
     branch: master
   url: https://github.com/ishioni/homelab-ops
+  ignore: |
+    # exclude all
+    /*
+    # include kubernetes directory
+    !/kubernetes
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
