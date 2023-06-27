@@ -31,28 +31,20 @@
   ],
   "ignorePaths": ["archive/**"],
   "flux": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+    "fileMatch": ["kubernetes/.+\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+    "fileMatch": ["kubernetes/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
+    "fileMatch": ["kubernetes/.+\\.ya?ml$"]
   },
   "regexManagers": [
-    {
-      "description": "cert-manager regex",
-      "fileMatch": ["cluster/crds/cert-manager/.+\\.yaml$"],
-      "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
-      ],
-      "datasourceTemplate": "helm"
-    },
     {
       "description": "Process various other dependencies",
       "fileMatch": [
         "ansible/.+\\.ya?ml$",
-        "cluster/.+\\.ya?ml$"
+        "kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"

@@ -2,72 +2,26 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      "description": "cert-manager group",
-      "groupName": "cert-manager",
-      "matchPackagePatterns": ["cert-manager"],
-      "group": {"commitMessageTopic": "{{{groupName}}}"}
-    },
-    {
-      "description": "immich image group",
-      "groupName": "immich",
+      "description": "Immich group",
+      "groupName": "Immich",
       "matchPackagePatterns": ["immich"],
       "matchDatasources": ["docker"],
-      "group": {"commitMessageTopic": "{{{groupName}}}"}
-    },
-    {
-      "description": "cnpg group",
-      "groupName": "cloudnative-pg",
-      "matchPackagePatterns": ["cloudnative-pg"],
-      "group": {"commitMessageTopic": "{{{groupName}}}"},
-      "separateMinorPatch": true,
-      "versioning": "loose"
-    },
-    {
-      "description": "volsync group",
-      "groupName": "volsync",
-      "matchPackagePatterns": [
-        "volsync"
-      ],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}}"
-      },
-      "separateMinorPatch": true
-    },
-    {
-      "description": "metallb group",
-      "groupName": "metallb",
-      "matchPackagePatterns": ["metallb"],
-      "group": {"commitMessageTopic": "{{{groupName}}}"}
-    },
-    {
-      "description": "external-snapshotter group",
-      "groupName": "external-snapshotter",
-      "matchPackagePatterns": [
-        "external-snapshotter",
-        "snapshot-controller",
-        "snapshot-validation-webhook"
-      ],
       "group": {"commitMessageTopic": "{{{groupName}}}"},
       "separateMinorPatch": true
     },
     {
-      "description": "external-secrets group",
-      "groupName": "external-secrets",
-      "matchPackagePatterns": ["external-secrets"],
-      "group": {"commitMessageTopic": "{{{groupName}}}"}
+      "description": "External-Sapshotter group",
+      "groupName": "External Snapshotter",
+      "matchPackagePatterns": ["snapshot-controller", "snapshot-validation-webhook"],
+      "group": {"commitMessageTopic": "{{{groupName}}}"},
+      "separateMinorPatch": true
     },
     {
       "description": "1Password Connect and Sync images",
       "groupName": "1Password",
-      "matchPackagePatterns": [
-        "1password"
-      ],
-      "matchDatasources": [
-        "docker"
-      ],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}}"
-      },
+      "matchPackagePatterns": ["1password"],
+      "matchDatasources": ["docker"],
+      "group": {"commitMessageTopic": "{{{groupName}}}"},
       "separateMinorPatch": true
     }
   ]
