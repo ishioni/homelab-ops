@@ -93,11 +93,6 @@ spec:
         storageClass: truenas-ssd-nvmeof
         accessMode: ReadWriteOnce
         size: 10Gi
-    persistence:
-      oldlibrary:
-        enabled: true
-        existingClaim: paperless-nfs
-        mountPath: /oldlibrary
     resources:
       requests:
         cpu: 100m
