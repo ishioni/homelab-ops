@@ -60,9 +60,9 @@ spec:
         proxy-read-timeout: 120
         proxy-send-timeout: 120
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
-          enabled: false
+          enabled: true
           namespace: network
           namespaceSelector:
             any: true
