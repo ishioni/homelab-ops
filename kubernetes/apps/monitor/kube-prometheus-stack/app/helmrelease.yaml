@@ -28,9 +28,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: democratic-csi-nvmeof
-      namespace: storage
   values:
     fullnameOverride: prometheus
     defaultRules:
