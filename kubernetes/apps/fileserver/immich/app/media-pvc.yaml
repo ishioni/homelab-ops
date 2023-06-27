@@ -2,28 +2,22 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: immich-nfs
+  name: immich-media
 spec:
   storageClassName: nfs
   capacity:
     storage: 1Mi
-  accessModes:
-    - ReadWriteMany
+  accessModes: ["ReadWriteMany"]
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "${CONFIG_TRUENAS_IP}"
-    path: /mnt/HDD/k3s/immich
-  mountOptions:
-    - nfsvers=4.2
-    - nconnect=8
-    - hard
-    - intr
-    - noatime
+    path: /mnt/HDD/talos/immich
+  mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "intr", "noatime", "nodirtime"]
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-nfs
+  name: immich-media
   namespace: fileserver
 spec:
   accessModes:
@@ -32,7 +26,7 @@ spec:
   resources:
     requests:
       storage: 1Mi
-  volumeName: immich-nfs
+  volumeName: immich-media
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
