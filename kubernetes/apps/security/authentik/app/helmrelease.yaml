@@ -93,7 +93,7 @@ spec:
       master:
         persistence:
           enabled: true
-          existingClaim: authentik-redis
+          size: 1Gi
         resources:
           requests:
             cpu: 15m
