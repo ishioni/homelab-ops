@@ -19,7 +19,7 @@ spec:
   superuserSecret:
     name: cloudnative-pg-secret
   monitoring:
-    enablePodMonitor: false
+    enablePodMonitor: true
   bootstrap:
     recovery:
       source: postgres-v1
