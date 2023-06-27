@@ -29,7 +29,7 @@ spec:
   values:
     image:
       repository: itzg/minecraft-server
-      tag: 2022.16.0-java17
+      tag: 2023.6.4-java17
     resources:
       limits:
         memory: 3000Mi
