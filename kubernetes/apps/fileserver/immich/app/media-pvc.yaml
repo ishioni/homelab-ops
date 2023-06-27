@@ -12,7 +12,7 @@ spec:
   nfs:
     server: "${CONFIG_TRUENAS_IP}"
     path: /mnt/HDD/talos/immich
-  mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "intr", "noatime", "nodirtime"]
+  mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "intr", "noatime"]
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
