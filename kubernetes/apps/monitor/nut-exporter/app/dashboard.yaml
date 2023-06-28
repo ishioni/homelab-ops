@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
   name: grafana-nut-exporter
-  namespace: monitoring
+  namespace: monitor
 data:
   nut.json: |-
     {
