@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: public.ecr.aws/docker/library/nextcloud
-      tag: 26.0.3-fpm-alpine
+      tag: 27.0.0-fpm-alpine
     nextcloud:
       host: &host "files.${SECRET_DOMAIN}"
       extraInitContainers:
