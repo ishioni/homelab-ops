@@ -71,6 +71,7 @@ spec:
         check_for_plugin_updates: false
       auth:
         oauth_auto_login: true
+        redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
       auth.basic:
         enabled: false
       auth.anonymous:
@@ -80,12 +81,12 @@ spec:
       auth.generic_oauth:
         enabled: true
         name: ${SECRET_DOMAIN}
-        icon: signin
         auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
         token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
         api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
         scopes: openid email profile
         use_pkce: true
+        skip_org_role_sync: true
       auth.generic_oauth.group_mapping:
         role_attribute_path: |
           contains(groups[*], 'infrastructure') && 'Admin' || 'Viewer'
