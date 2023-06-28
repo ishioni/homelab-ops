@@ -27,12 +27,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    extraInitContainers:
-      - name: init-db
-        image: ghcr.io/onedr0p/postgres-initdb:14.8
-        envFrom:
-          - secretRef:
-              name: &secret grafana-secret
+    # extraInitContainers:
+    #   - name: init-db
+    #     image: ghcr.io/onedr0p/postgres-initdb:14.8
+    #     envFrom:
+    #       - secretRef:
+    #           name: &secret grafana-secret
     annotations:
       reloader.stakater.com/auto: "true"
     rbac:
@@ -64,7 +64,7 @@ spec:
     env:
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
     envFromSecrets:
-      - name: *secret
+      - name: grafana-secret
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -144,7 +144,7 @@ spec:
           - name: Alertmanager
             type: alertmanager
             access: proxy
-            url: http://prometheus-alertmanager.monitor.svc.cluster.local:9093
+            url: http://kube-prometheus-stack-alertmanager.monitor.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
     dashboardProviders:
@@ -284,12 +284,12 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
-       # Ref: https://grafana.com/grafana/dashboards/11313
+        # Ref: https://grafana.com/grafana/dashboards/11313
         unifi-usg-insights:
           gnetId: 11313
           revision: 9
           datasource: Prometheus
-       # Ref: https://grafana.com/grafana/dashboards/11313
+        # Ref: https://grafana.com/grafana/dashboards/11313
         unifi-dpi-insights:
           gnetId: 11310
           revision: 5
