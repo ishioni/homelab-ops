@@ -223,6 +223,11 @@ spec:
             bearer_token: "${MINIO_BEARER_TOKEN}"
             static_configs:
               - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
+          - job_name: minio-new
+            metrics_path: /minio/v2/metrics/cluster
+            scheme: http
+            static_configs:
+              - targets: ["s3.services.${SECRET_DOMAIN}:9010"]
           - job_name: node-exporter
             scrape_interval: 30s
             scrape_timeout: 10s
