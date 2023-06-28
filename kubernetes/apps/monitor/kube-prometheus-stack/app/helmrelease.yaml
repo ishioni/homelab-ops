@@ -29,7 +29,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    cleanPrometheusOperatorObjectNames: true
+    fullnameOverride: prometheus
     defaultRules:
       create: true
       rules:
