@@ -70,7 +70,7 @@ spec:
         check_for_plugin_updates: false
       auth:
         oauth_auto_login: true
-        redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
+        signout_redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
         oauth_allow_insecure_email_lookup: true
       auth.basic:
         enabled: false
