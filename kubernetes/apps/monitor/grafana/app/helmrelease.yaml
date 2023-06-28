@@ -61,7 +61,8 @@ spec:
         - hosts:
             - *host
           secretName: *host
-    # env:
+    env:
+      GF_AUTH_OAUTH_ALLOW_INSECURE_EMAIL_LOOKUP: true
     envFromSecrets:
       - name: *secret
     grafana.ini:
