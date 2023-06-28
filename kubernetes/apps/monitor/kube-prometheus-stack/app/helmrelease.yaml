@@ -164,7 +164,7 @@ spec:
               targetLabel: kubernetes_node
     grafana:
       enabled: false
-      forceDeployDashboards: true
+      forceDeployDashboards: false
     prometheus:
       ingress:
         enabled: true
