@@ -42,7 +42,7 @@ spec:
       replicaLabel:
         - __replica__
       dnsDiscovery:
-        sidecarsService: prometheus-thanos-discovery
+        sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitor
       ingress:
         enabled: true
