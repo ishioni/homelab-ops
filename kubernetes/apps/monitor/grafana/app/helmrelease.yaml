@@ -27,6 +27,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    extraInitContainers:
+      - name: init-db
+        image: ghcr.io/onedr0p/postgres-initdb:14.8
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
     annotations:
       reloader.stakater.com/auto: "true"
     rbac:
@@ -57,7 +63,7 @@ spec:
           secretName: *host
     # env:
     envFromSecrets:
-      - name: grafana-oidc
+      - name: *secret
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -73,6 +79,7 @@ spec:
       auth.generic_oauth:
         enabled: true
         name: ${SECRET_DOMAIN}
+        icon: signin
         auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
         token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
         api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
