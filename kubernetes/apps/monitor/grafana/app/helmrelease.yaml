@@ -62,7 +62,6 @@ spec:
             - *host
           secretName: *host
     env:
-      GF_AUTH_OAUTH_ALLOW_INSECURE_EMAIL_LOOKUP: true
     envFromSecrets:
       - name: *secret
     grafana.ini:
@@ -72,6 +71,7 @@ spec:
       auth:
         oauth_auto_login: true
         redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
+        oauth_allow_insecure_email_lookup: true
       auth.basic:
         enabled: false
       auth.anonymous:
