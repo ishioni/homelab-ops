@@ -61,7 +61,8 @@ spec:
         - hosts:
             - *host
           secretName: *host
-    # env:
+    env:
+      GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
     envFromSecrets:
       - name: *secret
     grafana.ini:
