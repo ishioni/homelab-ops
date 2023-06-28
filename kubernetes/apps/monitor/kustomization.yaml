@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
+  - ./nut-exporter/ks.yaml
   - ./speedtest-exporter/ks.yaml
   - ./thanos/ks.yaml
   - ./unifi-poller/ks.yaml
