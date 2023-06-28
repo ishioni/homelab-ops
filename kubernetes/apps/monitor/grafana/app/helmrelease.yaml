@@ -61,7 +61,7 @@ spec:
         - hosts:
             - *host
           secretName: *host
-    env:
+    # env:
     envFromSecrets:
       - name: *secret
     grafana.ini:
