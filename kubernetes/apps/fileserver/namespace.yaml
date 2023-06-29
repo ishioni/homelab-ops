@@ -5,4 +5,5 @@ metadata:
   name: fileserver
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
+  annotations:
     volsync.backube/privileged-movers: "true"
