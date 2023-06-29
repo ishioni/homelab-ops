@@ -1,4 +1,0 @@
----
-clusterName: talos
-clusterEndpointIP: 10.1.4.100
-secretKDomain: k3s.internal
