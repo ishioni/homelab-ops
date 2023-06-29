@@ -19,3 +19,4 @@ spec:
     - name: storage-democratic-csi-nvmeof
     - name: storage-snapshot-controller
     - name: security-external-secrets
+    - name: storage-volsync

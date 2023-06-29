@@ -3,14 +3,14 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: immich-typesense
+  name: paperless
   namespace: fileserver
 spec:
   trigger:
     manual: restore-once
   restic:
     # Use an existing PVC, don't provision a new one
-    destinationPVC: config-immich-typesense-0
+    destinationPVC: library-paperless-0
     copyMethod: Direct
     storageClassName: truenas-ssd-nvmeof
-    repository: immich-restic-s3
+    repository: paperless-restic-s3
