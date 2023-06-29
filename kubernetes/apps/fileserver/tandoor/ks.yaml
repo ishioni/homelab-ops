@@ -18,3 +18,4 @@ spec:
   dependsOn:
     - name: database-cloudnative-pg
     - name: security-external-secrets
+    - name: storage-volsync
