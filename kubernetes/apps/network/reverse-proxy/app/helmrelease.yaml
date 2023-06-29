@@ -50,7 +50,7 @@ spec:
       - name: s3
         enabled: true
         externalName: "s3.services.${SECRET_DOMAIN}"
-        port: 9001
+        port: 9090
         ingress:
           ingressClassName: private
           annotations:
