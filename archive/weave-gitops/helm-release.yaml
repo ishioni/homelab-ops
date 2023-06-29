@@ -26,6 +26,8 @@ spec:
     adminUser:
       create: true
       username: admin
+    networkPolicy:
+      create: false
     ingress:
       enabled: true
       className: private
