@@ -36,6 +36,11 @@ spec:
         deletionPolicy: Delete
         parameters:
           detachedSnapshots: "false"
+      - name: truenas-hdd-nfs
+        driver: org.democratic-csi.nfs
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
 
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
