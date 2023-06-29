@@ -19,3 +19,4 @@ spec:
     - name: database-cloudnative-pg
     - name: security-external-secrets
     - name: storage-democratic-csi-nfs
+    - name: storage-volsync
