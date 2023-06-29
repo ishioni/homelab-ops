@@ -31,7 +31,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/miguelndecarvalho/speedtest-exporter
-      tag: v3.5.3
+      tag: v3.5.4
     env:
       TZ: Europe/Warsaw
     service:
