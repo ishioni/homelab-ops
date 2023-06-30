@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: immich-machine-learning
-  namespace: fileservers
+  namespace: fileserver
 spec:
   interval: 15m
   chart:
@@ -56,8 +56,7 @@ spec:
         mountPath: /usr/src/app/upload
       modelcache:
         enabled: true
-        existingClaim: immich-modelcache
-        mountPath: /cache
+        type: emptyDir
     resources:
       requests:
         cpu: 100m
