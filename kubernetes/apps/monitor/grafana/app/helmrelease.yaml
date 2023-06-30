@@ -34,7 +34,7 @@ spec:
     #       - secretRef:
     #           name: &secret grafana-secret
     annotations:
-      reloader.stakater.com/auto: "true"
+      secret.reloader.stakater.com/reload: grafana-secret
     rbac:
       pspEnabled: false
     persistence:
