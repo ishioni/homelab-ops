@@ -159,6 +159,14 @@ spec:
               path: /var/lib/grafana/dashboards/default
             orgId: 1
             type: file
+          - name: "applications"
+            disableDeletion: false
+            editable: true
+            folder: "Applications"
+            options:
+              path: /var/lib/grafana/dashboards/applications
+            orgId: 1
+            type: file
           - name: "cilium"
             orgId: 1
             folder: "Cilium"
@@ -201,6 +209,14 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/unifi
     dashboards:
+      applications:
+        minio-dashboard:
+          gnetId: 13502
+          revision: 22
+          datasource: Prometheus
+        cnpg-dashboard:
+          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
+          datasource: Prometheus
       cilium:
         cilium-dashboard:
           url: https://raw.githubusercontent.com/cilium/cilium/v1.13.4/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
