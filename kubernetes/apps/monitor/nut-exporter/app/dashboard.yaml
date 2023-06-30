@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   labels:
     grafana_dashboard: "1"
+  annotations:
+    k8s-sidecar-target-directory: /var/lib/grafana/dashboards/system
   name: grafana-nut-exporter
   namespace: monitor
 data:
