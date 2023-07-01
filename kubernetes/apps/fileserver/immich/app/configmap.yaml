@@ -10,9 +10,11 @@ data:
   ENABLE_MAPBOX: "false"
   LOG_LEVEL: verbose
   NODE_ENV: "production"
-  REDIS_HOSTNAME: immich-redis-master.fileserver.svc.cluster.local
-  REDIS_PORT: "6379"
-  REDIS_DBINDEX: "0"
+  # Redis sentinel: {"db":15,"sentinels":[{"host":"redis-node-0.redis-headless.database.svc.cluster.local","port":26379},{"host":"redis-node-1.redis-headless.database.svc.cluster.local","port":26379},{"host":"redis-node-2.redis-headless.database.svc.cluster.local","port":26379}],"name":"redis-master"}
+  REDIS_URL: eyJkYiI6MTUsInNlbnRpbmVscyI6W3siaG9zdCI6InJlZGlzLW5vZGUtMC5yZWRpcy1oZWFkbGVzcy5kYXRhYmFzZS5zdmMuY2x1c3Rlci5sb2NhbCIsInBvcnQiOjI2Mzc5fSx7Imhvc3QiOiJyZWRpcy1ub2RlLTEucmVkaXMtaGVhZGxlc3MuZGF0YWJhc2Uuc3ZjLmNsdXN0ZXIubG9jYWwiLCJwb3J0IjoyNjM3OX0seyJob3N0IjoicmVkaXMtbm9kZS0yLnJlZGlzLWhlYWRsZXNzLmRhdGFiYXNlLnN2Yy5jbHVzdGVyLmxvY2FsIiwicG9ydCI6MjYzNzl9XSwibmFtZSI6InJlZGlzLW1hc3RlciJ9
+  #REDIS_HOSTNAME: immich-redis-master.fileserver.svc.cluster.local
+  #REDIS_PORT: "6379"
+  #REDIS_DBINDEX: "15"
   TYPESENSE_HOST: immich-typesense.fileserver.svc.cluster.local
   TYPESENSE_PORT: "8108"
   TYPESENSE_PROTOCOL: http

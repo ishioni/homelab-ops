@@ -28,7 +28,8 @@ spec:
     keepHistory: false
   dependsOn:
     - name: immich-typesense
-    - name: immich-redis
+    - name: redis
+      namespace: database
   values:
     controller:
       strategy: RollingUpdate
