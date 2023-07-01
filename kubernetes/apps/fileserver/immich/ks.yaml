@@ -17,4 +17,5 @@ spec:
   timeout: 5m
   dependsOn:
     - name: database-cloudnative-pg
+    - name: database-redis
     - name: security-external-secrets
