@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: homelab-ops
   prune: true
-  wait: false
+  wait: true
   dependsOn:
     - name: storage-democratic-csi-nvmeof
     - name: storage-snapshot-controller
