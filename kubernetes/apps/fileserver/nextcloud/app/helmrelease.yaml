@@ -220,7 +220,7 @@ spec:
         enabled: true
         secretName: *secret
         usernameKey: POSTGRES_USER
-        passwordKey: POSTGRES_PASS
+        passwordKey: POSTGRES_PASSWORD
     redis:
       enabled: true
       architecture: standalone
