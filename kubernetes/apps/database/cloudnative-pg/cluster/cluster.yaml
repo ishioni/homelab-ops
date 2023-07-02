@@ -23,6 +23,12 @@ spec:
   bootstrap:
     recovery:
       source: postgres-v1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 500Mi
+    limits:
+      memory: 1500Mi
 
   externalClusters:
     - name: postgres-v1
