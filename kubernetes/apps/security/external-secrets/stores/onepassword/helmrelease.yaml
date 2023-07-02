@@ -29,7 +29,7 @@ spec:
   values:
     controller:
       annotations:
-        reloader.stakater.com/auto: "true"
+        secret.reloader.stakater.com/reload: &secret onepassword-connect-secret
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/onepassword-connect-api
@@ -41,7 +41,7 @@ spec:
       OP_SESSION:
         valueFrom:
           secretKeyRef:
-            name: onepassword-connect-secret
+            name: *secret
             key: 1password-credentials.json
     service:
       main:
@@ -90,7 +90,7 @@ spec:
           - name: OP_SESSION
             valueFrom:
               secretKeyRef:
-                name: onepassword-connect-secret
+                name: *secret
                 key: 1password-credentials.json
           - name: OP_HTTP_PORT
             value: &port 8081

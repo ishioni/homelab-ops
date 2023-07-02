@@ -27,12 +27,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret authentik-secret
     initContainers:
       init-db:
         image: ghcr.io/onedr0p/postgres-init:14.8
         envFrom:
           - secretRef:
-              name: authentik-secret
+              name: *secret
     replicas: 1
     worker:
       replicas: 1
@@ -119,42 +122,42 @@ spec:
             memory: 20Mi
   valuesFrom:
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: AUTHENTIK_SECRET_KEY
       targetPath: authentik.secret_key
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: SMTP_HOST
       targetPath: authentik.email.host
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: SMTP_USERNAME
       targetPath: authentik.email.username
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: SMTP_PASS
       targetPath: authentik.email.password
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: POSTGRES_HOST
       targetPath: authentik.postgresql.host
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: POSTGRES_USER
       targetPath: authentik.postgresql.user
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: POSTGRES_PASS
       targetPath: authentik.postgresql.password
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: POSTGRES_DB
       targetPath: authentik.postgresql.name
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: REDIS_PASS
       targetPath: authentik.redis.password
     - kind: Secret
-      name: authentik-secret
+      name: *secret
       valuesKey: REDIS_PASS
       targetPath: redis.auth.password
