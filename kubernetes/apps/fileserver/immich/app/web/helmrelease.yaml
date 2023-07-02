@@ -34,15 +34,16 @@ spec:
     controller:
       strategy: RollingUpdate
       annotations:
-        reloader.stakater.com/auto: "true"
+        secret.reloader.stakater.com/reload: &secret immich-secret
+        configMap.reloader.stakater.com/reload: &configmap immich-configmap
     image:
       repository: ghcr.io/immich-app/immich-web
       tag: v1.65.0
     envFrom:
       - secretRef:
-          name: immich-secret
+          name: *secret
       - configMapRef:
-          name: immich-configmap
+          name: *configmap
     service:
       main:
         ports:

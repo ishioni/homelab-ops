@@ -27,14 +27,14 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    annotations:
+      secret.reloader.stakater.com/reload: &secret grafana-secret
     # extraInitContainers:
     #   - name: init-db
     #     image: ghcr.io/onedr0p/postgres-initdb:14.8
     #     envFrom:
     #       - secretRef:
     #           name: &secret grafana-secret
-    annotations:
-      secret.reloader.stakater.com/reload: grafana-secret
     rbac:
       pspEnabled: false
     persistence:
@@ -64,7 +64,7 @@ spec:
     env:
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
     envFromSecrets:
-      - name: grafana-secret
+      - name: *secret
     grafana.ini:
       analytics:
         check_for_updates: false

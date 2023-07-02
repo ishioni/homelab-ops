@@ -27,6 +27,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret externaldns-cloudflare-secret
     interval: 30s
     # logLevel: debug
     provider: cloudflare
@@ -34,12 +36,12 @@ spec:
       - name: CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: externaldns-cloudflare-token
+            name: *secret
             key: EMAIL
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: externaldns-cloudflare-token
+            name: *secret
             key: API_TOKEN
     extraArgs:
       - --annotation-filter=external-dns.home.arpa/enabled in (true)
@@ -56,5 +58,3 @@ spec:
         memory: 250Mi
     serviceMonitor:
       enabled: false
-    podAnnotations:
-      secret.reloader.stakater.com/reload: externaldns-cloudflare-token
