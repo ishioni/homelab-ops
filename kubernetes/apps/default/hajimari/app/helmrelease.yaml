@@ -27,6 +27,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: hajimari-settings
     image:
       repository: ghcr.io/toboshii/hajimari
       tag: v0.3.1
@@ -116,8 +118,6 @@ spec:
           - hosts:
               - *host
             secretName: *host
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: hajimari-settings
     resources:
       requests:
         cpu: 50m
