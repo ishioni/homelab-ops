@@ -85,7 +85,6 @@ spec:
         enabled: true
         ingressClassName: public
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/appName: Recipes
           hajimari.io/group: groupware

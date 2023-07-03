@@ -187,7 +187,6 @@ spec:
       enabled: true
       className: public
       annotations:
-        external-dns.home.arpa/enabled: "true"
         nginx.ingress.kubernetes.io/custom-http-errors: "418"
         hajimari.io/enable: "true"
         hajimari.io/appName: Nextcloud

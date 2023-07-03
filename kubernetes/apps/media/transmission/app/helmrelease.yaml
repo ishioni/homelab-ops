@@ -98,7 +98,6 @@ spec:
         enabled: true
         ingressClassName: public
         annotations:
-          external-dns.home.arpa/enabled: "true"
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
             https://torrent.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri

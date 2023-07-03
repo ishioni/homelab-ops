@@ -46,9 +46,6 @@ spec:
       enabled: true
       hostname: static.${SECRET_DOMAIN}
       ingressClassName: public
-      annotations:
-        external-dns.home.arpa/enabled: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-production
       tls: true
     resources:
       requests:

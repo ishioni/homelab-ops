@@ -54,7 +54,6 @@ spec:
         enabled: true
         ingressClassName: "public"
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: simple-icons:googlephotos
           hajimari.io/group: media
