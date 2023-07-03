@@ -48,6 +48,7 @@ spec:
         ingress:
           enabled: true
           annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-production
             hajimari.io/enable: "true"
             hajimari.io/appName: Hubble
             hajimari.io/icon: mdi:network
