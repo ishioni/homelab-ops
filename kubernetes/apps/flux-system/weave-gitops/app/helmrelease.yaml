@@ -33,7 +33,6 @@ spec:
       enabled: true
       className: private
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/appName: Weave Gitops
         hajimari.io/icon: simple-icons:git
