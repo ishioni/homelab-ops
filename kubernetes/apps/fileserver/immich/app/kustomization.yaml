@@ -12,3 +12,4 @@ resources:
   - ./configmap.yaml
   - ./media-pvc.yaml
   - ./externalsecret.yaml
+  - ./gatus.yaml
