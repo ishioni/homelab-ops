@@ -40,8 +40,6 @@ spec:
       main:
         enabled: true
         ingressClassName: public
-        annotations:
-          external-dns.home.arpa/enabled: "true"
         hosts:
           - host: &host whoami.${SECRET_DOMAIN}
             paths:

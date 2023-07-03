@@ -35,7 +35,6 @@ spec:
         ingress:
           ingressClassName: public
           annotations:
-            external-dns.home.arpa/enabled: "true"
             hajimari.io/enable: "true"
             hajimari.io/appName: Home Assistant
             hajimari.io/group: home automation

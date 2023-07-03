@@ -101,7 +101,6 @@ spec:
             ingressClassName: public
             enabled: true
             annotations:
-              external-dns.home.arpa/enabled: "true"
               hajimari.io/appName: Minecraft
               hajimari.io/enable: "true"
               hajimari.io/icon: simple-icons:minecraft

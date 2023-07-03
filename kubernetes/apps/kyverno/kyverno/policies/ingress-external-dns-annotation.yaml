@@ -9,7 +9,7 @@ metadata:
     policies.kyverno.io/subject: Ingress
     policies.kyverno.io/description: >-
       This policy creates external-dns annotations on ingresses.
-      When the `external-dns.home.arpa/enabled` annotation is `true`
+      When the ingressClass field is public
       it applies the external-dns annotations for use with external
       application access.
 spec:
@@ -20,11 +20,14 @@ spec:
         any:
           - resources:
               kinds: ["Ingress"]
-              annotations:
-                external-dns.home.arpa/enabled: "true"
+      preconditions:
+        all:
+          - key: "{{ request.object.spec.ingressClassName }}"
+            operator: Equal
+            value: "public"
       mutate:
         patchStrategicMerge:
           metadata:
             annotations:
-              +(external-dns.alpha.kubernetes.io/target): |-
-                ${SECRET_DOMAIN}
+              +(external-dns.home.arpa/enabled): "true"
+              +(external-dns.alpha.kubernetes.io/target): ${SECRET_DOMAIN}
