@@ -13,5 +13,5 @@ spec:
       protocol: TCP
       targetPort: 5432
   selector:
-    postgresql: postgres-v2
+    postgresql: postgres-v3
     role: primary
