@@ -32,8 +32,8 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret connectbox-exporter-secret
     image:
-      repository: ghcr.io/ishioni/connectbox-prometheus
-      tag: latest
+      repository: ghcr.io/ressu/connectbox-prometheus:sha-f9ce10e
+      tag: dev
     env:
       TZ: Europe/Warsaw
     service:
