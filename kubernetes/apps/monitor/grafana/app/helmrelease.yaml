@@ -285,7 +285,9 @@ spec:
         nut:
           gnetId: 15406
           revision: 2
-          datasource: Prometheus
+          datasource:
+            - name: DS_GRAFANACLOUD-DENYAGO-PROM
+              value: Prometheus
         connectbox:
           url: https://raw.githubusercontent.com/ishioni/connectbox-prometheus/dev/resources/grafana/connectbox.json
           datasource:
