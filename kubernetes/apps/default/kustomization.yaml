@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./hajimari/ks.yaml
-  - ./s3-static-proxy/ks.yaml
   - ./whoami/ks.yaml
