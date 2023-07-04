@@ -9,7 +9,7 @@ metadata:
   name: grafana-connectbox-exporter
   namespace: monitor
 data:
-  nut.json: |-
+  connectbox-exporter.json: |-
     {
       "__inputs": [
         {
