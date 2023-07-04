@@ -30,25 +30,31 @@ spec:
     controller:
       strategy: RollingUpdate
     image:
-      repository: ghcr.io/druggeri/nut_exporter
-      tag: "3.0.0"
+      repository: docker.io/hon95/prometheus-nut-exporter
+      tag: "1.2.1"
     env:
       TZ: Europe/Warsaw
-      NUT_EXPORTER_SERVER: "bastion.managment.internal"
-      NUT_EXPORTER_VARIABLES: "battery.charge,battery.charge,battery.runtime,battery.voltage,battery.voltage.nominal,input.voltage,input.voltage.nominal,ups.load,ups.status,ups.status"
+      HTTP_PATH: &metrics /metrics
+      RUST_LOG: debug
     service:
       main:
         ports:
           http:
-            port: 9199
+            port: 9995
     serviceMonitor:
       main:
         enabled: true
         endpoints:
           - port: http
+            interval: 30s
             scheme: http
-            path: /ups_metrics
+            path: *metrics
             scrapeTimeout: 10s
+            params:
+              target: ["bastion.managment.internal:3493"]
+            relabelings:
+              - sourceLabels: [__param_target]
+                targetLabel: target
     resources:
       requests:
         cpu: 15m

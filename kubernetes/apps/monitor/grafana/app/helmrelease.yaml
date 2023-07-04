@@ -282,6 +282,10 @@ spec:
           gnetId: 11835
           revision: 1
           datasource: Prometheus
+        nut:
+          gnetId: 15406
+          revision: 2
+          datasource: Prometheus
       unifi:
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-client-insights:
