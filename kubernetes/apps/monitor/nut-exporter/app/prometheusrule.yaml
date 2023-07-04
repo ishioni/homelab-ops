@@ -22,7 +22,7 @@ spec:
           annotations:
             description: ZPM {{ $labels.instance }} has lost power and is running on battery.
             summary: ZPM is running on battery.
-          expr: network_ups_tools_ups_status{flag="OB"} == 1
+          expr: nut_ups_status{status="OB"} == 1
           for: 10s
           labels:
             severity: warning
@@ -34,15 +34,15 @@ spec:
             summary: ZPM battery is low.
           expr: |
             (
-              network_ups_tools_ups_status{flag="OB"} == 1
+              nut_ups_status{status="OB"} == 1
             and
-              network_ups_tools_battery_runtime < 300
+              nut_battery_runtime_seconds < 300
             )
           for: 1m
           labels:
             severity: critical
         - alert: UpsLowBattery
-          expr: network_ups_tools_battery_charge < 50
+          expr: nut_battery_charge < 0.5
           labels:
             severity: warning
           annotations:
@@ -53,7 +53,7 @@ spec:
             description: UPS {{ $labels.ups }} battery needs to be replaced.
             summary: Replace UPS battery.
           expr: |
-            network_ups_tools_ups_status{flag="RB"} == 1
+            nut_ups_status{status="RB"} == 1
           for: 10s
           labels:
             severity: warning
