@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: default-s3-static-proxy
+  name: network-s3-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/default/s3-static-proxy/app
+  path: ./kubernetes/apps/network/s3-proxy/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops
