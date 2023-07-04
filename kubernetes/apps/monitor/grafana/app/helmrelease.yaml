@@ -286,6 +286,11 @@ spec:
           gnetId: 15406
           revision: 2
           datasource: Prometheus
+        connectbox:
+          url: https://raw.githubusercontent.com/ishioni/connectbox-prometheus/dev/resources/grafana/connectbox.json
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
       unifi:
         # Ref: https://grafana.com/grafana/dashboards/11315
         unifi-client-insights:

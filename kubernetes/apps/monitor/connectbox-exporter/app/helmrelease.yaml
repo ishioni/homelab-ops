@@ -32,7 +32,7 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret connectbox-exporter-secret
     image:
-      repository: docker.io/yuzukiko/connectbox-prometheus
+      repository: ghcr.io/ishioni/connectbox-prometheus
       tag: latest
     env:
       TZ: Europe/Warsaw
