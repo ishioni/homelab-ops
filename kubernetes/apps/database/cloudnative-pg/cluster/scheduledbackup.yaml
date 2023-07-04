@@ -9,4 +9,4 @@ spec:
   immediate: true
   backupOwnerReference: self
   cluster:
-    name: postgres-v2
+    name: postgres-v3
