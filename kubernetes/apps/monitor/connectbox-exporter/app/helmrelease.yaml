@@ -63,3 +63,4 @@ spec:
             scheme: http
             path: /
             scrapeTimeout: 15s
+            interval: 2m
