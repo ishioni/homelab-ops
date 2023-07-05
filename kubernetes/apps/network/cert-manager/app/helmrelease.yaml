@@ -57,6 +57,6 @@ spec:
       limits:
         memory: 150Mi
     prometheus:
-      enabled: false
+      enabled: true
       servicemonitor:
-        enabled: false
+        enabled: true
