@@ -38,6 +38,18 @@ spec:
         envFrom: &envfrom
           - secretRef:
               name: *secret
+      02-config-sync:
+        image: ghcr.io/kiwigrid/k8s-sidecar:1.24.6
+        imagePullPolicy: IfNotPresent
+        env:
+          - {name: FOLDER, value: /config}
+          - {name: LABEL, value: gatus.io/enabled}
+          - {name: NAMESPACE, value: ALL}
+          - {name: RESOURCE, value: both}
+          - {name: UNIQUE_FILENAMES, value: "true"}
+          - {name: METHOD, value: LIST}
+        volumeMounts:
+          - {name: config, mountPath: /config}
     image:
       repository: ghcr.io/twin/gatus
       tag: v5.4.0
@@ -100,14 +112,14 @@ spec:
         memory: 500Mi
     sidecars:
       config-sync:
-        image: ghcr.io/kiwigrid/k8s-sidecar:1.24.5
+        image: ghcr.io/kiwigrid/k8s-sidecar:1.24.6
         imagePullPolicy: IfNotPresent
         env:
-          - { name: FOLDER, value: /config }
-          - { name: LABEL, value: gatus.io/enabled }
-          - { name: NAMESPACE, value: ALL }
-          - { name: RESOURCE, value: both }
-          - { name: UNIQUE_FILENAMES, value: "true" }
-          - { name: METHOD, value: WATCH }
+          - {name: FOLDER, value: /config}
+          - {name: LABEL, value: gatus.io/enabled}
+          - {name: NAMESPACE, value: ALL}
+          - {name: RESOURCE, value: both}
+          - {name: UNIQUE_FILENAMES, value: "true"}
+          - {name: METHOD, value: WATCH}
         volumeMounts:
-          - { name: config, mountPath: /config }
+          - {name: config, mountPath: /config}
