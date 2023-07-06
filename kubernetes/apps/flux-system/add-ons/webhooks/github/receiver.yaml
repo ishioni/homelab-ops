@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/notification.toolkit.fluxcd.io/receiver_v1beta2.json
-apiVersion: notification.toolkit.fluxcd.io/v1beta2
+apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
 metadata:
   name: github-receiver
@@ -13,15 +13,15 @@ spec:
   secretRef:
     name: flux-github-webhook
   resources:
-    - apiVersion: source.toolkit.fluxcd.io/v1beta2
+    - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: homelab-ops
       namespace: flux-system
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       name: cluster
       namespace: flux-system
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       name: cluster-apps
       namespace: flux-system
