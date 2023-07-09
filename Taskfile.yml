@@ -4,15 +4,14 @@ version: "3"
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   KUBERNETES_DIR: "{{.PROJECT_DIR}}/kubernetes"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/terraform"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/infrastructure/ansible"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/infrastructure/terraform"
 
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/ansible/kubeconfig"
+  KUBECONFIG: "$HOME/.kube/kubeconfig"
 
 includes:
   cluster: .taskfiles/ClusterTasks.yml
@@ -22,6 +21,9 @@ includes:
   terraform: .taskfiles/TerraformTasks.yml
 
 tasks:
+  default:
+    silent: true
+    cmds: ["task -l"]
   init:
     desc: Initialize workstation dependencies with Brew
     cmds:
