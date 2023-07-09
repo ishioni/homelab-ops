@@ -1,7 +1,7 @@
 module "controlplanes" {
   count        = 3
   machine_name = "talos-master-${count.index}"
-  vmid         = sum([1000,count.index])
+  vmid         = sum([1000, count.index])
   source       = "./proxmox-node"
   tags         = "control-plane;talos"
   target_node  = "proxmox-${count.index + 1}"
@@ -19,7 +19,7 @@ module "controlplanes" {
 module "workers" {
   count        = 3
   machine_name = "talos-worker-${count.index}"
-  vmid         = sum([2000,count.index])
+  vmid         = sum([2000, count.index])
   source       = "./proxmox-node"
   tags         = "talos;worker"
   target_node  = "proxmox-${count.index + 1}"
