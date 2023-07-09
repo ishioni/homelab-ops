@@ -2,7 +2,7 @@
 version: "3"
 
 env:
-  ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
+  ANSIBLE_CONFIG: "{{.ANSIBLE_DIR}}/ansible.cfg"
   PATH: "/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
   # https://github.com/ansible/ansible/issues/76322
   OBJC_DISABLE_INITIALIZE_FORK_SAFETY: "YES"
@@ -37,32 +37,6 @@ tasks:
     dir: ansible
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
-
-  k3s-prepare:
-    desc: Prepare all the k3s nodes for running k3s
-    dir: ansible
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/k3s-prepare.yml
-
-  k3s-install:
-    desc: Install Kubernetes on the nodes
-    dir: ansible
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/k3s-installation.yml
-
-  k3s-nuke:
-    desc: Uninstall Kubernetes on the nodes
-    dir: ansible
-    interactive: true
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/k3s-nuke.yml
-      - task: reboot
-
-  k3s-apt-upgrade:
-    desc: Upgrade packages on the nodes
-    dir: ansible
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/k3s-apt-upgrade.yml
 
   bastion-setup:
     desc: Run Ansible setup playbook on the nodes

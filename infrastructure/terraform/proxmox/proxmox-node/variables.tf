@@ -7,7 +7,7 @@ variable "tags" {
 }
 
 variable "vmid" {
-  type = number
+  type    = number
   default = 0
 }
 
