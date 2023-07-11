@@ -2,6 +2,15 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
+      "description": "Frlux group",
+      "groupName": "Flux",
+      "matchPackagePatterns": ["flux"],
+      "matchDatasources": ["docker", "github-tags"],
+      "versioning": "semver",
+      "group": {"commitMessageTopic": "{{{groupName}}}"},
+      "separateMinorPatch": true
+    },
+    {
       "description": "Immich group",
       "groupName": "Immich",
       "matchPackagePatterns": ["immich"],
