@@ -14,7 +14,7 @@ roles:
     version: v1.0.0
   - name: geerlingguy.java
     src: https://github.com/geerlingguy/ansible-role-java.git
-    version: 2.3.0
+    version: 2.3.1
   - name: geerlingguy.pip
     src: https://github.com/geerlingguy/ansible-role-pip.git
     version: 2.2.0
