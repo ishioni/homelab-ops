@@ -10,11 +10,11 @@ vars:
 
 dotenv: [".config.env"]
 
-env:
-  KUBECONFIG: "$HOME/.kube/kubeconfig"
+# env:
+#   # KUBECONFIG: "$HOME/.kube/kubeconfig"
 
 includes:
-  cluster: .taskfiles/ClusterTasks.yml
+  kubernetes: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
   ansible: .taskfiles/AnsibleTasks.yml
   sops: .taskfiles/SopsTasks.yml
