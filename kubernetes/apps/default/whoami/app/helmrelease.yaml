@@ -29,13 +29,13 @@ spec:
   values:
     image:
       repository: traefik/whoami
-      tag: v1.10.0
+      tag: v1.10.1
     service:
       main:
         ports:
           http:
             enabled: true
-            port: 8080
+            port: 80
     ingress:
       main:
         enabled: true
