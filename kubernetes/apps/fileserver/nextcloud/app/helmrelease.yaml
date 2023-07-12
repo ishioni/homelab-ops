@@ -218,6 +218,8 @@ spec:
       existingSecret:
         enabled: true
         secretName: *secret
+        hostKey: POSTGRES_HOST
+        databaseKey: POSTGRES_DB
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
     redis:
@@ -262,10 +264,6 @@ spec:
       serviceMonitor:
         enabled: false
   valuesFrom:
-    - kind: Secret
-      name: *secret
-      valuesKey: POSTGRES_HOST
-      targetPath: externalDatabase.host
     - kind: Secret
       name: *secret
       valuesKey: SMTP_HOST
