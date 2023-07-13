@@ -64,6 +64,11 @@ spec:
         - secretName: *host
           hosts:
             - *host
+    prometheus:
+      serviceMonitor:
+        create: true
+      rules:
+        create: true
     resources:
       server:
         requests:
