@@ -12,7 +12,7 @@ _... managed with Flux and Renovate_ :robot:
 
 <div align="center">
 
-[![k3s](https://img.shields.io/badge/k3s-v1.26.1-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
+[![talos](https://img.shields.io/badge/k3s-v1.4.6-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
 [![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot&logoColor=white)](https://github.com/renovatebot/renovate)
 
@@ -32,15 +32,13 @@ There is a template over at [onedr0p/flux-cluster-template](https://github.com/o
 
 ### Installation
 
-My cluster is [k3s](https://k3s.io/) provisioned overtop ubuntu proxmox VMs  using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s). This is a semi hyper-converged cluster, workloads are sharing the same available resources on my nodes while I have a separate server for data storage.
+My cluster is [talos](https://talos.dev/) provisioned overtop ubuntu proxmox VMs. This is a semi hyper-converged cluster, workloads are sharing the same available resources on my nodes while I have a separate server for data storage.
 
 🔸 _[Click here](./ansible/) to see my Ansible playbooks and roles._
 
 ### Core Components
 
-- [calico](https://github.com/projectcalico/calico): Internal Kubernetes networking plugin
-- [kube-vip](https://kube-vip.io/): Announces the kubeserver api via BGP
-- [metallb](https://metallb.universe.tf/): Announces loadbalancers via BGP
+- [cilium](https://cilium.io): Internal Kubernetes networking plugin
 - [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider
 - [external-secrets](https://github.com/external-secrets/external-secrets/): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect)
@@ -61,25 +59,21 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop ubuntu proxmox VMs  usi
 This Git repository contains the following directories under [cluster](./cluster/).
 
 ```sh
-📁 cluster      # Kubernetes cluster defined as code
+📁 kubernetes      # Kubernetes cluster defined as code
 ├─📁 bootstrap     # Flux installation
-├─📁 flux          # Main Flux configuration of repository
-├─📁 core          # Essential cluster services
+├─📁 flux           # Main Flux configuration of repository
 └─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
 ```
 
 ### Networking
 
-| Name                                         | CIDR              |
-|----------------------------------------------|-------------------|
-| Management VLAN                              | `192.168.1.0/24`  |
-| Kubernetes Nodes VLAN                        | `10.1.4.0/24`     |
-| Kubernetes external services (MetalLB)       | `192.168.2.0/24`  |
-| Kubernetes pods                              | `172.16.0.0/16`   |
-| Kubernetes services                          | `10.100.0.0/16`   |
-
-- Kube-vip provides the apiserver LB on the Nodes VLAN, only from the master nodes
-- MetalLB provides the LoadBalancer resources only from the worker nodes
+| Name                               | CIDR             |
+|------------------------------------|------------------|
+| Management VLAN                    | `192.168.1.0/24` |
+| Kubernetes Nodes VLAN              | `10.1.4.0/24`    |
+| Kubernetes external services (BGP) | `192.168.3.0/24` |
+| Kubernetes pods                    | `172.16.0.0/16`  |
+| Kubernetes services                | `10.100.0.0/16`  |
 
 ---
 
@@ -89,14 +83,14 @@ While most of my infrastructure and workloads are selfhosted I do rely upon the 
 
 The alternative solution to these two problems would be to host a Kubernetes cluster in the cloud and deploy applications like [HCVault](https://www.vaultproject.io/), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [ntfy](https://ntfy.sh/), and [Gatus](https://gatus.io/). However, maintaining another cluster and monitoring another group of workloads is a lot more time and effort than I am willing to put in and only saves me roughly $18/month.
 
-| Service                                      | Use                                                               | Cost             |
-|----------------------------------------------|-------------------------------------------------------------------|------------------|
-| [1Password](https://1password.com/)          | Secrets with [External Secrets](https://external-secrets.io/)     | 73Eur/yr         |
-| [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                                  | Free             |
-| [Fastmail](https://fastmail.com/)            | Email hosting                                                     | $75/yr           |
-| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments    | Free             |
-| [Terraform Cloud](https://www.terraform.io/) | Storing Terraform state                                           | Free             |
-|                                              |                                                                   | Total: $12.75/mo |
+| Service                                      | Use                                                            | Cost             |
+|----------------------------------------------|----------------------------------------------------------------|------------------|
+| [1Password](https://1password.com/)          | Secrets with [External Secrets](https://external-secrets.io/)  | 73Eur/yr         |
+| [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                               | Free             |
+| [Fastmail](https://fastmail.com/)            | Email hosting                                                  | $75/yr           |
+| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments | Free             |
+| [Terraform Cloud](https://www.terraform.io/) | Storing Terraform state                                        | Free             |
+|                                              |                                                                | Total: $12.75/mo |
 
 ---
 
@@ -128,16 +122,16 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 
 ## 🔧 Hardware
 
-| Device                    | Count | OS Disk Size | Data Disk Size              | Ram  | Operating System | Purpose             |
-|---------------------------|-------|--------------|-----------------------------|------|------------------|---------------------|
-| Unifi USG4                | 1     | 2G eMMC      | -                           | 4GB  | Debian 7         | Router              |
-| Unifi USW-24-PoE          | 1     | -            | -                           | -    | -                | Network Switch      |
-| Unifi USW-Aggregation     | 1     | -            | -                           |      | -                | Network Switch      |
-| Dell Optiplex 7040        | 4     | 256GB NVMe   | -                           | 64GB | Debian 11 (PVE)  | Virtualization Host |
-| Cyberpower OR600ERM1U     | 1     | -            | -                           | -    | -                | UPS                 |
-| QNAP TVS-682              | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD     | 32GB | TrueNAS Scale    | NAS                 |
-| Odroid C4                 | 1     | 32GB eMMC    | -                           | 4GB  | Ubuntu           | Misc services       |
-| ESP32+Ebyte 72 POE adapter| 1     | -            | -                           | -    | ESPHome          | Zigbee adapter      |
+| Device                     | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose             |
+|----------------------------|-------|--------------|-------------------------|------|------------------|---------------------|
+| Unifi USG4                 | 1     | 2G eMMC      | -                       | 4GB  | Debian 7         | Router              |
+| Unifi USW-24-PoE           | 1     | -            | -                       | -    | -                | Network Switch      |
+| Unifi USW-Aggregation      | 1     | -            | -                       |      | -                | Network Switch      |
+| Dell Optiplex 7040         | 4     | 256GB NVMe   | -                       | 64GB | Debian 12 (PVE)  | Virtualization Host |
+| Cyberpower OR600ERM1U      | 1     | -            | -                       | -    | -                | UPS                 |
+| QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD | 32GB | TrueNAS Scale    | NAS                 |
+| Odroid C4                  | 1     | 32GB eMMC    | -                       | 4GB  | Ubuntu           | Misc services       |
+| ESP32+Ebyte 72 POE adapter | 1     | -            | -                       | -    | ESPHome          | Zigbee adapter      |
 
 ---
 
