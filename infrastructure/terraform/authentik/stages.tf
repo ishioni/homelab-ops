@@ -22,6 +22,7 @@ resource "authentik_stage_identification" "authentication-identification" {
   show_source_labels        = true
   show_matched_user         = false
   password_stage            = authentik_stage_password.authentication-password.id
+  passwordless_flow         = authentik_flow.passwordless_authentication.uuid
   recovery_flow             = authentik_flow.recovery.uuid
 }
 
@@ -38,6 +39,16 @@ resource "authentik_stage_authenticator_validate" "authentication-mfa-validation
   not_configured_action = "configure"
   configuration_stages = [
     authentik_stage_authenticator_totp.authenticator-totp-setup.id,
+    authentik_stage_authenticator_webauthn.authenticator-webauthn-setup.id
+  ]
+}
+
+resource "authentik_stage_authenticator_validate" "authentication-passkey-validation" {
+  name                       = "authentication-passkey-validation"
+  device_classes             = ["webauthn"]
+  webauthn_user_verification = "required"
+  not_configured_action      = "configure"
+  configuration_stages = [
     authentik_stage_authenticator_webauthn.authenticator-webauthn-setup.id
   ]
 }

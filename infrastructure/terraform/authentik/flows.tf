@@ -61,6 +61,29 @@ resource "authentik_flow_stage_binding" "authentication-flow-binding-100" {
   order  = 100
 }
 
+resource "authentik_flow" "passwordless_authentication" {
+  name               = "passwordless_authentication"
+  title              = "Passkey"
+  slug               = "passwordless-flow"
+  designation        = "authentication"
+  policy_engine_mode = "all"
+  background         = "https://static.movishell.pl/branding/Background.jpeg"
+}
+
+resource "authentik_flow_stage_binding" "passwordless_authentication-binding-00" {
+  target = authentik_flow.passwordless_authentication.uuid
+  stage  = authentik_stage_authenticator_validate.authentication-passkey-validation.id
+  order  = 0
+}
+
+resource "authentik_flow_stage_binding" "passwordless_authentication-binding-10" {
+  target               = authentik_flow.passwordless_authentication.uuid
+  stage                = authentik_stage_user_login.authentication-login.id
+  evaluate_on_plan     = false
+  re_evaluate_policies = true
+  order                = 10
+}
+
 ## Invalidation flow
 resource "authentik_flow" "invalidation" {
   name               = "invalidation-flow"
