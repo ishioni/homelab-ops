@@ -6,7 +6,7 @@ resource "authentik_flow" "authenticator-totp-setup" {
   slug           = "authenticator-totp-setup"
   designation    = "stage_configuration"
   authentication = "require_authenticated"
-  background     = "https://static.movishell.pl/branding/Background.jpeg"
+  background     = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 
 }
 
@@ -22,7 +22,7 @@ resource "authentik_flow" "authenticator-webauthn-setup" {
   slug           = "authenticator-webauthn-setup"
   designation    = "stage_configuration"
   authentication = "require_authenticated"
-  background     = "https://static.movishell.pl/branding/Background.jpeg"
+  background     = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 
 }
 
@@ -40,7 +40,7 @@ resource "authentik_flow" "authentication" {
   slug               = "authentication-flow"
   designation        = "authentication"
   policy_engine_mode = "all"
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "authentication-flow-binding-00" {
@@ -67,7 +67,7 @@ resource "authentik_flow" "passwordless_authentication" {
   slug               = "passwordless-flow"
   designation        = "authentication"
   policy_engine_mode = "all"
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "passwordless_authentication-binding-00" {
@@ -92,7 +92,7 @@ resource "authentik_flow" "invalidation" {
   policy_engine_mode = "any"
   designation        = "invalidation"
   denied_action      = "continue"
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "invalidation-flow-binding-00" {
@@ -108,7 +108,7 @@ resource "authentik_flow" "recovery" {
   slug               = "password-recovery"
   designation        = "recovery"
   compatibility_mode = true
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "recovery-flow-binding-00" {
@@ -142,7 +142,7 @@ resource "authentik_flow" "enrollment-invitation" {
   slug               = "enrollmment-invitation"
   designation        = "enrollment"
   compatibility_mode = true
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-00" {
@@ -177,7 +177,7 @@ resource "authentik_flow" "user-settings" {
   policy_engine_mode = "any"
   denied_action      = "message_continue"
   designation        = "stage_configuration"
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
 
 resource "authentik_flow_stage_binding" "user-settings-flow-binding-20" {
@@ -200,5 +200,5 @@ resource "authentik_flow" "provider-authorization-implicit-consent" {
   policy_engine_mode = "any"
   denied_action      = "message_continue"
   designation        = "authorization"
-  background         = "https://static.movishell.pl/branding/Background.jpeg"
+  background         = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Background.jpeg"
 }
