@@ -14,11 +14,11 @@ dotenv: [".config.env"]
 #   # KUBECONFIG: "$HOME/.kube/kubeconfig"
 
 includes:
-  kubernetes: .taskfiles/ClusterTasks.yml
+  kubernetes: .taskfiles/Kubernetes/Tasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
-  ansible: .taskfiles/AnsibleTasks.yml
+  ansible: .taskfiles/Ansible/Tasks.yml
   sops: .taskfiles/SopsTasks.yml
-  terraform: .taskfiles/TerraformTasks.yml
+  terraform: .taskfiles/Terraform/Tasks.yml
 
 tasks:
   default:

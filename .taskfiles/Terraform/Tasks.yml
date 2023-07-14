@@ -1,0 +1,8 @@
+---
+version: "3"
+
+includes:
+  authentik: Authentik.yml
+  cloudflare: Cloudflare.yml
+  minio: Minio.yml
+  proxmox: Proxmox.yml
