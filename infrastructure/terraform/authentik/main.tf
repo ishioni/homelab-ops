@@ -24,6 +24,6 @@ data "sops_file" "authentik_secrets" {
 }
 
 provider "authentik" {
-  url   = data.sops_file.authentik_secrets.data["authnetik_endpoint"]
+  url   = data.sops_file.authentik_secrets.data["authentik_endpoint"]
   token = data.sops_file.authentik_secrets.data["authentik_token"]
 }
