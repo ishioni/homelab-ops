@@ -10,66 +10,66 @@ resource "authentik_stage_prompt_field" "username" {
   # except:
   #   return ''
   # EOT
-  placeholder = "Username"
+  placeholder              = "Username"
   initial_value            = "try:\n    return user.username\nexcept:\n    return ''"
   initial_value_expression = true
-  order                  = 200
+  order                    = 200
 }
 
 resource "authentik_stage_prompt_field" "name" {
-  name                   = "name"
-  field_key              = "name"
-  type                   = "text"
-  required               = true
-  label                  = "Name"
-  placeholder = "Name"
+  name                     = "name"
+  field_key                = "name"
+  type                     = "text"
+  required                 = true
+  label                    = "Name"
+  placeholder              = "Name"
   initial_value            = "try:\n    return user.name\nexcept:\n    return ''"
   initial_value_expression = true
-  order                  = 201
+  order                    = 201
 }
 
 resource "authentik_stage_prompt_field" "email" {
-  name                   = "email"
-  field_key              = "email"
-  type                   = "email"
-  required               = true
-  label                  = "Email"
-  placeholder = "Email"
+  name                     = "email"
+  field_key                = "email"
+  type                     = "email"
+  required                 = true
+  label                    = "Email"
+  placeholder              = "Email"
   initial_value            = "try:\n    return user.email\nexcept:\n    return ''"
   initial_value_expression = true
-  order                  = 202
+  order                    = 202
 }
 
 resource "authentik_stage_prompt_field" "locale" {
-  name                   = "locale"
-  field_key              = "attributes.settings.locale"
-  type                   = "ak-locale"
-  required               = true
-  label                  = "Locale"
-  placeholder = "Locale"
+  name                     = "locale"
+  field_key                = "attributes.settings.locale"
+  type                     = "ak-locale"
+  required                 = true
+  label                    = "Locale"
+  placeholder              = "Locale"
   initial_value            = "try:\n    return user.attributes.get('settings', {}).get('locale', '')\nexcept:\n    return ''"
   initial_value_expression = true
-  order                  = 203
+  order                    = 203
 }
 
 resource "authentik_stage_prompt_field" "password" {
-  name        = "password"
-  field_key   = "password"
-  type        = "password"
-  label       = "Password"
-  placeholder = "Password"
+  name          = "password"
+  field_key     = "password"
+  type          = "password"
+  label         = "Password"
+  placeholder   = "Password"
   initial_value = "Password"
-  required    = true
-  order       = 300
+  required      = true
+  order         = 300
 }
 
 resource "authentik_stage_prompt_field" "password-repeat" {
-  name        = "password-repeat"
-  field_key   = "password-repeat"
-  type        = "password"
-  placeholder = "Password (repeat)"
-  label       = "Password (repeat)"
+  name          = "password-repeat"
+  field_key     = "password-repeat"
+  type          = "password"
+  placeholder   = "Password (repeat)"
+  label         = "Password (repeat)"
   initial_value = "Password (repeat)"
-  required    = true
-  order       = 301
+  required      = true
+  order         = 301
 }
