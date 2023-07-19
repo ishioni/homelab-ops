@@ -33,7 +33,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret unifi-poller-secret
     image:
       repository: ghcr.io/unpoller/unpoller
-      tag: v2.7.14
+      tag: v2.7.20
     env:
       TZ: Europe/Warsaw
       UP_UNIFI_DEFAULT_ROLE: home-ops
