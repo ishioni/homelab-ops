@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: democratic-csi
-      version: 0.13.7
+      version: 0.14.0
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
@@ -35,8 +35,6 @@ spec:
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-cluster-critical
-      externalAttacher:
-        enabled: true
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
@@ -51,7 +49,6 @@ spec:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:
       name: "org.democratic-csi.nvmeof"
-      attachRequired: true
     storageClasses:
       - name: truenas-ssd-nvmeof
         defaultClass: true
