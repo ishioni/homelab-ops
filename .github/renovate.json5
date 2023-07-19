@@ -7,6 +7,7 @@
     ":dependencyDashboard",
     ":semanticCommits",
     ":enablePreCommit",
+    "github>ishioni/homelab-ops//.github/renovate/autoMerge.json5",
     "github>ishioni/homelab-ops//.github/renovate/commitMessage.json5",
     "github>ishioni/homelab-ops//.github/renovate/groups.json5",
     "github>ishioni/homelab-ops//.github/renovate/labels.json5",
