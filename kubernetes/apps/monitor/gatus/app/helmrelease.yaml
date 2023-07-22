@@ -52,7 +52,7 @@ spec:
           - {name: config, mountPath: /config}
     image:
       repository: ghcr.io/twin/gatus
-      tag: v5.5.0
+      tag: v5.5.1
     env:
       TZ: ${CONFIG_TIMEZONE}
       GATUS_CONFIG_PATH: /config
