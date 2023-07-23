@@ -23,7 +23,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: postgres-v2
+      source: postgres-v3-restore
   resources:
     requests:
       cpu: 100m
@@ -32,7 +32,7 @@ spec:
       memory: 500Mi
 
   externalClusters:
-    - name: postgres-v2
+    - name: postgres-v3-restore
       barmanObjectStore:
         destinationPath: s3://cloudnative-pg/
         endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
