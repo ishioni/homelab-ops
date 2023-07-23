@@ -141,6 +141,12 @@ worker:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
+        install:
+          extraKernelArgs:
+            - i915.disable_display=true
+          extensions:
+            - image: ghcr.io/siderolabs/i915-ucode:20230625
+            - image: ghcr.io/siderolabs/intel-ucode:20230613
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
