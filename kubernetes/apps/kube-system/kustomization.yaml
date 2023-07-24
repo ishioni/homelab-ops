@@ -6,5 +6,6 @@ resources:
   - ./namespace.yaml
   - ./cilium/ks.yaml
   - ./metrics-server/ks.yaml
+  - ./node-feature-discovery/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./reloader/ks.yaml
