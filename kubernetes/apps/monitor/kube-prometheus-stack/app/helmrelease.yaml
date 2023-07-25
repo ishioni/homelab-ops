@@ -196,6 +196,10 @@ spec:
         probeSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        enabledFeatures:
+          - auto-gomaxprocs
+          - memory-snapshot-on-shutdown
+          - new-service-discovery-manager
         retention: 2d
         retentionSize: 6GB
         ruleSelector: {}
