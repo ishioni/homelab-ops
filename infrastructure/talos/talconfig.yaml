@@ -105,6 +105,9 @@ controlPlane:
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
       machine:
         files:
           - content: |
@@ -146,7 +149,6 @@ worker:
             - i915.disable_display=true
           extensions:
             - image: ghcr.io/siderolabs/i915-ucode:20230625
-            - image: ghcr.io/siderolabs/intel-ucode:20230613
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
