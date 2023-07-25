@@ -61,7 +61,8 @@ spec:
       enabled: true
       endpoints: &cp ["10.1.4.20", "10.1.4.21", "10.1.4.22"]
     kubeEtcd:
-      enabled: false
+      enabled: true
+      endpoints: *cp
     kubelet:
       enabled: true
       serviceMonitor:
