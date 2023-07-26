@@ -49,8 +49,7 @@ spec:
           matchExpressions:
             - key: ingress-class
               operator: In
-              values:
-                - private
+              values: ["private"]
       config:
         client-body-buffer-size: "100M"
         client-body-timeout: 120
