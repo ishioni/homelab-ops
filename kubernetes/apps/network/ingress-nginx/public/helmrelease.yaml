@@ -44,6 +44,13 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${CONFIG_INGRESS_PUBLIC_IP}"
+      admissionWebhooks:
+        objectSelector:
+          matchExpressions:
+            - key: ingress-class
+              operator: In
+              values:
+                - public
       config:
         client-body-buffer-size: "100M"
         client-body-timeout: 120
