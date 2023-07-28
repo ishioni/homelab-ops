@@ -1,8 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "username": "homelab-ops[bot]",
-  "gitAuthor": "homelab-ops <116219931+homelab-ops[bot]@users.noreply.github.com>",
-  "repositories": [
-    "ishioni/homelab-ops"
-  ]
+  "gitAuthor": "homelab-ops <116219931+homelab-ops[bot]@users.noreply.github.com>"
 }
