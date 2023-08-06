@@ -45,17 +45,17 @@ module "secret_grafana" {
 module "secret_proxmox" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"
-  item   = "immich"
+  item   = "proxmox"
 }
 module "secret_nextcloud" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"
-  item   = "immich"
+  item   = "nextcloud"
 }
 module "secret_tandoor" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"
-  item   = "immich"
+  item   = "tandoor"
 }
 provider "authentik" {
   url   = module.secret_authentik.fields["endpoint_url"]
