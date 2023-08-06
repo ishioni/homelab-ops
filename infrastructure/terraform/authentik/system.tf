@@ -3,11 +3,11 @@ data "authentik_certificate_key_pair" "generated" {
 }
 
 resource "authentik_tenant" "home" {
-  domain           = data.sops_file.authentik_secrets.data["cluster_domain"]
+  domain           = module.secret_authentik.fields["cluster_domain"]
   default          = false
   branding_title   = "Home"
-  branding_logo    = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/Banner2-white.svg"
-  branding_favicon = "https://static.${data.sops_file.authentik_secrets.data["cluster_domain"]}/branding/favicon.png"
+  branding_logo    = "https://static.${module.secret_authentik.fields["cluster_domain"]}/branding/Banner2-white.svg"
+  branding_favicon = "https://static.${module.secret_authentik.fields["cluster_domain"]}/branding/favicon.png"
 
   flow_authentication = authentik_flow.authentication.uuid
   flow_invalidation   = authentik_flow.invalidation.uuid
@@ -32,7 +32,7 @@ resource "authentik_outpost" "proxyoutpost" {
     module.proxy-hajimari.id
   ]
   config = jsonencode({
-    authentik_host          = "https://auth.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
+    authentik_host          = "https://auth.${module.secret_authentik.fields["cluster_domain"]}",
     authentik_host_insecure = false,
     authentik_host_browser  = "",
     log_level               = "debug",
