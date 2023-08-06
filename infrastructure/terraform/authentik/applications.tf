@@ -5,7 +5,7 @@ module "proxy-transmission" {
   icon_url           = "https://github.com/transmission/transmission/raw/main/web/assets/img/logo.png"
   group              = "Media"
   slug               = "torrent"
-  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   auth_groups        = [authentik_group.media.id]
 }
@@ -17,7 +17,7 @@ module "proxy-prowlarr" {
   icon_url           = "https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/128.png"
   group              = "Media"
   slug               = "indexer"
-  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   auth_groups        = [authentik_group.media.id]
 }
@@ -29,7 +29,7 @@ module "proxy-radarr" {
   icon_url           = "https://github.com/Radarr/Radarr/raw/develop/Logo/128.png"
   group              = "Media"
   slug               = "movies"
-  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   auth_groups        = [authentik_group.media.id]
 }
@@ -41,7 +41,7 @@ module "proxy-sonarr" {
   icon_url           = "https://github.com/Sonarr/Sonarr/raw/develop/Logo/128.png"
   group              = "Media"
   slug               = "tv"
-  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   auth_groups        = [authentik_group.media.id]
 }
@@ -53,7 +53,7 @@ module "proxy-hajimari" {
   icon_url           = "https://github.com/toboshii/hajimari/raw/main/assets/logo.png"
   group              = "start"
   slug               = "start"
-  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   auth_groups        = [authentik_group.users.id]
 }
@@ -68,8 +68,8 @@ module "oauth2-grafana" {
   group              = "Infrastructure"
   auth_groups        = [authentik_group.infrastructure.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id          = data.sops_file.authentik_secrets.data["grafana_client_id"]
-  client_secret      = data.sops_file.authentik_secrets.data["grafana_client_secret"]
+  client_id          = module.secret_grafana.fields["oidc_client_id"]
+  client_secret      = module.secret_grafana.fields["oidc_client_secret"]
   redirect_uris      = ["https://grafana.internal.${data.sops_file.authentik_secrets.data["cluster_domain"]}/login/generic_oauth"]
 }
 
@@ -83,8 +83,8 @@ module "oauth2-immich" {
   group              = "Media"
   auth_groups        = [authentik_group.media.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id          = data.sops_file.authentik_secrets.data["immich_client_id"]
-  client_secret      = data.sops_file.authentik_secrets.data["immich_client_secret"]
+  client_id          = module.secret_immich.fields["oidc_client_id"]
+  client_secret      = module.secret_immich.fields["oidc_client_secret"]
   redirect_uris = [
     "https://photos.${data.sops_file.authentik_secrets.data["cluster_domain"]}/auth/login",
     "app.immich:/"
@@ -101,8 +101,8 @@ module "oauth2-proxmox" {
   group              = "Infrastructure"
   auth_groups        = [authentik_group.infrastructure.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id          = data.sops_file.authentik_secrets.data["proxmox_client_id"]
-  client_secret      = data.sops_file.authentik_secrets.data["proxmox_client_secret"]
+  client_id          = module.secret_proxmox.fields["oidc_client_id"]
+  client_secret      = module.secret_proxmox.fields["oidc_client_secret"]
   redirect_uris = [
     "https://proxmox.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
     "https://proxmox-1.services.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
@@ -122,8 +122,8 @@ module "oauth2-nextcloud" {
   group                        = "Groupware"
   auth_groups                  = [authentik_group.nextcloud.id]
   authorization_flow           = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id                    = data.sops_file.authentik_secrets.data["nextcloud_client_id"]
-  client_secret                = data.sops_file.authentik_secrets.data["nextcloud_client_secret"]
+  client_id                    = module.secret_nextcloud.fields["oidc_client_id"]
+  client_secret                = module.secret_nextcloud.fields["oidc_client_secret"]
   include_claims_in_id_token   = false
   additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
   sub_mode                     = "user_username"
@@ -140,8 +140,8 @@ module "oauth2-tandoor" {
   group                      = "Groupware"
   auth_groups                = [authentik_group.nextcloud.id]
   authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id                  = data.sops_file.authentik_secrets.data["tandoor_client_id"]
-  client_secret              = data.sops_file.authentik_secrets.data["tandoor_client_secret"]
+  client_id                  = module.secret_tandoor.fields["oidc_client_id"]
+  client_secret              = module.secret_tandoor.fields["oidc_client_secret"]
   include_claims_in_id_token = false
   sub_mode                   = "user_username"
   redirect_uris              = ["https://recipes.${data.sops_file.authentik_secrets.data["cluster_domain"]}/accounts/authentik/login/callback/"]
