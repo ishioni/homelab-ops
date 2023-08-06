@@ -8,10 +8,6 @@ terraform {
   }
 
   required_providers {
-    sops = {
-      source  = "carlpett/sops"
-      version = "0.7.2"
-    }
     minio = {
       source  = "aminueza/minio"
       version = "1.17.2"
