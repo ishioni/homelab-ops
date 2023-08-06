@@ -63,43 +63,6 @@ EOF
 }
 
 ## Group bindings
-
-resource "authentik_policy_binding" "transmission" {
-  target = authentik_application.transmission.uuid
-  group  = authentik_group.media.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "prowlarr" {
-  target = authentik_application.prowlarr.uuid
-  group  = authentik_group.media.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "sonarr" {
-  target = authentik_application.sonarr.uuid
-  group  = authentik_group.media.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "radarr" {
-  target = authentik_application.radarr.uuid
-  group  = authentik_group.media.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "readarr" {
-  target = authentik_application.readarr.uuid
-  group  = authentik_group.media.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "hajimari" {
-  target = authentik_application.hajimari.uuid
-  group  = authentik_group.users.id
-  order  = 0
-}
-
 resource "authentik_policy_binding" "grafana" {
   target = authentik_application.grafana.uuid
   group  = authentik_group.infrastructure.id

@@ -3,12 +3,11 @@ resource "authentik_outpost" "proxyoutpost" {
   type               = "proxy"
   service_connection = authentik_service_connection_kubernetes.local.id
   protocol_providers = [
-    resource.authentik_provider_proxy.transmission.id,
-    resource.authentik_provider_proxy.prowlarr.id,
-    resource.authentik_provider_proxy.sonarr.id,
-    resource.authentik_provider_proxy.radarr.id,
-    resource.authentik_provider_proxy.readarr.id,
-    resource.authentik_provider_proxy.hajimari.id
+    module.proxy-transmission.id,
+    module.proxy-prowlarr.id,
+    module.proxy-radarr.id,
+    module.proxy-sonarr.id,
+    module.proxy-hajimari.id
   ]
   config = jsonencode({
     authentik_host          = "https://auth.${data.sops_file.authentik_secrets.data["cluster_domain"]}",
@@ -32,53 +31,66 @@ resource "authentik_outpost" "proxyoutpost" {
   })
 }
 
-resource "authentik_provider_proxy" "transmission" {
-  name                  = "transmission-provider"
-  external_host         = "https://torrent.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
+module "proxy-transmission" {
+  source             = "./proxy_application"
+  name               = "Transmission"
+  description        = "Torrent client"
+  icon_url           = "https://github.com/transmission/transmission/raw/main/web/assets/img/logo.png"
+  group              = "Media"
+  slug               = "torrent"
+  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
 }
 
-resource "authentik_provider_proxy" "prowlarr" {
-  name                  = "prowlarr-provider"
-  external_host         = "https://indexer.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
+module "proxy-prowlarr" {
+  source             = "./proxy_application"
+  name               = "Prowlarr"
+  description        = "Torrent indexer"
+  icon_url           = "https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/128.png"
+  group              = "Media"
+  slug               = "indexer"
+  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
 }
 
-resource "authentik_provider_proxy" "radarr" {
-  name                  = "radarr-provider"
-  external_host         = "https://movies.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
+module "proxy-radarr" {
+  source             = "./proxy_application"
+  name               = "Radarr"
+  description        = "Movies"
+  icon_url           = "https://github.com/Radarr/Radarr/raw/develop/Logo/128.png"
+  group              = "Media"
+  slug               = "movies"
+  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
 }
 
-resource "authentik_provider_proxy" "sonarr" {
-  name                  = "sonarr-provider"
-  external_host         = "https://tv.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
+module "proxy-sonarr" {
+  source             = "./proxy_application"
+  name               = "Sonarr"
+  description        = "TV"
+  icon_url           = "https://github.com/Sonarr/Sonarr/raw/develop/Logo/128.png"
+  group              = "Media"
+  slug               = "tv"
+  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
 }
 
-resource "authentik_provider_proxy" "readarr" {
-  name                  = "readarr-provider"
-  external_host         = "https://books.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
+module "proxy-hajimari" {
+  source             = "./proxy_application"
+  name               = "Startpage"
+  description        = "Startpage"
+  icon_url           = "https://github.com/toboshii/hajimari/raw/main/assets/logo.png"
+  group              = "start"
+  slug               = "start"
+  domain             = data.sops_file.authentik_secrets.data["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.users.id]
 }
 
-resource "authentik_provider_proxy" "hajimari" {
-  name                  = "hajimari-provider"
-  external_host         = "https://start.${data.sops_file.authentik_secrets.data["cluster_domain"]}"
-  mode                  = "forward_single"
-  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  access_token_validity = "hours=24"
-}
 
 resource "authentik_provider_oauth2" "immich" {
   name                       = "immich-oidc"
@@ -175,66 +187,6 @@ resource "authentik_provider_oauth2" "tandoor" {
   redirect_uris = [
     "https://recipes.${data.sops_file.authentik_secrets.data["cluster_domain"]}/accounts/authentik/login/callback/"
   ]
-}
-
-resource "authentik_application" "transmission" {
-  name              = "Transmission"
-  slug              = "torrent"
-  group             = "Media"
-  protocol_provider = resource.authentik_provider_proxy.transmission.id
-  meta_icon         = "https://github.com/transmission/transmission/raw/main/web/assets/img/logo.png"
-  meta_description  = "Torrent client"
-  open_in_new_tab   = true
-}
-
-resource "authentik_application" "prowlarr" {
-  name              = "Prowlarr"
-  slug              = "indexer"
-  group             = "Media"
-  protocol_provider = resource.authentik_provider_proxy.prowlarr.id
-  meta_icon         = "https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/128.png"
-  meta_description  = "Torrent indexer"
-  open_in_new_tab   = true
-}
-
-resource "authentik_application" "radarr" {
-  name              = "Sonarr"
-  slug              = "movies"
-  group             = "Media"
-  protocol_provider = resource.authentik_provider_proxy.radarr.id
-  meta_icon         = "https://github.com/Radarr/Radarr/raw/develop/Logo/128.png"
-  meta_description  = "Movies"
-  open_in_new_tab   = true
-}
-
-resource "authentik_application" "sonarr" {
-  name              = "Sonarr"
-  slug              = "tv"
-  group             = "Media"
-  protocol_provider = resource.authentik_provider_proxy.sonarr.id
-  meta_icon         = "https://github.com/Sonarr/Sonarr/raw/develop/Logo/128.png"
-  meta_description  = "TV"
-  open_in_new_tab   = true
-}
-
-resource "authentik_application" "readarr" {
-  name              = "Readarr"
-  slug              = "books"
-  group             = "Media"
-  protocol_provider = resource.authentik_provider_proxy.readarr.id
-  meta_icon         = "https://github.com/Readarr/Readarr/raw/develop/Logo/128.png"
-  meta_description  = "Books"
-  open_in_new_tab   = true
-}
-
-resource "authentik_application" "hajimari" {
-  name              = "Startpage"
-  slug              = "startpage"
-  group             = "Start"
-  protocol_provider = resource.authentik_provider_proxy.hajimari.id
-  meta_icon         = "https://github.com/toboshii/hajimari/raw/main/assets/logo.png"
-  meta_description  = "Startpage"
-  open_in_new_tab   = true
 }
 
 resource "authentik_application" "immich" {
