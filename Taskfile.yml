@@ -6,6 +6,7 @@ vars:
     sh: "git rev-parse --show-toplevel"
   KUBERNETES_DIR: "{{.PROJECT_DIR}}/kubernetes"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/infrastructure/ansible"
+  TALOS_DIR: "{{.PROJECT_DIR}}/infrastructure/talos"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/infrastructure/terraform"
 
 dotenv: [".config.env"]
@@ -18,6 +19,7 @@ includes:
   precommit: .taskfiles/PrecommitTasks.yml
   ansible: .taskfiles/Ansible/Tasks.yml
   sops: .taskfiles/SopsTasks.yml
+  talos: .taskfiles/Talos/Tasks.yml
   terraform: .taskfiles/Terraform/Tasks.yml
 
 tasks:
