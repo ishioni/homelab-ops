@@ -61,34 +61,3 @@ return {
 }
 EOF
 }
-
-## Group bindings
-resource "authentik_policy_binding" "grafana" {
-  target = authentik_application.grafana.uuid
-  group  = authentik_group.infrastructure.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "proxmox" {
-  target = authentik_application.proxmox.uuid
-  group  = authentik_group.infrastructure.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "immich" {
-  target = authentik_application.immich.uuid
-  group  = authentik_group.media.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "nextcloud" {
-  target = authentik_application.nextcloud.uuid
-  group  = authentik_group.nextcloud.id
-  order  = 0
-}
-
-resource "authentik_policy_binding" "tandoor" {
-  target = authentik_application.tandoor.uuid
-  group  = authentik_group.nextcloud.id
-  order  = 0
-}
