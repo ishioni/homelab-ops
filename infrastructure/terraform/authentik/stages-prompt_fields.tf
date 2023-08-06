@@ -4,14 +4,13 @@ resource "authentik_stage_prompt_field" "username" {
   required  = true
   type      = "text"
   label     = "Username"
-  # initial_value = <<-EOT
-  # try:
-  #   return user.username
-  # except:
-  #   return ''
-  # EOT
+  initial_value = <<-EOT
+    try:
+      return user.username
+    except:
+      return ''
+  EOT
   placeholder              = "Username"
-  initial_value            = "try:\n    return user.username\nexcept:\n    return ''"
   initial_value_expression = true
   order                    = 200
 }
@@ -23,7 +22,12 @@ resource "authentik_stage_prompt_field" "name" {
   required                 = true
   label                    = "Name"
   placeholder              = "Name"
-  initial_value            = "try:\n    return user.name\nexcept:\n    return ''"
+  initial_value = <<-EOT
+    try:
+      return user.name
+    except:
+      return ''
+  EOT
   initial_value_expression = true
   order                    = 201
 }
@@ -35,7 +39,12 @@ resource "authentik_stage_prompt_field" "email" {
   required                 = true
   label                    = "Email"
   placeholder              = "Email"
-  initial_value            = "try:\n    return user.email\nexcept:\n    return ''"
+  initial_value = <<-EOT
+  try:
+    return user.email
+  except:
+    return ''
+  EOT
   initial_value_expression = true
   order                    = 202
 }
@@ -47,7 +56,12 @@ resource "authentik_stage_prompt_field" "locale" {
   required                 = true
   label                    = "Locale"
   placeholder              = "Locale"
-  initial_value            = "try:\n    return user.attributes.get('settings', {}).get('locale', '')\nexcept:\n    return ''"
+  initial_value = <<-EOT
+  try:
+    return user.attributes.get('settings', {}).get('locale', '')
+  except:
+    return ''
+  EOT
   initial_value_expression = true
   order                    = 203
 }
