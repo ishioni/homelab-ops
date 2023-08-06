@@ -1,0 +1,101 @@
+---
+version: "3"
+
+vars:
+  N: '{{ .N | default "20" }}'
+  NODE:
+    sh: 'echo ${NODE:-10.1.4.{{ .N }}}'
+  # renovate: datasource=github-releases depName=siderolabs/talos
+  TALOS_VERSION: "v1.4.7"
+  # renovate: datasource=github-releases depName=budimanjojo/talhelper
+  TALHELPER_VERSION: "v1.9.0"
+  # renovate: datasource=github-releases depName=siderolabs/kubelet
+  KUBERNETES_VERSION: "v1.27.4"
+
+tasks:
+
+  generate:
+    internal: true
+    desc: Generate Talos machine configurations (task talos:generate)
+    dir: infrastructure/talos
+    cmds:
+      - talhelper genconfig
+    sources:
+      - talconfig.yaml
+      - talenv.sops.yaml
+      - talenv.yaml
+      - talsecret.sops.yaml
+    generates:
+      - clusterconfig/*.yaml
+      - clusterconfig/talosconfig
+
+  wait_for_health:
+    internal: true
+    desc: Wait for services in cluster to be healthy
+    cmds:
+      # Ensure CNPG cluster has 2 ready instances
+      - kubectl -n database wait --for jsonpath='{.status.readyInstances}'='2' --timeout {{ .TIMEOUT | default "30s" }} cluster postgres-v3
+
+  upgrade:
+    internal: true
+    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade N=0)
+    dir: provision/talos
+    status:
+      - talosctl version --nodes {{ .NODE }} --short | grep 'Tag.*{{ .TALOS_VERSION }}'
+    cmds:
+      - task: wait_for_health
+        vars: {TIMEOUT: 10m}
+      - task: apply-config
+        vars: {NODE: "{{ .NODE }}", N: "{{ .N }}", CLI_ARGS: "-m staged"}
+      - talosctl upgrade --nodes {{ .NODE }} --image ghcr.io/siderolabs/installer:{{ .TALOS_VERSION }}
+
+  init:
+    desc: Init talosctl and grab kubeconfig (task talos:init)
+    cmds:
+      - task: generate
+      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig --nodes {{ .NODE }} $KUBECONFIG
+
+  dashboard:
+    desc: Show talos dashboard fot N node (task talos:dashboard)
+    cmds:
+      - task: generate
+      - talosctl --nodes {{ .NODE }} dashboard
+
+  upgrade:k8s:
+    dir: provision/talos
+    desc: Upgrade Kubernetes to {{ .KUBERNETES_VERSION }} (task talos:upgrade:k8s)
+    cmds:
+      - task: generate
+      - talosctl --nodes {{ .NODE }} upgrade-k8s --to {{ .KUBERNETES_VERSION }}
+
+  upgrade:all:
+    desc: Upgrade all nodes to Talos version {{ .TALOS_VERSION }} (task talos:upgrade:all)
+    dir: provision/talos
+    cmds:
+      - task: generate
+      # control-plane
+      - task: upgrade
+        vars: {NODE: 10.1.4.20, N: 1}
+      - task: upgrade
+        vars: {NODE: 10.1.4.21, N: 2}
+      - task: upgrade
+        vars: {NODE: 10.1.4.22, N: 3}
+      - task: upgrade
+        vars: {NODE: 10.1.4.30, N: 4}
+      - task: upgrade
+        vars: {NODE: 10.1.4.31, N: 5}
+      - task: upgrade
+        vars: {NODE: 10.1.4.32, N: 6}
+      - task: wait_for_health
+        vars: {TIMEOUT: 10m}
+
+  apply:restart:
+    desc: Apply Talos config to a specific node with reboot (task talos:apply N=1)
+    dir: provision/talos
+    cmds:
+      - task: generate
+      - task: wait_for_health
+        vars: {TIMEOUT: 10m}
+      - task: apply-config
+        vars: {NODE: "{{ .NODE }}", N: "{{ .N }}", CLI_ARGS: "-m staged"}
+      - talosctl reboot --nodes {{ .NODE }} --wait
