@@ -53,9 +53,13 @@ spec:
         enabled: true
         existingClaim: immich-media
         mountPath: /usr/src/app/upload
+    nodeSelector:
+      intel.feature.node.kubernetes.io/gpu: "true"
     resources:
       requests:
+        gpu.intel.com/i915: 1
         cpu: 100m
         memory: 250Mi
       limits:
+        gpu.intel.com/i915: 1
         memory: 2500Mi
