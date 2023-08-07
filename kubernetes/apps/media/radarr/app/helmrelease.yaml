@@ -50,6 +50,7 @@ spec:
       RADARR__PORT: &port 80
       RADARR__APPLICATION_URL: "https://movies.${SECRET_DOMAIN}"
       RADARR__LOG_LEVEL: info
+      RADARR__THEME: dark
     envFrom:
       - secretRef:
           name: *secret
