@@ -51,6 +51,7 @@ spec:
       PROWLARR__PORT: &port 80
       PROWLARR__LOG_LEVEL: info
       PROWLARR__AUTHENTICATION_METHOD: External
+      PROWLARR__THEME: dark
     envFrom:
       - secretRef:
           name: *secret

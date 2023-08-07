@@ -41,6 +41,7 @@ spec:
       SONARR__INSTANCE_NAME: Sonarr
       SONARR__PORT: &port 80
       SONARR__LOG_LEVEL: info
+      SONARR__THEME: dark
     service:
       main:
         ports:
