@@ -53,6 +53,18 @@ spec:
         enabled: true
         existingClaim: immich-media
         mountPath: /usr/src/app/upload
+      geocoding-dump:
+        enabled: true
+        type: emptyDir
+        mountPath: /usr/src/app/.reverse-geocoding-dump
+      geoname-dump:
+        enabled: true
+        type: emptyDir
+        mountPath: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
+      transformers-cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /usr/src/app/.transformers_cache
     nodeSelector:
       intel.feature.node.kubernetes.io/gpu: "true"
     resources:
