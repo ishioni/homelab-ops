@@ -242,10 +242,6 @@ spec:
           gnetId: 11835 # https://grafana.com/grafana/dashboards/11835?tab=revisions
           revision: 1
           datasource: Prometheus
-        redis-sentinel:
-          gnetId: 12776 #https://grafana.com/grafana/dashboards/12776?tab=revisions
-          revision: 2
-          datasource: Redis
       cilium:
         cilium-dashboard:
           url: https://raw.githubusercontent.com/cilium/cilium/v1.13.4/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
@@ -284,9 +280,6 @@ spec:
           datasource: Prometheus
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-          datasource: Prometheus
-        external-secrets:
-          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
       system:
         node-exporter:
