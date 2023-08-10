@@ -4,13 +4,15 @@
         "*.json5": "jsonc",
         "**/ansible/**/*.yml": "ansible",
         "**/ansible/**/*.sops.yml": "yaml",
-        "**/ansible/**/inventory/**/*.yml": "yaml"
+        "**/ansible/**/inventory/**/*.yml": "yaml",
+        "**/infrastructure/terraform/**/*.tf": "terraform"
     },
     "prettier.configPath": ".github/linters/.prettierrc.yaml",
     "prettier.ignorePath": ".github/linters/.prettierignore",
     "yaml.schemas": {
-        "kubernetes": "cluster/*.yaml",
-        "ansible": "ansible/*.yml"
+        "kubernetes": "kubernetes/*.yaml",
+        "ansible": "infrastructure/ansible/*.yml",
+        "https://taskfile.dev/schema.json": ".taskfiles/*.y*ml"
     },
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs":"active",
