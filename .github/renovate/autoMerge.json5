@@ -1,28 +1,37 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "packageRules": [
     {
-      "description": "Auto merge sonarr",
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "ignoreTests": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": ["digest"],
-      "matchPackagePatterns": [
-        "ghcr.io/onedr0p/sonarr-develop"
-      ]
+        "description": "Auto merge pre-commits",
+        "matchDatasources": [
+        "github-releases",
+        "github-tags"
+        ],
+        "automerge": true,
+        "automergeType": "branch",
+        "matchUpdateTypes": [
+            "minor",
+            "patch"
+        ],
+        "matchPackageNames": [
+            "sirosen/texthooks",
+            "gruntwork-io/pre-commit",
+            "zricethezav/gitleaks",
+            "Lucas-C/pre-commit-hooks",
+            "adrienverge/yamllint",
+            "pre-commit/pre-commit-hooks"
+        ]
     },
     {
-      "description": "Auto merge GitHub Actions",
-      "matchManagers": ["github-actions"],
-      "matchDatasources": ["github-tags"],
-      "automerge": true,
-      "ignoreTests": true,
-      "automergeType": "branch",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
+        "description": "Auto merge sonarr",
+        "matchDatasources": ["docker"],
+        "automerge": true,
+        "ignoreTests": true,
+        "automergeType": "branch",
+        "matchUpdateTypes": ["digest"],
+        "matchPackagePatterns": [
+        "ghcr.io/onedr0p/sonarr-develop"
+        ]
     }
-  ]
+    ]
 }
