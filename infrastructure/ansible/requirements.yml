@@ -20,7 +20,7 @@ roles:
     version: 2.2.0
   - name: geerlingguy.docker
     src: https://github.com/geerlingguy/ansible-role-docker.git
-    version: 6.1.0
+    version: 6.2.0
   - name: igor_nikiforov.journald
     src: https://github.com/igor-nikiforov/ansible-role-journald.git
     version: v1.0.0
