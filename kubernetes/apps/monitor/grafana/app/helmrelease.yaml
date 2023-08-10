@@ -69,6 +69,7 @@ spec:
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
+        reporting_enabled: false
       auth:
         oauth_auto_login: true
         signout_redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
@@ -94,6 +95,8 @@ spec:
         org_id: 1
       log:
         mode: console
+      news:
+        news_feed_enabled: false
       paths:
         data: /var/lib/grafana/data
         logs: /var/log/grafana
