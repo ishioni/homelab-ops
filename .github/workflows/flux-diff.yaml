@@ -28,7 +28,7 @@ jobs:
         id: diff
         with:
           sources: homelab-ops
-          live-branch: main
+          live-branch: master
           path: ${{ matrix.path }}
           resource: ${{ matrix.resource }}
 
