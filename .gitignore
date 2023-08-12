@@ -17,3 +17,10 @@ xanmanning.k3s*
 .terraform.tfstate*
 terraform.tfstate*
 megalinter-reports
+# Helm
+Chart.lock
+*.tgz
+# Tasks
+.task
+# env variables
+.devcontainer/devcontainer.env
