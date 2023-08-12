@@ -57,9 +57,9 @@ tasks:
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
     cmds:
-  #     - mkdir config || true
-  #     - sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}/talosctl-$(uname -s | tr "[:upper:]" "[:lower:]")-$(uname -m) && sudo chmod +x /usr/local/bin/talosctl
-  #     - curl -Lo /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz https://github.com/budimanjojo/talhelper/releases/download/{{.TALHELPER_VERSION}}/talhelper_$(uname -s | tr "[:upper:]" "[:lower:]")_$(uname -m).tar.gz && tar -xzf /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz -C /tmp && sudo mv /tmp/talhelper /usr/local/bin/talhelper
+      #     - mkdir config || true
+      #     - sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}/talosctl-$(uname -s | tr "[:upper:]" "[:lower:]")-$(uname -m) && sudo chmod +x /usr/local/bin/talosctl
+      #     - curl -Lo /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz https://github.com/budimanjojo/talhelper/releases/download/{{.TALHELPER_VERSION}}/talhelper_$(uname -s | tr "[:upper:]" "[:lower:]")_$(uname -m).tar.gz && tar -xzf /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz -C /tmp && sudo mv /tmp/talhelper /usr/local/bin/talhelper
       - task: generate
       - talosctl config merge infrastructure/talos/clusterconfig/talosconfig
       - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig --n talos-master-0.{{ .DOMAIN }} $KUBECONFIG
@@ -77,17 +77,17 @@ tasks:
     cmds:
       - task: generate
       - task: apply-insecure
-        vars: { IP: "10.1.4.20", NODE: "talos-master-0" }
+        vars: {IP: "10.1.4.20", NODE: "talos-master-0"}
       - task: apply-insecure
-        vars: { IP: "10.1.4.21", NODE: "talos-master-1" }
+        vars: {IP: "10.1.4.21", NODE: "talos-master-1"}
       - task: apply-insecure
-        vars: { IP: "10.1.4.22", NODE: "talos-master-2" }
+        vars: {IP: "10.1.4.22", NODE: "talos-master-2"}
       - task: apply-insecure
-        vars: { IP: "10.1.4.30", NODE: "talos-worker-0" }
+        vars: {IP: "10.1.4.30", NODE: "talos-worker-0"}
       - task: apply-insecure
-        vars: { IP: "10.1.4.31", NODE: "talos-worker-1" }
+        vars: {IP: "10.1.4.31", NODE: "talos-worker-1"}
       - task: apply-insecure
-        vars: { IP: "10.1.4.32", NODE: "talos-worker-2" }
+        vars: {IP: "10.1.4.32", NODE: "talos-worker-2"}
       - echo "Wait for install"
       - sleep 180
       - echo "Bootstrapping etcd"
@@ -110,17 +110,17 @@ tasks:
     cmds:
       - task: generate
       - task: apply
-        vars: { NODE: talos-master-0 }
+        vars: {NODE: talos-master-0}
       - task: apply
-        vars: { NODE: talos-master-1 }
+        vars: {NODE: talos-master-1}
       - task: apply
-        vars: { NODE: talos-master-2 }
+        vars: {NODE: talos-master-2}
       - task: apply
-        vars: { NODE: talos-worker-0 }
+        vars: {NODE: talos-worker-0}
       - task: apply
-        vars: { NODE: talos-worker-1 }
+        vars: {NODE: talos-worker-1}
       - task: apply
-        vars: { NODE: talos-worker-2 }
+        vars: {NODE: talos-worker-2}
 
   upgrade:all:
     desc: Upgrade all nodes to Talos version {{ .TALOS_VERSION }} (task talos:upgrade:all)
@@ -129,18 +129,18 @@ tasks:
       - task: generate
       # control-plane
       - task: upgrade
-        vars: { NODE: talos-master-0 }
+        vars: {NODE: talos-master-0}
       - task: upgrade
-        vars: { NODE: talos-master-1 }
+        vars: {NODE: talos-master-1}
       - task: upgrade
-        vars: { NODE: talos-master-2 }
+        vars: {NODE: talos-master-2}
       # workers
       - task: upgrade
-        vars: { NODE: talos-worker-0 }
+        vars: {NODE: talos-worker-0}
       - task: upgrade
-        vars: { NODE: talos-worker-1 }
+        vars: {NODE: talos-worker-1}
       - task: upgrade
-        vars: { NODE: talos-worker-2 }
+        vars: {NODE: talos-worker-2}
 
   upgrade:k8s:
     dir: infrastructure/talos
