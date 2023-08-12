@@ -1,9 +1,10 @@
 ---
 clusterName: ${clusterName}
-
+# renovate: datasource=github-releases depName=siderolabs/talos
 talosVersion: v1.4.7
+# renovate: datasource=github-releases depName=siderolabs/kubelet
 kubernetesVersion: 1.27.4
-endpoint: "https://${clusterName}-api.${secretKDomain}:6443"
+endpoint: "https://${clusterName}-api.${domainName}:6443"
 
 clusterPodNets:
   - 172.16.0.0/16
@@ -22,7 +23,7 @@ additionalMachineCertSans:
 domain: cluster.local
 
 nodes:
-  - hostname: talos-master-0.${secretKDomain}
+  - hostname: talos-master-0.${domainName}
     disableSearchDomain: true
     ipAddress: 10.1.4.20
     controlPlane: true
@@ -33,7 +34,7 @@ nodes:
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
-  - hostname: talos-master-1.${secretKDomain}
+  - hostname: talos-master-1.${domainName}
     disableSearchDomain: true
     ipAddress: 10.1.4.21
     controlPlane: true
@@ -44,7 +45,7 @@ nodes:
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
-  - hostname: talos-master-2.${secretKDomain}
+  - hostname: talos-master-2.${domainName}
     disableSearchDomain: true
     ipAddress: 10.1.4.22
     controlPlane: true
@@ -56,7 +57,7 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
 
-  - hostname: talos-worker-0.${secretKDomain}
+  - hostname: talos-worker-0.${domainName}
     disableSearchDomain: true
     ipAddress: 10.1.4.30
     controlPlane: false
@@ -67,7 +68,7 @@ nodes:
         dhcp: true
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
-  - hostname: talos-worker-1.${secretKDomain}
+  - hostname: talos-worker-1.${domainName}
     disableSearchDomain: true
     ipAddress: 10.1.4.31
     controlPlane: false
@@ -77,7 +78,7 @@ nodes:
         mtu: 1500
         dhcp: true
     nodeLabels: *workerLabels
-  - hostname: talos-worker-2.${secretKDomain}
+  - hostname: talos-worker-2.${domainName}
     disableSearchDomain: true
     ipAddress: 10.1.4.32
     controlPlane: false
