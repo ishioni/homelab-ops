@@ -46,13 +46,13 @@ tasks:
     desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=talos-master-0)
     dir: infrastructure/talos
     status:
-      - talosctl version --nodes {{ .NODE }}.{{ .DOMAIN }} --short | grep 'Tag.*{{ .TALOS_VERSION }}'
+      - talosctl version -n {{ .NODE }}.{{ .DOMAIN }} --short | grep 'Tag.*{{ .TALOS_VERSION }}'
     cmds:
       - task: wait_for_health
         vars: {TIMEOUT: 10m}
       - task: apply
         vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m staged"}
-      - talosctl upgrade --nodes {{ .NODE }}.{{ .DOMAIN }} --image ghcr.io/siderolabs/installer:{{ .TALOS_VERSION }}
+      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} --image ghcr.io/siderolabs/installer:{{ .TALOS_VERSION }}
 
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
@@ -62,7 +62,7 @@ tasks:
       #     - curl -Lo /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz https://github.com/budimanjojo/talhelper/releases/download/{{.TALHELPER_VERSION}}/talhelper_$(uname -s | tr "[:upper:]" "[:lower:]")_$(uname -m).tar.gz && tar -xzf /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz -C /tmp && sudo mv /tmp/talhelper /usr/local/bin/talhelper
       - task: generate
       - talosctl config merge infrastructure/talos/clusterconfig/talosconfig
-      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig --n talos-master-0.{{ .DOMAIN }} $KUBECONFIG
+      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig -n talos-master-0.{{ .DOMAIN }} $KUBECONFIG
 
   deploy-extras:
     internal: True
@@ -102,7 +102,7 @@ tasks:
     dir: infrastructure/talos
     cmds:
       - task: generate
-      - talosctl apply-config --n {{ .NODE }}.{{ .DOMAIN }} --f clusterconfig/talos-{{ .NODE }}.{{ .DOMAIN }}.yaml {{ .CLI_ARGS }}
+      - talosctl apply-config -n {{ .NODE }}.{{ .DOMAIN }} -f clusterconfig/talos-{{ .NODE }}.{{ .DOMAIN }}.yaml {{ .CLI_ARGS }}
 
   apply:all:
     desc: Apply Talos config to all nodes
@@ -147,10 +147,10 @@ tasks:
     desc: Upgrade Kubernetes to {{ .KUBERNETES_VERSION }} (task talos:upgrade:k8s NODE=talos-master-0)
     cmds:
       - task: generate
-      - talosctl --n {{ .NODE }} upgrade-k8s --to {{ .KUBERNETES_VERSION }}
+      - talosctl -n {{ .NODE }} upgrade-k8s -to {{ .KUBERNETES_VERSION }}
 
   dashboard:
     desc: Show talos dashboard for node (task talos:dashboard NODE=talos-master-0)
     cmds:
       - task: generate
-      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig --n {{ .NODE }}.{{ .DOMAIN }} dashboard
+      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig -n {{ .NODE }}.{{ .DOMAIN }} dashboard
