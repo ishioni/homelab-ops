@@ -39,7 +39,7 @@ spec:
               name: *secret
     image:
       repository: ghcr.io/onedr0p/radarr
-      tag: 4.6.4.7568
+      tag: 4.7.5.7809
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
