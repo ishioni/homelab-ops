@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: immich-microservices
+  name: &app immich-microservices
   namespace: fileserver
 spec:
   interval: 15m
@@ -67,6 +67,13 @@ spec:
         mountPath: /usr/src/app/.transformers_cache
     nodeSelector:
       intel.feature.node.kubernetes.io/gpu: "true"
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
     resources:
       requests:
         gpu.intel.com/i915: 1
