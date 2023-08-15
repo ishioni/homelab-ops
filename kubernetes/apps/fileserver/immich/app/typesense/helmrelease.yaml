@@ -38,7 +38,7 @@ spec:
         configMap.reloader.stakater.com/reload: &configmap immich-configmap
     image:
       repository: docker.io/typesense/typesense
-      tag: 0.24.1
+      tag: 0.25.0
     envFrom:
       - secretRef:
           name: *secret
