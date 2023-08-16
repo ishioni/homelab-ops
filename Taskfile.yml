@@ -15,10 +15,13 @@ dotenv: [".config.env"]
 #   # KUBECONFIG: "$HOME/.kube/kubeconfig"
 
 includes:
-  kubernetes: .taskfiles/Kubernetes/Tasks.yml
-  precommit: .taskfiles/PrecommitTasks.yml
-  ansible: .taskfiles/Ansible/Tasks.yml
-  talos: .taskfiles/Talos/Tasks.yml
+  kubernetes: .taskfiles/Kubernetes.yml
+  precommit: .taskfiles/Precommit.yml
+  ansible: .taskfiles/Ansible.yml
+  talos: .taskfiles/Talos.yml
+  format: .taskfiles/Format.yml
+  lint: .taskfiles/Lint.yml
+  flux: .taskfiles/Flux.yml
 
 tasks:
   default:
