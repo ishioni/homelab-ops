@@ -12,7 +12,7 @@ spec:
   path: ./infrastructure/terraform/minio
   sourceRef:
     kind: GitRepository
-    name: homelab-ops-terraform
+    name: homelab-ops
     namespace: flux-system
   backendConfig:
     disable: true
