@@ -1,0 +1,46 @@
+---
+version: "3"
+
+tasks:
+  delete-failed-pods:
+    desc: Deletes failed pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
+
+  delete-completed-pods:
+    desc: Deletes failed pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
+
+  certificates:
+    desc: List all the certificates in your cluster
+    cmds:
+      - kubectl get certificates {{.CLI_ARGS | default "-A"}}
+      - kubectl get certificaterequests {{.CLI_ARGS | default "-A"}}
+
+  ingresses:
+    desc: List all the ingresses in your cluster
+    cmds:
+      - kubectl get ingress {{.CLI_ARGS | default "-A"}}
+
+  nodes:
+    desc: List all the nodes in your cluster
+    cmds:
+      - kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
+
+  pods:
+    desc: List all the pods in your cluster
+    cmds:
+      - kubectl get pods {{.CLI_ARGS | default "-A"}}
+
+  resources:
+    desc: Gather common resources in your cluster, useful when asking for support
+    cmds:
+      - task: nodes
+      - task: kustomizations
+      - task: helmreleases
+      - task: helmrepositories
+      - task: gitrepositories
+      - task: certificates
+      - task: ingresses
+      - task: pods

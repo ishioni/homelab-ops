@@ -2,16 +2,6 @@
 version: "3"
 
 tasks:
-  delete-failed-pods:
-    desc: Deletes failed pods
-    cmds:
-      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
-
-  delete-completed-pods:
-    desc: Deletes failed pods
-    cmds:
-      - kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
-
   verify:
     desc: Verify flux meets the prerequisites
     cmds:
@@ -35,24 +25,14 @@ tasks:
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
     cmds:
-      - flux reconcile -n flux-system source git flux-cluster
-      - flux reconcile -n flux-system kustomization flux-cluster
+      - flux reconcile -n flux-system source git homelab-ops
+      - flux reconcile -n flux-system kustomization cluster
 
   hr-restart:
     desc: Restart all failed Helm Releases
     cmds:
       - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux suspend hr $0 -n $1'
       - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux resume hr $0 -n $1'
-
-  nodes:
-    desc: List all the nodes in your cluster
-    cmds:
-      - kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
-
-  pods:
-    desc: List all the pods in your cluster
-    cmds:
-      - kubectl get pods {{.CLI_ARGS | default "-A"}}
 
   kustomizations:
     desc: List all the kustomizations in your cluster
@@ -73,26 +53,3 @@ tasks:
     desc: List all the gitrepositories in your cluster
     cmds:
       - kubectl get gitrepositories {{.CLI_ARGS | default "-A"}}
-
-  certificates:
-    desc: List all the certificates in your cluster
-    cmds:
-      - kubectl get certificates {{.CLI_ARGS | default "-A"}}
-      - kubectl get certificaterequests {{.CLI_ARGS | default "-A"}}
-
-  ingresses:
-    desc: List all the ingresses in your cluster
-    cmds:
-      - kubectl get ingress {{.CLI_ARGS | default "-A"}}
-
-  resources:
-    desc: Gather common resources in your cluster, useful when asking for support
-    cmds:
-      - task: nodes
-      - task: kustomizations
-      - task: helmreleases
-      - task: helmrepositories
-      - task: gitrepositories
-      - task: certificates
-      - task: ingresses
-      - task: pods
