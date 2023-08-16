@@ -12,7 +12,7 @@ vars:
 
 tasks:
   generate:
-    internal: True
+    internal: true
     desc: Generate Talos machine configurations (task talos:generate)
     dir: infrastructure/talos
     cmds:
@@ -27,14 +27,14 @@ tasks:
       - clusterconfig/talosconfig
 
   wait_for_health:
-    internal: True
+    internal: true
     desc: Wait for services in cluster to be healthy
     cmds:
       # Ensure CloudNative-PG cluster has 3 ready instances
       - kubectl -n database wait --for jsonpath='{.status.readyInstances}'='3' --timeout {{ .TIMEOUT | default "30s" }} cluster postgres-v3
 
   apply-insecure:
-    internal: True
+    internal: true
     desc: Apply Talos config to a node in maintenance mode
     dir: infrastructure/talos
     cmds:
@@ -42,7 +42,7 @@ tasks:
       - talosctl apply-config -i -n {{ .IP }} -f clusterconfig/talos-{{ .NODE }}.{{ .DOMAIN }}.yaml
 
   upgrade:
-    internal: True
+    internal: true
     desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=talos-master-0)
     dir: infrastructure/talos
     status:
@@ -65,7 +65,7 @@ tasks:
       - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig -n talos-master-0.{{ .DOMAIN }} $KUBECONFIG
 
   deploy-extras:
-    internal: True
+    internal: true
     desc: Deploy extras
     dir: infrastructure/talos
     cmds:

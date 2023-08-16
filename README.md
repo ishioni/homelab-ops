@@ -68,7 +68,7 @@ This Git repository contains the following directories under [cluster](./cluster
 ### Networking
 
 | Name                               | CIDR             |
-|------------------------------------|------------------|
+| ---------------------------------- | ---------------- |
 | Management VLAN                    | `192.168.1.0/24` |
 | Kubernetes Nodes VLAN              | `10.1.4.0/24`    |
 | Kubernetes external services (BGP) | `192.168.3.0/24` |
@@ -84,7 +84,7 @@ While most of my infrastructure and workloads are selfhosted I do rely upon the 
 The alternative solution to these two problems would be to host a Kubernetes cluster in the cloud and deploy applications like [HCVault](https://www.vaultproject.io/), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [ntfy](https://ntfy.sh/), and [Gatus](https://gatus.io/). However, maintaining another cluster and monitoring another group of workloads is a lot more time and effort than I am willing to put in and only saves me roughly $18/month.
 
 | Service                                      | Use                                                            | Cost             |
-|----------------------------------------------|----------------------------------------------------------------|------------------|
+| -------------------------------------------- | -------------------------------------------------------------- | ---------------- |
 | [1Password](https://1password.com/)          | Secrets with [External Secrets](https://external-secrets.io/)  | 73Eur/yr         |
 | [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                               | Free             |
 | [Fastmail](https://fastmail.com/)            | Email hosting                                                  | $75/yr           |
@@ -123,7 +123,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 ## 🔧 Hardware
 
 | Device                     | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose             |
-|----------------------------|-------|--------------|-------------------------|------|------------------|---------------------|
+| -------------------------- | ----- | ------------ | ----------------------- | ---- | ---------------- | ------------------- |
 | Unifi USG4                 | 1     | 2G eMMC      | -                       | 4GB  | Debian 7         | Router              |
 | Unifi USW-24-PoE           | 1     | -            | -                       | -    | -                | Network Switch      |
 | Unifi USW-Aggregation      | 1     | -            | -                       |      | -                | Network Switch      |

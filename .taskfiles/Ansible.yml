@@ -7,7 +7,6 @@ env:
   # https://github.com/ansible/ansible/issues/76322
   OBJC_DISABLE_INITIALIZE_FORK_SAFETY: "YES"
 
-
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
