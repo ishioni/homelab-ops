@@ -33,7 +33,7 @@ spec:
         configMap.reloader.stakater.com/reload: &configmap s3-proxy-configmap
     image:
       repository: public.ecr.aws/nginx/nginx
-      tag: "1.25.1"
+      tag: "1.25.2"
     service:
       main:
         ports:
