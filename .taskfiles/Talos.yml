@@ -57,9 +57,6 @@ tasks:
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
     cmds:
-      #     - mkdir config || true
-      #     - sudo curl -Lo /usr/local/bin/talosctl https://github.com/siderolabs/talos/releases/download/{{.TALOS_VERSION}}/talosctl-$(uname -s | tr "[:upper:]" "[:lower:]")-$(uname -m) && sudo chmod +x /usr/local/bin/talosctl
-      #     - curl -Lo /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz https://github.com/budimanjojo/talhelper/releases/download/{{.TALHELPER_VERSION}}/talhelper_$(uname -s | tr "[:upper:]" "[:lower:]")_$(uname -m).tar.gz && tar -xzf /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz -C /tmp && sudo mv /tmp/talhelper /usr/local/bin/talhelper
       - task: generate
       - talosctl config merge infrastructure/talos/clusterconfig/talosconfig
       - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig -n talos-master-0.{{ .DOMAIN }} $KUBECONFIG
