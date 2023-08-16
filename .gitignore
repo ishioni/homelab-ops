@@ -24,3 +24,5 @@ Chart.lock
 .task
 # env variables
 .devcontainer/devcontainer.env
+# Brewfile
+Brewfile.lock.json

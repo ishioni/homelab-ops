@@ -27,32 +27,13 @@ tasks:
   default:
     silent: true
     cmds: ["task -l"]
-  init:
+  deps:
     desc: Initialize workstation dependencies with Brew
     cmds:
-      - brew install {{.DEPS}} {{.CLI_ARGS}}
+      - brew bundle {{.CLI_ARGS}}
+      - curl -Lo /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz https://github.com/budimanjojo/talhelper/releases/download/{{.TALHELPER_VERSION}}/talhelper_$(uname -s | tr "[:upper:]" "[:lower:]")_$(uname -m).tar.gz && tar -xzf /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz -C /tmp && sudo mv /tmp/talhelper /usr/local/bin/talhelper
     preconditions:
       - sh: command -v brew
         msg: |
           Homebrew is not installed. Using MacOS, Linux or WSL?
           Head over to https://brew.sh to get up and running.
-    vars:
-      DEPS: >-
-        age
-        ansible
-        direnv
-        fluxcd/tap/flux
-        go-task/tap/go-task
-        helm
-        ipcalc
-        jq
-        kubernetes-cli
-        kustomize
-        pre-commit
-        prettier
-        sops
-        stern
-        terraform
-        tflint
-        yamllint
-        yq
