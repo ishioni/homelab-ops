@@ -1,16 +1,10 @@
 {
-    "packageRules": [
-        {
-            "description": "Lock version to cluster version",
-            "matchDatasources": [
-                "docker",
-                "github-releases"
-            ],
-            "allowedVersions": "<=1.27",
-            "matchPackageNames": [
-                "kubernetes/kubernetes",
-                "siderolabs/kubelet"
-            ]
-        }
-    ]
+  packageRules: [
+    {
+      description: "Lock version to cluster version",
+      matchDatasources: ["docker", "github-releases"],
+      allowedVersions: "<=1.27",
+      matchPackageNames: ["kubernetes/kubernetes", "siderolabs/kubelet"],
+    },
+  ],
 }

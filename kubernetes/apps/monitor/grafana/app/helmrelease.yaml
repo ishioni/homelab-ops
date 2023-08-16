@@ -233,7 +233,7 @@ spec:
           gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
           revision: 23
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - {name: DS_PROMETHEUS, value: Prometheus}
       database:
         cnpg-dashboard:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
@@ -294,7 +294,7 @@ spec:
           gnetId: 15406 # https://grafana.com/grafana/dashboards/15406?tab=revisions
           revision: 2
           datasource:
-            - { name: DS_GRAFANACLOUD-DENYAGO-PROM, value: Prometheus }
+            - {name: DS_GRAFANACLOUD-DENYAGO-PROM, value: Prometheus}
       networking:
         ingress-nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
@@ -306,7 +306,7 @@ spec:
           gnetId: 13665 # https://grafana.com/grafana/dashboards/13665?tab=revisions
           revision: 4
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - {name: DS_PROMETHEUS, value: Prometheus}
         external-dns:
           gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
           revision: 1

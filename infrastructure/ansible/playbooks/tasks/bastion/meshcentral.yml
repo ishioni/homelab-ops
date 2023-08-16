@@ -12,16 +12,16 @@
   ansible.builtin.copy:
     src: files/meshcentral.yaml
     dest: "{{ meshcentral_dir.path }}/docker-compose.yaml"
-    mode: 0644
+    mode: "0644"
     owner: "{{ bastion_user }}"
     group: "{{ bastion_user }}"
-  # notify: Restart meshcentral
+    # notify: Restart meshcentral
 
 - name: Install meshcentral envs
   ansible.builtin.template:
     src: templates/meshcentral.env.j2
     dest: "{{ meshcentral_dir.path }}/meshcentral.env"
-    mode: 0644
+    mode: "0644"
     owner: "{{ bastion_user }}"
     group: "{{ bastion_user }}"
 

@@ -44,8 +44,8 @@ spec:
       TRANSMISSION__SPEED_LIMIT_UP: 8000
       TRANSMISSION__UTP_ENABLED: false
       TRANSMISSION__UMASK: 7
-      #For changing webui
-      #TRANSMISSION_WEB_HOME: "/app/web"
+      # For changing webui
+      # TRANSMISSION_WEB_HOME: "/app/web"
     envFrom:
       - secretRef:
           name: transmission-rpc

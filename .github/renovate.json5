@@ -1,6 +1,6 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
     "github>ishioni/renovate-config",
     "github>ishioni/renovate-config:automerge-github-actions",
     "github>ishioni/renovate-config:automerge-galaxy-collections",
@@ -11,19 +11,19 @@
     "local>ishioni/homelab-ops//.github/renovate/commitMessage.json5",
     "local>ishioni/homelab-ops//.github/renovate/disabledDatasources.json5",
     "local>ishioni/homelab-ops//.github/renovate/groups.json5",
-    "local>ishioni/homelab-ops//.github/renovate/managers.json5"
+    "local>ishioni/homelab-ops//.github/renovate/managers.json5",
   ],
-  "platform": "github",
-  "username": "ishioni-bot[bot]",
-  "gitAuthor": "ishioni-bot <116219931+ishioni-bot[bot]@users.noreply.github.com>",
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "ignoreDeps": [
+  platform: "github",
+  username: "ishioni-bot[bot]",
+  gitAuthor: "ishioni-bot <116219931+ishioni-bot[bot]@users.noreply.github.com>",
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  ignoreDeps: [
     "ghcr.io/fluxcd/helm-controller",
     "ghcr.io/fluxcd/image-automation-controller",
     "ghcr.io/fluxcd/image-reflector-controller",
     "ghcr.io/fluxcd/kustomize-controller",
     "ghcr.io/fluxcd/notification-controller",
-    "ghcr.io/fluxcd/source-controller"
+    "ghcr.io/fluxcd/source-controller",
   ],
-  "ignorePaths": ["archive/**"]
+  ignorePaths: ["archive/**"],
 }
