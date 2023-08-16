@@ -2,15 +2,14 @@
 .github/
 .taskfiles/
 .vscode/
-ansible/
-terraform/
+archive/
 .envrc
 .gitattributes
 .gitignore
 .pre-commit-config.yaml
 .secretlintingnore
 .sops.yaml
-ansible.cfg
+Brewfile
 LICENSE
 README.md
 Taskfile.yml
