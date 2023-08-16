@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./authentik.yaml
   - ./cloudflare.yaml
-  - ./gitrepository.yaml
   - ./minio.yaml
