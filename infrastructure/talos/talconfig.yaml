@@ -122,13 +122,22 @@ controlPlane:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
+        install:
+          extraKernelArgs:
+            - net.ifnames=0
+          extensions:
+            - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
+        features:
+          kubePrism:
+            enabled: true
 
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
+
 worker:
   patches:
     - |-
@@ -148,8 +157,10 @@ worker:
         install:
           extraKernelArgs:
             - i915.disable_display=true
+            - net.ifnames=0
           extensions:
-            - image: ghcr.io/siderolabs/i915-ucode:20230625
+            - image: ghcr.io/siderolabs/i915-ucode:20230804
+            - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"

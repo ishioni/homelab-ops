@@ -65,3 +65,8 @@ variable "ip_address" {
 variable "network_id" {
   type = string
 }
+
+variable "qemu_agent" {
+  type = number
+  default = 0
+}

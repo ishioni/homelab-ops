@@ -7,6 +7,7 @@ module "controlplanes" {
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.proxmox_image
   startup      = "down=300"
+  qemu_agent   = 1
   cpu_cores    = 4
   memory       = 4 * 1024
   network_tag  = 4
@@ -25,6 +26,7 @@ module "workers" {
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.proxmox_image
   startup      = "down=600"
+  qemu_agent   = 1
   cpu_cores    = 8
   memory       = 24 * 1024
   network_tag  = 4
