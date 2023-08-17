@@ -9,8 +9,8 @@ bgp:
   announce:
     loadbalancerIP: true
     podCIDR: false
-k8sServiceHost: talos-api.k3s.internal
-k8sServicePort: 6443
+k8sServiceHost: "localhost" # kubeprism load balancer
+k8sServicePort: 7445
 rollOutCiliumPods: true
 localRedirectPolicy: true
 kubeProxyReplacement: strict
