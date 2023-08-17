@@ -21,6 +21,7 @@ resource "proxmox_vm_qemu" "node" {
   target_node = var.target_node
   iso         = var.iso_path
   qemu_os     = "l26"
+  agent       = var.qemu_agent
 
   oncreate = var.oncreate
   onboot   = var.onboot
