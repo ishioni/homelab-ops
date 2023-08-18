@@ -68,15 +68,7 @@ spec:
             targetPort: *peerport
     probes:
       liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          tcpSocket:
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 3
+        enabled: false
       readiness: *probes
       startup:
         enabled: false
