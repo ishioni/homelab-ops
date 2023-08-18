@@ -71,8 +71,7 @@ spec:
         enabled: true
         custom: true
         spec:
-          httpGet:
-            path: /transmission/web/
+          tcpSocket:
             port: *port
           initialDelaySeconds: 0
           periodSeconds: 10
