@@ -43,7 +43,7 @@ spec:
       DATA_FOLDER: "data"
       ICON_CACHE_FOLDER: "data/icon_cache"
       ATTACHMENTS_FOLDER: "data/attachments"
-      DOMAIN: &host "https://passwords.${SECRET_DOMAIN}"
+      DOMAIN: "https://passwords.${SECRET_DOMAIN}"
       TZ: ${CONFIG_TIMEZONE}
       SIGNUPS_ALLOWED: "false"
       SMTP_FROM: passwords@${SECRET_DOMAIN}
@@ -68,7 +68,7 @@ spec:
           hajimari.io/icon: mdi:lock
           hajimari.io/group: groupware
         hosts:
-          - host: *host
+          - host: &host passwords.${SECRET_DOMAIN}
             paths:
               - path: /
         tls:
