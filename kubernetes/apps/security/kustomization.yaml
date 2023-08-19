@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   - ./authentik/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./vaultwarden/ks.yaml
