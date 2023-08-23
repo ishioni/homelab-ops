@@ -4,7 +4,7 @@ version: "3"
 vars:
   DOMAIN: "k3s.internal"
   # renovate: datasource=github-releases depName=siderolabs/talos
-  TALOS_VERSION: "v1.5.0"
+  TALOS_VERSION: "v1.5.1"
   # renovate: datasource=github-releases depName=budimanjojo/talhelper
   TALHELPER_VERSION: "v1.9.2"
   # renovate: datasource=github-releases depName=siderolabs/kubelet
