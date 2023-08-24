@@ -144,7 +144,7 @@ tasks:
     desc: Upgrade Kubernetes to {{ .KUBERNETES_VERSION }} (task talos:upgrade:k8s NODE=talos-master-0)
     cmds:
       - task: generate
-      - talosctl -n {{ .NODE }} upgrade-k8s -to {{ .KUBERNETES_VERSION }}
+      - talosctl -n {{ .NODE }}.{{ .DOMAIN }} upgrade-k8s --to {{ .KUBERNETES_VERSION }}
 
   dashboard:
     desc: Show talos dashboard for node (task talos:dashboard NODE=talos-master-0)
