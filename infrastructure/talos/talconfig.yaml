@@ -126,6 +126,7 @@ controlPlane:
           extraKernelArgs:
             - net.ifnames=0
           extensions:
+            # renovate-docker
             - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
         sysctls:
           fs.inotify.max_user_watches: "1048576"
@@ -159,7 +160,9 @@ worker:
             - i915.disable_display=true
             - net.ifnames=0
           extensions:
+            # renovate-docker
             - image: ghcr.io/siderolabs/i915-ucode:20230804
+            # renovate-docker
             - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
         sysctls:
           fs.inotify.max_user_watches: "1048576"
