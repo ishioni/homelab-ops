@@ -23,7 +23,7 @@ receivers:
       - parse_mode: "HTML"
         disable_notifications: false
         bot_token: "{{ .TELEGRAM_BOT_TOKEN }}"
-        chat_id: "{{ .TELEGRAM_CHANNEL_ID }}"
+        chat_id: {{ .TELEGRAM_CHANNEL_ID }}
         send_resolved: true
         api_url: https://api.telegram.org
 templates:
