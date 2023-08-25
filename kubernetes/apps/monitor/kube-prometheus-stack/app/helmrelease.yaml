@@ -112,38 +112,9 @@ spec:
           - hosts:
               - *host
             secretName: *host
-      config:
-        global:
-          resolve_timeout: 5m
-        route:
-          group_by: ["alertname", "job"]
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 6h
-          receiver: "telegram"
-          routes:
-            - receiver: "null"
-              matchers:
-                - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
-              continue: false
-            - receiver: "telegram"
-        receivers:
-          - name: "null"
-          - name: "telegram"
-            telegram_configs:
-              - parse_mode: "HTML"
-                disable_notifications: false
-                bot_token: "${TELEGRAM_BOT_TOKEN}"
-                chat_id: 879509412
-                send_resolved: true
-                api_url: https://api.telegram.org
-        inhibit_rules:
-          - source_matchers: ["severity = 'critical'"]
-            target_matchers: ["severity = 'warning'"]
-            equal: ["alertname", "namespace"]
-        templates:
-          - /etc/alertmanager/config/*.tmpl
       alertmanagerSpec:
+        useExistingSecret: true
+        configSecret: alertmanager-secret
         storage:
           volumeClaimTemplate:
             spec:
@@ -221,21 +192,3 @@ spec:
           objectStorageConfig:
             name: thanos-objectstore-secret
             key: minio.yaml
-        additionalScrapeConfigs:
-          - job_name: minio
-            metrics_path: /minio/v2/metrics/cluster
-            scheme: https
-            static_configs:
-              - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
-          - job_name: node-exporter
-            scrape_interval: 30s
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "proxmox-1.services.${SECRET_DOMAIN}:9100"
-                  - "proxmox-2.services.${SECRET_DOMAIN}:9100"
-                  - "proxmox-3.services.${SECRET_DOMAIN}:9100"
-                  - "proxmox-4.services.${SECRET_DOMAIN}:9100"
-                  - "bastion.managment.internal:9100"
-                  - "quadrant.managment.internal:9100"
