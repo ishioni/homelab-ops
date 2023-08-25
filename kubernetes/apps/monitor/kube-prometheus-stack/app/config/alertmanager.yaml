@@ -1,0 +1,30 @@
+global:
+  resolve_timeout: 5m
+route:
+  group_by: ["alertname", "job"]
+  group_wait: 1m
+  group_interval: 10m
+  repeat_interval: 12h
+  receiver: "telegram"
+  routes:
+    - receiver: "null"
+      matchers:
+        - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+      continue: false
+    - receiver: "telegram"
+inhibit_rules:
+  - source_matchers: ["severity = 'critical'"]
+    target_matchers: ["severity = 'warning'"]
+    equal: ["alertname", "namespace"]
+receivers:
+  - name: "null"
+  - name: "telegram"
+    telegram_configs:
+      - parse_mode: "HTML"
+        disable_notifications: false
+        bot_token: "{{ .TELEGRAM_BOT_TOKEN }}"
+        chat_id: "{{ .TELEGRAM_CHANNEL_ID }}"
+        send_resolved: true
+        api_url: https://api.telegram.org
+templates:
+  - /etc/alertmanager/config/*.tmpl

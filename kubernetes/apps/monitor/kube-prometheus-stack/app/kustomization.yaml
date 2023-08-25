@@ -5,3 +5,10 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./scrapeconfigs
+configMapGenerator:
+  - name: alertmanager-config-tpl
+    files:
+      - alertmanager.yaml=./config/alertmanager.yaml
+generatorOptions:
+  disableNameSuffixHash: true
