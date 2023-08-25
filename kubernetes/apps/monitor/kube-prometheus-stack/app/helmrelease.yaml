@@ -192,3 +192,9 @@ spec:
           objectStorageConfig:
             name: thanos-objectstore-secret
             key: minio.yaml
+        additionalScrapeConfigs:
+          - job_name: minio
+            metrics_path: /minio/v2/metrics/cluster
+            scheme: https
+            static_configs:
+              - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
