@@ -29,12 +29,12 @@ spec:
   values:
     annotations:
       secret.reloader.stakater.com/reload: &secret grafana-secret
-    # extraInitContainers:
-    #   - name: init-db
-    #     image: ghcr.io/onedr0p/postgres-initdb:14.8
-    #     envFrom:
-    #       - secretRef:
-    #           name: &secret grafana-secret
+    extraInitContainers:
+      - name: init-db
+        image: ghcr.io/onedr0p/postgres-initdb:14.9
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
     rbac:
       pspEnabled: false
     persistence:
