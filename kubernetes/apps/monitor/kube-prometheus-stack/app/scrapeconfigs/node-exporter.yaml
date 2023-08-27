@@ -14,5 +14,5 @@ spec:
         - "proxmox-4.services.${SECRET_DOMAIN}:9100"
         - "bastion.managment.internal:9100"
         - "quadrant.managment.internal:9100"
-  # metricsPath: /metrics
+  metricsPath: /metrics
   honorTimestamps: true
