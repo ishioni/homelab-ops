@@ -77,12 +77,13 @@ spec:
       auth.basic:
         enabled: false
       auth.anonymous:
-        enabled: true
-        org_id: 1
-        org_role: Viewer
+        enabled: false
+        # org_id: 1
+        # org_role: Viewer
       auth.generic_oauth:
         enabled: true
         name: ${SECRET_DOMAIN}
+        icon: signin
         auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
         token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
         api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
