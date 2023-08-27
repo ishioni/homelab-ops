@@ -4,14 +4,16 @@ kind: Service
 metadata:
   name: postgres
   namespace: database
+  annotations:
+    io.cilium/lb-ipam-ips: "${CONFIG_POSTGRES_IP}"
+    external-dns.alpha.kubernetes.io/hostname: postgres.internal.${SECRET_DOMAIN}
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
   ports:
     - name: postgres
       port: 5432
       protocol: TCP
       targetPort: 5432
   selector:
-    postgresql: postgres-v3
+    postgresql: postgres
     role: primary
