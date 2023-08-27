@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-v3
+  name: postgres
   namespace: database
 spec:
   instances: 3
@@ -23,16 +23,32 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: postgres-v3-restore
+      source: &previousCluster postgres-v3
   resources:
     requests:
       cpu: 100m
       memory: 300Mi
     limits:
       memory: 500Mi
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 4
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
+      serverName: &currentCluster postgres-v4
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: s3-access-key
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: s3-secret-key
 
   externalClusters:
-    - name: postgres-v3-restore
+    - name: *previousCluster
       barmanObjectStore:
         destinationPath: s3://cloudnative-pg/
         endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
@@ -43,20 +59,3 @@ spec:
           secretAccessKey:
             name: cloudnative-pg-secret
             key: s3-secret-key
-
-  backup:
-    retentionPolicy: 30d
-    barmanObjectStore:
-      wal:
-        compression: bzip2
-        maxParallel: 4
-      destinationPath: s3://cloudnative-pg/
-      endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
-      serverName: postgres-v3
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: s3-access-key
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: s3-secret-key
