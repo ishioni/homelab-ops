@@ -31,7 +31,7 @@ tasks:
     desc: Wait for services in cluster to be healthy
     cmds:
       # Ensure CloudNative-PG cluster has 3 ready instances
-      - kubectl -n database wait --for jsonpath='{.status.readyInstances}'='3' --timeout {{ .TIMEOUT | default "30s" }} cluster postgres-v3
+      - kubectl -n database wait --for jsonpath='{.status.readyInstances}'='3' --timeout {{ .TIMEOUT | default "30s" }} cluster postgres
 
   apply-insecure:
     internal: true
