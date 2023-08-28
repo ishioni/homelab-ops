@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: talos-s3-backup
+  namespace: talos-system
+spec:
+  schedule: "10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: talos-backup
+              image: ghcr.io/siderolabs/talos-backup:v0.1.0-alpha.0
+              workingDir: /tmp
+              imagePullPolicy: IfNotPresent
+              envFrom:
+                - secretRef:
+                    name: talos-s3-backup
+              securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
+              command:
+                - /talos-backup
+              volumeMounts:
+                - mountPath: /tmp
+                  name: tmp
+                - mountPath: /var/run/secrets/talos.dev
+                  name: talos-secrets
+              restartPolicy: OnFailure
+              volumes:
+                - emptyDir: {}
+                  name: tmp
+                - name: talos-secrets
+                  secret:
+                    secretName: talos-backup-secrets
