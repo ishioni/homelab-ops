@@ -286,7 +286,7 @@ spec:
           datasource: Prometheus
         minio-dashboard:
           gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
-          revision: 23
+          revision: 24
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
       system:
