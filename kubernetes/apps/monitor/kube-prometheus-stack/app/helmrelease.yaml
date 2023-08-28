@@ -189,7 +189,7 @@ spec:
                 requests:
                   storage: 10Gi
         thanos:
-          image: quay.io/thanos/thanos:v0.32.0
+          image: quay.io/thanos/thanos:v0.32.1
           objectStorageConfig:
             name: thanos-objectstore-secret
             key: minio.yaml
