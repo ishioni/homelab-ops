@@ -18,8 +18,8 @@ resource "minio_s3_bucket" "bucket" {
 }
 
 resource "minio_s3_bucket_versioning" "bucket" {
-  depends_on = [ minio_s3_bucket.bucket ]
-  bucket = minio_s3_bucket.bucket.bucket
+  depends_on = [minio_s3_bucket.bucket]
+  bucket     = minio_s3_bucket.bucket.bucket
   versioning_configuration {
     status = "Enabled"
   }

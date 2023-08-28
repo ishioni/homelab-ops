@@ -18,6 +18,6 @@ variable "vault" {
 }
 
 variable "versioning" {
-  type = bool
+  type    = bool
   default = false
 }
