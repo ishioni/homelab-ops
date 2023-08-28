@@ -134,6 +134,12 @@ controlPlane:
         features:
           kubePrism:
             enabled: true
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+            - os:etcd:backup
+            allowedKubernetesNamespaces:
+            - default
 
     - |-
       - op: remove
@@ -170,3 +176,9 @@ worker:
         features:
           kubePrism:
             enabled: true
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+            - os:etcd:backup
+            allowedKubernetesNamespaces:
+            - default
