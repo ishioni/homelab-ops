@@ -9,4 +9,4 @@ spec:
   staticConfigs:
     - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
   metricsPath: /minio/v2/metrics/cluster
-  scheme: https
+  scheme: HTTPS
