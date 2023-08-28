@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -16,7 +17,7 @@ spec:
               imagePullPolicy: IfNotPresent
               envFrom:
                 - secretRef:
-                    name: talos-s3-backup
+                    name: talos-s3-secret
               securityContext:
                 runAsUser: 1000
                 runAsGroup: 1000
@@ -35,9 +36,13 @@ spec:
                 - mountPath: /var/run/secrets/talos.dev
                   name: talos-secrets
               restartPolicy: OnFailure
+              tolerations:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+                  effect: NoSchedule
               volumes:
                 - emptyDir: {}
                   name: tmp
                 - name: talos-secrets
                   secret:
-                    secretName: talos-backup-secrets
+                    secretName: talos-s3-backup
