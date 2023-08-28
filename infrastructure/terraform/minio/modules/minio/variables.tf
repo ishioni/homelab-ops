@@ -16,3 +16,8 @@ variable "user_secret_item" {
 variable "vault" {
   type = string
 }
+
+variable "versioning" {
+  type = bool
+  default = false
+}
