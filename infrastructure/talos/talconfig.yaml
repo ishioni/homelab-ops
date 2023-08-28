@@ -137,9 +137,9 @@ controlPlane:
           kubernetesTalosAPIAccess:
             enabled: true
             allowedRoles:
-            - os:etcd:backup
+              - os:etcd:backup
             allowedKubernetesNamespaces:
-            - default
+              - talos-system
 
     - |-
       - op: remove
