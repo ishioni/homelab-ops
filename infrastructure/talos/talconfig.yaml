@@ -134,6 +134,12 @@ controlPlane:
         features:
           kubePrism:
             enabled: true
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:etcd:backup
+            allowedKubernetesNamespaces:
+              - talos-system
 
     - |-
       - op: remove
