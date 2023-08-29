@@ -18,16 +18,16 @@ spec:
               envFrom:
                 - secretRef:
                     name: talos-s3-secret
-              securityContext:
-                runAsUser: 1000
-                runAsGroup: 1000
-                allowPrivilegeEscalation: false
-                runAsNonRoot: true
-                capabilities:
-                  drop:
-                    - ALL
-                seccompProfile:
-                  type: RuntimeDefault
+              # securityContext:
+              #   runAsUser: 1000
+              #   runAsGroup: 1000
+              #   allowPrivilegeEscalation: false
+              #   runAsNonRoot: true
+              #   capabilities:
+              #     drop:
+              #       - ALL
+              #   seccompProfile:
+              #     type: RuntimeDefault
               command:
                 - /talos-backup
               volumeMounts:
@@ -35,14 +35,14 @@ spec:
                   name: tmp
                 - mountPath: /var/run/secrets/talos.dev
                   name: talos-secrets
-              restartPolicy: OnFailure
-              tolerations:
-                - key: node-role.kubernetes.io/control-plane
-                  operator: Exists
-                  effect: NoSchedule
-              volumes:
-                - emptyDir: {}
-                  name: tmp
-                - name: talos-secrets
-                  secret:
-                    secretName: talos-s3-backup
+          restartPolicy: OnFailure
+          tolerations:
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
+              effect: NoSchedule
+          volumes:
+            - emptyDir: {}
+              name: tmp
+            - name: talos-secrets
+              secret:
+                secretName: talos-s3-backup
