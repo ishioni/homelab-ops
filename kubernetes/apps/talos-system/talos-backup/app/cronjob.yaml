@@ -12,22 +12,22 @@ spec:
         spec:
           containers:
             - name: talos-backup
-              image: ghcr.io/siderolabs/talos-backup:v0.1.0-alpha.0
+              image: ghcr.io/frezbo/talos-backup:v0.1.0-alpha.0-dirty
               workingDir: /tmp
               imagePullPolicy: IfNotPresent
               envFrom:
                 - secretRef:
                     name: talos-s3-secret
-              # securityContext:
-              #   runAsUser: 1000
-              #   runAsGroup: 1000
-              #   allowPrivilegeEscalation: false
-              #   runAsNonRoot: true
-              #   capabilities:
-              #     drop:
-              #       - ALL
-              #   seccompProfile:
-              #     type: RuntimeDefault
+              securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                    - ALL
+                seccompProfile:
+                  type: RuntimeDefault
               command:
                 - /talos-backup
               volumeMounts:
