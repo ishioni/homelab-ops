@@ -5,7 +5,7 @@ metadata:
   name: talos-s3-backup
   namespace: talos-system
 spec:
-  schedule: "10 * * * *"
+  schedule: "10 0/6 * * *"
   jobTemplate:
     spec:
       template:
