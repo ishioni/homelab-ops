@@ -14,7 +14,7 @@ spec:
             - name: talos-backup
               image: ghcr.io/frezbo/talos-backup:v0.1.0-alpha.0-dirty
               workingDir: /tmp
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               envFrom:
                 - secretRef:
                     name: talos-s3-secret
