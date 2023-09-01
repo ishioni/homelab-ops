@@ -40,7 +40,7 @@ spec:
               name: *secret
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.17.3
+      tag: 1.17.4
     env:
       PAPERLESS_CONSUMER_POLLING: 60
       PAPERLESS_CONSUMER_RECURSIVE: "true"
