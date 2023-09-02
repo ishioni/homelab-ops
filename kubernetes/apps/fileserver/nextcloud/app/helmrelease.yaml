@@ -62,6 +62,7 @@ spec:
         usernameKey: ADMIN_USER
         passwordKey: ADMIN_PASS
         tokenKey: METRICS_TOKEN
+        smtpHostKey: SMTP_HOST
         smtpUsernameKey: SMTP_USERNAME
         smtpPasswordKey: SMTP_PASSWORD
       mail:
@@ -263,8 +264,3 @@ spec:
         tag: 0.6.1
       serviceMonitor:
         enabled: false
-  valuesFrom:
-    - kind: Secret
-      name: *secret
-      valuesKey: SMTP_HOST
-      targetPath: nextcloud.mail.smtp.host
