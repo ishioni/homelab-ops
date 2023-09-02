@@ -9,5 +9,6 @@ resources:
   - ./prowlarr/ks.yaml
   - ./pvc
   - ./radarr/ks.yaml
+  - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./transmission/ks.yaml
