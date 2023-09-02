@@ -91,7 +91,7 @@ spec:
       enabled: true
       image:
         repository: ghcr.io/tarampampam/error-pages
-        tag: 2.24.0
+        tag: 2.25.0
       replicaCount: 1
       resources:
         requests:
