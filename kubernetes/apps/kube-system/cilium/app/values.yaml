@@ -13,7 +13,7 @@ k8sServiceHost: "localhost" # kubeprism load balancer
 k8sServicePort: 7445
 rollOutCiliumPods: true
 localRedirectPolicy: true
-kubeProxyReplacement: strict
+kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 loadBalancer:
   algorithm: maglev
