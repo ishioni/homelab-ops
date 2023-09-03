@@ -46,6 +46,7 @@ spec:
       TRANSMISSION__IDLE_SEEDING_LIMIT: 1440
       TRANSMISSION__UTP_ENABLED: false
       TRANSMISSION__UMASK: 7
+      TRANSMISSION__MESSAGE_LEVEL: 3
       # For changing webui
       # TRANSMISSION_WEB_HOME: "/app/web"
     envFrom:
