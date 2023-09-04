@@ -127,7 +127,7 @@ controlPlane:
             - net.ifnames=0
           extensions:
             # renovate-docker
-            - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
+            - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
@@ -169,7 +169,7 @@ worker:
             # renovate-docker
             - image: ghcr.io/siderolabs/i915-ucode:20230804
             # renovate-docker
-            - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
+            - image: ghcr.io/siderolabs/qemu-guest-agent:8.1.0
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
