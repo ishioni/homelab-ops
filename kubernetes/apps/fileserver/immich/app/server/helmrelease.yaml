@@ -44,7 +44,7 @@ spec:
         configMap.reloader.stakater.com/reload: &configmap immich-configmap
     image:
       repository: ghcr.io/immich-app/immich-server
-      tag: v1.76.1
+      tag: v1.77.0
     command: /bin/sh
     args: ["start-server.sh"]
     envFrom:
