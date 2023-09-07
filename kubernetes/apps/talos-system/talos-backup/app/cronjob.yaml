@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
             - name: talos-backup
-              image: ghcr.io/frezbo/talos-backup:v0.1.0-alpha.0-dirty
+              image: ghcr.io/siderolabs/talos-backup:v0.1.0-alpha.0-1-g17b8780
               workingDir: /tmp
               imagePullPolicy: Always
               envFrom:
