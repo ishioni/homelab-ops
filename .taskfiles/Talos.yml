@@ -51,7 +51,7 @@ tasks:
       - task: wait_for_health
         vars: {TIMEOUT: 10m}
       - task: apply
-        vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m staged"}
+        vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m no-reboot"}
       - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} --image ghcr.io/ishioni/installer:{{ .TALOS_VERSION }}
 
   init:
