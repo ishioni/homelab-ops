@@ -3,7 +3,7 @@ version: "3"
 
 vars:
   DOMAIN: "k3s.internal"
-  # renovate: datasource=github-releases depName=siderolabs/talos
+  # renovate: datasource=github-releases depName=ishioni/talos-images
   TALOS_VERSION: "v1.5.1"
   # renovate: datasource=github-releases depName=budimanjojo/talhelper
   TALHELPER_VERSION: "v1.11.0"
@@ -52,7 +52,7 @@ tasks:
         vars: {TIMEOUT: 10m}
       - task: apply
         vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m staged"}
-      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} --image ghcr.io/siderolabs/installer:{{ .TALOS_VERSION }}
+      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} --image ghcr.io/ishioni/installer:{{ .TALOS_VERSION }}
 
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
