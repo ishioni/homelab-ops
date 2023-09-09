@@ -38,12 +38,21 @@ spec:
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
+      hostPID: true
+
       cleanup:
         image: public.ecr.aws/docker/library/busybox:1.36.1
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:next
         logLevel: debug
         imagePullPolicy: IfNotPresent
+        extraEnv:
+          - name: ISCSIADM_HOST_STRATEGY
+            value: nsenter
+          - name: ISCSIADM_HOST_PATH
+            value: /usr/local/sbin/iscsiadm
+        iscsiDirHostPath: /usr/local/etc/iscsi
+        iscsiDirHostPathType: ""
       priorityClassName: system-node-critical
     csiProxy:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
