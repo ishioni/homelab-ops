@@ -1,6 +1,11 @@
 terraform {
 
-  backend "local" {}
+  backend "remote" {
+    organization = "ishioni"
+    workspaces {
+      name = "proxmox"
+    }
+  }
 
   required_providers {
     proxmox = {
@@ -33,10 +38,10 @@ module "secret_unifi" {
 }
 
 provider "proxmox" {
-  endpoint          = module.secret_pve.fields.pm_api_url
-  username     = module.secret_pve.fields.username
+  endpoint = module.secret_pve.fields.pm_api_url
+  username = module.secret_pve.fields.username
   password = module.secret_pve.fields.password
-  insecure     = false
+  insecure = false
 }
 
 provider "unifi" {

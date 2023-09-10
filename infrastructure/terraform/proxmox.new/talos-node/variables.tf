@@ -3,7 +3,7 @@ variable "machine_name" {
 }
 
 variable "tags" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
@@ -17,7 +17,7 @@ variable "target_node" {
 }
 
 variable "iso_path" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -52,7 +52,7 @@ variable "vlan_id" {
 }
 
 variable "storage" {
-  type = string
+  type    = string
   default = "local-zfs"
 }
 
@@ -70,21 +70,21 @@ variable "network_id" {
 }
 
 variable "qemu_agent" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "file_format" {
-  type = string
+  type    = string
   default = "raw"
 }
 
 variable "timeout_stop_vm" {
-  type = number
+  type    = number
   default = 600
 }
 
 variable "bridge" {
-  type = string
+  type    = string
   default = "vmbr0"
 }

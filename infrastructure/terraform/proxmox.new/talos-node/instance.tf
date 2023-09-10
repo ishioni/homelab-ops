@@ -15,14 +15,14 @@ resource "time_sleep" "node" {
 }
 
 resource "proxmox_virtual_environment_vm" "node" {
-  name = var.machine_name
-  tags = var.tags
+  name      = var.machine_name
+  tags      = var.tags
   node_name = var.target_node
-  vm_id = var.vmid
+  vm_id     = var.vmid
 
-  on_boot = var.onboot
-  started = var.oncreate
-  tablet_device = false
+  on_boot         = var.onboot
+  started         = var.oncreate
+  tablet_device   = false
   timeout_stop_vm = var.timeout_stop_vm
 
   operating_system {
@@ -31,15 +31,15 @@ resource "proxmox_virtual_environment_vm" "node" {
 
   agent {
     enabled = var.qemu_agent
-    type = "virtio"
+    type    = "virtio"
     timeout = "10s"
   }
 
   bios = "ovmf"
   efi_disk {
-    datastore_id = var.storage
-    file_format = var.file_format
-    type = "4m"
+    datastore_id      = var.storage
+    file_format       = var.file_format
+    type              = "4m"
     pre_enrolled_keys = false
   }
 
@@ -47,38 +47,38 @@ resource "proxmox_virtual_environment_vm" "node" {
 
   cpu {
     architecture = "x86_64"
-    cores = var.cpu_cores
-    type = "host"
+    cores        = var.cpu_cores
+    type         = "host"
   }
 
   memory {
     dedicated = var.memory
-    floating = var.memory
+    floating  = var.memory
   }
 
   scsi_hardware = "virtio-scsi-single"
 
   disk {
-    cache = "writethrough"
+    cache        = "writethrough"
     datastore_id = var.storage
-    discard = "on"
-    file_format = var.file_format
-    interface = "scsi0"
-    iothread = true
-    size = var.storage_size
-    ssd = true
+    discard      = "on"
+    file_format  = var.file_format
+    interface    = "scsi0"
+    iothread     = true
+    size         = var.storage_size
+    ssd          = true
   }
 
   network_device {
-    model = "virtio"
-    bridge = var.bridge
+    model       = "virtio"
+    bridge      = var.bridge
     mac_address = upper(macaddress.node.address)
-    vlan_id = var.vlan_id
+    vlan_id     = var.vlan_id
   }
 
   cdrom {
-    enabled = true
-    file_id = var.iso_path
+    enabled   = true
+    file_id   = var.iso_path
     interface = "ide0"
   }
   depends_on = [time_sleep.node]
