@@ -6,7 +6,7 @@ module "controlplanes" {
   target_node  = "proxmox-${count.index + 1}"
   iso_path     = var.talos_image
   timeout_stop_vm = 300
-  qemu_agent   = false
+  qemu_agent   = true
   cpu_cores    = 4
   memory       = 4 * 1024
   vlan_id  = data.unifi_network.kubernetes.vlan_id
