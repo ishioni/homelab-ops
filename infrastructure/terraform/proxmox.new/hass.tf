@@ -9,8 +9,9 @@ resource "unifi_user" "homeassistant" {
   mac              = macaddress.homeassistant.address
   name             = "homeassistant"
   local_dns_record = "homeassistant"
-  fixed_ip         = "10.1.3.2"
+  fixed_ip          = "10.1.3.2"
   network_id       = data.unifi_network.IOT.vlan_id
+  dev_id_override  = 4589 #HA Cast icon
 }
 
 resource "time_sleep" "homeassistant" {
@@ -20,7 +21,7 @@ resource "time_sleep" "homeassistant" {
 
 resource "proxmox_virtual_environment_vm" "homeassistant" {
   name          = "homeassistant"
-  description = "HASS OS managed by terraform"
+  description   = "HASS OS managed by terraform"
   node_name     = "proxmox-4"
   vm_id         = 3001
   on_boot       = true
@@ -41,7 +42,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   bios = "ovmf"
   efi_disk {
     datastore_id = "local-zfs"
-    file_format  = "raw"
+    file_format   = "raw"
     type         = "4m"
   }
   machine = "q35"
@@ -53,15 +54,15 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
 
   memory {
     dedicated = 4096
-    floating = 4096
+    floating   = 4096
   }
 
   network_device {
-    bridge  = "vmbr0"
-    enabled = true
-    model   = "virtio"
+    bridge      = "vmbr0"
+    enabled     = true
+    model       = "virtio"
     mac_address = upper(macaddress.homeassistant.address)
-    vlan_id = data.unifi_network.IOT.vlan_id
+    vlan_id     = data.unifi_network.IOT.vlan_id
   }
 
   vga {
