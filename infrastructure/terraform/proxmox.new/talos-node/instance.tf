@@ -81,6 +81,7 @@ resource "proxmox_virtual_environment_vm" "node" {
     file_id = var.iso_path
     interface = "ide0"
   }
+  depends_on = [time_sleep.node]
 }
 
 # resource "proxmox_vm_qemu" "node" {
