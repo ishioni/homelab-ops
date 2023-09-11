@@ -1,3 +1,7 @@
+data "unifi_network" "kubernetes" {
+  name = "Kubernetes"
+}
+
 # module "controlplanes" {
 #   source       = "./talos-node"
 #   count        = 1
