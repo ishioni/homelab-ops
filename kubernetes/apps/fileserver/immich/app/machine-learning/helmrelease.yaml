@@ -52,9 +52,10 @@ spec:
         enabled: true
         existingClaim: immich-media
         mountPath: /usr/src/app/upload
-      modelcache:
+      mlcache:
         enabled: true
-        type: emptyDir
+        existingClaim: immich-ml-cache
+        mountPath: /cache
       geocoding-dump:
         enabled: true
         type: emptyDir
