@@ -28,7 +28,6 @@ spec:
     keepHistory: false
   values:
     controller:
-      strategy: RollingUpdate
       annotations:
         secret.reloader.stakater.com/reload: &secret tandoor-secret
         configMap.reloader.stakater.com/reload: &configmap tandoor-configmap
