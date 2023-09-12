@@ -55,12 +55,6 @@ spec:
     envFrom:
       - secretRef:
           name: *secret
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        storageClass: truenas-ssd-nvmeof
-        accessMode: ReadWriteOnce
-        size: 1Gi
     service:
       main:
         ports:
