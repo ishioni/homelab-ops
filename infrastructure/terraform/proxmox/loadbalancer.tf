@@ -4,7 +4,7 @@ resource "macaddress" "api-lb" {
 resource "unifi_user" "api-lb" {
   mac              = macaddress.api-lb.address
   name             = "talos-api"
-  local_dns_record = "talos.k3s.internal"
+  local_dns_record = "talos.kubernetes.internal"
   fixed_ip         = "10.1.4.100"
   network_id       = data.unifi_network.kubernetes.id
 }
