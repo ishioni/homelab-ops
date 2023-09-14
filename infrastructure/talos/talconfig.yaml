@@ -18,7 +18,7 @@ additionalApiServerCertSans:
 
 additionalMachineCertSans:
   - ${clusterEndpointIP}
-  - ${clusterName}-api.k3s.internal
+  - ${clusterName}-api.${domainName}
 
 domain: cluster.local
 

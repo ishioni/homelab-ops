@@ -2,7 +2,7 @@
 version: "3"
 
 vars:
-  DOMAIN: "k3s.internal"
+  DOMAIN: "kubernetes.internal"
   # renovate: datasource=github-releases depName=ishioni/talos-images
   TALOS_VERSION: "v1.5.2"
   # renovate: datasource=github-releases depName=budimanjojo/talhelper
