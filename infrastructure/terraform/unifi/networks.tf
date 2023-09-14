@@ -67,6 +67,6 @@ resource "unifi_network" "Kubernetes" {
   dhcp_lease    = var.lease_time
   dhcp_enabled  = true
   igmp_snooping = true
-  domain_name   = "k3s.internal"
+  domain_name   = "kubernetes.internal"
   network_group = "LAN"
 }
