@@ -88,3 +88,8 @@ variable "bridge" {
   type    = string
   default = "vmbr0"
 }
+
+variable "gpu_gvtd" {
+  type    = bool
+  default = false
+}

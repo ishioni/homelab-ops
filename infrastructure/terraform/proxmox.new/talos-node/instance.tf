@@ -81,52 +81,15 @@ resource "proxmox_virtual_environment_vm" "node" {
     file_id   = var.iso_path
     interface = "ide0"
   }
+
+  dynamic "hostpci" {
+    for_each = var.gpu_gvtd ? [1] : []
+    content {
+      device  = "hostpci0"
+      mapping = "i915"
+      mdev    = "i915-GVTg_V5_4"
+    }
+  }
+
   depends_on = [time_sleep.node]
 }
-
-# resource "proxmox_vm_qemu" "node" {
-#   name        = var.machine_name
-#   tags        = var.tags
-#   vmid        = var.vmid
-#   target_node = var.target_node
-#   iso         = var.iso_path
-#   qemu_os     = "l26"
-#   agent       = var.qemu_agent
-
-#   oncreate = var.oncreate
-#   onboot   = var.onboot
-#   startup  = var.startup
-
-#   cpu     = "host"
-#   sockets = 1
-#   cores   = var.cpu_cores
-#   memory  = var.memory
-#   scsihw  = "virtio-scsi-single"
-
-#   network {
-#     model    = "virtio"
-#     bridge   = "vmbr0"
-#     tag      = var.network_tag
-#     firewall = false
-#     macaddr  = macaddress.node.address
-#   }
-
-#   boot = "order=scsi0;ide2"
-#   disk {
-#     type    = "scsi"
-#     storage = var.storage
-#     size    = var.storage_size
-#     cache   = "writethrough"
-#     ssd     = 1
-#     backup  = true
-#   }
-
-#   lifecycle {
-#     ignore_changes = [
-#       desc,
-#       numa,
-#       agent
-#     ]
-#   }
-#   depends_on = [time_sleep.node]
-# }
