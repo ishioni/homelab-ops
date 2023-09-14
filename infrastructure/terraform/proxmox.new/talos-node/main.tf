@@ -1,10 +1,4 @@
 terraform {
-  backend "remote" {
-    organization = "ishioni"
-    workspaces {
-      name = "talos"
-    }
-  }
   required_providers {
     proxmox = {
       source = "bpg/proxmox"
