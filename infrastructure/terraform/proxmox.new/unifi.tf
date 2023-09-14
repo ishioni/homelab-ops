@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_container" "unifi" {
 
   network_interface {
     bridge = "vmbr0"
-    name = "eth0"
+    name   = "eth0"
   }
 
   operating_system {
