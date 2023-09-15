@@ -24,7 +24,7 @@ module "controlplanes" {
 module "workers" {
   source          = "./talos-node"
   oncreate        = true
-  count           = 1
+  count           = 3
   machine_name    = "worker-${count.index}"
   vmid            = sum([4020, count.index])
   target_node     = "proxmox-${count.index + 1}"

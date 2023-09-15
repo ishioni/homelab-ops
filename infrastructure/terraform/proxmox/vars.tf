@@ -1,3 +1,3 @@
-variable "proxmox_image" {
-  default = "ISO:iso/talos-amd64.iso"
+variable "talos_image" {
+  default = "ISO:iso/metal-amd64.iso"
 }

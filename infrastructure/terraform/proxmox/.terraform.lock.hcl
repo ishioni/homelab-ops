@@ -22,18 +22,25 @@ provider "registry.terraform.io/1password/onepassword" {
   ]
 }
 
-provider "registry.terraform.io/carlpett/sops" {
-  version     = "0.7.2"
-  constraints = "0.7.2"
+provider "registry.terraform.io/bpg/proxmox" {
+  version     = "0.32.0"
+  constraints = "0.32.0"
   hashes = [
-    "h1:nWrLW+9JjGLwfss4T7pTaE+JiZlBJQGoYxt4pDe5OE8=",
-    "zh:43f218054ea3a72c9756bf989aeebb9d0f23b66fd08e9fb4ae75d4f921295e82",
-    "zh:57fd326388042a6b7ecd60f740f81e5ef931546c4f068f054e7df34acf65d190",
-    "zh:87b970db8c137f4c2fcbff7a5705419a0aea9268ae0ac94f1ec5b978e42ab0d2",
-    "zh:9e3b67b89ac919f01731eb0466baa08ce0721e6cf962fe6752e7cc526ac0cba0",
-    "zh:c028f67ef330be0d15ce4d7ac7649a2e07a98ed3003fca52e0c72338b5f481f8",
-    "zh:c29362e36a44480d0d9cb7d90d1efba63fe7e0e94706b2a07884bc067c46cbc7",
-    "zh:d5bcfa836244718a1d564aa96eb7d733b4d361b6ecb961f7c5bcd0cadb1dfd05",
+    "h1:kSOICXROcIUnBHQ1EOSqeO0FKoh4+wVvV3AVC3teCTk=",
+    "zh:0abde960e544058e45a29537dff2466017d3823e74fef51de94201bd9dc3356b",
+    "zh:14337463bc057185e1b72b230f810515a4bcdb758794b35b1cf92eb8505c1db3",
+    "zh:3776b6dd249aa038d58dd88d18d3b8e3c0647da535ad5d3ca491fa26d5dcea47",
+    "zh:742948b29d73c138603bf8e74e12f86b9841aca9381455f6f114b851c26ce6e8",
+    "zh:84174f941e7bd17f81d6643b7333d2d42fc0fbd759dc4ce545b8d1f85e09ab3e",
+    "zh:8669c087f2becd929179bb41d558dec98282b8f79f2ecc1dd5ddc8717b002645",
+    "zh:906a8274aac096ec4e4eb4057e19b6550887a832c83931b19e49d7f641f6b2a1",
+    "zh:9b3e00023bea57457c25a79671aa028030e1306a524f8ae287c5b1e10abec3d1",
+    "zh:a9bae27e388e3e294ccfbade0dde41603460d401a2eca90ad21c0e78825a0598",
+    "zh:ba1f539dfb70ea5c41ddcbd40354a65c564de8df678f90cf4f083f2aa083626a",
+    "zh:cde794d6e53a2b9ff0e8d1a3de5f07443613b148164ffcbfc7151396a37f1284",
+    "zh:d4bf4885e52ff234fc01ca3e7470976e0b3a277c9c2cf354e3b66c3b040a9732",
+    "zh:da01f8cb640de696ff2bc184c8eb9eba41af29fbf4fd8b4fa05af08174fd2be4",
+    "zh:f83b1f7e6aa5acb6280844d0cfbd5e0b24833ba1a627a3eb550c2001156f395c",
   ]
 }
 
@@ -97,27 +104,5 @@ provider "registry.terraform.io/paultyng/unifi" {
     "zh:c8354eaaab5f526e8e530b098544c7583a0f0b5b27d67500c7b3e9da56a3a7e5",
     "zh:dc29f1e70f20ce86d3c6a66c7a817616f993a1cf9d941604dfd5222a06992c4c",
     "zh:e772779333419f34d2c6da333c7f7d235a5a34f21ea47636b548e132aed74f3b",
-  ]
-}
-
-provider "registry.terraform.io/telmate/proxmox" {
-  version     = "2.9.14"
-  constraints = "2.9.14"
-  hashes = [
-    "h1:asZa5VKbWeCpLNv1JAutt5CdD27HaGFjxxcr6mvn8Ps=",
-    "zh:0d049d33f705e5b814d30028770c084151218439424e99684ce31d7e26a720b5",
-    "zh:20b1c64ed56d81de95f3f37b82b45b4654c0de26670c0e87a474c5cce13cd015",
-    "zh:2946058abd1d8e50e475b9ec39781eb02576b40dbd80f4653fade4493a4514c6",
-    "zh:29e50a25c456f040ce072f23ac57b5b82ebd3b916ca5ae6688332b5ec62adc4a",
-    "zh:3612932306ce5f08db94868f526cbb8c56d0d3c6ebe1c11a83f92bbf94354296",
-    "zh:42d1699b0abebaac82ea5a19f4393541d8bb2741bde204a8ac1028cdc29d1b14",
-    "zh:5ffd5dc567262eb8aafdf2f6eac63f7f21361da9c5d75a3c36b479638a0001b0",
-    "zh:6692ef323e3b89de99934ad731f6a1850525bf8142916ae28ea4e4048d73a787",
-    "zh:a5afc98e9a4038516bb58e788cb77dea67a60dce780dfcd206d7373c5a56b776",
-    "zh:bf902cded709d84fa27fbf91b589c241f2238a6c4924e4e479eebd74320b93a5",
-    "zh:cab0e1e72c9cebcf669fc6f35ec28cb8ab2dffb0237afc8860aa40d23bf8a49f",
-    "zh:e523b99a48beec83d9bc04b2d336266044f9f53514cefb652fe6768611847196",
-    "zh:f593915e8a24829d322d2eaeedcb153328cf9042f0d84f66040dde1be70ede04",
-    "zh:fba1aff541133e2129dfda0160369635ab48503d5c44b8407ce5922ecc15d0bd",
   ]
 }
