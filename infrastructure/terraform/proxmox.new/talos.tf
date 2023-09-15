@@ -5,11 +5,10 @@ data "unifi_network" "kubernetes" {
 module "controlplanes" {
   source          = "./talos-node"
   oncreate        = false
-  count           = 0
+  count           = 1
   machine_name    = "master-${count.index}"
   vmid            = sum([4000, count.index])
   target_node     = "proxmox-${count.index + 1}"
-  gpu_gvtd        = true
   iso_path        = var.talos_image
   timeout_stop_vm = 300
   qemu_agent      = true
@@ -19,7 +18,7 @@ module "controlplanes" {
   storage         = "local-zfs"
   storage_size    = 20
   network_id      = data.unifi_network.kubernetes.id
-  ip_address      = cidrhost("10.1.4.0/24", 50 + count.index)
+  ip_address      = cidrhost("10.1.4.0/24", 10 + count.index)
 }
 
 # module "workers" {
@@ -33,7 +32,8 @@ module "controlplanes" {
 #   startup      = "down=600"
 #   qemu_agent   = 1
 #   cpu_cores    = 8
-#   memory       = 24 * 1024
+  # memory       = 24 * 1024
+  # gpu_gvtd     = true
 #   network_tag  = 4
 #   storage      = "local-zfs"
 #   storage_size = "40G"
