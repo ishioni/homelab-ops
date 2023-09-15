@@ -3,14 +3,14 @@ terraform {
   backend "remote" {
     organization = "ishioni"
     workspaces {
-      name = "talos"
+      name = "proxmox"
     }
   }
 
   required_providers {
     proxmox = {
-      source  = "Telmate/proxmox"
-      version = "2.9.14"
+      source  = "bpg/proxmox"
+      version = "0.32.0"
     }
     unifi = {
       source  = "paultyng/unifi"
@@ -27,7 +27,7 @@ module "secret_pve" {
   # Remember to export OP_CONNECT_HOST and OP_CONNECT_TOKEN
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"
-  item   = "proxmox"
+  item   = "pve"
 }
 
 module "secret_unifi" {
@@ -38,11 +38,10 @@ module "secret_unifi" {
 }
 
 provider "proxmox" {
-  pm_api_url          = module.secret_pve.fields.pm_api_url
-  pm_api_token_id     = module.secret_pve.fields.pm_api_token_id
-  pm_api_token_secret = module.secret_pve.fields.pm_api_token_secret
-  pm_tls_insecure     = true
-  # pm_parallel         = 2
+  endpoint = module.secret_pve.fields.pm_api_url
+  username = module.secret_pve.fields.username
+  password = module.secret_pve.fields.password
+  insecure = false
 }
 
 provider "unifi" {
