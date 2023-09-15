@@ -36,7 +36,7 @@ resource "proxmox_virtual_environment_vm" "node" {
     timeout = "10s"
   }
 
-  bios = "ovmf"
+  bios = var.uefi ? "ovmf" : "seabios"
   efi_disk {
     datastore_id      = var.storage
     file_format       = var.file_format
@@ -83,12 +83,19 @@ resource "proxmox_virtual_environment_vm" "node" {
     interface = "ide0"
   }
 
+  vga {
+    enabled = true
+    type = "std"
+    memory = 16
+  }
+
   dynamic "hostpci" {
     for_each = var.gpu_gvtd ? [1] : []
     content {
       device  = "hostpci0"
       mapping = "i915"
       mdev    = "i915-GVTg_V5_4"
+      rombar  = true
     }
   }
 
