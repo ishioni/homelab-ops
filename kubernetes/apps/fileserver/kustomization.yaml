@@ -5,6 +5,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./immich/ks.yaml
-  # - ./nextcloud/ks.yaml
-  # - ./paperless/ks.yaml
-  # - ./tandoor/ks.yaml
+  - ./nextcloud/ks.yaml
+  - ./paperless/ks.yaml
+  - ./tandoor/ks.yaml
