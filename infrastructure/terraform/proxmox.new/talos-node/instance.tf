@@ -24,6 +24,7 @@ resource "proxmox_virtual_environment_vm" "node" {
   started         = var.oncreate
   tablet_device   = false
   timeout_stop_vm = var.timeout_stop_vm
+  boot_order = [ "scsi0", "ide0" ]
 
   operating_system {
     type = "l26"
