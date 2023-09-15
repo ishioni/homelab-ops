@@ -12,7 +12,7 @@ vars:
 
 tasks:
   generate:
-    internal: true
+    internal: false
     desc: Generate Talos machine configurations (task talos:generate)
     dir: infrastructure/talos
     cmds:

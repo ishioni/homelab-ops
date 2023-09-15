@@ -4,7 +4,7 @@ clusterName: ${clusterName}
 talosVersion: v1.5.2
 # renovate: datasource=github-releases depName=siderolabs/kubelet
 kubernetesVersion: v1.28.2
-endpoint: "https://${clusterName}-api.${domainName}:6443"
+endpoint: "https://${clusterName}.${domainName}:6443"
 
 clusterPodNets:
   - 172.16.0.0/16
@@ -18,14 +18,14 @@ additionalApiServerCertSans:
 
 additionalMachineCertSans:
   - ${clusterEndpointIP}
-  - ${clusterName}-api.${domainName}
+  - ${clusterName}.${domainName}
 
 domain: cluster.local
 
 nodes:
-  - hostname: talos-master-0.${domainName}
+  - hostname: master-0.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.20
+    ipAddress: 10.1.4.10
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -34,9 +34,9 @@ nodes:
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
-  - hostname: talos-master-1.${domainName}
+  - hostname: master-1.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.21
+    ipAddress: 10.1.4.11
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -45,9 +45,9 @@ nodes:
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
-  - hostname: talos-master-2.${domainName}
+  - hostname: master-2.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.22
+    ipAddress: 10.1.4.12
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -57,9 +57,9 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
 
-  - hostname: talos-worker-0.${domainName}
+  - hostname: worker-0.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.30
+    ipAddress: 10.1.4.20
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -68,9 +68,9 @@ nodes:
         dhcp: true
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
-  - hostname: talos-worker-1.${domainName}
+  - hostname: worker-1.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.31
+    ipAddress: 10.1.4.21
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -78,9 +78,9 @@ nodes:
         mtu: 1500
         dhcp: true
     nodeLabels: *workerLabels
-  - hostname: talos-worker-2.${domainName}
+  - hostname: worker-2.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.32
+    ipAddress: 10.1.4.22
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
