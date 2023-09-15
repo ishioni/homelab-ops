@@ -12,7 +12,7 @@ vars:
 
 tasks:
   generate:
-    internal: false
+    internal: true
     desc: Generate Talos machine configurations (task talos:generate)
     dir: infrastructure/talos
     cmds:
@@ -43,7 +43,7 @@ tasks:
 
   upgrade:
     internal: true
-    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=talos-master-0)
+    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=master-0)
     dir: infrastructure/talos
     status:
       - talosctl version -n {{ .NODE }}.{{ .DOMAIN }} --short | grep 'Tag.*{{ .TALOS_VERSION }}'
@@ -59,7 +59,7 @@ tasks:
     cmds:
       - task: generate
       - talosctl config merge infrastructure/talos/clusterconfig/talosconfig
-      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig -n talos-master-0.{{ .DOMAIN }} $KUBECONFIG
+      - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig -n master-0.{{ .DOMAIN }} $KUBECONFIG
 
   deploy-extras:
     internal: true
@@ -74,21 +74,21 @@ tasks:
     cmds:
       - task: generate
       - task: apply-insecure
-        vars: {IP: "10.1.4.20", NODE: "talos-master-0"}
+        vars: {IP: "10.1.4.10", NODE: "master-0"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.21", NODE: "talos-master-1"}
+        vars: {IP: "10.1.4.11", NODE: "master-1"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.22", NODE: "talos-master-2"}
+        vars: {IP: "10.1.4.12", NODE: "master-2"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.30", NODE: "talos-worker-0"}
+        vars: {IP: "10.1.4.20", NODE: "worker-0"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.31", NODE: "talos-worker-1"}
+        vars: {IP: "10.1.4.21", NODE: "worker-1"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.32", NODE: "talos-worker-2"}
+        vars: {IP: "10.1.4.22", NODE: "worker-2"}
       - echo "Wait for install"
       - sleep 180
       - echo "Bootstrapping etcd"
-      - talosctl bootstrap -n talos-master-0.{{ .DOMAIN }}
+      - talosctl bootstrap -n master-0.{{ .DOMAIN }}
       - sleep 180
       - task: init
       - kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}')
@@ -107,17 +107,17 @@ tasks:
     cmds:
       - task: generate
       - task: apply
-        vars: {NODE: talos-master-0}
+        vars: {NODE: master-0}
       - task: apply
-        vars: {NODE: talos-master-1}
+        vars: {NODE: master-1}
       - task: apply
-        vars: {NODE: talos-master-2}
+        vars: {NODE: master-2}
       - task: apply
-        vars: {NODE: talos-worker-0}
+        vars: {NODE: worker-0}
       - task: apply
-        vars: {NODE: talos-worker-1}
+        vars: {NODE: worker-1}
       - task: apply
-        vars: {NODE: talos-worker-2}
+        vars: {NODE: worker-2}
 
   upgrade:all:
     desc: Upgrade all nodes to Talos version {{ .TALOS_VERSION }} (task talos:upgrade:all)
@@ -126,18 +126,18 @@ tasks:
       - task: generate
       # control-plane
       - task: upgrade
-        vars: {NODE: talos-master-0}
-      - task: upgrade
-        vars: {NODE: talos-master-1}
-      - task: upgrade
-        vars: {NODE: talos-master-2}
+        vars: {NODE: master-0}
+      - task: upgrad
+        vars: {NODE: master-1}
+      - task: upgrad
+        vars: {NODE: master-2}
       # workers
-      - task: upgrade
-        vars: {NODE: talos-worker-0}
-      - task: upgrade
-        vars: {NODE: talos-worker-1}
-      - task: upgrade
-        vars: {NODE: talos-worker-2}
+      - task: upgrad
+        vars: {NODE: worker-0}
+      - task: upgrad
+        vars: {NODE: worker-1}
+      - task: upgrad
+        vars: {NODE: worker-2}
 
   upgrade:k8s:
     dir: infrastructure/talos
@@ -147,7 +147,7 @@ tasks:
       - talosctl -n {{ .NODE }}.{{ .DOMAIN }} upgrade-k8s --to {{ .KUBERNETES_VERSION }}
 
   dashboard:
-    desc: Show talos dashboard for node (task talos:dashboard NODE=talos-master-0)
+    desc: Show talos dashboard for node (task talos:dashboard NODE=master-0)
     cmds:
       - task: generate
       - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig -n {{ .NODE }}.{{ .DOMAIN }} dashboard
