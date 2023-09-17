@@ -29,6 +29,7 @@ resource "authentik_outpost" "proxyoutpost" {
     module.proxy-prowlarr.id,
     module.proxy-radarr.id,
     module.proxy-sonarr.id,
+    module.proxy-lidarr.id,
     module.proxy-hajimari.id
   ]
   config = jsonencode({
