@@ -46,6 +46,18 @@ module "proxy-sonarr" {
   auth_groups        = [authentik_group.media.id]
 }
 
+module "proxy-lidarr" {
+  source             = "./proxy_application"
+  name               = "Lidarr"
+  description        = "Music"
+  icon_url           = "https://github.com/Lidarr/Lidarr/raw/develop/Logo/128.png"
+  group              = "Media"
+  slug               = "music"
+  domain             = module.secret_authentik.fields["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
+}
+
 module "proxy-hajimari" {
   source             = "./proxy_application"
   name               = "Startpage"
