@@ -47,7 +47,7 @@ spec:
       TZ: Europe/Warsaw
       LIDARR__INSTANCE_NAME: Lidarr
       LIDARR__PORT: &port 80
-      RADARR__LOG_LEVEL: info
+      LIDARR__LOG_LEVEL: info
     envFrom:
       - secretRef:
           name: *secret
