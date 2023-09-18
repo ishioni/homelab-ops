@@ -192,4 +192,4 @@ spec:
           image: quay.io/thanos/thanos:v0.32.2
           objectStorageConfig:
             name: thanos-objectstore-secret
-            key: minio.yaml
+            key: objstore.yml
