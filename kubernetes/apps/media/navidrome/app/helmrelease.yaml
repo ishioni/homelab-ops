@@ -54,7 +54,7 @@ spec:
         enabled: true
         existingClaim: media-datastore
         mountPath: /music
-        subpath: Music
+        subPath: Music
     volumeClaimTemplates:
       - name: data
         mountPath: /data
