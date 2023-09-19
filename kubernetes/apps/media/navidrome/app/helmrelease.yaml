@@ -45,10 +45,12 @@ spec:
       ND_ENABLEDOWNLOADS: "true"
       ND_ENABLEEXTERNALSERVICES: "false"
       ND_ENABLESHARING: "false"
-      ND_ENABLETRANSCODINGCONFIG: "true"
+      ND_ENABLETRANSCODINGCONFIG: "false"
       ND_LOGLEVEL: info
-      ND_AUTHREQUESTLIMIT: 0
       ND_PROMETHEUS_ENABLED: true
+      ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
+      ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
+      ND_AUTHREQUESTLIMIT: 0
     persistence:
       music:
         enabled: true
@@ -84,17 +86,17 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: private
+        ingressClassName: public
         annotations:
-          # authentik.home.arpa/enabled: "true"
-          # nginx.ingress.kubernetes.io/auth-signin: |-
-          #   https://indexer.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://navidrome.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           hajimari.io/enable: "true"
           hajimari.io/appName: Navidrome
           hajimari.io/icon: mdi:music
           hajimari.io/group: media
         hosts:
-          - host: &host "navidrome.internal.${SECRET_DOMAIN}"
+          - host: &host "navidrome.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix

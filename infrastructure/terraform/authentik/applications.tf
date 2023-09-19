@@ -58,6 +58,18 @@ module "proxy-lidarr" {
   auth_groups        = [authentik_group.media.id]
 }
 
+module "proxy-navidrome" {
+  source             = "./proxy_application"
+  name               = "Navidrome"
+  description        = "Music player"
+  icon_url           = "https://github.com/navidrome/navidrome/raw/master/resources/logo-192x192.png"
+  group              = "Media"
+  slug               = "navidrome"
+  domain             = module.secret_authentik.fields["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
+}
+
 module "proxy-hajimari" {
   source             = "./proxy_application"
   name               = "Startpage"
