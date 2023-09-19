@@ -57,6 +57,7 @@ spec:
         existingClaim: media-datastore
         mountPath: /music
         subPath: Music
+        readOnly: true
     volumeClaimTemplates:
       - name: data
         mountPath: /data
