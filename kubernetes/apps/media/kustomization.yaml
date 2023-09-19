@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./lidarr/ks.yaml
+  - ./navidrome/ks.yaml
   - ./prowlarr/ks.yaml
   - ./pvc
   - ./radarr/ks.yaml
