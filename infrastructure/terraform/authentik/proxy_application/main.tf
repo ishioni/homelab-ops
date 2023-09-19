@@ -13,6 +13,7 @@ resource "authentik_provider_proxy" "proxy_provider" {
   mode                  = "forward_single"
   authorization_flow    = var.authorization_flow
   access_token_validity = "hours=${var.access_token_validity}"
+  skip_path_regex       = var.ignore_paths
 }
 
 resource "authentik_application" "proxy_application" {

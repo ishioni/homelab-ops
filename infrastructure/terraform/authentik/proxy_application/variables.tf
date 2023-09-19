@@ -42,3 +42,8 @@ variable "group" {
 variable "auth_groups" {
   type = list(string)
 }
+
+variable "ignore_paths" {
+  type    = string
+  default = ""
+}
