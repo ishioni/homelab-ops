@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: navidrome
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      type: statefulset
+    image:
+      repository: ghcr.io/navidrome/navidrome
+      tag: 0.49.3
+    podSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
+    env:
+      TZ: Europe/Warsaw
+      ND_DATAFOLDER: /data
+      ND_MUSICFOLDER: /music
+      ND_PORT: &port 8080
+      ND_SCANSCHEDULE: 30m
+      ND_ENABLEDOWNLOADS: "true"
+      ND_ENABLEEXTERNALSERVICES: "false"
+      ND_ENABLESHARING: "false"
+      ND_ENABLETRANSCODINGCONFIG: "true"
+      ND_LOGLEVEL: info
+      ND_AUTHREQUESTLIMIT: 0
+      ND_PROMETHEUS_ENABLED: true
+    persistence:
+      music:
+        enabled: true
+        existingClaim: media-datastore
+        mountPath: /music
+        subpath: Music
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: truenas-ssd-nvmeof
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          # authentik.home.arpa/enabled: "true"
+          # nginx.ingress.kubernetes.io/auth-signin: |-
+          #   https://indexer.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Navidrome
+          hajimari.io/icon: mdi:music
+          hajimari.io/group: media
+        hosts:
+          - host: &host "navidrome.internal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: *host
+            hosts:
+              - *host
+    resources:
+      requests:
+        cpu: 50m
+        memory: 100Mi
+      limits:
+        memory: 300Mi
