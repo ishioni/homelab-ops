@@ -38,6 +38,9 @@ spec:
     args: ["sync"]
     env:
       TZ: ${CONFIG_TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: recyclarr-secret
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
