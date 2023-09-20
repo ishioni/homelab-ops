@@ -6,10 +6,10 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: recyclarr-config-tpl
+  - name: recyclarr-configmap
     namespace: media
     files:
-      - ./configs/recyclarr.yml
+      - recyclarr.yml=./config/recyclarr.yml
 generatorOptions:
   disableNameSuffixHash: true
 labels:
