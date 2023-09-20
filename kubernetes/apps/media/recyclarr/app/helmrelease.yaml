@@ -28,23 +28,31 @@ spec:
     keepHistory: false
   values:
     controller:
-      type: cronjob
-      cronjob:
-        schedule: 0 6 * * *
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/recyclarr/recyclarr
-      tag: 5.3.1
+      tag: 5.4.3
     command: ["/app/recyclarr/recyclarr"]
     args: ["sync"]
     env:
-      TZ: Europe/Warsaw
-      PUID: "568"
-      PGID: "568"
+      TZ: ${CONFIG_TIMEZONE}
+    podSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: truenas-hdd-nfs
     persistence:
-      config:
+      config-file:
         enabled: true
-        type: secret
-        name: recyclarr-secret
+        type: configMap
+        name: recyclarr-configmap
         mountPath: /config/recyclarr.yml
         subPath: recyclarr.yml
         readOnly: true
