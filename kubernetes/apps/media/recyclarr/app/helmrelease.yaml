@@ -35,8 +35,6 @@ spec:
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.4.3
-    command: ["/app/recyclarr/recyclarr"]
-    args: ["sync"]
     env:
       TZ: ${CONFIG_TIMEZONE}
     envFrom:
