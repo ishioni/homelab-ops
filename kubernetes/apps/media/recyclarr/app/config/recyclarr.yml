@@ -337,7 +337,7 @@ sonarr:
 
 radarr:
   standard:
-    base_url: http://sonarr.media.svc.cluster.local
+    base_url: http://radarr.media.svc.cluster.local
     api_key: !env_var RADARR_API_KEY
 
     # Custom Format Configuration
