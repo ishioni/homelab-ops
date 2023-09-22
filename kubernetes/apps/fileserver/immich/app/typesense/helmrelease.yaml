@@ -63,7 +63,15 @@ spec:
           failureThreshold: 3
       readiness: *probes
       startup:
-        enabled: false
+        enabled: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 60
     volumeClaimTemplates:
       - name: config
         mountPath: /config
