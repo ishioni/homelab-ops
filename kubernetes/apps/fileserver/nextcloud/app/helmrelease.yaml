@@ -16,9 +16,11 @@ spec:
         name: nextcloud
         namespace: flux-system
   install:
+    timeout: 20m
     remediation:
       retries: 5
   upgrade:
+    timeout: 20m
     remediation:
       retries: 5
   values:
