@@ -5,3 +5,5 @@ metadata:
   name: media
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
+  annotations:
+    volsync.backube/privileged-movers: "true"
