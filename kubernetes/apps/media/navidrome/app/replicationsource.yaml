@@ -6,7 +6,7 @@ metadata:
   name: navidrome
   namespace: media
 spec:
-  sourcePVC: config-navidrome-0
+  sourcePVC: data-navidrome-0
   trigger:
     schedule: "0 0 * * *"
   restic:

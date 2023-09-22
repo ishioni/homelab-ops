@@ -10,7 +10,7 @@ spec:
     manual: restore-once
   restic:
     # Use an existing PVC, don't provision a new one
-    destinationPVC: config-navidrome-0
+    destinationPVC: data-navidrome-0
     copyMethod: Direct
     storageClassName: truenas-ssd-nvmeof
     repository: minecraft-restic-s3
