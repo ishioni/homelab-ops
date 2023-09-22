@@ -13,4 +13,4 @@ spec:
     destinationPVC: data-navidrome-0
     copyMethod: Direct
     storageClassName: truenas-ssd-nvmeof
-    repository: minecraft-restic-s3
+    repository: navidrome-restic-s3
