@@ -36,5 +36,13 @@
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
     },
+    {
+      "description": "Talos images",
+      groupName: "Talos images",
+      matchPackagePatterns: ["talos-images", "ghcr.io/ishioni/installer"],
+      matchDatasources: ["github-releases" ,"renovate-docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+      separateMinorPatch: true,
+    }
   ],
 }
