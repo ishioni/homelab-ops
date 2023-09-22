@@ -12,7 +12,7 @@ spec:
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
-    repository: minecraft-restic-s3
+    repository: navidrome-restic-s3
     cacheCapacity: 15Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
