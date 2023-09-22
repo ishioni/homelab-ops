@@ -127,16 +127,16 @@ tasks:
       # control-plane
       - task: upgrade
         vars: {NODE: master-0}
-      - task: upgrad
+      - task: upgrade
         vars: {NODE: master-1}
-      - task: upgrad
+      - task: upgrade
         vars: {NODE: master-2}
       # workers
-      - task: upgrad
+      - task: upgrade
         vars: {NODE: worker-0}
-      - task: upgrad
+      - task: upgrade
         vars: {NODE: worker-1}
-      - task: upgrad
+      - task: upgrade
         vars: {NODE: worker-2}
 
   upgrade:k8s:
