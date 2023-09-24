@@ -34,6 +34,7 @@ spec:
           value: Europe/Warsaw
       kind: Deployment
       electionID: "ingress-public-leader"
+      allowSnippetAnnotations: true
       ingressClassByName: true
       ingressClassResource:
         default: true
