@@ -38,7 +38,7 @@ spec:
               name: *secret
     image:
       repository: ghcr.io/onedr0p/lidarr-develop
-      tag: 1.4.2.3576
+      tag: 1.4.3.3586
     podSecurityContext:
       runAsUser: 1003
       runAsGroup: 2000
