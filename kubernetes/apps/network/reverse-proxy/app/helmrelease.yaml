@@ -65,3 +65,18 @@ spec:
             - secretName: *host
               hosts:
                 - *host
+      - name: s3
+        enabled: true
+        externalName: "s3.${SECRET_DOMAIN}"
+        port: 9090
+        ingress:
+          ingressClassName: public
+          annotations:
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          hosts:
+            - host: &host "s3.${SECRET_DOMAIN}"
+              path: /
+          tls:
+            - secretName: *host
+              hosts:
+                - *host
