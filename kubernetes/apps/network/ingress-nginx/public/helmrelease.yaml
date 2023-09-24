@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: 4.7.2
+      version: 4.8.0
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
@@ -34,6 +34,7 @@ spec:
           value: Europe/Warsaw
       kind: Deployment
       electionID: "ingress-public-leader"
+      allowSnippetAnnotations: true
       ingressClassByName: true
       ingressClassResource:
         default: true
