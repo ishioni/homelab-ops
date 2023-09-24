@@ -67,7 +67,7 @@ spec:
                 - *host
       - name: s3-public
         enabled: true
-        externalName: "s3.${SECRET_DOMAIN}"
+        externalName: "s3.services.${SECRET_DOMAIN}"
         port: 9090
         ingress:
           ingressClassName: public
