@@ -7,6 +7,7 @@ resource "unifi_wlan" "MoviNet" {
   multicast_enhance    = true
   bss_transition       = true
   no2ghz_oui           = true
+  wlan_band            = "both"
   pmf_mode             = "optional"
   wpa3_support         = true
   wpa3_transition      = true
@@ -23,7 +24,7 @@ resource "unifi_wlan" "MoviIOT" {
   multicast_enhance = true
   bss_transition    = true
   no2ghz_oui        = false
-  wlan_band         = "2g"
+  wlan_band         = "both"
   pmf_mode          = "optional"
   wpa3_support      = true
   wpa3_transition   = true
