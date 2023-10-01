@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: n8n
+  namespace: fileserver
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret n8n-secret
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.9
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: *secret
+    image:
+      repository: ghcr.io/n8n-io/n8n
+      tag: 1.9.0
+    command: ["n8n"]
+    env:
+      GENERIC_TIMEZONE: ${CONFIG_TIMEZONE}
+      DB_TYPE: postgresdb
+      N8N_HOST: &host n8n.internal.${SECRET_DOMAIN}
+      N8N_EDITOR_BASE_URL: https://n8n.internal.${SECRET_DOMAIN}/
+      WEBHOOK_URL: https://n8n.internal.${SECRET_DOMAIN}/
+      N8N_PORT: &port 8080
+      N8N_PROTOCOL: https
+      N8N_USER_FOLDER: /config
+      N8N_EMAIL_MODE: smtp
+      N8N_VERSION_NOTIFICATIONS_ENABLED: false
+      N8N_DIAGONISTICS_ENABLED: false
+      N8N_HIRING_BANNER_ENABLED: false
+    envFrom:
+      - secretRef:
+          name: *secret
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: n8n-config
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /healthz
+            port: *port
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: N8N
+          hajimari.io/icon: mdi:workflow
+          hajimari.io/group: groupware
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+    podSecurityContext:
+      runAsUser: 1003
+      runAsGroup: 2000
+      fsGroup: 2000
+      fsGroupChangePolicy: "OnRootMismatch"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        memory: 1000Mi
