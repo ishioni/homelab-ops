@@ -70,3 +70,17 @@ resource "unifi_network" "Kubernetes" {
   domain_name   = "kubernetes.internal"
   network_group = "LAN"
 }
+
+resource "unifi_network" "Guest" {
+  name          = "Guest"
+  purpose       = "corporate"
+  subnet        = "192.168.44.0/24"
+  vlan_id       = 44
+  dhcp_start    = "192.168.44.6"
+  dhcp_stop     = "192.168.44.253"
+  dhcp_lease    = var.lease_time
+  dhcp_enabled  = true
+  igmp_snooping = true
+  domain_name   = "guest.internal"
+  network_group = "LAN"
+}

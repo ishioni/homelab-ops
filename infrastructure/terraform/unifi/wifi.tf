@@ -32,3 +32,19 @@ resource "unifi_wlan" "MoviIOT" {
   ap_group_ids  = [data.unifi_ap_group.default.id]
   user_group_id = data.unifi_user_group.default.id
 }
+
+resource "unifi_wlan" "MoviGuest" {
+  name                 = "MoviGuest"
+  network_id           = unifi_network.Guest.id
+  passphrase           = module.secret_unifi.fields.moviguest_password
+  security             = "wpapsk"
+  wlan_band            = "both"
+  pmf_mode             = "optional"
+  fast_roaming_enabled = true
+  wpa3_support         = true
+  wpa3_transition      = true
+  l2_isolation         = true
+
+  ap_group_ids  = [data.unifi_ap_group.default.id]
+  user_group_id = data.unifi_user_group.default.id
+}
