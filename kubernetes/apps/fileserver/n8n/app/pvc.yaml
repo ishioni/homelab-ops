@@ -5,8 +5,8 @@ metadata:
   name: n8n-config
   namespace: fileserver
   labels:
-  app.kubernetes.io/name: &name n8n
-  app.kubernetes.io/instance: *name
+    app.kubernetes.io/name: &name n8n
+    app.kubernetes.io/instance: *name
 spec:
   accessModes:
     - ReadWriteOnce
