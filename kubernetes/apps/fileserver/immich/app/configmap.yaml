@@ -6,7 +6,6 @@ metadata:
   namespace: fileserver
 data:
   DB_PORT: "5432"
-  DISABLE_REVERSE_GEOCODING: "true"
   ENABLE_MAPBOX: "false"
   LOG_LEVEL: verbose
   NODE_ENV: "production"
