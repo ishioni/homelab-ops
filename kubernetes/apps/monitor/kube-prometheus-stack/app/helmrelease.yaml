@@ -136,7 +136,12 @@ spec:
               targetLabel: kubernetes_node
     grafana:
       enabled: false
-      forceDeployDashboards: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
     prometheus:
       ingress:
         enabled: true
@@ -193,3 +198,18 @@ spec:
           objectStorageConfig:
             name: thanos-objectstore-secret
             key: objstore.yml
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |-
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: not-used
+                namespace: not-used
+                annotations:
+                  grafana_folder: Kubernetes
+            target:
+              version: v1
+              kind: Configmap
+              labelSelector: grafana_dashboard in (1)
