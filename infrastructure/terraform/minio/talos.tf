@@ -11,7 +11,7 @@ resource "minio_ilm_policy" "talos-expiration" {
   bucket = module.talos.bucket
 
   rule {
-    id         = "expire-14d"
-    expiration = "14d"
+    id         = "expire-4d"
+    expiration = "4d"
   }
 }
