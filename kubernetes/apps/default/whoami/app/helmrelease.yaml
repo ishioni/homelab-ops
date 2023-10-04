@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,9 +27,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: traefik/whoami
-      tag: v1.10.1
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: docker.io/traefik/whoami
+              tag: v1.10.1
+            env:
+              WHOAMI_PORT_NUMBER: 80
     service:
       main:
         ports:
@@ -39,11 +45,14 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         hosts:
           - host: &host whoami.${SECRET_DOMAIN}
             paths:
               - path: /
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: *host
             hosts:
