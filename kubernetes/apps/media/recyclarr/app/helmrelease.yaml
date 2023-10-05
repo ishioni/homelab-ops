@@ -55,7 +55,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-
     persistence:
       config-file:
         enabled: true
