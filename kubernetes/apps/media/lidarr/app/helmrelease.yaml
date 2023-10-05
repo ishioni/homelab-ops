@@ -40,9 +40,10 @@ spec:
           secret.reloader.stakater.com/reload: &secret lidarr-secret
         initContainers:
           01-init-db:
-            repository: ghcr.io/onedr0p/postgres-init
-            tag: 14.9
-            imagePullPolicy: IfNotPresent
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
                   name: *secret
