@@ -88,9 +88,9 @@ spec:
         enabled: true
         existingClaim: media-datastore
         globalMounts:
-          path: /music
-          subPath: Music
-          readOnly: true
+          - path: /music
+            subPath: Music
+            readOnly: true
     service:
       main:
         ports:
