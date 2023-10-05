@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,62 +27,76 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      annotations:
-        secret.reloader.stakater.com/reload: &secret prowlarr-secret
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: *secret
-    image:
-      repository: ghcr.io/onedr0p/prowlarr
-      tag: 1.8.6.3946
-    podSecurityContext:
-      runAsUser: 1003
-      runAsGroup: 2000
-      fsGroup: 2000
-    env:
-      TZ: Europe/Warsaw
-      PROWLARR__INSTANCE_NAME: Prowlarr
-      PROWLARR__PORT: &port 80
-      PROWLARR__LOG_LEVEL: info
-      PROWLARR__AUTHENTICATION_METHOD: External
-      PROWLARR__THEME: dark
-    envFrom:
-      - secretRef:
-          name: *secret
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          secret.reloader.stakater.com/reload: &secret prowlarr-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        pod:
+          securityContext:
+            runAsUser: 1003
+            runAsGroup: 2000
+            fsGroup: 2000
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.8.6.3946
+            env:
+              TZ: Europe/Warsaw
+              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__PORT: &port 80
+              PROWLARR__LOG_LEVEL: info
+              PROWLARR__AUTHENTICATION_METHOD: External
+              PROWLARR__THEME: dark
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 300Mi
     persistence:
       config:
         enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /config
     service:
       main:
         ports:
           http:
             port: *port
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
@@ -95,14 +109,9 @@ spec:
           - host: &host "indexer.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service: main
+                port: http
         tls:
           - secretName: *host
             hosts:
               - *host
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        memory: 300Mi
