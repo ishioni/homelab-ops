@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,63 +27,75 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-    image:
-      repository: ghcr.io/navidrome/navidrome
-      tag: 0.49.3
-    podSecurityContext:
-      runAsUser: 1003
-      runAsGroup: 2000
-      fsGroup: 2000
-    env:
-      TZ: Europe/Warsaw
-      ND_DATAFOLDER: /data
-      ND_MUSICFOLDER: /music
-      ND_PORT: &port 8080
-      ND_SCANSCHEDULE: 30m
-      ND_ENABLEDOWNLOADS: "true"
-      ND_ENABLEEXTERNALSERVICES: "false"
-      ND_ENABLESHARING: "false"
-      ND_ENABLETRANSCODINGCONFIG: "false"
-      ND_LOGLEVEL: info
-      ND_PROMETHEUS_ENABLED: true
-      ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
-      ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
-      ND_AUTHREQUESTLIMIT: 0
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              mountPath: /data
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: truenas-ssd-nvmeof
+        pod:
+          securityContext:
+            runAsUser: 1003
+            runAsGroup: 2000
+            fsGroup: 2000
+        containers:
+          main:
+            image:
+              repository: ghcr.io/navidrome/navidrome
+              tag: 0.49.3
+            env:
+              TZ: Europe/Warsaw
+              ND_DATAFOLDER: /data
+              ND_MUSICFOLDER: /music
+              ND_PORT: &port 8080
+              ND_SCANSCHEDULE: 30m
+              ND_ENABLEDOWNLOADS: "true"
+              ND_ENABLEEXTERNALSERVICES: "false"
+              ND_ENABLESHARING: "false"
+              ND_ENABLETRANSCODINGCONFIG: "false"
+              ND_LOGLEVEL: info
+              ND_PROMETHEUS_ENABLED: true
+              ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
+              ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
+              ND_AUTHREQUESTLIMIT: 0
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 300Mi
     persistence:
       music:
         enabled: true
         existingClaim: media-datastore
-        mountPath: /music
-        subPath: Music
-        readOnly: true
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 5Gi
-        storageClass: truenas-ssd-nvmeof
+        globalMounts:
+          path: /music
+          subPath: Music
+          readOnly: true
     service:
       main:
         ports:
           http:
             port: *port
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
     ingress:
       main:
         enabled: true
@@ -100,14 +112,10 @@ spec:
           - host: &host "navidrome.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: *host
             hosts:
               - *host
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        memory: 300Mi
