@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,54 +27,66 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret vaultwarden-secret
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        envFrom:
-          - secretRef:
-              name: *secret
-    image:
-      repository: vaultwarden/server
-      tag: 1.29.2
-    env:
-      DATA_FOLDER: "data"
-      ICON_CACHE_FOLDER: "data/icon_cache"
-      ATTACHMENTS_FOLDER: "data/attachments"
-      DOMAIN: "https://passwords.${SECRET_DOMAIN}"
-      TZ: ${CONFIG_TIMEZONE}
-      SIGNUPS_ALLOWED: "false"
-      SMTP_FROM: passwords@${SECRET_DOMAIN}
-      SMTP_SECURITY: force_tls
-      INVITATION_ORG_NAME: ${SECRET_DOMAIN}
-      TRASH_AUTO_DELETE_DAYS: "30"
-    envFrom:
-      - secretRef:
-          name: *secret
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret vaultwarden-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        containers:
+          main:
+            image:
+              repository: vaultwarden/server
+              tag: 1.29.2
+            env:
+              DATA_FOLDER: "data"
+              ICON_CACHE_FOLDER: "data/icon_cache"
+              ATTACHMENTS_FOLDER: "data/attachments"
+              DOMAIN: "https://passwords.${SECRET_DOMAIN}"
+              TZ: ${CONFIG_TIMEZONE}
+              SIGNUPS_ALLOWED: "false"
+              SMTP_FROM: passwords@${SECRET_DOMAIN}
+              SMTP_SECURITY: force_tls
+              INVITATION_ORG_NAME: ${SECRET_DOMAIN}
+              TRASH_AUTO_DELETE_DAYS: "30"
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /alive
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 2Gi
     service:
       main:
         ports:
           http:
-            port: &port 80
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /alive
             port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: Passwords
@@ -84,6 +96,9 @@ spec:
           - host: &host passwords.${SECRET_DOMAIN}
             paths:
               - path: /
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -92,10 +107,5 @@ spec:
       data:
         enabled: true
         existingClaim: vaultwarden-data
-        mountPath: /data
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        memory: 2Gi
+        globalMounts:
+          - path: /data
