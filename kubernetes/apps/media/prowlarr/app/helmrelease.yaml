@@ -109,8 +109,9 @@ spec:
           - host: &host "indexer.${SECRET_DOMAIN}"
             paths:
               - path: /
-                service: main
-                port: http
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: *host
             hosts:
