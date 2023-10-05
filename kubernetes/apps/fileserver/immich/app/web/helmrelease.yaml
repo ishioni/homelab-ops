@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -31,19 +31,36 @@ spec:
     - name: redis
       namespace: database
   values:
-    controller:
-      strategy: RollingUpdate
-      annotations:
-        secret.reloader.stakater.com/reload: &secret immich-secret
-        configMap.reloader.stakater.com/reload: &configmap immich-configmap
-    image:
-      repository: ghcr.io/immich-app/immich-web
-      tag: v1.81.1
-    envFrom:
-      - secretRef:
-          name: *secret
-      - configMapRef:
-          name: *configmap
+    controllers:
+      main:
+        strategy: RollingUpdate
+        annotations:
+          secret.reloader.stakater.com/reload: &secret immich-secret
+          configMap.reloader.stakater.com/reload: &configmap immich-configmap
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-web
+              tag: v1.81.1
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: *configmap
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 500Mi
     service:
       main:
         ports:
@@ -52,7 +69,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "public"
+        className: "public"
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/icon: simple-icons:googlephotos
@@ -80,17 +97,5 @@ spec:
       library:
         enabled: true
         existingClaim: immich-media
-        mountPath: /usr/src/app/upload
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 100m
-        memory: 250Mi
-      limits:
-        memory: 500Mi
+        globalMounts:
+          - path: /usr/src/app/upload
