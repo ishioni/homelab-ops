@@ -55,22 +55,23 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
         containers:
-          image:
-            repository: ghcr.io/immich-app/immich-server
-            tag: v1.81.1
-          command: /bin/sh
-          args: ["start-server.sh"]
-          envFrom:
-            - secretRef:
-                name: *secret
-            - configMapRef:
-                name: *configmap
-          resources:
-            requests:
-              cpu: 100m
-              memory: 250Mi
-            limits:
-              memory: 1000Mi
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.81.1
+            command: /bin/sh
+            args: ["start-server.sh"]
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: *configmap
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 1000Mi
     service:
       main:
         ports:
