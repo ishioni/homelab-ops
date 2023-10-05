@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,15 +27,24 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      strategy: RollingUpdate
-    image:
-      repository: docker.io/hon95/prometheus-nut-exporter
-      tag: "1.2.1"
-    env:
-      TZ: Europe/Warsaw
-      HTTP_PATH: &metrics /metrics
-      RUST_LOG: debug
+    controllers:
+      main:
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: docker.io/hon95/prometheus-nut-exporter
+              tag: "1.2.1"
+            env:
+              TZ: Europe/Warsaw
+              HTTP_PATH: &metrics /metrics
+              RUST_LOG: debug
+            resources:
+              requests:
+                cpu: 15m
+                memory: 30Mi
+              limits:
+                memory: 50Mi
     service:
       main:
         ports:
@@ -55,9 +64,3 @@ spec:
             relabelings:
               - sourceLabels: [__param_target]
                 targetLabel: target
-    resources:
-      requests:
-        cpu: 15m
-        memory: 30Mi
-      limits:
-        memory: 50Mi
