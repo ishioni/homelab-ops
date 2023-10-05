@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,36 +22,53 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      repository: ghcr.io/onedr0p/transmission
-      tag: "4.0.3"
-    podSecurityContext:
-      runAsUser: 1003
-      runAsGroup: 2000
-      fsGroup: 2000
-    controller:
-      type: statefulset
-    env:
-      TZ: Europe/Warsaw
-      TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
-      TRANSMISSION__DOWNLOAD_DIR: "/downloads"
-      TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
-      TRANSMISSION__RPC_PORT: &port 9091
-      TRANSMISSION__PEER_PORT: &peerport 51413
-      TRANSMISSION__RATIO_LIMIT_ENABLED: true
-      TRANSMISSION__RATIO_LIMIT: 3
-      TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
-      TRANSMISSION__SPEED_LIMIT_UP: 100000
-      TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
-      TRANSMISSION__IDLE_SEEDING_LIMIT: 1440
-      TRANSMISSION__UTP_ENABLED: false
-      TRANSMISSION__UMASK: 7
-      TRANSMISSION__MESSAGE_LEVEL: 3
-      # For changing webui
-      # TRANSMISSION_WEB_HOME: "/app/web"
-    envFrom:
-      - secretRef:
-          name: transmission-rpc
+    controllers:
+      main:
+        type: statefulset
+      statefulset:
+        volumeClaimTemplates:
+          - name: config
+            mountPath: /config
+            storageClass: truenas-ssd-nvmeof
+            accessMode: ReadWriteOnce
+            size: 100M
+      pod:
+        securityContext:
+          runAsUser: 1003
+          runAsGroup: 2000
+          fsGroup: 2000
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/transmission
+            tag: "4.0.3"
+          probes:
+            liveness: &probes
+              enabled: false
+            readiness: *probes
+            startup:
+              enabled: false
+          env:
+            TZ: Europe/Warsaw
+            TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
+            TRANSMISSION__DOWNLOAD_DIR: "/downloads"
+            TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
+            TRANSMISSION__RPC_PORT: &port 9091
+            TRANSMISSION__PEER_PORT: &peerport 51413
+            TRANSMISSION__RATIO_LIMIT_ENABLED: true
+            TRANSMISSION__RATIO_LIMIT: 3
+            TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
+            TRANSMISSION__SPEED_LIMIT_UP: 100000
+            TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
+            TRANSMISSION__IDLE_SEEDING_LIMIT: 1440
+            TRANSMISSION__UTP_ENABLED: false
+            TRANSMISSION__UMASK: 7
+            TRANSMISSION__MESSAGE_LEVEL: 3
+            # For changing webui
+            # TRANSMISSION_WEB_HOME: "/app/web"
+          envFrom:
+            - secretRef:
+                name: transmission-rpc
     service:
       main:
         ports:
@@ -79,18 +96,14 @@ spec:
       downloads:
         enabled: true
         existingClaim: media-datastore
-        mountPath: "/downloads"
-        subPath: Downloads
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        storageClass: truenas-ssd-nvmeof
-        accessMode: ReadWriteOnce
-        size: 100Mi
+        globalMounts:
+          - path: /downloads
+            subPath: Downloads
+
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
@@ -103,7 +116,9 @@ spec:
           - host: &host "torrent.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: *host
             hosts:
