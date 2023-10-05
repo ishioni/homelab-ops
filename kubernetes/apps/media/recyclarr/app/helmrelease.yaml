@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,37 +27,44 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
+    controllers:
+      main:
+        type: statefulset
+      statefulset:
+        volumeClaimTemplates:
+          - name: config
+            mountPath: /config
+            accessMode: ReadWriteOnce
+            size: 1Gi
+            storageClass: truenas-hdd-nfs
       annotations:
         secret.reloader.stakater.com/reload: &secret recyclarr-secret
         configmap.reloader.stakater.com/reload: &configmap recyclarr-configmap
-    image:
-      repository: ghcr.io/recyclarr/recyclarr
-      tag: 6.0.1
-    env:
-      TZ: ${CONFIG_TIMEZONE}
-    envFrom:
-      - secretRef:
-          name: *secret
-    podSecurityContext:
-      runAsUser: 1003
-      runAsGroup: 2000
-      fsGroup: 2000
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: truenas-hdd-nfs
+      pod:
+        securityContext:
+          runAsUser: 1003
+          runAsGroup: 2000
+          fsGroup: 2000
+      containers:
+        main:
+          image:
+            repository: ghcr.io/recyclarr/recyclarr
+            tag: 6.0.1
+          env:
+            TZ: ${CONFIG_TIMEZONE}
+          envFrom:
+            - secretRef:
+                name: *secret
+
     persistence:
       config-file:
         enabled: true
         type: configMap
         name: *configmap
-        mountPath: /config/recyclarr.yml
-        subPath: recyclarr.yml
-        readOnly: true
+        globalMounts:
+          - path: /config/recyclarr.yml
+            subPath: recyclarr.yml
+            readOnly: true
     service:
       main:
         enabled: false
