@@ -86,12 +86,6 @@ spec:
             port: *peerport
             protocol: TCP
             targetPort: *peerport
-    probes:
-      liveness: &probes
-        enabled: false
-      readiness: *probes
-      startup:
-        enabled: false
     persistence:
       downloads:
         enabled: true
