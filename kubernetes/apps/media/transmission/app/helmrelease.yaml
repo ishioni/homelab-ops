@@ -25,50 +25,50 @@ spec:
     controllers:
       main:
         type: statefulset
-      statefulset:
-        volumeClaimTemplates:
-          - name: config
-            mountPath: /config
-            storageClass: truenas-ssd-nvmeof
-            accessMode: ReadWriteOnce
-            size: 100M
-      pod:
-        securityContext:
-          runAsUser: 1003
-          runAsGroup: 2000
-          fsGroup: 2000
-      containers:
-        main:
-          image:
-            repository: ghcr.io/onedr0p/transmission
-            tag: "4.0.3"
-          probes:
-            liveness: &probes
-              enabled: false
-            readiness: *probes
-            startup:
-              enabled: false
-          env:
-            TZ: Europe/Warsaw
-            TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
-            TRANSMISSION__DOWNLOAD_DIR: "/downloads"
-            TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
-            TRANSMISSION__RPC_PORT: &port 9091
-            TRANSMISSION__PEER_PORT: &peerport 51413
-            TRANSMISSION__RATIO_LIMIT_ENABLED: true
-            TRANSMISSION__RATIO_LIMIT: 3
-            TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
-            TRANSMISSION__SPEED_LIMIT_UP: 100000
-            TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
-            TRANSMISSION__IDLE_SEEDING_LIMIT: 1440
-            TRANSMISSION__UTP_ENABLED: false
-            TRANSMISSION__UMASK: 7
-            TRANSMISSION__MESSAGE_LEVEL: 3
-            # For changing webui
-            # TRANSMISSION_WEB_HOME: "/app/web"
-          envFrom:
-            - secretRef:
-                name: transmission-rpc
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              storageClass: truenas-ssd-nvmeof
+              accessMode: ReadWriteOnce
+              size: 100M
+        pod:
+          securityContext:
+            runAsUser: 1003
+            runAsGroup: 2000
+            fsGroup: 2000
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/transmission
+              tag: "4.0.3"
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup:
+                enabled: false
+            env:
+              TZ: Europe/Warsaw
+              TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
+              TRANSMISSION__DOWNLOAD_DIR: "/downloads"
+              TRANSMISSION__INCOMPLETE_DIR_ENABLED: false
+              TRANSMISSION__RPC_PORT: &port 9091
+              TRANSMISSION__PEER_PORT: &peerport 51413
+              TRANSMISSION__RATIO_LIMIT_ENABLED: true
+              TRANSMISSION__RATIO_LIMIT: 3
+              TRANSMISSION__SPEED_LIMIT_UP_ENABLED: true
+              TRANSMISSION__SPEED_LIMIT_UP: 100000
+              TRANSMISSION__IDLE_SEEDING_LIMIT_ENABLED: true
+              TRANSMISSION__IDLE_SEEDING_LIMIT: 1440
+              TRANSMISSION__UTP_ENABLED: false
+              TRANSMISSION__UMASK: 7
+              TRANSMISSION__MESSAGE_LEVEL: 3
+              # For changing webui
+              # TRANSMISSION_WEB_HOME: "/app/web"
+            envFrom:
+              - secretRef:
+                  name: transmission-rpc
     service:
       main:
         ports:
