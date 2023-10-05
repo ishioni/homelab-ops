@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,71 +27,86 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      secret.reloader.stakater.com/reload: &secret radarr-secret
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: *secret
-    image:
-      repository: ghcr.io/onedr0p/radarr
-      tag: 4.7.5.7809
-    podSecurityContext:
-      runAsUser: 1003
-      runAsGroup: 2000
-      fsGroup: 2000
-    env:
-      TZ: Europe/Warsaw
-      RADARR__INSTANCE_NAME: Radarr
-      RADARR__PORT: &port 80
-      # RADARR__AUTHENTICATION_METHOD: External
-      # RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-      RADARR__APPLICATION_URL: "https://movies.${SECRET_DOMAIN}"
-      RADARR__LOG_LEVEL: info
-      RADARR__THEME: dark
-    envFrom:
-      - secretRef:
-          name: *secret
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              storageClass: truenas-hdd-nfs
+              accessMode: ReadWriteOnce
+              size: 5Gi
+        annotations:
+          secret.reloader.stakater.com/reload: &secret radarr-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        pod:
+          securityContext:
+            runAsUser: 1003
+            runAsGroup: 2000
+            fsGroup: 2000
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/radarr
+              tag: 4.7.5.7809
+            env:
+              TZ: Europe/Warsaw
+              RADARR__INSTANCE_NAME: Radarr
+              RADARR__PORT: &port 80
+              # RADARR__AUTHENTICATION_METHOD: External
+              # RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              RADARR__APPLICATION_URL: "https://movies.${SECRET_DOMAIN}"
+              RADARR__LOG_LEVEL: info
+              RADARR__THEME: dark
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 200Mi
+                limits:
+                  memory: 500Mi
     service:
       main:
         ports:
           http:
             port: *port
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        storageClass: truenas-hdd-nfs
-        accessMode: ReadWriteOnce
-        size: 5Gi
     persistence:
       media:
         enabled: true
         existingClaim: media-datastore
-        mountPath: /media
-        retain: true
+        globalMounts:
+          - path: /media
+            retain: true
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
@@ -104,14 +119,10 @@ spec:
           - host: &host "movies.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: *host
             hosts:
               - *host
-    resources:
-      requests:
-        cpu: 50m
-        memory: 200Mi
-      limits:
-        memory: 500Mi
