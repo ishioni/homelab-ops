@@ -69,6 +69,12 @@ spec:
             envFrom:
               - secretRef:
                   name: transmission-rpc
+            resources:
+              requests:
+                cpu: 50m
+                memory: 500Mi
+              limits:
+                memory: 2000Mi
     service:
       main:
         ports:
@@ -117,9 +123,3 @@ spec:
           - secretName: *host
             hosts:
               - *host
-    resources:
-      requests:
-        cpu: 50m
-        memory: 500Mi
-      limits:
-        memory: 2000Mi
