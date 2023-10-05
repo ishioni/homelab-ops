@@ -45,7 +45,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         hosts:
           - host: &host "static.${SECRET_DOMAIN}"
             paths:
