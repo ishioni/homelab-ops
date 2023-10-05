@@ -105,7 +105,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
