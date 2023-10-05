@@ -75,7 +75,7 @@ spec:
           http:
             port: *port
       utptcp:
-        enabled: true
+        controller: main
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${CONFIG_TRANSMISSION_IP}"
