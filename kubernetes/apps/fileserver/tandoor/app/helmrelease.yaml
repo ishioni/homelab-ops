@@ -67,7 +67,7 @@ spec:
                 spec:
                   httpGet:
                     path: /accounts/login/
-                    port: gunicorn
+                    port: 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -79,7 +79,7 @@ spec:
                 spec:
                   httpGet:
                     path: /accounts/login/
-                    port: gunicorn
+                    port: 8080
                   failureThreshold: 30
                   periodSeconds: 10
           nginx:
@@ -91,8 +91,6 @@ spec:
         ports:
           http:
             port: 80
-          gunicorn:
-            port: 8080
     ingress:
       main:
         enabled: true
