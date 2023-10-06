@@ -36,6 +36,12 @@ spec:
             image:
               repository: docker.io/roemer/ut99-server
               tag: latest
+            env:
+              UT_SERVERURL: CTF-Face?game=BotPack.CTFGame?mutator=BotPack.InstaGibDM,MVES.MapVote,FlagAnnouncementsV2.FlagAnnouncements
+              UT_SERVERNAME: TestServer
+              UT_MOTD1: Hello
+              UT_INITIALBOTS_DM: 3
+              UT_INITIALBOTS_CTF: 3
             envFrom:
               - secretRef:
                   name: *secret
@@ -59,6 +65,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${CONFIG_UT99_IP}"
+          external-dns.alpha.kubernetes.io/hostname: ut.internal.${SECRET_DOMAIN}
         externalTrafficPolicy: Local
         ports:
           game:
