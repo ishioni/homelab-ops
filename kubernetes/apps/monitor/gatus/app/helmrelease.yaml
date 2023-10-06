@@ -122,8 +122,6 @@ spec:
     persistence:
       config:
         type: emptyDir
-        globalMounts:
-          - path: /config
       config-file:
         type: configMap
         name: *configmap
