@@ -37,7 +37,7 @@ spec:
               repository: docker.io/roemer/ut99-server
               tag: latest
             env:
-              UT_SERVERURL: CTF-Face?game=BotPack.CTFGame?mutator=BotPack.InstaGibDM,MVES.MapVote,FlagAnnouncementsV2.FlagAnnouncements
+              UT_SERVERURL: CTF-Face?game=BotPack.CTFGame?mutator=MVES.MapVote,FlagAnnouncementsV2.FlagAnnouncements
               UT_SERVERNAME: TestServer
               UT_MOTD1: Hello
               UT_INITIALBOTS_DM: 3
