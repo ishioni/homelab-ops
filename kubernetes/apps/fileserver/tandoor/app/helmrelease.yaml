@@ -27,62 +27,74 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret tandoor-secret
-        configMap.reloader.stakater.com/reload: &configmap tandoor-configmap
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        envFrom:
-          - secretRef:
-              name: *secret
-    image:
-      repository: ghcr.io/tandoorrecipes/recipes
-      tag: "1.5.6"
-    envFrom:
-      - secretRef:
-          name: *secret
-      - configMapRef:
-          name: *configmap
-    podSecurityContext:
-      runAsUser: 0
-    securityContext:
-      runAsUser: 65534
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret tandoor-secret
+          configMap.reloader.stakater.com/reload: &configmap tandoor-configmap
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tandoorrecipes/recipes
+              tag: "1.5.6"
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: *configmap
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /accounts/login/
+                    port: gunicorn
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /accounts/login/
+                    port: gunicorn
+                  failureThreshold: 30
+                  periodSeconds: 10
+          nginx:
+            image:
+              repository: public.ecr.aws/nginx/nginx
+              tag: 1.25.2
     service:
       main:
         ports:
           http:
-            primary: true
             port: 80
-          gunicorn:
-            port: 8080
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /accounts/login/
-            port: gunicorn
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /accounts/login/
-            port: gunicorn
-          failureThreshold: 30
-          periodSeconds: 10
     ingress:
       main:
         enabled: true
-        ingressClassName: public
+        className: public
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: Recipes
@@ -92,10 +104,13 @@ spec:
           - host: &host "recipes.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
               - path: /accounts/signup
                 service:
                   name: blackhole
+                  port: http
                 pathType: Prefix
         tls:
           - secretName: *host
@@ -103,44 +118,25 @@ spec:
               - *host
     persistence:
       files:
-        enabled: true
         existingClaim: tandoor-files
-        subPath:
-          - path: mediafiles
-            mountPath: /opt/recipes/mediafiles
-          - path: staticfiles
-            mountPath: /opt/recipes/staticfiles
+        advancedMounts:
+          main:
+            main:
+              - path: /opt/recipes/mediafiles
+                subPath: mediafiles
+              - path: /opt/recipes/staticfiles
+                subPath: staticfiles
+            nginx:
+              - path: /media
+                subPath: mediafiles
+              - path: /static
+                subPath: staticfiles
       nginx-config:
-        enabled: "true"
-        mountPath: /etc/nginx/nginx.conf
-        subPath: nginx-config
-        type: "custom"
-        volumeSpec:
-          configMap:
-            name: tandoor-nginx
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        memory: 512Mi
-    additionalContainers:
-      nginx:
-        name: nginx
-        image: public.ecr.aws/nginx/nginx:1.25.2
-        imagePullPolicy: IfNotPresent
-        ports:
-          - name: http
-            containerPort: 80
-            protocol: TCP
-        volumeMounts:
-          - name: nginx-config
-            readOnly: true
-            mountPath: /etc/nginx/nginx.conf
-            subPath: nginx-config
-          - name: files
-            mountPath: /media
-            subPath: mediafiles
-          - name: files
-            mountPath: /static
-            subPath: staticfiles
+        type: configMap
+        name: tandoor-nginx
+        advancedMounts:
+          main:
+            nginx:
+              - path: /etc/nginx/nginx.conf
+                subPath: nginx-config
+                readOnly: true
