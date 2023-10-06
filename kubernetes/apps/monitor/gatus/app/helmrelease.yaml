@@ -120,8 +120,10 @@ spec:
       create: true
       name: gatus
     persistence:
-      config:
+      config-dir:
         type: emptyDir
+        globalMounts:
+          - path: /config
       config-file:
         type: configMap
         name: *configmap
