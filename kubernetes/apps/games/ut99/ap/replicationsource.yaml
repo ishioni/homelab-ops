@@ -3,8 +3,8 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: navidrome
-  namespace: media
+  name: ut99
+  namespace: games
 spec:
   sourcePVC: ut99-data
   trigger:
@@ -13,7 +13,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: ut99-restic-s3
-    cacheCapacity: 15Gi
+    cacheCapacity: 5Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
     retain:
