@@ -45,11 +45,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-            securityContext:
-              runAsUser: 1003
-              runAsGroup: 2000
-              fsGroup: 2000
-              fsGroupChangePolicy: OnRootMismatch
             probes:
               liveness: &probes
                 enabled: false
