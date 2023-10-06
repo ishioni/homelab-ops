@@ -114,8 +114,8 @@ spec:
           - secretName: *host
             hosts:
               - *host
-    persistence:
-      data:
-        existingClaim: ut99-data
-        globalMounts:
-          - path: /ut-data
+    # persistence:
+    #   data:
+    #     existingClaim: ut99-data
+    #     globalMounts:
+    #       - path: /ut-data
