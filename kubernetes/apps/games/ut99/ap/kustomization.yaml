@@ -3,6 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./namespace.yaml
-  - ./minecraft/ks.yaml
-  - ./ut99/ks.yaml
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+  - ./pvc.yaml
+  - ./replicationsource.yaml
