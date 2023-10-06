@@ -42,7 +42,7 @@ data:
           alias /media//;
         }
         location ^~ /accounts/signup {
-          return 401
+          return 401;
         }
         # pass requests for dynamic content to gunicorn
         location / {
