@@ -129,5 +129,5 @@ spec:
         name: *configmap
         globalMounts:
           - path: /config/config.yaml
-        subPath: config.yaml
-        readOnly: true
+            subPath: config.yaml
+            readOnly: true
