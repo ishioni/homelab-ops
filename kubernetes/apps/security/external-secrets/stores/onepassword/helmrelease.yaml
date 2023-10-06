@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,109 +27,117 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret onepassword-connect-secret
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/onedr0p/onepassword-connect-api
-      tag: 1.7.2
-    env:
-      OP_BUS_PORT: "11220"
-      OP_BUS_PEERS: "localhost:11221"
-      OP_HTTP_PORT: &port 8080
-      OP_SESSION:
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: 1password-credentials.json
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret onepassword-connect-secret
+        strategy: RollingUpdate
+        pod:
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/onepassword-connect-api
+              tag: 1.7.2
+            env:
+              OP_BUS_PORT: "11220"
+              OP_BUS_PEERS: "localhost:11221"
+              OP_HTTP_PORT: &mainport 8080
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: *secret
+                    key: 1password-credentials.json
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /heartbeat
+                    port: *mainport
+                  initialDelaySeconds: 15
+                  periodSeconds: 30
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *mainport
+                  initialDelaySeconds: 15
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10Mi
+              limits:
+                memory: 20Mi
+          sync:
+            image:
+              repository: ghcr.io/onedr0p/onepassword-sync
+              tag: 1.7.2
+            env:
+              - name: OP_SESSION
+                valueFrom:
+                  secretKeyRef:
+                    name: *secret
+                    key: 1password-credentials.json
+              - name: OP_HTTP_PORT
+                value: &syncport 8081
+              - name: OP_BUS_PORT
+                value: "11221"
+              - name: OP_BUS_PEERS
+                value: "localhost:11220"
+            probes:
+              readinessProbe:
+                httpGet:
+                  path: /health
+                  port: *syncport
+                initialDelaySeconds: 15
+              livenessProbe:
+                httpGet:
+                  path: /heartbeat
+                  port: *syncport
+                failureThreshold: 3
+                periodSeconds: 30
+                initialDelaySeconds: 15
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10Mi
+              limits:
+                memory: 20Mi
     service:
       main:
         ports:
           http:
-            port: *port
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /heartbeat
-            port: *port
-          initialDelaySeconds: 15
-          periodSeconds: 30
-          failureThreshold: 3
-      readiness:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /health
-            port: *port
-          initialDelaySeconds: 15
-      startup:
-        enabled: false
+            port: *mainport
     ingress:
       main:
         enabled: true
-        ingressClassName: private
+        className: private
         hosts:
           - host: &host opconnect.internal.${SECRET_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: *host
-    sidecars:
-      sync:
-        name: sync
-        image: ghcr.io/onedr0p/onepassword-sync:1.7.2
-        env:
-          - name: OP_SESSION
-            valueFrom:
-              secretKeyRef:
-                name: *secret
-                key: 1password-credentials.json
-          - name: OP_HTTP_PORT
-            value: &port 8081
-          - name: OP_BUS_PORT
-            value: "11221"
-          - name: OP_BUS_PEERS
-            value: "localhost:11220"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: *port
-          initialDelaySeconds: 15
-        livenessProbe:
-          httpGet:
-            path: /heartbeat
-            port: *port
-          failureThreshold: 3
-          periodSeconds: 30
-          initialDelaySeconds: 15
-        resources:
-          requests:
-            cpu: 5m
-            memory: 10Mi
-          limits:
-            memory: 20Mi
-        volumeMounts:
-          - name: shared
-            mountPath: /home/opuser/.op/data
-    podSecurityContext:
-      runAsUser: 999
-      runAsGroup: 999
     persistence:
       shared:
-        enabled: true
         type: emptyDir
-        mountPath: /home/opuser/.op/data
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 20Mi
+        advancedMounts:
+          main:
+            main:
+              - path: /home/opuser/.op/data
+            sync:
+              - path: /home/opuser/.op/data
