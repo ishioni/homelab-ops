@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,44 +27,79 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      annotations:
-        secret.reloader.stakater.com/reload: &secret paperless-secret
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: *secret
-    image:
-      repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.17.4
-    env:
-      PAPERLESS_CONSUMER_POLLING: 60
-      PAPERLESS_CONSUMER_RECURSIVE: "true"
-      PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
-      PAPERLESS_CONSUMPTION_DIR: /library/consume
-      PAPERLESS_DATA_DIR: /library/data
-      # PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
-      PAPERLESS_EXPORT_DIR: /library/export
-      # PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_REMOTE_USER
-      PAPERLESS_MEDIA_ROOT: /library/media
-      PAPERLESS_OCR_LANGUAGE: eng
-      PAPERLESS_PORT: &port 80
-      PAPERLESS_REDIS: redis://localhost:6379
-      PAPERLESS_TASK_WORKERS: 2
-      PAPERLESS_TIKA_ENABLED: 1
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
-      PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
-      PAPERLESS_TIME_ZONE: Europe/Warsaw
-      PAPERLESS_URL: https://documents.internal.${SECRET_DOMAIN}
-      USERMAP_UID: 1003
-      USERMAP_GID: 2000
-    envFrom:
-      - secretRef:
-          name: *secret
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: library
+              mountPath: /library
+              storageClass: truenas-ssd-nvmeof
+              accessMode: ReadWriteOnce
+              size: 10Gi
+        annotations:
+          secret.reloader.stakater.com/reload: &secret paperless-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 1.17.4
+            env:
+              PAPERLESS_CONSUMER_POLLING: 60
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              PAPERLESS_CONSUMPTION_DIR: /library/consume
+              PAPERLESS_DATA_DIR: /library/data
+              # PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
+              PAPERLESS_EXPORT_DIR: /library/export
+              # PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_REMOTE_USER
+              PAPERLESS_MEDIA_ROOT: /library/media
+              PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_PORT: &port 80
+              PAPERLESS_REDIS: redis://localhost:6379
+              PAPERLESS_TASK_WORKERS: 2
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+              PAPERLESS_TIME_ZONE: Europe/Warsaw
+              PAPERLESS_URL: https://documents.internal.${SECRET_DOMAIN}
+              USERMAP_UID: 1003
+              USERMAP_GID: 2000
+            envFrom:
+              - secretRef:
+                  name: *secret
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1000Mi
+              limits:
+                memory: 5000Mi
+          gotenburg:
+            image:
+              repository: docker.io/thecodingmachine/gotenberg
+              tag: 7.9.2
+              imagePullPolicy: IfNotPresent
+            env:
+              - {name: DISABLE_GOOGLE_CHROME, value: "1"}
+            redis:
+              image:
+                repository: public.ecr.aws/docker/library/redis
+                tag: 7.2.1
+                imagePullPolicy: IfNotPresent
+            tika:
+              image:
+                repository: ghcr.io/paperless-ngx/tika
+                tag: 2.9.0-full
+                imagePullPolicy: IfNotPresent
     service:
       main:
         ports:
@@ -73,7 +108,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: private
+        className: private
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: Documents
@@ -83,31 +118,10 @@ spec:
           - host: &host documents.internal.${SECRET_DOMAIN}
             paths:
               - path: /
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
             secretName: *host
-    volumeClaimTemplates:
-      - name: library
-        mountPath: /library
-        storageClass: truenas-ssd-nvmeof
-        accessMode: ReadWriteOnce
-        size: 10Gi
-    resources:
-      requests:
-        cpu: 100m
-        memory: 1000Mi
-      limits:
-        memory: 5000Mi
-    sidecars:
-      gotenburg:
-        image: docker.io/thecodingmachine/gotenberg:7.9.2
-        imagePullPolicy: IfNotPresent
-        env:
-          - {name: DISABLE_GOOGLE_CHROME, value: "1"}
-      redis:
-        image: public.ecr.aws/docker/library/redis:7.2.1
-        imagePullPolicy: IfNotPresent
-      tika:
-        image: ghcr.io/paperless-ngx/tika:2.9.0-full
-        imagePullPolicy: IfNotPresent
