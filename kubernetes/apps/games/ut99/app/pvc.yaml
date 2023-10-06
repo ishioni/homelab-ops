@@ -7,7 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: truenas-ssd-nvmeof
+  storageClassName: truenas-hdd-nfs
   resources:
     requests:
       storage: 5Gi
