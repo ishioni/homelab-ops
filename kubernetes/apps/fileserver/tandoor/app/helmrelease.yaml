@@ -107,11 +107,6 @@ spec:
                 service:
                   name: main
                   port: http
-              - path: /accounts/signup
-                service:
-                  name: blackhole
-                  port: http
-                pathType: Prefix
         tls:
           - secretName: *host
             hosts:

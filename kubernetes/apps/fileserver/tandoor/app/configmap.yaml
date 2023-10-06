@@ -41,6 +41,9 @@ data:
         location /media/ {
           alias /media//;
         }
+        location ^~ /accounts/signup {
+          return 401
+        }
         # pass requests for dynamic content to gunicorn
         location / {
         proxy_set_header Host $host;
