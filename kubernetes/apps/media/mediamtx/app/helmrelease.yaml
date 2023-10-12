@@ -70,14 +70,6 @@ spec:
           rtsp-tcp:
             port: 554
             targetPort: 8854
-          rtp-udp:
-            port: 554
-            targetPort: 8000
-            protocol: UDP
-          rtcp-udp:
-            port: 555
-            targetPort: 8001
-            protocol: UDP
           hls:
             port: 443
             targetPort: 8888

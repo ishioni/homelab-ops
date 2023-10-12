@@ -10,11 +10,9 @@ apiAddress: 0.0.0.0:9997
 metrics: true
 metricsAddress: 0.0.0.0:9998
 rtsp: true
-protocols: [tcp, udp]
+protocols: [tcp]
 encryption: "false"
 rtspAddress: :8554
-rtpAddress: :8000
-rtcpAddress: :8001
 
 rtmp: false
 
