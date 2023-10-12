@@ -82,7 +82,7 @@ spec:
             subPath: mediamtx.yml
             readOnly: true
       cert-key:
-        type: Secret
+        type: secret
         name: camera.internal.${SECRET_DOMAIN}
         globalMounts:
           - path: /tls.key
