@@ -49,9 +49,9 @@ spec:
               limits:
                 memory: 1000Mi
             probes:
-              livenes: &probes
+              liveness: &probes
                 enabled: false
-              readoness: *probes
+              readiness: *probes
               startup: *probes
     service:
       main:
