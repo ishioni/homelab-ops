@@ -31,7 +31,7 @@ spec:
       main:
         annotations:
           secret.reloader.stakater.com/reload: &secret gatus-secret
-          configMap.reloader.stakater.com/reload: &configmap gatus-configmap
+          configmap.reloader.stakater.com/reload: &configmap gatus-configmap
         pod:
           securityContext:
             runAsUser: 568

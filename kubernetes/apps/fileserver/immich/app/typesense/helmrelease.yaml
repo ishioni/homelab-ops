@@ -42,7 +42,7 @@ spec:
               storageClass: truenas-ssd-nvmeof
         annotations:
           secret.reloader.stakater.com/reload: &secret immich-secret
-          configMap.reloader.stakater.com/reload: &configmap immich-configmap
+          configmap.reloader.stakater.com/reload: &configmap immich-configmap
         containers:
           main:
             image:

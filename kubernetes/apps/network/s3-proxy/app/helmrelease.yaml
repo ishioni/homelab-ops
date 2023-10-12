@@ -31,7 +31,7 @@ spec:
       main:
         strategy: RollingUpdate
         annotations:
-          configMap.reloader.stakater.com/reload: &configmap s3-proxy-configmap
+          configmap.reloader.stakater.com/reload: &configmap s3-proxy-configmap
         containers:
           main:
             image:
