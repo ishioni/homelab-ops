@@ -10,9 +10,10 @@ apiAddress: 0.0.0.0:9997
 metrics: true
 metricsAddress: 0.0.0.0:9998
 rtsp: true
-protocols: [tcp]
+protocols: [tcp, udp]
 encryption: "false"
 rtspAddress: :8554
+rtpAddress: :8554
 
 rtmp: false
 
@@ -32,11 +33,11 @@ record: false
 paths:
   all:
     record: false
-  babycam:
+  kids:
     source: rtsp://10.1.3.16/live0
     sourceProtocol: automatic
     sourceOnDemand: false
-  bedroomcam:
+  bedroom:
     source: rtsp://10.1.3.17/live0
     sourceProtocol: automatic
     sourceOnDemand: false
