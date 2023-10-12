@@ -48,6 +48,11 @@ spec:
                 memory: 250Mi
               limits:
                 memory: 1000Mi
+            probes:
+              livenes: &probes
+                enabled: false
+              readoness: *probes
+              startup: *probes
     service:
       main:
         ports:
