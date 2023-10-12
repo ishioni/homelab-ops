@@ -72,7 +72,7 @@ spec:
             targetPort: 8854
           rtsp-udp:
             port: 554
-            targetPort: 8854
+            targetPort: 8855
             protocol: UDP
           hls:
             port: 443
