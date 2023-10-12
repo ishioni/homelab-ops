@@ -13,7 +13,7 @@ rtsp: true
 protocols: [tcp, udp]
 encryption: "false"
 rtspAddress: :8554
-rtpAddress: :8554
+rtpAddress: :8555
 
 rtmp: false
 
