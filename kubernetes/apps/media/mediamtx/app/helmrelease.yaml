@@ -70,7 +70,7 @@ spec:
         ports:
           rtsp-tcp:
             port: 554
-            targetPort: 8854
+            targetPort: 8554
           hls:
             port: 443
             targetPort: 8888
