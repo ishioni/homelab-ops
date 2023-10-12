@@ -1,5 +1,5 @@
 ---
-logLevel: info
+logLevel: warn
 logDestinations: [stdout]
 readTimeout: 10s
 writeTimeout: 10s
