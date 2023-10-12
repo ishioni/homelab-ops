@@ -45,10 +45,10 @@ spec:
               tag: 1.1.1-ffmpeg
             resources:
               requests:
-                cpu: 100m
-                memory: 250Mi
+                cpu: 50m
+                memory: 50Mi
               limits:
-                memory: 1000Mi
+                memory: 200Mi
             probes:
               liveness: &probes
                 enabled: false
