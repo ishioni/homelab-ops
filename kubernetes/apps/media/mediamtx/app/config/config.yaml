@@ -1,5 +1,5 @@
 ---
-logLevel: debug
+logLevel: info
 logDestinations: [stdout]
 readTimeout: 10s
 writeTimeout: 10s
