@@ -18,17 +18,11 @@ rtmp: false
 hls: false
 webrtc: false
 srt: false
-
-pathDefaults:
-  source: publisher
-  sourceFingerprint:
-  sourceOnDemand: false
-  sourceOnDemandStartTimeout: 10s
-  sourceOnDemandCloseAfter: 10s
-  maxReaders: 0
-  record: false
+record: false
 
 paths:
+  all:
+    record: false
   babycam:
     source: rtsp://10.1.3.16/live0
     sourceProtocol: automatic
