@@ -9,3 +9,9 @@ configMapGenerator:
     namespace: media
     files:
       - mediamtx.yaml=./config/config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: mediamtx
+      app.kubernetes.io/instance: mediamtx
