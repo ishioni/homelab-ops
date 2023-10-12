@@ -51,9 +51,10 @@ spec:
     service:
       main:
         ports:
-          api:
+          http:
             port: 9997
       prometheus:
+        controller: main
         ports:
           prometheus:
             port: 9998
