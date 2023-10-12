@@ -8,7 +8,7 @@ configMapGenerator:
   - name: mediamtx-configmap
     namespace: media
     files:
-      - mediamtx.yaml=./config/config.yaml
+      - mediamtx.yml=./config/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
 labels:
