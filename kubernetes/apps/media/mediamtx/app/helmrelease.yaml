@@ -31,7 +31,8 @@ spec:
       main:
         strategy: RollingUpdate
         annotations:
-          configMap.reloader.stakater.com/reload: &configMap mediamtx-configmap
+          configmap.reloader.stakater.com/reload: &configMap mediamtx-configmap
+          secret.reloader.stakater.com/reload: &secret camera.internal.${SECRET_DOMAIN}
         pod:
           securityContext:
             runAsUser: 1003
@@ -83,7 +84,7 @@ spec:
             readOnly: true
       cert-key:
         type: secret
-        name: camera.internal.${SECRET_DOMAIN}
+        name: *secret
         globalMounts:
           - path: /tls.key
             subPath: tls.key
