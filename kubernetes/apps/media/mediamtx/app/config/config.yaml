@@ -15,7 +15,16 @@ encryption: "false"
 rtspAddress: :8554
 
 rtmp: false
-hls: false
+
+hls: true
+hlsAddress: :8888
+hlsEncryption: true
+hlsServerKey: /tls.key
+hlsServerCert: /tls.crt
+hlsAlwaysRemux: true
+hlsVariant: lowLatency
+hlsTrustedProxies: ["172.16.0.0/16"]
+
 webrtc: false
 srt: false
 record: false

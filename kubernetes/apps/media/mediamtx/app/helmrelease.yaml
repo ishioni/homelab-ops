@@ -68,7 +68,11 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: camera.internal.${SECRET_DOMAIN}
         ports:
           rtsp-tcp:
-            port: 8554
+            port: 554
+            targetPort: 8854
+          hls:
+            port: 443
+            targetPort: 8888
     persistence:
       config-file:
         type: configMap
@@ -77,6 +81,14 @@ spec:
           - path: /mediamtx.yml
             subPath: mediamtx.yml
             readOnly: true
+      cert-key:
+        type: Secret
+        name: camera.internal.${SECRET_DOMAIN}
+        globalMounts:
+          - path: /tls.key
+            subPath: tls.key
+          - path: /tls.crt
+            subPath: tls.crt
     serviceMonitor:
       main:
         enabled: true
