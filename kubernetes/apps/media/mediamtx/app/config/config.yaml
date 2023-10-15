@@ -40,4 +40,3 @@ paths:
     source: rtsp://10.1.3.17/live0
     sourceProtocol: automatic
     sourceOnDemand: false
-  all_others:
