@@ -263,6 +263,6 @@ spec:
       https: true
       image:
         repository: docker.io/xperimental/nextcloud-exporter
-        tag: 0.6.1
+        tag: 0.6.2
       serviceMonitor:
         enabled: false
