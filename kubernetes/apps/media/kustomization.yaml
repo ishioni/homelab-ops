@@ -4,6 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
+  - ./invidious/ks.yaml
   - ./lidarr/ks.yaml
   - ./mediamtx/ks.yaml
   - ./navidrome/ks.yaml
