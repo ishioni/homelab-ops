@@ -52,7 +52,7 @@ tasks:
         vars: {TIMEOUT: 10m}
       - task: apply
         vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m no-reboot"}
-      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} --image ghcr.io/ishioni/installer:{{ .TALOS_VERSION }}
+      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} -m powercycle --image ghcr.io/ishioni/installer:{{ .TALOS_VERSION }}
 
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
