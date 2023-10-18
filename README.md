@@ -12,9 +12,8 @@ _... managed with Flux and Renovate_ :robot:
 
 <div align="center">
 
-[![talos](https://img.shields.io/badge/k3s-v1.4.6-brightgreen?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
-[![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot&logoColor=white)](https://github.com/renovatebot/renovate)
+[![Talos](https://img.shields.io/badge/v1.28-blue?style=for-the-badge&logo=kubernetes&logoColor=white))](https://talos.dev/)
+[![Renovate](https://img.shields.io/github/actions/workflow/status/ishioni/homelab-ops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/ishioni/homelab-ops/actions/workflows/renovate.yaml)
 
 </div>
 
@@ -32,7 +31,7 @@ There is a template over at [onedr0p/flux-cluster-template](https://github.com/o
 
 ### Installation
 
-My cluster is [talos](https://talos.dev/) provisioned overtop ubuntu proxmox VMs. This is a semi hyper-converged cluster, workloads are sharing the same available resources on my nodes while I have a separate server for data storage.
+My cluster is [talos](https://talos.dev/) running on proxmox VMs. This is a semi hyper-converged cluster, workloads are sharing the same available resources on my nodes while I have a separate server for data storage.
 
 🔸 _[Click here](./ansible/) to see my Ansible playbooks and roles._
 
