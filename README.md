@@ -12,7 +12,7 @@ _... managed with Flux and Renovate_ :robot:
 
 <div align="center">
 
-[![Talos](https://img.shields.io/badge/v1.28-blue?style=for-the-badge&logo=kubernetes&logoColor=white))](https://talos.dev/)
+[![Talos](https://img.shields.io/badge/v1.28-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
 [![Renovate](https://img.shields.io/github/actions/workflow/status/ishioni/homelab-ops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/ishioni/homelab-ops/actions/workflows/renovate.yaml)
 
 </div>
