@@ -1,7 +1,7 @@
 ---
 clusterName: ${clusterName}
 # renovate: datasource=github-releases depName=ishioni/talos-images
-talosVersion: v1.5.3
+talosVersion: v1.5.4
 # renovate: datasource=github-releases depName=siderolabs/kubelet
 kubernetesVersion: v1.28.2
 endpoint: "https://${clusterName}.${domainName}:6443"
