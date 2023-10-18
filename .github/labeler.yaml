@@ -1,6 +1,10 @@
 ---
 area/ansible:
-  - "ansible/**/*"
+  - "infrastructure/ansible/**/*"
+area/taskfiles:
+  - ".taskfiles/**/*"
+area/talos:
+  - "infrastructure/talos/**/*"
 area/github:
   - ".github/**/*"
 area/kubernetes:
