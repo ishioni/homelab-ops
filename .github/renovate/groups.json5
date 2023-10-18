@@ -36,5 +36,11 @@
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
     },
+    {
+      description: "Talos images",
+      groupName: "Talos",
+      matchPackagePatterns: ["talos-images","installer"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    },
   ],
 }
