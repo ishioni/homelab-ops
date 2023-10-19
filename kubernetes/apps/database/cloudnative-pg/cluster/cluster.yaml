@@ -17,7 +17,7 @@ spec:
     parameters:
       max_connections: "300"
       work_mem: 64MB
-      shared_buffers: 512MB
+      shared_buffers: 128MB
   superuserSecret:
     name: cloudnative-pg-secret
   monitoring:
