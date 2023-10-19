@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: piped
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: piped
+      version: 3.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: piped
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    postgresql:
+      enabled: false
+    global:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret piped-secret
+    frontend:
+      image:
+        repository: docker.io/1337kavin/piped-frontend
+    backend:
+      image:
+        repository: docker.io/1337kavin/piped
+      initContainers:
+        01-init-db:
+          image: "ghcr.io/onedr0p/postgres-init:14.9"
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+            - secretRef:
+                name: *secret
+      config:
+        PORT: 8080
+        HTTP_WORKERS: 2
+        PROXY_PART: "https://${APP_DNS_PIPED_YTPROXY}"
+        COMPROMISED_PASSWORD_CHECK: true
+        DISABLE_REGISTRATION: false
+        database:
+          connection_url: "jdbc:postgresql://${DB_HOSTNAME}:5432/${DB_DATABASE_NAME}"
+          driver_class: "org.postgresql.Driver"
+          secret: piped-secret
+      podSecurityContext: &psc
+        runAsUser: &uid ${APP_UID_PIPED}
+        runAsGroup: *uid
+        fsGroup: *uid
+        fsGroupChangePolicy: Always
