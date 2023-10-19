@@ -171,14 +171,6 @@ spec:
               path: /var/lib/grafana/dashboards/database
             orgId: 1
             type: file
-          - name: "cilium"
-            orgId: 1
-            folder: "Cilium"
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/cilium
           - name: "flux"
             orgId: 1
             folder: "Flux"
@@ -221,25 +213,15 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/unifi
     dashboards:
-      cilium:
-        cilium-dashboard:
-          url: https://raw.githubusercontent.com/cilium/cilium/v1.13.4/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
-          datasource: Prometheus
-        cilium-operator-dashboard:
-          url: https://raw.githubusercontent.com/cilium/cilium/v1.13.4/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-operator-dashboard.json
-          datasource: Prometheus
-        hubble-dashboard:
-          url: https://raw.githubusercontent.com/cilium/cilium/v1.13.4/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
-          datasource: Prometheus
       flux:
         flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0/manifests/monitoring/monitoring-config/dashboards/cluster.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
         flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
           datasource: Prometheus
         flux-logs:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0/manifests/monitoring/monitoring-config/dashboards/logs.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: Prometheus
       kubernetes:
         api-server:
@@ -268,11 +250,13 @@ spec:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
         speedtest-exporter-hub:
-          gnetId: 13665 # https://grafana.com/grafana/dashboards/13665?tab=revisions
+          # renovate: depName="Speedtest-Exporter"
+          gnetId: 13665
           revision: 4
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
         external-dns:
+          # renovate: depName="External-DNS"
           gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
           revision: 1
           datasource: Prometheus
@@ -281,50 +265,61 @@ spec:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.21.0/docs/src/samples/monitoring/grafana-dashboard.json
           datasource: Prometheus
         redis:
-          gnetId: 11835 # https://grafana.com/grafana/dashboards/11835?tab=revisions
+          # renovate: depName="Redis"
+          gnetId: 11835
           revision: 1
           datasource: Prometheus
         minio-dashboard:
-          gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
+          # renovate: depName="Minio"
+          gnetId: 13502
           revision: 24
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
       system:
         node-exporter:
-          gnetId: 11074 # https://grafana.com/grafana/dashboards/11074?tab=revisions
+          # renovate: depName="Node Exporter"
+          gnetId: 11074
           revision: 9
           datasource: Prometheus
+          # renovate: depName="Node Exporter Full"
         node-exporter-full:
-          gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
+          gnetId: 1860
           revision: 31
           datasource: Prometheus
         nut:
-          gnetId: 15406 # https://grafana.com/grafana/dashboards/15406?tab=revisions
+          # renovate: depName="NUT"
+          gnetId: 15406
           revision: 2
           datasource:
             - {name: DS_GRAFANACLOUD-DENYAGO-PROM, value: Prometheus}
       unifi:
         unifi-dpi-insights:
+          # renovate: depName="Unifi DPI"
           gnetId: 11310 # https://grafana.com/grafana/dashboards/11310?tab=revisions
           revision: 5
           datasource: Prometheus
         unifi-network-sites:
+          # renovate: depName="Unifi Sites"
           gnetId: 11311 # https://grafana.com/grafana/dashboards/11311?tab=revisions
           revision: 5
           datasource: Prometheus
         unifi-usw-insights:
+          # renovate: depName="Unifi USW"
           gnetId: 11312 # https://grafana.com/grafana/dashboards/11312?tab=revisions
           revision: 9
           datasource: Prometheus
         unifi-usg-insights:
+          # renovate: depName="Unifi USG"
           gnetId: 11313 # https://grafana.com/grafana/dashboards/11313?tab=revisions
           revision: 9
           datasource: Prometheus
         unifi-uap-insights:
+          # renovate: depName="Unifi UAP"
           gnetId: 11314 # https://grafana.com/grafana/dashboards/11314?tab=revisions
           revision: 10
           datasource: Prometheus
         unifi-client-insights:
+          # renovate: depName="Unifi Client"
           gnetId: 11315 # https://grafana.com/grafana/dashboards/11315?tab=revisions
           revision: 9
           datasource: Prometheus
