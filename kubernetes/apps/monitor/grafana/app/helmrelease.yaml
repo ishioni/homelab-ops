@@ -257,7 +257,7 @@ spec:
             - {name: DS_PROMETHEUS, value: Prometheus}
         external-dns:
           # renovate: depName="External-DNS"
-          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
+          gnetId: 15038
           revision: 1
           datasource: Prometheus
       storage:
@@ -295,31 +295,31 @@ spec:
       unifi:
         unifi-dpi-insights:
           # renovate: depName="Unifi DPI"
-          gnetId: 11310 # https://grafana.com/grafana/dashboards/11310?tab=revisions
+          gnetId: 11310
           revision: 5
           datasource: Prometheus
         unifi-network-sites:
           # renovate: depName="Unifi Sites"
-          gnetId: 11311 # https://grafana.com/grafana/dashboards/11311?tab=revisions
+          gnetId: 11311
           revision: 5
           datasource: Prometheus
         unifi-usw-insights:
           # renovate: depName="Unifi USW"
-          gnetId: 11312 # https://grafana.com/grafana/dashboards/11312?tab=revisions
+          gnetId: 11312
           revision: 9
           datasource: Prometheus
         unifi-usg-insights:
           # renovate: depName="Unifi USG"
-          gnetId: 11313 # https://grafana.com/grafana/dashboards/11313?tab=revisions
+          gnetId: 11313
           revision: 9
           datasource: Prometheus
         unifi-uap-insights:
           # renovate: depName="Unifi UAP"
-          gnetId: 11314 # https://grafana.com/grafana/dashboards/11314?tab=revisions
+          gnetId: 11314
           revision: 10
           datasource: Prometheus
         unifi-client-insights:
           # renovate: depName="Unifi Client"
-          gnetId: 11315 # https://grafana.com/grafana/dashboards/11315?tab=revisions
+          gnetId: 11315
           revision: 9
           datasource: Prometheus
