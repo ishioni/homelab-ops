@@ -25,6 +25,15 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  valuesFrom:
+    - kind: Secret
+      name: piped-secret
+      valuesKey: INIT_POSTGRES_USER
+      targetPath: backend.config.database.username
+    - kind: Secret
+      name: piped-secret
+      valuesKey: INIT_POSTGRES_PASS
+      targetPath: backend.config.database.password
   values:
     postgresql:
       enabled: false
@@ -55,7 +64,7 @@ spec:
         database:
           connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local:5432/piped
           driver_class: org.postgresql.Driver
-          secret: piped-db-secret
+          # secret: piped-db-secret
     ingress:
       main:
         enabled: true
