@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: piped
-      version: 3.0.3
+      version: 3.1.1
       sourceRef:
         kind: HelmRepository
         name: piped
@@ -34,6 +34,8 @@ spec:
     frontend:
       image:
         repository: docker.io/1337kavin/piped-frontend
+      env:
+        BACKEND_HOSTNAME: &pipedapi pipedapi.internal.${SECRET_DOMAIN}
     backend:
       image:
         repository: docker.io/1337kavin/piped
@@ -47,15 +49,49 @@ spec:
       config:
         PORT: 8080
         HTTP_WORKERS: 2
-        PROXY_PART: "https://${APP_DNS_PIPED_YTPROXY}"
+        PROXY_PART: https://ytproxy.internal.${SECRET_DOMAIN}
         COMPROMISED_PASSWORD_CHECK: true
         DISABLE_REGISTRATION: false
         database:
-          connection_url: "jdbc:postgresql://${DB_HOSTNAME}:5432/${DB_DATABASE_NAME}"
-          driver_class: "org.postgresql.Driver"
+          connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local:5432/piped
+          driver_class: org.postgresql.Driver
           secret: piped-secret
-      podSecurityContext: &psc
-        runAsUser: &uid ${APP_UID_PIPED}
-        runAsGroup: *uid
-        fsGroup: *uid
-        fsGroupChangePolicy: Always
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Piped
+          hajimari.io/icon: mdi:youtube
+          hajimari.io/group: media
+        hosts:
+          - host: &host "piped.internal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+      backend:
+        enabled: true
+        ingressClassName: private
+        hosts:
+          - host: *pipedapi
+            paths:
+              - path: "/"
+        tls:
+          - hosts:
+              - *pipedapi
+            secretName: *pipedapi
+      ytproxy:
+        enabled: true
+        ingressClassName: private
+        hosts:
+          - host: &proxy ytproxy.internal.${SECRET_DOMAIN}
+            paths:
+              - path: "/"
+        tls:
+          - hosts:
+              - *proxy
+            secretName: *proxy
