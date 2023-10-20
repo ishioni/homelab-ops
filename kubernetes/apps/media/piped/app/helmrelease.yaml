@@ -55,7 +55,6 @@ spec:
         database:
           connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local:5432/piped
           driver_class: org.postgresql.Driver
-          secret: piped-secret
     ingress:
       main:
         enabled: true
@@ -95,3 +94,12 @@ spec:
           - hosts:
               - *proxy
             secretName: *proxy
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: DB_USER
+      targetPath: backend.config.database.username
+    - kind: Secret
+      name: *secret
+      valuesKey: DB_PASS
+      targetPath: backend.config.database.password
