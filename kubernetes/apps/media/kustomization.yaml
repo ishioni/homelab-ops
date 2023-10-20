@@ -8,6 +8,7 @@ resources:
   - ./lidarr/ks.yaml
   - ./mediamtx/ks.yaml
   - ./navidrome/ks.yaml
+  - ./piped/ks.yaml
   - ./prowlarr/ks.yaml
   - ./pvc
   - ./radarr/ks.yaml
