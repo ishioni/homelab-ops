@@ -55,7 +55,7 @@ spec:
         database:
           connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local:5432/piped
           driver_class: org.postgresql.Driver
-          secret: secret-name
+          secret: piped-db-secret
     ingress:
       main:
         enabled: true
