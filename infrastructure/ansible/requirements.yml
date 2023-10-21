@@ -17,7 +17,7 @@ roles:
     version: 2.3.1
   - name: geerlingguy.pip
     src: https://github.com/geerlingguy/ansible-role-pip.git
-    version: 2.2.0
+    version: 3.0.0
   - name: geerlingguy.docker
     src: https://github.com/geerlingguy/ansible-role-docker.git
     version: 7.0.1
