@@ -21,7 +21,7 @@ _... managed with Flux and Renovate_ :robot:
 
 ## 📖 Overview
 
-This is home to my personal Kubernetes lab cluster. [Flux](https://github.com/fluxcd/flux2) watches this Git repository and makes the changes to my cluster based on the manifests in the [cluster](./cluster/) directory. [Renovate](https://github.com/renovatebot/renovate) also watches this Git repository and creates pull requests when it finds updates to Docker images, Helm charts, and other dependencies.
+This is home to my personal Kubernetes lab cluster. [Flux](https://github.com/fluxcd/flux2) watches this Git repository and makes the changes to my cluster based on the manifests in the [kubernetes](./kubernetes/) directory. [Renovate](https://github.com/renovatebot/renovate) also watches this Git repository and creates pull requests when it finds updates to Docker images, Helm charts, and other dependencies.
 
 ---
 
@@ -55,7 +55,7 @@ My cluster is [talos](https://talos.dev/) running on proxmox VMs. This is a semi
 
 ### Directories
 
-This Git repository contains the following directories under [cluster](./cluster/).
+This Git repository contains the following directories under [kubernetes](./kubernetes/).
 
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
