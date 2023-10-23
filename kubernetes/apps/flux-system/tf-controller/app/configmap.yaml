@@ -6,3 +6,5 @@ metadata:
   namespace: flux-system
 data:
   secretName: branch-planner-token
+  resources:
+    - namespace: flux-system
