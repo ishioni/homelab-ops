@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: tf-controller
-      version: 0.15.1
+      version: 0.16.0-rc.3
       sourceRef:
         kind: HelmRepository
         name: weaveworks
@@ -31,3 +31,5 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+    branchPlanner:
+      enabled: true
