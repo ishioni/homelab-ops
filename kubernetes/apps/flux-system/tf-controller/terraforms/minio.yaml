@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   suspend: false
-  # approvePlan: auto
+  approvePlan: auto
   interval: 12h
   path: ./infrastructure/terraform/minio
   sourceRef:
