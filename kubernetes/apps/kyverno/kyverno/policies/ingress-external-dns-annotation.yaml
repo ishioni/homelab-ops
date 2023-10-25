@@ -23,7 +23,7 @@ spec:
       preconditions:
         all:
           - key: "{{ request.object.spec.ingressClassName }}"
-            operator: Equal
+            operator: Equals
             value: "public"
       mutate:
         patchStrategicMerge:
