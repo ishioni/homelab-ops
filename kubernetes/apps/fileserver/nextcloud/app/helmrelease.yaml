@@ -203,7 +203,7 @@ spec:
       enabled: true
       image:
         repository: public.ecr.aws/nginx/nginx
-        tag: "1.25.2"
+        tag: "1.25.3"
       config:
         default: true
       resources:
