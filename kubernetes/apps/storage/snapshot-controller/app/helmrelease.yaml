@@ -28,16 +28,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    volumeSnapshotClasses:
-      - name: truenas-ssd-nvmeof
-        driver: org.democratic-csi.nvmeof
-        annotations:
-          snapshot.storage.kubernetes.io/is-default-class: "true"
-        deletionPolicy: Delete
-        parameters:
-          detachedSnapshots: "false"
-      - name: truenas-hdd-nfs
-        driver: org.democratic-csi.nfs
-        deletionPolicy: Delete
-        parameters:
-          detachedSnapshots: "false"
+    controller:
+      volumeSnapshotClasses:
+        - name: truenas-ssd-nvmeof
+          driver: org.democratic-csi.nvmeof
+          annotations:
+            snapshot.storage.kubernetes.io/is-default-class: "true"
+          deletionPolicy: Delete
+          parameters:
+            detachedSnapshots: "false"
+        - name: truenas-hdd-nfs
+          driver: org.democratic-csi.nfs
+          deletionPolicy: Delete
+          parameters:
+            detachedSnapshots: "false"
