@@ -42,3 +42,5 @@ spec:
           deletionPolicy: Delete
           parameters:
             detachedSnapshots: "false"
+    webhook:
+      enabled: false
