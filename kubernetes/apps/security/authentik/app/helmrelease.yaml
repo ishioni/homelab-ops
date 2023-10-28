@@ -27,6 +27,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    image:
+      tag: 2023.10.2
     controller:
       annotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
