@@ -35,6 +35,7 @@ spec:
       kind: Deployment
       electionID: "ingress-private-leader"
       allowSnippetAnnotations: true
+      enableAnnotationValidations: true
       ingressClassByName: true
       ingressClassResource:
         default: false
