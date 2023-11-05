@@ -25,5 +25,14 @@
       matchPackageNames: ["ghcr.io/onedr0p/sonarr-develop"],
       ignoreTests: true,
     },
+    {
+      description: "Auto merge lidarr-develop",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["ghcr.io/onedr0p/lidarr-develop"],
+      ignoreTests: true,
+    },
   ],
 }
