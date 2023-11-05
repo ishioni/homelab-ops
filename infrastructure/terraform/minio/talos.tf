@@ -14,4 +14,10 @@ resource "minio_ilm_policy" "talos-expiration" {
     id         = "expire-4d"
     expiration = "4d"
   }
+
+  rule {
+    id                                 = "noncurrent-expire-1d"
+    noncurrent_version_expiration_days = "1"
+    expiration                         = "DeleteMarker"
+  }
 }
