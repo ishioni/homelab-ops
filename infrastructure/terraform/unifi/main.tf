@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    hostname = "app.terraform.io"
+    hostname     = "app.terraform.io"
     organization = "ishioni"
     workspaces {
       name = "unifi"

@@ -95,6 +95,6 @@ variable "gpu_gvtd" {
 }
 
 variable "uefi" {
-  type = bool
+  type    = bool
   default = true
 }
