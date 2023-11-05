@@ -37,6 +37,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   agent {
     enabled = true
     type    = "virtio"
+    trim    = true
   }
 
   bios = "ovmf"
