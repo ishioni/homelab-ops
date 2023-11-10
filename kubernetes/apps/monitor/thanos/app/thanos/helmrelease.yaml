@@ -37,7 +37,7 @@ spec:
     existingObjstoreSecret: thanos-objectstore-secret
     query:
       enabled: true
-      replicaCount: 3
+      replicaCount: 1
       replicaLabel:
         - __replica__
       dnsDiscovery:
