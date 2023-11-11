@@ -7,7 +7,7 @@ metadata:
   namespace: database
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:14.9-15
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.0-10
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
@@ -24,7 +24,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v1
+      source: &previousCluster postgres-v3
   resources:
     requests:
       cpu: 100m
@@ -39,7 +39,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.services.${SECRET_DOMAIN}:9000
-      serverName: &currentCluster postgres-v2
+      serverName: &currentCluster postgres-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
