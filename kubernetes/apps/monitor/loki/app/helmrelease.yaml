@@ -177,7 +177,7 @@ spec:
         enabled: true
         alerting: true
       serviceMonitor:
-        enabled: false
+        enabled: true
         metricsInstance:
           enabled: false
       selfMonitoring:

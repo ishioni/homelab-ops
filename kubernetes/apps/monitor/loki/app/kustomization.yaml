@@ -6,4 +6,4 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
-  - ./servicemonitor.yaml
+  # - ./servicemonitor.yaml
