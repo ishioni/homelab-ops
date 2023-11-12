@@ -12,7 +12,7 @@ metadata:
 spec:
   namespaceSelector:
     matchNames:
-      - monitoring
+      - monitor
   selector:
     matchExpressions:
       - {key: app.kubernetes.io/component, operator: In, values: [read]}
