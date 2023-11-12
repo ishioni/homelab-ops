@@ -145,6 +145,13 @@ spec:
             access: proxy
             url: http://thanos-query.monitor.svc.cluster.local:9090/
             isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki-gateway.monitor.svc.cluster.local
+            version: 1
+            jsonData:
+              maxLines: 100
           - name: Alertmanager
             type: alertmanager
             access: proxy
@@ -187,6 +194,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
+          - name: "loki"
+            org_id: 1
+            folder: "Loki"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/loki
           - name: "networking"
             org_id: 1
             folder: "Networking"
@@ -258,6 +273,12 @@ spec:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
+          datasource: Prometheus
+      loki:
+        loki-metrics:
+          # renovate: depName="Loki2.0 Global Metrics"
+          gnetId: 13407
+          revision: 1
           datasource: Prometheus
       networking:
         ingress-nginx:
