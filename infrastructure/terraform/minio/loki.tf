@@ -1,4 +1,4 @@
-module "s3_thanos" {
+module "s3_loki" {
   source      = "./modules/minio"
   vault       = "Homelab"
   bucket_name = "loki"
