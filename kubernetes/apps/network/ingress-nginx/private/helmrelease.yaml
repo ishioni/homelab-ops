@@ -115,8 +115,3 @@ spec:
           value: lost-in-space
         - name: SHOW_DETAILS
           value: "false"
-  valuesFrom:
-    - kind: Secret
-      name: nginx-maxmind
-      targetPath: controller.maxmindLicenseKey
-      valuesKey: MAXMIND_LICENSE_KEY
