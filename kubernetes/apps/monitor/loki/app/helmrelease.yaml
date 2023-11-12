@@ -113,7 +113,7 @@ spec:
           io.cilium/lb-ipam-ips: ${CONFIG_LOKI_IP}
       ingress:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: private
         hosts:
           - host: &host loki.internal.${SECRET_DOMAIN}
             paths:
