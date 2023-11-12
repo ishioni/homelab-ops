@@ -4,24 +4,28 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: loki
-  namespace: monitoring
+  namespace: monitor
 spec:
   interval: 15m
   chart:
     spec:
       chart: loki
-      version: 4.8.0
+      version: 5.36.3
       sourceRef:
         kind: HelmRepository
-        name: grafana-charts
+        name: grafana
         namespace: flux-system
+  maxHistory: 3
   install:
     createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
   values:
     loki:
       structuredConfig:
@@ -46,18 +50,15 @@ spec:
             - from: "2021-08-01"
               store: boltdb-shipper
               object_store: s3
-              schema: v11
+              schema: v12
               index:
                 prefix: loki_index_
                 period: 24h
         common:
           path_prefix: /var/loki
-          replication_factor: 1
+          replication_factor: 2
           storage:
             s3:
-              s3: null
-              bucketnames: loki
-              endpoint: s3.services.${SECRET_DOMAIN}:9000
               s3forcepathstyle: true
           ring:
             kvstore:
@@ -65,7 +66,7 @@ spec:
         ruler:
           enable_api: true
           enable_alertmanager_v2: true
-          alertmanager_url: http://kube-prometheus-stack-alertmanager:9093
+          alertmanager_url: http://alertmanager-operated.monitor.svc.cluster.local:9093
           storage:
             type: local
             local:
@@ -94,92 +95,113 @@ spec:
         analytics:
           reporting_enabled: false
     gateway:
-      enabled: true
-      replicas: 1
+      replicas: 2
+      affinity: |
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "loki.gatewaySelectorLabels" . | nindent 12 }}
+                topologyKey: kubernetes.io/hostname
+      image:
+        registry: ghcr.io
+      service:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${CONFIG_LOKI_IP}
       ingress:
         enabled: true
-        ingressClassName: "private"
+        ingressClassName: internal
         hosts:
-          - host: &host "loki.internal.${SECRET_DOMAIN}"
+          - host: &host loki.internal.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
-              - *host
+          - hosts: [*host]
             secretName: *host
-    write:
-      replicas: 1
-      persistence:
-        size: 10Gi
-        storageClass: truenas-ssd-nvmeof
     read:
-      replicas: 1
+      replicas: 2
+      affinity: |
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "loki.readSelectorLabels" . | nindent 12 }}
+                topologyKey: kubernetes.io/hostname
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules
+      extraVolumes:
+        - name: rules
+          emptyDir: {}
+    write:
+      replicas: 2
+      affinity: |
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "loki.writeSelectorLabels" . | nindent 12 }}
+                topologyKey: kubernetes.io/hostname
       persistence:
-        size: 10Gi
+        size: 20Gi
         storageClass: truenas-ssd-nvmeof
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules
-      extraVolumes:
-        - name: rules
-          emptyDir: {}
     backend:
-      replicas: 1
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules
-        - name: scratch
-          mountPath: /tmp/scratch
-      extraVolumes:
-        - name: rules
-          emptyDir: {}
-        - name: scratch
-          emptyDir: {}
-      # extraVolumeMounts:
-      #   - name: loki-rules
-      #     mountPath: /rules/fake
-      #   - name: loki-rules-tmp
-      #     mountPath: /tmp/scratch
-      #   - name: loki-tmp
-      #     mountPath: /tmp/loki-tmp
-      # extraVolumes:
-      #   - name: loki-rules
-      #     configMap:
-      #       name: loki-alerting-rules
-      #   - name: loki-rules-tmp
-      #     emptyDir: {}
-      #   - name: loki-tmp
-      #     emptyDir: {}
+      replicas: 2
+      affinity: |
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "loki.backendSelectorLabels" . | nindent 12 }}
+                topologyKey: kubernetes.io/hostname
       persistence:
-        size: 10Gi
+        size: 20Gi
         storageClass: truenas-ssd-nvmeof
     monitoring:
       dashboards:
-        enabled: true
         annotations:
-          kustomize.toolkit.fluxcd.io/substitute: disabled
           grafana_folder: Loki
         labels:
-          grafana_dashboard: "true"
+          grafana_dashboard: "1"
       rules:
         enabled: true
+        alerting: true
       serviceMonitor:
-        enabled: true
+        enabled: false
+        metricsInstance:
+          enabled: false
       selfMonitoring:
         enabled: false
         grafanaAgent:
           installOperator: false
-        lokiCanary:
-          enabled: false
+      lokiCanary:
+        enabled: false
     test:
       enabled: false
   valuesFrom:
     - kind: Secret
+      name: &secret loki-secret
+      targetPath: loki.structuredConfig.common.storage.s3.endpoint
+      valuesKey: S3_BUCKET_HOST
+    - kind: Secret
+      name: *secret
+      targetPath: loki.structuredConfig.common.storage.s3.bucketnames
+      valuesKey: S3_BUCKET_NAME
+    - kind: Secret
+      name: *secret
       targetPath: loki.structuredConfig.common.storage.s3.access_key_id
-      name: loki-s3
       valuesKey: S3_ACCESS_KEY
     - kind: Secret
+      name: *secret
       targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
-      name: loki-s3
       valuesKey: S3_SECRET_KEY

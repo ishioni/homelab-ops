@@ -132,6 +132,11 @@ controlPlane:
         install:
           extraKernelArgs:
             - net.ifnames=0
+            - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
+        logging:
+          destinations:
+            - endpoint: udp://${vectorEndpointIP}:6002/
+              format: json_lines
         sysctls:
           fs.inotify.max_user_watches: "1048576"
           fs.inotify.max_user_instances: "8192"
