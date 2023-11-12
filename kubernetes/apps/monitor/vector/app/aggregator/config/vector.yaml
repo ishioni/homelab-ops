@@ -126,9 +126,9 @@ sinks:
     remove_label_fields: true
     remove_timestamp: true
     labels:
-      app: '{{ custom_app_name }}'
-      namespace: '{{ kubernetes.pod_namespace }}'
-      node: '{{ kubernetes.pod_node_name }}'
+      app: "{{ custom_app_name }}"
+      namespace: "{{ kubernetes.pod_namespace }}"
+      node: "{{ kubernetes.pod_node_name }}"
   talos_kernel:
     type: loki
     inputs:
@@ -142,8 +142,8 @@ sinks:
       max_bytes: 524288
     out_of_order_action: rewrite_timestamp
     labels:
-      node: '{{ node }}'
-      facility: '{{ facility }}'
+      node: "{{ node }}"
+      facility: "{{ facility }}"
       cluster: "${CONFIG_CLUSTER_NAME}"
       namespace: "talos:kernel"
   talos_service:
@@ -159,7 +159,7 @@ sinks:
       max_bytes: 524288
     out_of_order_action: rewrite_timestamp
     labels:
-      node: '{{ node }}'
+      node: "{{ node }}"
       talos_service: '{{ "talos-service" }}'
       cluster: "${CONFIG_CLUSTER_NAME}"
       namespace: "talos:service"
