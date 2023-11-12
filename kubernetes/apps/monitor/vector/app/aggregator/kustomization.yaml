@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: monitor
 resources:
   - ./externalsecret.yaml
-  - ./helm-release.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
   - name: vector-aggregator-configmap
     files:
