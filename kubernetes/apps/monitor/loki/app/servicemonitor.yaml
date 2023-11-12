@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/monitoring.coreos.com/servicemonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: &app loki
+  namespace: monitor
+  labels: &labels
+    app.kubernetes.io/component: read
+    app.kubernetes.io/instance: *app
+    app.kubernetes.io/name: *app
+spec:
+  namespaceSelector:
+    matchNames:
+      - monitoring
+  selector:
+    matchExpressions:
+      - { key: app.kubernetes.io/component, operator: In, values: [read]}
+      - { key: app.kubernetes.io/instance, operator: In, values: [*app]}
+      - { key: app.kubernetes.io/name, operator: In, values: [*app]}
+      - { key: prometheus.io/service-monitor, operator: NotIn, values: ["false"]}
+
+    matchLabels:
+      <<: *labels
+  endpoints:
+    - port: http-metrics
+      scheme: http
+      path: /metrics
+      scrapeTimeout: 30s
