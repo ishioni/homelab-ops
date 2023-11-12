@@ -32,7 +32,7 @@ spec:
         replicas: 2
         strategy: RollingUpdate
         annotations:
-          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: &configmap vector-aggregator-configmap
         pod:
           topologySpreadConstraints:
             - maxSkew: 1
@@ -87,7 +87,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: vector-aggregator-configmap # overriden by kustomizeconfig
+        name: *configmap
         globalMounts:
           - path: /etc/vector/vector.yaml
             subPath: vector.yaml

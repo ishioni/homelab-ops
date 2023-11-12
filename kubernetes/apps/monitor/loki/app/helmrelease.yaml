@@ -120,8 +120,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
-              - *host
+          - hosts: [*host]
             secretName: *host
     read:
       replicas: 2

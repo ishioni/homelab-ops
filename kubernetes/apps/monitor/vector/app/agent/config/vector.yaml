@@ -15,7 +15,6 @@ sources:
 sinks:
   kubernetes:
     type: vector
-    inputs:
-      - kubernetes_logs
+    inputs: [kubernetes_logs]
     address: "vector-aggregator.monitor:6000"
     version: "2"

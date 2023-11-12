@@ -8,10 +8,8 @@ resources:
   - ./helmrelease.yaml
 configMapGenerator:
   - name: vector-aggregator-configmap
-    files:
-      - vector.yaml=./config/vector.yaml
-configurations:
-  - ./patches/kustomizeconfig.yaml
+    files: ["vector.yaml=./config/vector.yaml"]
+configurations: ["./patches/kustomizeconfig.yaml"]
 labels:
   - pairs:
       app.kubernetes.io/name: vector-aggregator

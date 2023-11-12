@@ -10,8 +10,7 @@ configMapGenerator:
   - name: vector-agent-configmap
     files:
       - vector.yaml=./config/vector.yaml
-configurations:
-  - ./patches/kustomizeconfig.yaml
+configurations: ["./patches/kustomizeconfig.yaml"]
 labels:
   - pairs:
       app.kubernetes.io/name: vector-agent

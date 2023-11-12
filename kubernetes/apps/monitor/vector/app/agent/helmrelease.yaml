@@ -32,7 +32,7 @@ spec:
         type: daemonset
         strategy: RollingUpdate
         annotations:
-          reloader.stakater.com/auto: "true"
+          configmap.reloader.stakater.com/reload: &configmap vector-agent-configmap
         pod:
           tolerations:
             - key: node-role.kubernetes.io/control-plane
@@ -73,7 +73,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: vector-agent-configmap # overriden by kustomizeconfig
+        name: *configmap
         globalMounts:
           - path: /etc/vector/vector.yaml
             subPath: vector.yaml

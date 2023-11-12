@@ -45,8 +45,7 @@ transforms:
       del(.pod_labels)
   kernel_hostname_transform:
     type: remap
-    inputs:
-      - talos_kernel_logs
+    inputs: ["talos_kernel_logs"]
     source: |-
       r1 = replace!(.__host, "10.1.4.10", "master-0")
       r2 = replace(r1, "10.1.4.11", "master-1")
@@ -57,8 +56,7 @@ transforms:
       .node = r6
   service_hostname_transform:
     type: remap
-    inputs:
-      - talos_service_logs
+    inputs: ["talos_service_logs"]
     source: |-
       r1 = replace!(.__host, "10.1.4.10", "master-0")
       r2 = replace(r1, "10.1.4.11", "master-1")
@@ -115,8 +113,7 @@ transforms:
 sinks:
   loki_kubernetes:
     type: loki
-    inputs:
-      - kubernetes_remap
+    inputs: ["kubernetes_remap"]
     endpoint: http://loki-gateway.monitor.svc.cluster.local
     encoding:
       codec: json
@@ -131,13 +128,11 @@ sinks:
       node: "{{ kubernetes.pod_node_name }}"
   talos_kernel:
     type: loki
-    inputs:
-      - kernel_hostname_transform
+    inputs: ["kernel_hostname_transform"]
     endpoint: http://loki-gateway.monitor.svc.cluster.local
     encoding:
       codec: json
-      except_fields:
-        - __host
+      except_fields: ["__host"]
     batch:
       max_bytes: 524288
     out_of_order_action: rewrite_timestamp
@@ -148,13 +143,11 @@ sinks:
       namespace: "talos:kernel"
   talos_service:
     type: loki
-    inputs:
-      - service_hostname_transform
+    inputs: ["service_hostname_transform"]
     endpoint: http://loki-gateway.monitor.svc.cluster.local
     encoding:
       codec: json
-      except_fields:
-        - __host
+      except_fields: ["__host"]
     batch:
       max_bytes: 524288
     out_of_order_action: rewrite_timestamp
