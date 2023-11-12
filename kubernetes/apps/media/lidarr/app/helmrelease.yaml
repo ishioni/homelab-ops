@@ -56,7 +56,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/lidarr-develop
-              tag: 2.0.1.3769
+              tag: 2.0.2.3782
             env:
               TZ: Europe/Warsaw
               LIDARR__INSTANCE_NAME: Lidarr
