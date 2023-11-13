@@ -49,7 +49,7 @@ transforms:
     source: |-
       r1 = replace!(.__host, "10.1.4.10", "master-0")
       r2 = replace(r1, "10.1.4.11", "master-1")
-      r3 = replace(r2, "10.1.4.10", "master-2")
+      r3 = replace(r2, "10.1.4.12", "master-2")
       r4 = replace(r3, "10.1.4.20", "worker-0")
       r5 = replace(r4, "10.1.4.21", "worker-1")
       r6 = replace(r5, "10.1.4.22", "worker-2")
@@ -60,7 +60,7 @@ transforms:
     source: |-
       r1 = replace!(.__host, "10.1.4.10", "master-0")
       r2 = replace(r1, "10.1.4.11", "master-1")
-      r3 = replace(r2, "10.1.4.10", "master-2")
+      r3 = replace(r2, "10.1.4.12", "master-2")
       r4 = replace(r3, "10.1.4.20", "worker-0")
       r5 = replace(r4, "10.1.4.21", "worker-1")
       r6 = replace(r5, "10.1.4.22", "worker-2")
