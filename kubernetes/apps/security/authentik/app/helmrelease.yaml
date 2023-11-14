@@ -28,7 +28,9 @@ spec:
     keepHistory: false
   values:
     image:
-      tag: 2023.8.4
+      repository: ghcr.io/goauthentik/dev-server
+      tag: gh-next
+      pullPolicy: Always
     controller:
       annotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
@@ -49,6 +51,8 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
+      outposts:
+        container_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
     ingress:
       enabled: true
       ingressClassName: public
