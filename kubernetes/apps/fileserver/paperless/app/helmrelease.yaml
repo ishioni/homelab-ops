@@ -78,6 +78,28 @@ spec:
               runAsGroup: *uid
               fsGroup: *uid
               fsGroupChangePolicy: "OnRootMismatch"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 30
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  failureThreshold: 10
+                  periodSeconds: 12
           gotenburg:
             image:
               repository: docker.io/thecodingmachine/gotenberg
