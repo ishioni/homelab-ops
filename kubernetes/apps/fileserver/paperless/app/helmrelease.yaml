@@ -29,14 +29,6 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: library
-              mountPath: /library
-              storageClass: truenas-ssd-nvmeof
-              accessMode: ReadWriteOnce
-              size: 10Gi
         annotations:
           secret.reloader.stakater.com/reload: &secret paperless-secret
         initContainers:
@@ -64,7 +56,7 @@ spec:
               # PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_REMOTE_USER
               PAPERLESS_MEDIA_ROOT: /library/media
               PAPERLESS_OCR_LANGUAGE: eng
-              PAPERLESS_PORT: &port 80
+              PAPERLESS_PORT: &port 8000
               PAPERLESS_REDIS: redis://localhost:6379
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_TIKA_ENABLED: 1
@@ -72,8 +64,6 @@ spec:
               PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: Europe/Warsaw
               PAPERLESS_URL: https://documents.internal.${SECRET_DOMAIN}
-              USERMAP_UID: 1003
-              USERMAP_GID: 2000
             envFrom:
               - secretRef:
                   name: *secret
@@ -83,6 +73,11 @@ spec:
                 memory: 1000Mi
               limits:
                 memory: 5000Mi
+            securityContext:
+              runAsUser: &uid 1000
+              runAsGroup: *uid
+              fsGroup: *uid
+              fsGroupChangePolicy: "OnRootMismatch"
           gotenburg:
             image:
               repository: docker.io/thecodingmachine/gotenberg
@@ -90,16 +85,25 @@ spec:
               imagePullPolicy: IfNotPresent
             env:
               - {name: DISABLE_GOOGLE_CHROME, value: "1"}
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
           redis:
             image:
               repository: public.ecr.aws/docker/library/redis
               tag: 7.2.3
               imagePullPolicy: IfNotPresent
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
           tika:
             image:
               repository: ghcr.io/paperless-ngx/tika
               tag: 2.9.0-full
               imagePullPolicy: IfNotPresent
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
     service:
       main:
         ports:
@@ -125,3 +129,11 @@ spec:
           - hosts:
               - *host
             secretName: *host
+    persistence:
+      library:
+        existingClaim: paperless-data
+        advancedMounts:
+          main:
+            main:
+              - path: /library
+                retain: true
