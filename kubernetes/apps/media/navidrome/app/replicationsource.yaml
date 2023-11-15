@@ -13,6 +13,10 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: navidrome-restic-s3
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 2000
+      fsGroup: 2000
     cacheCapacity: 15Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
