@@ -6,7 +6,7 @@ metadata:
   name: automation-n8n
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/fileserver/n8n/app
+  path: ./kubernetes/apps/automation/n8n/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops
