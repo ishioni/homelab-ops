@@ -38,7 +38,7 @@ spec:
       requests:
         cpu: 1000m
         memory: 2000Mi
-    securityContext:
+    podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
