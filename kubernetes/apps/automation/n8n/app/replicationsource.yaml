@@ -6,7 +6,7 @@ metadata:
   name: n8n
   namespace: automation
 spec:
-  sourcePVC: n8n-config
+  sourcePVC: n8n-data
   trigger:
     schedule: "0 0 * * *"
   restic:
