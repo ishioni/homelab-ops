@@ -4,7 +4,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: n8n
-  namespace: fileserver
+  namespace: automation
 spec:
   sourcePVC: n8n-config
   trigger:
@@ -13,6 +13,10 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: n8n-restic-s3
+    moverSecurityContext:
+      runAsUser: &uid 563
+      runAsGroup: *uid
+      fsGroup: *uid
     cacheCapacity: 1Gi
     volumeSnapshotClassName: truenas-hdd-nfs
     storageClassName: truenas-hdd-nfs

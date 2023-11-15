@@ -14,10 +14,10 @@ spec:
     pruneIntervalDays: 10
     repository: paperless-restic-s3
     moverSecurityContext:
-      runAsUser: &uid 1000
+      runAsUser: &uid 563
       runAsGroup: *uid
       fsGroup: *uid
-    cacheCapacity: 15Gi
+    cacheCapacity: 5Gi
     volumeSnapshotClassName: truenas-hdd-nfs
     storageClassName: truenas-hdd-nfs
     retain:
