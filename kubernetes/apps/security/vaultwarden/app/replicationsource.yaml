@@ -13,6 +13,10 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: vaultwarden-restic-s3
+    moverSecurityContext:
+      runAsUser: &uid 563
+      runAsGroup: *uid
+      fsGroup: *uid
     cacheCapacity: 1Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
