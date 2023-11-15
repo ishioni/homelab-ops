@@ -75,6 +75,10 @@ spec:
           secure: ssl
           port: 465
           authtype: LOGIN
+      securityContext:
+        runAsUser: 563
+        runAsGroup: 563
+        runAsNonRoot: true
       configs:
         local.config.php: |-
           <?php

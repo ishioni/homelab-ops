@@ -11,8 +11,12 @@ spec:
     schedule: "0 0 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 10
+    pruneIntervalDays: 7
     repository: nextcloud-restic-s3
+    moverSecurityContext:
+      runAsUser: &uid 563
+      runAsGroup: *uid
+      fsGroup: *uid
     cacheCapacity: 5Gi
     volumeSnapshotClassName: truenas-hdd-nfs
     storageClassName: truenas-hdd-nfs
