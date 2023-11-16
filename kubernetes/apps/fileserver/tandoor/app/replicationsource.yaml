@@ -14,9 +14,9 @@ spec:
     pruneIntervalDays: 7
     repository: tandoor-restic-s3
     moverSecurityContext:
-      runAsUser: 65534
-      runAsGroup: 65534
-      fsGroup: 65534
+      runAsUser: &uid 568
+      runAsGroup: *uid
+      fsGroup: *uid
     cacheCapacity: 5Gi
     volumeSnapshotClassName: truenas-hdd-nfs
     storageClassName: truenas-hdd-nfs
