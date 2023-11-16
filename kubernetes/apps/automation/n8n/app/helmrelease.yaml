@@ -42,9 +42,9 @@ spec:
                   name: *secret
         pod:
           securityContext:
-            runAsUser: 563
-            runAsGroup: 563
-            fsGroup: 563
+            runAsUser: &uid 568
+            runAsGroup: *uid
+            fsGroup: *uid
             fsGroupChangePolicy: "OnRootMismatch"
         containers:
           main:
