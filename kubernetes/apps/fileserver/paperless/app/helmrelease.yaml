@@ -77,7 +77,7 @@ spec:
               limits:
                 memory: 5000Mi
             securityContext:
-            supplementalGroups: ["568"]
+              supplementalGroups: ["568"]
             probes:
               liveness: &probes
                 enabled: true
