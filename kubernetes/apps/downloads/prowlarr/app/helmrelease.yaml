@@ -43,9 +43,10 @@ spec:
                   name: *secret
         pod:
           securityContext:
-            runAsUser: 1003
-            runAsGroup: 2000
-            fsGroup: 2000
+            runAsUser: &uid ${CONFIG_APP_UID}
+            runAsGroup: *uid
+            fsGroup: *uid
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:

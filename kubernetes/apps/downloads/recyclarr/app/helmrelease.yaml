@@ -42,9 +42,9 @@ spec:
           configmap.reloader.stakater.com/reload: &configmap recyclarr-configmap
         pod:
           securityContext:
-            runAsUser: 1003
-            runAsGroup: 2000
-            fsGroup: 2000
+            runAsUser: &uid ${CONFIG_APP_UID}
+            runAsGroup: *uid
+            fsGroup: *uid
         containers:
           main:
             image:

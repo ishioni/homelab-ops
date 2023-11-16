@@ -34,9 +34,10 @@ spec:
               size: 100M
         pod:
           securityContext:
-            runAsUser: 1003
-            runAsGroup: 2000
-            fsGroup: 2000
+            runAsUser: ${CONFIG_APP_UID}
+            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
