@@ -76,8 +76,10 @@ spec:
           port: 465
           authtype: LOGIN
       securityContext:
-        runAsUser: 563
-        runAsGroup: 563
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
         runAsNonRoot: true
       configs:
         local.config.php: |-
