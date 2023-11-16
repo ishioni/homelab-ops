@@ -14,7 +14,7 @@ spec:
     pruneIntervalDays: 7
     repository: nextcloud-restic-s3
     moverSecurityContext:
-      runAsUser: &uid 563
+      runAsUser: &uid 568
       runAsGroup: *uid
       fsGroup: *uid
     cacheCapacity: 5Gi

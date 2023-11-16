@@ -58,9 +58,9 @@ spec:
               limits:
                 memory: 512Mi
             securityContext:
-              runAsUser: 65534
-              runAsGroup: 65534
-              fsGroup: 65534
+              runAsUser: 568
+              runAsGroup: 568
+              fsGroup: 568
               fsGroupChangePolicy: "OnRootMismatch"
             probes:
               liveness: &probes
