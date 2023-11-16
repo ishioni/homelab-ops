@@ -88,9 +88,6 @@ spec:
             image:
               repository: public.ecr.aws/nginx/nginx
               tag: 1.25.3
-            securityContext:
-              runAsUser: 568
-              runAsGroup: 568
     service:
       main:
         ports:
