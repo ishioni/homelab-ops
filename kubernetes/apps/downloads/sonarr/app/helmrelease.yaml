@@ -1,0 +1,128 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: downloads
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              storageClass: truenas-hdd-nfs
+              accessMode: ReadWriteOnce
+              size: 5Gi
+        annotations:
+          secret.reloader.stakater.com/reload: &secret sonarr-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        pod:
+          securityContext:
+            runAsUser: ${CONFIG_APP_UID}
+            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.720
+            env:
+              TZ: Europe/Warsaw
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 80
+              SONARR__AUTHENTICATION_METHOD: External
+              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG_LEVEL: info
+              SONARR__THEME: dark
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    persistence:
+      media:
+        enabled: true
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /media
+            retain: true
+    ingress:
+      main:
+        enabled: true
+        className: public
+        annotations:
+          authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://tv.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Sonarr
+          hajimari.io/icon: mdi:television-box
+          hajimari.io/group: downloads
+        hosts:
+          - host: &host "tv.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: *host
+            hosts:
+              - *host
