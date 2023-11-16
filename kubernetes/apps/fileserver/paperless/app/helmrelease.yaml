@@ -116,8 +116,8 @@ spec:
               tag: 7.2.3
               imagePullPolicy: IfNotPresent
             securityContext:
-              runAsUser: 65534
-              runAsGroup: 65534
+              runAsUser: 999
+              runAsGroup: 999
           tika:
             image:
               repository: ghcr.io/paperless-ngx/tika
