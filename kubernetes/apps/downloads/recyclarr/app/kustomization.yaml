@@ -7,7 +7,7 @@ resources:
   - ./helmrelease.yaml
 configMapGenerator:
   - name: recyclarr-configmap
-    namespace: media
+    namespace: downloads
     files:
       - recyclarr.yml=./config/recyclarr.yml
 generatorOptions:
