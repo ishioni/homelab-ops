@@ -67,7 +67,7 @@ spec:
         parameters:
           fsType: ext4
           detachedVolumesFromSnapshots: true
-          detachedVolumesFromVolumes: false
+          detachedVolumesFromVolumes: true
         mountOptions: []
         secrets:
           provisioner-secret:

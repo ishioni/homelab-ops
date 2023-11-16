@@ -52,7 +52,7 @@ spec:
         parameters:
           fsType: nfs
           detachedVolumesFromSnapshots: true
-          detachedVolumesFromVolumes: false
+          detachedVolumesFromVolumes: true
         mountOptions:
           ["nfsvers=4.2", "nconnect=8", "hard", "noatime", "nodiratime"]
         secrets:
