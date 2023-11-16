@@ -69,7 +69,7 @@ spec:
                 spec:
                   httpGet:
                     path: /accounts/login/
-                    port: 8080
+                    port: 8000
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -81,18 +81,21 @@ spec:
                 spec:
                   httpGet:
                     path: /accounts/login/
-                    port: 8080
+                    port: 8000
                   failureThreshold: 30
                   periodSeconds: 10
           nginx:
             image:
               repository: public.ecr.aws/nginx/nginx
               tag: 1.25.3
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
     service:
       main:
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       main:
         enabled: true
