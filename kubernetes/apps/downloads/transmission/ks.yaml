@@ -6,7 +6,7 @@ metadata:
   name: media-transmission
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/downloads/app
+  path: ./kubernetes/apps/downloads/transmission/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops
