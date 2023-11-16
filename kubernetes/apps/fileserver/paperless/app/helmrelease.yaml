@@ -76,10 +76,7 @@ spec:
               limits:
                 memory: 5000Mi
             securityContext:
-              runAsUser: *uid
-              runAsGroup: *uid
-              fsGroup: *uid
-              fsGroupChangePolicy: "OnRootMismatch"
+            supplementalGroups: ["568"]
             probes:
               liveness: &probes
                 enabled: true
