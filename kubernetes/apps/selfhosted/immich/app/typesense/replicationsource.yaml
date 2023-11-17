@@ -4,9 +4,9 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: typesense-rsrc
-  namespace: fileserver
+  namespace: selfhosted
 spec:
-  sourcePVC: config-immich-typesense-0
+  sourcePVC: typesense-data
   trigger:
     schedule: "0 0 * * *"
   restic:
