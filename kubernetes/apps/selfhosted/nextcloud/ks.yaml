@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: fileserver-nextcloud
+  name: selfhosted-nextcloud
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/fileserver/nextcloud/app
+  path: ./kubernetes/apps/selfhosted/nextcloud/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops

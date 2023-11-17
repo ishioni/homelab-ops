@@ -3,11 +3,14 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-app
-  namespace: fileserver
+  namespace: selfhosted
 spec:
-  accessModes:
-    - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
   storageClassName: truenas-hdd-nfs
   resources:
     requests:
       storage: 5Gi
+  dataSourceRef:
+    name: nextcloud-rdst
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
