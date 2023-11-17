@@ -10,7 +10,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.37.1"
+      version = "0.38.0"
     }
     unifi = {
       source  = "paultyng/unifi"
