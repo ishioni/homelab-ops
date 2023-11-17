@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  name: nextcloud-rdst
+  namespace: selfhosted
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: nextcloud-restic-s3
+    copyMethod: Snapshot
+    storageClassName: truenas-hdd-nfs
+    cacheStorageClassName: truenas-hdd-nfs
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: truenas-hdd-nfs
+    moverSecurityContext:
+      runAsUser: &uid 568
+      runAsGroup: *uid
+      fsGroup: *uid
+    accessModes: ["ReadWriteMany"]
+    capacity: 5Gi
