@@ -4,7 +4,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
   name: nextcloud-rdst
   namespace: selfhosted
 spec:
