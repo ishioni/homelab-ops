@@ -28,6 +28,12 @@ spec:
     keepHistory: false
   values:
     manageCRDs: true
+    image:
+      repository: &image ghcr.io/onedr0p/volsync
+      tag: &tag 0.8.0
+    restic:
+      repository: *image
+      tag: *tag
     metrics:
       disableAuth: true
     resources:
