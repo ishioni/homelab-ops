@@ -49,7 +49,7 @@ spec:
               METADATA_PATH: /data/metadata
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
@@ -73,16 +73,12 @@ spec:
         existingClaim: audiobookshelf-data
         globalMounts:
           - path: /data
-      audiobooks:
+      media:
         enabled: true
         existingClaim: media-datastore
         globalMounts:
           - path: /audiobooks
             subPath: Audiobooks
-      podcasts:
-        enabled: true
-        existingClaim: media-datastore
-        globalMounts:
           - path: /podcasts
             subPath: Podcasts
     service:
