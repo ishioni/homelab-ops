@@ -43,4 +43,4 @@ spec:
           parameters:
             detachedSnapshots: "false"
     webhook:
-      enabled: true
+      enabled: false
