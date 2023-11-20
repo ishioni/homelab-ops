@@ -12,7 +12,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  # dataSourceRef:
-  #   name: navidrome-rdst
-  #   kind: ReplicationDestination
-  #   apiGroup: volsync.backube
+  dataSourceRef:
+    name: navidrome-rdst
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
