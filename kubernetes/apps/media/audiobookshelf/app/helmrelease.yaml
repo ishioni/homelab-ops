@@ -42,7 +42,7 @@ spec:
               tag: 2.5.0
             env:
               TZ: "${CONFIG_TIMEZONE}"
-              PORT: &port "8080"
+              PORT: &port 8080
               AUDIOBOOKSHELF_UID: *uid
               AUDIOBOOKSHELF_GID: *gid
               CONFIG_PATH: /data
