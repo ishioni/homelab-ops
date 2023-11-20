@@ -3,23 +3,23 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: navidrome
+  name: navidrome-rsrc
   namespace: media
 spec:
-  sourcePVC: data-navidrome-0
+  sourcePVC: navidrome-data
   trigger:
     schedule: "0 0 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 10
+    pruneIntervalDays: 7
     repository: navidrome-restic-s3
     moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 2000
-      fsGroup: 2000
-    cacheCapacity: 15Gi
+      runAsUser: ${CONFIG_APP_UID}
+      runAsGroup: &gid ${CONFIG_MEDIA_UID}
+      fsGroup: *gid
+    cacheCapacity: 5Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
     retain:
-      daily: 10
+      daily: 7
       within: 3d

@@ -29,19 +29,12 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: data
-              mountPath: /data
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: truenas-ssd-nvmeof
         pod:
           securityContext:
-            runAsUser: 1003
-            runAsGroup: 2000
-            fsGroup: 2000
+            runAsUser: ${CONFIG_APP_UID}
+            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
@@ -54,9 +47,9 @@ spec:
               ND_PORT: &port 8080
               ND_SCANSCHEDULE: 30m
               ND_ENABLEDOWNLOADS: "true"
-              ND_ENABLEEXTERNALSERVICES: "false"
+              ND_ENABLEEXTERNALSERVICES: "true"
               ND_ENABLESHARING: "false"
-              ND_ENABLETRANSCODINGCONFIG: "false"
+              ND_ENABLETRANSCODINGCONFIG: "true"
               ND_LOGLEVEL: info
               ND_PROMETHEUS_ENABLED: true
               ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
@@ -84,6 +77,10 @@ spec:
               limits:
                 memory: 300Mi
     persistence:
+      data:
+        existingClaim: navidrome-data
+        globalMounts:
+          - path: /data
       music:
         enabled: true
         existingClaim: media-datastore
