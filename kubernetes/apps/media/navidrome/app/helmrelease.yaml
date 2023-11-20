@@ -49,7 +49,7 @@ spec:
               ND_ENABLEDOWNLOADS: "true"
               ND_ENABLEEXTERNALSERVICES: "true"
               ND_ENABLESHARING: "false"
-              ND_ENABLETRANSCODINGCONFIG: "true"
+              ND_ENABLETRANSCODINGCONFIG: "false"
               ND_LOGLEVEL: info
               ND_PROMETHEUS_ENABLED: true
               ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
