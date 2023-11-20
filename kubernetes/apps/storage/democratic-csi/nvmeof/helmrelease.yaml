@@ -66,6 +66,14 @@ spec:
           node-stage-secret:
           node-publish-secret:
           controller-expand-secret:
+    volumeSnapshotClasses:
+      - name: truenas-ssd-nvmeof
+        driver: org.democratic-csi.nvmeof
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
     driver:
       config:
         driver: zfs-generic-nvmeof
