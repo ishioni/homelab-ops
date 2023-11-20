@@ -3,14 +3,19 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: minecraft
+  name: minecraft-rdst
   namespace: games
 spec:
   trigger:
     manual: restore-once
   restic:
-    # Use an existing PVC, don't provision a new one
-    destinationPVC: minecraft-data
-    copyMethod: Direct
-    storageClassName: truenas-ssd-nvmeof
     repository: minecraft-restic-s3
+    copyMethod: Snapshot
+    storageClassName: truenas-ssd-nvmeof
+    cacheCapacity: 15Gi
+    volumeSnapshotClassName: truenas-ssd-nvmeof
+    moverSecurityContext:
+      runAsUser: &uid ${CONFIG_APP_UID}
+      runAsGroup: *uid
+      fsGroup: *uid
+    capacity: 15Gi
