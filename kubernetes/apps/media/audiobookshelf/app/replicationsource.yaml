@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: audiobookshelf-rsrc
+  namespace: media
+spec:
+  sourcePVC: audiobookshelf-data
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: audiobookshelf-restic-s3
+    moverSecurityContext:
+      runAsUser: ${CONFIG_APP_UID}
+      runAsGroup: &gid ${CONFIG_MEDIA_UID}
+      fsGroup: *gid
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: truenas-ssd-nvmeof
+    storageClassName: truenas-ssd-nvmeof
+    retain:
+      daily: 7
+      within: 3d
