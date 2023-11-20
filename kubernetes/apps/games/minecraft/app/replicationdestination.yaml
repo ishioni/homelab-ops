@@ -3,6 +3,8 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
   name: minecraft-rdst
   namespace: games
 spec:
@@ -11,11 +13,13 @@ spec:
   restic:
     repository: minecraft-restic-s3
     copyMethod: Snapshot
-    storageClassName: truenas-ssd-nvmeof
+    storageClassName: &sc truenas-ssd-nvmeof
+    cacheStorageClassName: *sc
     cacheCapacity: 15Gi
-    volumeSnapshotClassName: truenas-ssd-nvmeof
+    volumeSnapshotClassName: *sc
     moverSecurityContext:
       runAsUser: &uid ${CONFIG_APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
+    accessModes: ["ReadWriteOnce"]
     capacity: 15Gi
