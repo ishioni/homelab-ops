@@ -1,0 +1,115 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: audiobookshelf
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: &uid ${CONFIG_APP_UID}
+            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/advplyr/audiobookshelf
+              tag: 2.5.0
+            env:
+              TZ: "${CONFIG_TIMEZONE}"
+              PORT: &port "8080"
+              AUDIOBOOKSHELF_UID: *uid
+              AUDIOBOOKSHELF_GID: *gid
+              CONFIG_PATH: /data
+              METADATA_PATH: /data/metadata
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthcheck
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 600Mi
+    persistence:
+      data:
+        existingClaim: audiobookshelf-data
+        globalMounts:
+          - path: /data
+      audiobooks:
+        enabled: true
+        existingClaim: media-datastore
+        globalMounts:
+          - path: /audiobooks
+            subPath: Audiobooks
+      podcasts:
+        enabled: true
+        existingClaim: media-datastore
+        globalMounts:
+          - path: /podcasts
+            subPath: Podcasts
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: private
+        annotations:
+          # authentik.home.arpa/enabled: "true"
+          # nginx.ingress.kubernetes.io/auth-signin: |-
+          #   https://audiobooks.internal.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Audiobookshelf
+          hajimari.io/icon: mdi:book-music
+          hajimari.io/group: media
+        hosts:
+          - host: &host "audiobooks.internal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: *host
+            hosts:
+              - *host
