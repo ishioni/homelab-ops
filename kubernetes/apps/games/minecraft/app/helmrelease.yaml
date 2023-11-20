@@ -38,10 +38,9 @@ spec:
       requests:
         cpu: 1000m
         memory: 2000Mi
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+    securityContext:
+      runAsUser: &uid ${CONFIG_APP_UID}
+      fsGroup: *uid
     livenessProbe:
       enabled: false
     readinessProbe:
@@ -51,6 +50,8 @@ spec:
     extraEnv:
       TZ: "Europe/Warsaw"
       ENABLE_ROLLING_LOGS: true
+      UID: *uid
+      GID: *uid
     persistence:
       dataDir:
         enabled: true
@@ -59,7 +60,7 @@ spec:
       io.cilium/lb-ipam-ips: "${CONFIG_MINECRAFT_IP}"
     minecraftServer:
       eula: true
-      version: 1.20.1
+      version: 1.20.2
       type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,Almethai,czarny_jobacz"

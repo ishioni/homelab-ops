@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: minecraft
+  name: minecraft-rsrc
   namespace: games
 spec:
   sourcePVC: minecraft-data
@@ -11,15 +11,15 @@ spec:
     schedule: "0 0 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 10
+    pruneIntervalDays: 7
     repository: minecraft-restic-s3
     moverSecurityContext:
-      runAsUser: &uid 1000
+      runAsUser: &uid ${CONFIG_APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
     cacheCapacity: 15Gi
     volumeSnapshotClassName: truenas-ssd-nvmeof
     storageClassName: truenas-ssd-nvmeof
     retain:
-      daily: 10
+      daily: 7
       within: 3d
