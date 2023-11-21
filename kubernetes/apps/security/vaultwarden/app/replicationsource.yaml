@@ -11,15 +11,15 @@ spec:
     schedule: "0 0 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 10
+    pruneIntervalDays: 7
     repository: vaultwarden-restic-s3
     moverSecurityContext:
       runAsUser: &uid 568
       runAsGroup: *uid
       fsGroup: *uid
     cacheCapacity: 1Gi
-    volumeSnapshotClassName: truenas-ssd-nvmeof
-    storageClassName: truenas-ssd-nvmeof
+    volumeSnapshotClassName: &sc truenas-hdd-nfs
+    storageClassName: *sc
     retain:
-      daily: 10
+      daily: 7
       within: 3d
