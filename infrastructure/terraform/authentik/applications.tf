@@ -70,6 +70,18 @@ module "proxy-bazarr" {
   auth_groups        = [authentik_group.media.id]
 }
 
+module "proxy-readarr" {
+  source             = "./proxy_application"
+  name               = "Readarr"
+  description        = "Books"
+  icon_url           = "https://raw.githubusercontent.com/Readarr/Readarr/develop/Logo/128.png"
+  group              = "Media"
+  slug               = "readarr"
+  domain             = module.secret_authentik.fields["cluster_domain"]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  auth_groups        = [authentik_group.media.id]
+}
+
 module "proxy-navidrome" {
   source             = "./proxy_application"
   name               = "Navidrome"
