@@ -139,7 +139,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: Documents
           hajimari.io/icon: mdi:file-multiple
-          hajimari.io/group: groupware
+          hajimari.io/group: selfhosted
         hosts:
           - host: &host documents.internal.${SECRET_DOMAIN}
             paths:

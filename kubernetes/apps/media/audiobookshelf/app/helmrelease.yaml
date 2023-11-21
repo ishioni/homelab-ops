@@ -97,7 +97,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: Audiobookshelf
           hajimari.io/icon: mdi:book-music
-          hajimari.io/group: media
+          hajimari.io/group: selfhosted
         hosts:
           - host: &host "audiobooks.internal.${SECRET_DOMAIN}"
             paths:

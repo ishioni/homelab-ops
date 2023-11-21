@@ -104,7 +104,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: Navidrome
           hajimari.io/icon: mdi:music
-          hajimari.io/group: media
+          hajimari.io/group: selfhosted
         hosts:
           - host: &host "navidrome.${SECRET_DOMAIN}"
             paths:
