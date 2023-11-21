@@ -200,7 +200,7 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/appName: Nextcloud
         hajimari.io/icon: simple-icons:nextcloud
-        hajimari.io/group: groupware
+        hajimari.io/group: selfhosted
       tls:
         - secretName: *host
           hosts:

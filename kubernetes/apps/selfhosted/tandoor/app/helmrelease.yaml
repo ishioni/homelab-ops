@@ -100,7 +100,7 @@ spec:
         annotations:
           hajimari.io/enable: "true"
           hajimari.io/appName: Recipes
-          hajimari.io/group: groupware
+          hajimari.io/group: selfhosted
           hajimari.io/icon: mdi:chef-hat
         hosts:
           - host: &host "recipes.${SECRET_DOMAIN}"

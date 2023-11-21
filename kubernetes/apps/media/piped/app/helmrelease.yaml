@@ -64,7 +64,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: Piped
           hajimari.io/icon: mdi:youtube
-          hajimari.io/group: media
+          hajimari.io/group: selfhosted
         hosts:
           - host: &host "piped.internal.${SECRET_DOMAIN}"
             paths:
