@@ -6,7 +6,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
   name: vaultwarden-rdst
-  namespace: automation
+  namespace: security
 spec:
   trigger:
     manual: restore-once
