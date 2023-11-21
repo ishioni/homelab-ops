@@ -108,7 +108,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: N8N
           hajimari.io/icon: mdi:workflow
-          hajimari.io/group: groupware
+          hajimari.io/group: automation
         hosts:
           - host: *host
             paths:

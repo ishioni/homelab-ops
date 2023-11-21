@@ -97,7 +97,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/appName: Passwords
           hajimari.io/icon: mdi:lock
-          hajimari.io/group: groupware
+          hajimari.io/group: selfhosted
         hosts:
           - host: &host passwords.${SECRET_DOMAIN}
             paths:
