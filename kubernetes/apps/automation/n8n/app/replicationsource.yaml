@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: n8n
+  name: n8n-rsrc
   namespace: automation
 spec:
   sourcePVC: n8n-data
@@ -11,15 +11,15 @@ spec:
     schedule: "0 0 * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 10
+    pruneIntervalDays: 7
     repository: n8n-restic-s3
     moverSecurityContext:
-      runAsUser: &uid 568
+      runAsUser: &uid ${CONFIG_APP_UID}
       runAsGroup: *uid
       fsGroup: *uid
     cacheCapacity: 1Gi
     volumeSnapshotClassName: truenas-hdd-nfs
     storageClassName: truenas-hdd-nfs
     retain:
-      daily: 10
+      daily: 7
       within: 3d

@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+  name: n8n-rdst
+  namespace: automation
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: n8n-restic-s3
+    copyMethod: Snapshot
+    storageClassName: &sc truenas-hdd-nfs
+    cacheStorageClassName: *sc
+    cacheCapacity: 1Gi
+    volumeSnapshotClassName: *sc
+    moverSecurityContext:
+      runAsUser: &uid ${CONFIG_APP_UID}
+      runAsGroup: *uid
+      fsGroup: *uid
+    accessModes: ["ReadWriteOnce"]
+    capacity: 1Gi
