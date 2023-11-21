@@ -37,7 +37,7 @@ spec:
           annotations:
             hajimari.io/enable: "true"
             hajimari.io/appName: Home Assistant
-            hajimari.io/group: home automation
+            hajimari.io/group: automation
             hajimari.io/icon: simple-icons:homeassistant
           hosts:
             - host: &host homeassistant.${SECRET_DOMAIN}
