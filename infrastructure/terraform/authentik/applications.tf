@@ -3,7 +3,7 @@ module "proxy-transmission" {
   name               = "Transmission"
   description        = "Torrent client"
   icon_url           = "https://github.com/transmission/transmission/raw/main/web/assets/img/logo.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "torrent"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -15,7 +15,7 @@ module "proxy-prowlarr" {
   name               = "Prowlarr"
   description        = "Torrent indexer"
   icon_url           = "https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/Logo/128.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "indexer"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -27,7 +27,7 @@ module "proxy-radarr" {
   name               = "Radarr"
   description        = "Movies"
   icon_url           = "https://github.com/Radarr/Radarr/raw/develop/Logo/128.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "movies"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -39,7 +39,7 @@ module "proxy-sonarr" {
   name               = "Sonarr"
   description        = "TV"
   icon_url           = "https://github.com/Sonarr/Sonarr/raw/develop/Logo/128.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "tv"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -51,7 +51,7 @@ module "proxy-lidarr" {
   name               = "Lidarr"
   description        = "Music"
   icon_url           = "https://github.com/Lidarr/Lidarr/raw/develop/Logo/128.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "music"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -63,7 +63,7 @@ module "proxy-bazarr" {
   name               = "Bazarr"
   description        = "Subtitles"
   icon_url           = "https://github.com/morpheus65535/bazarr/raw/master/frontend/public/images/logo128.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "bazarr"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -75,7 +75,7 @@ module "proxy-readarr" {
   name               = "Readarr"
   description        = "Books"
   icon_url           = "https://raw.githubusercontent.com/Readarr/Readarr/develop/Logo/128.png"
-  group              = "Media"
+  group              = "Downloads"
   slug               = "readarr"
   domain             = module.secret_authentik.fields["cluster_domain"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
