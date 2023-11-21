@@ -33,7 +33,7 @@ spec:
       host: &host "files.${SECRET_DOMAIN}"
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/onedr0p/postgres-init:14.9
+          image: ghcr.io/onedr0p/postgres-init:15.5
           envFrom:
             - secretRef:
                 name: *secret
