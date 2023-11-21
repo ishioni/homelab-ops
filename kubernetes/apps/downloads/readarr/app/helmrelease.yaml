@@ -62,7 +62,7 @@ spec:
               TZ: "${CONFIG_TIMEZONE}"
               READARR__INSTANCE_NAME: readarr
               READARR__PORT: &port 80
-              READARR__AUTHENTICATION_METHOD: External
+              READARR__AUTHENTICATION_METHOD: None
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               READARR__LOG_LEVEL: info
             envFrom:
