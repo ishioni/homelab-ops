@@ -24,7 +24,7 @@ resource "unifi_wlan" "MoviIOT" {
   multicast_enhance = true
   bss_transition    = true
   no2ghz_oui        = false
-  wlan_band         = "both"
+  wlan_band         = "2g"
   pmf_mode          = "disabled"
   wpa3_support      = false
   wpa3_transition   = false
@@ -33,18 +33,14 @@ resource "unifi_wlan" "MoviIOT" {
   user_group_id = data.unifi_user_group.default.id
 }
 
-resource "unifi_wlan" "MoviGuest" {
-  name                 = "MoviGuest"
-  network_id           = unifi_network.Guest.id
-  passphrase           = module.secret_unifi.fields.moviguest_password
-  security             = "wpapsk"
-  wlan_band            = "both"
-  pmf_mode             = "optional"
-  fast_roaming_enabled = true
-  wpa3_support         = true
-  wpa3_transition      = true
-  l2_isolation         = true
-
-  ap_group_ids  = [data.unifi_ap_group.default.id]
+resource "unifi_wlan" "MoviIOT5" {
+  name              = "MoviIOT5"
+  network_id        = unifi_network.IOT.id
+  passphrase        = module.secret_unifi.fields.moviiot_password
+  security          = "wpapsk"
+  multicast_enhance = true
+  bss_transition    = false
+  wlan_band         = "5g"
+  ap_group_ids  = [data.unifi_ap_group.big.id]
   user_group_id = data.unifi_user_group.default.id
 }
