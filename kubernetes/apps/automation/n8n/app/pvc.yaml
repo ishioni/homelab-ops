@@ -10,9 +10,12 @@ metadata:
     app.kubernetes.io/name: &name n8n
     app.kubernetes.io/instance: *name
 spec:
-  accessModes:
-    - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
   storageClassName: truenas-hdd-nfs
   resources:
     requests:
       storage: 1Gi
+  dataSourceRef:
+    name: n8n-rdst
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
