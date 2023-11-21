@@ -7,7 +7,6 @@ resources:
   - ./microservices
   - ./server
   - ./typesense
-  - ./web
   - ./configmap.yaml
   - ./media-pvc.yaml
   - ./externalsecret.yaml
