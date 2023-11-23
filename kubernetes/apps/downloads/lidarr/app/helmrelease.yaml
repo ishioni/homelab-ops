@@ -59,7 +59,7 @@ spec:
               repository: ghcr.io/onedr0p/lidarr-develop
               tag: 2.0.3.3791
             env:
-              TZ: Europe/Warsaw
+              TZ: "${CONFIG_TIMEZONE}"
               LIDARR__INSTANCE_NAME: Lidarr
               LIDARR__PORT: &port 80
               LIDARR__AUTHENTICATION_METHOD: External

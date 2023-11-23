@@ -48,7 +48,7 @@ spec:
     startupProbe:
       enabled: false
     extraEnv:
-      TZ: "Europe/Warsaw"
+      TZ: "${CONFIG_TIMEZONE}"
       ENABLE_ROLLING_LOGS: true
       UID: *uid
       GID: *uid

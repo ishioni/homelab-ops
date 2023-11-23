@@ -9,7 +9,7 @@ data:
   ALLOWED_HOSTS: "*"
   DB_ENGINE: django.db.backends.postgresql
   GUNICORN_MEDIA: "0"
-  TIMEZONE: Europe/Warsaw
+  TIMEZONE: "${CONFIG_TIMEZONE}"
   TANDOOR_PORT: "8000"
   FRACTION_PREF_DEFAULT: "0"
   COMMENT_PREF_DEFAULT: "1"
