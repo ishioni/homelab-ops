@@ -50,7 +50,7 @@ spec:
               startup:
                 enabled: false
             env:
-              TZ: Europe/Warsaw
+              TZ: "${CONFIG_TIMEZONE}"
               TRANSMISSION__BLOCKLIST_URL: "https://mirror.codebucket.de/transmission/blocklist.p2p.gz"
               TRANSMISSION__DOWNLOAD_DIR: "/downloads"
               TRANSMISSION__INCOMPLETE_DIR_ENABLED: false

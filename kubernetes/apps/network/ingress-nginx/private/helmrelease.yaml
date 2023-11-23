@@ -31,7 +31,7 @@ spec:
       replicaCount: 2
       extraEnvs:
         - name: TZ
-          value: Europe/Warsaw
+          value: "${CONFIG_TIMEZONE}"
       kind: Deployment
       electionID: "ingress-private-leader"
       allowSnippetAnnotations: true
