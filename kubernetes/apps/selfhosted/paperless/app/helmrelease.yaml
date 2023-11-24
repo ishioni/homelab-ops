@@ -103,7 +103,7 @@ spec:
           gotenburg:
             image:
               repository: docker.io/thecodingmachine/gotenberg
-              tag: 7.10.0
+              tag: 7.10.1
               imagePullPolicy: IfNotPresent
             env:
               - {name: DISABLE_GOOGLE_CHROME, value: "1"}
