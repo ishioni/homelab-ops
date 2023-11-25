@@ -52,6 +52,12 @@ module "secret_tandoor" {
   item   = "tandoor"
 }
 
+module "secret_midarr" {
+  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  vault  = "Homelab"
+  item   = "midarr"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["endpoint_url"]
   token = module.secret_authentik.fields["terraform_token"]

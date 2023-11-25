@@ -198,3 +198,18 @@ module "oauth2-tandoor" {
   sub_mode                   = "user_username"
   redirect_uris              = ["https://recipes.${module.secret_authentik.fields["cluster_domain"]}/accounts/authentik/login/callback/"]
 }
+
+module "oauth2-midarr" {
+  source             = "./oauth2_application"
+  name               = "Midarr"
+  icon_url           = "https://raw.githubusercontent.com/midarrlabs/midarr-server/master/priv/static/logo.svg"
+  launch_url         = "https://midarr.${module.secret_authentik.fields["cluster_domain"]}"
+  description        = "Media player"
+  newtab             = true
+  group              = "Media"
+  auth_groups        = [authentik_group.media.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  client_id          = module.secret_midarr.fields["oidc_client_id"]
+  client_secret      = module.secret_midarr.fields["oidc_client_secret"]
+  redirect_uris      = ["https://midarr.${module.secret_authentik.fields["cluster_domain"]}/auth"]
+}
