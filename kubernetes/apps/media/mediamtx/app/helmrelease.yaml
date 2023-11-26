@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: docker.io/bluenviron/mediamtx
-              tag: 1.3.0-ffmpeg
+              tag: 1.3.1-ffmpeg
             resources:
               requests:
                 cpu: 50m
