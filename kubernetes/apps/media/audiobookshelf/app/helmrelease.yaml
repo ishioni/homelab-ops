@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.5.0
+              tag: 2.6.0
             env:
               TZ: "${CONFIG_TIMEZONE}"
               PORT: &port 8080
