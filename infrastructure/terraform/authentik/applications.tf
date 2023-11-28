@@ -218,7 +218,7 @@ module "oauth2-audiobookshelf" {
   source             = "./oauth2_application"
   name               = "Audiobookshelf"
   icon_url           = "https://raw.githubusercontent.com/advplyr/audiobookshelf-web/master/static/Logo.png"
-  launch_url         = "https://audiobookshelf.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+  launch_url         = "https://audiobooks.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
   description        = "Media player"
   newtab             = true
   group              = "Media"
@@ -226,5 +226,5 @@ module "oauth2-audiobookshelf" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_audiobookshelf.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://audiobookshelf.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/auth/openid/callback", "audiobookshelf://oauth"]
+  redirect_uris      = ["https://audiobooks.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/auth/openid/callback", "audiobookshelf://oauth"]
 }
