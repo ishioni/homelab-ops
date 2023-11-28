@@ -226,5 +226,5 @@ module "oauth2-audiobookshelf" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_audiobookshelf.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://audiobookshelf.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}auth/openid/callback", "audiobookshelf://oauth"]
+  redirect_uris      = ["https://audiobookshelf.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/auth/openid/callback", "audiobookshelf://oauth"]
 }
