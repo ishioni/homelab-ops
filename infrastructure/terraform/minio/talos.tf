@@ -3,7 +3,7 @@ module "talos" {
   vault       = "Homelab"
   bucket_name = "talos"
   # The OP provider converts the fields with toLower!
-  user_secret_item = "s3_secret_key"
+  user_secret_item = "S3_SECRET_KEY"
   versioning       = true
 }
 

@@ -59,6 +59,6 @@ module "secret_midarr" {
 }
 
 provider "authentik" {
-  url   = module.secret_authentik.fields["endpoint_url"]
-  token = module.secret_authentik.fields["terraform_token"]
+  url   = module.secret_authentik.fields["ENDPOINT_URL"]
+  token = module.secret_authentik.fields["TERRAFORM_TOKEN"]
 }

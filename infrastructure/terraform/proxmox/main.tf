@@ -38,7 +38,7 @@ module "secret_unifi" {
 }
 
 provider "proxmox" {
-  endpoint = module.secret_pve.fields.pm_api_url
+  endpoint = module.secret_pve.fields.PM_API_URL
   username = module.secret_pve.fields.username
   password = module.secret_pve.fields.password
   insecure = false

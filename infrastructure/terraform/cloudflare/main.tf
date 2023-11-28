@@ -26,6 +26,6 @@ module "secret_cf" {
 }
 
 provider "cloudflare" {
-  email   = module.secret_cf.fields.email
-  api_key = module.secret_cf.fields.api_key
+  email   = module.secret_cf.fields.EMAIL
+  api_key = module.secret_cf.fields.API_KEY
 }
