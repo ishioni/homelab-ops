@@ -213,3 +213,18 @@ module "oauth2-midarr" {
   client_secret      = module.secret_midarr.fields["OIDC_CLIENT_SECRET"]
   redirect_uris      = ["https://midarr.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/auth"]
 }
+
+module "oauth2-audiobookshelf" {
+  source             = "./oauth2_application"
+  name               = "Audiobookshelf"
+  icon_url           = "https://raw.githubusercontent.com/advplyr/audiobookshelf-web/master/static/Logo.png"
+  launch_url         = "https://audiobookshelf.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+  description        = "Media player"
+  newtab             = true
+  group              = "Media"
+  auth_groups        = [authentik_group.media.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_audiobookshelf.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://audiobookshelf.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}auth/openid/callback", "audiobookshelf://oauth"]
+}

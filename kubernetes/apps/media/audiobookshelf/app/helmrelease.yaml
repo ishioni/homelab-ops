@@ -29,6 +29,8 @@ spec:
   values:
     controllers:
       main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
         pod:
           securityContext:
             runAsUser: &uid ${CONFIG_APP_UID}
@@ -40,6 +42,9 @@ spec:
             image:
               repository: ghcr.io/advplyr/audiobookshelf
               tag: 2.6.0
+            envFrom:
+              - secretRef:
+                  name: *secret
             env:
               TZ: "${CONFIG_TIMEZONE}"
               PORT: &port 8080
@@ -89,17 +94,14 @@ spec:
     ingress:
       main:
         enabled: true
-        className: private
+        className: public
         annotations:
-          # authentik.home.arpa/enabled: "true"
-          # nginx.ingress.kubernetes.io/auth-signin: |-
-          #   https://audiobooks.internal.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           hajimari.io/enable: "true"
           hajimari.io/appName: Audiobookshelf
           hajimari.io/icon: mdi:book-music
           hajimari.io/group: selfhosted
         hosts:
-          - host: &host "audiobooks.internal.${SECRET_DOMAIN}"
+          - host: &host "audiobooks.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
