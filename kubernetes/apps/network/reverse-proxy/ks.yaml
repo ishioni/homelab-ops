@@ -6,7 +6,7 @@ metadata:
   name: network-reverse-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/network/reverse-proxy/app
+  path: ./kubernetes/apps/network/reverse-proxy/hass
   sourceRef:
     kind: GitRepository
     name: homelab-ops
