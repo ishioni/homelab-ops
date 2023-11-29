@@ -18,7 +18,6 @@ resources:
   - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./jetstack.yaml
-  - ./k8s-at-home.yaml
   - ./k8s-gateway.yaml
   - ./kubernetes-sigs-metrics-server.yaml
   - ./kyverno.yaml
