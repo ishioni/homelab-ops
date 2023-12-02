@@ -116,15 +116,18 @@ data:
       Media:
         style: columns
         columns: 3
-      Downloads:
-        style: row
-        columns: 4
       Selfhosted:
+        style: row
+        columns: 3
+      Downloads:
         style: row
         columns: 3
       Games:
         style: row
       Infrastructure:
+        style: row
+        columns: 2
+      Monitoring:
         style: row
         columns: 3
   widgets.yaml: |

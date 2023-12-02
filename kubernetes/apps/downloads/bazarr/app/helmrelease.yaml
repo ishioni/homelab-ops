@@ -105,11 +105,11 @@ spec:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
             https://bazarr.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
-          hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
           hajimari.io/appName: Bazarr
           hajimari.io/icon: subtitles
           hajimari.io/group: downloads
-          gethomepage.dev/enabled: "true"
+          gethomepage.dev/enabled: "false"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Bazarr
           gethomepage.dev/icon: bazarr.svg

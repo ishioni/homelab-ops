@@ -49,11 +49,11 @@ spec:
           enabled: true
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-production
-            hajimari.io/enable: "true"
+            hajimari.io/enable: "false"
             hajimari.io/appName: Hubble
             hajimari.io/icon: mdi:network
             hajimari.io/group: infrastructure
-            gethomepage.dev/enabled: "true"
+            gethomepage.dev/enabled: "false"
             gethomepage.dev/group: Infrastructure
             gethomepage.dev/name: Hubble
             gethomepage.dev/icon: cilium.svg
