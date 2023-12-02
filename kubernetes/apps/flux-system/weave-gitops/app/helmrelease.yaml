@@ -40,7 +40,7 @@ spec:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Infrastructure
         gethomepage.dev/name: GitOps
-        gethomepage.dev/icon: gitops.png
+        gethomepage.dev/icon: git.svg
       hosts:
         - host: &host "gitops.internal.${SECRET_DOMAIN}"
           paths:

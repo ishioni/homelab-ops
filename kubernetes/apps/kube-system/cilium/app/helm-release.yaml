@@ -56,7 +56,7 @@ spec:
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Infrastructure
             gethomepage.dev/name: Hubble
-            gethomepage.dev/icon: cilium.png
+            gethomepage.dev/icon: cilium.svg
           className: private
           hosts:
             - &host hubble.internal.${SECRET_DOMAIN}

@@ -57,7 +57,7 @@ spec:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Infrastructure
         gethomepage.dev/name: Grafana
-        gethomepage.dev/icon: grafana.png
+        gethomepage.dev/icon: grafana.svg
       ingressClassName: private
       hosts:
         - &host grafana.internal.${SECRET_DOMAIN}

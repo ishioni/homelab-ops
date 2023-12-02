@@ -94,10 +94,14 @@ data:
               url: https://proxmox.services.${SECRET_DOMAIN}
               username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
               password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
-        - MeshCommander:
+        - MeshCentral:
             href: https://amt.services.${SECRET_DOMAIN}
-            icon: meshcommander.png
+            icon: meshcentral.png
             description: AMT
+        - Minio:
+            href: https://s3.services.${SECRET_DOMAIN}
+            icon: minio.svg
+            description: S3
     - Minecraft:
         - Minecraft:
             icon: minecraft.png

@@ -110,7 +110,7 @@ spec:
               gethomepage.dev/enabled: "true"
               gethomepage.dev/group: Games
               gethomepage.dev/name: Minecraft
-              gethomepage.dev/icon: minecraft.png
+              gethomepage.dev/icon: minecraft.svg
               gethomepage.dev/widget.type: minecraft
               gethomepage.dev/widget.url: udp://minecraft-minecraft.games:25565
             hosts:

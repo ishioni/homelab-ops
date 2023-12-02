@@ -111,7 +111,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Alert Manager
-          gethomepage.dev/icon: alertmanager.png
+          gethomepage.dev/icon: alertmanager.svg
         hosts:
           - &host "alerts.internal.${SECRET_DOMAIN}"
         tls:
@@ -162,7 +162,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Prometheus
-          gethomepage.dev/icon: prometheus.png
+          gethomepage.dev/icon: prometheus.svg
           gethomepage.dev/widget.type: prometheus
           gethomepage.dev/widget.url: http://prometheus-prometheus.monitor:9090
         pathType: Prefix
