@@ -108,6 +108,10 @@ spec:
           hajimari.io/appName: Alert Manager
           hajimari.io/icon: mdi:alert-decagram-outline
           hajimari.io/group: infrastructure
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/name: Alert Manager
+          gethomepage.dev/icon: alertmanager.png
         hosts:
           - &host "alerts.internal.${SECRET_DOMAIN}"
         tls:
@@ -155,6 +159,12 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
           hajimari.io/group: infrastructure
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/name: Prometheus
+          gethomepage.dev/icon: prometheus.png
+          gethomepage.dev/widget.type: prometheus
+          gethomepage.dev/widget.url: http://prometheus-prometheus.monitor:9090
         pathType: Prefix
         hosts:
           - &host prometheus.internal.${SECRET_DOMAIN}

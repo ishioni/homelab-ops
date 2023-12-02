@@ -104,6 +104,10 @@ spec:
           hajimari.io/appName: Midarr
           hajimari.io/icon: play-box
           hajimari.io/group: media
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Midarr
+          gethomepage.dev/icon: midarr.png
         hosts:
           - host: &host "midarr.${SECRET_DOMAIN}"
             paths:

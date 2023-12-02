@@ -7,6 +7,10 @@ metadata:
     hajimari.io/enable: "true"
     hajimari.io/group: automation
     hajimari.io/icon: simple-icons:homeassistant
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Automation
+    gethomepage.dev/name: Home Assistant
+    gethomepage.dev/icon: homeassistant.png
   name: reverse-proxy-homeassistant
   namespace: network
 spec:

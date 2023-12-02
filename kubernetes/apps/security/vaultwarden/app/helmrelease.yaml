@@ -98,6 +98,10 @@ spec:
           hajimari.io/appName: Passwords
           hajimari.io/icon: mdi:lock
           hajimari.io/group: selfhosted
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Vaultwarden
+          gethomepage.dev/icon: vaultwarden.png
         hosts:
           - host: &host passwords.${SECRET_DOMAIN}
             paths:

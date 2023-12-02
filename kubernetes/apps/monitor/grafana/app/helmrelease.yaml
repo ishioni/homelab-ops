@@ -54,6 +54,10 @@ spec:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
         hajimari.io/group: infrastructure
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Infrastructure
+        gethomepage.dev/name: Grafana
+        gethomepage.dev/icon: grafana.png
       ingressClassName: private
       hosts:
         - &host grafana.internal.${SECRET_DOMAIN}

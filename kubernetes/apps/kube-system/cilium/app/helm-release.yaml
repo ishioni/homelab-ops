@@ -53,6 +53,10 @@ spec:
             hajimari.io/appName: Hubble
             hajimari.io/icon: mdi:network
             hajimari.io/group: infrastructure
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Infrastructure
+            gethomepage.dev/name: Hubble
+            gethomepage.dev/icon: cilium.png
           className: private
           hosts:
             - &host hubble.internal.${SECRET_DOMAIN}
