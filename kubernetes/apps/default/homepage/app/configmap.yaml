@@ -92,7 +92,7 @@ data:
             widget:
               type: proxmox
               url: https://proxmox.services.${SECRET_DOMAIN}
-              username: monitor@pam\!homepage
+              username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
               password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
     - Minecraft:
         - Minecraft:
