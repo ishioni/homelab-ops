@@ -118,7 +118,10 @@ data:
         columns: 3
       Selfhosted:
         style: row
-        columns: 3
+        columns: 2
+      Security:
+        style: row
+        columns: 2
       Downloads:
         style: row
         columns: 3

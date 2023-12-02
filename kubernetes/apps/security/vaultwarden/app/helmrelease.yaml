@@ -99,7 +99,7 @@ spec:
           hajimari.io/icon: mdi:lock
           hajimari.io/group: selfhosted
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/group: Security
           gethomepage.dev/name: Vaultwarden
           gethomepage.dev/icon: vaultwarden.svg
         hosts:
