@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/icon: home-assistant.svg
     gethomepage.dev/widget.type: homeassistant
     gethomepage.dev/widget.url: http://homeassistant.iot.internal:8123
-    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_BAZARR_TOKEN}}"
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
   name: reverse-proxy-homeassistant
   namespace: network
 spec:
