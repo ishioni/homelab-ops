@@ -58,7 +58,7 @@ spec:
         hajimari.io/group: infrastructure
         hajimari.io/appName: Authentik
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Infrastructure
+        gethomepage.dev/group: Security
         gethomepage.dev/name: Authentik
         gethomepage.dev/icon: authentik.png
         gethomepage.dev/widget.type: authentik
