@@ -99,7 +99,7 @@ data:
             icon: meshcentral.png
             description: AMT
         - Minio:
-            href: https://s3.services.${SECRET_DOMAIN}
+            href: https://s3.services.${SECRET_DOMAIN}:9090
             icon: minio.svg
             description: S3
   settings.yaml: |
