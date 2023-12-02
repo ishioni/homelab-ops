@@ -110,20 +110,19 @@ data:
     headerStyle: clean
     layout:
       Calendar:
-        style: row
+        style: columns
       Automation:
-        style: row
-        columns: 2
+        style: columns
+      Games:
+        style: columns
+      Media:
+        style: columns
       Downloads:
         style: row
         columns: 4
-      Games:
-        style: columns
       Selfhosted:
         style: row
         columns: 3
-      Media:
-        style: columns
       Infrastructure:
         style: row
         columns: 3
