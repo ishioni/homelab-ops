@@ -29,7 +29,7 @@ tunnel: disabled
 containerRuntime:
   integration: containerd
 hubble:
-  enabled: true
+  enabled: false
   serviceMonitor:
     enabled: false
   metrics:
@@ -42,10 +42,10 @@ hubble:
       - icmp
       - http
   relay:
-    enabled: true
+    enabled: false
     rollOutPods: true
   ui:
-    enabled: true
+    enabled: false
     rollOutPods: true
     ingress:
       enabled: false
