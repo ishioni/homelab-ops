@@ -106,6 +106,13 @@ spec:
           hajimari.io/appName: Prowlarr
           hajimari.io/icon: mdi:cloud-search
           hajimari.io/group: downloads
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/name: Lidarr
+          gethomepage.dev/icon: lidarr.png
+          gethomepage.dev/widget.type: lidarr
+          gethomepage.dev/widget.url: http://lidarr.downloads
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_LIDARR_TOKEN}}"
         hosts:
           - host: &host "indexer.${SECRET_DOMAIN}"
             paths:
