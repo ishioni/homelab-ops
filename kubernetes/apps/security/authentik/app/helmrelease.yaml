@@ -63,7 +63,7 @@ spec:
         gethomepage.dev/icon: authentik.png
         gethomepage.dev/widget.type: authentik
         gethomepage.dev/widget.url: http://authentik.security
-        gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
+        gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
       hosts:
         - host: &host "auth.${SECRET_DOMAIN}"
           paths:
