@@ -37,6 +37,7 @@ spec:
       name: cilium-values
   values:
     hubble:
+      enabled: false
       metrics:
         serviceMonitor:
           enabled: true
