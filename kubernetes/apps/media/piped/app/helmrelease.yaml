@@ -68,7 +68,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/name: Piped
-          gethomepage.dev/icon: piped.png
+          gethomepage.dev/icon: youtube.svg
         hosts:
           - host: &host "piped.internal.${SECRET_DOMAIN}"
             paths:

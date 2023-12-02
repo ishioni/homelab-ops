@@ -116,7 +116,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Transmission
-          gethomepage.dev/icon: transmission.png
+          gethomepage.dev/icon: transmission.svg
           gethomepage.dev/widget.type: transmission
           gethomepage.dev/widget.url: http://transmission.downloads:9091
         hosts:

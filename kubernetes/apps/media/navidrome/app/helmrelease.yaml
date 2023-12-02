@@ -108,7 +108,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/name: Navidrome
-          gethomepage.dev/icon: navidrome.png
+          gethomepage.dev/icon: navidrome.svg
           # gethomepage.dev/widget.type: navidrome
           # gethomepage.dev/widget.url: http://navidrome.media:8080
           # gethomepage.dev/widget.user: "{{HOMEPAGE_VAR_NAVIDROME_USER}}"

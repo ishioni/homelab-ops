@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Automation
     gethomepage.dev/name: Home Assistant
-    gethomepage.dev/icon: homeassistant.png
+    gethomepage.dev/icon: home-assistant.svg
   name: reverse-proxy-homeassistant
   namespace: network
 spec:

@@ -103,7 +103,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/name: Audiobookshelf
-          gethomepage.dev/icon: audiobookshelf.png
+          gethomepage.dev/icon: audiobookshelf.svg
           gethomepage.dev/widget.type: audiobookshelf
           gethomepage.dev/widget.url: http://audiobookshelf.media:8080
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}"

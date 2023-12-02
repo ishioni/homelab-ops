@@ -116,7 +116,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Readarr
-          gethomepage.dev/icon: readarr.png
+          gethomepage.dev/icon: readarr.svg
           gethomepage.dev/widget.type: readarr
           gethomepage.dev/widget.url: http://readarr.downloads
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
