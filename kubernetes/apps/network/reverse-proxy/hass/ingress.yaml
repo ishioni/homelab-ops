@@ -11,6 +11,9 @@ metadata:
     gethomepage.dev/group: Automation
     gethomepage.dev/name: Home Assistant
     gethomepage.dev/icon: home-assistant.svg
+    gethomepage.dev/widget.type: homeassistant
+    gethomepage.dev/widget.url: http://homeassistant.iot.internal:8123
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_BAZARR_TOKEN}}"
   name: reverse-proxy-homeassistant
   namespace: network
 spec:
