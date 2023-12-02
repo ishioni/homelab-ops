@@ -118,9 +118,7 @@ spec:
           gethomepage.dev/name: Transmission
           gethomepage.dev/icon: transmission.png
           gethomepage.dev/widget.type: transmission
-          gethomepage.dev/widget.url: http://transmission.downloads
-          gethomepage.dev/widget.username: ""
-          gethomepage.dev/widget.password: "{{HOMEPAGE_VAR_TRANSMISSION_PASSWORD}}"
+          gethomepage.dev/widget.url: http://transmission.downloads:9091
         hosts:
           - host: &host "torrent.${SECRET_DOMAIN}"
             paths:
