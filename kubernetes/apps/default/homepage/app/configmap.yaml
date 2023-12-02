@@ -110,7 +110,7 @@ data:
     headerStyle: clean
     layout:
       Calendar:
-        style: columns
+        style: row
       Automation:
         style: row
         columns: 2
@@ -120,12 +120,13 @@ data:
       Games:
         style: columns
       Selfhosted:
-        style: columns
+        style: row
+        columns: 3
       Media:
         style: columns
       Infrastructure:
         style: row
-        columns: 4
+        columns: 3
   widgets.yaml: |
     - resources:
         backend: kubernetes
