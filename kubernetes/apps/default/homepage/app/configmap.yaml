@@ -85,6 +85,15 @@ data:
               type: truenas
               url: https://truenas.services.${SECRET_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
+        - Proxmox:
+            href: https://proxmox.services.${SECRET_DOMAIN}
+            icon: proxmox.png
+            description: Hypervisor
+            widget:
+              type: proxmox
+              url: https://proxmox.services.${SECRET_DOMAIN}
+              username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
+              password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
     - Minecraft:
         - Minecraft:
             icon: minecraft.png
