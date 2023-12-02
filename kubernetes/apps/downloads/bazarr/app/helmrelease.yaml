@@ -109,6 +109,13 @@ spec:
           hajimari.io/appName: Bazarr
           hajimari.io/icon: subtitles
           hajimari.io/group: downloads
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/name: Bazarr
+          gethomepage.dev/icon: bazarr.png
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: http://bazarr.downloads
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
         hosts:
           - host: &host "bazarr.${SECRET_DOMAIN}"
             paths:
