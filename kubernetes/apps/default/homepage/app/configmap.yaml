@@ -110,7 +110,7 @@ data:
     headerStyle: clean
     layout:
       Calendar:
-        style: columnss
+        style: columns
       Automation:
         style: columns
       Downloads:
