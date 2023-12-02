@@ -102,36 +102,29 @@ data:
             href: https://s3.services.${SECRET_DOMAIN}
             icon: minio.svg
             description: S3
-    - Minecraft:
-        - Minecraft:
-            icon: minecraft.png
-            widget:
-              type: minecraft
-              url: udp://192.168.3.5:25565
   settings.yaml: |
     title: Dashboard
-    favicon: https://github.com/walkxcode/dashboard-icons/blob/main/png/heimdall.png
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
     theme: dark
     color: slate
     headerStyle: clean
     layout:
+      Calendar:
+        style: columnss
       Automation:
-        style: column
+        style: columns
       Downloads:
         style: row
-        columns: 3
+        columns: 4
       Infrastructure:
         style: row
-        columns: 3
+        columns: 4
       Games:
-        style: column
+        style: columns
       Selfhosted:
-        style: column
+        style: columns
       Media:
-        style: column
-      Calendar:
-        style: column
+        style: columns
   widgets.yaml: |
     - resources:
         backend: kubernetes
