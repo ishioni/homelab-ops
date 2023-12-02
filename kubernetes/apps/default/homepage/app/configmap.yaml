@@ -105,6 +105,9 @@ data:
       Media:
         style: column
         icon: mdi-play-circle
+      Selfhosted:
+        style: column
+        icon: mdi-play-circle
       Infrastructure:
         style: row
         columns: 3
