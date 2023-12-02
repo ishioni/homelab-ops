@@ -201,6 +201,13 @@ spec:
         hajimari.io/appName: Nextcloud
         hajimari.io/icon: simple-icons:nextcloud
         hajimari.io/group: selfhosted
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Selfhosted
+        gethomepage.dev/name: Nextcloud
+        gethomepage.dev/icon: nextcloud.png
+        gethomepage.dev/widget.type: nextcloud
+        gethomepage.dev/widget.url: https://nextcloud.${SECRET_DOMAIN}
+        gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_NEXTCLOUD_TOKEN}}"
       tls:
         - secretName: *host
           hosts:

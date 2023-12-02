@@ -109,6 +109,10 @@ spec:
           hajimari.io/appName: N8N
           hajimari.io/icon: mdi:workflow
           hajimari.io/group: automation
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Automation
+          gethomepage.dev/name: N8N
+          gethomepage.dev/icon: n8n.png
         hosts:
           - host: *host
             paths:

@@ -107,6 +107,12 @@ spec:
               hajimari.io/enable: "true"
               hajimari.io/icon: simple-icons:minecraft
               hajimari.io/group: games
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/group: Games
+              gethomepage.dev/name: Minecraft
+              gethomepage.dev/icon: minecraft.png
+              gethomepage.dev/widget.type: minecraft
+              gethomepage.dev/widget.url: udp://minecraft-minecraft.games:25565
             hosts:
               - name: &host "minecraft.${SECRET_DOMAIN}"
                 path: /

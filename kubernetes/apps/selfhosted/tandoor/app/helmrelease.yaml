@@ -102,6 +102,10 @@ spec:
           hajimari.io/appName: Recipes
           hajimari.io/group: selfhosted
           hajimari.io/icon: mdi:chef-hat
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Tandoor
+          gethomepage.dev/icon: tandoor.png
         hosts:
           - host: &host "recipes.${SECRET_DOMAIN}"
             paths:

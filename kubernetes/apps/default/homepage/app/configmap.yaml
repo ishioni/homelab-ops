@@ -94,6 +94,10 @@ data:
               url: https://proxmox.services.${SECRET_DOMAIN}
               username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
               password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
+        - MeshCommander:
+            href: https://amt.services.${SECRET_DOMAIN}
+            icon: meshcommander.png
+            description: AMT
     - Minecraft:
         - Minecraft:
             icon: minecraft.png
@@ -108,34 +112,22 @@ data:
     color: slate
     headerStyle: clean
     layout:
-      Calendar:
+      Automation:
         style: column
-        icon: mdi-calendar
-      Media:
-        style: column
-        icon: mdi-play-circle
-      Selfhosted:
-        style: column
-        icon: mdi-play-circle
-      Infrastructure:
-        style: row
-        columns: 3
-        icon: mdi-server
-      Storage:
-        style: row
-        columns: 2
-        icon: mdi-desktop-tower
-      Home:
-        style: column
-        icon: mdi-home-analytics
-      Minecraft:
-        style: row
-        columns: 3
-        icon: mdi-minecraft
       Downloads:
         style: row
         columns: 3
-        icon: mdi-download-circle
+      Infrastructure:
+        style: row
+        columns: 3
+      Games:
+        style: column
+      Selfhosted:
+        style: column
+      Media:
+        style: column
+      Calendar:
+        style: column
   widgets.yaml: |
     - resources:
         backend: kubernetes
@@ -149,7 +141,6 @@ data:
     - kubernetes:
         cluster:
           cpu: true
-          label: cluster
           memory: true
           show: true
           showLabel: true
