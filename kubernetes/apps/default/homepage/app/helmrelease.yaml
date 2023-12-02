@@ -40,6 +40,7 @@ spec:
               tag: v0.8.2
             env:
               TZ: ${CONFIG_TIMEZONE}
+              LOG_LEVEL: DEBUG
             envFrom:
               - secretRef:
                   name: homepage-secret
