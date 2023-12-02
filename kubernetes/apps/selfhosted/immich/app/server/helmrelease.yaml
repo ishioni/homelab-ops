@@ -107,6 +107,13 @@ spec:
           hajimari.io/icon: simple-icons:googlephotos
           hajimari.io/group: selfhosted
           hajimari.io/appName: Immich
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Immich
+          gethomepage.dev/icon: immich.png
+          gethomepage.dev/widget.type: immich
+          gethomepage.dev/widget.url: http://immich-server.selfhosted:3001
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
         hosts:
           - host: &host "photos.${SECRET_DOMAIN}"
             paths:
