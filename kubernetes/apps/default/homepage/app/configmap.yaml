@@ -91,8 +91,8 @@ data:
             description: Hypervisor
             widget:
               type: proxmox
-              url: https://proxmox-1.services.${SECRET_DOMAIN}:8006
-              username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
+              url: https://proxmox.services.${SECRET_DOMAIN}
+              username: monitor@pam!homepage
               password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
     - Minecraft:
         - Minecraft:
