@@ -115,11 +115,11 @@ spec:
           hajimari.io/group: downloads
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
-          gethomepage.dev/name: Radarr
-          gethomepage.dev/icon: radarr.png
+          gethomepage.dev/name: Readarr
+          gethomepage.dev/icon: readarr.png
           gethomepage.dev/widget.type: radarr
-          gethomepage.dev/widget.url: http://radarr.downloads
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
+          gethomepage.dev/widget.url: http://readarr.downloads
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
         hosts:
           - host: &host "readarr.${SECRET_DOMAIN}"
             paths:
