@@ -140,6 +140,13 @@ spec:
           hajimari.io/appName: Documents
           hajimari.io/icon: mdi:file-multiple
           hajimari.io/group: selfhosted
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Paperless
+          gethomepage.dev/icon: paperlessngx.png
+          gethomepage.dev/widget.type: paperlessngx
+          gethomepage.dev/widget.url: http://paperless.selfhosted:8000
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}"
         hosts:
           - host: &host documents.internal.${SECRET_DOMAIN}
             paths:
