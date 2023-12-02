@@ -112,11 +112,9 @@ data:
       Calendar:
         style: columns
       Automation:
-        style: columns
-      Downloads:
         style: row
-        columns: 4
-      Infrastructure:
+        columns: 2
+      Downloads:
         style: row
         columns: 4
       Games:
@@ -125,6 +123,9 @@ data:
         style: columns
       Media:
         style: columns
+      Infrastructure:
+        style: row
+        columns: 4
   widgets.yaml: |
     - resources:
         backend: kubernetes
