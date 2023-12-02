@@ -113,6 +113,14 @@ spec:
           hajimari.io/appName: Transmission
           hajimari.io/icon: mdi:cloud-download
           hajimari.io/group: downloads
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/name: Transmission
+          gethomepage.dev/icon: transmission.png
+          gethomepage.dev/widget.type: transmission
+          gethomepage.dev/widget.url: http://transmission.downloads
+          gethomepage.dev/widget.username: ""
+          gethomepage.dev/widget.password: "{{HOMEPAGE_VAR_TRANSMISSION_PASSWORD}}"
         hosts:
           - host: &host "torrent.${SECRET_DOMAIN}"
             paths:
