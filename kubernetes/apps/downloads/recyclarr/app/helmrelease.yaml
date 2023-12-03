@@ -29,17 +29,12 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              mountPath: /config
-              accessMode: ReadWriteOnce
-              size: 1Gi
-              storageClass: truenas-hdd-nfs
+        type: cronjob
         annotations:
           secret.reloader.stakater.com/reload: &secret recyclarr-secret
           configmap.reloader.stakater.com/reload: &configmap recyclarr-configmap
+        cronjob:
+          schedule: "@daily"
         pod:
           securityContext:
             runAsUser: &uid ${CONFIG_APP_UID}
@@ -50,12 +45,16 @@ spec:
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 6.0.2
+            args: ["sync"]
             env:
               TZ: ${CONFIG_TIMEZONE}
             envFrom:
               - secretRef:
                   name: *secret
     persistence:
+      config:
+        enabled: true
+        existingClaim: recyclarr
       config-file:
         enabled: true
         type: configMap
