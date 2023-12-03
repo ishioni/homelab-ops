@@ -32,6 +32,22 @@ resource "cloudflare_record" "mail-2" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "archie_ip" {
+  name    = "archie"
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  value   = module.secret_cf.fields.ARCHIE_IP
+  type    = "A"
+  ttl     = 60
+}
+
+resource "cloudflare_record" "archie_ip_wildcard" {
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  name    = "*.archie.${module.secret_cf.fields.DOMAIN}"
+  value   = "archie.${module.secret_cf.fields.DOMAIN}"
+  type    = "CNAME"
+  ttl     = 60
+}
+
 resource "cloudflare_record" "caa" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = module.secret_cf.fields.DOMAIN
