@@ -51,6 +51,7 @@ spec:
         pod:
           securityContext:
             runAsUser: ${CONFIG_APP_UID}
+            runAsNonRoot: true
             runAsGroup: &gid ${CONFIG_MEDIA_UID}
             fsGroup: *gid
             fsGroupChangePolicy: OnRootMismatch
@@ -68,6 +69,7 @@ spec:
               RADARR__APPLICATION_URL: "https://movies.${SECRET_DOMAIN}"
               RADARR__LOG_LEVEL: info
               RADARR__THEME: dark
+              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
@@ -86,6 +88,10 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
               resources:
                 requests:
                   cpu: 50m

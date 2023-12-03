@@ -50,6 +50,7 @@ spec:
         pod:
           securityContext:
             runAsUser: ${CONFIG_APP_UID}
+            runAsNonRoot: true
             runAsGroup: &gid ${CONFIG_MEDIA_UID}
             fsGroup: *gid
             fsGroupChangePolicy: OnRootMismatch
@@ -65,6 +66,7 @@ spec:
               READARR__AUTHENTICATION_METHOD: None
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               READARR__LOG_LEVEL: info
+              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
@@ -83,6 +85,10 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m

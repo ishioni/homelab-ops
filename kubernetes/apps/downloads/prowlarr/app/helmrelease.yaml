@@ -44,6 +44,7 @@ spec:
         pod:
           securityContext:
             runAsUser: &uid ${CONFIG_APP_UID}
+            runAsNonRoot: true
             runAsGroup: *uid
             fsGroup: *uid
             fsGroupChangePolicy: OnRootMismatch
@@ -59,6 +60,7 @@ spec:
               PROWLARR__LOG_LEVEL: info
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__THEME: dark
+              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
@@ -77,6 +79,10 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
