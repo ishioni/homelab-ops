@@ -38,8 +38,10 @@ spec:
         pod:
           securityContext:
             runAsUser: &uid ${CONFIG_APP_UID}
+            runAsNonRoot: true
             runAsGroup: *uid
             fsGroup: *uid
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
@@ -48,9 +50,14 @@ spec:
             args: ["sync"]
             env:
               TZ: ${CONFIG_TIMEZONE}
+              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     persistence:
       config:
         enabled: true
