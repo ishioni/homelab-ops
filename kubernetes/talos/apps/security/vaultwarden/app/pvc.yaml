@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  name: vaultwarden-data
+  namespace: security
+  labels:
+    app.kubernetes.io/name: &name vaultwarden
+    app.kubernetes.io/instance: *name
+spec:
+  accessModes: ["ReadWriteMany"]
+  storageClassName: truenas-hdd-nfs
+  resources:
+    requests:
+      storage: 1Gi
+  dataSourceRef:
+    name: vaultwarden-rdst
+    kind: ReplicationDestination
+    apiGroup: volsync.backube

@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: ut99
+  namespace: games
+spec:
+  sourcePVC: ut99-data
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: ut99-restic-s3
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: truenas-ssd-nvmeof
+    storageClassName: truenas-ssd-nvmeof
+    retain:
+      daily: 10
+      within: 3d
