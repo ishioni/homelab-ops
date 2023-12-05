@@ -20,7 +20,7 @@ area/terraform:
       - any-glob-to-any-file: "infrastructure/terraform/**/*"
 cluster/talos:
   - changed-files:
-      - any-glob-to-any-file: kubernetes/main/**/*
+      - any-glob-to-any-file: kubernetes/talos/**/*
 cluster/truenas:
   - changed-files:
-      - any-glob-to-any-file: kubernetes/storage/**/*
+      - any-glob-to-any-file: kubernetes/truenas/**/*
