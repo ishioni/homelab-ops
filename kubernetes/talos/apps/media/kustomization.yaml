@@ -6,7 +6,7 @@ resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
   - ./mediamtx/ks.yaml
-  - ./midarr/ks.yaml
+  # - ./midarr/ks.yaml
   - ./navidrome/ks.yaml
   - ./piped/ks.yaml
   - ./pvc
