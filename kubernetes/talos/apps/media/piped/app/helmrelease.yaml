@@ -69,6 +69,8 @@ spec:
           gethomepage.dev/group: Media
           gethomepage.dev/name: Piped
           gethomepage.dev/icon: youtube.svg
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.internal.${SECRET_DOMAIN}, https://pipedapi.internal.${SECRET_DOMAIN}, https://ytproxy.internal.${SECRET_DOMAIN}"
         hosts:
           - host: &host "piped.internal.${SECRET_DOMAIN}"
             paths:
@@ -80,6 +82,9 @@ spec:
       backend:
         enabled: true
         ingressClassName: private
+        annotations:
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.internal.${SECRET_DOMAIN}, https://pipedapi.internal.${SECRET_DOMAIN}, https://ytproxy.internal.${SECRET_DOMAIN}"
         hosts:
           - host: *pipedapi
             paths:
@@ -91,6 +96,9 @@ spec:
       ytproxy:
         enabled: true
         ingressClassName: private
+        annotations:
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://piped.internal.${SECRET_DOMAIN}, https://pipedapi.internal.${SECRET_DOMAIN}, https://ytproxy.internal.${SECRET_DOMAIN}"
         hosts:
           - host: &proxy ytproxy.internal.${SECRET_DOMAIN}
             paths:
