@@ -59,7 +59,7 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
-├── 📁 main            # main cluster
+├── 📁 talos            # main cluster
 │   ├─📁 apps          # applications
 │   ├─📁 bootstrap     # bootstrap procedures
 │   └─📁 flux           # core flux configuration
