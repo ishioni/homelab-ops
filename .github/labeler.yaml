@@ -1,13 +1,26 @@
 ---
 area/ansible:
-  - "infrastructure/ansible/**/*"
+  - changed-files:
+      - any-glob-to-any-file: "infrastructure/ansible/**/*"
 area/taskfiles:
-  - ".taskfiles/**/*"
+  - changed-files:
+      - any-glob-to-any-file: ".taskfiles/**/*"
 area/talos:
-  - "infrastructure/talos/**/*"
+  - changed-files:
+      - any-glob-to-any-file: "infrastructure/talos/**/*"
+      - any-glob-to-any-file: Taskfile*
 area/github:
-  - ".github/**/*"
+  - changed-files:
+      - any-glob-to-any-file: ".github/**/*"
 area/kubernetes:
-  - "kubernetes/**/*"
+  - changed-files:
+      - any-glob-to-any-file: "kubernetes/**/*"
 area/terraform:
-  - "infrastructure/terraform/**/*"
+  - changed-files:
+      - any-glob-to-any-file: "infrastructure/terraform/**/*"
+cluster/talos:
+  - changed-files:
+      - any-glob-to-any-file: kubernetes/main/**/*
+cluster/truenas:
+  - changed-files:
+      - any-glob-to-any-file: kubernetes/storage/**/*
