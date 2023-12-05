@@ -2,12 +2,10 @@
 version: "3"
 
 vars:
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
-  KUBERNETES_DIR: "{{.PROJECT_DIR}}/kubernetes"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/infrastructure/ansible"
-  TALOS_DIR: "{{.PROJECT_DIR}}/infrastructure/talos"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/infrastructure/terraform"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/infrastructure/ansible"
+  TALOS_DIR: "{{.ROOT_DIR}}/infrastructure/talos"
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
 
 dotenv: [".config.env"]
 
