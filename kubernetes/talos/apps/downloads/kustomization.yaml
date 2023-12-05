@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./bazarr/ks.yaml
+  - ./lidarr/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./pvc
+  - ./radarr/ks.yaml
+  - ./readarr/ks.yaml
+  - ./recyclarr/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./transmission/ks.yaml

@@ -1,0 +1,120 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: audiobookshelf
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
+        pod:
+          securityContext:
+            runAsUser: &uid ${CONFIG_APP_UID}
+            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/advplyr/audiobookshelf
+              tag: 2.6.0
+            envFrom:
+              - secretRef:
+                  name: *secret
+            env:
+              TZ: "${CONFIG_TIMEZONE}"
+              PORT: &port 8080
+              AUDIOBOOKSHELF_UID: *uid
+              AUDIOBOOKSHELF_GID: *gid
+              CONFIG_PATH: /data
+              METADATA_PATH: /data/metadata
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthcheck
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 600Mi
+    persistence:
+      data:
+        existingClaim: audiobookshelf-data
+        globalMounts:
+          - path: /data
+      media:
+        enabled: true
+        existingClaim: media-datastore
+        globalMounts:
+          - path: /audiobooks
+            subPath: Audiobooks
+          - path: /podcasts
+            subPath: Podcasts
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: public
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Audiobookshelf
+          hajimari.io/icon: mdi:book-music
+          hajimari.io/group: selfhosted
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Audiobookshelf
+          gethomepage.dev/icon: audiobookshelf.svg
+          gethomepage.dev/widget.type: audiobookshelf
+          gethomepage.dev/widget.url: http://audiobookshelf.media:8080
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}"
+        hosts:
+          - host: &host "audiobooks.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: *host
+            hosts:
+              - *host

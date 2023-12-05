@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: paperless-rsrc
+  namespace: selfhosted
+spec:
+  sourcePVC: paperless-data
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: paperless-restic-s3
+    moverSecurityContext:
+      runAsUser: &uid 568
+      runAsGroup: *uid
+      fsGroup: *uid
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: truenas-hdd-nfs
+    storageClassName: truenas-hdd-nfs
+    retain:
+      daily: 7
+      within: 3d

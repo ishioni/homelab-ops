@@ -1,0 +1,168 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+  namespace: selfhosted
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret paperless-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 15.5
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.0.1
+            env:
+              PAPERLESS_CONSUMER_POLLING: 60
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              PAPERLESS_CONSUMPTION_DIR: /library/consume
+              PAPERLESS_DATA_DIR: /library/data
+              # PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
+              PAPERLESS_EXPORT_DIR: /library/export
+              # PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_REMOTE_USER
+              PAPERLESS_MEDIA_ROOT: /library/media
+              PAPERLESS_OCR_LANGUAGES: eng pol
+              PAPERLESS_OCR_LANGUAGE: pol
+              PAPERLESS_PORT: &port 8000
+              PAPERLESS_REDIS: redis://localhost:6379
+              PAPERLESS_TASK_WORKERS: 2
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+              PAPERLESS_TIME_ZONE: ${CONFIG_TIMEZONE}
+              PAPERLESS_URL: https://documents.internal.${SECRET_DOMAIN}
+              USERMAP_UID: &uid 568
+              USERMAP_GID: *uid
+            envFrom:
+              - secretRef:
+                  name: *secret
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1000Mi
+              limits:
+                memory: 5000Mi
+            securityContext:
+              supplementalGroups: ["568"]
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 30
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  failureThreshold: 10
+                  periodSeconds: 12
+          gotenburg:
+            image:
+              repository: docker.io/thecodingmachine/gotenberg
+              tag: 7.10.1
+              imagePullPolicy: IfNotPresent
+            env:
+              - {name: DISABLE_GOOGLE_CHROME, value: "1"}
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
+          redis:
+            image:
+              repository: public.ecr.aws/docker/library/redis
+              tag: 7.2.3
+              imagePullPolicy: IfNotPresent
+            securityContext:
+              runAsUser: 999
+              runAsGroup: 999
+          tika:
+            image:
+              repository: ghcr.io/paperless-ngx/tika
+              tag: 2.9.0-full
+              imagePullPolicy: IfNotPresent
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Documents
+          hajimari.io/icon: mdi:file-multiple
+          hajimari.io/group: selfhosted
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Paperless
+          gethomepage.dev/icon: paperless-ngx.png
+          gethomepage.dev/widget.type: paperlessngx
+          gethomepage.dev/widget.url: http://paperless.selfhosted:8000
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}"
+        hosts:
+          - host: &host documents.internal.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+    persistence:
+      library:
+        existingClaim: paperless-data
+        advancedMounts:
+          main:
+            main:
+              - path: /library
+                retain: true

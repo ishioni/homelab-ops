@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  name: recyclarr
+  namespace: downloads
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: truenas-hdd-nfs
+  resources:
+    requests:
+      storage: 1Gi

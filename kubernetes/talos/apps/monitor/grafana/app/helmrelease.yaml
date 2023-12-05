@@ -1,0 +1,367 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: monitor
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: grafana
+      version: 7.0.11
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    annotations:
+      secret.reloader.stakater.com/reload: &secret grafana-secret
+    extraInitContainers:
+      - name: init-db
+        image: ghcr.io/onedr0p/postgres-init:15.5
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
+    rbac:
+      pspEnabled: false
+    persistence:
+      enabled: false
+    testFramework:
+      enabled: false
+    imageRenderer:
+      enabled: false
+    serviceMonitor:
+      enabled: true
+    serviceAccount:
+      autoMount: true
+    ingress:
+      enabled: true
+      annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/appName: Grafana
+        hajimari.io/icon: simple-icons:grafana
+        hajimari.io/group: infrastructure
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Infrastructure
+        gethomepage.dev/name: Grafana
+        gethomepage.dev/icon: grafana.svg
+      ingressClassName: private
+      hosts:
+        - &host grafana.internal.${SECRET_DOMAIN}
+      tls:
+        - hosts:
+            - *host
+          secretName: *host
+    env:
+      GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
+    envFromSecrets:
+      - name: *secret
+    grafana.ini:
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
+      auth:
+        oauth_auto_login: true
+        signout_redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
+        oauth_allow_insecure_email_lookup: true
+      auth.basic:
+        enabled: false
+      auth.anonymous:
+        enabled: false
+        # org_id: 1
+        # org_role: Viewer
+      auth.generic_oauth:
+        enabled: true
+        name: ${SECRET_DOMAIN}
+        icon: signin
+        auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
+        token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
+        api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
+        scopes: openid email profile
+        use_pkce: true
+        skip_org_role_sync: true
+      auth.generic_oauth.group_mapping:
+        role_attribute_path: |
+          contains(groups[*], 'infrastructure') && 'Admin' || 'Viewer'
+        org_id: 1
+      log:
+        mode: console
+      news:
+        news_feed_enabled: false
+      paths:
+        data: /var/lib/grafana/data
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      server:
+        root_url: https://grafana.internal.${SECRET_DOMAIN}
+    plugins:
+      - pr0ps-trackmap-panel
+      - grafana-clock-panel
+      - grafana-piechart-panel
+      - grafana-worldmap-panel
+      - natel-discrete-panel
+      - natel-plotly-panel
+      - vonage-status-panel
+      - https://github.com/panodata/panodata-map-panel/releases/download/0.16.0/panodata-map-panel-0.16.0.zip;grafana-worldmap-panel-ng
+      - redis-datasource
+    sidecar:
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+        initDatasources: true
+        labelValue: ""
+      dashboards:
+        enabled: true
+        labelValue: ""
+        label: grafana_dashboard
+        folderAnnotation: grafana_folder
+        searchNamespace: ALL
+        provider:
+          disableDelete: true
+          foldersFromFilesStructure: true
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
+          - name: Alertmanager
+            orgId: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://thanos-query.monitor.svc.cluster.local:9090/
+            isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki-gateway.monitor.svc.cluster.local
+            version: 1
+            jsonData:
+              maxLines: 100
+          - name: Alertmanager
+            type: alertmanager
+            access: proxy
+            url: http://alertmanager.monitor.svc.cluster.local:9093
+            jsonData:
+              implementation: prometheus
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: "default"
+            disableDeletion: false
+            editable: true
+            folder: ""
+            options:
+              path: /var/lib/grafana/dashboards/default
+            orgId: 1
+            type: file
+          - name: "storage"
+            disableDeletion: false
+            editable: true
+            folder: "Storage"
+            options:
+              path: /var/lib/grafana/dashboards/database
+            orgId: 1
+            type: file
+          - name: "flux"
+            orgId: 1
+            folder: "Flux"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/flux
+          - name: "kubernetes"
+            orgId: 1
+            folder: "Kubernetes"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/kubernetes
+          - name: "loki"
+            org_id: 1
+            folder: "Loki"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/loki
+          - name: "networking"
+            org_id: 1
+            folder: "Networking"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/networking
+          - name: "system"
+            orgId: 1
+            folder: "System"
+            type: file
+            disableDeletion: false
+            editable: true
+            allowUiUpdates: true
+            options:
+              path: /var/lib/grafana/dashboards/system
+          - name: "unifi"
+            orgId: 1
+            folder: "Unifi"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/unifi
+    dashboards:
+      flux:
+        flux-cluster:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
+          datasource: Prometheus
+        flux-control-plane:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+          datasource: Prometheus
+        flux-logs:
+          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
+          datasource: Prometheus
+      kubernetes:
+        api-server:
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 14
+          datasource: Prometheus
+        coredns:
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
+          revision: 13
+          datasource: Prometheus
+        global:
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 31
+          datasource: Prometheus
+        namespaces:
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 27
+          datasource: Prometheus
+        nodes:
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 19
+          datasource: Prometheus
+        pods:
+          # renovate: depName="Kubernetes / Views / Pods"
+          gNetId: 15760
+          revision: 21
+          datasource: Prometheus
+        volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
+          datasource: Prometheus
+      loki:
+        loki-metrics:
+          # renovate: depName="Loki2.0 Global Metrics"
+          gnetId: 13407
+          revision: 1
+          datasource: Prometheus
+      networking:
+        ingress-nginx:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+          datasource: Prometheus
+        ingress-nginx-request-handling-performance:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+          datasource: Prometheus
+        speedtest-exporter-hub:
+          # renovate: depName="Speedtest-Exporter"
+          gnetId: 13665
+          revision: 4
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
+        external-dns:
+          # renovate: depName="External-DNS"
+          gnetId: 15038
+          revision: 1
+          datasource: Prometheus
+      storage:
+        cnpg-dashboard:
+          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.21.0/docs/src/samples/monitoring/grafana-dashboard.json
+          datasource: Prometheus
+        redis:
+          # renovate: depName="Redis"
+          gnetId: 11835
+          revision: 1
+          datasource: Prometheus
+        minio-dashboard:
+          # renovate: depName="Minio"
+          gnetId: 13502
+          revision: 24
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
+      system:
+        node-exporter:
+          # renovate: depName="Node Exporter"
+          gnetId: 11074
+          revision: 9
+          datasource: Prometheus
+          # renovate: depName="Node Exporter Full"
+        node-exporter-full:
+          gnetId: 1860
+          revision: 31
+          datasource: Prometheus
+        nut:
+          # renovate: depName="NUT"
+          gnetId: 15406
+          revision: 2
+          datasource:
+            - {name: DS_GRAFANACLOUD-DENYAGO-PROM, value: Prometheus}
+      unifi:
+        unifi-dpi-insights:
+          # renovate: depName="Unifi DPI"
+          gnetId: 11310
+          revision: 5
+          datasource: Prometheus
+        unifi-network-sites:
+          # renovate: depName="Unifi Sites"
+          gnetId: 11311
+          revision: 5
+          datasource: Prometheus
+        unifi-usw-insights:
+          # renovate: depName="Unifi USW"
+          gnetId: 11312
+          revision: 9
+          datasource: Prometheus
+        unifi-usg-insights:
+          # renovate: depName="Unifi USG"
+          gnetId: 11313
+          revision: 9
+          datasource: Prometheus
+        unifi-uap-insights:
+          # renovate: depName="Unifi UAP"
+          gnetId: 11314
+          revision: 10
+          datasource: Prometheus
+        unifi-client-insights:
+          # renovate: depName="Unifi Client"
+          gnetId: 11315
+          revision: 9
+          datasource: Prometheus

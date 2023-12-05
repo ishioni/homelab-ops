@@ -1,0 +1,166 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: default
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  bookmarks.yaml: |
+    - Media:
+        - YouTube:
+            - href: https://youtube.com/feed/subscriptions
+        - Rumble:
+            - href: https://rumble.com
+        - Odysee:
+            - href: https://odysee.com/
+    - Tech:
+        - HackerNews:
+            - href: https://news.ycombinator.com
+        - Anandtech:
+            - href: https://www.anandtech.com
+        - Moronix:
+            - href: https://www.phoronix.com
+        - ServeTheHome:
+            - href: https://www.servethehome.com
+    - Social:
+        - Kiwi:
+            - href: https://kiwifarms.net
+        - Poast:
+            - href: https://poa.st
+        - zzzChan:
+            - href: https://zzzchan.xyz
+  docker.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
+  services.yaml: |
+    - Calendar:
+        # - Calendar:
+        #     widget:
+        #       type: calendar
+        #       firstDayInWeek: sunday # optional - defaults to monday
+        #       view: monthly # optional - possible values monthly, agenda
+        #       maxEvents: 10 # optional - defaults to 10
+        #       integrations: # optional
+        #         - type: sonarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr
+        #           service_group: Downloads # group name where widget exists
+        #           service_name: Sonarr # service name for that widget
+        #         - type: radarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr
+        #           service_group: Downloads # group name where widget exists
+        #           service_name: Radarr # service name for that widget
+        #         - type: readarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr
+        #           service_group: Downloads # group name where widget exists
+        #           service_name: Readarr # service name for that
+        - Agenda:
+            widget:
+              type: calendar
+              view: agenda # optional - possible values monthly, agenda
+              maxEvents: 20 # optional - defaults to 10
+              integrations: # optional
+                - type: sonarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr>
+                  service_group: Downloads # group name where widget exists
+                  service_name: Sonarr # service name for that widget
+                - type: radarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr>
+                  service_group: Downloads # group name where widget exists
+                  service_name: Radarr # service name for that widget
+                - type: readarr # active widget type that is currently enabled on homepage - possible values: radarr, sonar>
+                  service_group: Downloads # group name where widget exists
+                  service_name: Readarr # service name for that widget
+    - Infrastructure:
+        - Unifi:
+            href: https://unifi.services.${SECRET_DOMAIN}
+            icon: unifi.png
+            description: Unifi Dashboard
+            widget:
+              type: unifi
+              url: https://unifi.services.${SECRET_DOMAIN}
+              username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
+              password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
+        - TrueNAS:
+            href: https://truenas.services.${SECRET_DOMAIN}
+            icon: truenas.png
+            description: NAS
+            widget:
+              type: truenas
+              url: https://truenas.services.${SECRET_DOMAIN}
+              key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
+        - Proxmox:
+            href: https://proxmox.services.${SECRET_DOMAIN}
+            icon: proxmox.png
+            description: Hypervisor
+            widget:
+              type: proxmox
+              url: https://proxmox.services.${SECRET_DOMAIN}
+              username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
+              password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
+        - MeshCentral:
+            href: https://amt.services.${SECRET_DOMAIN}
+            icon: meshcentral.png
+            description: AMT
+        - Minio:
+            href: https://s3.services.${SECRET_DOMAIN}:9090
+            icon: minio.svg
+            description: S3
+  settings.yaml: |
+    title: Dashboard
+    background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+    theme: dark
+    color: slate
+    headerStyle: boxed
+    layout:
+      Calendar:
+        style: columns
+      Automation:
+        style: columns
+      Media:
+        style: columns
+        columns: 3
+      Selfhosted:
+        style: row
+        columns: 2
+      Security:
+        style: row
+        columns: 2
+      Downloads:
+        style: row
+        columns: 3
+      Games:
+        style: row
+      Infrastructure:
+        style: row
+        columns: 2
+      Monitoring:
+        style: row
+        columns: 3
+  widgets.yaml: |
+    - resources:
+        backend: kubernetes
+        cpu: true
+        expanded: true
+        memory: true
+    - search:
+        provider: [brave, bing]
+        focus: false
+        target: _blank
+    - kubernetes:
+        cluster:
+          cpu: true
+          memory: true
+          show: true
+          showLabel: true
+        nodes:
+          cpu: true
+          memory: true
+          show: false
+          showLabel: true
+    - openmeteo:
+        label: Home
+        units: metric
+        cache: 5
+    - datetime:
+        text_size: l
+        format:
+          dateStyle: long
+          timeStyle: short
+          hourCycle: h23

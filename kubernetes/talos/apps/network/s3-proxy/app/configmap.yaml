@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: s3-proxy-configmap
+  namespace: network
+data:
+  nginx-config: |
+    events {
+      worker_connections 1024;
+    }
+    http {
+      include mime.types;
+      server {
+        listen 80;
+        client_max_body_size 128M;
+        location / {
+        proxy_set_header Host $host;
+        proxy_pass https://s3.services.${SECRET_DOMAIN}:9000/static-content/;
+        }
+      }
+    }

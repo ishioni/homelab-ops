@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: vaultwarden
+  namespace: security
+spec:
+  sourcePVC: vaultwarden-data
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: vaultwarden-restic-s3
+    moverSecurityContext:
+      runAsUser: &uid 568
+      runAsGroup: *uid
+      fsGroup: *uid
+    cacheCapacity: 1Gi
+    volumeSnapshotClassName: &sc truenas-hdd-nfs
+    storageClassName: *sc
+    retain:
+      daily: 7
+      within: 3d

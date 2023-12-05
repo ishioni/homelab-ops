@@ -1,0 +1,101 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: piped
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: piped
+      version: 4.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: piped
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    postgresql:
+      enabled: false
+    global:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret piped-secret
+    frontend:
+      image:
+        repository: docker.io/1337kavin/piped-frontend
+      env:
+        BACKEND_HOSTNAME: &pipedapi pipedapi.internal.${SECRET_DOMAIN}
+    backend:
+      image:
+        repository: docker.io/1337kavin/piped
+      initContainers:
+        01-init-db:
+          image: "ghcr.io/onedr0p/postgres-init:15.5"
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+            - secretRef:
+                name: *secret
+      config:
+        PORT: 8080
+        HTTP_WORKERS: 2
+        PROXY_PART: https://ytproxy.internal.${SECRET_DOMAIN}
+        COMPROMISED_PASSWORD_CHECK: true
+        DISABLE_REGISTRATION: false
+        database:
+          connection_url: jdbc:postgresql://postgres-rw.database.svc.cluster.local:5432/piped
+          driver_class: org.postgresql.Driver
+          secret: *secret
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Piped
+          hajimari.io/icon: mdi:youtube
+          hajimari.io/group: selfhosted
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Piped
+          gethomepage.dev/icon: youtube.svg
+        hosts:
+          - host: &host "piped.internal.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+        tls:
+          - hosts:
+              - *host
+            secretName: *host
+      backend:
+        enabled: true
+        ingressClassName: private
+        hosts:
+          - host: *pipedapi
+            paths:
+              - path: "/"
+        tls:
+          - hosts:
+              - *pipedapi
+            secretName: *pipedapi
+      ytproxy:
+        enabled: true
+        ingressClassName: private
+        hosts:
+          - host: &proxy ytproxy.internal.${SECRET_DOMAIN}
+            paths:
+              - path: "/"
+        tls:
+          - hosts:
+              - *proxy
+            secretName: *proxy

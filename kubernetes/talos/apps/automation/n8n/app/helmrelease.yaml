@@ -1,0 +1,126 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: n8n
+  namespace: automation
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret n8n-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 15.5
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        pod:
+          securityContext:
+            runAsUser: &uid 568
+            runAsGroup: *uid
+            fsGroup: *uid
+            fsGroupChangePolicy: "OnRootMismatch"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/n8n-io/n8n
+              tag: 1.19.4
+            command: ["n8n"]
+            env:
+              GENERIC_TIMEZONE: ${CONFIG_TIMEZONE}
+              DB_TYPE: postgresdb
+              N8N_HOST: &host n8n.internal.${SECRET_DOMAIN}
+              N8N_EDITOR_BASE_URL: https://n8n.internal.${SECRET_DOMAIN}/
+              WEBHOOK_URL: https://n8n.internal.${SECRET_DOMAIN}/
+              N8N_PORT: &port 8080
+              N8N_PROTOCOL: https
+              N8N_USER_FOLDER: /config
+              N8N_EMAIL_MODE: smtp
+              N8N_VERSION_NOTIFICATIONS_ENABLED: false
+              N8N_DIAGONISTICS_ENABLED: false
+              N8N_HIRING_BANNER_ENABLED: false
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *port
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 200Mi
+                limits:
+                  memory: 1000Mi
+    persistence:
+      config:
+        enabled: true
+        existingClaim: n8n-data
+        globalMounts:
+          - path: /config
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: private
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/appName: N8N
+          hajimari.io/icon: mdi:workflow
+          hajimari.io/group: automation
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Automation
+          gethomepage.dev/name: N8N
+          gethomepage.dev/icon: n8n.svg
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: *host

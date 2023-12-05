@@ -1,0 +1,127 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: navidrome
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsUser: ${CONFIG_APP_UID}
+            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/navidrome/navidrome
+              tag: 0.50.1
+            env:
+              TZ: "${CONFIG_TIMEZONE}"
+              ND_DATAFOLDER: /data
+              ND_MUSICFOLDER: /music
+              ND_PORT: &port 8080
+              ND_SCANSCHEDULE: 30m
+              ND_ENABLEDOWNLOADS: "true"
+              ND_ENABLEEXTERNALSERVICES: "true"
+              ND_ENABLESHARING: "false"
+              ND_ENABLETRANSCODINGCONFIG: "false"
+              ND_LOGLEVEL: info
+              ND_PROMETHEUS_ENABLED: true
+              ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
+              ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
+              ND_AUTHREQUESTLIMIT: 0
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 300Mi
+    persistence:
+      data:
+        existingClaim: navidrome-data
+        globalMounts:
+          - path: /data
+      music:
+        enabled: true
+        existingClaim: media-datastore
+        globalMounts:
+          - path: /music
+            subPath: Music
+            readOnly: true
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: public
+        annotations:
+          authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://navidrome.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          hajimari.io/enable: "true"
+          hajimari.io/appName: Navidrome
+          hajimari.io/icon: mdi:music
+          hajimari.io/group: selfhosted
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/name: Navidrome
+          gethomepage.dev/icon: navidrome.svg
+          # gethomepage.dev/widget.type: navidrome
+          # gethomepage.dev/widget.url: http://navidrome.media:8080
+          # gethomepage.dev/widget.user: "{{HOMEPAGE_VAR_NAVIDROME_USER}}"
+          # gethomepage.dev/widget.token: "{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}"
+          # gethomepage.dev/widget.salt: "{{HOMEPAGE_VAR_NAVIDROME_SALT}}"
+        hosts:
+          - host: &host "navidrome.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: *host
+            hosts:
+              - *host
