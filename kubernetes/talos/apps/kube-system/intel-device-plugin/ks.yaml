@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 10m
   path: ./kubernetes/talos/apps/kube-system/intel-device-plugin/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops

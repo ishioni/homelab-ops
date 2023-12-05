@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false
+  prune: true
   wait: true
   dependsOn:
     - name: security-external-secrets
@@ -30,7 +30,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false
+  prune: true
   wait: true
   dependsOn:
     - name: security-external-secrets
@@ -50,7 +50,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false
+  prune: true
   wait: true
   dependsOn:
     - name: security-external-secrets
