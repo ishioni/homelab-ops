@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false
+  prune: true
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -26,7 +26,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/database/cloudnative-pg/cluster
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
