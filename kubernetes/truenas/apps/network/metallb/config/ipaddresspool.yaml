@@ -5,5 +5,5 @@ metadata:
   namespace: network
 spec:
   addresses:
-    - 10.1.4.128/27
+    - ${CONFIG_TRUENAS_POOL_CIDR}
   autoAssign: true
