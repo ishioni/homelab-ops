@@ -46,6 +46,8 @@ spec:
       main:
         enabled: true
         className: ingress
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
           - host: &host whoami.${TRUENAS_DOMAIN}
             paths:
