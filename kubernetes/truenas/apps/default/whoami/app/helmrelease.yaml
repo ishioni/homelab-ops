@@ -42,3 +42,18 @@ spec:
           http:
             enabled: true
             port: 80
+    ingress:
+      main:
+        enabled: true
+        className: ingress
+        hosts:
+          - host: &host whoami.${TRUENAS_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - secretName: *host
+            hosts:
+              - *host
