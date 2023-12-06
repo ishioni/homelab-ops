@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  CONFIG_TRUENAS_POOL_CIDR: 192.168.4.0/24
+  CONFIG_KUBE_POOL_CIDR: 10.1.4.0/24
+  CONFIG_TIMEZONE: Europe/Warsaw
+  CONFIG_MEDIA_UID: "2000"
+  CONFIG_APP_UID: "568"
+  CONFIG_APP_GID: "568"
