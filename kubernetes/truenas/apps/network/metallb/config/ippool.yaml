@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: test
+  namespace: network
+spec:
+  addresses:
+    - 10.1.4.128/27
+  autoAssign: true

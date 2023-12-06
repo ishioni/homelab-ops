@@ -21,6 +21,7 @@ resources:
   - ./k8s-gateway.yaml
   - ./kubernetes-sigs-metrics-server.yaml
   - ./kyverno.yaml
+  - ./metallb.yaml
   - ./minecraft-server.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
