@@ -5,7 +5,7 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
-  CONFIG_TRUENAS_POOL_CIDR: 192.168.4.0/24
+  CONFIG_TRUENAS_POOL_CIDR: 10.1.4.128/27
   CONFIG_KUBE_POOL_CIDR: 10.1.4.0/24
   CONFIG_INGRESS_IP: 10.1.4.128
   CONFIG_TIMEZONE: Europe/Warsaw
