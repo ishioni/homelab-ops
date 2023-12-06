@@ -26,7 +26,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: k8s-gateway
-    domain: truenas.services.${SECRET_DOMAIN}
+    domain: ${TRUENAS_DOMAIN}
     ttl: 1
     service:
       type: LoadBalancer
