@@ -5,6 +5,6 @@ metadata:
   name: rootnode
   namespace: network
 spec:
-  myASN: 65402
-  peerASN: 65400
+  myASN: 64502
+  peerASN: 64500
   peerAddress: 192.168.1.1
