@@ -1,7 +1,7 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: test
+  name: truenas
   namespace: network
 spec:
   addresses:
