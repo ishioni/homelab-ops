@@ -6,7 +6,7 @@ metadata:
   name: default-whoami
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/default/whoami/app
+  path: ./kubernetes/truenas/apps/default/whoami/app
   sourceRef:
     kind: GitRepository
     name: homelab-ops
