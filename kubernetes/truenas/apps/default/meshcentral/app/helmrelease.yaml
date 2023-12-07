@@ -53,6 +53,7 @@ spec:
         className: ingress
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: &host meshcentral.${TRUENAS_DOMAIN}
             paths:
