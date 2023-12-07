@@ -12,7 +12,7 @@
     "_redirAliasPort": 80,
     "redirPort": 0,
     "AgentPong": 300,
-    "TLSOffload": true,
+    "TLSOffload": false,
     "SelfUpdate": false
   },
   "domains": {
