@@ -74,6 +74,8 @@ spec:
       data:
         existingClaim: meshcentral-data
         globalMounts:
+          - path: /root
+            subPath: rootdir
           - path: /opt/meshcentral/meshcentral-data
             subPath: data
           - path: /opt/meshcentral/meshcentral-files
