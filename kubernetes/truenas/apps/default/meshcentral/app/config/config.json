@@ -6,10 +6,11 @@
     "port": 80,
     "redirPort": 0,
     "AgentPong": 300,
-    "TLSOffload": true
+    "TLSOffload": true,
+    "selfUpdate": false
   },
   "domains": {
-    "${SECRET_DOMAIN}": {
+    "": {
       "NewAccounts": "true"
     }
   }
