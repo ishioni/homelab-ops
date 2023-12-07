@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: ghcr.io/ylianst/meshcentral
-              tag: 1.1.16
+              tag: 1.1.11
             env:
               CONFIG_FILE: config.json
             probes:
