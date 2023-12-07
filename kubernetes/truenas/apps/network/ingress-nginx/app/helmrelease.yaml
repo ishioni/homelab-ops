@@ -45,8 +45,6 @@ spec:
       service:
         type: LoadBalancer
         externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: "${CONFIG_INGRESS_IP}"
       admissionWebhooks:
         objectSelector:
           matchExpressions:
