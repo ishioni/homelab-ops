@@ -1,8 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
   "settings": {
+    "_WANonly": true,
+    "_LANonly": true,
     "sqlite3": true,
-    "plugins":{"enabled": false},
+    "plugins": {"enabled": false},
     "port": 80,
     "redirPort": 0,
     "AgentPong": 300,
