@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
+  "settings": {
+    "sqlite3": true,
+    "plugins":{"enabled": false},
+    "port": 80,
+    "redirPort": 0,
+    "AgentPong": 300,
+    "TLSOffload": true
+  },
+  "domains": {
+    "${SECRET_DOMAIN}": {
+      "NewAccounts": "true"
+    }
+  }
+}

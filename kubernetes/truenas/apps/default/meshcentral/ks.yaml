@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: default-meshcentral
+  namespace: flux-system
+spec:
+  path: ./kubernetes/truenas/apps/default/meshcentral/app
+  targetNamespace: default
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
