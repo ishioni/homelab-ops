@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   - ./node-exporter/ks.yaml
   - ./prometheus-crd/ks.yaml
+  - ./smartctl-expoterter/ks.yaml
