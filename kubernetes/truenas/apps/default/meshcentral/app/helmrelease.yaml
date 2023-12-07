@@ -30,12 +30,6 @@ spec:
       main:
         annotations:
           secret.reloader.stakater.com/reload: &configMap meshcentral-config
-        pod:
-          securityContext:
-            runAsUser: &uid ${CONFIG_APP_UID}
-            runAsGroup: *uid
-            fsGroup: *uid
-            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
