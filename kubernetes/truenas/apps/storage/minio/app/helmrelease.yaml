@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio
+  namespace: storage
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 5
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret minio-secret
+        containers:
+          main:
+            image:
+              repository: quay.io/minio/minio
+              tag: RELEASE.2023-12-06T09-09-22Z
+            env:
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${TRUENAS_DOMAIN},https://s3.${TRUENAS_DOMAIN}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${TRUENAS_DOMAIN}
+              MINIO_PROMETHEUS_JOB_ID: minio
+              MINIO_SERVER_URL: https://s3.${TRUENAS_DOMAIN}
+              MINIO_UPDATE: "off"
+            envFrom:
+              - secretRef:
+                  name: *secret
+            args:
+              - server
+              - /data
+              - --console-address
+              - :9001
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /minio/health/live
+                    port: 9000
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 6
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+              fsGroup: 568
+              fsGroupChangePolicy: OnRootMismatch
+    service:
+      main:
+        ports:
+          http:
+            port: 9001
+          s3:
+            port: 9000
+    ingress:
+      main:
+        enabled: true
+        className: ingress
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+        hosts:
+          - host: &host minio.${TRUENAS_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: &s3Host s3.${TRUENAS_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: s3
+        tls:
+          - hosts:
+              - *host
+              - *s3Host
+    persistence:
+      data:
+        existingClaim: minio-data
+        globalMounts:
+          - path: /data
