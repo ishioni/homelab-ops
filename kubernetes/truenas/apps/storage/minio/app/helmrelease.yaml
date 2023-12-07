@@ -31,6 +31,12 @@ spec:
       main:
         annotations:
           secret.reloader.stakater.com/reload: &secret minio-secret
+        pod:
+          securityContext:
+            runAsUser: &uid 568
+            runAsGroup: *uid
+            fsGroup: *uid
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
@@ -65,11 +71,6 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-            securityContext:
-              runAsUser: 568
-              runAsGroup: 568
-              fsGroup: 568
-              fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
