@@ -37,6 +37,11 @@ spec:
               tag: 1.1.16
             env:
               CONFIG_FILE: config.json
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup: *probes
     service:
       main:
         ports:
