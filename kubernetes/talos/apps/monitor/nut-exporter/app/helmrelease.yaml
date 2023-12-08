@@ -60,7 +60,7 @@ spec:
             path: *metrics
             scrapeTimeout: 10s
             params:
-              target: ["bastion.managment.internal:3493"]
+              target: ["quadrant.managment.internal:3493"]
             relabelings:
               - sourceLabels: [__param_target]
                 targetLabel: target
