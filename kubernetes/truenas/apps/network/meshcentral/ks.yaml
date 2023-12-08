@@ -3,11 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: default-meshcentral
+  name: network-meshcentral
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/default/meshcentral/app
-  targetNamespace: default
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
