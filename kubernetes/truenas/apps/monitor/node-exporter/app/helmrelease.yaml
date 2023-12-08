@@ -30,6 +30,8 @@ spec:
       main:
         containers:
           main:
+            pod:
+              hostname: quadrant
             image:
               repository: quay.io/prometheus/node-exporter
               tag: v1.7.0
