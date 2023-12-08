@@ -37,7 +37,7 @@ spec:
               tag: v1.7.0
             args:
               - --path.procfs=/host/proc
-              # - --path.rootfs=/rootfs
+              - --path.rootfs=/rootfs
               - --path.sysfs=/host/sys
               - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
             securityContext:
@@ -65,10 +65,10 @@ spec:
         globalMounts:
           - path: /host/sys
             readOnly: true
-      # rootfs:
-      #   type: hostPath
-      #   hostPath: /
-      #   hostPathType: Directory
-      #   globalMounts:
-      #     - path: /rootfs
-      #       readOnly: true
+      rootfs:
+        type: hostPath
+        hostPath: /
+        hostPathType: Directory
+        globalMounts:
+          - path: /rootfs
+            readOnly: true
