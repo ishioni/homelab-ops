@@ -192,6 +192,12 @@ spec:
       successThreshold: 1
     cronjob:
       enabled: true
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: true
     ingress:
       enabled: true
       className: public
