@@ -7,6 +7,6 @@ metadata:
   namespace: monitor
 spec:
   staticConfigs:
-    - targets: ["s3.services.${SECRET_DOMAIN}:9000"]
+    - targets: ["s3.nas.services.${SECRET_DOMAIN}"]
   metricsPath: /minio/v2/metrics/cluster
   scheme: HTTPS
