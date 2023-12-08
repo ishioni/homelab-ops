@@ -160,7 +160,8 @@ module "oauth2-proxmox" {
     "https://proxmox-1.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
     "https://proxmox-2.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
     "https://proxmox-3.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-4.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+    "https://proxmox-4.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
+    "https://proxmox.nas.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
   ]
 }
 
