@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: node-exporter
+  name: &name node-exporter
   namespace: monitor
 spec:
   staticConfigs:
@@ -15,3 +15,7 @@ spec:
         - "node.nas.services.${SECRET_DOMAIN}:9100"
   metricsPath: /metrics
   honorTimestamps: true
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
