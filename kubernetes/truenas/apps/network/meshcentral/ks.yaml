@@ -6,7 +6,7 @@ metadata:
   name: network-meshcentral
   namespace: flux-system
 spec:
-  path: ./kubernetes/truenas/apps/default/meshcentral/app
+  path: ./kubernetes/truenas/apps/network/meshcentral/app
   targetNamespace: network
   sourceRef:
     kind: GitRepository
