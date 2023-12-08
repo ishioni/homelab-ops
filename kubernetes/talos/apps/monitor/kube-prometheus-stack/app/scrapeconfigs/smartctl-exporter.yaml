@@ -3,19 +3,13 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: &name home-assistant
+  name: &name smartctl-exporter
   namespace: monitor
 spec:
   staticConfigs:
-    - targets: ["homeassistant.iot.internal:8123"]
-  metricsPath: /api/prometheus
+    - targets: ["smartctl.nas.services.${SECRET_DOMAIN}:9633"]
+  metricsPath: /metrics
   honorTimestamps: true
-  authorization:
-    type: Bearer
-    credentials:
-      key: HASS_TOKEN
-      name: hass-ll-token
-      optional: false
   relabelings:
     - action: replace
       targetLabel: job

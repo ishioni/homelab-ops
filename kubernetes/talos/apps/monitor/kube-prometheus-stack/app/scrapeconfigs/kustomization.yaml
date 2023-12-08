@@ -6,3 +6,4 @@ resources:
   - ./homeassistant.yaml
   - ./minio.yaml
   - ./node-exporter.yaml
+  - ./smartctl-exporter.yaml
