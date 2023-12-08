@@ -95,7 +95,7 @@ data:
               username: {{ HOMEPAGE_VAR_PROXMOX_USER }}
               password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
         - MeshCentral:
-            href: https://amt.services.${SECRET_DOMAIN}
+            href: https://meshcentral.nas.services.${SECRET_DOMAIN}
             icon: meshcentral.png
             description: AMT
         - Minio:
