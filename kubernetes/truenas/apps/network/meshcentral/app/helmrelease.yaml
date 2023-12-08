@@ -4,6 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: meshcentral
+  namespace: network
 spec:
   interval: 15m
   chart:
@@ -28,15 +29,18 @@ spec:
   values:
     controllers:
       main:
-        annotations:
-          configmap.reloader.stakater.com/reload: &configMap meshcentral-config
         containers:
           main:
             image:
               repository: ghcr.io/ylianst/meshcentral
               tag: 1.1.16
             env:
-              CONFIG_FILE: config.json
+              NODE_ENV: production
+              HOSTNAME: &host meshcentral.${TRUENAS_DOMAIN}
+              REVERSE_PROXY: *host
+              REVERSE_PROXY_TLS_PORT: 443
+              ALLOW_NEW_ACCOUNTS: "false"
+              WEBRTC: "false"
             probes:
               liveness: &probes
                 enabled: false
@@ -45,7 +49,7 @@ spec:
     service:
       main:
         ports:
-          https:
+          http:
             port: 443
     ingress:
       main:
@@ -55,23 +59,16 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
-          - host: &host meshcentral.${TRUENAS_DOMAIN}
+          - host: *host
             paths:
               - path: /
                 service:
                   name: main
-                  port: https
+                  port: http
         tls:
           - secretName: *host
             hosts: [*host]
     persistence:
-      config-file:
-        type: configMap
-        name: *configMap
-        globalMounts:
-          - path: /opt/meshcentral/meshcentral-data/config.json
-            subPath: config.json
-            readOnly: true
       data:
         existingClaim: meshcentral-data
         globalMounts:
