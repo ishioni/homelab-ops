@@ -7,5 +7,6 @@ resources:
   - ./cert-manager/ks.yaml
   - ./ingress-nginx/ks.yaml
   - ./k8s-gateway/ks.yaml
+  - ./meshcentral/ks.yaml
   - ./metallb/ks.yaml
   - ./proxmox-proxy/ks.yaml
