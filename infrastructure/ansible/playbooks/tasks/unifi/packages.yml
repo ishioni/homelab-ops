@@ -19,7 +19,7 @@
     - name: Copy 20auto-upgrades unattended-upgrades config
       ansible.builtin.blockinfile:
         path: /etc/apt/apt.conf.d/20auto-upgrades
-        mode: 0644
+        mode: "0644"
         create: true
         block: |
           APT::Periodic::Update-Package-Lists "1";
@@ -30,7 +30,7 @@
     - name: Copy 50unattended-upgrades unattended-upgrades config
       ansible.builtin.blockinfile:
         path: /etc/apt/apt.conf.d/50unattended-upgrades
-        mode: 0644
+        mode: "0644"
         create: true
         block: |
           Unattended-Upgrade::Automatic-Reboot "true";
