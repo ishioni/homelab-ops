@@ -20,7 +20,7 @@
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
         dest: "{{ tmpdir.path }}"
-        mode: 0755
+        mode: "0755"
       register: download
     - name: Install acme.sh
       become: true

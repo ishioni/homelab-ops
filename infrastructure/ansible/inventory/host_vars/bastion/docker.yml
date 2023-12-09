@@ -1,4 +1,0 @@
----
-docker_users: "{{ bastion_user }}"
-docker_install_compose: false
-docker_install_compose_plugin: false

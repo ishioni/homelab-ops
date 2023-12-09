@@ -12,7 +12,7 @@
   ansible.builtin.get_url:
     url: https://pgp.mongodb.com/server-3.6.asc
     dest: /etc/apt/trusted.gpg.d/mongodb.asc
-    mode: 0644
+    mode: "0644"
 
 - name: Add mongodb repo
   ansible.builtin.apt_repository:

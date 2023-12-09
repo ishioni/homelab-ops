@@ -12,7 +12,7 @@
   ansible.builtin.get_url:
     url: https://dl.ui.com/unifi/unifi-repo.gpg
     dest: /etc/apt/trusted.gpg.d/unifi-repo.gpg
-    mode: 0644
+    mode: "0644"
 
 - name: Add unifi repo
   ansible.builtin.apt_repository:
