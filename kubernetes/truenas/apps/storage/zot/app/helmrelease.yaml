@@ -56,11 +56,6 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-            args:
-              - server
-              - /data
-              - --console-address
-              - :9001
     service:
       main:
         ports:
