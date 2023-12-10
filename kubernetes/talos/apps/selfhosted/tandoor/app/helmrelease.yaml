@@ -119,7 +119,7 @@ spec:
               - *host
     persistence:
       files:
-        existingClaim: tandoor-files
+        existingClaim: tandoor-data
         advancedMounts:
           main:
             main:

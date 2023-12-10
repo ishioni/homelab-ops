@@ -13,9 +13,9 @@ spec:
   restic:
     repository: tandoor-restic-s3
     copyMethod: Snapshot
-    storageClassName: truenas-hdd-nfs
+    storageClassName: &sc truenas-ssd-nfs
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: truenas-hdd-nfs
+    volumeSnapshotClassName: *sc
     moverSecurityContext:
       runAsUser: &uid 568
       runAsGroup: *uid
