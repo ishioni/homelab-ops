@@ -3,19 +3,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname storage-zot
+  name: storage-zot
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/storage/zot/app
+  targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  targetNamespace: storage
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
-  prune: false
+      app.kubernetes.io/name: zot
+  prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m

@@ -5,7 +5,6 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
   name: minio-data
-  namespace: storage
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:

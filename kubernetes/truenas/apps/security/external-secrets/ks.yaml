@@ -7,14 +7,16 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/security/external-secrets/app
+  targetNamespace: security
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: external-secrets
   prune: true
   wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -24,13 +26,15 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/security/external-secrets/stores
+  targetNamespace: security
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: external-secrets-stores
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: security-external-secrets

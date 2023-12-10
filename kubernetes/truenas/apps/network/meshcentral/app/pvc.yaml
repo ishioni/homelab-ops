@@ -5,7 +5,6 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
   name: meshcentral-data
-  namespace: network
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:
