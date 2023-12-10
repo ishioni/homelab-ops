@@ -25,13 +25,6 @@ spec:
     controllers:
       main:
         type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              mountPath: /config
-              storageClass: truenas-hdd-nfs
-              accessMode: ReadWriteOnce
-              size: 100M
         pod:
           securityContext:
             runAsUser: ${CONFIG_APP_UID}
@@ -94,13 +87,16 @@ spec:
             protocol: TCP
             targetPort: *peerport
     persistence:
+      config:
+        existingClaim: transmission-data
+        globalMounts:
+          - path: /config
       downloads:
         enabled: true
         existingClaim: downloads-datastore
         globalMounts:
           - path: /downloads
             subPath: Downloads
-
     ingress:
       main:
         enabled: true
