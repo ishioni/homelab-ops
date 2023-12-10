@@ -136,7 +136,7 @@ spec:
           controller-expand-secret:
     volumeSnapshotClasses:
       - name: truenas-ssd-nfs
-        driver: org.democratic-csi-ssd.nfs
+        driver: org.democratic-csi.nfs-ssd
         deletionPolicy: Delete
         parameters:
           detachedSnapshots: "false"
