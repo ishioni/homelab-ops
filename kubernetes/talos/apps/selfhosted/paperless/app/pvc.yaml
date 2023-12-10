@@ -8,7 +8,7 @@ metadata:
   namespace: selfhosted
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: truenas-hdd-nfs
+  storageClassName: truenas-ssd-nfs
   resources:
     requests:
       storage: 5Gi
