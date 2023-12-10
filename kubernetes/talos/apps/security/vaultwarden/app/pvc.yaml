@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/instance: *name
 spec:
   accessModes: ["ReadWriteMany"]
-  storageClassName: truenas-hdd-nfs
+  storageClassName: truenas-ssd-nfs
   resources:
     requests:
       storage: 1Gi
