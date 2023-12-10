@@ -7,13 +7,15 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/storage/minio/app
+  targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: minio
+  prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: security-external-secrets

@@ -3,19 +3,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname monitor-smartctl-exporter
+  name: monitor-smartctl-exporter
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/monitor/smartctl-exporter/app
   targetNamespace: monitor
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: smartctl-exporter
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m

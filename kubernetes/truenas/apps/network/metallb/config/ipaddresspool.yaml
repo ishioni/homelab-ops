@@ -2,7 +2,6 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: truenas
-  namespace: network
 spec:
   addresses:
     - ${CONFIG_TRUENAS_POOL_CIDR}
