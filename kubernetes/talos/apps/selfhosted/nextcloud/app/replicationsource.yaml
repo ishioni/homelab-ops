@@ -6,7 +6,7 @@ metadata:
   name: nextcloud-rsrc
   namespace: selfhosted
 spec:
-  sourcePVC: nextcloud-app
+  sourcePVC: nextcloud-data
   trigger:
     schedule: "0 0 * * *"
   restic:
