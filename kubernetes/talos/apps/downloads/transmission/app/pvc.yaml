@@ -4,11 +4,14 @@ kind: PersistentVolumeClaim
 metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
-  name: recyclarr-data
+  name: transmission-data
   namespace: downloads
+  labels:
+    app.kubernetes.io/name: &name transmission
+    app.kubernetes.io/instance: *name
 spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: truenas-ssd-nfs
   resources:
     requests:
-      storage: 1Gi
+      storage: 100Mi

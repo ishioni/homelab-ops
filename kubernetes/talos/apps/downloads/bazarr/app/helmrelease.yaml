@@ -30,13 +30,6 @@ spec:
     controllers:
       main:
         type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              mountPath: /config
-              storageClass: truenas-hdd-nfs
-              accessMode: ReadWriteOnce
-              size: 5Gi
         annotations:
           secret.reloader.stakater.com/reload: &secret bazarr-secret
         initContainers:
@@ -96,6 +89,10 @@ spec:
           http:
             port: *port
     persistence:
+      config:
+        existingClaim: bazarr-data
+        globalMounts:
+          - path: /config
       media:
         enabled: true
         existingClaim: downloads-datastore
