@@ -18,8 +18,8 @@ spec:
       runAsGroup: *uid
       fsGroup: *uid
     cacheCapacity: 1Gi
-    volumeSnapshotClassName: truenas-hdd-nfs
-    storageClassName: truenas-hdd-nfs
+    volumeSnapshotClassName: truenas-ssd-nfs
+    storageClassName: truenas-ssd-nfs
     retain:
       daily: 7
       within: 3d
