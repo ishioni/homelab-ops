@@ -115,7 +115,7 @@ spec:
     csiProxy:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:
-      name: "org.democratic-csi.nfs"
+      name: "org.democratic-csi.nfs-ssd"
     storageClasses:
       - name: truenas-ssd-nfs
         defaultClass: false
@@ -136,7 +136,7 @@ spec:
           controller-expand-secret:
     volumeSnapshotClasses:
       - name: truenas-ssd-nfs
-        driver: org.democratic-csi.nfs
+        driver: org.democratic-csi-ssd.nfs
         deletionPolicy: Delete
         parameters:
           detachedSnapshots: "false"
