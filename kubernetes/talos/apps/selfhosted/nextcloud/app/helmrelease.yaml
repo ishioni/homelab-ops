@@ -162,7 +162,7 @@ spec:
           pm.process_idle_timeout = 10s
     persistence:
       enabled: true
-      existingClaim: nextcloud-app
+      existingClaim: nextcloud-data
     resources:
       requests:
         cpu: 200m
