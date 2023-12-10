@@ -7,11 +7,13 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/network/k8s-gateway/app
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: k8s-gateway
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m

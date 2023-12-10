@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: metrics-server
-  namespace: kube-system
 spec:
   interval: 30m
   chart:
@@ -15,7 +14,6 @@ spec:
         kind: HelmRepository
         name: kubernetes-sigs-metrics-server
         namespace: flux-system
-      interval: 30m
   values:
     metrics:
       enabled: false
