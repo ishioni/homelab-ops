@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/notification.toolkit.fluxcd.io/provider_v1beta2.json
-apiVersion: notification.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/notification.toolkit.fluxcd.io/provider_v1beta3.json
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
   name: telegram
@@ -8,6 +8,5 @@ metadata:
 spec:
   type: telegram
   channel: "879509412"
-  interval: 10m
   secretRef:
     name: flux-telegram-token
