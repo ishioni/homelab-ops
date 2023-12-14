@@ -8,11 +8,11 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - "proxmox-1.${SERVICE_DOMAIN}:9100"
-        - "proxmox-2.${SERVICE_DOMAIN}:9100"
-        - "proxmox-3.${SERVICE_DOMAIN}:9100"
+        - "proxmox-1.${SERVICES_DOMAIN}:9100"
+        - "proxmox-2.${SERVICES_DOMAIN}:9100"
+        - "proxmox-3.${SERVICES_DOMAIN}:9100"
         # - "proxmox-4.services.${SECRET_DOMAIN}:9100"
-        - "nas-node.${SERVICE_DOMAIN}:9100"
+        - "nas-node.${SERVICES_DOMAIN}:9100"
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:
