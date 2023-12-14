@@ -14,7 +14,7 @@ metadata:
 spec:
   ingressClassName: ingress
   rules:
-    - host: &host proxmox.${SERVICES_DOMAIN}
+    - host: &host proxmox.${SERVICE_DOMAIN}
       http:
         paths:
           - pathType: Prefix
