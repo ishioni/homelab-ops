@@ -154,27 +154,27 @@ controlPlane:
           mirrors:
             docker.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/docker.io
+                - https://zot.${servicesDomain}/v2/docker.io
               overridePath: true
             ghcr.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/ghcr.io
+                - https://zot.${servicesDomain}/v2/ghcr.io
               overridePath: true
             quay.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/quay.io
+                - https://zot.${servicesDomain}/v2/quay.io
               overridePath: true
             gcr.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/gcr.io
+                - https://zot.${servicesDomain}/v2/gcr.io
               overridePath: true
             registry.k8s.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/registry.k8s.io
+                - https://zot.${servicesDomain}/v2/registry.k8s.io
               overridePath: true
             public.ecr.aws:
               endpoints:
-                - https://zot.${truenasDomain}/v2/public.ecr.aws
+                - https://zot.${servicesDomain}/v2/public.ecr.aws
               overridePath: true
 
     - |-
@@ -217,25 +217,25 @@ worker:
           mirrors:
             docker.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/docker.io
+                - https://zot.${servicesDomain}/v2/docker.io
               overridePath: true
             ghcr.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/ghcr.io
+                - https://zot.${servicesDomain}/v2/ghcr.io
               overridePath: true
             quay.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/quay.io
+                - https://zot.${servicesDomain}/v2/quay.io
               overridePath: true
             gcr.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/gcr.io
+                - https://zot.${servicesDomain}/v2/gcr.io
               overridePath: true
             registry.k8s.io:
               endpoints:
-                - https://zot.${truenasDomain}/v2/registry.k8s.io
+                - https://zot.${servicesDomain}/v2/registry.k8s.io
               overridePath: true
             public.ecr.aws:
               endpoints:
-                - https://zot.${truenasDomain}/v2/public.ecr.aws
+                - https://zot.${servicesDomain}/v2/public.ecr.aws
               overridePath: true
