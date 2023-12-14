@@ -59,7 +59,7 @@ spec:
           nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
           nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
         hosts:
-          - host: &host zot.${TRUENAS_DOMAIN}
+          - host: &host zot.${SERVICES_DOMAIN}
             paths:
               - path: /
                 service:
