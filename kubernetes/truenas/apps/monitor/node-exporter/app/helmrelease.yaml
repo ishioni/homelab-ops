@@ -26,9 +26,11 @@ spec:
               tag: v1.7.0
             args:
               - --path.procfs=/host/proc
-              - --path.rootfs=/rootfs
+              - --path.rootfs=/host/root
               - --path.sysfs=/host/sys
-              - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+              - --path.udev.data=/host/root/run/udev/data
+              - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+              - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
             securityContext:
               privileged: true
     service:
@@ -59,5 +61,6 @@ spec:
         hostPath: /
         hostPathType: Directory
         globalMounts:
-          - path: /rootfs
+          - path: /host/root
             readOnly: true
+            mountPropagation: HostToContainer
