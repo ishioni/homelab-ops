@@ -34,7 +34,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: smartctl.${TRUENAS_DOMAIN}
+          coredns.io/hostname: smartctl.${SERVICE_DOMAIN}
         ports:
           http:
             port: 9633
