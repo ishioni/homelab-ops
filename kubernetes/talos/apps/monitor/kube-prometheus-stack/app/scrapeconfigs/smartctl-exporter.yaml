@@ -7,7 +7,7 @@ metadata:
   namespace: monitor
 spec:
   staticConfigs:
-    - targets: ["smartctl.${SERVICE_DOMAIN}:9633"]
+    - targets: ["smartctl.${SERVICES_DOMAIN}:9633"]
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:
