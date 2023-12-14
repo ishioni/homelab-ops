@@ -48,16 +48,16 @@ spec:
         - group: infrastructure
           apps:
             - name: Unifi
-              url: "https://unifi.${SERVICES_DOMAIN}"
+              url: "https://unifi.${SERVICE_DOMAIN}"
               icon: "simple-icons:ubiquiti"
             - name: Proxmox
-              url: "https://proxmox.${SERVICES_DOMAIN}"
+              url: "https://proxmox.${SERVICE_DOMAIN}"
               icon: "simple-icons:proxmox"
             - name: TrueNAS
-              url: "https://truenas.${SERVICES_DOMAIN}"
+              url: "https://truenas.${SERVICE_DOMAIN}"
               icon: "simple-icons:truenas"
             - name: Mesh Commander
-              url: "https://meshcentral.${SERVICES_DOMAIN}"
+              url: "https://meshcentral.${SERVICE_DOMAIN}"
               icon: "mdi:monitor-multiple"
       globalBookmarks:
         - group: media
