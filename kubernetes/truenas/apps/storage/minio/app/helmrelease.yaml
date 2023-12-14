@@ -31,11 +31,11 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2023-12-06T09-09-22Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${TRUENAS_DOMAIN},https://s3.${TRUENAS_DOMAIN}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${TRUENAS_DOMAIN}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SERVICES_DOMAIN},https://s3.${SERVICES_DOMAIN}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SERVICES_DOMAIN}
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_AUTH_TYPE: public
-              MINIO_SERVER_URL: https://s3.${TRUENAS_DOMAIN}
+              MINIO_SERVER_URL: https://s3.${SERVICES_DOMAIN}
               MINIO_UPDATE: "off"
             envFrom:
               - secretRef:
@@ -74,13 +74,13 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: &host minio.${TRUENAS_DOMAIN}
+          - host: &host minio.${SERVICES_DOMAIN}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-          - host: &s3Host s3.${TRUENAS_DOMAIN}
+          - host: &s3Host s3.${SERVICES_DOMAIN}
             paths:
               - path: /
                 service:

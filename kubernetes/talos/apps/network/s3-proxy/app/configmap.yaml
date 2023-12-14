@@ -16,7 +16,7 @@ data:
         client_max_body_size 128M;
         location / {
         proxy_set_header Host $host;
-        proxy_pass https://s3.nas.services.${SECRET_DOMAIN}/static-content/;
+        proxy_pass https://s3.${SERVICES_DOMAIN}/static-content/;
         }
       }
     }
