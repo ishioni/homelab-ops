@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+  name: ${APP}-rdst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    copyMethod: Snapshot
+    repository: ${APP}-restic-s3
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-truenas-ssd-nvmeof}"
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-truenas-ssd-nvmeof}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-nvmeof}"
+    moverSecurityContext:
+      runAsUser: ${APP_UID:-568}
+      runAsGroup: ${APP_GID:-568}
+      fsGroup: ${APP_GID:-568}
+    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+    capacity: "${VOLSYNC_CAPACITY:-1Gi}"
