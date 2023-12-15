@@ -53,7 +53,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: private
+        className: public
         hosts:
           - host: &host home.${SECRET_DOMAIN}
             paths:
