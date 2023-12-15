@@ -55,7 +55,7 @@ spec:
         enabled: true
         className: private
         hosts:
-          - host: &host home.internal.${SECRET_DOMAIN}
+          - host: &host home.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:

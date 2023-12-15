@@ -33,7 +33,7 @@ resource "authentik_outpost" "proxyoutpost" {
     module.proxy-bazarr.id,
     module.proxy-readarr.id,
     module.proxy-navidrome.id,
-    module.proxy-hajimari.id
+    module.proxy-homepage.id
   ]
   config = jsonencode({
     authentik_host          = "https://auth.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
