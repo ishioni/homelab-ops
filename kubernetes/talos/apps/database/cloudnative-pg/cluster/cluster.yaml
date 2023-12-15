@@ -7,13 +7,14 @@ metadata:
   namespace: database
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.0-10
+  imageName: ghcr.io/bo0tzz/cnpgvecto.rs:16.1-v0.1.10
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
     storageClass: truenas-ssd-nvmeof
   postgresql:
+    shared_preload_libraries: ["vectors.so"]
     parameters:
       max_connections: "300"
       work_mem: 64MB
