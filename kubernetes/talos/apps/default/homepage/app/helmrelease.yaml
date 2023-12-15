@@ -54,6 +54,10 @@ spec:
       main:
         enabled: true
         className: public
+        annotations:
+          authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://home.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
         hosts:
           - host: &host home.${SECRET_DOMAIN}
             paths:
