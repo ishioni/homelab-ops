@@ -98,13 +98,13 @@ module "proxy-navidrome" {
   EOT
 }
 
-module "proxy-hajimari" {
+module "proxy-homepage" {
   source             = "./proxy_application"
-  name               = "Startpage"
-  description        = "Startpage"
-  icon_url           = "https://github.com/toboshii/hajimari/raw/main/assets/logo.png"
-  group              = "start"
-  slug               = "start"
+  name               = "Homepage"
+  description        = "homepage"
+  icon_url           = "https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-192x192.png"
+  group              = "homepage"
+  slug               = "homepage"
   domain             = module.secret_authentik.fields["CLUSTER_DOMAIN"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   auth_groups        = [authentik_group.users.id]
