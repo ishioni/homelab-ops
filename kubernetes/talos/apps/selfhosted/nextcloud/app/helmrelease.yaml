@@ -16,11 +16,11 @@ spec:
         name: nextcloud
         namespace: flux-system
   install:
-    timeout: 20m
+    timeout: 60m
     remediation:
       retries: 5
   upgrade:
-    timeout: 20m
+    timeout: 60m
     remediation:
       retries: 5
   values:
@@ -28,7 +28,6 @@ spec:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     image:
       repository: public.ecr.aws/docker/library/nextcloud
-      tag: 27.1.4-fpm-alpine
     nextcloud:
       host: &host "files.${SECRET_DOMAIN}"
       extraInitContainers:
@@ -174,7 +173,7 @@ spec:
       initialDelaySeconds: 5
       periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 120
+      failureThreshold: 360
       successThreshold: 1
     livenessProbe:
       enabled: true
@@ -246,7 +245,6 @@ spec:
       enabled: true
       image:
         repository: public.ecr.aws/nginx/nginx
-        tag: "1.25.3"
       config:
         default: true
       resources:
@@ -306,6 +304,5 @@ spec:
       https: true
       image:
         repository: docker.io/xperimental/nextcloud-exporter
-        tag: 0.6.2
       serviceMonitor:
         enabled: false
