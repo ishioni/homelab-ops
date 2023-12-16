@@ -3,7 +3,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "default-wildcard"
+  name: "default-certificate"
 spec:
   dnsNames:
     - "${SECRET_DOMAIN}"
@@ -13,4 +13,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
     group: cert-manager.io
-  secretName: "default-wildcard"
+  secretName: "default-certificate"
