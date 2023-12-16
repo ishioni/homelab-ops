@@ -6,7 +6,7 @@ metadata:
   name: prowlarr
   namespace: downloads
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,17 +15,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       main:
@@ -43,10 +32,10 @@ spec:
                   name: *secret
         pod:
           securityContext:
-            runAsUser: &uid ${CONFIG_APP_UID}
             runAsNonRoot: true
-            runAsGroup: *uid
-            fsGroup: *uid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
@@ -93,8 +82,6 @@ spec:
       config:
         enabled: true
         type: emptyDir
-        globalMounts:
-          - path: /config
     service:
       main:
         ports:
@@ -107,11 +94,7 @@ spec:
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
-            https://indexer.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Prowlarr
-          hajimari.io/icon: mdi:cloud-search
-          hajimari.io/group: downloads
+            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Prowlarr
@@ -120,13 +103,11 @@ spec:
           gethomepage.dev/widget.url: http://prowlarr.downloads
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PROWLARR_TOKEN}}"
         hosts:
-          - host: &host "indexer.${SECRET_DOMAIN}"
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
         tls:
-          - secretName: *host
-            hosts:
-              - *host
+          - hosts: [*host]
