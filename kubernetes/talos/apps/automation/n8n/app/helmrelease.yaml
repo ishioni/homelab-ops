@@ -4,9 +4,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: n8n
-  namespace: automation
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,17 +14,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       main:
@@ -42,9 +30,9 @@ spec:
                   name: *secret
         pod:
           securityContext:
-            runAsUser: &uid 568
-            runAsGroup: *uid
-            fsGroup: *uid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: "OnRootMismatch"
         containers:
           main:
@@ -55,9 +43,9 @@ spec:
             env:
               GENERIC_TIMEZONE: ${CONFIG_TIMEZONE}
               DB_TYPE: postgresdb
-              N8N_HOST: &host n8n.internal.${SECRET_DOMAIN}
-              N8N_EDITOR_BASE_URL: https://n8n.internal.${SECRET_DOMAIN}/
-              WEBHOOK_URL: https://n8n.internal.${SECRET_DOMAIN}/
+              N8N_HOST: ${HOSTNAME}
+              N8N_EDITOR_BASE_URL: https://${HOSTNAME}/
+              WEBHOOK_URL: https://${HOSTNAME}/
               N8N_PORT: &port 8080
               N8N_PROTOCOL: https
               N8N_USER_FOLDER: /config
@@ -92,7 +80,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: n8n-data
+        existingClaim: ${VOLSYNC_CLAIM}
         globalMounts:
           - path: /config
     service:
@@ -105,16 +93,12 @@ spec:
         enabled: true
         className: private
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: N8N
-          hajimari.io/icon: mdi:workflow
-          hajimari.io/group: automation
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
           gethomepage.dev/name: N8N
           gethomepage.dev/icon: n8n.svg
         hosts:
-          - host: *host
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
@@ -122,5 +106,5 @@ spec:
                   port: http
         tls:
           - hosts:
-              - *host
-            secretName: *host
+              - ${HOSTNAME}
+            secretName: ${HOSTNAME}
