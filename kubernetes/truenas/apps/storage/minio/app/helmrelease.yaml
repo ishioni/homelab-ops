@@ -85,7 +85,7 @@ spec:
                   name: main
                   port: s3
         tls:
-          - hosts: ["*host", "*s3Host"]
+          - hosts: [*host, *s3Host]
     persistence:
       data:
         existingClaim: minio-data

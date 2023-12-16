@@ -65,7 +65,7 @@ spec:
                   name: main
                   port: http
         tls:
-          - hosts: ["*host"]
+          - hosts: [*host]
     persistence:
       config-file:
         type: configMap
