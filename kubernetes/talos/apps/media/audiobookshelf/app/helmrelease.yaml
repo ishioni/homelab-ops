@@ -107,13 +107,13 @@ spec:
           gethomepage.dev/widget.url: http://audiobookshelf.media:8080
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}"
         hosts:
-          - host: &host audiobookshelf.${SECRET_DOMAIN}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
         tls:
-          - secretName: *host
+          - secretName: ${HOSTNAME}
             hosts:
-              - *host
+              - ${HOSTNAME}
