@@ -2,18 +2,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    hajimari.io/appName: Home Assistant
-    hajimari.io/enable: "true"
-    hajimari.io/group: automation
-    hajimari.io/icon: simple-icons:homeassistant
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Automation
-    gethomepage.dev/name: Home Assistant
-    gethomepage.dev/icon: home-assistant.svg
-    gethomepage.dev/widget.type: homeassistant
-    gethomepage.dev/widget.url: http://homeassistant.iot.internal:8123
-    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
   name: reverse-proxy-homeassistant
   namespace: network
 spec:
