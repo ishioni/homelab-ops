@@ -81,8 +81,6 @@ spec:
       config:
         enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
-        globalMounts:
-          - path: /config
     service:
       main:
         ports:

@@ -63,9 +63,8 @@ spec:
                 memory: 600Mi
     persistence:
       data:
+        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
-        globalMounts:
-          - path: /data
       media:
         enabled: true
         existingClaim: media-datastore
