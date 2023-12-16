@@ -55,7 +55,6 @@ spec:
         enabled: true
         className: ingress
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
           nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
           nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
         hosts:
@@ -66,9 +65,7 @@ spec:
                   name: main
                   port: http
         tls:
-          - secretName: *host
-            hosts:
-              - *host
+          - hosts: ["*host"]
     persistence:
       config-file:
         type: configMap

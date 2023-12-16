@@ -44,7 +44,6 @@ spec:
         enabled: true
         className: ingress
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: *host
@@ -54,8 +53,7 @@ spec:
                   name: main
                   port: http
         tls:
-          - secretName: *host
-            hosts: [*host]
+          - hosts: [*host]
     persistence:
       data:
         existingClaim: meshcentral-data
