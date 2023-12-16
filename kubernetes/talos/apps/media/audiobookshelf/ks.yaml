@@ -16,9 +16,7 @@ spec:
       app.kubernetes.io/name: &appname audiobookshelf
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: storage-democratic-csi-nvmeof
     - name: storage-democratic-csi-nfs
