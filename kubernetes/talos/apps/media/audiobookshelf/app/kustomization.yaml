@@ -6,6 +6,3 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ../../../../templates/volsync
-  # - ./pvc.yaml
-  # - ./replicationsource.yaml
-  # - ./replicationdestination.yaml
