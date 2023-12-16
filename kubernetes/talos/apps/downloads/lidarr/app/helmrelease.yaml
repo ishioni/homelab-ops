@@ -4,9 +4,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: lidarr
-  namespace: downloads
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,16 +14,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       main:
@@ -42,10 +31,10 @@ spec:
                   name: *secret
         pod:
           securityContext:
-            runAsUser: ${CONFIG_APP_UID}
             runAsNonRoot: true
-            runAsGroup: &gid ${CONFIG_MEDIA_UID}
-            fsGroup: *gid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
@@ -58,7 +47,7 @@ spec:
               LIDARR__PORT: &port 80
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              LIDARR__LOG_LEVEL: info
+              LIDARR__ANALYTICS_ENABLED: "False"
               COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
@@ -95,9 +84,8 @@ spec:
             port: *port
     persistence:
       config:
-        existingClaim: lidarr-data
-        globalMounts:
-          - path: /config
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
       media:
         enabled: true
         existingClaim: downloads-datastore
@@ -111,11 +99,7 @@ spec:
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
-            https://music.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Lidarr
-          hajimari.io/icon: shopping-music
-          hajimari.io/group: downloads
+            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Lidarr
@@ -124,13 +108,10 @@ spec:
           gethomepage.dev/widget.url: http://lidarr.downloads
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_LIDARR_TOKEN}}"
         hosts:
-          - host: &host "music.${SECRET_DOMAIN}"
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - secretName: *host
-            hosts:
-              - *host
+        tls: [hosts: [*host]]

@@ -7,14 +7,28 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/downloads/sonarr/app
+  targetNamespace: downloads
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname sonarr
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
-    - name: storage-democratic-csi-nvmeof
+    - name: database-cloudnative-pg
+    - name: storage-democratic-csi-nfs
     - name: security-external-secrets
+    - name: storage-volsync
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: movies.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "2000"
+      VOLSYNC_CLAIM: sonarr-config
+      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
+      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs

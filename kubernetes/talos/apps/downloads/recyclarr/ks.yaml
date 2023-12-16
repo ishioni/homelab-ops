@@ -7,15 +7,22 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/downloads/recyclarr/app
+  targetNamespace: downloads
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname recyclarr
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: security-external-secrets
     - name: downloads-sonarr
     - name: downloads-radarr
+  postBuild:
+    substitute:
+      APP: *appname
+      APP_UID: "568"
+      APP_GID: "568"
