@@ -7,13 +7,21 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/default/homepage/app
+  targetNamespace: default
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname homepage
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: home.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
