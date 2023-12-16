@@ -18,8 +18,10 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
+    - name: database-cloudnative-pg
     - name: storage-democratic-csi-nvmeof
     - name: security-external-secrets
+    - name: storage-volsync
   postBuild:
     substitute:
       APP: *appname
