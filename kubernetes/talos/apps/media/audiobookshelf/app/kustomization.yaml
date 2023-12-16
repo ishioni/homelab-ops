@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./pvc.yaml
-  - ./replicationsource.yaml
-  - ./replicationdestination.yaml
+  - ../../../../templates/volsync
+  # - ./pvc.yaml
+  # - ./replicationsource.yaml
+  # - ./replicationdestination.yaml
