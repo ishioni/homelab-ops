@@ -4,9 +4,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: recyclarr
-  namespace: downloads
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,17 +14,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       main:
@@ -37,10 +25,10 @@ spec:
           schedule: "@daily"
         pod:
           securityContext:
-            runAsUser: &uid ${CONFIG_APP_UID}
             runAsNonRoot: true
-            runAsGroup: *uid
-            fsGroup: *uid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
@@ -61,7 +49,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: recyclarr-data
+        type: emptyDir
       config-file:
         enabled: true
         type: configMap

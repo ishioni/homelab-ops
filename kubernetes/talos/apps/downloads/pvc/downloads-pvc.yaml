@@ -7,8 +7,7 @@ spec:
   capacity:
     storage: 4000Gi
   volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
+  accessModes: ["ReadWriteMany"]
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
@@ -22,8 +21,7 @@ metadata:
   name: downloads-datastore
   namespace: downloads
 spec:
-  accessModes:
-    - ReadWriteMany
+  accessModes: ["ReadWriteMany"]
   resources:
     requests:
       storage: 4000Gi
