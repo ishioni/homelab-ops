@@ -15,17 +15,6 @@ spec:
         kind: HelmRepository
         name: minecraft-server
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
@@ -39,8 +28,8 @@ spec:
         cpu: 1000m
         memory: 2000Mi
     securityContext:
-      runAsUser: &uid ${CONFIG_APP_UID}
-      fsGroup: *uid
+      runAsUser: ${APP_UID}
+      fsGroup: ${APP_GID}
     livenessProbe:
       enabled: false
     readinessProbe:
@@ -50,12 +39,12 @@ spec:
     extraEnv:
       TZ: "${CONFIG_TIMEZONE}"
       ENABLE_ROLLING_LOGS: true
-      UID: *uid
-      GID: *uid
+      UID: ${APP_UID}
+      GID: ${APP_GID}
     persistence:
       dataDir:
         enabled: true
-        existingClaim: minecraft-data
+        existingClaim: ${VOLSYNC_CLAIM}
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${CONFIG_MINECRAFT_IP}"
     minecraftServer:
@@ -81,16 +70,6 @@ spec:
         serviceType: ClusterIP
       serviceType: LoadBalancer
       extraPorts:
-        - name: metrics
-          containerPort: 9225
-          protocol: TCP
-          service:
-            enabled: true
-            embedded: false
-            type: ClusterIP
-            port: 9225
-          ingress:
-            enabled: false
         - name: map
           containerPort: 8123
           protocol: TCP
@@ -103,10 +82,6 @@ spec:
             ingressClassName: public
             enabled: true
             annotations:
-              hajimari.io/appName: Minecraft
-              hajimari.io/enable: "true"
-              hajimari.io/icon: simple-icons:minecraft
-              hajimari.io/group: games
               gethomepage.dev/enabled: "true"
               gethomepage.dev/group: Games
               gethomepage.dev/name: Minecraft
@@ -114,12 +89,9 @@ spec:
               gethomepage.dev/widget.type: minecraft
               gethomepage.dev/widget.url: udp://minecraft-minecraft.games:25565
             hosts:
-              - name: &host "minecraft.${SECRET_DOMAIN}"
+              - name: &host ${HOSTNAME}
                 path: /
-            tls:
-              - secretName: *host
-                hosts:
-                  - *host
+            tls: [hosts: [*host]]
   valuesFrom:
     - kind: Secret
       name: *secret
