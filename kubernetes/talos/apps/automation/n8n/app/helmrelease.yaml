@@ -96,13 +96,10 @@ spec:
           gethomepage.dev/name: N8N
           gethomepage.dev/icon: n8n.svg
         hosts:
-          - host: ${HOSTNAME}
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - hosts:
-              - ${HOSTNAME}
-            secretName: ${HOSTNAME}
+        tls: [hosts: [*host]]
