@@ -28,7 +28,7 @@ spec:
       HOSTNAME: tv.${SECRET_DOMAIN}
       APP_UID: "568"
       APP_GID: "2000"
-      VOLSYNC_CLAIM: lidarr-config
+      VOLSYNC_CLAIM: radarr-config
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs
       VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
