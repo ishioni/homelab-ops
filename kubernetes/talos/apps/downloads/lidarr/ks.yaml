@@ -7,14 +7,26 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/downloads/lidarr/app
+  targetNamespace: downloads
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname lidarr
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: storage-democratic-csi-nvmeof
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: music.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "2000"
+      VOLSYNC_CLAIM: lidarr-config
+      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
+      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
