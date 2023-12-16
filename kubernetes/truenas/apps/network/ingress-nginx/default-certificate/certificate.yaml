@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "default-certificate"
+spec:
+  dnsNames:
+    - "${SERVICES_DOMAIN}"
+    - "*.${SERVICES_DOMAIN}"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretName: "default-certificate"
