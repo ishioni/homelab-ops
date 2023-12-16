@@ -28,8 +28,8 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: audiobooks.${SECRET_DOMAIN}
-      APP_UID: ${CONFIG_APP_UID}
-      APP_GID: ${CONFIG_MEDIA_UID}
+      APP_UID: "${CONFIG_APP_UID}"
+      APP_GID: "${CONFIG_MEDIA_UID}"
       VOLSYNC_CLAIM: audiobookshelf-data
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
