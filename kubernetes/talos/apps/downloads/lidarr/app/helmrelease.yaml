@@ -47,7 +47,7 @@ spec:
               LIDARR__PORT: &port 80
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              LIDARR__LOG_LEVEL: info
+              LIDARR__ANALYTICS_ENABLED: "False"
               COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:

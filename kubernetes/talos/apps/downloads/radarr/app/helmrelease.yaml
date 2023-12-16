@@ -43,12 +43,11 @@ spec:
               tag: 5.1.3.8246
             env:
               TZ: "${CONFIG_TIMEZONE}"
-              RADARR__INSTANCE_NAME: Radarr
+              RADARR__INSTANCE_NAME: ${APP}
               RADARR__PORT: &port 80
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__APPLICATION_URL: "https://$HOSTNAME"
-              RADARR__LOG_LEVEL: info
               RADARR__THEME: dark
               COMPlus_EnableDiagnostics: "0"
             envFrom:
