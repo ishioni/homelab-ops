@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: lidarr
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -114,5 +114,4 @@ spec:
                 service:
                   name: main
                   port: http
-        tls:
-          - hosts: [*host]
+        tls: {hosts: [*host]}
