@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: audiobookshelf
-  namespace: media
 spec:
   interval: 15m
   chart:
@@ -33,9 +32,9 @@ spec:
           secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
         pod:
           securityContext:
-            runAsUser: &uid ${CONFIG_APP_UID}
-            runAsGroup: &gid ${CONFIG_MEDIA_UID}
-            fsGroup: *gid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
@@ -46,10 +45,10 @@ spec:
               - secretRef:
                   name: *secret
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: ${CONFIG_TIMEZONE}
               PORT: &port 8080
-              AUDIOBOOKSHELF_UID: *uid
-              AUDIOBOOKSHELF_GID: *gid
+              AUDIOBOOKSHELF_UID: ${APP_UID}
+              AUDIOBOOKSHELF_GID: ${APP_GID}
               CONFIG_PATH: /data
               METADATA_PATH: /data/metadata
             probes:
@@ -75,7 +74,7 @@ spec:
                 memory: 600Mi
     persistence:
       data:
-        existingClaim: audiobookshelf-data
+        existingClaim: ${VOLSYNC_CLAIM}
         globalMounts:
           - path: /data
       media:
@@ -108,13 +107,13 @@ spec:
           gethomepage.dev/widget.url: http://audiobookshelf.media:8080
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}"
         hosts:
-          - host: &host "audiobooks.${SECRET_DOMAIN}"
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
         tls:
-          - secretName: *host
+          - secretName: ${HOSTNAME}
             hosts:
-              - *host
+              - ${HOSTNAME}
