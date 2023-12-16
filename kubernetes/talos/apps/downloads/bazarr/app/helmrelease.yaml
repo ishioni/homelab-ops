@@ -4,9 +4,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: bazarr
-  namespace: downloads
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,17 +14,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       main:
@@ -43,10 +31,10 @@ spec:
                   name: *secret
         pod:
           securityContext:
-            runAsUser: ${CONFIG_APP_UID}
             runAsNonRoot: true
-            runAsGroup: &gid ${CONFIG_MEDIA_UID}
-            fsGroup: *gid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
@@ -90,9 +78,8 @@ spec:
             port: *port
     persistence:
       config:
-        existingClaim: bazarr-data
-        globalMounts:
-          - path: /config
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
       media:
         enabled: true
         existingClaim: downloads-datastore
@@ -106,11 +93,7 @@ spec:
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
-            https://bazarr.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
-          hajimari.io/enable: "false"
-          hajimari.io/appName: Bazarr
-          hajimari.io/icon: subtitles
-          hajimari.io/group: downloads
+            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "false"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Bazarr
@@ -119,13 +102,11 @@ spec:
           gethomepage.dev/widget.url: http://bazarr.downloads:6767
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_BAZARR_TOKEN}}"
         hosts:
-          - host: &host "bazarr.${SECRET_DOMAIN}"
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
         tls:
-          - secretName: *host
-            hosts:
-              - *host
+          - hosts: [*host]
