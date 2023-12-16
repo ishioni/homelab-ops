@@ -99,6 +99,5 @@ spec:
             secretName: *host
     persistence:
       data:
+        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
-        globalMounts:
-          - path: /data
