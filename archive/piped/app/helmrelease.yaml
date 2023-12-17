@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: piped
-  namespace: media
 spec:
-  interval: 15m
   chart:
     spec:
       chart: piped
@@ -15,16 +13,7 @@ spec:
         kind: HelmRepository
         name: piped
         namespace: flux-system
-  maxHistory: 3
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     postgresql:
       enabled: false
