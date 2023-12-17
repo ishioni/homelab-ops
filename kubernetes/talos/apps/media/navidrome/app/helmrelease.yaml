@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: navidrome
-  namespace: media
 spec:
-  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -15,24 +13,14 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     controllers:
       main:
         pod:
           securityContext:
-            runAsUser: ${CONFIG_APP_UID}
-            runAsGroup: &gid ${CONFIG_MEDIA_UID}
+            runAsUser: ${APP_UID}
+            runAsGroup: &gid ${APP_GID}
             fsGroup: *gid
             fsGroupChangePolicy: OnRootMismatch
         containers:
@@ -42,7 +30,7 @@ spec:
               tag: 0.50.2
             env:
               TZ: "${CONFIG_TIMEZONE}"
-              ND_DATAFOLDER: /data
+              ND_DATAFOLDER: /config
               ND_MUSICFOLDER: /music
               ND_PORT: &port 8080
               ND_SCANSCHEDULE: 30m
@@ -77,10 +65,9 @@ spec:
               limits:
                 memory: 300Mi
     persistence:
-      data:
-        existingClaim: navidrome-data
-        globalMounts:
-          - path: /data
+      config:
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
       music:
         enabled: true
         existingClaim: media-datastore
@@ -100,11 +87,7 @@ spec:
         annotations:
           authentik.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/auth-signin: |-
-            https://navidrome.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Navidrome
-          hajimari.io/icon: mdi:music
-          hajimari.io/group: selfhosted
+            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/name: Navidrome
@@ -115,13 +98,10 @@ spec:
           # gethomepage.dev/widget.token: "{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}"
           # gethomepage.dev/widget.salt: "{{HOMEPAGE_VAR_NAVIDROME_SALT}}"
         hosts:
-          - host: &host "navidrome.${SECRET_DOMAIN}"
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - secretName: *host
-            hosts:
-              - *host
+        tls: [hosts: [*host]]

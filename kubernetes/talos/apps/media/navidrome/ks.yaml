@@ -7,16 +7,26 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/media/navidrome/app
+  targetNamespace: media
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname navidrome
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: storage-democratic-csi-nvmeof
-    - name: storage-snapshot-controller
     - name: security-external-secrets
     - name: storage-volsync
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: navidrome.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "2000"
+      VOLSYNC_CLAIM: navidrome-config
+      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CACHE_CAPACITY: 5Gi
