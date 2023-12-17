@@ -6,10 +6,14 @@ metadata:
   name: kube-system-descheduler
   namespace: flux-system
 spec:
-  interval: 10m
   path: ./kubernetes/talos/apps/kube-system/descheduler/app
-  prune: true
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname descheduler
+  prune: true
   wait: false
+  interval: 10m

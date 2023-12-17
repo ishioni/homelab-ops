@@ -6,12 +6,16 @@ metadata:
   name: kube-system-intel-device-plugin
   namespace: flux-system
 spec:
-  interval: 10m
   path: ./kubernetes/talos/apps/kube-system/intel-device-plugin/app
-  prune: true
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname intel-device-plugin
   dependsOn:
     - name: kube-system-node-feature-discovery
+  prune: true
   wait: true
+  interval: 10m

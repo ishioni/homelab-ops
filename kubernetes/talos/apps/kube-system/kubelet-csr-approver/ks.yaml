@@ -5,15 +5,15 @@ kind: Kustomization
 metadata:
   name: kube-system-kubelet-csr-approver
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   path: ./kubernetes/talos/apps/kube-system/kubelet-csr-approver/app
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname kubelet-csr-approver
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m

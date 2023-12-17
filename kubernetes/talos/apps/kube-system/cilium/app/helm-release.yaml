@@ -4,14 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: cilium
-  namespace: kube-system
-  annotations:
-    meta.helm.sh/release-name: cilium
-    meta.helm.sh/release-namespace: kube-system
-  labels:
-    app.kubernetes.io/managed-by: Helm
 spec:
-  interval: 15m
   chart:
     spec:
       chart: cilium
@@ -20,18 +13,7 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-      interval: 15m
-  maxHistory: 2
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-      remediateLastFailure: true
-  uninstall:
-    keepHistory: false
+  interval: 30m
   valuesFrom:
     - kind: ConfigMap
       name: cilium-values
@@ -46,13 +28,9 @@ spec:
             enabled: true
       ui:
         ingress:
-          enabled: true
+          enabled: false
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-production
-            hajimari.io/enable: "false"
-            hajimari.io/appName: Hubble
-            hajimari.io/icon: mdi:network
-            hajimari.io/group: infrastructure
             gethomepage.dev/enabled: "false"
             gethomepage.dev/group: Infrastructure
             gethomepage.dev/name: Hubble
