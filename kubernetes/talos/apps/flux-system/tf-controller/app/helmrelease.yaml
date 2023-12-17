@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: tf-controller
-  namespace: flux-system
 spec:
   interval: 15m
   chart:
@@ -14,17 +13,6 @@ spec:
         kind: HelmRepository
         name: weaveworks
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     installCRDs: true
     metrics:
