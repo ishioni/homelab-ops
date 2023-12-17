@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: grafana
-  namespace: monitor
 spec:
-  interval: 15m
   chart:
     spec:
       chart: grafana
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     annotations:
       secret.reloader.stakater.com/reload: &secret grafana-secret
@@ -34,7 +22,7 @@ spec:
         image: ghcr.io/onedr0p/postgres-init:16.1
         envFrom:
           - secretRef:
-              name: &secret grafana-secret
+              name: *secret
     rbac:
       pspEnabled: false
     persistence:
@@ -50,21 +38,14 @@ spec:
     ingress:
       enabled: true
       annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/appName: Grafana
-        hajimari.io/icon: simple-icons:grafana
-        hajimari.io/group: infrastructure
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Infrastructure
         gethomepage.dev/name: Grafana
         gethomepage.dev/icon: grafana.svg
       ingressClassName: private
       hosts:
-        - &host grafana.internal.${SECRET_DOMAIN}
-      tls:
-        - hosts:
-            - *host
-          secretName: *host
+        - &host ${HOSTNAME}
+      tls: [hosts: [*host]]
     env:
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
     envFromSecrets:
@@ -76,7 +57,7 @@ spec:
         reporting_enabled: false
       auth:
         oauth_auto_login: true
-        signout_redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
+        signout_redirect_url: https://${AUTH_HOSTNAME}/application/o/grafana/end-session/
         oauth_allow_insecure_email_lookup: true
       auth.basic:
         enabled: false
@@ -88,9 +69,9 @@ spec:
         enabled: true
         name: ${SECRET_DOMAIN}
         icon: signin
-        auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
-        token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
-        api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
+        auth_url: https://${AUTH_HOSTNAME}/application/o/authorize/
+        token_url: https://${AUTH_HOSTNAME}/application/o/token/
+        api_url: https://${AUTH_HOSTNAME}/application/o/userinfo/
         scopes: openid email profile
         use_pkce: true
         skip_org_role_sync: true
@@ -108,7 +89,7 @@ spec:
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
       server:
-        root_url: https://grafana.internal.${SECRET_DOMAIN}
+        root_url: https://${HOSTNAME}
     plugins:
       - pr0ps-trackmap-panel
       - grafana-clock-panel

@@ -7,13 +7,20 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/monitor/grafana/app
+  targetNamespace: monitor
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname grafana
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: grafana.internal.${SECRET_DOMAIN}
+      AUTH_HOSTNAME: auth.${SECRET_DOMAIN}

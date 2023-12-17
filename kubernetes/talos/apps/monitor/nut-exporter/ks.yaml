@@ -7,13 +7,13 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/monitor/nut-exporter/app
+  targetNamespace: monitor
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname nut-exporter
   sourceRef:
     kind: GitRepository
     name: homelab-ops
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
-  dependsOn:
-    - name: monitor-kube-prometheus-stack
+  interval: 10m

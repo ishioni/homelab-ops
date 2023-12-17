@@ -4,10 +4,8 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
   name: &name minio
-  namespace: monitor
 spec:
-  staticConfigs:
-    - targets: ["s3.${SERVICES_DOMAIN}"]
+  staticConfigs: [targets: ["s3.${SERVICES_DOMAIN}"]]
   metricsPath: /minio/v2/metrics/cluster
   scheme: HTTPS
   relabelings:
