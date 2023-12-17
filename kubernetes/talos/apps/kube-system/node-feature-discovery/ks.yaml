@@ -6,10 +6,13 @@ metadata:
   name: kube-system-node-feature-discovery
   namespace: flux-system
 spec:
-  interval: 10m
   path: ./kubernetes/talos/apps/kube-system/node-feature-discovery/app
-  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname node-feature-discovery
+  prune: true
   wait: true
+  interval: 10m
