@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: minecraft
 spec:
-  interval: 15m
   chart:
     spec:
       chart: minecraft
@@ -14,6 +13,7 @@ spec:
         kind: HelmRepository
         name: minecraft-server
         namespace: flux-system
+  interval: 30m
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
