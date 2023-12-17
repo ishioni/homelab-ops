@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      main:
+        strategy: RollingUpdate
+        annotations:
+          configmap.reloader.stakater.com/reload: &configMap mediamtx-configmap
+          secret.reloader.stakater.com/reload: &secret ${HOSTNAME}
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+        containers:
+          main:
+            image:
+              repository: docker.io/bluenviron/mediamtx
+              tag: 1.4.0-ffmpeg
+            resources:
+              requests:
+                cpu: 50m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+    service:
+      main:
+        ports:
+          http:
+            port: 9997
+          prometheus:
+            port: 9998
+      streams:
+        controller: main
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
+        ports:
+          rtsp-tcp:
+            port: 554
+            targetPort: 8554
+          hls:
+            port: 443
+            targetPort: 8888
+    persistence:
+      config-file:
+        type: configMap
+        name: *configMap
+        globalMounts:
+          - path: /mediamtx.yml
+            subPath: mediamtx.yml
+            readOnly: true
+      cert-key:
+        type: secret
+        name: *secret
+        globalMounts:
+          - path: /tls.key
+            subPath: tls.key
+            readOnly: true
+          - path: /tls.crt
+            subPath: tls.crt
+            readOnly: true
+    serviceMonitor:
+      main:
+        enabled: false
+        endpoints:
+          - port: prometheus
+            scheme: http
+            path: /metrics
