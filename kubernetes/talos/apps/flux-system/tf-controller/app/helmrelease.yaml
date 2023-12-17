@@ -4,7 +4,6 @@ kind: HelmRelease
 metadata:
   name: tf-controller
 spec:
-  interval: 15m
   chart:
     spec:
       chart: tf-controller
@@ -13,6 +12,7 @@ spec:
         kind: HelmRepository
         name: weaveworks
         namespace: flux-system
+  interval: 30m
   values:
     installCRDs: true
     metrics:
