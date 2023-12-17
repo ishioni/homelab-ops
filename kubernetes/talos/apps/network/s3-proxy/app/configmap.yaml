@@ -6,16 +6,23 @@ metadata:
   namespace: network
 data:
   nginx-config: |
+    user nginx;
+    worker_processes 1;
     events {
       worker_connections 1024;
     }
     http {
-      include mime.types;
+      include /etc/nginx/mime.types;
+      default_type application/octet-stream;
+      sendfile on;
+      keepalive_timeout 65
       server {
         listen 80;
         client_max_body_size 128M;
         location / {
-        proxy_set_header Host $host;
+        proxy_set_header Host "s3.${SERVICES_DOMAIN}";
+        proxy_hide_header "Set-Cookie";
+        proxy_intercept_errors on;
         proxy_pass https://s3.${SERVICES_DOMAIN}/static-content/;
         }
       }
