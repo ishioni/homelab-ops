@@ -3,74 +3,28 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: kustomize-controller
-  namespace: flux-system
+  name: flux-system
   labels:
-    app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/part-of: flux
+    app.kubernetes.io/component: monitoring
 spec:
   namespaceSelector:
-    matchNames:
-      - flux-system
+    matchNames: [flux-system]
   selector:
-    matchLabels:
-      app: kustomize-controller
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - helm-controller
+          - source-controller
+          - kustomize-controller
+          - notification-controller
+          - image-automation-controller
+          - image-reflector-controller
   podMetricsEndpoints:
     - port: http-prom
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/monitoring.coreos.com/podmonitor_v1.json
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: source-controller
-  namespace: flux-system
-  labels:
-    app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: latest
-spec:
-  namespaceSelector:
-    matchNames:
-      - flux-system
-  selector:
-    matchLabels:
-      app: source-controller
-  podMetricsEndpoints:
-    - port: http-prom
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/monitoring.coreos.com/podmonitor_v1.json
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: helm-controller
-  namespace: flux-system
-  labels:
-    app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: latest
-spec:
-  namespaceSelector:
-    matchNames:
-      - flux-system
-  selector:
-    matchLabels:
-      app: helm-controller
-  podMetricsEndpoints:
-    - port: http-prom
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/monitoring.coreos.com/podmonitor_v1.json
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: notification-controller
-  namespace: flux-system
-  labels:
-    app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: latest
-spec:
-  namespaceSelector:
-    matchNames:
-      - flux-system
-  selector:
-    matchLabels:
-      app: notification-controller
-  podMetricsEndpoints:
-    - port: http-prom
+      relabelings:
+        # https://github.com/prometheus-operator/prometheus-operator/issues/4816
+        - sourceLabels: [__meta_kubernetes_pod_phase]
+          action: keep
+          regex: Running

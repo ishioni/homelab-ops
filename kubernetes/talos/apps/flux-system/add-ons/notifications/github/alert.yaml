@@ -4,7 +4,6 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
   name: github
-  namespace: flux-system
 spec:
   providerRef:
     name: github

@@ -4,7 +4,6 @@ apiVersion: infra.contrib.fluxcd.io/v1alpha2
 kind: Terraform
 metadata:
   name: minio
-  namespace: flux-system
 spec:
   suspend: false
   interval: 12h
