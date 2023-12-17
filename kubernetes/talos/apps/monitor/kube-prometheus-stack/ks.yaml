@@ -7,14 +7,21 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/monitor/kube-prometheus-stack/app
+  targetNamespace: monitor
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname kube-prometheus-stack
   prune: true
   wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: storage-democratic-csi-nvmeof
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: prometheus.internal.${SECRET_DOMAIN}
+      ALERT_HOSTNAME: alerts.internal.${SECRET_DOMAIN}

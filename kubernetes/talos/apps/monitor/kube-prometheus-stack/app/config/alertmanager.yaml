@@ -26,5 +26,4 @@ receivers:
         chat_id: {{ .TELEGRAM_CHANNEL_ID }}
         send_resolved: true
         api_url: https://api.telegram.org
-templates:
-  - /etc/alertmanager/config/*.tmpl
+templates: [/etc/alertmanager/config/*.tmpl]

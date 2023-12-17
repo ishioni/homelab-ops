@@ -4,10 +4,8 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
   name: &name home-assistant
-  namespace: monitor
 spec:
-  staticConfigs:
-    - targets: ["homeassistant.iot.internal:8123"]
+  staticConfigs: [targets: ["homeassistant.iot.internal:8123"]]
   metricsPath: /api/prometheus
   honorTimestamps: true
   authorization:

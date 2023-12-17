@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
-  namespace: monitor
 spec:
-  interval: 15m
   chart:
     spec:
       chart: kube-prometheus-stack
@@ -15,19 +13,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     crds:
       enabled: true
@@ -70,8 +56,7 @@ spec:
       serviceMonitor:
         metricRelabelings:
           - action: replace
-            sourceLabels:
-              - node
+            sourceLabels: [node]
             targetLabel: instance
     kubeApiServer:
       enabled: true
@@ -96,8 +81,7 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
+              sourceLabels: [__meta_kubernetes_pod_node_name]
               targetLabel: kubernetes_node
     alertmanager:
       ingress:
@@ -113,11 +97,8 @@ spec:
           gethomepage.dev/name: Alert Manager
           gethomepage.dev/icon: alertmanager.svg
         hosts:
-          - &host "alerts.internal.${SECRET_DOMAIN}"
-        tls:
-          - hosts:
-              - *host
-            secretName: *host
+          - &host ${ALERT_HOSTNAME}
+        tls: [hosts: [*host]]
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager-secret
@@ -137,8 +118,7 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
+              sourceLabels: [__meta_kubernetes_pod_node_name]
               targetLabel: kubernetes_node
     grafana:
       enabled: false
@@ -167,11 +147,8 @@ spec:
           gethomepage.dev/widget.url: http://prometheus-prometheus.monitor:9090
         pathType: Prefix
         hosts:
-          - &host prometheus.internal.${SECRET_DOMAIN}
-        tls:
-          - hosts:
-              - *host
-            secretName: *host
+          - &host ${HOSTNAME}
+        tls: [hosts: [*host]]
       thanosService:
         enabled: true
       thanosServiceMonitor:

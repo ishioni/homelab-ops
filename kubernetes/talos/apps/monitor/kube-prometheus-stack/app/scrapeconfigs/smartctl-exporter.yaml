@@ -4,10 +4,8 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
   name: &name smartctl-exporter
-  namespace: monitor
 spec:
-  staticConfigs:
-    - targets: ["smartctl.${SERVICES_DOMAIN}:9633"]
+  staticConfigs: [targets: ["smartctl.${SERVICES_DOMAIN}:9633"]]
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:

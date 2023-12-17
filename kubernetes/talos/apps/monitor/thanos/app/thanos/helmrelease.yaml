@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: thanos
-  namespace: monitor
 spec:
-  interval: 15m
   chart:
     spec:
       chart: thanos
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     image:
       registry: quay.io
@@ -38,25 +26,17 @@ spec:
     query:
       enabled: true
       replicaCount: 1
-      replicaLabel:
-        - __replica__
+      replicaLabel: [__replica__]
       dnsDiscovery:
         sidecarsService: prometheus-thanos-discovery
         sidecarsNamespace: monitor
-      ingress:
-        enabled: true
-        ingressClassName: private
-        hostname: thanos.internal.${SECRET_DOMAIN}
-        tls: true
     queryFrontend:
       enabled: false
     bucketweb:
       enabled: true
     compactor:
       enabled: true
-      extraFlags:
-        - "--compact.concurrency"
-        - "4"
+      extraFlags: ["--compact.concurrency", "4"]
       retentionResolutionRaw: 7d
       retentionResolution5m: 14d
       retentionResolution1h: 21d
