@@ -2,21 +2,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: reverse-proxy-homeassistant
-  namespace: network
+  name: ${APP}
 spec:
   ingressClassName: public
   rules:
-    - host: &host homeassistant.${SECRET_DOMAIN}
+    - host: &host $HOSTNAME
       http:
         paths:
           - backend:
               service:
-                name: reverse-proxy-homeassistant
+                name: ${APP}
                 port:
-                  number: 8123
+                  name: http
             path: /
             pathType: Prefix
-  tls:
-    - hosts: [*host]
-      secretName: *host
+  tls: [hosts: [*host]]
