@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: onepassword-connect
-  namespace: security
 spec:
-  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     controllers:
       main:
@@ -34,8 +22,11 @@ spec:
         strategy: RollingUpdate
         pod:
           securityContext:
+            runAsNonRoot: true
             runAsUser: 999
             runAsGroup: 999
+            fsGroup: 999
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
@@ -122,16 +113,13 @@ spec:
         enabled: true
         className: private
         hosts:
-          - host: &host opconnect.internal.${SECRET_DOMAIN}
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: *host
+        tls: [hosts: [*host]]
     persistence:
       shared:
         type: emptyDir

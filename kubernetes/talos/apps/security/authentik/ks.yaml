@@ -7,14 +7,20 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/security/authentik/app
+  targetNamespace: security
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname authentik
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: database-cloudnative-pg
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: auth.${SECRET_DOMAIN}

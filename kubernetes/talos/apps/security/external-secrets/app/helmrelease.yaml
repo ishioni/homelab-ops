@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: external-secrets
-  namespace: security
 spec:
-  interval: 15m
   chart:
     spec:
       chart: external-secrets
@@ -15,25 +13,32 @@ spec:
         kind: HelmRepository
         name: external-secrets
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     installCRDs: true
-    replicaCount: 3
+    replicaCount: 2
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: external-secrets
+            app.kubernetes.io/instance: external-secrets
     leaderElect: true
     serviceMonitor:
       enabled: true
       interval: 1m
     webhook:
+      replicaCount: 2
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: external-secrets-cert-controller
+              app.kubernetes.io/instance: external-secrets
       serviceMonitor:
         enabled: true
         interval: 1m
