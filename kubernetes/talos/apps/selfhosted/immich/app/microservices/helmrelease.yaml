@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app immich-microservices
-  namespace: selfhosted
 spec:
-  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   dependsOn:
     - name: immich-server
   values:
@@ -38,9 +26,9 @@ spec:
         pod:
           enableServiceLinks: false
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: "OnRootMismatch"
           topologySpreadConstraints:
             - maxSkew: 1

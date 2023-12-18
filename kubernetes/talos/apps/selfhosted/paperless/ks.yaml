@@ -7,15 +7,29 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/selfhosted/paperless/app
+  targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname paperless
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: database-cloudnative-pg
     - name: security-external-secrets
     - name: storage-volsync
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: documents.internal.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      VOLSYNC_CLAIM: paperless-data
+      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CACHE_CAPACITY: 5Gi
+      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
+      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs

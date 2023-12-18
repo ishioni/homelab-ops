@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: tandoor
-  namespace: selfhosted
 spec:
-  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     controllers:
       main:
@@ -58,9 +46,9 @@ spec:
               limits:
                 memory: 512Mi
             securityContext:
-              runAsUser: 568
-              runAsGroup: 568
-              fsGroup: 568
+              runAsUser: ${APP_UID}
+              runAsGroup: ${APP_GID}
+              fsGroup: ${APP_GID}
               fsGroupChangePolicy: "OnRootMismatch"
             probes:
               liveness: &probes
@@ -98,25 +86,18 @@ spec:
         enabled: true
         className: public
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Recipes
-          hajimari.io/group: selfhosted
-          hajimari.io/icon: mdi:chef-hat
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: Tandoor
           gethomepage.dev/icon: tandoor.png
         hosts:
-          - host: &host "recipes.${SECRET_DOMAIN}"
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - secretName: *host
-            hosts:
-              - *host
+        tls: [hosts: [*host]]
     persistence:
       files:
         existingClaim: tandoor-data
