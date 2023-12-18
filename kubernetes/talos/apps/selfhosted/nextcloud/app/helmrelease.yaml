@@ -75,12 +75,6 @@ spec:
           secure: ssl
           port: 465
           authtype: LOGIN
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
       configs:
         local.config.php: |-
           <?php
@@ -190,14 +184,6 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
-    cronjob:
-      enabled: true
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
     ingress:
       enabled: true
       className: public
