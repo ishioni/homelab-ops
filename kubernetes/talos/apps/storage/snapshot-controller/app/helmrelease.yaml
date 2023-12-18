@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: snapshot-controller
-  namespace: storage
 spec:
-  interval: 15m
   chart:
     spec:
       chart: snapshot-controller
@@ -15,18 +13,11 @@ spec:
         kind: HelmRepository
         name: piraeus
         namespace: flux-system
+  interval: 30m
   install:
     crds: CreateReplace
-    createNamespace: true
-    remediation:
-      retries: 3
   upgrade:
-    cleanupOnFail: true
     crds: CreateReplace
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     webhook:
       enabled: false

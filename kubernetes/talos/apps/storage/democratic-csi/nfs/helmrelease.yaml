@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: democratic-csi-ssd-nfs
-  namespace: storage
 spec:
-  interval: 15m
   chart:
     spec:
       chart: democratic-csi
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: democratic-csi
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     controller:
       podAnnotations:

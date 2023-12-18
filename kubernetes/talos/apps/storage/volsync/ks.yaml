@@ -7,14 +7,13 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/storage/volsync/app
+  targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname volsync
   prune: true
   wait: true
-  dependsOn:
-    - name: storage-democratic-csi-nvmeof
-    - name: storage-snapshot-controller
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
