@@ -18,6 +18,4 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
-    - name: storage-democratic-csi-nvmeof
     - name: security-external-secrets
-    - name: monitor-kube-prometheus-stack

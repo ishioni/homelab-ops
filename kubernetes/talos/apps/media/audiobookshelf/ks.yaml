@@ -18,8 +18,6 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
-    - name: storage-democratic-csi-nvmeof
-    - name: storage-democratic-csi-nfs
     - name: security-external-secrets
     - name: storage-volsync
   postBuild:

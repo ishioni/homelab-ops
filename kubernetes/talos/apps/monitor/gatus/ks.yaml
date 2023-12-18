@@ -18,7 +18,6 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
-    - name: database-cloudnative-pg
     - name: security-external-secrets
   postBuild:
     substitute:
