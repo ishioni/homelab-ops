@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: nextcloud
-  namespace: selfhosted
 spec:
-  interval: 15m
   chart:
     spec:
       chart: nextcloud
@@ -15,14 +13,7 @@ spec:
         kind: HelmRepository
         name: nextcloud
         namespace: flux-system
-  install:
-    timeout: 60m
-    remediation:
-      retries: 5
-  upgrade:
-    timeout: 60m
-    remediation:
-      retries: 5
+  interval: 30m
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
@@ -30,7 +21,12 @@ spec:
       repository: public.ecr.aws/docker/library/nextcloud
       tag: 27.1.4-fpm-alpine
     nextcloud:
-      host: &host "files.${SECRET_DOMAIN}"
+      host: &host ${HOSTNAME}
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_GID}
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.1
@@ -99,9 +95,9 @@ spec:
             'lost_password_link' => 'disabled',
             'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
             'oidc_login_client_secret' => getenv('OIDC_CLIENT_PASSWORD'),
-            'oidc_login_provider_url' => 'https://auth.${SECRET_DOMAIN}/application/o/nextcloud/',
+            'oidc_login_provider_url' => 'https://${AUTH_HOSTNAME}/application/o/nextcloud/',
             'oidc_login_end_session_redirect' => true,
-            'oidc_login_logout_url' => 'https://auth.${SECRET_DOMAIN}/application/o/nextcloud/end-session/',
+            'oidc_login_logout_url' => 'https://${AUTH_HOSTNAME}/application/o/nextcloud/end-session/',
             'oidc_login_default_quota' => '1000000000',
             'oidc_login_hide_password_form' => true,
             'oidc_login_disable_registration' => false,
@@ -156,7 +152,7 @@ spec:
           pm.process_idle_timeout = 10s
     persistence:
       enabled: true
-      existingClaim: nextcloud-data
+      existingClaim: ${VOLSYNC_CLAIM}
     resources:
       requests:
         cpu: 200m
@@ -189,16 +185,12 @@ spec:
       className: public
       annotations:
         nginx.ingress.kubernetes.io/custom-http-errors: "418"
-        hajimari.io/enable: "true"
-        hajimari.io/appName: Nextcloud
-        hajimari.io/icon: simple-icons:nextcloud
-        hajimari.io/group: selfhosted
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Selfhosted
         gethomepage.dev/name: Nextcloud
         gethomepage.dev/icon: nextcloud.png
         gethomepage.dev/widget.type: nextcloud
-        gethomepage.dev/widget.url: https://files.${SECRET_DOMAIN}
+        gethomepage.dev/widget.url: https://${HOSTNAME}
         gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_NEXTCLOUD_TOKEN}}"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
@@ -224,16 +216,18 @@ spec:
           location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
             deny all;
           }
-      tls:
-        - secretName: *host
-          hosts:
-            - *host
+      tls: [hosts: [*host]]
     nginx:
       enabled: true
       image:
         repository: public.ecr.aws/nginx/nginx
       config:
         default: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_GID}
+        readOnlyRootFilesystem: true
       resources:
         requests:
           cpu: 50m
@@ -289,11 +283,14 @@ spec:
     metrics:
       enabled: false
       https: true
-      image:
-        repository: docker.io/xperimental/nextcloud-exporter
       serviceMonitor:
         enabled: false
     cronjob:
       enabled: true
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_GID}
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
