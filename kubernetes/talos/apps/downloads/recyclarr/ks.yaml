@@ -19,8 +19,6 @@ spec:
   interval: 10m
   dependsOn:
     - name: security-external-secrets
-    - name: downloads-sonarr
-    - name: downloads-radarr
   postBuild:
     substitute:
       APP: *appname

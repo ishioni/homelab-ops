@@ -14,5 +14,3 @@ spec:
   prune: true
   wait: true
   interval: 10m
-  dependsOn:
-    - name: storage-democratic-csi-nvmeof
