@@ -7,11 +7,17 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/network/s3-proxy/app
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname s3-proxy
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: static.${SECRET_DOMAIN}

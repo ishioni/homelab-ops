@@ -28,6 +28,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/network/ingress-nginx/public
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
@@ -48,6 +49,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/network/ingress-nginx/private
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops

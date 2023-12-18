@@ -7,13 +7,15 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/network/external-dns/app
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname external-dns
   prune: false
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
     - name: security-external-secrets
