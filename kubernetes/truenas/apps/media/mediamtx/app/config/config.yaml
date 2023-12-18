@@ -35,8 +35,8 @@ paths:
   kids:
     source: rtsp://10.1.3.16/live0
     rtspTransport: automatic
-    sourceOnDemand: false
+    sourceOnDemand: true
   bedroom:
     source: rtsp://10.1.3.17/live0
     rtspTransport: automatic
-    sourceOnDemand: false
+    sourceOnDemand: true
