@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: k8s-gateway
-  namespace: network
 spec:
-  interval: 15m
   chart:
     spec:
       chart: k8s-gateway
@@ -15,18 +13,10 @@ spec:
         kind: HelmRepository
         name: k8s-gateway
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+  interval: 30m
   values:
     fullnameOverride: k8s-gateway
-    domain: internal.${SECRET_DOMAIN}
+    domain: ${DOMAIN}
     ttl: 1
     service:
       type: LoadBalancer
