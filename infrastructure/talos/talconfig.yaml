@@ -94,7 +94,7 @@ patches:
     machine:
       install:
         # renovate-docker
-        image: ghcr.io/ishioni/installer:v1.5.5
+        image: ghcr.io/ishioni/installer:v1.6.0
 
 controlPlane:
   schematic: {}
