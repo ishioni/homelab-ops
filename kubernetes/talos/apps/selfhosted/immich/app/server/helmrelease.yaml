@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app immich-server
-  namespace: selfhosted
 spec:
-  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   dependsOn:
     - name: redis
       namespace: database
@@ -48,9 +36,9 @@ spec:
         pod:
           enableServiceLinks: false
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: "OnRootMismatch"
           topologySpreadConstraints:
             - maxSkew: 1
@@ -102,10 +90,6 @@ spec:
         enabled: true
         className: "public"
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: simple-icons:googlephotos
-          hajimari.io/group: selfhosted
-          hajimari.io/appName: Immich
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: Immich
@@ -114,17 +98,14 @@ spec:
           gethomepage.dev/widget.url: http://immich-server.selfhosted:3001
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
         hosts:
-          - host: &host "photos.${SECRET_DOMAIN}"
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   name: main
                   port: http
-        tls:
-          - secretName: *host
-            hosts:
-              - *host
+        tls: [hosts: [*host]]
     persistence:
       library:
         enabled: true

@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: paperless
-  namespace: selfhosted
 spec:
-  interval: 15m
   chart:
     spec:
       chart: app-template
@@ -15,17 +13,7 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
     controllers:
       main:
@@ -65,8 +53,8 @@ spec:
               PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: ${CONFIG_TIMEZONE}
               PAPERLESS_URL: https://documents.internal.${SECRET_DOMAIN}
-              USERMAP_UID: &uid 568
-              USERMAP_GID: *uid
+              USERMAP_UID: ${APP_UID}
+              USERMAP_GID: ${APP_GID}
             envFrom:
               - secretRef:
                   name: *secret
@@ -136,10 +124,6 @@ spec:
         enabled: true
         className: private
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Documents
-          hajimari.io/icon: mdi:file-multiple
-          hajimari.io/group: selfhosted
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: Paperless
@@ -148,19 +132,16 @@ spec:
           gethomepage.dev/widget.url: http://paperless.selfhosted:8000
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}"
         hosts:
-          - host: &host documents.internal.${SECRET_DOMAIN}
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: *host
+        tls: [hosts: [*host]]
     persistence:
       library:
-        existingClaim: paperless-data
+        existingClaim: ${VOLSYNC_CLAIM}
         advancedMounts:
           main:
             main:

@@ -7,15 +7,21 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/selfhosted/immich/app
+  targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname immich
   prune: true
   wait: false
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
   dependsOn:
-    - name: database-cloudnative-pg
-    - name: database-redis
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: photos.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
