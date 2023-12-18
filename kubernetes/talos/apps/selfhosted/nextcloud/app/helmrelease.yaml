@@ -293,5 +293,7 @@ spec:
         repository: docker.io/xperimental/nextcloud-exporter
       serviceMonitor:
         enabled: false
+    cronjob:
+      enabled: true
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
