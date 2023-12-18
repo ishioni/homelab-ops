@@ -97,7 +97,7 @@ data:
             widget:
               type: proxmox
               url: https://proxmox.${SERVICES_DOMAIN}
-              username: {{ HOMEPAGE_VAR_PROXMOX_USER }}@{{ HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}
+              username: "{{ HOMEPAGE_VAR_PROXMOX_USER }}@{{ HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}"
               password: {{ HOMEPAGE_VAR_PROXMOX_PASSWORD }}
         - MeshCentral:
             href: https://meshcentral.${SERVICES_DOMAIN}
