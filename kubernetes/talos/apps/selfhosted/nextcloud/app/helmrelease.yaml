@@ -293,3 +293,5 @@ spec:
         repository: docker.io/xperimental/nextcloud-exporter
       serviceMonitor:
         enabled: false
+    securityContext:
+      fsGroupChangePolicy: OnRootMismatch
