@@ -227,7 +227,6 @@ spec:
         runAsNonRoot: true
         runAsUser: ${APP_UID}
         runAsGroup: ${APP_GID}
-        readOnlyRootFilesystem: true
       resources:
         requests:
           cpu: 50m
