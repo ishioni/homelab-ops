@@ -224,8 +224,6 @@ spec:
       config:
         default: true
       securityContext:
-        runAsNonRoot: true
-        runAsUser: ${APP_UID}
         runAsGroup: ${APP_GID}
       resources:
         requests:
@@ -287,9 +285,6 @@ spec:
     cronjob:
       enabled: true
       securityContext:
-        runAsUser: ${APP_UID}
         runAsGroup: ${APP_GID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: true
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
