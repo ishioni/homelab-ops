@@ -21,15 +21,15 @@ spec:
           configmap.reloader.stakater.com/reload: &configmap zot-configmap
         pod:
           securityContext:
-            runAsUser: &uid 568
-            runAsGroup: *uid
-            fsGroup: *uid
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
               repository: ghcr.io/project-zot/zot-linux-amd64
-              tag: v1.4.3
+              tag: v2.0.0
             probes:
               liveness: &probes
                 enabled: true
@@ -58,14 +58,13 @@ spec:
           nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
           nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
         hosts:
-          - host: &host zot.${SERVICES_DOMAIN}
+          - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        tls:
-          - hosts: [*host]
+        tls: [hosts: [*host]]
     persistence:
       config-file:
         type: configMap

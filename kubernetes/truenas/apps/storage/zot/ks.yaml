@@ -13,7 +13,13 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: zot
+      app.kubernetes.io/name: &appname zot
   prune: true
   wait: false
   interval: 10m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: n8n.internal.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
