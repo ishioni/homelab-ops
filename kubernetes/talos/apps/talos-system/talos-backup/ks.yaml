@@ -7,13 +7,15 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/talos-system/talos-backup/app
+  targetNamespace: talos-system
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname talos-backup
   prune: true
   wait: true
   dependsOn:
     - name: security-external-secrets
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m

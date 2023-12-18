@@ -7,11 +7,13 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/storage/snapshot-controller/app
+  targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname snapshot-controller
   prune: true
   wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+  interval: 10m
