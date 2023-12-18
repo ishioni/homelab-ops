@@ -14,6 +14,10 @@ spec:
         name: nextcloud
         namespace: flux-system
   interval: 30m
+  install:
+    timeout: 60m
+  upgrade:
+    timeout: 60m
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
