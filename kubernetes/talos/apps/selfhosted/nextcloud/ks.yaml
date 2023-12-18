@@ -7,16 +7,32 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/selfhosted/nextcloud/app
+  targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname nextcloud
   prune: true
   wait: false
   interval: 30m
-  retryInterval: 1m
-  timeout: 5m
   dependsOn:
     - name: database-cloudnative-pg
     - name: security-external-secrets
     - name: storage-democratic-csi-nfs
     - name: storage-volsync
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: files.${SECRET_DOMAIN}
+      AUTH_HOSTNAME: auth.${SECRET_DOMAIN}
+      APP_UID: "82"
+      APP_GID: "82"
+      VOLSYNC_CLAIM: nextcloud-config
+      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CACHE_CAPACITY: 5Gi
+      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
+      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
+      VOLSYNC_ACCESSMODES: ReadWriteMany
