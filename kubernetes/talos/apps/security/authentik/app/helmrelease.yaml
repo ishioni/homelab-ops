@@ -4,9 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: authentik
-  namespace: security
 spec:
-  interval: 15m
   chart:
     spec:
       chart: authentik
@@ -15,20 +13,8 @@ spec:
         kind: HelmRepository
         name: authentik
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+  interval: 30m
   values:
-    # image:
-    #   tag: 2023.8.4
     controller:
       annotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
@@ -53,10 +39,6 @@ spec:
       enabled: true
       ingressClassName: public
       annotations:
-        hajimari.io/enable: "true"
-        hajimari.io/icon: simple-icons:webauthn
-        hajimari.io/group: infrastructure
-        hajimari.io/appName: Authentik
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Security
         gethomepage.dev/name: Authentik
@@ -65,14 +47,11 @@ spec:
         gethomepage.dev/widget.url: http://authentik.security
         gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
       hosts:
-        - host: &host "auth.${SECRET_DOMAIN}"
+        - host: &host ${HOSTNAME}
           paths:
             - path: /
               pathType: Prefix
-      tls:
-        - secretName: *host
-          hosts:
-            - *host
+      tls: [hosts: [*host]]
     prometheus:
       serviceMonitor:
         create: true
