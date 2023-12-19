@@ -22,7 +22,7 @@
       }
     },
     "scrub": {
-      "enable": true,
+      "enable": false,
       "interval": "24h"
     },
     "sync": {
@@ -95,6 +95,9 @@
           "tlsVerify": true
         }
       ]
+    },
+    "ui": {
+      "enable": true
     }
   }
 }
