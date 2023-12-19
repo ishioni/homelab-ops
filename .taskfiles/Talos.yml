@@ -3,10 +3,8 @@ version: "3"
 
 vars:
   DOMAIN: "kubernetes.internal"
-  # renovate: datasource=github-releases depName=ishioni/talos-images
+  # renovate: datasource=github-releases depName=siderolabs/talos
   TALOS_VERSION: "v1.6.0"
-  # renovate: datasource=github-releases depName=budimanjojo/talhelper
-  TALHELPER_VERSION: "v1.16.3"
   # renovate: datasource=github-releases depName=siderolabs/kubelet
   KUBERNETES_VERSION: "v1.29.0"
 
@@ -42,8 +40,8 @@ tasks:
       - talosctl apply-config -i -n {{ .IP }} -f clusterconfig/talos-{{ .NODE }}.{{ .DOMAIN }}.yaml
 
   upgrade:
-    internal: true
-    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=master-0)
+    internal: false
+    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=master-0 IP=10.1.4.10)
     dir: infrastructure/talos
     status:
       - talosctl version -n {{ .NODE }}.{{ .DOMAIN }} --short | grep 'Tag.*{{ .TALOS_VERSION }}'
@@ -52,7 +50,7 @@ tasks:
         vars: {TIMEOUT: 10m}
       - task: apply
         vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m no-reboot"}
-      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} -m powercycle --image ghcr.io/ishioni/installer:{{ .TALOS_VERSION }}
+      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} -m powercycle --image $(talhelper genurl installer -n {{ .IP }})
 
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
@@ -126,18 +124,18 @@ tasks:
       - task: generate
       # control-plane
       - task: upgrade
-        vars: {NODE: master-0}
+        vars: {NODE: master-0, IP: "10.1.4.10"}
       - task: upgrade
-        vars: {NODE: master-1}
+        vars: {NODE: master-1, IP: "10.1.4.11"}
       - task: upgrade
-        vars: {NODE: master-2}
+        vars: {NODE: master-2, IP: "10.1.4.12"}
       # workers
       - task: upgrade
-        vars: {NODE: worker-0}
+        vars: {NODE: worker-0, IP: "10.1.4.20"}
       - task: upgrade
-        vars: {NODE: worker-1}
+        vars: {NODE: worker-1, IP: "10.1.4.21"}
       - task: upgrade
-        vars: {NODE: worker-2}
+        vars: {NODE: worker-2, IP: "10.1.4.22"}
 
   upgrade:k8s:
     dir: infrastructure/talos

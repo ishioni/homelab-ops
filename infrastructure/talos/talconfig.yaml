@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 clusterName: ${clusterName}
 # renovate: datasource=github-releases depName=ishioni/talos-images
 talosVersion: v1.6.0
@@ -97,7 +98,14 @@ patches:
         image: ghcr.io/ishioni/installer:v1.5.5
 
 controlPlane:
-  schematic: {}
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+        - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/qemu-guest-agent
   patches:
     - |-
       cluster:
@@ -130,10 +138,6 @@ controlPlane:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
-        install:
-          extraKernelArgs:
-            - net.ifnames=0
-            - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
         logging:
           destinations:
             - endpoint: udp://${vectorEndpointIP}:6002/
@@ -182,7 +186,17 @@ controlPlane:
         path: /cluster/apiServer/admissionControl
 
 worker:
-  schematic: {}
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+        - i915.disable_display=true
+        - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/qemu-guest-agent
+          - siderolabs/i915-ucode
+          - siderolabs/iscsi-tools
   patches:
     - |-
       machine:
@@ -198,11 +212,6 @@ worker:
           extraArgs:
             feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
-        install:
-          extraKernelArgs:
-            - i915.disable_display=true
-            - net.ifnames=0
-            - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
         logging:
           destinations:
             - endpoint: udp://${vectorEndpointIP}:6002/
