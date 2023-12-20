@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     global:
-      storageClass: truenas-ssd-nvmeof
+      storageClass: truenas-ssd-iscsi
     auth:
       enabled: false
       sentinel: false
