@@ -16,10 +16,10 @@ spec:
       runAsUser: ${APP_UID:-568}
       runAsGroup: ${APP_GID:-568}
       fsGroup: ${APP_GID:-568}
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-truenas-ssd-nvmeof}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
-    storageClassName: "${VOLSYNC_STORAGECLASS:-truenas-ssd-nvmeof}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-nvmeof}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-truenas-ssd-iscsi}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
     retain:
       daily: 7
       within: 3d
