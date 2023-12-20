@@ -11,7 +11,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
-    storageClass: truenas-ssd-nvmeof
+    storageClass: truenas-ssd-iscsi
   postgresql:
     shared_preload_libraries: ["vectors.so"]
     parameters:
@@ -24,7 +24,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v3
+      source: &previousCluster postgres-v1
   resources:
     requests:
       cpu: 100m
@@ -41,7 +41,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.${SERVICES_DOMAIN}
-      serverName: &currentCluster postgres-v1
+      serverName: &currentCluster postgres-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
