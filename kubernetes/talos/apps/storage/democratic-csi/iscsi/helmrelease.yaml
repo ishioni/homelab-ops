@@ -64,7 +64,7 @@ spec:
           controller-expand-secret:
     volumeSnapshotClasses:
       - name: truenas-ssd-nvmeof
-        driver: org.democratic-csi.iscsi
+        driver: truenas-ssd-iscsi
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "false"
         deletionPolicy: Delete
