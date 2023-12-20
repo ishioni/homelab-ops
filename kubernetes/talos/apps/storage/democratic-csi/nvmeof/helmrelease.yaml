@@ -39,7 +39,7 @@ spec:
       name: "org.democratic-csi.nvmeof"
     storageClasses:
       - name: truenas-ssd-nvmeof
-        defaultClass: true
+        defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
@@ -58,7 +58,7 @@ spec:
       - name: truenas-ssd-nvmeof
         driver: org.democratic-csi.nvmeof
         annotations:
-          snapshot.storage.kubernetes.io/is-default-class: "true"
+          snapshot.storage.kubernetes.io/is-default-class: "false"
         deletionPolicy: Delete
         parameters:
           detachedSnapshots: "false"
