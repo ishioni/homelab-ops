@@ -44,7 +44,7 @@ spec:
     csiProxy:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:
-      name: "org.democratic-csi.iscsi"
+      name: org.democratic-csi.iscsi
     storageClasses:
       - name: truenas-ssd-iscsi
         defaultClass: false
@@ -62,6 +62,14 @@ spec:
           node-stage-secret:
           node-publish-secret:
           controller-expand-secret:
+    volumeSnapshotClasses:
+      - name: truenas-ssd-nvmeof
+        driver: org.democratic-csi.iscsi
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "false"
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: "false"
     driver:
       config:
         driver: freenas-api-iscsi
