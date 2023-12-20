@@ -47,7 +47,7 @@ spec:
       name: org.democratic-csi.iscsi
     storageClasses:
       - name: truenas-ssd-iscsi
-        defaultClass: false
+        defaultClass: true
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
@@ -66,7 +66,7 @@ spec:
       - name: truenas-ssd-iscsi
         driver: org.democratic-csi.iscsi
         annotations:
-          snapshot.storage.kubernetes.io/is-default-class: "false"
+          snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
         parameters:
           detachedSnapshots: "false"
