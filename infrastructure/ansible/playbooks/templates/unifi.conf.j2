@@ -5,7 +5,7 @@ server {
 
 server {
     listen 443 ssl;
-    server_name unifi.services.{{ secret_domain }};
+    server_name unifi.network.{{ secret_domain }};
     ssl_certificate /etc/ssl/private/unifi.pem;
     ssl_certificate_key /etc/ssl/private/unifi.key;
 
