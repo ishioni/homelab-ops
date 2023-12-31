@@ -83,12 +83,12 @@ data:
               username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - TrueNAS:
-            href: https://truenas.${SERVICES_DOMAIN}
+            href: https://quadrant.${SERVERS_DOMAIN}
             icon: truenas.png
             description: NAS
             widget:
               type: truenas
-              url: https://truenas.${SERVICES_DOMAIN}
+              url: https://quadrant.${SERVERS_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
         - Proxmox:
             href: https://proxmox.${SERVICES_DOMAIN}
