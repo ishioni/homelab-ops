@@ -53,13 +53,22 @@ spec:
                   httpGet:
                     path: /minio/health/live
                     port: 9000
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
                   timeoutSeconds: 10
-                  failureThreshold: 6
+                  failureThreshold: 3
               readiness: *probes
               startup:
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /minio/health/live
+                    port: 9000
+                  initialDelaySeconds: 0
+                  periodSeconds: 1
+                  timeoutSeconds: 10
+                  failureThreshold: 60
     service:
       main:
         ports:
