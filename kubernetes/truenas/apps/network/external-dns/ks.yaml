@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-external-dns-shared
+  namespace: flux-system
+spec:
+  path: ./kubernetes/truenas/apps/network/external-dns/shared
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname external-dns-shared
+  prune: true
+  wait: true
+  interval: 10m
