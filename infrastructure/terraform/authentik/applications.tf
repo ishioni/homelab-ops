@@ -157,11 +157,10 @@ module "oauth2-proxmox" {
   client_secret      = module.secret_proxmox.fields["OIDC_CLIENT_SECRET"]
   redirect_uris = [
     "https://proxmox.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-1.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-2.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-3.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-4.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox.nas.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+    "https://proxmox-1.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
+    "https://proxmox-2.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
+    "https://proxmox-3.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
+    "https://proxmox-4.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
   ]
 }
 
