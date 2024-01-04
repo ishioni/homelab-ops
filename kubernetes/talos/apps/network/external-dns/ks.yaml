@@ -3,18 +3,37 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: network-external-dns
+  name: network-external-dns-shared
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/external-dns/app
+  path: ./kubernetes/talos/apps/network/external-dns/shared
   targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname external-dns
-  prune: false
+      app.kubernetes.io/name: &appname external-dns-shared
+  prune: true
+  wait: true
+  interval: 10m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-external-dns-cloudflare
+  namespace: flux-system
+spec:
+  path: ./kubernetes/talos/apps/network/external-dns/cloudflare
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname external-dns-cloudflare
+  prune: true
   wait: false
   interval: 10m
   dependsOn:
