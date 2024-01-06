@@ -66,7 +66,7 @@ data:
                   service_name: Readarr # service name for that widget
     - Automation:
         - Home Assistant:
-            href: https://homeassistant.movishell.pl
+            href: https://homeassistant.${SECRET_DOMAIN}
             icon: home-assistant.svg
             widget:
               type: homeassistant

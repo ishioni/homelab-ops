@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app external-dns-bind
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      main:
+        strategy: Recreate
+        annotations:
+          secret.reloader.stakater.com/reload: &secret externaldns-bind-secret
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+        containers:
+          main:
+            image:
+              repository: registry.k8s.io/external-dns/external-dns
+              tag: v0.14.0
+            env:
+              EXTERNAL_DNS_RFC2136_HOST: 10.5.0.3
+              EXTERNAL_DNS_RFC2136_PORT: "53"
+              EXTERNAL_DNS_RFC2136_ZONE: "${SECRET_DOMAIN}"
+              EXTERNAL_DNS_RFC2136_TSIG_AXFR: "true"
+              EXTERNAL_DNS_RFC2136_TSIG_KEYNAME: externaldns
+            envFrom:
+              - secretRef:
+                  name: *secret
+            args:
+              - --provider=rfc2136
+              - --domain-filter="${SECRET_DOMAIN}"
+              - --source=ingress
+              - --source=service
+              - --registry=txt
+              - --txt-owner-id=talos
+              - --txt-prefix=talos.
+              - --policy=sync
+              - --interval=1m
+              - --log-format=text
+              - --log-level=info
+              - --metrics-address=:7979
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 7979
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 25m
+                memory: 100Mi
+              limits:
+                memory: 250Mi
+    serviceAccount:
+      create: true
+      name: *app
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      main:
+        enabled: true
