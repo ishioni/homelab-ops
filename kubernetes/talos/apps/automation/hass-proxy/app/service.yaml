@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: ${APP}
 spec:
-  externalName: homeassistant.${IOT_DOMAIN}
+  externalName: homeassistant.${HOME_DOMAIN}
   ports:
     - name: http
       port: 8123
