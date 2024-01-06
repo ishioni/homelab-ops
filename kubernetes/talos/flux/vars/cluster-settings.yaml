@@ -5,6 +5,7 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  HOME_DOMAIN: ishioni.casa
   CONFIG_BGP_POOL_CIDR: 192.168.3.0/24
   CONFIG_GATEWAY_DNS_IP: 192.168.3.1
   CONFIG_INGRESS_PUBLIC_IP: 192.168.3.2
