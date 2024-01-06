@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name home-assistant
 spec:
-  staticConfigs: [targets: ["homeassistant.${IOT_DOMAIN}:8123"]]
+  staticConfigs: [targets: ["homeassistant.${HOME_DOMAIN}:8123"]]
   metricsPath: /api/prometheus
   honorTimestamps: true
   authorization:
