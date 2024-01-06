@@ -20,6 +20,6 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: zot.${SERVICES_DOMAIN}
+      HOSTNAME: zot.${NAS_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"

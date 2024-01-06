@@ -24,7 +24,7 @@ spec:
               tag: 1.1.16
             env:
               NODE_ENV: production
-              HOSTNAME: &host meshcentral.${SERVICES_DOMAIN}
+              HOSTNAME: &host meshcentral.${NAS_DOMAIN}
               REVERSE_PROXY: *host
               REVERSE_PROXY_TLS_PORT: 443
               ALLOW_NEW_ACCOUNTS: "false"
