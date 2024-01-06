@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 data:
   HOME_DOMAIN: ishioni.casa
+  NAS_DOMAIN: nas.ishioni.casa
   CONFIG_TRUENAS_POOL_CIDR: 10.1.4.128/27
   CONFIG_KUBE_POOL_CIDR: 10.1.4.0/24
   CONFIG_DNS_IP: 10.1.4.128
