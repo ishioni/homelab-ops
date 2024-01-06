@@ -46,7 +46,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          coredns.io/hostname: nas-node.${SERVICES_DOMAIN}
+          coredns.io/hostname: nas-node.${NAS_DOMAIN}
         ports:
           http:
             port: 9100
