@@ -13,9 +13,16 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: minio
+      app.kubernetes.io/name: &appname minio
   prune: true
   wait: false
   interval: 10m
   dependsOn:
     - name: security-external-secrets
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: s3.${NAS_DOMAIN}
+      CONSOLE_HOSTNAME: minio.${NAS_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"

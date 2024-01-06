@@ -31,11 +31,11 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-01-05T22-17-24Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SERVICES_DOMAIN},https://s3.${SERVICES_DOMAIN}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${SERVICES_DOMAIN}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://${CONSOLE_HOSTNAME},https://${HOSTNAME}
+              MINIO_BROWSER_REDIRECT_URL: https://${CONSOLE_HOSTNAME}
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_AUTH_TYPE: public
-              MINIO_SERVER_URL: https://s3.${SERVICES_DOMAIN}
+              MINIO_SERVER_URL: https://${HOSTNAME}
               MINIO_UPDATE: "off"
             envFrom:
               - secretRef:
@@ -81,13 +81,13 @@ spec:
         enabled: true
         className: ingress
         hosts:
-          - host: &host minio.${SERVICES_DOMAIN}
+          - host: &host ${CONSOLE_HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-          - host: &s3Host s3.${SERVICES_DOMAIN}
+          - host: &s3Host ${HOSTNAME}
             paths:
               - path: /
                 service:
