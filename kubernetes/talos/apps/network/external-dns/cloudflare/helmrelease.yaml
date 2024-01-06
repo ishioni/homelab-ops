@@ -3,46 +3,82 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: external-dns
+  name: &app external-dns-cloudflare
 spec:
   chart:
     spec:
-      chart: external-dns
-      version: 1.13.1
+      chart: app-template
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
-        name: external-dns
+        name: bjw-s
         namespace: flux-system
   interval: 30m
   values:
-    deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret externaldns-cloudflare-secret
-    interval: 30s
-    # logLevel: debug
-    provider: cloudflare
-    env:
-      - name: CF_API_EMAIL
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: EMAIL
-      - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: API_TOKEN
-    extraArgs:
-      - --annotation-filter=external-dns.home.arpa/enabled in (true)
-    policy: sync
-    sources: ["ingress"]
-    txtPrefix: "talos."
-    txtOwnerId: "talos"
-    domainFilters: ["${SECRET_DOMAIN}"]
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 25m
-      limits:
-        memory: 250Mi
+    controllers:
+      main:
+        strategy: Recreate
+        annotations:
+          secret.reloader.stakater.com/reload: &secret externaldns-cloudflare-secret
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+        containers:
+          main:
+            image:
+              repository: registry.k8s.io/external-dns/external-dns
+              tag: v0.14.0
+            envFrom:
+              - secretRef:
+                  name: *secret
+            args:
+              - --provider=cloudflare
+              - --domain-filter="${SECRET_DOMAIN}"
+              - --source=ingress
+              - --ingress-class=public
+              - --registry=txt
+              - --txt-owner-id=talos
+              - --txt-prefix=talos.
+              - --policy=sync
+              - --interval=1m
+              - --log-format=text
+              - --log-level=info
+              - --metrics-address=:7979
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 7979
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 25m
+                memory: 100Mi
+              limits:
+                memory: 250Mi
+    serviceAccount:
+      create: true
+      name: *app
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     serviceMonitor:
-      enabled: true
+      main:
+        enabled: true
