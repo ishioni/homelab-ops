@@ -147,7 +147,7 @@ module "oauth2-proxmox" {
   source             = "./oauth2_application"
   name               = "Proxmox"
   icon_url           = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
-  launch_url         = "https://proxmox.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+  launch_url         = "https://proxmox.nas.ishioni.casa"
   description        = "Virtualization"
   newtab             = true
   group              = "Infrastructure"
@@ -156,11 +156,11 @@ module "oauth2-proxmox" {
   client_id          = module.secret_proxmox.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_proxmox.fields["OIDC_CLIENT_SECRET"]
   redirect_uris = [
-    "https://proxmox.services.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-1.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-2.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-3.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
-    "https://proxmox-4.servers.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+    "https://proxmox.nas.ishioni.casa",
+    "https://proxmox-1.ishioni.casa",
+    "https://proxmox-2.ishioni.casa",
+    "https://proxmox-3.ishioni.casa",
+    "https://proxmox-4.ishioni.casa"
   ]
 }
 
