@@ -70,25 +70,25 @@ data:
             icon: home-assistant.svg
             widget:
               type: homeassistant
-              url: http://homeassistant.${IOT_DOMAIN}:8123
+              url: http://homeassistant.${HOME_DOMAIN}:8123
               key: {{HOMEPAGE_VAR_HASS_TOKEN}}
     - Infrastructure:
         - Unifi:
-            href: https://unifi.${NETWORK_DOMAIN}
+            href: https://unifi.${HOME_DOMAIN}
             icon: unifi.png
             description: Unifi Dashboard
             widget:
               type: unifi
-              url: https://unifi.${NETWORK_DOMAIN}
+              url: https://unifi.${HOME_DOMAIN}
               username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - TrueNAS:
-            href: https://quadrant.${SERVERS_DOMAIN}
+            href: https://quadrant.${HOME_DOMAIN}
             icon: truenas.png
             description: NAS
             widget:
               type: truenas
-              url: https://quadrant.${SERVERS_DOMAIN}
+              url: https://quadrant.${HOME_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
         - Proxmox:
             href: https://proxmox.${SERVICES_DOMAIN}
