@@ -33,19 +33,19 @@ spec:
             env:
               EXTERNAL_DNS_RFC2136_HOST: 10.5.0.3
               EXTERNAL_DNS_RFC2136_PORT: "53"
-              EXTERNAL_DNS_RFC2136_ZONE: "${SECRET_DOMAIN}"
+              EXTERNAL_DNS_RFC2136_ZONE: "${HOME_DOMAIN}"
               EXTERNAL_DNS_RFC2136_TSIG_AXFR: "true"
             envFrom:
               - secretRef:
                   name: *secret
             args:
               - --provider=rfc2136
-              - --domain-filter="${SECRET_DOMAIN}"
+              - --domain-filter="${NAS_DOMAIN}"
               - --source=ingress
               - --source=service
               - --registry=txt
-              - --txt-owner-id=talos
-              - --txt-prefix=talos.
+              - --txt-owner-id=truenas
+              - --txt-prefix=truenas.
               - --policy=sync
               - --interval=1m
               - --log-format=text
