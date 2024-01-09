@@ -35,7 +35,6 @@ spec:
       service:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
           io.cilium/lb-ipam-ips: "${CONFIG_INGRESS_PRIVATE_IP}"
       admissionWebhooks:
         objectSelector:
