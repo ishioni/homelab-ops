@@ -7,83 +7,54 @@ metadata:
 spec:
   chart:
     spec:
-      chart: app-template
-      version: 2.4.0
+      chart: external-dns
+      version: 1.13.1
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: external-dns
         namespace: flux-system
   interval: 30m
   values:
-    controllers:
-      main:
-        strategy: Recreate
-        annotations:
-          secret.reloader.stakater.com/reload: &secret externaldns-bind-secret
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-        containers:
-          main:
-            image:
-              repository: registry.k8s.io/external-dns/external-dns
-              tag: v0.14.0
-            env:
-              EXTERNAL_DNS_RFC2136_HOST: 10.5.0.3
-              EXTERNAL_DNS_RFC2136_PORT: "53"
-              EXTERNAL_DNS_RFC2136_ZONE: "${SECRET_DOMAIN}"
-              EXTERNAL_DNS_RFC2136_TSIG_AXFR: "true"
-            envFrom:
-              - secretRef:
-                  name: *secret
-            args:
-              - --provider=rfc2136
-              - --domain-filter="${SECRET_DOMAIN}"
-              - --source=ingress
-              - --source=service
-              - --registry=txt
-              - --txt-owner-id=talos
-              - --txt-prefix=talos.
-              - --policy=sync
-              - --interval=1m
-              - --log-format=text
-              - --log-level=info
-              - --metrics-address=:7979
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthz
-                    port: &port 7979
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-              startup:
-                enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 25m
-                memory: 100Mi
-              limits:
-                memory: 250Mi
-    serviceAccount:
-      create: true
-      name: *app
-    service:
-      main:
-        ports:
-          http:
-            port: *port
-    serviceMonitor:
-      main:
-        enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: &secret externaldns-bind-secret
+    domainFilters: [movishell.pl]
+    policy: sync
+    provider: rfc2136
+    sources: [ingress, service]
+    txtPrefix: talos.
+    txtOwnerId: talos
+    env:
+      - name: EXTERNAL_DNS_RFC2136_HOST
+        value: 10.5.0.2
+      - name: EXTERNAL_DNS_RFC2136_PORT
+        value: "53"
+      - name: EXTERNAL_DNS_RFC2136_ZONE
+        value: movishell.pl
+      - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
+        value: "true"
+      - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
+      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
+      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              - op: add
+                path: /spec/template/spec/enableServiceLinks
+                value: false
