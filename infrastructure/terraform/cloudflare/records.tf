@@ -16,6 +16,14 @@ resource "cloudflare_record" "root" {
   ttl     = 300
 }
 
+resource "cloudflare_record" "external" {
+  name    = "external"
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  value   = chomp(data.http.ipv4.response_body)
+  type    = "A"
+  ttl     = 300
+}
+
 resource "cloudflare_record" "mail-1" {
   name    = "mail"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
