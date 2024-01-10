@@ -147,7 +147,7 @@ module "oauth2-proxmox" {
   source             = "./oauth2_application"
   name               = "Proxmox"
   icon_url           = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
-  launch_url         = "https://proxmox.nas.ishioni.casa"
+  launch_url         = "https://proxmox.ishioni.casa"
   description        = "Virtualization"
   newtab             = true
   group              = "Infrastructure"
@@ -156,7 +156,7 @@ module "oauth2-proxmox" {
   client_id          = module.secret_proxmox.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_proxmox.fields["OIDC_CLIENT_SECRET"]
   redirect_uris = [
-    "https://proxmox.nas.ishioni.casa",
+    "https://proxmox.ishioni.casa",
     "https://proxmox-1.ishioni.casa",
     "https://proxmox-2.ishioni.casa",
     "https://proxmox-3.ishioni.casa",
