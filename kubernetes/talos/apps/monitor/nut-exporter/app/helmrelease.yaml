@@ -48,7 +48,7 @@ spec:
             path: *metrics
             scrapeTimeout: 10s
             params:
-              target: ["quadrant.ishioni.casa:3493"]
+              target: ["quadrant.kubernetes.internal:3493"]
             relabelings:
               - sourceLabels: [__param_target]
                 targetLabel: target
