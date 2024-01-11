@@ -38,7 +38,7 @@ module "secret_unifi" {
 }
 
 provider "proxmox" {
-  endpoint = module.secret_pve.fields.PM_API_URL
+  endpoint = "https://proxmox.ishioni.casa"
   username = module.secret_pve.fields.username
   password = module.secret_pve.fields.password
   insecure = false
@@ -47,5 +47,5 @@ provider "proxmox" {
 provider "unifi" {
   username = module.secret_unifi.fields.username
   password = module.secret_unifi.fields.password
-  api_url  = module.secret_unifi.fields.api_url
+  api_url  = "https://ui.ishioni.casa"
 }

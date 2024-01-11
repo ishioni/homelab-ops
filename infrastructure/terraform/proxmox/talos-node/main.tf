@@ -6,8 +6,5 @@ terraform {
     macaddress = {
       source = "ivoronin/macaddress"
     }
-    unifi = {
-      source = "paultyng/unifi"
-    }
   }
 }

@@ -1,4 +1,4 @@
-data "unifi_network" "kubernetes" {
+data "unifi_network" "Kubernetes" {
   name = "Kubernetes"
 }
 
@@ -14,11 +14,10 @@ module "controlplanes" {
   qemu_agent      = true
   cpu_cores       = 4
   memory          = 4 * 1024
-  vlan_id         = data.unifi_network.kubernetes.vlan_id
+  vlan_id         = data.unifi_network.Kubernetes.vlan_id
   storage         = "local-zfs"
   storage_size    = 20
-  network_id      = data.unifi_network.kubernetes.id
-  ip_address      = cidrhost("10.1.4.0/24", 10 + count.index)
+  network_id      = data.unifi_network.Kubernetes.id
 }
 
 module "workers" {
@@ -35,9 +34,8 @@ module "workers" {
   cpu_cores       = 8
   memory          = 24 * 1024
   gpu_gvtd        = true
-  vlan_id         = data.unifi_network.kubernetes.vlan_id
+  vlan_id         = data.unifi_network.Kubernetes.vlan_id
   storage         = "local-zfs"
   storage_size    = 40
-  network_id      = data.unifi_network.kubernetes.id
-  ip_address      = cidrhost("10.1.4.0/24", 20 + count.index)
+  network_id      = data.unifi_network.Kubernetes.id
 }
