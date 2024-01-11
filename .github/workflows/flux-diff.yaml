@@ -74,7 +74,7 @@ jobs:
         uses: allenporter/flux-local/action/diff@4.2.2
         id: diff
         with:
-          sources: home-ops-kubernetes
+          sources: homelab-ops
           live-branch: master
           path: "${{ matrix.paths }}"
           resource: "${{ matrix.resources }}"
