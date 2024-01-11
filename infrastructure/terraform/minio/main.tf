@@ -22,7 +22,7 @@ module "onepassword_item_minio" {
 }
 
 provider "minio" {
-  minio_server   = module.onepassword_item_minio.fields.server
+  minio_server   = "s3.nas.ishioni.casa"
   minio_user     = module.onepassword_item_minio.fields.username
   minio_password = module.onepassword_item_minio.fields.password
   minio_ssl      = true
