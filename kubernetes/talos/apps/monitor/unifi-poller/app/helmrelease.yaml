@@ -20,6 +20,12 @@ spec:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: &secret unifi-poller-secret
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           main:
             image:
@@ -30,12 +36,7 @@ spec:
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://ui.${HOME_DOMAIN}
               UP_UNIFI_DEFAULT_VERIFY_SSL: true
-              UP_UNIFI_DEFAULT_USER: unifipoller
-              UP_UNIFI_DEFAULT_SAVE_SITES: true
-              UP_UNIFI_DEFAULT_SAVE_DPI: true
               UP_INFLUXDB_DISABLE: true
-              UP_PROMETHEUS_DISABLE: false
-              UP_PROMETHEUS_NAMESPACE: unpoller
             envFrom:
               - secretRef:
                   name: *secret

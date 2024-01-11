@@ -204,14 +204,6 @@ spec:
             allowUiUpdates: true
             options:
               path: /var/lib/grafana/dashboards/system
-          - name: "unifi"
-            orgId: 1
-            folder: "Unifi"
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/unifi
     dashboards:
       flux:
         flux-cluster:
@@ -283,6 +275,21 @@ spec:
           gnetId: 35038
           revision: 3
           datasource: Prometheus
+        unifi-usw-insights:
+          # renovate: depName="Unifi USW"
+          gnetId: 11312
+          revision: 9
+          datasource: Prometheus
+        unifi-uap-insights:
+          # renovate: depName="Unifi UAP"
+          gnetId: 11314
+          revision: 10
+          datasource: Prometheus
+        unifi-client-insights:
+          # renovate: depName="Unifi Client"
+          gnetId: 11315
+          revision: 9
+          datasource: Prometheus
       storage:
         cnpg-dashboard:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.21.0/docs/src/samples/monitoring/grafana-dashboard.json
@@ -315,34 +322,3 @@ spec:
           revision: 2
           datasource:
             - {name: DS_GRAFANACLOUD-DENYAGO-PROM, value: Prometheus}
-      unifi:
-        unifi-dpi-insights:
-          # renovate: depName="Unifi DPI"
-          gnetId: 11310
-          revision: 5
-          datasource: Prometheus
-        unifi-network-sites:
-          # renovate: depName="Unifi Sites"
-          gnetId: 11311
-          revision: 5
-          datasource: Prometheus
-        unifi-usw-insights:
-          # renovate: depName="Unifi USW"
-          gnetId: 11312
-          revision: 9
-          datasource: Prometheus
-        unifi-usg-insights:
-          # renovate: depName="Unifi USG"
-          gnetId: 11313
-          revision: 9
-          datasource: Prometheus
-        unifi-uap-insights:
-          # renovate: depName="Unifi UAP"
-          gnetId: 11314
-          revision: 10
-          datasource: Prometheus
-        unifi-client-insights:
-          # renovate: depName="Unifi Client"
-          gnetId: 11315
-          revision: 9
-          datasource: Prometheus
