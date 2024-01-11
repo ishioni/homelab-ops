@@ -75,6 +75,7 @@ jobs:
         id: diff
         with:
           sources: home-ops-kubernetes
+          live-branch: master
           path: "${{ matrix.paths }}"
           resource: "${{ matrix.resources }}"
 
