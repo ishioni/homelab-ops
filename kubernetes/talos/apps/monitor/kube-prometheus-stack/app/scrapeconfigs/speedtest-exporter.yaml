@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name speedtest-exporter
+spec:
+  staticConfigs: [targets: [gateway.ishioni.casa:9798]]
+  metricsPath: /metrics
+  scrapeInterval: 30m
+  scrapeTimeout: 60s
+  honorTimestamps: true
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
