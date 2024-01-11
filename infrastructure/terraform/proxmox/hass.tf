@@ -1,28 +1,14 @@
-data "unifi_network" "IOT" {
-  name = "IOT"
+data "unifi_network" "IoT" {
+  name = "IoT"
 }
 
 resource "macaddress" "homeassistant" {
 }
 
-resource "unifi_user" "homeassistant" {
-  mac              = macaddress.homeassistant.address
-  name             = "homeassistant"
-  local_dns_record = "homeassistant"
-  fixed_ip         = "10.1.3.2"
-  network_id       = data.unifi_network.IOT.vlan_id
-  dev_id_override  = 4589 #HA Cast icon
-}
-
-resource "time_sleep" "homeassistant" {
-  create_duration = "120s"
-  depends_on      = [unifi_user.homeassistant]
-}
-
 resource "proxmox_virtual_environment_vm" "homeassistant" {
   name          = "homeassistant"
   description   = "HASS OS managed by terraform"
-  node_name     = "proxmox-4"
+  node_name     = "proxmox-3"
   vm_id         = 3001
   on_boot       = true
   started       = true
@@ -63,7 +49,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
     enabled     = true
     model       = "virtio"
     mac_address = upper(macaddress.homeassistant.address)
-    vlan_id     = data.unifi_network.IOT.vlan_id
+    vlan_id     = data.unifi_network.IoT.vlan_id
   }
 
   vga {
@@ -79,7 +65,6 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
     interface    = "scsi0"
     size         = 32
   }
-  depends_on = [time_sleep.homeassistant]
   lifecycle {
     ignore_changes = []
   }

@@ -61,10 +61,6 @@ variable "storage_size" {
   default = 8
 }
 
-variable "ip_address" {
-  type = string
-}
-
 variable "network_id" {
   type = string
 }
