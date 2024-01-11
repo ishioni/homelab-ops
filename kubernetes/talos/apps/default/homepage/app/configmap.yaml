@@ -100,11 +100,11 @@ data:
               username: {{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
         - MeshCentral:
-            href: https://meshcentral.${NAS_DOMAIN}
+            href: https://meshcentral.${HOME_DOMAIN}
             icon: meshcentral.png
             description: AMT
         - Minio:
-            href: https://minio.${NAS_DOMAIN}
+            href: https://minio.${HOME_DOMAIN}
             icon: minio.svg
             description: S3
   settings.yaml: |
