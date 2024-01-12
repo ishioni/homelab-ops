@@ -30,4 +30,4 @@ spec:
       enabled: true
     speaker:
       frr:
-        enabled: true
+        enabled: false
