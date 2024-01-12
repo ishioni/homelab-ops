@@ -21,7 +21,7 @@ spec:
     spec:
       env:
         - name: OP_CONNECT_HOST
-          value: https://opconnect.internal.${SECRET_DOMAIN}
+          value: http://opconnect.ishioni.casa:8438
         - name: OP_CONNECT_TOKEN
           valueFrom:
             secretKeyRef:
