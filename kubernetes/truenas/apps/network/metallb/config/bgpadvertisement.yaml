@@ -1,0 +1,8 @@
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: truenas
+spec:
+  ipAddressPools:
+    - bgp-address-pool
