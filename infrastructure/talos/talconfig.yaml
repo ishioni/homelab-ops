@@ -14,79 +14,67 @@ clusterSvcNets:
 cniConfig:
   name: none
 
-additionalApiServerCertSans:
+additionalApiServerCertSans: &san
   - ${clusterEndpointIP}
+  - ${clusterName}.${clusterDNSSuffix}
+  - "127.0.0.1" # KubePrism
 
-additionalMachineCertSans:
-  - ${clusterEndpointIP}
-  - ${clusterName}.${domainName}
+additionalMachineCertSans: *san
 
 domain: cluster.local
 
 nodes:
   - hostname: master-0.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.10
+    ipAddress: 10.1.2.30
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
-        mtu: 1500
+      - mtu: 1500
         dhcp: true
-        vip:
-          ip: ${clusterEndpointIP}
+
   - hostname: master-1.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.11
+    ipAddress: 10.1.2.31
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
-        mtu: 1500
+      - mtu: 1500
         dhcp: true
-        vip:
-          ip: ${clusterEndpointIP}
+
   - hostname: master-2.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.12
+    ipAddress: 10.1.2.32
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
-        mtu: 1500
+      - mtu: 1500
         dhcp: true
-        vip:
-          ip: ${clusterEndpointIP}
 
   - hostname: worker-0.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.20
+    ipAddress: 10.1.4.40
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
-        mtu: 1500
+      - mtu: 1500
         dhcp: true
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
+
   - hostname: worker-1.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.21
+    ipAddress: 10.1.4.41
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
-        mtu: 1500
+      - mtu: 1500
         dhcp: true
     nodeLabels: *workerLabels
+
   - hostname: worker-2.${domainName}
     disableSearchDomain: true
-    ipAddress: 10.1.4.22
+    ipAddress: 10.1.4.42
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
-        mtu: 1500
+      - mtu: 1500
         dhcp: true
     nodeLabels: *workerLabels
 
@@ -95,11 +83,81 @@ controlPlane:
     customization:
       extraKernelArgs:
         - net.ifnames=0
-        - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
   patches:
+    # Disable search domain everywhere
+    - &disableSearchDomainPatch |-
+      machine:
+        network:
+          disableSearchDomain: true
+    # Configure NTP
+    - &ntpPatch |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - 10.1.1.1
+    # Enable cluster discovery
+    - &discoveryPatch |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
+    # Enable KubePrism
+    - |-
+      machine:
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+    # Configure cluster loopback
+    - |-
+      machine:
+        network:
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - ${clusterName}.${clusterDNSSuffix}
+    # ETCD configuration
+    - |-
+      cluster:
+        etcd:
+          advertisedSubnets:
+            - 10.1.2.0/24
+
+    # Configure containerd
+    - |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+
+    # Disable default API server admission plugins.
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+    # Kubelet configuration
+    - |-
+      machine:
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true,NewVolumeManagerReconstruction=false
+            rotate-server-certificates: "true"
+          extraConfig:
+            maxPods: 150
+          nodeIP:
+            validSubnets:
+                - 10.1.1.0/24
     - |-
       cluster:
         apiServer:
@@ -173,10 +231,6 @@ controlPlane:
               endpoints:
                 - https://zot.${servicesDomain}/v2/public.ecr.aws
               overridePath: true
-
-    - |-
-      - op: remove
-        path: /cluster/apiServer/admissionControl
 
 worker:
   schematic:

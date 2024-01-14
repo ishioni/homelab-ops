@@ -61,10 +61,6 @@ variable "storage_size" {
   default = 8
 }
 
-variable "network_id" {
-  type = string
-}
-
 variable "qemu_agent" {
   type    = bool
   default = false
