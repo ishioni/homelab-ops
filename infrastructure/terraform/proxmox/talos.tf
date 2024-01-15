@@ -5,7 +5,7 @@ data "unifi_network" "Servers" {
 module "talos-controlplanes" {
   source          = "./talos-node"
   oncreate        = false
-  count           = 1
+  count           = 3
   machine_name    = "master-${count.index}"
   vmid            = sum([2030, count.index])
   target_node     = "proxmox-${count.index + 1}"
@@ -17,6 +17,10 @@ module "talos-controlplanes" {
   vlan_id         = data.unifi_network.Servers.vlan_id
   storage         = "local-zfs"
   storage_size    = 20
+}
+
+output "cp-macaddresses" {
+  value = module.talos-controlplanes[*].macaddr
 }
 
 module "talos-workers" {
@@ -31,9 +35,13 @@ module "talos-workers" {
   qemu_agent      = true
   uefi             = false #gvtd doesn't play nice with UEFI
   cpu_cores       = 8
-  memory          = 24 * 1024
+  memory          = 8 * 1024
   gpu_gvtd        = true
   vlan_id         = data.unifi_network.Servers.vlan_id
   storage         = "local-zfs"
   storage_size    = 40
+}
+
+output "workers-macaddresses" {
+  value = module.talos-workers[*].macaddr
 }
