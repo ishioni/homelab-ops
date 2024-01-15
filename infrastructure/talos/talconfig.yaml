@@ -168,8 +168,14 @@ controlPlane:
               - os:admin
             allowedKubernetesNamespaces:
               - kube-system
+    # Force nameserver
+    - &nameserverPatch |-
+      machine:
+        network:
+          nameservers:
+            - 10.1.2.1
     # Configure cluster loopback
-    - |-
+    - &staticHostEntriesPatch |-
       machine:
         network:
           extraHostEntries:
@@ -226,5 +232,7 @@ worker:
     - *kubeletFlagsPatch
     - *sysctlPatch
     - *disableSearchDomainPatch
+    - *nameserverPatch
+    - *staticHostEntriesPatch
     - *kubePrismPatch
     - *zotPatch
