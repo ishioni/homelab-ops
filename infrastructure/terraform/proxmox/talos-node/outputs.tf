@@ -6,6 +6,6 @@
 #   value = proxmox_vm_qemu.node.name
 # }
 
-# output "macaddr" {
-#   value = proxmox_virtual_environment_vm.network_device[0].macaddr
-# }
+output "macaddr" {
+  value = macaddress.node.address
+}
