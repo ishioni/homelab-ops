@@ -2,7 +2,7 @@
 version: "3"
 
 vars:
-  DOMAIN: "kubernetes.internal"
+  DOMAIN: "ishioni.casa"
   # renovate: datasource=github-releases depName=siderolabs/talos
   TALOS_VERSION: "v1.6.1"
   # renovate: datasource=github-releases depName=siderolabs/kubelet
@@ -41,7 +41,7 @@ tasks:
 
   upgrade:
     internal: false
-    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=master-0 IP=10.1.4.10)
+    desc: Upgrade a single node to Talos version {{ .TALOS_VERSION }} (task talos:upgrade NODE=master-0 IP=10.1.2.10)
     dir: infrastructure/talos
     status:
       - talosctl version -n {{ .NODE }}.{{ .DOMAIN }} --short | grep 'Tag.*{{ .TALOS_VERSION }}'
@@ -72,17 +72,17 @@ tasks:
     cmds:
       - task: generate
       - task: apply-insecure
-        vars: {IP: "10.1.4.10", NODE: "master-0"}
+        vars: {IP: "10.1.2.30", NODE: "master-0"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.11", NODE: "master-1"}
+        vars: {IP: "10.1.2.31", NODE: "master-1"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.12", NODE: "master-2"}
+        vars: {IP: "10.1.2.32", NODE: "master-2"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.20", NODE: "worker-0"}
+        vars: {IP: "10.1.2.40", NODE: "worker-0"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.21", NODE: "worker-1"}
+        vars: {IP: "10.1.2.41", NODE: "worker-1"}
       - task: apply-insecure
-        vars: {IP: "10.1.4.22", NODE: "worker-2"}
+        vars: {IP: "10.1.2.42", NODE: "worker-2"}
       - echo "Wait for install"
       - sleep 180
       - echo "Bootstrapping etcd"
@@ -124,18 +124,18 @@ tasks:
       - task: generate
       # control-plane
       - task: upgrade
-        vars: {NODE: master-0, IP: "10.1.4.10"}
+        vars: {NODE: master-0, IP: "10.1.2.30"}
       - task: upgrade
-        vars: {NODE: master-1, IP: "10.1.4.11"}
+        vars: {NODE: master-1, IP: "10.1.2.31"}
       - task: upgrade
-        vars: {NODE: master-2, IP: "10.1.4.12"}
+        vars: {NODE: master-2, IP: "10.1.2.32"}
       # workers
       - task: upgrade
-        vars: {NODE: worker-0, IP: "10.1.4.20"}
+        vars: {NODE: worker-0, IP: "10.1.2.40"}
       - task: upgrade
-        vars: {NODE: worker-1, IP: "10.1.4.21"}
+        vars: {NODE: worker-1, IP: "10.1.2.41"}
       - task: upgrade
-        vars: {NODE: worker-2, IP: "10.1.4.22"}
+        vars: {NODE: worker-2, IP: "10.1.2.42"}
 
   upgrade:k8s:
     dir: infrastructure/talos
