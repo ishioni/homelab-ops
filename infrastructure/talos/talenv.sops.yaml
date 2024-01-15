@@ -1,7 +1,7 @@
 clusterName: ENC[AES256_GCM,data:71EPflM=,iv:V4UzCP30SoIrVHiDO/ka2l3toYYO64MCWw7zfRWy6WQ=,tag:/pPNyjk0sFnNsHNhv6Kb3w==,type:str]
 clusterEndpointIP: ENC[AES256_GCM,data:oLfOMCzneb4=,iv:K1/qPhrb+DI0LV6gDzCgV+hK8ee1CK4ITqdf0dzjUVw=,tag:06WlKVRKXo1mSYxVqlQh2A==,type:str]
-domainName: ENC[AES256_GCM,data:9gYDAqJwpWfbbica,iv:RFAYrojObkFYZkJ0DhsQQdA7BzYL43ArtL0Kk1nNrKo=,tag:jNBxs5dob5lImwMWamEzGg==,type:str]
-servicesDomain: ENC[AES256_GCM,data:ehX0ZJpRexCqyFm/7LSmLA==,iv:sOUBgovRYT2EceezrN/GrPIQVaaA+TyL4IZ9Eve6AzM=,tag:7vFWRYHE7mEqIF4+zfqYfg==,type:str]
+clusterDNSSuffix: ENC[AES256_GCM,data:aOREFbrNitLBMDj4,iv:IgfJ0Fg+JA8xo4QqsPQqy1e44LTPa7dg74k6idHLlH4=,tag:5AFUaZcYdO9j5qL4+i2I0A==,type:str]
+zotEndpoint: ENC[AES256_GCM,data:sf6Q8IL5MUlRO+a9zGcaZSQSHf0=,iv:rhf2BMiQET0dzNMUv7lQzgZncU5jzNx9aytkHFmlEGw=,tag:TZzhXLKQXpUu6K94X6z1lg==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -17,8 +17,8 @@ sops:
             VE8vbmpjbVphZDNtNFFPN0tONWIyVUEK+oOd2+fuoCtqal1DQ5+K8wfOwdphKI1v
             +DG5JZqUj5rsf9imjS5jd8yiqv/s3TFaF7n+k1TKlxFYo8VYjhn1sQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-14T22:47:15Z"
-    mac: ENC[AES256_GCM,data:tJ+xCUdnaCBgKtSxWkCHlGEOQfjevq2wQ3GuP/nDakveGSn12i3Rso5KJ+S+OuFeMIYTihomsVUaFy/eRsjDuW1XeKUh6T5Tj29irE8w3sQh5oyaorPBfYxiMEQxSHMkuVKOZk8YZwlLEUzH5eKyE/bsfmaCdvdKE9NapJXoPpk=,iv:nxUccGwANv3GRtTZHn1h30SE8QN3MA0hiNW9MYhBBig=,tag:Y3MaeojEUz+rtou7mzwYnw==,type:str]
+    lastmodified: "2024-01-15T14:37:24Z"
+    mac: ENC[AES256_GCM,data:z+DreF9qiyeD+DTeiQwI1N6uJxIzqKw+1R/y5omO8AP4olIltAEJ7DpAj4JJTGTZw/MqgG7c8fdehRQdoMBgQdgAsZTGDayBv/Yj1NWfPFE02MPByYCmeK2AxU7pMv3mloCul834POS7NRPWtaO6U/T9iy1ONgIteiv8+t2gqzw=,iv:FKhtZmgzfGYP3RNMFMn5dgxuaEj1RTNbYx23ticrm4M=,tag:f++ZISwyVgXt+OKFtngbzw==,type:str]
     pgp: []
     unencrypted_regex: ^(kind)$
     version: 3.8.1

@@ -5,3 +5,9 @@ talos-worker-0.kubernetes.internal.yaml
 talos-worker-1.kubernetes.internal.yaml
 talos-worker-2.kubernetes.internal.yaml
 talosconfig
+talos-master-0.ishioni.casa.yaml
+talos-master-1.ishioni.casa.yaml
+talos-master-2.ishioni.casa.yaml
+talos-worker-0.ishioni.casa.yaml
+talos-worker-1.ishioni.casa.yaml
+talos-worker-2.ishioni.casa.yaml
