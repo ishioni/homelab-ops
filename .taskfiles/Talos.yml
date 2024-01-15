@@ -50,7 +50,7 @@ tasks:
         vars: {TIMEOUT: 10m}
       - task: apply
         vars: {NODE: "{{ .NODE }}", CLI_ARGS: "-m no-reboot"}
-      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} -m powercycle --image $(talhelper genurl installer -n {{ .IP }})
+      - talosctl upgrade -n {{ .NODE }}.{{ .DOMAIN }} -m powercycle --image $(talhelper genurl installer -n {{ .NODE }}.{{ DOMAIN }})
 
   init:
     desc: Init talosctl and grab kubeconfig (task talos:init)
@@ -124,18 +124,18 @@ tasks:
       - task: generate
       # control-plane
       - task: upgrade
-        vars: {NODE: master-0, IP: "10.1.2.30"}
+        vars: {NODE: master-0}
       - task: upgrade
-        vars: {NODE: master-1, IP: "10.1.2.31"}
+        vars: {NODE: master-1}
       - task: upgrade
-        vars: {NODE: master-2, IP: "10.1.2.32"}
+        vars: {NODE: master-2}
       # workers
       - task: upgrade
-        vars: {NODE: worker-0, IP: "10.1.2.40"}
+        vars: {NODE: worker-0}
       - task: upgrade
-        vars: {NODE: worker-1, IP: "10.1.2.41"}
+        vars: {NODE: worker-1}
       - task: upgrade
-        vars: {NODE: worker-2, IP: "10.1.2.42"}
+        vars: {NODE: worker-2}
 
   upgrade:k8s:
     dir: infrastructure/talos
