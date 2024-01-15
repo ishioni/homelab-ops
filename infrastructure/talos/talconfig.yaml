@@ -138,7 +138,7 @@ controlPlane:
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true,CronJobTimeZone=true
+            feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: "true"
     # Sysctl
     - &sysctlPatch |-
