@@ -84,14 +84,14 @@ tasks:
         vars: {IP: "10.1.2.41", NODE: "worker-1"}
       - task: apply-insecure
         vars: {IP: "10.1.2.42", NODE: "worker-2"}
-      # - echo "Wait for install"
-      # - sleep 180
-      # - echo "Bootstrapping etcd"
-      # - talosctl bootstrap -n master-0.{{ .DOMAIN }}
-      # - sleep 180
-      # - task: init
-      # - kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}')
-      # - task: deploy-extras
+      - echo "Wait for install"
+      - sleep 180
+      - echo "Bootstrapping etcd"
+      - talosctl bootstrap -n master-0.{{ .DOMAIN }}
+      - sleep 180
+      - task: init
+      - kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}')
+      - task: deploy-extras
 
   apply:
     desc: Apply Talos config to a specific node (task talos:apply NODE=k8s-control01)
