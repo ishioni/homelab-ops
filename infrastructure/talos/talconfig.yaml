@@ -214,7 +214,7 @@ controlPlane:
           kubernetesTalosAPIAccess:
             enabled: true
             allowedRoles:
-              - os:admin
+              - os:etcd:backup
             allowedKubernetesNamespaces:
               - kube-system
     # Disable default API server admission plugins.
