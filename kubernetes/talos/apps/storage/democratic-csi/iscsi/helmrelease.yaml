@@ -40,7 +40,7 @@ spec:
     csiProxy:
       image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.3
     csiDriver:
-      name: org.democratic-csi.iscsi
+      name: org.democratic-csi.iscsi-ssd
     storageClasses:
       - name: truenas-ssd-iscsi
         defaultClass: true
@@ -60,7 +60,7 @@ spec:
           controller-expand-secret:
     volumeSnapshotClasses:
       - name: truenas-ssd-iscsi
-        driver: org.democratic-csi.iscsi
+        driver: org.democratic-csi.iscsi-ssd
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
