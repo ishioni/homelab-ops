@@ -6,8 +6,8 @@ metadata:
   name: talos-system-talos-backup
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/talos-system/talos-backup/app
-  targetNamespace: talos-system
+  path: ./kubernetes/talos/apps/kube-system/talos-backup/app
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: homelab-ops

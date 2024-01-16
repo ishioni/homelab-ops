@@ -1,11 +1,11 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
-clusterName: ${clusterName}
+clusterName: talos
 # renovate: datasource=github-releases depName=siderolabs/talos
 talosVersion: v1.6.1
 # renovate: datasource=github-releases depName=siderolabs/kubelet
 kubernetesVersion: v1.29.0
-endpoint: "https://${clusterName}.${domainName}:6443"
+endpoint: "https://${clusterName}.${clusterDNSSuffix}:6443"
 
 clusterPodNets:
   - 172.16.0.0/16
@@ -14,53 +14,43 @@ clusterSvcNets:
 cniConfig:
   name: none
 
-additionalApiServerCertSans:
+additionalApiServerCertSans: &san
   - ${clusterEndpointIP}
+  - ${clusterName}.${clusterDNSSuffix}
+  - "127.0.0.1" # KubePrism
 
-additionalMachineCertSans:
-  - ${clusterEndpointIP}
-  - ${clusterName}.${domainName}
-
-domain: cluster.local
+additionalMachineCertSans: *san
 
 nodes:
-  - hostname: master-0.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.10
+  - hostname: master-0.${clusterDNSSuffix}
+    ipAddress: 10.1.2.30
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
       - interface: eth0
         mtu: 1500
         dhcp: true
-        vip:
-          ip: ${clusterEndpointIP}
-  - hostname: master-1.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.11
-    controlPlane: true
-    installDisk: /dev/sda
-    networkInterfaces:
-      - interface: eth0
-        mtu: 1500
-        dhcp: true
-        vip:
-          ip: ${clusterEndpointIP}
-  - hostname: master-2.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.12
-    controlPlane: true
-    installDisk: /dev/sda
-    networkInterfaces:
-      - interface: eth0
-        mtu: 1500
-        dhcp: true
-        vip:
-          ip: ${clusterEndpointIP}
 
-  - hostname: worker-0.${domainName}
-    disableSearchDomain: true
-    ipAddress: 10.1.4.20
+  - hostname: master-1.${clusterDNSSuffix}
+    ipAddress: 10.1.2.31
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+
+  - hostname: master-2.${clusterDNSSuffix}
+    ipAddress: 10.1.2.32
+    controlPlane: true
+    installDisk: /dev/sda
+    networkInterfaces:
+      - interface: eth0
+        mtu: 1500
+        dhcp: true
+
+  - hostname: worker-0.${clusterDNSSuffix}
+    ipAddress: 10.1.2.40
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -69,9 +59,10 @@ nodes:
         dhcp: true
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
-  - hostname: worker-1.${domainName}
+
+  - hostname: worker-1.${clusterDNSSuffix}
     disableSearchDomain: true
-    ipAddress: 10.1.4.21
+    ipAddress: 10.1.2.41
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -79,9 +70,10 @@ nodes:
         mtu: 1500
         dhcp: true
     nodeLabels: *workerLabels
-  - hostname: worker-2.${domainName}
+
+  - hostname: worker-2.${clusterDNSSuffix}
     disableSearchDomain: true
-    ipAddress: 10.1.4.22
+    ipAddress: 10.1.2.42
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -89,91 +81,143 @@ nodes:
         mtu: 1500
         dhcp: true
     nodeLabels: *workerLabels
+
+patches:
+  # Force nameserver
+  - &nameserverPatch |-
+    machine:
+      network:
+        nameservers:
+          - 10.1.2.1
+  # Enable unprivileged ports
+  - &containerdPatch |-
+    machine:
+      files:
+        - op: create
+          path: /etc/cri/conf.d/20-customization.part
+          content: |
+            [plugins]
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+  # Kubelet flags
+  - &kubeletFlagsPatch |-
+    machine:
+      kubelet:
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true
+          rotate-server-certificates: "true"
+        nodeIP:
+          validSubnets:
+            - 10.1.2.0/24
+  # Sysctl
+  - &sysctlPatch |-
+    machine:
+      sysctls:
+        fs.inotify.max_user_watches: 1048576
+        fs.inotify.max_user_instances: 8192
+  # Enable KubePrism
+  - &kubePrismPatch |-
+    machine:
+      features:
+        kubePrism:
+          enabled: true
+          port: 7445
+  # Disable search domain everywhere
+  - &disableSearchDomainPatch |-
+    machine:
+      network:
+        disableSearchDomain: true
+  # Configure cluster loopback
+  - &staticHostEntriesPatch |-
+    machine:
+      network:
+        extraHostEntries:
+          - ip: ${clusterEndpointIP}
+            aliases:
+              - ${clusterName}.${clusterDNSSuffix}
+  # ZOT
+  - &zotPatch |-
+    machine:
+      registries:
+        mirrors:
+          docker.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/docker.io
+            overridePath: true
+          ghcr.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/ghcr.io
+            overridePath: true
+          quay.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/quay.io
+            overridePath: true
+          gcr.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/gcr.io
+            overridePath: true
+          registry.k8s.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/registry.k8s.io
+            overridePath: true
+          public.ecr.aws:
+            endpoints:
+              - https://${zotEndpoint}/v2/public.ecr.aws
+            overridePath: true
 
 controlPlane:
   schematic:
     customization:
       extraKernelArgs:
         - net.ifnames=0
-        - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
   patches:
+    # Enable metrics scraping
     - |-
       cluster:
-        apiServer:
         controllerManager:
-          extraArgs:
-            bind-address: 0.0.0.0
-        discovery:
-          registries:
-            service:
-              disabled: true
-        proxy:
-          disabled: true
-        scheduler:
           extraArgs:
             bind-address: 0.0.0.0
         etcd:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
-      machine:
-        files:
-          - content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
-            path: /etc/cri/conf.d/20-customization.part
-            op: create
-        kubelet:
+        scheduler:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true
-            rotate-server-certificates: "true"
-        logging:
-          destinations:
-            - endpoint: udp://${vectorEndpointIP}:6002/
-              format: json_lines
-        sysctls:
-          fs.inotify.max_user_watches: "1048576"
-          fs.inotify.max_user_instances: "8192"
+            bind-address: 0.0.0.0
+    # Enable cluster discovery
+    - |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
+    # Disable kube-proxy
+    - |
+      cluster:
+        proxy:
+          disabled: true
+    # etcd configuration
+    - |-
+      cluster:
+        etcd:
+          advertisedSubnets:
+            - 10.1.2.0/24
+    # Enable K8s Talos API Access
+    - |-
+      machine:
         features:
-          kubePrism:
-            enabled: true
           kubernetesTalosAPIAccess:
             enabled: true
             allowedRoles:
-              - os:etcd:backup
+              - os:admin
             allowedKubernetesNamespaces:
-              - talos-system
-        registries:
-          mirrors:
-            docker.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/docker.io
-              overridePath: true
-            ghcr.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/ghcr.io
-              overridePath: true
-            quay.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/quay.io
-              overridePath: true
-            gcr.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/gcr.io
-              overridePath: true
-            registry.k8s.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/registry.k8s.io
-              overridePath: true
-            public.ecr.aws:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/public.ecr.aws
-              overridePath: true
-
+              - kube-system
+    # Disable default API server admission plugins.
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
@@ -184,60 +228,8 @@ worker:
       extraKernelArgs:
         - net.ifnames=0
         - i915.disable_display=true
-        - talos.logging.kernel=udp://${vectorEndpointIP}:6001/
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
           - siderolabs/i915-ucode
           - siderolabs/iscsi-tools
-  patches:
-    - |-
-      machine:
-        files:
-          - content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
-            path: /etc/cri/conf.d/20-customization.part
-            op: create
-        kubelet:
-          extraArgs:
-            feature-gates: GracefulNodeShutdown=true
-            rotate-server-certificates: "true"
-        logging:
-          destinations:
-            - endpoint: udp://${vectorEndpointIP}:6002/
-              format: json_lines
-        sysctls:
-          fs.inotify.max_user_watches: "1048576"
-          fs.inotify.max_user_instances: "8192"
-        features:
-          kubePrism:
-            enabled: true
-        registries:
-          mirrors:
-            docker.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/docker.io
-              overridePath: true
-            ghcr.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/ghcr.io
-              overridePath: true
-            quay.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/quay.io
-              overridePath: true
-            gcr.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/gcr.io
-              overridePath: true
-            registry.k8s.io:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/registry.k8s.io
-              overridePath: true
-            public.ecr.aws:
-              endpoints:
-                - https://zot.${servicesDomain}/v2/public.ecr.aws
-              overridePath: true
