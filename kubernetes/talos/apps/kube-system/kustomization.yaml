@@ -11,3 +11,4 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./reloader/ks.yaml
+  - ./talos-backup/ks.yaml
