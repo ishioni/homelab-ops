@@ -6,3 +6,4 @@ spec:
   addresses:
     - ${CONFIG_TRUENAS_POOL_CIDR}
   autoAssign: true
+  avoidBuggyIPs: true
