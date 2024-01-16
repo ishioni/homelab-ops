@@ -73,9 +73,10 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 | Name                               | CIDR             |
 | ---------------------------------- | ---------------- |
-| Management VLAN                    | `192.168.1.0/24` |
-| Kubernetes Nodes VLAN              | `10.1.4.0/24`    |
-| Kubernetes external services (BGP) | `192.168.3.0/24` |
+| Network VLAN                       | `10.1.1.0/24`    |
+| Servers VLAN                       | `10.1.2.0/24`    |
+| TrueNAS external services (BGP)    | `10.84.1.0/24`   |
+| Talos external services (BGP)      | `10.84.2.0/24`   |
 | Kubernetes pods                    | `172.16.0.0/16`  |
 | Kubernetes services                | `10.100.0.0/16`  |
 

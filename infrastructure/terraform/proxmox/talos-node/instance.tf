@@ -1,4 +1,5 @@
 resource "macaddress" "node" {
+  prefix = [188, 36, 17]
 }
 
 resource "proxmox_virtual_environment_vm" "node" {
