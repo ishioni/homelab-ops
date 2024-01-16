@@ -24,3 +24,25 @@ spec:
       APP: *appname
       HOSTNAME: prometheus.internal.${SECRET_DOMAIN}
       ALERT_HOSTNAME: alerts.internal.${SECRET_DOMAIN}
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: monitor-kube-prometheus-stack-addons
+  namespace: flux-system
+spec:
+  path: ./kubernetes/talos/apps/monitor/kube-prometheus-stack/addons
+  targetNamespace: monitor
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname kube-prometheus-stack
+  prune: true
+  wait: true
+  interval: 10m
+  dependsOn:
+    - name: security-external-secrets
+    - name: monitor-kube-prometheus-stack
