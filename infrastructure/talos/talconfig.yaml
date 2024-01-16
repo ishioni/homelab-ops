@@ -82,6 +82,87 @@ nodes:
         dhcp: true
     nodeLabels: *workerLabels
 
+patches:
+  # Force nameserver
+  - &nameserverPatch |-
+    machine:
+      network:
+        nameservers:
+          - 10.1.2.1
+  # Enable unprivileged ports
+  - &containerdPatch |-
+    machine:
+      files:
+        - op: create
+          path: /etc/cri/conf.d/20-customization.part
+          content: |
+            [plugins]
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+  # Kubelet flags
+  - &kubeletFlagsPatch |-
+    machine:
+      kubelet:
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true
+          rotate-server-certificates: "true"
+  # Sysctl
+  - &sysctlPatch |-
+    machine:
+      sysctls:
+        fs.inotify.max_user_watches: 1048576
+        fs.inotify.max_user_instances: 8192
+  # Enable KubePrism
+  - &kubePrismPatch |-
+    machine:
+      features:
+        kubePrism:
+          enabled: true
+          port: 7445
+  # Disable search domain everywhere
+  - &disableSearchDomainPatch |-
+    machine:
+      network:
+        disableSearchDomain: true
+  # Configure cluster loopback
+  - &staticHostEntriesPatch |-
+    machine:
+      network:
+        extraHostEntries:
+          - ip: ${clusterEndpointIP}
+            aliases:
+              - ${clusterName}.${clusterDNSSuffix}
+  # ZOT
+  - &zotPatch |-
+    machine:
+      registries:
+        mirrors:
+          docker.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/docker.io
+            overridePath: true
+          ghcr.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/ghcr.io
+            overridePath: true
+          quay.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/quay.io
+            overridePath: true
+          gcr.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/gcr.io
+            overridePath: true
+          registry.k8s.io:
+            endpoints:
+              - https://${zotEndpoint}/v2/registry.k8s.io
+            overridePath: true
+          public.ecr.aws:
+            endpoints:
+              - https://${zotEndpoint}/v2/public.ecr.aws
+            overridePath: true
+
 controlPlane:
   schematic:
     customization:
@@ -97,8 +178,6 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
-        proxy:
-          disabled: true
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
@@ -122,42 +201,6 @@ controlPlane:
         etcd:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
-    # Enable unprivileged ports
-    - &containerdPatch |-
-      machine:
-        files:
-          - op: create
-            path: /etc/cri/conf.d/20-customization.part
-            content: |
-              [plugins]
-                [plugins."io.containerd.grpc.v1.cri"]
-                  enable_unprivileged_ports = true
-                  enable_unprivileged_icmp = true
-    # Kubelet flags
-    - &kubeletFlagsPatch |-
-      machine:
-        kubelet:
-          extraArgs:
-            feature-gates: GracefulNodeShutdown=true
-            rotate-server-certificates: "true"
-    # Sysctl
-    - &sysctlPatch |-
-      machine:
-        sysctls:
-          fs.inotify.max_user_watches: 1048576
-          fs.inotify.max_user_instances: 8192
-    # Enable KubePrism
-    - &kubePrismPatch |-
-      machine:
-        features:
-          kubePrism:
-            enabled: true
-            port: 7445
-    # Disable search domain everywhere
-    - &disableSearchDomainPatch |-
-      machine:
-        network:
-          disableSearchDomain: true
     # Enable K8s Talos API Access
     - |-
       machine:
@@ -168,49 +211,6 @@ controlPlane:
               - os:admin
             allowedKubernetesNamespaces:
               - kube-system
-    # Force nameserver
-    - &nameserverPatch |-
-      machine:
-        network:
-          nameservers:
-            - 10.1.2.1
-    # Configure cluster loopback
-    - &staticHostEntriesPatch |-
-      machine:
-        network:
-          extraHostEntries:
-            - ip: ${clusterEndpointIP}
-              aliases:
-                - ${clusterName}.${clusterDNSSuffix}
-    # ZOT
-    - &zotPatch |-
-      machine:
-        registries:
-          mirrors:
-            docker.io:
-              endpoints:
-                - https://${zotEndpoint}/v2/docker.io
-              overridePath: true
-            ghcr.io:
-              endpoints:
-                - https://${zotEndpoint}/v2/ghcr.io
-              overridePath: true
-            quay.io:
-              endpoints:
-                - https://${zotEndpoint}/v2/quay.io
-              overridePath: true
-            gcr.io:
-              endpoints:
-                - https://${zotEndpoint}/v2/gcr.io
-              overridePath: true
-            registry.k8s.io:
-              endpoints:
-                - https://${zotEndpoint}/v2/registry.k8s.io
-              overridePath: true
-            public.ecr.aws:
-              endpoints:
-                - https://${zotEndpoint}/v2/public.ecr.aws
-              overridePath: true
     # Disable default API server admission plugins.
     - |-
       - op: remove
@@ -227,12 +227,3 @@ worker:
           - siderolabs/qemu-guest-agent
           - siderolabs/i915-ucode
           - siderolabs/iscsi-tools
-  patches:
-    - *containerdPatch
-    - *kubeletFlagsPatch
-    - *sysctlPatch
-    - *disableSearchDomainPatch
-    - *nameserverPatch
-    - *staticHostEntriesPatch
-    - *kubePrismPatch
-    - *zotPatch
