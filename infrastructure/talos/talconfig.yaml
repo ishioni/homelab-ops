@@ -107,6 +107,9 @@ patches:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: "true"
+        nodeIP:
+          validSubnets:
+            - 10.1.2.0/24
   # Sysctl
   - &sysctlPatch |-
     machine:
@@ -178,6 +181,9 @@ controlPlane:
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
@@ -195,12 +201,12 @@ controlPlane:
       cluster:
         proxy:
           disabled: true
-    # Enable etcd metrics scraping
+    # etcd configuration
     - |-
       cluster:
         etcd:
-          extraArgs:
-            listen-metrics-urls: http://0.0.0.0:2381
+          advertisedSubnets:
+            - 10.1.2.0/24
     # Enable K8s Talos API Access
     - |-
       machine:
