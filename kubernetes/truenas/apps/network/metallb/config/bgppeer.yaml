@@ -4,6 +4,6 @@ kind: BGPPeer
 metadata:
   name: vyos
 spec:
-  myASN: 65501
+  myASN: 65500
   peerASN: 65500
   peerAddress: 10.1.2.1
