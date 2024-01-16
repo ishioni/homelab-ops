@@ -152,6 +152,6 @@ See the _awful_ [commit history](https://github.com/ishioni/homelab-ops/commits/
 
 ---
 
-## 🔏 License
+## 🔏 License:
 
 See [LICENSE](./LICENSE)
