@@ -47,7 +47,7 @@ spec:
         prometheusOperator: true
     kubeControllerManager:
       enabled: true
-      endpoints: &cp ["10.1.4.10", "10.1.4.11", "10.1.4.12"]
+      endpoints: &cp ["10.1.2.30", "10.1.2.31", "10.1.2.32"]
     kubeEtcd:
       enabled: true
       endpoints: *cp
