@@ -35,7 +35,7 @@ module "talos-workers" {
   qemu_agent      = true
   uefi             = false #gvtd doesn't play nice with UEFI
   cpu_cores       = 8
-  memory          = 8 * 1024
+  memory          = 24 * 1024
   gpu_gvtd        = true
   vlan_id         = data.unifi_network.Servers.vlan_id
   storage         = "local-zfs"
