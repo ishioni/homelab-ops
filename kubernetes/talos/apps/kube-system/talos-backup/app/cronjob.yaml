@@ -42,4 +42,4 @@ spec:
               name: tmp
             - name: talos-secrets
               secret:
-                secretName: talos-s3-backup
+                secretName: talos-s3-secret
