@@ -57,7 +57,6 @@ tasks:
     desc: Init talosctl and grab kubeconfig (task talos:init)
     cmds:
       - task: generate
-      - talosctl config merge infrastructure/talos/clusterconfig/talosconfig
       - talosctl --talosconfig=infrastructure/talos/clusterconfig/talosconfig kubeconfig -n master-0.{{ .DOMAIN }} $KUBECONFIG
 
   deploy-extras:
