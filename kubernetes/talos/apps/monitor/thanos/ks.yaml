@@ -19,3 +19,4 @@ spec:
   interval: 10m
   dependsOn:
     - name: security-external-secrets
+    - name: kube-prometheus-stack
