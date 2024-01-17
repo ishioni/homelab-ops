@@ -29,5 +29,6 @@ module "secret_unifi" {
 provider "unifi" {
   username = module.secret_unifi.fields.username
   password = module.secret_unifi.fields.password
-  api_url  = module.secret_unifi.fields.api_url
+  api_url  = "https://unifi.ishioni.casa:8443"
+  allow_insecure = true
 }
