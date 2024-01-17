@@ -43,7 +43,6 @@ spec:
         enabled: true
         endpoints:
           - port: http
-            interval: 30s
             scheme: http
             path: *metrics
             scrapeTimeout: 10s
