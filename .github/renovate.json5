@@ -11,6 +11,7 @@
     "local>ishioni/homelab-ops//.github/renovate/clusters.json5",
     "local>ishioni/homelab-ops//.github/renovate/commitMessage.json5",
     "local>ishioni/homelab-ops//.github/renovate/disabledDatasources.json5",
+    "local>ishioni/homelab-ops//.github/renovate/grafanaDashboards.json5",
     "local>ishioni/homelab-ops//.github/renovate/groups.json5",
     "local>ishioni/homelab-ops//.github/renovate/managers.json5",
     "local>ishioni/homelab-ops//.github/renovate/packageRules.json5",
