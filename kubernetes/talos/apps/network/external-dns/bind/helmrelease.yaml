@@ -47,6 +47,8 @@ spec:
           secretKeyRef:
             name: *secret
             key: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+    serviceMonitor:
+      enabled: true
   postRenderers:
     - kustomize:
         patches:
