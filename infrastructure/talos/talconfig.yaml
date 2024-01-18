@@ -57,8 +57,8 @@ nodes:
       - interface: eth0
         mtu: 1500
         dhcp: true
-    nodeLabels: &workerLabels
-      node-role.kubernetes.io/worker: worker
+    # nodeLabels: &workerLabels
+    #   node-role.kubernetes.io/worker: worker
 
   - hostname: worker-1.${clusterDNSSuffix}
     disableSearchDomain: true
@@ -69,7 +69,7 @@ nodes:
       - interface: eth0
         mtu: 1500
         dhcp: true
-    nodeLabels: *workerLabels
+    # nodeLabels: *workerLabels
 
   - hostname: worker-2.${clusterDNSSuffix}
     disableSearchDomain: true
@@ -80,7 +80,7 @@ nodes:
       - interface: eth0
         mtu: 1500
         dhcp: true
-    nodeLabels: *workerLabels
+    # nodeLabels: *workerLabels
 
 patches:
   # Force nameserver
