@@ -41,7 +41,6 @@ My cluster is [talos](https://talos.dev/) running on proxmox VMs. This is a semi
 - [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider
 - [external-secrets](https://github.com/external-secrets/external-secrets/): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect)
-- [k8s-gateway](https://gateway-api.sigs.k8s.io/): Runs a separate internal-only DNS zone for some services
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS
 - [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes, Ansible and Terraform which are commited to Git
 - [Democratic CSI](https://github.com/democratic-csi/democratic-csi): Provides block and NFS storage provisioning
@@ -101,27 +100,15 @@ The alternative solution to these two problems would be to host a Kubernetes clu
 
 ## 🌐 DNS
 
-### (Public) Ingress Controller
+### Home DNS
 
-Over WAN, I have port forwarded ports `80` and `443` to the load balancer IP of my ingress controller that's running in my Kubernetes cluster. This is then managed by BGP to point to the right nodes.
+On my Vyos router I have [Bind9](https://github.com/isc-projects/bind9) and [dnsdist](https://dnsdist.org/) deployed as containers. In my cluster `external-dns` is deployed with the `RFC2136` provider which syncs DNS records to `bind9`.
 
-### Split-horizon DNS
+Downstream DNS servers configured in `dnsdist` such as `bind9` (above) and [AdGuard DNS](https://adguard-dns.io/en/public-dns.html). All my clients use `dnsdist` as the upstream DNS server, this allows for more granularity with configuring DNS across my networks. These could be things like giving each of my VLANs a specific `adguard` profile, or having all requests for my domain forward to `bind9` on certain networks, or only using `1.1.1.1` instead of `adguard` on certain networks where adblocking isn't required.
 
-[dnsmasq](https://thekelleys.org.uk/dnsmasq/doc.html) is running on my `USG Pro 4` and all DNS queries for **internal** domains are forwarded to [k8s_gateway](https://github.com/ori-edge/k8s_gateway) that is running in my cluster. With this setup `k8s_gateway` has direct access to my clusters ingresses and services and serves DNS for them in my internal network.
+### Public DNS
 
-### Ad Blocking
-
-[AdGuard DNS](https://adguard-dns.io/en/welcome.html) is used as the primary DNS for the whole network as I don't have the means to reliably run an adblocker selfhosted without making the setup unstable
-
-### External DNS
-
-[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses `external-dns` looks at to gather DNS records to put in `Cloudflare` are ones that I explicitly set an annotation of `external-dns.home.arpa/enabled: "true"`
-
-🔸 _[Click here](./terraform/cloudflare) to see how else I manage Cloudflare with Terraform._
-
-### Dynamic DNS
-
-My home IP can change at any given time and in order to keep my WAN IP address up to date on Cloudflare. I have patched the vyatta part of unifi's vyos to work with cloudflare to make that work
+Outside the `external-dns` instance mentioned above another instance is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingress this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an ingress class name of `external` and contain an ingress annotation `external-dns.alpha.kubernetes.io/target`.
 
 ---
 
@@ -136,6 +123,16 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 | Cyberpower OR600ERM1U      | 1     | -            | -                       | -    | -                | UPS                 |
 | QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD | 32GB | TrueNAS Scale    | NAS                 |
 | ESP32+Ebyte 72 POE adapter | 1     | -            | -                       | -    | ESPHome          | Zigbee adapter      |
+
+---
+
+## ⭐ Stargazers
+
+<div align="center">
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ishioni/homelab-ops&type=Date)](https://star-history.com/#ishioni/homelab-ops&Date)
+
+</div>
 
 ---
 
