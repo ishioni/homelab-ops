@@ -16,7 +16,6 @@
     "local>ishioni/homelab-ops//.github/renovate/managers.json5",
     "local>ishioni/homelab-ops//.github/renovate/packageRules.json5",
   ],
-  platform: "github",
   username: "ishioni-bot[bot]",
   gitAuthor: "ishioni-bot <116219931+ishioni-bot[bot]@users.noreply.github.com>",
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
