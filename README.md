@@ -12,7 +12,7 @@ _... managed with Flux and Renovate_ :robot:
 
 <div align="center">
 
-[![Talos](https://img.shields.io/badge/v1.28-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
+[![Talos](https://img.shields.io/badge/v1.29-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
 [![Renovate](https://img.shields.io/github/actions/workflow/status/ishioni/homelab-ops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/ishioni/homelab-ops/actions/workflows/renovate.yaml)
 
 </div>
@@ -129,13 +129,12 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 
 | Device                     | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose             |
 | -------------------------- | ----- | ------------ | ----------------------- | ---- | ---------------- | ------------------- |
-| Unifi USG4                 | 1     | 2G eMMC      | -                       | 4GB  | Debian 7         | Router              |
-| Unifi USW-24-PoE           | 1     | -            | -                       | -    | -                | Network Switch      |
-| Unifi USW-Aggregation      | 1     | -            | -                       |      | -                | Network Switch      |
+| GOWIN GW-BS-1UR2           | 1     | 512GB NVMe   | -                       | 32GB | VyOS             | Router              |
+| Unifi USW-24-PoE            | 1     | -            | -                       | -    | -                | Network Switch      |
+| Unifi USW-Aggregation       | 1     | -            | -                       |      | -                | Network Switch      |
 | Dell Optiplex 7040         | 4     | 256GB NVMe   | -                       | 64GB | Debian 12 (PVE)  | Virtualization Host |
 | Cyberpower OR600ERM1U      | 1     | -            | -                       | -    | -                | UPS                 |
 | QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD | 32GB | TrueNAS Scale    | NAS                 |
-| Odroid C4                  | 1     | 32GB eMMC    | -                       | 4GB  | Ubuntu           | Misc services       |
 | ESP32+Ebyte 72 POE adapter | 1     | -            | -                       | -    | ESPHome          | Zigbee adapter      |
 
 ---
