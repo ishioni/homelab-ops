@@ -61,11 +61,11 @@ This Git repository contains the following directories under [kubernetes](./kube
 ├── 📁 talos           # main cluster
 │   ├─📁 apps          # applications
 │   ├─📁 bootstrap     # bootstrap procedures
-│   └─📁 flux           # core flux configuration
+│   └─📁 flux          # core flux configuration
 └── 📁 truenas     # Truenas k3s
     ├─📁 apps          # applications
     ├─📁 bootstrap     # bootstrap procedures
-    └─📁 flux           # core flux configuration
+    └─📁 flux          # core flux configuration
 ```
 
 ### Networking
