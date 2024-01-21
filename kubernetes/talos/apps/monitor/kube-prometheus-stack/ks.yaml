@@ -22,8 +22,8 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: prometheus.internal.${SECRET_DOMAIN}
-      ALERT_HOSTNAME: alerts.internal.${SECRET_DOMAIN}
+      HOSTNAME: prometheus.${SECRET_DOMAIN}
+      ALERT_HOSTNAME: alerts.${SECRET_DOMAIN}
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1

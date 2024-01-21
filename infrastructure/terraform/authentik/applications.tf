@@ -114,7 +114,7 @@ module "oauth2-grafana" {
   source             = "./oauth2_application"
   name               = "Grafana"
   icon_url           = "https://raw.githubusercontent.com/grafana/grafana/main/public/img/icons/mono/grafana.svg"
-  launch_url         = "https://grafana.internal.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
+  launch_url         = "https://grafana.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
   description        = "Infrastructure graphs"
   newtab             = true
   group              = "Infrastructure"
@@ -122,7 +122,7 @@ module "oauth2-grafana" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_grafana.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_grafana.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://grafana.internal.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/login/generic_oauth"]
+  redirect_uris      = ["https://grafana.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/login/generic_oauth"]
 }
 
 module "oauth2-immich" {
