@@ -23,7 +23,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: documents.internal.${SECRET_DOMAIN}
+      HOSTNAME: documents.${SECRET_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: paperless-data
