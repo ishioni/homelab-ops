@@ -23,7 +23,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: n8n.internal.${SECRET_DOMAIN}
+      HOSTNAME: n8n.${SECRET_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: n8n-data
