@@ -36,10 +36,10 @@ spec:
       enabled: true
     compactor:
       enabled: true
-      extraFlags: ["--compact.concurrency", "4"]
-      retentionResolutionRaw: 7d
-      retentionResolution5m: 14d
-      retentionResolution1h: 21d
+      extraFlags: ["--compact.concurrency", "4", "--downsampling.disable"]
+      # retentionResolutionRaw: 7d
+      # retentionResolution5m: 14d
+      # retentionResolution1h: 21d
       persistence:
         enabled: true
         storageClass: "truenas-ssd-iscsi"
