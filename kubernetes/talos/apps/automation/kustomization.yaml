@@ -5,4 +5,3 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./hass-proxy/ks.yaml
-  - ./n8n/ks.yaml
