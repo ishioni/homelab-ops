@@ -30,3 +30,4 @@ resources:
   - ./prometheus-community.yaml
   - ./stakater.yaml
   - ./weaveworks.yaml
+  - ./xenitab.yaml
