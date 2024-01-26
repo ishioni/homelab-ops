@@ -18,6 +18,9 @@
     "search": {
       "enable": true
     },
+    "ui": {
+      "enable": true
+    },
     "scrub": {
       "enable": true,
       "interval": "24h"
