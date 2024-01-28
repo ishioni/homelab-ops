@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.15.2376
+              tag: 0.3.16.2387
             env:
               TZ: "${CONFIG_TIMEZONE}"
               READARR__INSTANCE_NAME: ${APP}
