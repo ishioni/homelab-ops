@@ -314,7 +314,7 @@ spec:
           # renovate: depName="Node Exporter Full"
         node-exporter-full:
           gnetId: 1860
-          revision: 33
+          revision: 32
           datasource: Prometheus
         nut:
           # renovate: depName="NUT"
