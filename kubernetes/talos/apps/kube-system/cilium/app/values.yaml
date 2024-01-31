@@ -25,7 +25,7 @@ operator:
   rollOutPods: true
 autoDirectNodeRoutes: true
 ipv4NativeRoutingCIDR: 172.16.0.0/16
-tunnel: disabled
+routingMode: native
 containerRuntime:
   integration: containerd
 hubble:
