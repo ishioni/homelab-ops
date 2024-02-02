@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: vaultwarden/server
-              tag: 1.30.2
+              tag: 1.30.3
             env:
               DATA_FOLDER: "data"
               ICON_CACHE_FOLDER: "data/icon_cache"
