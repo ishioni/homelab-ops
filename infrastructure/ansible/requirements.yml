@@ -12,18 +12,6 @@ roles:
   - name: igor_nikiforov.journald
     src: https://github.com/igor-nikiforov/ansible-role-journald.git
     version: v1.0.0
-  - name: geerlingguy.java
-    src: https://github.com/geerlingguy/ansible-role-java.git
-    version: 2.3.2
-  - name: geerlingguy.pip
-    src: https://github.com/geerlingguy/ansible-role-pip.git
-    version: 3.0.2
-  - name: geerlingguy.docker
-    src: https://github.com/geerlingguy/ansible-role-docker.git
-    version: 7.1.0
-  - name: igor_nikiforov.journald
-    src: https://github.com/igor-nikiforov/ansible-role-journald.git
-    version: v1.0.0
   - name: cloudalchemy.node_exporter
     version: 2.0.0
     src: https://github.com/cloudalchemy/ansible-node-exporter
