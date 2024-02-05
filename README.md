@@ -117,8 +117,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 | Device                     | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose             |
 | -------------------------- | ----- | ------------ | ----------------------- | ---- | ---------------- | ------------------- |
 | GOWIN GW-BS-1UR2           | 1     | 512GB NVMe   | -                       | 32GB | VyOS             | Router              |
-| Unifi USW-24-PoE            | 1     | -            | -                       | -    | -                | Network Switch      |
-| Unifi USW-Aggregation       | 1     | -            | -                       |      | -                | Network Switch      |
+| Unifi USW-Enterprise-24-POE | 1     | -            | -                       | -    | -                | Network Switch      |
 | Dell Optiplex 7040         | 4     | 256GB NVMe   | -                       | 64GB | Debian 12 (PVE)  | Virtualization Host |
 | Cyberpower OR600ERM1U      | 1     | -            | -                       | -    | -                | UPS                 |
 | QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD | 32GB | TrueNAS Scale    | NAS                 |
