@@ -130,6 +130,8 @@ spec:
             access: proxy
             url: http://thanos-query.monitor.svc.cluster.local:9090/
             isDefault: true
+            jsonData:
+              timeInterval: 1m
           - name: Alertmanager
             type: alertmanager
             access: proxy

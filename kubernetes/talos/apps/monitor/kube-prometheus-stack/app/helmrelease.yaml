@@ -156,7 +156,7 @@ spec:
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "__replica__"
-        # scrapeInterval: 1m
+        scrapeInterval: 1m
         podAntiAffinity: hard
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
