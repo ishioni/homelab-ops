@@ -8,10 +8,9 @@ collections:
     version: 1.6.7
   - name: ansible.posix
     version: 1.5.4
+  - name: prometheus.prometheus
+    version: 0.11.3
 roles:
   - name: igor_nikiforov.journald
     src: https://github.com/igor-nikiforov/ansible-role-journald.git
     version: v1.0.0
-  - name: cloudalchemy.node_exporter
-    version: 2.0.0
-    src: https://github.com/cloudalchemy/ansible-node-exporter
