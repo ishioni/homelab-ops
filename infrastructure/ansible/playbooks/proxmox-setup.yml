@@ -51,7 +51,6 @@
           - linux-cpupower
           - lm-sensors
           - fwupdate
-          - nginx
         install_recommends: true
         update_cache: true
         cache_valid_time: 3600
@@ -89,33 +88,6 @@
         content: "w /sys/devices/system/cpu/cpufreq/policy*/scaling_governor - - - - powersave"
         dest: /etc/tmpfiles.d/cpu_governor.conf
       notify: Configure CPU mode to powersave
-
-    - name: Setup nginx proxy for proxmox
-      block:
-        - name: Create nginx override dir
-          ansible.builtin.file:
-            path: /etc/systemd/system/nginx.service.d
-            state: directory
-            mode: "0755"
-
-        - name: Add nginx override
-          ansible.builtin.copy:
-            src: files/nginx-override.conf
-            dest: /etc/systemd/system/nginx.service.d/override.conf
-            mode: "0644"
-          notify: Reload systemd
-
-        - name: Disable default nginx config
-          ansible.builtin.file:
-            path: /etc/nginx/sites-enabled/default
-            state: absent
-
-        - name: Configure nginx for proxmox
-          ansible.builtin.template:
-            src: proxmox.conf.j2
-            dest: /etc/nginx/conf.d/proxmox.conf
-            mode: "0644"
-          notify: Restart nginx
 
     - name: "Gather installed packages"
       ansible.builtin.package_facts:
@@ -169,15 +141,6 @@
     - name: Configure CPU mode to powersave
       ansible.builtin.command:
         cmd: cpupower frequency-set -g powersave
-
-    - name: Restart nginx
-      ansible.builtin.systemd:
-        name: nginx
-        state: restarted
-
-    - name: Reload systemd
-      ansible.builtin.systemd:
-        daemon_reload: true
 
     - name: Recreate initramfs
       ansible.builtin.command:
