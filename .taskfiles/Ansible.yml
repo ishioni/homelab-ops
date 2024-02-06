@@ -15,33 +15,28 @@ vars:
 tasks:
   deps:
     desc: Install / Upgrade Ansible galaxy deps
-    dir: ansible
+    dir: infrastructure/ansible
     cmds:
       - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
       - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
 
   list:
     desc: List all the hosts
-    dir: ansible
+    dir: infrastructure/ansible
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --list-hosts
 
   ping:
     desc: Ping all the hosts
-    dir: ansible
+    dir: infrastructure/ansible
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -m 'ping'
 
   uptime:
     desc: Uptime of all the hosts
-    dir: ansible
+    dir: infrastructure/ansible
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
-
-  bastion-setup:
-    desc: Run Ansible setup playbook on the nodes
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/bastion-setup.yml
 
   proxmox-setup:
     desc: Run Ansible setup playbook on the nodes
@@ -52,8 +47,3 @@ tasks:
     desc: Update proxmox packages
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/proxmox-apt-upgrade.yml
-
-  unifi-setup:
-    desc: Setup the unifi controller
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/unifi-setup.yml

@@ -135,7 +135,7 @@
 
     - name: Install node-exporter
       ansible.builtin.include_role:
-        name: cloudalchemy.node_exporter
+        name: prometheus.prometheus.node_exporter
 
   handlers:
     - name: Configure CPU mode to powersave
