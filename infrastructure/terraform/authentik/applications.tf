@@ -241,5 +241,5 @@ module "oauth2-paperless" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id = module.secret_paperless.fields["OIDC_CLIENT_ID"]
   client_secret = module.secret_paperless.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris = [""]
+  redirect_uris = ["https://documents.movishell.pl/accounts/authentik/login/callback/"]
 }
