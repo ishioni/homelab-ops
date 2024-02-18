@@ -65,12 +65,12 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
-              resources:
-                requests:
-                  cpu: 50m
-                  memory: 200Mi
-                limits:
-                  memory: 500Mi
+            resources:
+              requests:
+                cpu: 50m
+                memory: 200Mi
+              limits:
+                memory: 500Mi
     service:
       main:
         ports:
