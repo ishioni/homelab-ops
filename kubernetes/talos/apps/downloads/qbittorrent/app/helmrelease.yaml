@@ -1,0 +1,108 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 2.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      main:
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: ${APP_UID}
+            runAsGroup: ${APP_GID}
+            fsGroup: ${APP_GID}
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: "4.6.3"
+            env:
+              TZ: "${CONFIG_TIMEZONE}"
+              QBITTORRENT__PORT: &port 80
+              QBITTORRENT__BT_PORT: &bittorrentPort 50413
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 50m
+                memory: 500Mi
+              limits:
+                memory: 2000Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+      bittorrent:
+        controller: main
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${CONFIG_QBITTORRENT_IP}"
+        externalTrafficPolicy: Local
+        ports:
+          bittorrent:
+            enabled: true
+            port: *bittorrentPort
+            protocol: TCP
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
+      downloads:
+        enabled: true
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /downloads
+            subPath: Downloads
+    ingress:
+      main:
+        enabled: true
+        className: private
+        annotations:
+          # authentik.home.arpa/enabled: "true"
+          # nginx.ingress.kubernetes.io/auth-signin: |-
+          #   https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Downloads
+          gethomepage.dev/name: QBittorrent
+          gethomepage.dev/icon: qbittorrent.svg
+          # gethomepage.dev/widget.type: transmission
+          # gethomepage.dev/widget.url: http://transmission.downloads:9091
+        hosts:
+          - host: &host ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls: [hosts: [*host]]
