@@ -15,16 +15,17 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
-    controller:
-      annotations:
+    global:
+      deploymentAnnotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:16.2
-        envFrom:
-          - secretRef:
-              name: *secret
-    replicas: 1
+    server:
+      replicas: 1
+      initContainers:
+        init-db:
+          image: ghcr.io/onedr0p/postgres-init:16.2
+          envFrom:
+            - secretRef:
+                name: *secret
     worker:
       replicas: 1
     authentik:
