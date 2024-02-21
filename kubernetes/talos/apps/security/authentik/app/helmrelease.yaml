@@ -36,6 +36,22 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: public
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Security
+          gethomepage.dev/name: Authentik
+          gethomepage.dev/icon: authentik.png
+          gethomepage.dev/widget.type: authentik
+          gethomepage.dev/widget.url: http://authentik.security
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
+        hosts:
+          - &host ${HOSTNAME}
+        paths:
+          - /
+        tls: [hosts: [*host]]
     worker:
       replicas: 1
       resources:
@@ -52,23 +68,6 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
-    ingress:
-      enabled: true
-      ingressClassName: public
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Security
-        gethomepage.dev/name: Authentik
-        gethomepage.dev/icon: authentik.png
-        gethomepage.dev/widget.type: authentik
-        gethomepage.dev/widget.url: http://authentik.security
-        gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
-      hosts:
-        - host: &host ${HOSTNAME}
-          paths:
-            - path: /
-              pathType: Prefix
-      tls: [hosts: [*host]]
     prometheus:
       rules:
         enabled: true
