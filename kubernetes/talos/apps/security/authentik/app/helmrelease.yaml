@@ -26,8 +26,20 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 800Mi
     worker:
       replicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 1200Mi
     authentik:
       email:
         use_ssl: true
@@ -58,19 +70,6 @@ spec:
         create: true
       rules:
         create: true
-    resources:
-      server:
-        requests:
-          cpu: 50m
-          memory: 500Mi
-        limits:
-          memory: 800Mi
-      worker:
-        requests:
-          cpu: 50m
-          memory: 500Mi
-        limits:
-          memory: 1200Mi
     # volumes:
     #   - name: authentik-media
     #     persistentVolumeClaim:
