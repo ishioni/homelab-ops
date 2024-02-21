@@ -32,6 +32,10 @@ spec:
           memory: 500Mi
         limits:
           memory: 800Mi
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     worker:
       replicas: 1
       resources:
@@ -66,10 +70,8 @@ spec:
               pathType: Prefix
       tls: [hosts: [*host]]
     prometheus:
-      serviceMonitor:
-        create: true
       rules:
-        create: true
+        enabled: true
     # volumes:
     #   - name: authentik-media
     #     persistentVolumeClaim:
