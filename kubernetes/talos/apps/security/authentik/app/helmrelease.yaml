@@ -15,18 +15,51 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
-    controller:
-      annotations:
+    global:
+      deploymentAnnotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:16.2
-        envFrom:
-          - secretRef:
-              name: *secret
-    replicas: 1
+    server:
+      replicas: 1
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16.2
+          envFrom:
+            - secretRef:
+                name: *secret
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 800Mi
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: public
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Security
+          gethomepage.dev/name: Authentik
+          gethomepage.dev/icon: authentik.png
+          gethomepage.dev/widget.type: authentik
+          gethomepage.dev/widget.url: http://authentik.security
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
+        hosts:
+          - &host ${HOSTNAME}
+        paths:
+          - /
+        tls: [hosts: [*host]]
     worker:
       replicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 1200Mi
     authentik:
       email:
         use_ssl: true
@@ -35,41 +68,9 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
-    ingress:
-      enabled: true
-      ingressClassName: public
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Security
-        gethomepage.dev/name: Authentik
-        gethomepage.dev/icon: authentik.png
-        gethomepage.dev/widget.type: authentik
-        gethomepage.dev/widget.url: http://authentik.security
-        gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
-      hosts:
-        - host: &host ${HOSTNAME}
-          paths:
-            - path: /
-              pathType: Prefix
-      tls: [hosts: [*host]]
     prometheus:
-      serviceMonitor:
-        create: true
       rules:
-        create: true
-    resources:
-      server:
-        requests:
-          cpu: 50m
-          memory: 500Mi
-        limits:
-          memory: 800Mi
-      worker:
-        requests:
-          cpu: 50m
-          memory: 500Mi
-        limits:
-          memory: 1200Mi
+        enabled: true
     # volumes:
     #   - name: authentik-media
     #     persistentVolumeClaim:
