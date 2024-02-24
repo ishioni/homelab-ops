@@ -283,6 +283,12 @@ spec:
           revision: 25
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
+          revision: 1
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
       system:
         node-exporter:
           # renovate: depName="Node Exporter"
