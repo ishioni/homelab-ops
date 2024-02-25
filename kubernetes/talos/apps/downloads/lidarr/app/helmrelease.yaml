@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/lidarr-develop
-              tag: 2.1.7.4030
+              tag: 2.2.0.4045
             env:
               TZ: "${CONFIG_TIMEZONE}"
               LIDARR__INSTANCE_NAME: Lidarr
