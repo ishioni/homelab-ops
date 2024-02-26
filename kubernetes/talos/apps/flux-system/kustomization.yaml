@@ -5,4 +5,3 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./add-ons/ks.yaml
-  - ./tf-controller/ks.yaml
