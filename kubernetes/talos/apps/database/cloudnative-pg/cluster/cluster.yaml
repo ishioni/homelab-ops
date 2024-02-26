@@ -24,9 +24,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v4
-      recoveryTarget:
-        targetTime: "2024-02-20 20:00:00.00000+00"
+      source: &previousCluster postgres-v5
   resources:
     requests:
       cpu: 100m
@@ -43,7 +41,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.${NAS_DOMAIN}
-      serverName: &currentCluster postgres-v5
+      serverName: &currentCluster postgres-v6
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
