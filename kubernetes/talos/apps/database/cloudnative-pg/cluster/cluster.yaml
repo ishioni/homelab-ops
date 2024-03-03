@@ -27,10 +27,10 @@ spec:
       source: &previousCluster postgres-v5
   resources:
     requests:
-      cpu: 100m
-      memory: 300Mi
+      cpu: 200m
+      memory: 500Mi
     limits:
-      memory: 1Gi
+      memory: 2Gi
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
