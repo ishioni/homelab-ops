@@ -280,7 +280,7 @@ spec:
         minio-dashboard:
           # renovate: depName="Minio"
           gnetId: 13502
-          revision: 25
+          revision: 26
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
         spegel:
