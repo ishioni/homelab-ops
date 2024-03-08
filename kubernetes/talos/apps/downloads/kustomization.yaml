@@ -13,4 +13,3 @@ resources:
   - ./readarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sonarr/ks.yaml
-  - ./transmission/ks.yaml
