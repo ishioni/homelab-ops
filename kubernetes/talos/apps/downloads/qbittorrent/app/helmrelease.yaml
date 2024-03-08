@@ -33,6 +33,17 @@ spec:
               TZ: "${CONFIG_TIMEZONE}"
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50413
+              QBT_Preferences__WebUI__AlternativeUIEnabled: false
+              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
+              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
+                172.16.0.0/16, 10.1.2.0/24
+              QBT_Preferences__WebUI__LocalHostAuth: false
+              QBT_BitTorrent__Session__Interface: eth0
+              QBT_BitTorrent__Session__InterfaceAddress:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.podIP
+              QBT_BitTorrent__Session__InterfaceName: eth0
             probes:
               liveness: &probes
                 enabled: true
