@@ -26,6 +26,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
+            type: statefulset
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: "4.6.3"
