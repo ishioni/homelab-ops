@@ -107,8 +107,8 @@ spec:
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: QBittorrent
           gethomepage.dev/icon: qbittorrent.svg
-          # gethomepage.dev/widget.type: transmission
-          # gethomepage.dev/widget.url: http://transmission.downloads:9091
+          gethomepage.dev/widget.type: qbittorrent
+          gethomepage.dev/widget.url: http://qbittorrent.downloads
         hosts:
           - host: &host ${HOSTNAME}
             paths:
