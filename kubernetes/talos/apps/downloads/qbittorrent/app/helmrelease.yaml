@@ -33,11 +33,13 @@ spec:
               TZ: "${CONFIG_TIMEZONE}"
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50413
-              QBT_Preferences__WebUI__AlternativeUIEnabled: false
+              QBT_Preferences__WebUI__AlternativeUIEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
                 172.16.0.0/16, 10.1.2.0/24
               QBT_Preferences__WebUI__LocalHostAuth: false
+              QBT_Preferences__WebUI__RootFolder: /addons/VueTorrent
+              QBT_Preferences__WebUI__UseUPNP: false
               QBT_BitTorrent__Session__Interface: eth0
               QBT_BitTorrent__Session__InterfaceAddress:
                 valueFrom:
@@ -69,6 +71,22 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 2000Mi
+          vueTorrent:
+            dependsOn: main
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.2.1
+            args:
+              - --repo=https://github.com/WDaan/VueTorrent
+              - --ref=latest-release
+              - --period=86400s
+              - --root=/addons
+            resources:
+              requests:
+                cpu: 10m
+                memory: 25Mi
+              limits:
+                memory: 50Mi
     service:
       main:
         ports:
@@ -95,6 +113,11 @@ spec:
         globalMounts:
           - path: /downloads
             subPath: Downloads
+      addons:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /addons
     ingress:
       main:
         enabled: true
