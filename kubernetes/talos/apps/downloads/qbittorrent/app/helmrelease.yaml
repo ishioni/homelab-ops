@@ -70,7 +70,7 @@ spec:
                 cpu: 50m
                 memory: 500Mi
               limits:
-                memory: 5Gi
+                memory: 8Gi
           vuetorrent:
             dependsOn: main
             image:
