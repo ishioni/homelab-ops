@@ -98,11 +98,11 @@ spec:
     ingress:
       main:
         enabled: true
-        className: private
+        className: public
         annotations:
-          # authentik.home.arpa/enabled: "true"
-          # nginx.ingress.kubernetes.io/auth-signin: |-
-          #   https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          authentik.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: QBittorrent
