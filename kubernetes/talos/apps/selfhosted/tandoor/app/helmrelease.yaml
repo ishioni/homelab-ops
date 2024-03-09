@@ -75,7 +75,7 @@ spec:
           nginx:
             image:
               repository: public.ecr.aws/nginx/nginx
-              tag: 1.25.3
+              tag: 1.25.4
     service:
       main:
         ports:
