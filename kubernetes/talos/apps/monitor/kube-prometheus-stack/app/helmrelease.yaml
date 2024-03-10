@@ -13,6 +13,10 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   interval: 30m
   values:
     crds:
