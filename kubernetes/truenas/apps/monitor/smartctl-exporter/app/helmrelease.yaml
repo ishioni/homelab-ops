@@ -16,9 +16,9 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      main:
+      smartctl-exporter:
         containers:
-          main:
+          app:
             image:
               repository: quay.io/prometheuscommunity/smartctl-exporter
               tag: v0.12.0
@@ -40,8 +40,8 @@ spec:
                     path: /
               readiness: *probes
     service:
-      main:
-        controller: main
+      app:
+        controller: smartctl-exporter
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: nas-smartctl.${NAS_DOMAIN}
