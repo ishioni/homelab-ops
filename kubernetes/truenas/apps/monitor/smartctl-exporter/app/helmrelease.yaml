@@ -30,6 +30,15 @@ spec:
             securityContext:
               privileged: true
               runAsUser: 0
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: 9633
+                    path: /
+              readiness: *probes
     service:
       main:
         controller: main
