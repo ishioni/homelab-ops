@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -19,17 +19,15 @@ spec:
       hostPID: true
       hostNetwork: true
       dnsPolicy: ClusterFirst
+      hostname: quadrant
+      securityContext:
+        runAsUser: &nobody 65534
+        runAsGroup: *nobody
+        fsGroup: *nobody
     controllers:
       main:
         containers:
           main:
-            pod:
-              hostname: quadrant
-              securityContext:
-                runAsNonRoot: true
-                runAsUser: &nobody 65534
-                runAsGroup: *nobody
-                fsGroup: *nobody
             image:
               repository: quay.io/prometheus/node-exporter
               tag: v1.7.0
@@ -42,8 +40,18 @@ spec:
               - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
             securityContext:
               readOnlyRootFilesystem: true
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: 9100
+                    path: /
+              readiness: *probes
     service:
       main:
+        controller: main
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: nas-node.${NAS_DOMAIN}

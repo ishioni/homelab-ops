@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -71,11 +71,12 @@ spec:
                   failureThreshold: 60
     service:
       main:
+        controller: main
         ports:
           http:
-            port: 9001
+            port: &http 9001
           s3:
-            port: 9000
+            port: &s3 9000
     ingress:
       main:
         enabled: true
@@ -85,14 +86,14 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
-                  port: http
+                  identifier: main
+                  port: *http
           - host: &s3Host ${HOSTNAME}
             paths:
               - path: /
                 service:
-                  name: main
-                  port: s3
+                  identifier: main
+                  port: *s3
         tls:
           - hosts: [*host, *s3Host]
     persistence:
