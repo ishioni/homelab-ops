@@ -32,6 +32,7 @@ spec:
               runAsUser: 0
     service:
       main:
+        controller: main
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: nas-smartctl.${NAS_DOMAIN}

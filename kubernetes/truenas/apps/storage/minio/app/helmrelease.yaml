@@ -71,6 +71,7 @@ spec:
                   failureThreshold: 60
     service:
       main:
+        controller: main
         ports:
           http:
             port: 9001
