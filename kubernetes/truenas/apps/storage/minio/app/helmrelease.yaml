@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      main:
+      minio:
         annotations:
           secret.reloader.stakater.com/reload: &secret minio-secret
         pod:
@@ -26,7 +26,7 @@ spec:
             fsGroup: *uid
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-03-10T02-53-48Z
@@ -70,15 +70,15 @@ spec:
                   timeoutSeconds: 10
                   failureThreshold: 60
     service:
-      main:
-        controller: main
+      app:
+        controller: minio
         ports:
           http:
             port: &http 9001
           s3:
             port: &s3 9000
     ingress:
-      main:
+      app:
         enabled: true
         className: ingress
         hosts:
@@ -86,13 +86,13 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: *http
           - host: &s3Host ${HOSTNAME}
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: *s3
         tls:
           - hosts: [*host, *s3Host]

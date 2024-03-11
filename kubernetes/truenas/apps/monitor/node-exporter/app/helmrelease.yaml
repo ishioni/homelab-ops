@@ -25,9 +25,9 @@ spec:
         runAsGroup: *nobody
         fsGroup: *nobody
     controllers:
-      main:
+      node-exporter:
         containers:
-          main:
+          app:
             image:
               repository: quay.io/prometheus/node-exporter
               tag: v1.7.0
@@ -51,7 +51,7 @@ spec:
               readiness: *probes
     service:
       main:
-        controller: main
+        controller: node-exporter
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: nas-node.${NAS_DOMAIN}
