@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -47,6 +47,7 @@ spec:
               readOnlyRootFilesystem: true
     service:
       main:
+        controller: main
         ports:
           http:
             port: 9997
@@ -82,10 +83,10 @@ spec:
           - path: /tls.crt
             subPath: tls.crt
             readOnly: true
-    serviceMonitor:
-      main:
-        enabled: false
-        endpoints:
-          - port: prometheus
-            scheme: http
-            path: /metrics
+    # serviceMonitor:
+    #   main:
+    #     enabled: false
+    #     endpoints:
+    #       - port: prometheus
+    #         scheme: http
+    #         path: /metrics
