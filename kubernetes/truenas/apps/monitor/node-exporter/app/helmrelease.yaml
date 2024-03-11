@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -19,17 +19,15 @@ spec:
       hostPID: true
       hostNetwork: true
       dnsPolicy: ClusterFirst
+      hostname: quadrant
+      securityContext:
+        runAsUser: &nobody 65534
+        runAsGroup: *nobody
+        fsGroup: *nobody
     controllers:
       main:
         containers:
           main:
-            pod:
-              hostname: quadrant
-              securityContext:
-                runAsNonRoot: true
-                runAsUser: &nobody 65534
-                runAsGroup: *nobody
-                fsGroup: *nobody
             image:
               repository: quay.io/prometheus/node-exporter
               tag: v1.7.0
