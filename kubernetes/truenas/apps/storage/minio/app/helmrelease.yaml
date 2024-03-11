@@ -86,13 +86,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: *http
           - host: &s3Host ${HOSTNAME}
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: *s3
         tls:
           - hosts: [*host, *s3Host]
