@@ -43,6 +43,11 @@ spec:
             probes: &probes
               liveness:
                 enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: 9100
+                    path: /
               readiness:
                 enabled: true
     service:
