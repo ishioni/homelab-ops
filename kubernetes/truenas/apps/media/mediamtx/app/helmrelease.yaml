@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      main:
+      mediamtx:
         strategy: RollingUpdate
         annotations:
           configmap.reloader.stakater.com/reload: &configMap mediamtx-configmap
@@ -27,7 +27,7 @@ spec:
             runAsUser: ${APP_UID}
             runAsGroup: ${APP_GID}
         containers:
-          main:
+          app:
             image:
               repository: docker.io/bluenviron/mediamtx
               tag: 1.6.0-ffmpeg
@@ -47,14 +47,14 @@ spec:
               readOnlyRootFilesystem: true
     service:
       main:
-        controller: main
+        controller: mediamtx
         ports:
           http:
             port: 9997
           prometheus:
             port: 9998
       streams:
-        controller: main
+        controller: mediamtx
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
