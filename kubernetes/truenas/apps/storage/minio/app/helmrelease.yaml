@@ -74,9 +74,9 @@ spec:
         controller: main
         ports:
           http:
-            port: 9001
+            port: &http 9001
           s3:
-            port: 9000
+            port: &s3 9000
     ingress:
       main:
         enabled: true
@@ -87,13 +87,13 @@ spec:
               - path: /
                 service:
                   name: main
-                  port: http
+                  port: *http
           - host: &s3Host ${HOSTNAME}
             paths:
               - path: /
                 service:
                   name: main
-                  port: s3
+                  port: *s3
         tls:
           - hosts: [*host, *s3Host]
     persistence:
