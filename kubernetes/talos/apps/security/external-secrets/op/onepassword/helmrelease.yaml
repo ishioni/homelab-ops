@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -85,18 +85,24 @@ spec:
               - name: OP_BUS_PEERS
                 value: "localhost:11220"
             probes:
-              readinessProbe:
-                httpGet:
-                  path: /health
-                  port: *syncport
-                initialDelaySeconds: 15
-              livenessProbe:
-                httpGet:
-                  path: /heartbeat
-                  port: *syncport
-                failureThreshold: 3
-                periodSeconds: 30
-                initialDelaySeconds: 15
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *syncport
+                  initialDelaySeconds: 15
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /heartbeat
+                    port: *syncport
+                  failureThreshold: 3
+                  periodSeconds: 30
+                  initialDelaySeconds: 15
             resources:
               requests:
                 cpu: 5m
@@ -105,6 +111,7 @@ spec:
                 memory: 50Mi
     service:
       main:
+        controller: main
         ports:
           http:
             port: *mainport
@@ -117,7 +124,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls: [hosts: [*host]]
     persistence:

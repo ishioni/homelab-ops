@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -73,6 +73,7 @@ spec:
                 memory: 500Mi
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port
@@ -85,7 +86,6 @@ spec:
         existingClaim: downloads-datastore
         globalMounts:
           - path: /media
-            retain: true
     ingress:
       main:
         enabled: true
@@ -106,6 +106,6 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls: [hosts: [*host]]
