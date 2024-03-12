@@ -135,6 +135,6 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: qbittorrent
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
