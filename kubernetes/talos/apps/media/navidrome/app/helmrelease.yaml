@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      navidrome:
         pod:
           securityContext:
             runAsUser: ${APP_UID}
@@ -24,7 +24,7 @@ spec:
             fsGroup: *gid
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/navidrome/navidrome
               tag: 0.51.1
@@ -64,18 +64,9 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 300Mi
-    persistence:
-      config:
-        existingClaim: ${VOLSYNC_CLAIM}
-      music:
-        existingClaim: media-datastore
-        globalMounts:
-          - path: /music
-            subPath: Music
-            readOnly: true
     service:
-      main:
-        controller: main
+      app:
+        controller: navidrome
         ports:
           http:
             port: *port
@@ -100,6 +91,15 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+      music:
+        existingClaim: media-datastore
+        globalMounts:
+          - path: /music
+            subPath: Music
+            readOnly: true
