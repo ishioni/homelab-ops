@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      bazarr:
         type: statefulset
         annotations:
           secret.reloader.stakater.com/reload: &secret bazarr-secret
@@ -37,7 +37,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/bazarr
               tag: 1.4.2
@@ -72,22 +72,13 @@ spec:
               limits:
                 memory: 500Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: bazarr
         ports:
           http:
             port: *port
-    persistence:
-      config:
-        enabled: true
-        existingClaim: ${VOLSYNC_CLAIM}
-      media:
-        enabled: true
-        existingClaim: downloads-datastore
-        globalMounts:
-          - path: /media
     ingress:
-      main:
+      app:
         enabled: true
         className: public
         annotations:
@@ -106,6 +97,15 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
+      media:
+        enabled: true
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /media

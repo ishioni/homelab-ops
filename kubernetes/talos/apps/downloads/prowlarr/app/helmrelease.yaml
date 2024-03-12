@@ -17,7 +17,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      prowlarr:
         type: statefulset
         annotations:
           secret.reloader.stakater.com/reload: &secret prowlarr-secret
@@ -38,7 +38,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/prowlarr
               tag: 1.13.3.4273
@@ -78,18 +78,14 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 300Mi
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
     service:
-      main:
-        controller: main
+      app:
+        controller: prowlarr
         ports:
           http:
             port: *port
     ingress:
-      main:
+      app:
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -107,6 +103,10 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir

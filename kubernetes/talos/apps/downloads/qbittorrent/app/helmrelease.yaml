@@ -105,18 +105,6 @@ spec:
             enabled: true
             port: *bittorrentPort
             protocol: TCP
-    persistence:
-      config:
-        existingClaim: ${VOLSYNC_CLAIM}
-      downloads:
-        existingClaim: downloads-datastore
-        globalMounts:
-          - path: /downloads
-            subPath: Downloads
-      addons:
-        type: emptyDir
-        globalMounts:
-          - path: /addons
     ingress:
       app:
         className: public
@@ -138,3 +126,15 @@ spec:
                   identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+      downloads:
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /downloads
+            subPath: Downloads
+      addons:
+        type: emptyDir
+        globalMounts:
+          - path: /addons

@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      radarr:
         type: statefulset
         annotations:
           secret.reloader.stakater.com/reload: &secret radarr-secret
@@ -37,7 +37,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/radarr
               tag: 5.3.6.8612
@@ -79,20 +79,13 @@ spec:
               limits:
                 memory: 500Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: radarr
         ports:
           http:
             port: *port
-    persistence:
-      config:
-        existingClaim: ${VOLSYNC_CLAIM}
-      media:
-        existingClaim: downloads-datastore
-        globalMounts:
-          - path: /media
     ingress:
-      main:
+      app:
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -110,6 +103,13 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+      media:
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /media
