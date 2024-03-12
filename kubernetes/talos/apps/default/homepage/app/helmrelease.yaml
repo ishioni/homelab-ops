@@ -45,7 +45,7 @@ spec:
               startup: *probes
     service:
       app:
-        controller: main
+        controller: homepage
         ports:
           http:
             port: 3000
@@ -62,7 +62,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
     persistence:
