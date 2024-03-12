@@ -43,7 +43,7 @@ spec:
               repository: ghcr.io/onedr0p/prowlarr
               tag: 1.13.3.4273
             env:
-              TZ: Europe/Warsaw
+              TZ: ${CONFIG_TIMEZONE}
               PROWLARR__INSTANCE_NAME: Prowlarr
               PROWLARR__PORT: &port 80
               PROWLARR__AUTHENTICATION_METHOD: External

@@ -42,7 +42,7 @@ spec:
               repository: ghcr.io/onedr0p/radarr
               tag: 5.3.6.8612
             env:
-              TZ: Europe/Warsaw
+              TZ: ${CONFIG_TIMEZONE}
               RADARR__INSTANCE_NAME: ${APP}
               RADARR__PORT: &port 80
               RADARR__AUTHENTICATION_METHOD: External

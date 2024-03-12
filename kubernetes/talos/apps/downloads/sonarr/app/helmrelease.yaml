@@ -42,7 +42,7 @@ spec:
               repository: ghcr.io/onedr0p/sonarr-develop
               tag: 4.0.2.1312
             env:
-              TZ: Europe/Warsaw
+              TZ: ${CONFIG_TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
               SONARR__PORT: &port 80
               SONARR__AUTHENTICATION_METHOD: External

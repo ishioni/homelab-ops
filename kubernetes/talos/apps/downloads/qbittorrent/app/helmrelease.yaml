@@ -31,7 +31,7 @@ spec:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: "4.6.3"
             env:
-              TZ: Europe/Warsaw
+              TZ: ${CONFIG_TIMEZONE}
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50413
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
@@ -98,7 +98,7 @@ spec:
         controller: main
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "10.84.2.6"
+          io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
         externalTrafficPolicy: Local
         ports:
           bittorrent:

@@ -37,7 +37,7 @@ spec:
               tag: 6.0.2
             args: ["sync"]
             env:
-              TZ: Europe/Warsaw
+              TZ: ${CONFIG_TIMEZONE}
               COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:

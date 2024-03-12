@@ -27,7 +27,7 @@ spec:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.9
             env:
-              TZ: Europe/Warsaw
+              TZ: ${CONFIG_TIMEZONE}
               # LOG_LEVEL: debug
             envFrom:
               - secretRef:
