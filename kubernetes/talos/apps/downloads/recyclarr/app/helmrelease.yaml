@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      recyclarr:
         type: cronjob
         annotations:
           secret.reloader.stakater.com/reload: &secret recyclarr-secret
@@ -31,7 +31,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 6.0.2

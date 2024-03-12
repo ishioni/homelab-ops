@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      lidarr:
         type: statefulset
         annotations:
           secret.reloader.stakater.com/reload: &secret lidarr-secret
@@ -37,7 +37,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/lidarr-develop
               tag: 2.2.1.4073
@@ -78,20 +78,13 @@ spec:
               limits:
                 memory: 2000Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: lidarr
         ports:
           http:
             port: *port
-    persistence:
-      config:
-        existingClaim: ${VOLSYNC_CLAIM}
-      media:
-        existingClaim: downloads-datastore
-        globalMounts:
-          - path: /media
     ingress:
-      main:
+      app:
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -109,6 +102,13 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+      media:
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /media

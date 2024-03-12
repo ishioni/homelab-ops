@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      readarr:
         type: statefulset
         annotations:
           secret.reloader.stakater.com/reload: &secret readarr-secret
@@ -37,7 +37,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/readarr-develop
               tag: 0.3.19.2437
@@ -78,22 +78,13 @@ spec:
               limits:
                 memory: 2000Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: readarr
         ports:
           http:
             port: *port
-    persistence:
-      config:
-        existingClaim: ${VOLSYNC_CLAIM}
-        globalMounts:
-          - path: /config
-      media:
-        existingClaim: downloads-datastore
-        globalMounts:
-          - path: /media
     ingress:
-      main:
+      app:
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -111,6 +102,15 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
+    persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+        globalMounts:
+          - path: /config
+      media:
+        existingClaim: downloads-datastore
+        globalMounts:
+          - path: /media
