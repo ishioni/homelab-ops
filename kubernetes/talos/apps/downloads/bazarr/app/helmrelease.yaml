@@ -42,7 +42,7 @@ spec:
               repository: ghcr.io/onedr0p/bazarr
               tag: 1.4.2
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: Europe/Warsaw
             envFrom:
               - secretRef:
                   name: *secret

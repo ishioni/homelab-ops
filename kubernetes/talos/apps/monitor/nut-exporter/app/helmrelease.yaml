@@ -24,7 +24,7 @@ spec:
               repository: docker.io/hon95/prometheus-nut-exporter
               tag: "1.2.1"
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: Europe/Warsaw
               HTTP_PATH: &metrics /metrics
               RUST_LOG: debug
             resources:

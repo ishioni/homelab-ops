@@ -32,7 +32,7 @@ spec:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.10.0
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: Europe/Warsaw
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://ui.${HOME_DOMAIN}
               UP_UNIFI_DEFAULT_VERIFY_SSL: true

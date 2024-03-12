@@ -31,7 +31,7 @@ spec:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: "4.6.3"
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: Europe/Warsaw
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50413
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
