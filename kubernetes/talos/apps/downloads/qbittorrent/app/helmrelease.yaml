@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -31,7 +31,7 @@ spec:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: "4.6.3"
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: ${CONFIG_TIMEZONE}
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50413
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
@@ -90,6 +90,7 @@ spec:
                 memory: 50Mi
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port
@@ -97,7 +98,7 @@ spec:
         controller: main
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${CONFIG_QBITTORRENT_IP}"
+          io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
         externalTrafficPolicy: Local
         ports:
           bittorrent:
@@ -106,22 +107,18 @@ spec:
             protocol: TCP
     persistence:
       config:
-        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
       downloads:
-        enabled: true
         existingClaim: downloads-datastore
         globalMounts:
           - path: /downloads
             subPath: Downloads
       addons:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: /addons
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -138,6 +135,6 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls: [hosts: [*host]]

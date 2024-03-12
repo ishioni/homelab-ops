@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -87,13 +87,14 @@ spec:
                   httpGet:
                     path: /
                     port: *port
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 1
                   failureThreshold: 10
                   periodSeconds: 12
           gotenburg:
             image:
               repository: docker.io/thecodingmachine/gotenberg
               tag: 8.2.1
-              imagePullPolicy: IfNotPresent
             env:
               - {name: DISABLE_GOOGLE_CHROME, value: "1"}
             securityContext:
@@ -103,7 +104,6 @@ spec:
             image:
               repository: public.ecr.aws/docker/library/redis
               tag: 7.2.4
-              imagePullPolicy: IfNotPresent
             securityContext:
               runAsUser: 999
               runAsGroup: 999
@@ -111,18 +111,17 @@ spec:
             image:
               repository: ghcr.io/paperless-ngx/tika
               tag: 2.9.1-full
-              imagePullPolicy: IfNotPresent
             securityContext:
               runAsUser: 65534
               runAsGroup: 65534
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port
     ingress:
       main:
-        enabled: true
         className: private
         annotations:
           gethomepage.dev/enabled: "true"
@@ -137,7 +136,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls: [hosts: [*host]]
     persistence:
@@ -147,4 +146,3 @@ spec:
           main:
             main:
               - path: /library
-                retain: true

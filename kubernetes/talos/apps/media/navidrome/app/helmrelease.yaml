@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -29,7 +29,7 @@ spec:
               repository: ghcr.io/navidrome/navidrome
               tag: 0.51.1
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: ${CONFIG_TIMEZONE}
               ND_DATAFOLDER: /config
               ND_MUSICFOLDER: /music
               ND_PORT: &port 8080
@@ -66,10 +66,8 @@ spec:
                 memory: 300Mi
     persistence:
       config:
-        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
       music:
-        enabled: true
         existingClaim: media-datastore
         globalMounts:
           - path: /music
@@ -77,12 +75,12 @@ spec:
             readOnly: true
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -102,6 +100,6 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls: [hosts: [*host]]

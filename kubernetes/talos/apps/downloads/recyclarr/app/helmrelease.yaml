@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -48,16 +48,11 @@ spec:
               capabilities: {drop: ["ALL"]}
     persistence:
       config:
-        enabled: true
         type: emptyDir
       config-file:
-        enabled: true
         type: configMap
         name: *configmap
         globalMounts:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yml
             readOnly: true
-    service:
-      main:
-        enabled: false

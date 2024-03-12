@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,7 +32,6 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16.2
-              imagePullPolicy: IfNotPresent
             envFrom: &envfrom
               - secretRef:
                   name: *secret
@@ -40,7 +39,6 @@ spec:
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.26.1
-              imagePullPolicy: IfNotPresent
             env:
               - {name: FOLDER, value: /config}
               - {name: LABEL, value: gatus.io/enabled}
@@ -68,7 +66,6 @@ spec:
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.26.1
-              imagePullPolicy: IfNotPresent
             env:
               - {name: FOLDER, value: /config}
               - {name: LABEL, value: gatus.io/enabled}
@@ -78,12 +75,13 @@ spec:
               - {name: METHOD, value: WATCH}
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port
     serviceMonitor:
       main:
-        enabled: true
+        serviceName: main
         endpoints:
           - port: http
             scheme: http
@@ -92,14 +90,13 @@ spec:
             scrapeTimeout: 10s
     ingress:
       main:
-        enabled: true
         className: public
         hosts:
           - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls: [hosts: [*host]]
     serviceAccount:
