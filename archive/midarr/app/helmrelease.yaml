@@ -52,7 +52,7 @@ spec:
               repository: ghcr.io/midarrlabs/midarr-server
               tag: v4.1.2
             env:
-              TZ: "${CONFIG_TIMEZONE}"
+              TZ: "Europe/Warsaw"
               APP_URL: http://midarr.media.svc.cluster.local:4000
               OAUTH_ISSUER_URL: https://auth.${SECRET_DOMAIN}/application/o/midarr/
               OAUTH_AUTHORIZE_URL: https://auth.${SECRET_DOMAIN}/application/o/authorize/
