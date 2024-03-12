@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      qbittorrent:
         type: statefulset
         pod:
           securityContext:
@@ -26,7 +26,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: "4.6.3"
@@ -89,13 +89,13 @@ spec:
               limits:
                 memory: 50Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: qbittorrent
         ports:
           http:
             port: *port
       bittorrent:
-        controller: main
+        controller: qbittorrent
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
@@ -118,7 +118,7 @@ spec:
         globalMounts:
           - path: /addons
     ingress:
-      main:
+      app:
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"
@@ -135,6 +135,6 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: qbittorrent
                   port: http
         tls: [hosts: [*host]]
