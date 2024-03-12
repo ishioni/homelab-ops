@@ -71,6 +71,8 @@ spec:
                     path: /accounts/login/
                     port: 8000
                   failureThreshold: 30
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 1
                   periodSeconds: 10
           nginx:
             image:

@@ -32,6 +32,17 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: 3000
+                    path: /api/healthcheck
+                  initialDelaySeconds: 0
+              readiness: *probes
+              startup: *probes
     service:
       main:
         controller: main
