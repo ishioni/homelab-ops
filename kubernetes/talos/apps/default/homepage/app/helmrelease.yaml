@@ -16,13 +16,13 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      homepage:
         annotations:
           secret.reloader.stakater.com/reload: &secret homepage-secret
           configmap.reloader.stakater.com/reload: &configmap homepage-config
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.9
@@ -44,13 +44,13 @@ spec:
               readiness: *probes
               startup: *probes
     service:
-      main:
+      app:
         controller: main
         ports:
           http:
             port: 3000
     ingress:
-      main:
+      app:
         enabled: true
         className: public
         annotations:
