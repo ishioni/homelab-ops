@@ -66,10 +66,8 @@ spec:
                 memory: 300Mi
     persistence:
       config:
-        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
       music:
-        enabled: true
         existingClaim: media-datastore
         globalMounts:
           - path: /music
@@ -83,7 +81,6 @@ spec:
             port: *port
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"

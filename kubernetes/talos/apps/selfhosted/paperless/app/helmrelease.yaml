@@ -120,7 +120,6 @@ spec:
             port: *port
     ingress:
       main:
-        enabled: true
         className: private
         annotations:
           gethomepage.dev/enabled: "true"

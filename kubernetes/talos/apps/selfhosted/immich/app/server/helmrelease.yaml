@@ -88,7 +88,6 @@ spec:
             port: 3001
     ingress:
       main:
-        enabled: true
         className: "public"
         annotations:
           gethomepage.dev/enabled: "true"
@@ -109,7 +108,6 @@ spec:
         tls: [hosts: [*host]]
     persistence:
       library:
-        enabled: true
         existingClaim: immich-media
         globalMounts:
           - path: /usr/src/app/upload

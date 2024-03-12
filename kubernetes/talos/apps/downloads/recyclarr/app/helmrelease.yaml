@@ -48,10 +48,8 @@ spec:
               capabilities: {drop: ["ALL"]}
     persistence:
       config:
-        enabled: true
         type: emptyDir
       config-file:
-        enabled: true
         type: configMap
         name: *configmap
         globalMounts:

@@ -90,7 +90,6 @@ spec:
             scrapeTimeout: 10s
     ingress:
       main:
-        enabled: true
         className: public
         hosts:
           - host: &host ${HOSTNAME}

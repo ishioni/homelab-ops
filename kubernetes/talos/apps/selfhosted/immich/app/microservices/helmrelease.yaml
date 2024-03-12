@@ -60,17 +60,14 @@ spec:
                 memory: 2500Mi
     persistence:
       library:
-        enabled: true
         existingClaim: immich-media
         globalMounts:
           - path: /usr/src/app/upload
       geocoding-dump:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: /usr/src/app/.reverse-geocoding-dump
       geoname-dump:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump

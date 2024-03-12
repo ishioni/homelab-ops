@@ -90,7 +90,6 @@ spec:
             port: *port
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"

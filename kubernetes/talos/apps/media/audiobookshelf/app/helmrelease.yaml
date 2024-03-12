@@ -63,10 +63,8 @@ spec:
                 memory: 600Mi
     persistence:
       config:
-        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
       media:
-        enabled: true
         existingClaim: media-datastore
         globalMounts:
           - path: /audiobooks
@@ -81,7 +79,6 @@ spec:
             port: *port
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           hajimari.io/enable: "true"

@@ -107,22 +107,18 @@ spec:
             protocol: TCP
     persistence:
       config:
-        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
       downloads:
-        enabled: true
         existingClaim: downloads-datastore
         globalMounts:
           - path: /downloads
             subPath: Downloads
       addons:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: /addons
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           authentik.home.arpa/enabled: "true"

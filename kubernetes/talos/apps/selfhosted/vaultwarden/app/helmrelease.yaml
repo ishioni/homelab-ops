@@ -80,7 +80,6 @@ spec:
             port: *port
     ingress:
       main:
-        enabled: true
         className: public
         annotations:
           gethomepage.dev/enabled: "true"
@@ -100,5 +99,4 @@ spec:
             secretName: *host
     persistence:
       data:
-        enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
