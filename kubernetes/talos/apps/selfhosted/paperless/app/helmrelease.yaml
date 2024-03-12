@@ -87,6 +87,8 @@ spec:
                   httpGet:
                     path: /
                     port: *port
+                  initialDelaySeconds: 0
+                  timeoutSeconds: 1
                   failureThreshold: 10
                   periodSeconds: 12
           gotenburg:
