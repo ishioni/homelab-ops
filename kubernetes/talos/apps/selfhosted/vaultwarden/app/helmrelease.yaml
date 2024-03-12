@@ -44,7 +44,7 @@ spec:
               ICON_CACHE_FOLDER: "data/icon_cache"
               ATTACHMENTS_FOLDER: "data/attachments"
               DOMAIN: "https://${HOSTNAME}"
-              TZ: ${CONFIG_TIMEZONE}
+              TZ: Europe/Warsaw
               SIGNUPS_ALLOWED: "false"
               SMTP_FROM: passwords@${SECRET_DOMAIN}
               SMTP_SECURITY: force_tls

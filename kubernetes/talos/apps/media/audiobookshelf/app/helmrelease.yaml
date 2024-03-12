@@ -34,7 +34,7 @@ spec:
               - secretRef:
                   name: *secret
             env:
-              TZ: ${CONFIG_TIMEZONE}
+              TZ: Europe/Warsaw
               PORT: &port 8080
               AUDIOBOOKSHELF_UID: ${APP_UID}
               AUDIOBOOKSHELF_GID: ${APP_GID}
