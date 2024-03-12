@@ -41,7 +41,7 @@ spec:
             port: 9995
     serviceMonitor:
       main:
-        serviceName: main
+        serviceName: nut-exporter
         endpoints:
           - port: http
             scheme: http
