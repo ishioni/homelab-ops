@@ -19,7 +19,7 @@ spec:
       namespace: database
   values:
     controllers:
-      main:
+      immich:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: &secret immich-secret
@@ -48,7 +48,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.98.2
@@ -81,13 +81,13 @@ spec:
               startup:
                 enabled: false
     service:
-      main:
-        controller: main
+      app:
+        controller: immich
         ports:
           http:
             port: 3001
     ingress:
-      main:
+      app:
         className: "public"
         annotations:
           gethomepage.dev/enabled: "true"
@@ -103,7 +103,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
     persistence:

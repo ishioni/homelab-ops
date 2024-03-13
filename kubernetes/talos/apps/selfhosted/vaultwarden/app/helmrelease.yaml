@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      main:
+      vaultwarden:
         annotations:
           secret.reloader.stakater.com/reload: &secret vaultwarden-secret
         initContainers:
@@ -35,7 +35,7 @@ spec:
             fsGroup: ${APP_GID}
             fsGroupChangePolicy: "OnRootMismatch"
         containers:
-          main:
+          app:
             image:
               repository: vaultwarden/server
               tag: 1.30.5
@@ -73,13 +73,13 @@ spec:
               limits:
                 memory: 2Gi
     service:
-      main:
-        controller: main
+      app:
+        controller: vaultwarden
         ports:
           http:
             port: *port
     ingress:
-      main:
+      app:
         className: public
         annotations:
           gethomepage.dev/enabled: "true"
@@ -91,7 +91,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
