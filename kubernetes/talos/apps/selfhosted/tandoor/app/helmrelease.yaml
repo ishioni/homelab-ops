@@ -105,8 +105,8 @@ spec:
       files:
         existingClaim: tandoor-data
         advancedMounts:
-          main:
-            main:
+          tandoor:
+            app:
               - path: /opt/recipes/mediafiles
                 subPath: mediafiles
               - path: /opt/recipes/staticfiles
@@ -120,7 +120,7 @@ spec:
         type: configMap
         name: tandoor-nginx
         advancedMounts:
-          main:
+          tandoor:
             nginx:
               - path: /etc/nginx/nginx.conf
                 subPath: nginx-config
@@ -128,8 +128,8 @@ spec:
       temp:
         type: emptyDir
         advancedMounts:
-          main:
-            main:
+          tandoor:
+            app:
               - path: /tmp
                 subPath: app-tmp
               - path: /opt/recipes/cookbook/static/django_js_reverse
