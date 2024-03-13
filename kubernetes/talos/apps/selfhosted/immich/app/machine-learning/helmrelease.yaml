@@ -19,7 +19,7 @@ spec:
     - name: immich-server
   values:
     controllers:
-      main:
+      immichml:
         strategy: RollingUpdate
         annotations:
           configmap.reloader.stakater.com/reload: &configmap immich-configmap
@@ -38,7 +38,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.98.2
@@ -70,8 +70,8 @@ spec:
               startup:
                 enabled: false
     service:
-      main:
-        controller: main
+      app:
+        controller: immichml
         ports:
           http:
             port: *port
