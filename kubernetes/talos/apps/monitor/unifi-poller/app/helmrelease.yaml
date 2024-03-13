@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      unpoller:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: &secret unifi-poller-secret
@@ -27,7 +27,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.10.0
@@ -47,13 +47,13 @@ spec:
               limits:
                 memory: 50Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: unpoller
         ports:
           http:
             port: 9130
     serviceMonitor:
-      main:
+      app:
         serviceName: unifi-poller
         endpoints:
           - port: http
