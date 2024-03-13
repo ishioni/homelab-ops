@@ -16,23 +16,23 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      s3proxy:
         strategy: RollingUpdate
         annotations:
           configmap.reloader.stakater.com/reload: &configmap s3-proxy-configmap
         containers:
-          main:
+          app:
             image:
               repository: public.ecr.aws/nginx/nginx
               tag: "1.25.4"
     service:
-      main:
-        controller: main
+      app:
+        controller: s3proxy
         ports:
           http:
             port: 80
     ingress:
-      main:
+      app:
         enabled: true
         className: public
         hosts:
@@ -40,12 +40,11 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
     persistence:
       nginx-config:
-        enabled: true
         type: "custom"
         globalMounts:
           - path: /etc/nginx/nginx.conf

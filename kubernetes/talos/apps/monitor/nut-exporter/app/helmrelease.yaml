@@ -16,10 +16,10 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      nutexporter:
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: docker.io/hon95/prometheus-nut-exporter
               tag: "1.2.1"
@@ -34,13 +34,13 @@ spec:
               limits:
                 memory: 50Mi
     service:
-      main:
-        controller: main
+      app:
+        controller: nutexporter
         ports:
           http:
             port: 9995
     serviceMonitor:
-      main:
+      app:
         serviceName: nut-exporter
         endpoints:
           - port: http

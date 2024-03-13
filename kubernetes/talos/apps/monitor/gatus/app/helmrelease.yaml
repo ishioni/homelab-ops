@@ -16,7 +16,7 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      gatus:
         annotations:
           secret.reloader.stakater.com/reload: &secret gatus-secret
           configmap.reloader.stakater.com/reload: &configmap gatus-configmap
@@ -47,7 +47,7 @@ spec:
               - {name: UNIQUE_FILENAMES, value: "true"}
               - {name: METHOD, value: LIST}
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/twin/gatus
               tag: v5.7.0
@@ -75,13 +75,13 @@ spec:
               - {name: METHOD, value: WATCH}
     service:
       main:
-        controller: main
+        controller: gatus
         ports:
           http:
             port: *port
     serviceMonitor:
       main:
-        serviceName: main
+        serviceName: gatus
         endpoints:
           - port: http
             scheme: http
@@ -89,18 +89,17 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
     ingress:
-      main:
+      app:
         className: public
         hosts:
           - host: &host ${HOSTNAME}
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: gatus
                   port: http
         tls: [hosts: [*host]]
     serviceAccount:
-      create: true
       name: gatus
     persistence:
       config-dir:
