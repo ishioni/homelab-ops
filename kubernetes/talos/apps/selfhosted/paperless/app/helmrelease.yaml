@@ -143,6 +143,6 @@ spec:
       library:
         existingClaim: ${VOLSYNC_CLAIM}
         advancedMounts:
-          main:
-            main:
+          paperless:
+            app:
               - path: /library
