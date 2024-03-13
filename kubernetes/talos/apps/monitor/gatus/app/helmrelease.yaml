@@ -74,13 +74,13 @@ spec:
               - {name: UNIQUE_FILENAMES, value: "true"}
               - {name: METHOD, value: WATCH}
     service:
-      main:
+      app:
         controller: gatus
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
+      app:
         serviceName: gatus
         endpoints:
           - port: http
@@ -96,7 +96,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: gatus
+                  identifier: app
                   port: http
         tls: [hosts: [*host]]
     serviceAccount:
