@@ -270,7 +270,7 @@ spec:
           datasource: Prometheus
       storage:
         cnpg-dashboard:
-          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.21.0/docs/src/samples/monitoring/grafana-dashboard.json
+          url: https://raw.githubusercontent.com/cloudnative-pg/charts/cloudnative-pg-v0.20.2/charts/cloudnative-pg/monitoring/grafana-dashboard.json
           datasource: Prometheus
         redis:
           # renovate: depName="Redis"
