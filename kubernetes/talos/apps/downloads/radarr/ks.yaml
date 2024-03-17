@@ -24,7 +24,5 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: movies.${SECRET_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "2000"
       PVC_CLAIM: radarr-config
       PVC_STORAGECLASS: truenas-ssd-nfs

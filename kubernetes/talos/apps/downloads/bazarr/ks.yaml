@@ -24,8 +24,6 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: bazarr.${SECRET_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "2000"
       VOLSYNC_CLAIM: bazarr-config
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs
       VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs

@@ -24,7 +24,5 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: tv.${SECRET_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "2000"
       PVC_CLAIM: sonarr-config
       PVC_STORAGECLASS: truenas-ssd-nfs
