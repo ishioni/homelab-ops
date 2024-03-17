@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: "Flux Diff"
 
 on:
@@ -11,7 +12,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   changed-clusters:
     name: Changed Clusters
     runs-on: ubuntu-latest
@@ -31,6 +31,7 @@ jobs:
           dir_names: true
           dir_names_max_depth: 2
           json: true
+          escape_json: false
 
       - name: List All Changed Clusters
         run: echo "${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}"
@@ -82,16 +83,24 @@ jobs:
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
-            --sources "homelab-ops-kubernetes"
+            --sources "homelab-ops"
             --output-file diff.patch
 
       - name: Generate Diff
         id: diff
         run: |
-          cat diff.patch
-          echo "diff<<EOF" >> $GITHUB_OUTPUT
-          cat diff.patch >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          cat diff.patch;
+          {
+            echo 'diff<<EOF'
+            cat diff.patch
+            echo EOF
+          } >> "$GITHUB_OUTPUT";
+          {
+            echo "### Diff"
+            echo '```diff'
+            cat diff.patch
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Add comment
         if: ${{ steps.diff.outputs.diff != '' }}
