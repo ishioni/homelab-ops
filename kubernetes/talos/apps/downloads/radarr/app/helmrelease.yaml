@@ -108,7 +108,7 @@ spec:
         tls: [hosts: [*host]]
     persistence:
       config:
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: ${PVC_CLAIM}
       media:
         existingClaim: downloads-datastore
         globalMounts:

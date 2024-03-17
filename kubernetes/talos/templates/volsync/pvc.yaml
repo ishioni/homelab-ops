@@ -4,15 +4,14 @@ kind: PersistentVolumeClaim
 metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
-  name: nextcloud-data
-  namespace: selfhosted
+  name: ${VOLSYNC_CLAIM:-${APP}}
 spec:
-  accessModes: ["ReadWriteOnce"]
-  storageClassName: truenas-ssd-nfs
+  accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+  storageClassName: ${VOLSYNC_STORAGECLASS:-truenas-ssd-iscsi}
   resources:
     requests:
-      storage: 5Gi
+      storage: ${VOLSYNC_CAPACITY:-1Gi}
   dataSourceRef:
-    name: nextcloud-rdst
+    name: ${APP}-rdst
     kind: ReplicationDestination
     apiGroup: volsync.backube

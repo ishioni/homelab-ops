@@ -107,7 +107,7 @@ spec:
         tls: [hosts: [*host]]
     persistence:
       config:
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: ${PVC_CLAIM}
         globalMounts:
           - path: /config
       media:
