@@ -23,3 +23,5 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: indexer.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "2000"

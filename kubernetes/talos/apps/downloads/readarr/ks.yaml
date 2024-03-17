@@ -24,5 +24,7 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: readarr.${SECRET_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "2000"
       PVC_CLAIM: readarr-config
       PVC_STORAGECLASS: truenas-ssd-nfs
