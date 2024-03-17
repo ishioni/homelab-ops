@@ -19,8 +19,8 @@ spec:
       navidrome:
         pod:
           securityContext:
-            runAsUser: ${APP_UID}
-            runAsGroup: &gid ${APP_GID}
+            runAsUser: 568
+            runAsGroup: &gid 2000
             fsGroup: *gid
             fsGroupChangePolicy: OnRootMismatch
         containers:
