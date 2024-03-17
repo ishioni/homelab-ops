@@ -54,8 +54,8 @@ spec:
               PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: ${CONFIG_TIMEZONE}
               PAPERLESS_URL: https://documents.${SECRET_DOMAIN}
-              USERMAP_UID: ${APP_UID}
-              USERMAP_GID: ${APP_GID}
+              USERMAP_UID: 568
+              USERMAP_GID: 568
             envFrom:
               - secretRef:
                   name: *secret

@@ -21,9 +21,9 @@ spec:
           secret.reloader.stakater.com/reload: &secret audiobookshelf-secret
         pod:
           securityContext:
-            runAsUser: ${APP_UID}
-            runAsGroup: ${APP_GID}
-            fsGroup: ${APP_GID}
+            runAsUser: &uid 568
+            runAsGroup: &gid 2000
+            fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
@@ -36,8 +36,8 @@ spec:
             env:
               TZ: ${CONFIG_TIMEZONE}
               PORT: &port 8080
-              AUDIOBOOKSHELF_UID: ${APP_UID}
-              AUDIOBOOKSHELF_GID: ${APP_GID}
+              AUDIOBOOKSHELF_UID: *uid
+              AUDIOBOOKSHELF_GID: *gid
               CONFIG_PATH: /config
               METADATA_PATH: /config/metadata
             probes:
