@@ -26,7 +26,5 @@ spec:
       HOSTNAME: tv.${SECRET_DOMAIN}
       APP_UID: "568"
       APP_GID: "2000"
-      VOLSYNC_CLAIM: sonarr-config
-      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
-      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
-      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
+      PVC_CLAIM: sonarr-config
+      PVC_STORAGECLASS: truenas-ssd-nfs
