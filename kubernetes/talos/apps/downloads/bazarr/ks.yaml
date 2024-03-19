@@ -30,4 +30,4 @@ spec:
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs
       VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
-      VOLSYNC_TIME: 2 0 * * *
+      VOLSYNC_TIME: 0 2 * * *
