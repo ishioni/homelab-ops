@@ -34,4 +34,4 @@ spec:
       VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_ACCESSMODES: ReadWriteMany
-      VOLSYNC_TIME: 6 0 * * *
+      VOLSYNC_TIME: 0 6 * * *

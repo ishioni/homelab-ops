@@ -32,4 +32,3 @@ spec:
       VOLSYNC_STORAGECLASS: truenas-ssd-iscsi
       VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-iscsi
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
-      VOLSYNC_TIME: 0 0 * * *
