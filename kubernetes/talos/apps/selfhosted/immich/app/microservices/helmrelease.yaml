@@ -58,6 +58,12 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 2500Mi
+    service:
+      app:
+        controller: immichmicroservices
+        ports:
+          metrics:
+            port: 8081
     persistence:
       library:
         existingClaim: immich-media
@@ -71,3 +77,10 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
+    serviceMonitor:
+      app:
+        serviceName: immich-microservices
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
