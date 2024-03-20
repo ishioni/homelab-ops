@@ -171,6 +171,7 @@ spec:
         walCompression: true
         enabledFeatures:
           - auto-gomaxprocs
+          - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
         retention: 2d
