@@ -126,7 +126,7 @@ spec:
               targetLabel: kubernetes_node
     grafana:
       enabled: false
-      forceDeployDashboards: false
+      forceDeployDashboards: true
       sidecar:
         dashboards:
           annotations:
