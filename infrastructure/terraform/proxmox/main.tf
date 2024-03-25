@@ -47,5 +47,5 @@ provider "proxmox" {
 provider "unifi" {
   username = module.secret_unifi.fields.username
   password = module.secret_unifi.fields.password
-  api_url  = "https://ui.ishioni.casa"
+  api_url  = "https://unifi.ishioni.casa"
 }

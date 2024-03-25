@@ -74,12 +74,12 @@ data:
               key: {{HOMEPAGE_VAR_HASS_TOKEN}}
     - Infrastructure:
         - Unifi:
-            href: https://ui.${HOME_DOMAIN}
+            href: https://unifi.${HOME_DOMAIN}
             icon: unifi.png
             description: Unifi Dashboard
             widget:
               type: unifi
-              url: https://ui.${HOME_DOMAIN}
+              url: https://unifi.${HOME_DOMAIN}
               username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - TrueNAS:
