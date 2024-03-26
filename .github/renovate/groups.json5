@@ -42,5 +42,11 @@
       matchPackagePatterns: ["talos-images","installer"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
+    {
+      description: "Cilium",
+      groupName: "Cilium",
+      matchPackagePatterns: ["cilium"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    }
   ],
 }
