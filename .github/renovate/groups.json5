@@ -45,8 +45,13 @@
     {
       description: "Cilium",
       groupName: "Cilium",
-      matchPackagePatterns: ["cilium"],
+      matchPackagePatterns: [
+        "quay.io/cilium/cilium",
+        "quay.io/cilium/operator-generic",
+        "cilium"
+        ],
+      matchDatasources: ["helm", "docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
-    }
+    },
   ],
 }
