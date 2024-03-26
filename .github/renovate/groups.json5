@@ -48,6 +48,7 @@
       matchPackagePatterns: ["cilium"],
       matchDatasources: ["helm"],
       group: {commitMessageTopic: "{{{groupName}}}"},
+      separateMinorPatch: true,
     },
   ],
 }
