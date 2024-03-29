@@ -21,7 +21,8 @@ spec:
   values:
     crds:
       enabled: true
-    fullnameOverride: prometheus
+    cleanPrometheusOperatorObjectNames: true
+    # fullnameOverride: prometheus
     defaultRules:
       create: true
       rules:
