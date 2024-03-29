@@ -28,7 +28,7 @@ spec:
       replicaCount: 1
       replicaLabel: [__replica__]
       dnsDiscovery:
-        sidecarsService: prometheus-thanos-discovery
+        sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitor
     queryFrontend:
       enabled: false
