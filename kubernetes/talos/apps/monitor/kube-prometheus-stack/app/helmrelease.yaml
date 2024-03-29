@@ -93,10 +93,6 @@ spec:
         enabled: true
         ingressClassName: private
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Alert Manager
-          hajimari.io/icon: mdi:alert-decagram-outline
-          hajimari.io/group: infrastructure
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Alert Manager
@@ -140,16 +136,12 @@ spec:
         enabled: true
         ingressClassName: private
         annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/appName: Prometheus
-          hajimari.io/icon: simple-icons:prometheus
-          hajimari.io/group: infrastructure
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Prometheus
           gethomepage.dev/icon: prometheus.svg
           gethomepage.dev/widget.type: prometheus
-          gethomepage.dev/widget.url: http://prometheus-prometheus.monitor:9090
+          gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.monitor:9090
         pathType: Prefix
         hosts:
           - &host ${HOSTNAME}
