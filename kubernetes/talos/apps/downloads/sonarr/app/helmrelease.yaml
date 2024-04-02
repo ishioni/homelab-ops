@@ -49,6 +49,7 @@ spec:
               SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               SONARR__ANALYTICS_ENABLED: "False"
               SONARR__THEME: dark
+              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
