@@ -48,7 +48,6 @@ spec:
               READARR__AUTHENTICATION_METHOD: None
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__ANALYTICS_ENABLED: "False"
-              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
