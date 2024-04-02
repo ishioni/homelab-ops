@@ -49,7 +49,6 @@ spec:
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__THEME: dark
-              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret

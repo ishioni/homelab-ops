@@ -48,7 +48,6 @@ spec:
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               LIDARR__ANALYTICS_ENABLED: "False"
-              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret

@@ -49,7 +49,6 @@ spec:
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__APPLICATION_URL: "https://$HOSTNAME"
               RADARR__THEME: dark
-              COMPlus_EnableDiagnostics: "0"
             envFrom:
               - secretRef:
                   name: *secret
