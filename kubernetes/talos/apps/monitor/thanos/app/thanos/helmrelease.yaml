@@ -55,31 +55,37 @@ spec:
         enabled: true
         storageClass: "truenas-ssd-iscsi"
         size: 15Gi
-    query:
-    storageGateway:
-
-    # controller:
-    #   annotations:
-    #     secret.reloader.stakater.com/reload: thanos-s3
-    # existingObjstoreSecret: thanos-objectstore-secret
     # query:
-    #   enabled: true
-    #   replicaCount: 1
-    #   replicaLabel: [__replica__]
-    #   dnsDiscovery:
-    #     sidecarsService: kube-prometheus-stack-thanos-discovery
-    #     sidecarsNamespace: monitor
+    #   extraArgs: --alert.query-url=http://thanos.${SECRET_DOMAIN}
     # queryFrontend:
-    #   enabled: false
-    # bucketweb:
     #   enabled: true
-    # storegateway:
+    #   ingress:
+    #     enabled: true
+    #     ingressClassName: private
+    #     hosts:
+    #       - &queryFrontendhost thanos.${SECRET_DOMAIN}
+    # rule:
     #   enabled: true
+    #   extraArgs: ["--web.prefix-header=X-Forwarded-Prefix"]
+    #   alertmanagersConfig:
+    #     value: |-
+    #       alertmanagers:
+    #         - api_version: v2
+    #           static_configs:
+    #             - dnssrv+_http-web._tcp.kube-prometheus-stack-alertmanager.monitor.svc.cluster.local
+    #   rules:
+    #     value: |-
+    #       groups:
+    #         - name: PrometheusWatcher
+    #           rules:
+    #             - alert: PrometheusDown
+    #               annotations:
+    #                 summary: A Prometheus has disappeared from Prometheus target discovery
+    #               expr: absent(up{job="prometheus-prometheus"})
+    #               for: 5m
+    #               labels:
+    #                 severity: critical
     #   persistence:
     #     enabled: true
-    #     storageClass: "truenas-ssd-iscsi"
-    #     size: 10Gi
-    # metrics:
-    #   enabled: true
-    #   serviceMonitor:
-    #     enabled: true
+    #     storageClass: openebs-hostpath
+    #     size: 15Gi
