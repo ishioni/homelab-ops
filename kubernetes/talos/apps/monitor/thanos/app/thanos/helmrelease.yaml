@@ -39,8 +39,6 @@ spec:
     objstoreConfig:
       value:
         type: s3
-        config:
-          insecure: true
     additionalEndpoints:
       - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitor.svc.cluster.local
     additionalReplicaLabels: ["__replica__"]
