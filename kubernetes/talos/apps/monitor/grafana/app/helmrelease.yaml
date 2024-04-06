@@ -128,7 +128,7 @@ spec:
           - name: Prometheus
             type: prometheus
             access: proxy
-            url: http://thanos-query.monitor.svc.cluster.local:9090/
+            url: http://thanos-query.monitor.svc.cluster.local:10902/
             isDefault: true
             jsonData:
               timeInterval: 30s
