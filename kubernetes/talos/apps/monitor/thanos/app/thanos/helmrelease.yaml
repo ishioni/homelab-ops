@@ -37,8 +37,10 @@ spec:
       valuesKey: S3_SECRET_KEY
   values:
     objstoreConfig:
-      value:
-        type: s3
+      # Creates by kps
+      create: false
+      name: thanos-objectstore-secret
+      key: objstore.yml
     additionalEndpoints:
       - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitor.svc.cluster.local
     additionalReplicaLabels: ["__replica__"]
