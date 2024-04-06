@@ -23,6 +23,10 @@ spec:
       kind: Secret
       name: thanos-objectstore-secret
       valuesKey: S3_HOST
+    - targetPath: objstoreConfig.value.config.region
+      kind: Secret
+      name: thanos-objectstore-secret
+      valuesKey: S3_REGION
     - targetPath: objstoreConfig.value.config.access_key
       kind: Secret
       name: thanos-objectstore-secret
