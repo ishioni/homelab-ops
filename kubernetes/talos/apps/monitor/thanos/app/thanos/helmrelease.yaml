@@ -8,51 +8,84 @@ spec:
   chart:
     spec:
       chart: thanos
-      version: 14.0.2
+      version: 1.16.1
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: stevehipwell
         namespace: flux-system
   interval: 30m
+  valuesFrom:
+    - targetPath: objstoreConfig.value.config.bucket
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_BUCKET
+    - targetPath: objstoreConfig.value.config.endpoint
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_HOST
+    - targetPath: objstoreConfig.value.config.region
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_REGION
+    - targetPath: objstoreConfig.value.config.access_key
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_ACCESS_KEY
+    - targetPath: objstoreConfig.value.config.secret_key
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_SECRET_KEY
   values:
-    image:
-      registry: quay.io
-      repository: thanos/thanos
-      tag: v0.34.1
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: thanos-s3
-    existingObjstoreSecret: thanos-objectstore-secret
-    query:
+    objstoreConfig:
+      value:
+        type: s3
+        config:
+          insecure: true
+    additionalEndpoints:
+      - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitor.svc.cluster.local
+    additionalReplicaLabels: ["__replica__"]
+    serviceMonitor:
       enabled: true
-      replicaCount: 1
-      replicaLabel: [__replica__]
-      dnsDiscovery:
-        sidecarsService: kube-prometheus-stack-thanos-discovery
-        sidecarsNamespace: monitor
-    queryFrontend:
-      enabled: false
-    bucketweb:
+    compact:
       enabled: true
-    compactor:
-      enabled: true
-      extraFlags: ["--compact.concurrency", "4", "--downsampling.disable"]
-      retentionResolutionRaw: 30d
-      # retentionResolution5m: 14d
-      # retentionResolution1h: 21d
+      extraArgs:
+        - --compact.concurrency=4
+        - --downsampling.disable
       persistence:
         enabled: true
         storageClass: "truenas-ssd-iscsi"
         size: 15Gi
-    storegateway:
-      enabled: true
-      persistence:
-        enabled: true
-        storageClass: "truenas-ssd-iscsi"
-        size: 10Gi
-    ruler:
-      enabled: false
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
+    # query:
+    #   extraArgs: --alert.query-url=http://thanos.${SECRET_DOMAIN}
+    # queryFrontend:
+    #   enabled: true
+    #   ingress:
+    #     enabled: true
+    #     ingressClassName: private
+    #     hosts:
+    #       - &queryFrontendhost thanos.${SECRET_DOMAIN}
+    # rule:
+    #   enabled: true
+    #   extraArgs: ["--web.prefix-header=X-Forwarded-Prefix"]
+    #   alertmanagersConfig:
+    #     value: |-
+    #       alertmanagers:
+    #         - api_version: v2
+    #           static_configs:
+    #             - dnssrv+_http-web._tcp.kube-prometheus-stack-alertmanager.monitor.svc.cluster.local
+    #   rules:
+    #     value: |-
+    #       groups:
+    #         - name: PrometheusWatcher
+    #           rules:
+    #             - alert: PrometheusDown
+    #               annotations:
+    #                 summary: A Prometheus has disappeared from Prometheus target discovery
+    #               expr: absent(up{job="prometheus-prometheus"})
+    #               for: 5m
+    #               labels:
+    #                 severity: critical
+    #   persistence:
+    #     enabled: true
+    #     storageClass: openebs-hostpath
+    #     size: 15Gi
