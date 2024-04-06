@@ -14,27 +14,6 @@ spec:
         name: stevehipwell
         namespace: flux-system
   interval: 30m
-  valuesFrom:
-    - targetPath: objstoreConfig.value.config.bucket
-      kind: Secret
-      name: thanos-objectstore-secret
-      valuesKey: S3_BUCKET
-    - targetPath: objstoreConfig.value.config.endpoint
-      kind: Secret
-      name: thanos-objectstore-secret
-      valuesKey: S3_HOST
-    - targetPath: objstoreConfig.value.config.region
-      kind: Secret
-      name: thanos-objectstore-secret
-      valuesKey: S3_REGION
-    - targetPath: objstoreConfig.value.config.access_key
-      kind: Secret
-      name: thanos-objectstore-secret
-      valuesKey: S3_ACCESS_KEY
-    - targetPath: objstoreConfig.value.config.secret_key
-      kind: Secret
-      name: thanos-objectstore-secret
-      valuesKey: S3_SECRET_KEY
   values:
     objstoreConfig:
       # Creates by kps
