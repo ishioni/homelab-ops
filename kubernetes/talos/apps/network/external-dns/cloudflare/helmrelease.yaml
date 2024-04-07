@@ -14,6 +14,10 @@ spec:
         name: external-dns
         namespace: flux-system
   interval: 30m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret externaldns-cloudflare-secret
