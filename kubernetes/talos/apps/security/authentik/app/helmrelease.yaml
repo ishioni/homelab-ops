@@ -18,14 +18,14 @@ spec:
     global:
       deploymentAnnotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
+      envFrom:
+        - secretRef:
+            name: *secret
     server:
       replicas: 1
       initContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.2
-          envFrom:
-            - secretRef:
-                name: *secret
       resources:
         requests:
           cpu: 50m
@@ -61,10 +61,6 @@ spec:
         limits:
           memory: 1200Mi
     authentik:
-      email:
-        use_ssl: true
-        port: "465"
-        from: "Authentik <auth@${SECRET_DOMAIN}>"
       log_level: debug
       redis:
         host: dragonfly.database.svc.cluster.local
@@ -73,36 +69,3 @@ spec:
     prometheus:
       rules:
         enabled: true
-  valuesFrom:
-    - kind: Secret
-      name: *secret
-      valuesKey: AUTHENTIK_SECRET_KEY
-      targetPath: authentik.secret_key
-    - kind: Secret
-      name: *secret
-      valuesKey: SMTP_HOST
-      targetPath: authentik.email.host
-    - kind: Secret
-      name: *secret
-      valuesKey: SMTP_USERNAME
-      targetPath: authentik.email.username
-    - kind: Secret
-      name: *secret
-      valuesKey: SMTP_PASS
-      targetPath: authentik.email.password
-    - kind: Secret
-      name: *secret
-      valuesKey: POSTGRES_HOST
-      targetPath: authentik.postgresql.host
-    - kind: Secret
-      name: *secret
-      valuesKey: POSTGRES_USER
-      targetPath: authentik.postgresql.user
-    - kind: Secret
-      name: *secret
-      valuesKey: POSTGRES_PASS
-      targetPath: authentik.postgresql.password
-    - kind: Secret
-      name: *secret
-      valuesKey: POSTGRES_DB
-      targetPath: authentik.postgresql.name
