@@ -66,53 +66,13 @@ spec:
         port: "465"
         from: "Authentik <auth@${SECRET_DOMAIN}>"
       log_level: debug
+      redis:
+        host: dragonfly.database.svc.cluster.local
       error_reporting:
         enabled: false
     prometheus:
       rules:
         enabled: true
-    # volumes:
-    #   - name: authentik-media
-    #     persistentVolumeClaim:
-    #       claimName: authentik-media
-    # volumeMounts:
-    #   - name: authentik-media
-    #     mountPath: /media
-    #     subPath: media
-    #   - name: authentik-media
-    #     mountPath: /templates
-    #     subPath: custom-templates
-    redis:
-      enabled: true
-      auth:
-        enabled: true
-      master:
-        persistence:
-          enabled: true
-          size: 1Gi
-        resources:
-          requests:
-            cpu: 15m
-            memory: 50Mi
-          limits:
-            memory: 100Mi
-      commonConfiguration: |-
-        # Enable AOF https://redis.io/topics/persistence#append-only-file
-        appendonly yes
-        # Disable RDB persistence, AOF persistence already enabled.
-        save ""
-        maxmemory 94371840
-        maxmemory-policy allkeys-lru
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-        resources:
-          requests:
-            cpu: 10m
-            memory: 10Mi
-          limits:
-            memory: 20Mi
   valuesFrom:
     - kind: Secret
       name: *secret
@@ -146,11 +106,3 @@ spec:
       name: *secret
       valuesKey: POSTGRES_DB
       targetPath: authentik.postgresql.name
-    - kind: Secret
-      name: *secret
-      valuesKey: REDIS_PASS
-      targetPath: authentik.redis.password
-    - kind: Secret
-      name: *secret
-      valuesKey: REDIS_PASS
-      targetPath: redis.auth.password
