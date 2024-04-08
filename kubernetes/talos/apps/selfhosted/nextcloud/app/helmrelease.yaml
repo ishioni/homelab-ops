@@ -38,6 +38,10 @@ spec:
             - secretRef:
                 name: *secret
       extraEnv:
+        - name: REDIS_HOST
+          value: dragonfly.database.svc.cluster.local
+        - name: REDIS_HOST_PORT
+          value: "6379"
         - name: S3_ACCESS_KEY
           valueFrom:
             secretKeyRef:
@@ -75,6 +79,8 @@ spec:
           secure: ssl
           port: 465
           authtype: LOGIN
+      defaultConfigs:
+        redis.config.php: false
       configs:
         local.config.php: |-
           <?php
@@ -92,6 +98,17 @@ spec:
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
+        redis.config.php: |-
+          <?php
+            $CONFIG = array (
+              'memcache.distributed' => '\OC\Memcache\Redis',
+              'memcache.locking' => '\OC\Memcache\Redis',
+              'redis' => array(
+                'host' => getenv('REDIS_HOST'),
+                'port' => getenv('REDIS_HOST_PORT') ?: 6379,
+                'dbindex' => 2,
+              )
+            );
         sso.config.php: |-
           <?php
           $CONFIG = array (
@@ -248,39 +265,6 @@ spec:
         databaseKey: POSTGRES_DB
         usernameKey: POSTGRES_USER
         passwordKey: POSTGRES_PASSWORD
-    redis:
-      enabled: true
-      architecture: standalone
-      auth:
-        enabled: true
-        existingSecret: *secret
-        existingSecretPasswordKey: REDIS_PASSWORD
-      master:
-        persistence:
-          enabled: false
-        resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
-          limits:
-            memory: 100Mi
-      commonConfiguration: |-
-        # Enable AOF https://redis.io/topics/persistence#append-only-file
-        appendonly yes
-        # Disable RDB persistence, AOF persistence already enabled.
-        save ""
-        maxmemory 94371840
-        maxmemory-policy allkeys-lru
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-        resources:
-          requests:
-            cpu: 10m
-            memory: 10Mi
-          limits:
-            memory: 20Mi
     metrics:
       enabled: false
       https: true
