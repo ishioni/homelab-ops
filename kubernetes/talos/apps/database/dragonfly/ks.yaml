@@ -32,4 +32,3 @@ spec:
   interval: 10m
   dependsOn:
     - name: database-dragonfly
-    - name: security-external-secrets
