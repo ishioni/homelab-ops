@@ -26,6 +26,9 @@ spec:
       initContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.2
+          envFrom:
+            - secretRef:
+                name: *secret
       resources:
         requests:
           cpu: 50m
