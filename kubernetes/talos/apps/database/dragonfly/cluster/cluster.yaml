@@ -22,7 +22,3 @@ spec:
       cpu: 100m
     limits:
       memory: 512Mi
-  serviceSpec:
-    type: LoadBalancer
-    annotations:
-      external-dns.alpha.kubernetes.io/hostname: dragonfly.${HOME_DOMAIN}
