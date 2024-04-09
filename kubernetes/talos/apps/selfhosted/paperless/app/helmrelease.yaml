@@ -47,7 +47,7 @@ spec:
               PAPERLESS_OCR_LANGUAGE: pol
               PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
               PAPERLESS_PORT: &port 8000
-              PAPERLESS_REDIS: redis://localhost:6379
+              PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/4
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_TIKA_ENABLED: 1
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
@@ -100,13 +100,6 @@ spec:
             securityContext:
               runAsUser: 65534
               runAsGroup: 65534
-          redis:
-            image:
-              repository: public.ecr.aws/docker/library/redis
-              tag: 7.2.4
-            securityContext:
-              runAsUser: 999
-              runAsGroup: 999
           tika:
             image:
               repository: ghcr.io/paperless-ngx/tika
