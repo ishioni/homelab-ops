@@ -272,11 +272,6 @@ spec:
         cnpg-dashboard:
           url: https://raw.githubusercontent.com/cloudnative-pg/charts/cloudnative-pg-v0.20.2/charts/cloudnative-pg/monitoring/grafana-dashboard.json
           datasource: Prometheus
-        redis:
-          # renovate: depName="Redis"
-          gnetId: 11835
-          revision: 1
-          datasource: Prometheus
         dragonfly:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
           datasource: Prometheus
