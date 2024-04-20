@@ -91,7 +91,7 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 10
                   periodSeconds: 12
-          gotenburg:
+          gotenberg:
             image:
               repository: docker.io/thecodingmachine/gotenberg
               tag: 8.4.0
