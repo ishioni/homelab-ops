@@ -270,7 +270,7 @@ spec:
           datasource: Prometheus
       storage:
         cnpg-dashboard:
-          url: https://raw.githubusercontent.com/cloudnative-pg/charts/cloudnative-pg-v0.20.2/charts/cloudnative-pg/monitoring/grafana-dashboard.json
+          url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/main/charts/cluster/grafana-dashboard.json
           datasource: Prometheus
         dragonfly:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
