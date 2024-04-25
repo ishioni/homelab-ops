@@ -77,7 +77,7 @@ spec:
           nginx:
             image:
               repository: public.ecr.aws/nginx/nginx
-              tag: 1.25.5
+              tag: 1.26.0
     service:
       app:
         controller: tandoor
