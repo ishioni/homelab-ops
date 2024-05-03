@@ -5,7 +5,7 @@ version: "3"
 vars:
   DOMAIN: "ishioni.casa"
   # renovate: datasource=github-releases depName=siderolabs/talos
-  TALOS_VERSION: "v1.7.0"
+  TALOS_VERSION: "v1.7.1"
   # renovate: datasource=github-releases depName=siderolabs/kubelet
   KUBERNETES_VERSION: "v1.29.4"
 
