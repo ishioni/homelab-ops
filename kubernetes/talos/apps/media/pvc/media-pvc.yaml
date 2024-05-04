@@ -12,7 +12,7 @@ spec:
   storageClassName: nfs
   nfs:
     server: "${CONFIG_TRUENAS_IP}"
-    path: /mnt/RUST/Media
+    path: /mnt/HDD/Media
   mountOptions: [nfsvers=4.2, nconnect=8, hard, noatime, nodiratime]
 ---
 apiVersion: v1
