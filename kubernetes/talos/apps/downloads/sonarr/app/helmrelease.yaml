@@ -43,13 +43,13 @@ spec:
               tag: 4.0.4.1616
             env:
               TZ: ${CONFIG_TIMEZONE}
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 80
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              SONARR__ANALYTICS_ENABLED: "False"
-              SONARR__THEME: dark
-              COMPlus_EnableDiagnostics: "0"
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 80
+              SONARR__UPDATE__BRANCH: develop
             envFrom:
               - secretRef:
                   name: *secret
