@@ -108,6 +108,12 @@ spec:
     persistence:
       config:
         existingClaim: ${PVC_CLAIM}
+      tmp:
+        type: emptyDir
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       media:
         existingClaim: downloads-datastore
         globalMounts:
