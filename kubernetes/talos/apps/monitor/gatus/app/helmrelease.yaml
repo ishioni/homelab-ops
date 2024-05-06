@@ -38,7 +38,7 @@ spec:
           02-config-sync:
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.26.1
+              tag: 1.26.2
             env:
               - {name: FOLDER, value: /config}
               - {name: LABEL, value: gatus.io/enabled}
@@ -65,7 +65,7 @@ spec:
           config-sync:
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.26.1
+              tag: 1.26.2
             env:
               - {name: FOLDER, value: /config}
               - {name: LABEL, value: gatus.io/enabled}
