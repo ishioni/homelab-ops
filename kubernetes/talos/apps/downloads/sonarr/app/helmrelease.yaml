@@ -112,7 +112,7 @@ spec:
       logs:
         type: emptyDir
         globalMounts:
-          - /config/logs
+          - path: /config/logs
       media:
         existingClaim: downloads-datastore
         globalMounts:
