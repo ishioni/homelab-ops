@@ -7,5 +7,3 @@ resources:
   - ./immich/ks.yaml
   - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml
-  - ./tandoor/ks.yaml
-  - ./vaultwarden/ks.yaml
