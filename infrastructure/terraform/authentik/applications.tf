@@ -182,38 +182,6 @@ module "oauth2-nextcloud" {
   redirect_uris                = ["https://files.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/apps/oidc_login/oidc"]
 }
 
-module "oauth2-tandoor" {
-  source                     = "./oauth2_application"
-  name                       = "Recipes"
-  icon_url                   = "https://raw.githubusercontent.com/TandoorRecipes/recipes/develop/docs/logo_color.svg"
-  launch_url                 = "https://recipes.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
-  description                = "Recipes"
-  newtab                     = true
-  group                      = "Groupware"
-  auth_groups                = [authentik_group.nextcloud.id]
-  authorization_flow         = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id                  = module.secret_tandoor.fields["OIDC_CLIENT_ID"]
-  client_secret              = module.secret_tandoor.fields["OIDC_CLIENT_SECRET"]
-  include_claims_in_id_token = false
-  sub_mode                   = "user_username"
-  redirect_uris              = ["https://recipes.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/accounts/oidc/authentik/login/callback/"]
-}
-
-module "oauth2-midarr" {
-  source             = "./oauth2_application"
-  name               = "Midarr"
-  icon_url           = "https://raw.githubusercontent.com/midarrlabs/midarr-server/master/priv/static/logo.svg"
-  launch_url         = "https://midarr.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
-  description        = "Media player"
-  newtab             = true
-  group              = "Media"
-  auth_groups        = [authentik_group.media.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id          = module.secret_midarr.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_midarr.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://midarr.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/auth"]
-}
-
 module "oauth2-audiobookshelf" {
   source             = "./oauth2_application"
   name               = "Audiobookshelf"
