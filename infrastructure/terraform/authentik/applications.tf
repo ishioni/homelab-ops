@@ -198,16 +198,16 @@ module "oauth2-audiobookshelf" {
 }
 
 module "oauth2-paperless" {
-  source = "./oauth2_application"
-  name = "Paperless"
-  icon_url = "https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/dev/resources/logo/web/svg/Color%20logo%20-%20no%20background.svg"
-  launch_url = "https://documents.movishell.pl"
-  description = "Documents"
-  newtab = true
-  group = "Groupware"
-  auth_groups = [authentik_group.infrastructure.id]
+  source             = "./oauth2_application"
+  name               = "Paperless"
+  icon_url           = "https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/dev/resources/logo/web/svg/Color%20logo%20-%20no%20background.svg"
+  launch_url         = "https://documents.movishell.pl"
+  description        = "Documents"
+  newtab             = true
+  group              = "Groupware"
+  auth_groups        = [authentik_group.infrastructure.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  client_id = module.secret_paperless.fields["OIDC_CLIENT_ID"]
-  client_secret = module.secret_paperless.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris = ["https://documents.movishell.pl/accounts/oidc/authentik/login/callback/"]
+  client_id          = module.secret_paperless.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_paperless.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://documents.movishell.pl/accounts/oidc/authentik/login/callback/"]
 }
