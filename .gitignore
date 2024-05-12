@@ -25,3 +25,5 @@ Chart.lock
 .devcontainer/devcontainer.env
 # Brewfile
 Brewfile.lock.json
+# tf locks
+.terraform.lock.hcl
