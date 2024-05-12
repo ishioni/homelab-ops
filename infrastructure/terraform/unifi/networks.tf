@@ -1,17 +1,17 @@
 resource "unifi_network" "servers" {
-  name = "Servers"
+  name    = "Servers"
   purpose = "vlan-only"
   vlan_id = 2
 }
 
 resource "unifi_network" "iot" {
-  name = "IoT"
+  name    = "IoT"
   purpose = "vlan-only"
   vlan_id = 3
 }
 
 resource "unifi_network" "trusted" {
-  name = "Trusted"
+  name    = "Trusted"
   purpose = "vlan-only"
   vlan_id = 5
 }
