@@ -41,15 +41,16 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.16.2.4435
+              tag: 1.17.2.4511
             env:
               TZ: ${CONFIG_TIMEZONE}
-              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
               PROWLARR__PORT: &port 80
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__ANALYTICS_ENABLED: "False"
-              PROWLARR__THEME: dark
-              COMPlus_EnableDiagnostics: "0"
+              PROWLARR__ANALYTICSENABLED: "False"
             envFrom:
               - secretRef:
                   name: *secret
