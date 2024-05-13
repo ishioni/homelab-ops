@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/radarr
-              tag: 5.4.6.8723
+              tag: 5.5.3.8819
             env:
               TZ: ${CONFIG_TIMEZONE}
               RADARR__INSTANCE_NAME: ${APP}
