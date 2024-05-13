@@ -42,14 +42,15 @@ spec:
               repository: ghcr.io/onedr0p/radarr
               tag: 5.5.3.8819
             env:
-              TZ: ${CONFIG_TIMEZONE}
-              RADARR__INSTANCE_NAME: ${APP}
+              RADARR__APP__INSTANCENAME: ${APP}
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
               RADARR__PORT: &port 80
-              RADARR__AUTHENTICATION_METHOD: External
-              RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-              RADARR__APPLICATION_URL: "https://$HOSTNAME"
-              RADARR__THEME: dark
-              COMPlus_EnableDiagnostics: "0"
+              RADARR__UPDATE__BRANCH: develop
+              TZ: ${CONFIG_TIMEZONE}
             envFrom:
               - secretRef:
                   name: *secret
