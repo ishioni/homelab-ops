@@ -56,8 +56,8 @@ spec:
                   name: *secret
               - configMapRef:
                   name: *configmap
-            # env:
-            #   IMMICH_CONFIG_FILE: /config/immich.config.json
+            env:
+              IMMICH_CONFIG_FILE: /config/immich.config.json
             resources:
               requests:
                 cpu: 100m
