@@ -56,6 +56,8 @@ spec:
                   name: *secret
               - configMapRef:
                   name: *configmap
+            # env:
+            #   IMMICH_CONFIG_FILE: /config/immich.config.json
             resources:
               requests:
                 cpu: 100m
@@ -104,6 +106,11 @@ spec:
                   port: http
         tls: [hosts: [*host]]
     persistence:
+      config:
+        type: secret
+        name: immich-config-secret
+        globalMounts:
+          - path: /config
       library:
         existingClaim: immich-media
         globalMounts:
