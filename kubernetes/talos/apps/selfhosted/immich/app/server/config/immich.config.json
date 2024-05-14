@@ -1,0 +1,159 @@
+{
+  "ffmpeg": {
+    "crf": 23,
+    "threads": 2,
+    "preset": "veryfast",
+    "targetVideoCodec": "h264",
+    "acceptedVideoCodecs": ["h264"],
+    "targetAudioCodec": "aac",
+    "acceptedAudioCodecs": ["aac", "mp3", "libopus"],
+    "targetResolution": "720",
+    "maxBitrate": "0",
+    "bframes": -1,
+    "refs": 0,
+    "gopSize": 0,
+    "npl": 0,
+    "temporalAQ": false,
+    "cqMode": "auto",
+    "twoPass": false,
+    "preferredHwDevice": "auto",
+    "transcode": "required",
+    "tonemap": "hable",
+    "accel": "qsv"
+  },
+  "job": {
+    "backgroundTask": {
+      "concurrency": 5
+    },
+    "smartSearch": {
+      "concurrency": 2
+    },
+    "metadataExtraction": {
+      "concurrency": 5
+    },
+    "faceDetection": {
+      "concurrency": 2
+    },
+    "search": {
+      "concurrency": 5
+    },
+    "sidecar": {
+      "concurrency": 5
+    },
+    "library": {
+      "concurrency": 5
+    },
+    "migration": {
+      "concurrency": 5
+    },
+    "thumbnailGeneration": {
+      "concurrency": 5
+    },
+    "videoConversion": {
+      "concurrency": 1
+    },
+    "notifications": {
+      "concurrency": 5
+    }
+  },
+  "logging": {
+    "enabled": true,
+    "level": "log"
+  },
+  "machineLearning": {
+    "enabled": true,
+    "url": "http://immich-machine-learning.selfhosted:3003",
+    "clip": {
+      "enabled": true,
+      "modelName": "ViT-B-32__openai"
+    },
+    "facialRecognition": {
+      "enabled": true,
+      "modelName": "buffalo_l",
+      "minScore": 0.7,
+      "maxDistance": 0.5,
+      "minFaces": 5
+    }
+  },
+  "map": {
+    "enabled": true,
+    "lightStyle": "",
+    "darkStyle": ""
+  },
+  "reverseGeocoding": {
+    "enabled": true
+  },
+  "oauth": {
+    "autoLaunch": true,
+    "autoRegister": true,
+    "buttonText": "Login with Movishell",
+    "clientId": "{{ .OIDC_CLIENT_ID }}",
+    "clientSecret": "{{ .OIDC_CLIENT_SECRET }}",
+    "defaultStorageQuota": 0,
+    "enabled": true,
+    "issuerUrl": "https://auth.movishell.pl/application/o/immich/.well-known/openid-configuration",
+    "mobileOverrideEnabled": false,
+    "mobileRedirectUri": "",
+    "scope": "openid email profile",
+    "signingAlgorithm": "RS256",
+    "storageLabelClaim": "preferred_username",
+    "storageQuotaClaim": "immich_quota"
+  },
+  "passwordLogin": {
+    "enabled": false
+  },
+  "storageTemplate": {
+    "enabled": true,
+    "hashVerificationEnabled": true,
+    "template": "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}"
+  },
+  "image": {
+    "thumbnailFormat": "webp",
+    "thumbnailSize": 480,
+    "previewFormat": "jpeg",
+    "previewSize": 1440,
+    "quality": 80,
+    "colorspace": "p3",
+    "extractEmbedded": false
+  },
+  "newVersionCheck": {
+    "enabled": false
+  },
+  "trash": {
+    "enabled": true,
+    "days": 7
+  },
+  "theme": {
+    "customCss": ""
+  },
+  "library": {
+    "scan": {
+      "enabled": true,
+      "cronExpression": "0 0 * * *"
+    },
+    "watch": {
+      "enabled": false
+    }
+  },
+  "server": {
+    "externalDomain": "htts://photos.movishell.pl",
+    "loginPageMessage": ""
+  },
+  "notifications": {
+    "smtp": {
+      "enabled": true,
+      "from": "photos@movishell.pl",
+      "replyTo": "photos@movishell.pl",
+      "transport": {
+        "ignoreCert": false,
+        "host": "{{ .SMTP_HOST }}",
+        "port": 587,
+        "username": "{{ .SMTP_USERNAME }}",
+        "password": "{{ .SMTP_PASS }}"
+      }
+    }
+  },
+  "user": {
+    "deleteDelay": 2
+  }
+}
