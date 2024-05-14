@@ -58,7 +58,7 @@
   },
   "logging": {
     "enabled": true,
-    "level": "log"
+    "level": "warn"
   },
   "machineLearning": {
     "enabled": true,
@@ -142,12 +142,12 @@
   "notifications": {
     "smtp": {
       "enabled": true,
-      "from": "photos@movishell.pl",
-      "replyTo": "photos@movishell.pl",
+      "from": "Movishell Photos <noreply@movishell.pl>",
+      "replyTo": "",
       "transport": {
         "ignoreCert": false,
         "host": "{{ .SMTP_HOST }}",
-        "port": 587,
+        "port": 456,
         "username": "{{ .SMTP_USERNAME }}",
         "password": "{{ .SMTP_PASS }}"
       }
