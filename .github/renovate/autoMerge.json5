@@ -45,7 +45,7 @@
     },
     {
       description: "Automerge reloader",
-      matchDatasources: ["flux"],
+      matchDatasources: ["helm"],
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
