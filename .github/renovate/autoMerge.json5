@@ -43,5 +43,14 @@
       matchPackageNames: ["ghcr.io/onedr0p/readarr-develop"],
       ignoreTests: true,
     },
+    {
+      description: "Automerge reloader",
+      matchDatasources: ["flux"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackagePatterns: ["reloader"],
+      ignoreTests: true,
+    },
   ],
 }
