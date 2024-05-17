@@ -4,5 +4,7 @@ web:
     apps:
       - files
       - search
+      - text-editor
       - pdf-viewer
       - admin-settings
+      - epub-reader
