@@ -5,6 +5,6 @@ role_assignment:
     role_claim: groups
     role_mapping:
       - role_name: admin
-        claim_value: bjws_admins
+        claim_value: nextcloud_admins
       - role_name: user
         claim_value: bjws_users

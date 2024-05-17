@@ -55,15 +55,16 @@ spec:
               - secretRef:
                   name: *secret
             env:
+              TZ: "${CONFIG_TIMEZONE}"
               DEMO_USERS: false
               OCIS_LOG_COLOR: false
               OCIS_LOG_LEVEL: info
               OCIS_LOG_PRETTY: false
-              OCIS_OIDC_ISSUER: https://auth.movishell.pl
+              OCIS_OIDC_ISSUER: https://auth.movishell.pl/application/o/ocis/
               OCIS_URL: https://ocis.movishell.pl
               PROXY_AUTOPROVISION_ACCOUNTS: true
               PROXY_TLS: false
-              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
+              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: jwt
               PROXY_OIDC_REWRITE_WELLKNOWN: true
               PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
               PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
@@ -73,7 +74,6 @@ spec:
               STORAGE_USERS_S3NG_ENDPOINT: https://s3.nas.ishioni.casa
               STORAGE_USERS_S3NG_REGION: default
               STORAGE_USERS_S3NG_BUCKET: ocis
-              WEB_OIDC_CLIENT_ID: ocis
               WEB_OIDC_METADATA_URL: https://auth.movishell.pl/application/o/owncloud/.well-known/openid-configuration
               WEB_OIDC_SCOPE: "openid profile email groups"
             resources:
