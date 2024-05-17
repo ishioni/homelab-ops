@@ -57,7 +57,6 @@ spec:
             env:
               TZ: "${CONFIG_TIMEZONE}"
               DEMO_USERS: false
-              OCIS_INSECURE: true
               # OCIS_CORS_ALLOW_ORIGINS: '*'
               OCIS_LOG_COLOR: false
               OCIS_LOG_LEVEL: info
