@@ -62,7 +62,7 @@ spec:
               OCIS_LOG_COLOR: false
               OCIS_LOG_LEVEL: info
               OCIS_LOG_PRETTY: false
-              OCIS_OIDC_ISSUER: https://auth.movishell.pl/application/o/ocis/
+              OCIS_OIDC_ISSUER: https://auth.movishell.pl/application/o/owncloud/
               OCIS_URL: https://ocis.movishell.pl
               PROXY_AUTOPROVISION_ACCOUNTS: true
               PROXY_TLS: false
