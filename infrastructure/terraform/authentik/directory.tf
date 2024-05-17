@@ -1,3 +1,11 @@
+data "authentik_group" "admins" {
+  name = "authentik Admins"
+}
+
+resource "authentik_group" "superusers" {
+  name = "superusers"
+}
+
 resource "authentik_group" "users" {
   name         = "users"
   is_superuser = false
@@ -21,8 +29,4 @@ resource "authentik_group" "nextcloud" {
 resource "authentik_group" "infrastructure" {
   name         = "infrastructure"
   is_superuser = false
-}
-
-data "authentik_group" "admins" {
-  name = "authentik Admins"
 }
