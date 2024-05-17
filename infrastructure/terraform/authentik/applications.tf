@@ -211,3 +211,23 @@ module "oauth2-paperless" {
   client_secret      = module.secret_paperless.fields["OIDC_CLIENT_SECRET"]
   redirect_uris      = ["https://documents.movishell.pl/accounts/oidc/authentik/login/callback/"]
 }
+
+module "oauth2-ocis" {
+  source             = "./oauth2_application"
+  name               = "Owncloud"
+  icon_url           = "https://raw.githubusercontent.com/owncloud/owncloud.github.io/main/static/favicon/favicon.png"
+  launch_url         = "https://ocis.movishell.pl"
+  description        = "Documents"
+  newtab             = true
+  group              = "Groupware"
+  auth_groups        = [authentik_group.nextcloud.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  client_id          = module.secret_ocis.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_ocis.fields["OIDC_CLIENT_SECRET"]
+  additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
+  redirect_uris      = [
+    "https://ocis.movishell.pl/",
+    "https://ocis.movishell.pl/oidc-callback.html",
+    "https://ocis.movishell.pl/oidc-silent-redirect.html"
+    ]
+}
