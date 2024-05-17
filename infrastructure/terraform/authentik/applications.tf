@@ -220,13 +220,13 @@ module "oauth2-ocis" {
   description        = "Documents"
   newtab             = true
   group              = "Groupware"
-  auth_groups        = [authentik_group.nextcloud.id]
+  auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_ocis.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_ocis.fields["OIDC_CLIENT_SECRET"]
-  additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
+  # additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
   redirect_uris      = [
-    "https://ocis.movishell.pl/",
+    "https://ocis.movishell.pl",
     "https://ocis.movishell.pl/oidc-callback.html",
     "https://ocis.movishell.pl/oidc-silent-redirect.html"
     ]
