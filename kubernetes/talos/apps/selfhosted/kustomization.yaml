@@ -6,4 +6,5 @@ resources:
   - ./namespace.yaml
   - ./immich/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./ocis/ks.yaml
   - ./paperless/ks.yaml
