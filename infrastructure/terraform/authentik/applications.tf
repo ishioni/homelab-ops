@@ -222,13 +222,38 @@ module "oauth2-ocis" {
   group              = "Groupware"
   auth_groups        = [authentik_group.users.id]
   client_type        = "public"
-  authorization_flow  = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_ocis.fields["OIDC_CLIENT_ID"]
   client_secret      = ""
   # additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
-  redirect_uris      = [
+  redirect_uris = [
     "https://ocis.movishell.pl",
     "https://ocis.movishell.pl/oidc-callback.html",
     "https://ocis.movishell.pl/oidc-silent-redirect.html"
-    ]
+  ]
+}
+
+module "oauth2-ocis-android" {
+  source             = "./oauth2_application"
+  name               = "Owncloud-android"
+  launch_url         = "blank://blank"
+  auth_groups        = [authentik_group.users.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  client_id          = "e4rAsNUSIUs0lF4nbv9FmCeUkTlV9GdgTLDH1b5uie7syb90SzEVrbN7HIpmWJeD"
+  client_secret      = "dInFYGV33xKzhbRmpqQltYNdfLdJIfJ9L5ISoKhNoT9qZftpdWSP71VrpGR9pmoD"
+  redirect_uris      = ["oc://android.owncloud.com", ]
+}
+
+module "oauth2-ocis-desktop" {
+  source             = "./oauth2_application"
+  name               = "Owncloud-deskto"
+  launch_url         = "blank://blank"
+  auth_groups        = [authentik_group.users.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  client_id          = "xdXOt13JKxym1B1QcEncf2XDkLAexMBFwiT9j6EfhhHFJhs2KM9jbjTmf8JBXE69"
+  client_secret      = "UBntmLjC2yYCeHwsyj73Uwo9TAaecAetRwMw0xYcvNL9yRdLSUi0hUAHfvCHFeFh"
+  redirect_uris = [
+    "http://127.0.0.1(:.*)?",
+    "http://localhost(:.*)?"
+  ]
 }
