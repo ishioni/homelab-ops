@@ -246,7 +246,7 @@ module "oauth2-ocis-android" {
 
 module "oauth2-ocis-desktop" {
   source             = "./oauth2_application"
-  name               = "Owncloud-deskto"
+  name               = "owncloud-desktop"
   launch_url         = "blank://blank"
   auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
