@@ -3,7 +3,7 @@
     {
       description: "Lock version to cluster version",
       matchDatasources: ["docker", "github-releases"],
-      allowedVersions: "<=1.29",
+      allowedVersions: "<=1.30",
       matchPackageNames: ["kubernetes/kubernetes", "siderolabs/kubelet"],
     }
   ]
