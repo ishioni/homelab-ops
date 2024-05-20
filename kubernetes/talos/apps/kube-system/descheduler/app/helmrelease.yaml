@@ -38,15 +38,44 @@ spec:
                 constraints:
                   - DoNotSchedule
                   - ScheduleAnyway
+            - name: LowNodeUtilization
+              args:
+                thresholds:
+                  cpu: 20
+                  memory: 20
+                  pods: 20
+                targetThresholds:
+                  cpu: 50
+                  memory: 50
+                  pods: 50
+            - name: RemoveFailedPods
+              args:
+                reasons:
+                  - NodeShutdown
+                  - ImagePullBackOff
+                  - CreateContainerConfigError
+                exitCodes:
+                  - 1
+                includingInitContainers: true
+                excludeOwnerKinds:
+                  - Job
+                minPodLifetimeSeconds: 3600
+            - name: RemovePodsHavingTooManyRestarts
+              args:
+                podRestartThreshold: 5
+                includingInitContainers: true
           plugins:
             balance:
               enabled:
+                - LowNodeUtilization
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
+                - RemovePodsHavingTooManyRestarts
                 - RemovePodsViolatingInterPodAntiAffinity
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingNodeTaints
+                - RemoveFailedPods
     service:
       enabled: true
     serviceMonitor:
