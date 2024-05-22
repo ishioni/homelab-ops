@@ -37,6 +37,10 @@ spec:
               MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_SERVER_URL: https://${HOSTNAME}
               MINIO_UPDATE: "off"
+              GOMEMLIMIT:
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
             envFrom:
               - secretRef:
                   name: *secret
