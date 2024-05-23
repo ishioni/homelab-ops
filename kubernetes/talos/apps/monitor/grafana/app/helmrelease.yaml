@@ -293,6 +293,11 @@ spec:
           revision: 1
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
+        zfs:
+          # renovate: depName="ZFS"
+          gnetId: 7845
+          revision: 4
+          datasource: Prometheus
       system:
         node-exporter:
           # renovate: depName="Node Exporter"
