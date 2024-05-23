@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
   values:
     installCRDs: true
+    dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
+    dns01RecursiveNameserversOnly: true
     webhook:
       resources:
         requests:
@@ -30,14 +32,6 @@ spec:
           memory: 120Mi
         limits:
           memory: 300Mi
-    extraArgs:
-      - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
-      - --dns01-recursive-nameservers-only
-    podDnsPolicy: "None"
-    podDnsConfig:
-      nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
     resources:
       requests:
         cpu: 10m
