@@ -36,13 +36,14 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
-          # topologySpreadConstraints:
-          #   - maxSkew: 1
-          #     topologyKey: kubernetes.io/hostname
-          #     whenUnsatisfiable: DoNotSchedule
-          #     labelSelector:
-          #       matchLabels:
-          #         app.kubernetes.io/component: server
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/instance: ${APP}
+                  app.kubernetes.io/component: server
         containers:
           server:
             image:
@@ -89,13 +90,14 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
-          # topologySpreadConstraints:
-          #   - maxSkew: 1
-          #     topologyKey: kubernetes.io/hostname
-          #     whenUnsatisfiable: DoNotSchedule
-          #     labelSelector:
-          #       matchLabels:
-          #         app.kubernetes.io/name: *app
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/instance: ${APP}
+                  app.kubernetes.io/component: microservices
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
         containers:
@@ -128,13 +130,14 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: "OnRootMismatch"
-          # topologySpreadConstraints:
-          #   - maxSkew: 1
-          #     topologyKey: kubernetes.io/hostname
-          #     whenUnsatisfiable: DoNotSchedule
-          #     labelSelector:
-          #       matchLabels:
-          #         app.kubernetes.io/name: *app
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/instance: ${APP}
+                  app.kubernetes.io/component: machine-learning
         containers:
           machine-learning:
             image:
