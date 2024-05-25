@@ -238,7 +238,7 @@ spec:
             microservices:
               - path: /usr/src/app/.transformers_cache
       model-cache:
-        existingClaim: immich-ml-cache
+        type: emptyDir
         advancedMounts:
           machine-learning:
             machine-learning:
