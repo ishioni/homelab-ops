@@ -20,7 +20,7 @@ spec:
   interval: 30m
   valuesFrom:
     - kind: ConfigMap
-      name: kube-state-metrics
+      name: kube-state-metrics-config
       valuesKey: kube-state-metrics.yaml
   values:
     crds:
