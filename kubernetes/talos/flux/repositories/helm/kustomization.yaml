@@ -9,6 +9,7 @@ resources:
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
+  - ./cloudnative-pg-dashboards.yaml
   - ./democratic-csi.yaml
   - ./descheduler.yaml
   - ./external-dns.yaml

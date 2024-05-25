@@ -29,5 +29,3 @@ spec:
         memory: 200Mi
     monitoring:
       podMonitorEnabled: true
-      # grafanaDashboard:
-      #   create: true
