@@ -183,7 +183,7 @@ spec:
 
     serviceMonitor:
       immich:
-        serviceName: server
+        serviceName: immich-server
         endpoints:
           - port: metrics
             scheme: http
@@ -191,7 +191,7 @@ spec:
             interval: 1m
             scrapeTimeout: 30s
       microservices:
-        serviceName: microservices
+        serviceName: immich-microservices
         endpoints:
           - port: metrics
             scheme: http
