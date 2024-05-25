@@ -5,11 +5,8 @@ metadata:
   name: immich-configmap
 data:
   DB_PORT: "5432"
-  ENABLE_MAPBOX: "false"
   # LOG_LEVEL: verbose
   NODE_ENV: "production"
-  # Redis sentinel: {"db":15,"sentinels":[{"host":"redis-node-0.redis-headless.database.svc.cluster.local","port":26379},{"host":"redis-node-1.redis-headless.database.svc.cluster.local","port":26379},{"host":"redis-node-2.redis-headless.database.svc.cluster.local","port":26379}],"name":"redis-master"}
-  # REDIS_URL: ioredis://eyJkYiI6MTUsInNlbnRpbmVscyI6W3siaG9zdCI6InJlZGlzLW5vZGUtMC5yZWRpcy1oZWFkbGVzcy5kYXRhYmFzZS5zdmMuY2x1c3Rlci5sb2NhbCIsInBvcnQiOjI2Mzc5fSx7Imhvc3QiOiJyZWRpcy1ub2RlLTEucmVkaXMtaGVhZGxlc3MuZGF0YWJhc2Uuc3ZjLmNsdXN0ZXIubG9jYWwiLCJwb3J0IjoyNjM3OX0seyJob3N0IjoicmVkaXMtbm9kZS0yLnJlZGlzLWhlYWRsZXNzLmRhdGFiYXNlLnN2Yy5jbHVzdGVyLmxvY2FsIiwicG9ydCI6MjYzNzl9XSwibmFtZSI6InJlZGlzLW1hc3RlciJ9
   REDIS_HOSTNAME: dragonfly.database.svc.cluster.local
   REDIS_PORT: "6379"
   REDIS_DBINDEX: "3"
@@ -17,8 +14,3 @@ data:
   IMMICH_WEB_URL: http://immich-web.selfhosted.svc.cluster.local:3000
   IMMICH_SERVER_URL: http://immich-server.selfhosted.svc.cluster.local:3001
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.fileserver.svc.cluster.local:3003
-  # No longer able to set these with env vars :(
-  # OAUTH_ENABLED: "true"
-  # OAUTH_AUTO_REGISTER: "true"
-  # OAUTH_BUTTON_TEXT: Login with Authentik
-  # OAUTH_ISSUER_URL: https://auth.${SECRET_DOMAIN}/application/o/immich/.well-known/openid-configuration
