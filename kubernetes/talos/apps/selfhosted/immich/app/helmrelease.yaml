@@ -175,7 +175,7 @@ spec:
             port: *mlport
 
     ingress:
-      app:
+      server:
         className: "public"
         annotations:
           gethomepage.dev/enabled: "true"
@@ -191,7 +191,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  identifier: app
+                  identifier: server
                   port: http
         tls: [hosts: [*host]]
 
