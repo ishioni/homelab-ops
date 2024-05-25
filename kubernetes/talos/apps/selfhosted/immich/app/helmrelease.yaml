@@ -168,11 +168,36 @@ spec:
         ports:
           http:
             port: *serverport
+          metrics:
+            port: 8081
+      microservices:
+        controller: microservices
+        ports:
+          metrics:
+            port: 8081
       machine-learning:
         controller: machine-learning
         ports:
           http:
             port: *mlport
+
+    serviceMonitor:
+      immich:
+        serviceName: server
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 30s
+      microservices:
+        serviceName: microservices
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 30s
 
     ingress:
       server:
