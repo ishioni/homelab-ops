@@ -184,23 +184,23 @@ spec:
           http:
             port: *mlport
 
-    serviceMonitor:
-      immich:
-        serviceName: immich-server
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 30s
-      microservices:
-        serviceName: immich-microservices
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 30s
+    # serviceMonitor:
+    #   immich:
+    #     serviceName: immich-server
+    #     endpoints:
+    #       - port: metrics
+    #         scheme: http
+    #         path: /metrics
+    #         interval: 1m
+    #         scrapeTimeout: 30s
+    #   microservices:
+    #     serviceName: immich-microservices
+    #     endpoints:
+    #       - port: metrics
+    #         scheme: http
+    #         path: /metrics
+    #         interval: 1m
+    #         scrapeTimeout: 30s
 
     ingress:
       server:
