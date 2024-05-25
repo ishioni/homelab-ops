@@ -16,6 +16,7 @@ spec:
   interval: 30m
   values:
     grafanaDashboard:
+      namespace: database
       labels:
         grafana_dashboard: "1"
       annotations:
