@@ -18,6 +18,10 @@ spec:
   upgrade:
     crds: CreateReplace
   interval: 30m
+  valuesFrom:
+    - kind: ConfigMap
+      name: kube-state-metrics
+      valuesKey: kube-state-metrics.yaml
   values:
     crds:
       enabled: true
