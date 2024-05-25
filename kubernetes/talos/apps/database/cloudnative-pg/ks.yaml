@@ -33,3 +33,19 @@ spec:
   dependsOn:
     - name: database-cloudnative-pg
     - name: security-external-secrets
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: database-cloudnative-pg-dashboard
+  namespace: flux-system
+spec:
+  path: ./kubernetes/talos/apps/database/cloudnative-pg/dashboard
+  targetNamespace: database
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  wait: true
+  interval: 10m

@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudnative-pg-dashboard
+spec:
+  chart:
+    spec:
+      chart: cluster
+      version: 0.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: cloudnative-pg-dashboards
+        namespace: flux-system
+  interval: 30m
+  values:
+    grafanaDashboard:
+      labels:
+        grafana_dashboard: "1"
+      annotations:
+        grafana_folder: Storage
