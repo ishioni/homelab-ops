@@ -10,7 +10,5 @@ data:
   REDIS_HOSTNAME: dragonfly.database.svc.cluster.local
   REDIS_PORT: "6379"
   REDIS_DBINDEX: "3"
-  TRANSFORMERS_CACHE: /usr/src/app/.transformers_cache
-  IMMICH_WEB_URL: http://immich-web.selfhosted.svc.cluster.local:3000
   IMMICH_SERVER_URL: http://immich-server.selfhosted.svc.cluster.local:3001
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.fileserver.svc.cluster.local:3003
