@@ -1,0 +1,247 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      server:
+        strategy: RollingUpdate
+        annotations:
+          secret.reloader.stakater.com/reload: &secret immich-secret
+          configmap.reloader.stakater.com/reload: &configmap immich-configmap
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.3
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+          # topologySpreadConstraints:
+          #   - maxSkew: 1
+          #     topologyKey: kubernetes.io/hostname
+          #     whenUnsatisfiable: DoNotSchedule
+          #     labelSelector:
+          #       matchLabels:
+          #         app.kubernetes.io/component: server
+        containers:
+          server:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.105.1
+            command: /bin/sh
+            args: ["start-server.sh"]
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: *configmap
+            env:
+              IMMICH_CONFIG_FILE: /config/immich.config.json
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 1000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /server-info/ping
+                    port: &serverport 3001
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+      microservices:
+        strategy: RollingUpdate
+        annotations:
+          secret.reloader.stakater.com/reload: *secret
+          configmap.reloader.stakater.com/reload: *configmap
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+          # topologySpreadConstraints:
+          #   - maxSkew: 1
+          #     topologyKey: kubernetes.io/hostname
+          #     whenUnsatisfiable: DoNotSchedule
+          #     labelSelector:
+          #       matchLabels:
+          #         app.kubernetes.io/name: *app
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
+        containers:
+          microservices:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.105.1
+            args: ["start-microservices.sh"]
+            envFrom:
+              - secretRef:
+                  name: *secret
+              - configMapRef:
+                  name: *configmap
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 2500Mi
+      machine-learning:
+        strategy: RollingUpdate
+        annotations:
+          configmap.reloader.stakater.com/reload: *configmap
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: "OnRootMismatch"
+          # topologySpreadConstraints:
+          #   - maxSkew: 1
+          #     topologyKey: kubernetes.io/hostname
+          #     whenUnsatisfiable: DoNotSchedule
+          #     labelSelector:
+          #       matchLabels:
+          #         app.kubernetes.io/name: *app
+        containers:
+          machine-learning:
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v1.105.1
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 4000Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: &mlport 3003
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+
+    service:
+      server:
+        controller: server
+        ports:
+          http:
+            port: *serverport
+      machine-learning:
+        controller: machine-learning
+        ports:
+          http:
+            port: *mlport
+
+    ingress:
+      app:
+        className: "public"
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Immich
+          gethomepage.dev/icon: immich.png
+          gethomepage.dev/widget.type: immich
+          gethomepage.dev/widget.url: http://immich-server.selfhosted:3001
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_IMMICH_TOKEN}}`}}"
+        hosts:
+          - host: &host ${HOSTNAME}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls: [hosts: [*host]]
+
+    persistence:
+      config:
+        type: secret
+        name: immich-config-secret
+        advancedMounts:
+          server:
+            server:
+              - path: /config
+                subPath: immich.config.json
+      library:
+        existingClaim: immich-media
+        advancedMounts:
+          server:
+            server:
+              - path: /usr/src/app/upload
+          microservices:
+            microservices:
+              - path: /usr/src/app/upload
+      geocoding-dump:
+        type: emptyDir
+        advancedMounts:
+          server:
+            server:
+              - path: /usr/src/app/.reverse-geocoding-dump
+          microservices:
+            microservices:
+              - path: /usr/src/app/.reverse-geocoding-dump
+      geoname-dump:
+        type: emptyDir
+        advancedMounts:
+          microservices:
+            microservices:
+              - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
+      transformers-cache:
+        type: emptyDir
+        advancedMounts:
+          server:
+            server:
+              - path: /usr/src/app/.transformers_cache
+          microservices:
+            microservices:
+              - path: /usr/src/app/.transformers_cache
+      model-cache:
+        existingClaim: immich-ml-cache
+        advancedMounts:
+          machine-learning:
+            machine-learning:
+              - path: /cache
+      #   # globalMounts:
+      #   #   - path: /config
