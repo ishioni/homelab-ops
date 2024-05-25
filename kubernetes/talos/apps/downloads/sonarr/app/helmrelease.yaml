@@ -98,7 +98,7 @@ spec:
           gethomepage.dev/icon: sonarr.svg
           gethomepage.dev/widget.type: sonarr
           gethomepage.dev/widget.url: http://sonarr.downloads
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_SONARR_TOKEN}}`}}"
         hosts:
           - host: &host ${HOSTNAME}
             paths:
