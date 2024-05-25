@@ -203,7 +203,6 @@ spec:
           server:
             server:
               - path: /config
-                subPath: immich.config.json
       library:
         existingClaim: immich-media
         advancedMounts:
