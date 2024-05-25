@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/icon: readarr.svg
           gethomepage.dev/widget.type: readarr
           gethomepage.dev/widget.url: http://readarr.downloads
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_READARR_TOKEN}}`}}"
         hosts:
           - host: &host ${HOSTNAME}
             paths:

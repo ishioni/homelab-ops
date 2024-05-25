@@ -91,7 +91,7 @@ spec:
           gethomepage.dev/icon: bazarr.svg
           gethomepage.dev/widget.type: bazarr
           gethomepage.dev/widget.url: http://bazarr.downloads:6767
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_BAZARR_TOKEN}}"
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_BAZARR_TOKEN}}`}}"
         hosts:
           - host: &host ${HOSTNAME}
             paths:
