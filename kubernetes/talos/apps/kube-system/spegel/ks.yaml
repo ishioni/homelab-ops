@@ -13,7 +13,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname spegel
+      app.kubernetes.io/name: spegel
   prune: true
   wait: false
   interval: 10m

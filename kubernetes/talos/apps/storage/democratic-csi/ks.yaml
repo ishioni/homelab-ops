@@ -53,4 +53,5 @@ spec:
   wait: true
   dependsOn:
     - name: security-external-secrets
+    - name: storage-snapshot-controller
   interval: 10m

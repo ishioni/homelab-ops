@@ -13,7 +13,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname reloader
+      app.kubernetes.io/name: reloader
   prune: true
   wait: false
   interval: 10m

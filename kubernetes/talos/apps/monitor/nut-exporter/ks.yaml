@@ -10,7 +10,7 @@ spec:
   targetNamespace: monitor
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname nut-exporter
+      app.kubernetes.io/name: nut-exporter
   sourceRef:
     kind: GitRepository
     name: homelab-ops

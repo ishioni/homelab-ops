@@ -14,3 +14,5 @@ spec:
         name: intel
         namespace: flux-system
   interval: 30m
+  dependsOn:
+    - name: node-feature-discovery

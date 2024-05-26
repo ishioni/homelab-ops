@@ -14,6 +14,8 @@ spec:
         name: democratic-csi
         namespace: flux-system
   interval: 30m
+  dependsOn:
+    - name: snapshot-controller
   values:
     controller:
       podAnnotations:
