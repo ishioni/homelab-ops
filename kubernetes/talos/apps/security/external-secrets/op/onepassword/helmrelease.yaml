@@ -18,26 +18,20 @@ spec:
     - name: external-secrets
   values:
     controllers:
-      main:
+      onepassword-connect:
         annotations:
           secret.reloader.stakater.com/reload: &secret onepassword-connect-secret
         strategy: RollingUpdate
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 999
-            runAsGroup: 999
-            fsGroup: 999
-            fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          api:
             image:
               repository: ghcr.io/onedr0p/onepassword-connect-api
               tag: 1.7.2
             env:
+              XDG_DATA_HOME: &configDir /config
+              OP_HTTP_PORT: &apiPort 8080
               OP_BUS_PORT: "11220"
               OP_BUS_PEERS: "localhost:11221"
-              OP_HTTP_PORT: &mainport 8080
               OP_SESSION:
                 valueFrom:
                   secretKeyRef:
@@ -50,7 +44,7 @@ spec:
                 spec:
                   httpGet:
                     path: /heartbeat
-                    port: *mainport
+                    port: *apiPort
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
@@ -60,32 +54,33 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: *mainport
+                    port: *apiPort
                   initialDelaySeconds: 15
               startup:
                 enabled: false
-            resources:
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources: &resources
               requests:
                 cpu: 5m
-                memory: 10Mi
               limits:
-                memory: 20Mi
+                memory: 128Mi
           sync:
             image:
               repository: ghcr.io/onedr0p/onepassword-sync
               tag: 1.7.2
             env:
-              - name: OP_SESSION
+              XDG_DATA_HOME: *configDir
+              OP_HTTP_PORT: &syncport 8081
+              OP_BUS_PORT: 11221
+              OP_BUS_PEERS: localhost:11220
+              OP_SESSION:
                 valueFrom:
                   secretKeyRef:
                     name: *secret
                     key: 1password-credentials.json
-              - name: OP_HTTP_PORT
-                value: &syncport 8081
-              - name: OP_BUS_PORT
-                value: "11221"
-              - name: OP_BUS_PEERS
-                value: "localhost:11220"
             probes:
               readiness:
                 enabled: true
@@ -105,36 +100,24 @@ spec:
                   failureThreshold: 3
                   periodSeconds: 30
                   initialDelaySeconds: 15
-            resources:
-              requests:
-                cpu: 5m
-                memory: 10Mi
-              limits:
-                memory: 50Mi
+            securityContext: *securityContext
+            resources: *resources
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
-      main:
-        controller: main
+      api:
+        controller: onepassword-connect
         ports:
           http:
-            port: *mainport
-    ingress:
-      main:
-        enabled: true
-        className: private
-        hosts:
-          - host: &host ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-        tls: [hosts: [*host]]
+            port: *apiPort
     persistence:
-      shared:
+      config:
         type: emptyDir
-        advancedMounts:
-          main:
-            main:
-              - path: /home/opuser/.op/data
-            sync:
-              - path: /home/opuser/.op/data
+        globalMounts:
+          - path: *configDir
