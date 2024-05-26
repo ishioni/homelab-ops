@@ -32,6 +32,7 @@ endpoints:
       - "[STATUS] == 404"
     alerts:
       - type: telegram
+        send-on-resolved: true
 metrics: true
 storage:
   type: postgres
