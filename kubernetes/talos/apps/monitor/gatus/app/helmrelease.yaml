@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.1.0
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -20,32 +20,27 @@ spec:
         annotations:
           secret.reloader.stakater.com/reload: &secret gatus-secret
           configmap.reloader.stakater.com/reload: &configmap gatus-configmap
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: ${APP_UID}
-            runAsGroup: ${APP_GID}
-            fsGroup: ${APP_GID}
-            fsGroupChangePolicy: OnRootMismatch
         initContainers:
-          01-init-db:
+          init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16.3
             envFrom: &envfrom
               - secretRef:
                   name: *secret
-          02-config-sync:
+          init-config:
+            dependsOn: init-db
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.27.1
             env:
-              - {name: FOLDER, value: /config}
-              - {name: LABEL, value: gatus.io/enabled}
-              - {name: NAMESPACE, value: ALL}
-              - {name: RESOURCE, value: both}
-              - {name: UNIQUE_FILENAMES, value: "true"}
-              - {name: METHOD, value: LIST}
+              FOLDER: /config
+              LABEL: gatus.io/enabled
+              NAMESPACE: ALL
+              RESOURCE: both
+              UNIQUE_FILENAMES: true
+              METHOD: WATCH
+            restartPolicy: Always
         containers:
           app:
             image:
@@ -54,25 +49,43 @@ spec:
             env:
               TZ: ${CONFIG_TIMEZONE}
               GATUS_CONFIG_PATH: /config
+              GATUS_DELAY_START_SECONDS: 5
               CUSTOM_WEB_PORT: &port 80
             envFrom: *envfrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
                 memory: 100Mi
               limits:
-                memory: 500Mi
-          config-sync:
-            image:
-              repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.27.1
-            env:
-              - {name: FOLDER, value: /config}
-              - {name: LABEL, value: gatus.io/enabled}
-              - {name: NAMESPACE, value: ALL}
-              - {name: RESOURCE, value: both}
-              - {name: UNIQUE_FILENAMES, value: "true"}
-              - {name: METHOD, value: WATCH}
+                memory: 250Mi
+    defaultPodOptions:
+      dnsConfig:
+        options:
+          - { name: ndots, value: "1" }
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: gatus
@@ -100,12 +113,11 @@ spec:
                   port: http
         tls: [hosts: [*host]]
     serviceAccount:
+      create: true
       name: gatus
     persistence:
-      config-dir:
+      config:
         type: emptyDir
-        globalMounts:
-          - path: /config
       config-file:
         type: configMap
         name: *configmap
