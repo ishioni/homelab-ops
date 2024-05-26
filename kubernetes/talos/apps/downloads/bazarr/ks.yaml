@@ -19,7 +19,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: database-cloudnative-pg-cluster
-    - name: security-external-secrets
+    - name: security-secret-store
     - name: storage-democratic-csi-nfs
     - name: storage-volsync
   postBuild:

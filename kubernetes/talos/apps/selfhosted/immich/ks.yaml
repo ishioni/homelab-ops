@@ -20,7 +20,7 @@ spec:
   dependsOn:
     - name: database-dragonfly-cluster
     - name: database-cloudnative-pg-cluster
-    - name: security-external-secrets
+    - name: security-secret-store
     - name: storage-democratic-csi-nfs
   postBuild:
     substitute:

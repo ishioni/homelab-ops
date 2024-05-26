@@ -14,7 +14,7 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: security-external-secrets
+    - name: security-secret-store
     - name: storage-snapshot-controller
   interval: 10m
 # ---
@@ -33,7 +33,7 @@ spec:
 #   prune: true
 #   wait: true
 #   dependsOn:
-#     - name: security-external-secrets
+#     - name: security-secret-store
 #     - name: storage-snapshot-controller
 #   interval: 10m
 ---
@@ -52,6 +52,6 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: security-external-secrets
+    - name: security-secret-store
     - name: storage-snapshot-controller
   interval: 10m
