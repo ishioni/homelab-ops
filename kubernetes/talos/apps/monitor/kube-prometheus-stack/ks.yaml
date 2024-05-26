@@ -18,6 +18,7 @@ spec:
   wait: true
   interval: 10m
   dependsOn:
+    - name: storage-democratic-csi-iscsi
     - name: security-external-secrets
   postBuild:
     substitute:
@@ -44,5 +45,4 @@ spec:
   wait: true
   interval: 10m
   dependsOn:
-    - name: security-external-secrets
     - name: monitor-kube-prometheus-stack

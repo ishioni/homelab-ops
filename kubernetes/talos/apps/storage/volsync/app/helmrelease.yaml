@@ -14,6 +14,10 @@ spec:
         name: backube
         namespace: flux-system
   interval: 30m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     manageCRDs: true
     image:

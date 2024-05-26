@@ -32,3 +32,4 @@ spec:
   interval: 10m
   dependsOn:
     - name: database-dragonfly
+    - name: storage-democratic-csi-iscsi

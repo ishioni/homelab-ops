@@ -14,6 +14,10 @@ spec:
         name: kyverno
         namespace: flux-system
   interval: 30m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     crds:
       install: true
