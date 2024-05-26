@@ -36,6 +36,21 @@ endpoints:
     alerts:
       - type: telegram
         send-on-resolved: true
+  - name: Minio
+    group: Services
+    url: https://minio.${NAS_DOMAIN}/minio/health/live
+    interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
+    client:
+      dns-resolver: tcp://10.1.2.1:53
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: telegram
+        send-on-resolved: true
+
 metrics: true
 storage:
   type: postgres
