@@ -22,23 +22,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: security-external-secrets-op
+  name: security-secret-store
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/security/external-secrets/op
+  path: ./kubernetes/talos/apps/security/external-secrets/stores
   targetNamespace: security
   sourceRef:
     kind: GitRepository
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname external-secrets-op
+      app.kubernetes.io/name: secret-store
   prune: true
   wait: true
   interval: 10m
   dependsOn:
     - name: security-external-secrets
-  postBuild:
-    substitute:
-      APP: *appname
-      HOSTNAME: opconnect.internal.${PUBLIC_DOMAIN}
+    - name: security-onepassword-connect
