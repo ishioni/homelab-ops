@@ -22,6 +22,16 @@ endpoints:
     alerts:
       - type: telegram
         send-on-resolved: true
+  - name: Flux-webhook
+    group: Services
+    url: https://flux-receiver.${PUBLIC_DOMAIN}
+    interval: 1m
+    client:
+      dns-resolver: tcp://10.1.2.1:53
+    conditions:
+      - "[STATUS] == 404"
+    alerts:
+      - type: telegram
 metrics: true
 storage:
   type: postgres
