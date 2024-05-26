@@ -9,7 +9,7 @@ data:
   config.yaml: |
     endpoints:
       - name: SSO
-        group: Applications
+        group: Services
         url: https://auth.${PUBLIC_DOMAIN}
         interval: 1m
         ui:
