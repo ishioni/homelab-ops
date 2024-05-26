@@ -21,7 +21,7 @@ connectivity:
 endpoints:
   - name: Status
     group: Applications
-    url: https://status.${SECRET_DOMAIN}
+    url: https://status.${PUBLIC_DOMAIN}
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53
