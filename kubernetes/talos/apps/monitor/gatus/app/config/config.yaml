@@ -1,8 +1,8 @@
 ---
 alerting:
   telegram:
-    id: $${CUSTOM_TELEGRAM_CHANNEL_ID}
-    token: $${CUSTOM_TELEGRAM_BOT_TOKEN}
+    id: ${CUSTOM_TELEGRAM_CHANNEL_ID}
+    token: ${CUSTOM_TELEGRAM_BOT_TOKEN}
 connectivity:
   checker:
     target: 1.1.1.1:53
@@ -10,7 +10,7 @@ connectivity:
 endpoints:
   - name: Status
     group: Applications
-    url: https://status.$${PUBLIC_DOMAIN}
+    url: https://status.${PUBLIC_DOMAIN}
     interval: 1m
     client:
       dns-resolver: tcp://10.1.2.1:53
@@ -22,10 +22,10 @@ endpoints:
 metrics: true
 storage:
   type: postgres
-  path: postgres://$${INIT_POSTGRES_USER}:$${INIT_POSTGRES_PASS}@$${INIT_POSTGRES_HOST}:5432/$${INIT_POSTGRES_DBNAME}?sslmode=disable
+  path: postgres://${INIT_POSTGRES_USER}:${INIT_POSTGRES_PASS}@${INIT_POSTGRES_HOST}:5432/${INIT_POSTGRES_DBNAME}?sslmode=disable
   caching: true
 ui:
   title: Status | Gatus
   header: Status
 web:
-  port: $${CUSTOM_WEB_PORT}
+  port: ${CUSTOM_WEB_PORT}
