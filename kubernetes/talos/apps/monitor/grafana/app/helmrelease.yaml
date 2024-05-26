@@ -193,7 +193,7 @@ spec:
           datasource: Prometheus
         api-server:
           # renovate: depName="Kubernetes / System / API Server"
-          gnetId: 16761
+          gnetId: 15761
           revision: 16
           datasource: Prometheus
         coredns:
