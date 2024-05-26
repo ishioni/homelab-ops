@@ -1,11 +1,10 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: onepassword-connect
 spec:
-  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,25 +13,25 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  interval: 30m
+  dependsOn:
+    - name: external-secrets
   values:
     controllers:
-      main:
+      onepassword-connect:
         annotations:
           secret.reloader.stakater.com/reload: &secret onepassword-connect-secret
         strategy: RollingUpdate
-        pod:
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
         containers:
-          main:
+          api:
             image:
               repository: ghcr.io/onedr0p/onepassword-connect-api
               tag: 1.7.2
             env:
+              XDG_DATA_HOME: &configDir /config
+              OP_HTTP_PORT: &apiPort 8080
               OP_BUS_PORT: "11220"
               OP_BUS_PEERS: "localhost:11221"
-              OP_HTTP_PORT: &mainport 8080
               OP_SESSION:
                 valueFrom:
                   secretKeyRef:
@@ -45,7 +44,7 @@ spec:
                 spec:
                   httpGet:
                     path: /heartbeat
-                    port: *mainport
+                    port: *apiPort
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
@@ -55,62 +54,81 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: *mainport
+                    port: *apiPort
                   initialDelaySeconds: 15
               startup:
                 enabled: false
-            resources:
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources: &resources
               requests:
                 cpu: 5m
-                memory: 10Mi
               limits:
-                memory: 20Mi
+                memory: 128Mi
           sync:
             image:
               repository: ghcr.io/onedr0p/onepassword-sync
               tag: 1.7.2
             env:
-              - name: OP_SESSION
+              XDG_DATA_HOME: *configDir
+              OP_HTTP_PORT: &syncport 8081
+              OP_BUS_PORT: 11221
+              OP_BUS_PEERS: localhost:11220
+              OP_SESSION:
                 valueFrom:
                   secretKeyRef:
                     name: *secret
                     key: 1password-credentials.json
-              - name: OP_HTTP_PORT
-                value: &syncport 8081
-              - name: OP_BUS_PORT
-                value: "11221"
-              - name: OP_BUS_PEERS
-                value: "localhost:11220"
             probes:
-              readinessProbe:
-                httpGet:
-                  path: /health
-                  port: *syncport
-                initialDelaySeconds: 15
-              livenessProbe:
-                httpGet:
-                  path: /heartbeat
-                  port: *syncport
-                failureThreshold: 3
-                periodSeconds: 30
-                initialDelaySeconds: 15
-            resources:
-              requests:
-                cpu: 5m
-                memory: 10Mi
-              limits:
-                memory: 50Mi
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *syncport
+                  initialDelaySeconds: 15
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /heartbeat
+                    port: *syncport
+                  failureThreshold: 3
+                  periodSeconds: 30
+                  initialDelaySeconds: 15
+            securityContext: *securityContext
+            resources: *resources
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
-      main:
+      api:
+        controller: onepassword-connect
         ports:
           http:
-            port: *mainport
+            port: *apiPort
+    ingress:
+      api:
+        className: ingress
+        hosts:
+          - host: &host op.${NAS_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: api
+                  port: http
+        tls: [hosts: [*host]]
     persistence:
-      shared:
+      config:
         type: emptyDir
-        advancedMounts:
-          main:
-            main:
-              - path: /home/opuser/.op/data
-            sync:
-              - path: /home/opuser/.op/data
+        globalMounts:
+          - path: *configDir
