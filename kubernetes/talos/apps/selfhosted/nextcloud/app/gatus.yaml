@@ -21,3 +21,4 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: telegram
+            send-on-resolved: true

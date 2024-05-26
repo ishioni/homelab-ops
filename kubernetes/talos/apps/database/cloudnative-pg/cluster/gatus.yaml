@@ -19,3 +19,4 @@ data:
           - "[CONNECTED] == true"
         alerts:
           - type: telegram
+            send-on-resolved: true
