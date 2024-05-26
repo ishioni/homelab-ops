@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
+  - ./gatus.yaml
   - ./helmrelease.yaml
   - ./pvc.yaml
 configMapGenerator:

@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: hass-gatus-ep
+  name: immich-gatus-ep
   labels:
     gatus.io/enabled: "true"
 data:
   config.yaml: |
     endpoints:
-      - name: Home Assistant
+      - name: Photos
         group: Applications
-        url: http://homeassistant.${PRIVATE_DOMAIN}:8123
+        url: https://photos.${PUBLIC_DOMAIN}
         interval: 1m
         ui:
           hide-hostname: true
