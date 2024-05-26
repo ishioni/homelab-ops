@@ -67,7 +67,7 @@ spec:
         # org_role: Viewer
       auth.generic_oauth:
         enabled: true
-        name: ${SECRET_DOMAIN}
+        name: ${PUBLIC_DOMAIN}
         icon: signin
         auth_url: https://${AUTH_HOSTNAME}/application/o/authorize/
         token_url: https://${AUTH_HOSTNAME}/application/o/token/
@@ -283,7 +283,7 @@ spec:
           gnetId: 20204
           revision: 1
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - {name: DS_PROMETHEUS, value: Prometheus}
         spegel:
           # renovate: depName="Spegel"
           gnetId: 18089

@@ -25,7 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: movies.${SECRET_DOMAIN}
+      HOSTNAME: movies.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "2000"
       PVC_CLAIM: radarr-config

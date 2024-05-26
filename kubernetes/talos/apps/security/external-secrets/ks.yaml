@@ -41,4 +41,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: opconnect.internal.${SECRET_DOMAIN}
+      HOSTNAME: opconnect.internal.${PUBLIC_DOMAIN}

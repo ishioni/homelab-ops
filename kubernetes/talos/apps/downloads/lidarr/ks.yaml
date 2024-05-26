@@ -25,7 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: music.${SECRET_DOMAIN}
+      HOSTNAME: music.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "2000"
       PVC_CLAIM: lidarr-config

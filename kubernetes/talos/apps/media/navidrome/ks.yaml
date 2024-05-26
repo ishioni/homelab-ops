@@ -25,7 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: navidrome.${SECRET_DOMAIN}
+      HOSTNAME: navidrome.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "2000"
       VOLSYNC_CLAIM: navidrome-config

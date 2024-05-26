@@ -25,7 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: audiobooks.${SECRET_DOMAIN}
+      HOSTNAME: audiobooks.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "2000"
       VOLSYNC_CLAIM: audiobookshelf-config
