@@ -158,14 +158,6 @@ spec:
               path: /var/lib/grafana/dashboards/database
             orgId: 1
             type: file
-          - name: "flux"
-            orgId: 1
-            folder: "Flux"
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/flux
           - name: "kubernetes"
             orgId: 1
             folder: "Kubernetes"
@@ -192,18 +184,17 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/system
     dashboards:
-      flux:
+      kubernetes:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
           datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
           datasource: Prometheus
-      kubernetes:
         api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 16761
-          revision: 15
+          revision: 16
           datasource: Prometheus
         coredns:
           # renovate: depName="Kubernetes / System / CoreDNS"
@@ -252,6 +243,9 @@ spec:
           # renovate: depName="External-DNS"
           gnetId: 15038
           revision: 3
+          datasource: Prometheus
+        external-secrets:
+          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
         unifi-usw-insights:
           # renovate: depName="Unifi USW"
