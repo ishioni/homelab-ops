@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: hass-gatus-ep
+  name: nextcloud-gatus-ep
   labels:
     gatus.io/enabled: "true"
 data:
   config.yaml: |
     endpoints:
-      - name: Home Assistant
+      - name: Files
         group: Applications
-        url: http://homeassistant.${PRIVATE_DOMAIN}:8123
+        url: https://files.${PUBLIC_DOMAIN}/status.php
         interval: 1m
         ui:
           hide-hostname: true
