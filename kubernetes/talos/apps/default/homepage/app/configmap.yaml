@@ -66,45 +66,45 @@ data:
                   service_name: Readarr # service name for that widget
     - Automation:
         - Home Assistant:
-            href: https://homeassistant.${SECRET_DOMAIN}
+            href: https://homeassistant.${PUBLIC_DOMAIN}
             icon: home-assistant.svg
             widget:
               type: homeassistant
-              url: http://homeassistant.${HOME_DOMAIN}:8123
+              url: http://homeassistant.${PRIVATE_DOMAIN}:8123
               key: {{HOMEPAGE_VAR_HASS_TOKEN}}
     - Infrastructure:
         - Unifi:
-            href: https://unifi.${HOME_DOMAIN}
+            href: https://unifi.${PRIVATE_DOMAIN}
             icon: unifi.png
             description: Unifi Dashboard
             widget:
               type: unifi
-              url: https://unifi.${HOME_DOMAIN}
+              url: https://unifi.${PRIVATE_DOMAIN}
               username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - TrueNAS:
-            href: https://quadrant.${HOME_DOMAIN}
+            href: https://quadrant.${PRIVATE_DOMAIN}
             icon: truenas.png
             description: NAS
             widget:
               type: truenas
-              url: https://quadrant.${HOME_DOMAIN}
+              url: https://quadrant.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
         - Proxmox:
-            href: https://proxmox.${HOME_DOMAIN}
+            href: https://proxmox.${PRIVATE_DOMAIN}
             icon: proxmox.png
             description: Hypervisor
             widget:
               type: proxmox
-              url: https://proxmox.${HOME_DOMAIN}
+              url: https://proxmox.${PRIVATE_DOMAIN}
               username: {{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}
               password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
         - MeshCentral:
-            href: https://meshcentral.${HOME_DOMAIN}
+            href: https://meshcentral.${PRIVATE_DOMAIN}
             icon: meshcentral.png
             description: AMT
         - Minio:
-            href: https://minio.${HOME_DOMAIN}
+            href: https://minio.${PRIVATE_DOMAIN}
             icon: minio.svg
             description: S3
   settings.yaml: |

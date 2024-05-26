@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: postgres
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: postgres.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/hostname: postgres.${PUBLIC_DOMAIN}
 spec:
   type: LoadBalancer
   ports:

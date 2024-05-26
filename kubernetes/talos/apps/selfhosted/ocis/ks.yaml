@@ -26,8 +26,8 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: ocis.${SECRET_DOMAIN}
-      AUTH_HOSTNAME: auth.${SECRET_DOMAIN}
+      HOSTNAME: ocis.${PUBLIC_DOMAIN}
+      AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: ocis-data

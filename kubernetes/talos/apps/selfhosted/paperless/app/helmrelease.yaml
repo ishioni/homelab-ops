@@ -53,7 +53,7 @@ spec:
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
               PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: ${CONFIG_TIMEZONE}
-              PAPERLESS_URL: https://documents.${SECRET_DOMAIN}
+              PAPERLESS_URL: https://documents.${PUBLIC_DOMAIN}
               USERMAP_UID: 568
               USERMAP_GID: 568
             envFrom:

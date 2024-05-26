@@ -20,6 +20,6 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: whoami.${SECRET_DOMAIN}
+      HOSTNAME: whoami.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"

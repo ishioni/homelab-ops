@@ -26,8 +26,8 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: files.${SECRET_DOMAIN}
-      AUTH_HOSTNAME: auth.${SECRET_DOMAIN}
+      HOSTNAME: files.${PUBLIC_DOMAIN}
+      AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       APP_UID: "82"
       APP_GID: "82"
       VOLSYNC_CLAIM: nextcloud-config
