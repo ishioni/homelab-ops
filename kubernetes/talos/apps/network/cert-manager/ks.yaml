@@ -38,4 +38,4 @@ spec:
   interval: 10m
   dependsOn:
     - name: network-cert-manager
-    - name: security-external-secrets
+    - name: security-secret-store

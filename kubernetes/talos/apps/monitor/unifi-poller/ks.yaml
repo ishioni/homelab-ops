@@ -15,4 +15,4 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
-    - name: security-external-secrets
+    - name: security-secret-store

@@ -17,5 +17,5 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: security-external-secrets
+    - name: security-secret-store
   interval: 10m
