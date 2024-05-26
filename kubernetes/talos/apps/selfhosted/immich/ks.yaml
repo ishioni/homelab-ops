@@ -18,7 +18,10 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
+    - name: database-dragonfly-cluster
+    - name: database-cloudnative-pg-cluster
     - name: security-external-secrets
+    - name: storage-democratic-csi-nfs
   postBuild:
     substitute:
       APP: *appname

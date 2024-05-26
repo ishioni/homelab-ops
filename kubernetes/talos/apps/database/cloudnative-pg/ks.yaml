@@ -32,6 +32,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: database-cloudnative-pg
+    - name: storage-democratic-csi-iscsi
     - name: security-external-secrets
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json

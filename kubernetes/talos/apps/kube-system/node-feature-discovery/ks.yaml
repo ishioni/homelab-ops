@@ -12,7 +12,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname node-feature-discovery
+      app.kubernetes.io/name: node-feature-discovery
   prune: true
   wait: true
   interval: 10m

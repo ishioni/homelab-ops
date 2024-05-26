@@ -13,7 +13,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname metrics-server
+      app.kubernetes.io/name: metrics-server
   prune: true
   wait: false
   interval: 10m

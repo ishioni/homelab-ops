@@ -18,7 +18,10 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
+    - name: database-cloudnative-pg-cluster
+    - name: database-dragonfly-cluster
     - name: security-external-secrets
+    - name: storage-democratic-csi-nfs
     - name: storage-volsync
   postBuild:
     substitute:

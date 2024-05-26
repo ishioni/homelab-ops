@@ -13,7 +13,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname cert-manager
+      app.kubernetes.io/name: cert-manager
   prune: true
   wait: true
   interval: 10m
@@ -32,7 +32,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname cert-manager-issuers
+      app.kubernetes.io/name: cert-manager-issuers
   prune: true
   wait: false
   interval: 10m
