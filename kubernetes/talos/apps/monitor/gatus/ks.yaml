@@ -18,10 +18,9 @@ spec:
   wait: false
   interval: 10m
   dependsOn:
-    - name: security-external-secrets
+    - name: database-cloudnative-pg-cluster
+    - name: security-secret-store
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: status.${SECRET_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
+      HOSTNAME: status.${PUBLIC_DOMAIN}
