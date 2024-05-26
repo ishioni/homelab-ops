@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./externalsecret.yaml
+  - ./gatus.yaml
   - ./loadbalancer.yaml
   - ./prometheusrule.yaml
   - ./scheduledbackup.yaml
