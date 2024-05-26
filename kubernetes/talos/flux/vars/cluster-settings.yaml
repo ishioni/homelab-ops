@@ -5,6 +5,7 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  PUBLIC_DOMAIN: movishell.pl
   HOME_DOMAIN: ishioni.casa
   NAS_DOMAIN: nas.ishioni.casa
   CONFIG_BGP_POOL_CIDR: 10.84.2.0/24
