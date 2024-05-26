@@ -22,7 +22,7 @@ endpoints:
     alerts:
       - type: telegram
         send-on-resolved: true
-  - name: Flux-webhook
+  - name: Flux webhook
     group: Services
     url: https://flux-receiver.${PUBLIC_DOMAIN}
     interval: 1m
