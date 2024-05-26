@@ -51,7 +51,7 @@ spec:
               PUBLIC_DOMAIN: ${PUBLIC_DOMAIN}
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              CUSTOM_WEB_PORT: &port 80
+              CUSTOM_WEB_PORT: &port 8080
             envFrom: *envfrom
             probes:
               liveness: &probes
