@@ -20,4 +20,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: homeassistant.${SECRET_DOMAIN}
+      HOSTNAME: homeassistant.${PUBLIC_DOMAIN}

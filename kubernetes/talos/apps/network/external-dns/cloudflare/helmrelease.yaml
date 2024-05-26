@@ -36,7 +36,7 @@ spec:
     sources: ["ingress"]
     txtPrefix: "talos."
     txtOwnerId: "talos"
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["${PUBLIC_DOMAIN}"]
     resources:
       requests:
         memory: 100Mi

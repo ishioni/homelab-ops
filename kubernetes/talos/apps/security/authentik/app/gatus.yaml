@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: SSO
         group: Services
-        url: https://auth.${SECRET_DOMAIN}
+        url: https://auth.${PUBLIC_DOMAIN}
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

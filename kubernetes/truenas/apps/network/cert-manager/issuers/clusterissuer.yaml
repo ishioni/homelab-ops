@@ -7,7 +7,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "homelab@${SECRET_DOMAIN}"
+    email: "homelab@${PUBLIC_DOMAIN}"
     preferredChain: "ISRG Root X1"
     privateKeySecretRef:
       name: letsencrypt-production
@@ -19,5 +19,5 @@ spec:
               key: API_TOKEN
         selector:
           dnsZones:
-            - ${SECRET_DOMAIN}
-            - ${HOME_DOMAIN}
+            - ${PUBLIC_DOMAIN}
+            - ${PRIVATE_DOMAIN}

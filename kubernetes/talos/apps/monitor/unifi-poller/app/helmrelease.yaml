@@ -34,7 +34,7 @@ spec:
             env:
               TZ: ${CONFIG_TIMEZONE}
               UP_UNIFI_DEFAULT_ROLE: home-ops
-              UP_UNIFI_DEFAULT_URL: https://unifi.${HOME_DOMAIN}
+              UP_UNIFI_DEFAULT_URL: https://unifi.${PRIVATE_DOMAIN}
               UP_UNIFI_DEFAULT_VERIFY_SSL: true
               UP_INFLUXDB_DISABLE: true
             envFrom:

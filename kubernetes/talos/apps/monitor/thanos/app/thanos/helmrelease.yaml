@@ -37,14 +37,14 @@ spec:
         storageClass: "truenas-ssd-iscsi"
         size: 15Gi
     # query:
-    #   extraArgs: --alert.query-url=http://thanos.${SECRET_DOMAIN}
+    #   extraArgs: --alert.query-url=http://thanos.${PUBLIC_DOMAIN}
     # queryFrontend:
     #   enabled: true
     #   ingress:
     #     enabled: true
     #     ingressClassName: private
     #     hosts:
-    #       - &queryFrontendhost thanos.${SECRET_DOMAIN}
+    #       - &queryFrontendhost thanos.${PUBLIC_DOMAIN}
     # rule:
     #   enabled: true
     #   extraArgs: ["--web.prefix-header=X-Forwarded-Prefix"]

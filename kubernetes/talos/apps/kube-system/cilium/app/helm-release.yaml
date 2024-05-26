@@ -37,7 +37,7 @@ spec:
             gethomepage.dev/icon: cilium.svg
           className: private
           hosts:
-            - &host hubble.${SECRET_DOMAIN}
+            - &host hubble.${PUBLIC_DOMAIN}
           tls:
             - hosts:
                 - *host
