@@ -26,6 +26,9 @@ endpoints:
     group: Services
     url: https://flux-receiver.${PUBLIC_DOMAIN}
     interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
     client:
       dns-resolver: tcp://10.1.2.1:53
     conditions:
