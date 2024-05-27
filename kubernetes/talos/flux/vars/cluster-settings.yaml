@@ -7,7 +7,6 @@ metadata:
 data:
   PUBLIC_DOMAIN: movishell.pl
   PRIVATE_DOMAIN: ishioni.casa
-  NAS_DOMAIN: nas.ishioni.casa
   CONFIG_BGP_POOL_CIDR: 10.84.2.0/24
   CONFIG_INGRESS_PUBLIC_IP: 10.84.2.2
   CONFIG_INGRESS_PRIVATE_IP: 10.84.2.3
