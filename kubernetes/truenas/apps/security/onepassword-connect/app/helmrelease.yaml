@@ -120,7 +120,7 @@ spec:
       api:
         className: ingress
         hosts:
-          - host: &host op.${NAS_DOMAIN}
+          - host: &host op.${PRIVATE_DOMAIN}
             paths:
               - path: /
                 service:
