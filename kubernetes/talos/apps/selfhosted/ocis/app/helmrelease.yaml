@@ -73,7 +73,7 @@ spec:
               PROXY_USER_OIDC_CLAIM: preferred_username
               STORAGE_USERS_DRIVER: s3ng
               STORAGE_SYSTEM_DRIVER: ocis
-              STORAGE_USERS_S3NG_ENDPOINT: https://s3.nas.ishioni.casa
+              STORAGE_USERS_S3NG_ENDPOINT: https://s3.${PRIVATE_DOMAIN}
               STORAGE_USERS_S3NG_REGION: default
               STORAGE_USERS_S3NG_BUCKET: ocis
               WEB_OIDC_METADATA_URL: https://auth.movishell.pl/application/o/owncloud/.well-known/openid-configuration
