@@ -38,7 +38,7 @@ endpoints:
         send-on-resolved: true
   - name: Minio
     group: Services
-    url: https://minio.${NAS_DOMAIN}/minio/health/live
+    url: https://minio.${PRIVATE_DOMAIN}/minio/health/live
     interval: 1m
     ui:
       hide-hostname: true

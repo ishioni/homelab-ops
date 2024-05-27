@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name smartctl-exporter
 spec:
-  staticConfigs: [targets: ["nas-smartctl.${NAS_DOMAIN}:9633"]]
+  staticConfigs: [targets: ["nas-smartctl.${NAS_PRIVATE}:9633"]]
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:

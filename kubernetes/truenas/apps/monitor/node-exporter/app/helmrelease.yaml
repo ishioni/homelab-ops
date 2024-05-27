@@ -54,7 +54,7 @@ spec:
         controller: node-exporter
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: nas-node.${NAS_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: nas-node.${PRIVATE_DOMAIN}
         ports:
           http:
             port: 9100
