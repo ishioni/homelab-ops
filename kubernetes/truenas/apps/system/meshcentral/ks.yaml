@@ -22,7 +22,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: meshcentral2.${PRIVATE_DOMAIN}
+      HOSTNAME: meshcentral.${PRIVATE_DOMAIN}
       TLS_OFFLOAD: "true"
       WEBRTC: "true"
       PORT: "443"
