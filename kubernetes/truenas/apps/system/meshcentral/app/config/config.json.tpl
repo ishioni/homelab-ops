@@ -16,7 +16,7 @@
     "SelfUpdate": false,
     "AllowFraming": false,
     "WebRTC": ${WEBRTC},
-    "NewAccounts": false
+    "NewAccounts": ${NEWACCOUNTS}
   },
   "domains": {
     "": {
