@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: meshcentral
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      meshcentral:
+        annotations:
+          secret.reloader.stakater.com/reload: meshcentral-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ylianst/meshcentral
+              tag: 1.1.22
+            env:
+              TZ: ${CONFIG_TIMEZONE}
+              NODE_ENV: production
+              HOSTNAME: ${HOSTNAME}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 2Gi
+    service:
+      app:
+        controller: meshcentral
+        ports:
+          http:
+            port: ${PORT}
+    ingress:
+      app:
+        className: ingress
+        hosts:
+          - host: &host ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts: [*host]
+    persistence:
+      config:
+        type: secret
+        name: meshcentral-config
+        advancedMounts:
+          meshcentral:
+            app:
+              - path: /opt/meshcentral/meshcentral-data/config.json
+                subPath: config.json
+      data:
+        existingClaim: meshcentral-data
+        globalMounts:
+          - path: /root
+            subPath: rootdir
+          - path: /opt/meshcentral/meshcentral-data
+            subPath: data
+          - path: /opt/meshcentral/meshcentral-files
+            subPath: userfiles
+          - path: /opt/meshcentral/meshcentral-backups
+            subPath: backups
