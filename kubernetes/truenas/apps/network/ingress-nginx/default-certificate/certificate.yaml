@@ -6,8 +6,8 @@ metadata:
   name: "default-certificate"
 spec:
   dnsNames:
-    - "${NAS_DOMAIN}"
-    - "*.${NAS_DOMAIN}"
+    - "${PRIVATE_DOMAIN}"
+    - "*.${PRIVATE_DOMAIN}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

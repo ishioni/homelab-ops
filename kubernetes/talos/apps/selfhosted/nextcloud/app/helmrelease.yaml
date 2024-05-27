@@ -142,7 +142,7 @@ spec:
             'objectstore' => array(
               'class' => '\\OC\\Files\\ObjectStore\\S3',
               'arguments' => array(
-                'hostname'       => 's3.${NAS_DOMAIN}',
+                'hostname'       => 's3.${PRIVATE_DOMAIN}',
                 'port'           => 443,
                 'use_path_style' => true,
                 'bucket'         => getenv('S3_ACCESS_KEY'),

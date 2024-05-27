@@ -40,7 +40,7 @@ spec:
         compression: bzip2
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
-      endpointURL: https://s3.${NAS_DOMAIN}
+      endpointURL: https://s3.${PRIVATE_DOMAIN}
       serverName: &currentCluster postgres-v3
       s3Credentials:
         accessKeyId:
@@ -54,7 +54,7 @@ spec:
     - name: *previousCluster
       barmanObjectStore:
         destinationPath: s3://cloudnative-pg/
-        endpointURL: https://s3.${NAS_DOMAIN}
+        endpointURL: https://s3.${PRIVATE_DOMAIN}
         s3Credentials:
           accessKeyId:
             name: cloudnative-pg-secret
