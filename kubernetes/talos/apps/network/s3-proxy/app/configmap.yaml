@@ -19,10 +19,10 @@ data:
         listen 80;
         client_max_body_size 128M;
         location / {
-        proxy_set_header Host "s3.${NAS_DOMAIN}";
+        proxy_set_header Host "s3.${PRIVATE_DOMAIN}";
         proxy_hide_header "Set-Cookie";
         proxy_intercept_errors on;
-        proxy_pass https://s3.${NAS_DOMAIN}/static-content/;
+        proxy_pass https://s3.${PRIVATE_DOMAIN}/static-content/;
         }
       }
     }

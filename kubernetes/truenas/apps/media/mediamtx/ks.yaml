@@ -22,6 +22,6 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: camera.${NAS_DOMAIN}
+      HOSTNAME: camera.${NAS_PRIVATE}
       APP_UID: "568"
       APP_GID: "568"

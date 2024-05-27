@@ -22,7 +22,7 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: s3.${NAS_DOMAIN}
-      CONSOLE_HOSTNAME: minio.${NAS_DOMAIN}
+      HOSTNAME: s3.${PRIVATE_DOMAIN}
+      CONSOLE_HOSTNAME: minio.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
