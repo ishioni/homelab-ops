@@ -17,7 +17,7 @@ spec:
   values:
     podAnnotations:
       secret.reloader.stakater.com/reload: &secret externaldns-bind-secret
-    domainFilters: [nas.ishioni.casa]
+    domainFilters: [ishioni.casa]
     policy: sync
     provider: rfc2136
     sources: [ingress, service]
