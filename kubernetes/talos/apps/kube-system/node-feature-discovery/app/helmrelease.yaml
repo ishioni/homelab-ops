@@ -25,8 +25,7 @@ spec:
     master:
       resources:
         limits:
-          memory:
-            50Mi
+          memory: 50Mi
         requests:
           cpu: 20m
           memory: 50Mi
@@ -36,4 +35,10 @@ spec:
       resources:
         requests:
           cpu: 5m
+          memory: 50Mi
+    gc:
+      resources:
+        limits:
+          memory: 50Mi
+        requests:
           memory: 50Mi
