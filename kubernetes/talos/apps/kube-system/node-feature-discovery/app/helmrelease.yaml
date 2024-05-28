@@ -18,3 +18,22 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  values:
+    prometheus:
+      enable: true
+      scrapeInterval: 30s
+    master:
+      resources:
+        limits:
+          memory:
+            50Mi
+        requests:
+          cpu: 20m
+          memory: 50Mi
+    worker:
+      limits:
+        memory: 50Mi
+      resources:
+        requests:
+          cpu: 5m
+          memory: 50Mi
