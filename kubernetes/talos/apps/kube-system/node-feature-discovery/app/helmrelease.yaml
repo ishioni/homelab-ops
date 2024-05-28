@@ -30,9 +30,9 @@ spec:
           cpu: 20m
           memory: 50Mi
     worker:
-      limits:
-        memory: 50Mi
       resources:
+        limits:
+          memory: 50Mi
         requests:
           cpu: 5m
           memory: 50Mi
