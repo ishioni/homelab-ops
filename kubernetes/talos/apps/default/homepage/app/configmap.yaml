@@ -61,9 +61,6 @@ data:
                 - type: radarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr>
                   service_group: Downloads # group name where widget exists
                   service_name: Radarr # service name for that widget
-                - type: readarr # active widget type that is currently enabled on homepage - possible values: radarr, sonar>
-                  service_group: Downloads # group name where widget exists
-                  service_name: Readarr # service name for that widget
     - Automation:
         - Home Assistant:
             href: https://homeassistant.${PUBLIC_DOMAIN}
