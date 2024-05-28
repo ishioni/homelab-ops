@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: node-feature-discovery
-      version: 0.15.4
+      version: 0.16.0
       sourceRef:
         kind: HelmRepository
         name: node-feature-discovery
@@ -18,3 +18,27 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  values:
+    prometheus:
+      enable: true
+      scrapeInterval: 30s
+    master:
+      resources:
+        limits:
+          memory: 50Mi
+        requests:
+          cpu: 20m
+          memory: 50Mi
+    worker:
+      resources:
+        limits:
+          memory: 50Mi
+        requests:
+          cpu: 5m
+          memory: 50Mi
+    gc:
+      resources:
+        limits:
+          memory: 50Mi
+        requests:
+          memory: 50Mi
