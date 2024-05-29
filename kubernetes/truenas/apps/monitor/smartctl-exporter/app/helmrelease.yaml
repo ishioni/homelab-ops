@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: quay.io/prometheuscommunity/smartctl-exporter
-              tag: v0.12.0
+              tag: master
             args:
               - --smartctl.path=/usr/sbin/smartctl
               - --smartctl.interval=120s
