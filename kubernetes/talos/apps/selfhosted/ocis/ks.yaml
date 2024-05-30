@@ -26,12 +26,12 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: ocis.${PUBLIC_DOMAIN}
+      HOSTNAME: files.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: ocis-data
-      VOLSYNC_CAPACITY: &size 10Gi
+      VOLSYNC_CAPACITY: &size 20Gi
       VOLSYNC_CACHE_CAPACITY: *size
       VOLSYNC_STORAGECLASS: &class truenas-ssd-nfs
       VOLSYNC_CACHE_SNAPSHOTCLASS: *class

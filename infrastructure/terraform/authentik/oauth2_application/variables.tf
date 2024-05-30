@@ -37,6 +37,7 @@ variable "client_id" {
 
 variable "client_secret" {
   type = string
+  default = null
 }
 
 variable "authorization_flow" {
