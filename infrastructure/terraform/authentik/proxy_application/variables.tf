@@ -11,8 +11,8 @@ variable "slug" {
 }
 
 variable "access_token_validity" {
-  type    = number
-  default = 24
+  type    = string
+  default = "weeks=8"
 }
 
 variable "authorization_flow" {

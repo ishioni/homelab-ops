@@ -64,8 +64,8 @@ variable "sub_mode" {
 }
 
 variable "access_code_validity" {
-  type    = number
-  default = 24
+  type    = string
+  default = "weeks=8"
 }
 
 variable "additional_property_mappings" {
@@ -75,4 +75,12 @@ variable "additional_property_mappings" {
 
 variable "redirect_uris" {
   type = list(string)
+}
+
+locals {
+  client_secret = (
+    var.client_type == "confidential"
+    ? var.client_secret != null ? var.client_secret : random_password.client_secret.result
+    : null
+  )
 }
