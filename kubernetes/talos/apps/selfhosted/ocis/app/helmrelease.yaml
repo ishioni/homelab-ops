@@ -107,17 +107,9 @@ spec:
             port: *port
     ingress:
       app:
-        className: "private"
+        className: "public"
         annotations:
           nginx.ingress.kubernetes.io/custom-http-errors: "418"
-        # annotations:
-        #   gethomepage.dev/enabled: "true"
-        #   gethomepage.dev/group: Selfhosted
-        #   gethomepage.dev/name: Immich
-        #   gethomepage.dev/icon: immich.png
-        #   gethomepage.dev/widget.type: immich
-        #   gethomepage.dev/widget.url: http://immich-server.selfhosted:3001
-        #   gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
         hosts:
           - host: &host ${HOSTNAME}
             paths:
