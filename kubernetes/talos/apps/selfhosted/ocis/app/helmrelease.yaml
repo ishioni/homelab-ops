@@ -63,7 +63,7 @@ spec:
               OCIS_OIDC_ISSUER: https://auth.movishell.pl/application/o/owncloud/
               OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: "false"
               OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: "true"
-              OCIS_URL: https://ocis.movishell.pl
+              OCIS_URL: https://files.movishell.pl
               PROXY_AUTOPROVISION_ACCOUNTS: true
               PROXY_TLS: false
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
