@@ -64,6 +64,11 @@ variable "sub_mode" {
 }
 
 variable "access_code_validity" {
+  type = string
+  default = "minutes=1"
+}
+
+variable "access_token_validity" {
   type    = string
   default = "weeks=8"
 }
