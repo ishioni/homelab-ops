@@ -20,7 +20,7 @@ spec:
     crds: CreateReplace
   values:
     prometheus:
-      enable: false
+      enable: true
       scrapeInterval: 30s
     master:
       resources:
