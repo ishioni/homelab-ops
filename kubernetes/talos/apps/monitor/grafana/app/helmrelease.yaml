@@ -228,7 +228,7 @@ spec:
           datasource: Prometheus
         nfd:
           url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-          datasource: "Prometheus"
+          datasource: Prometheus
       networking:
         cert-manager:
           url: https://raw.githubusercontent.com/szinn/k8s-homelab/main/kubernetes/main/apps/cert-manager/cert-manager/app/cert-manager-dashboard.json
