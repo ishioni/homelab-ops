@@ -30,16 +30,17 @@ spec:
       runAsUser: ${APP_UID}
       fsGroup: ${APP_GID}
     livenessProbe:
-      enabled: false
+      initialDelaySeconds: 0
     readinessProbe:
-      enabled: false
+      initialDelaySeconds: 0
     startupProbe:
-      enabled: false
+      enabled: true
     extraEnv:
       TZ: "${CONFIG_TIMEZONE}"
       ENABLE_ROLLING_LOGS: true
       UID: ${APP_UID}
       GID: ${APP_GID}
+      MEMORY: ""
     persistence:
       dataDir:
         enabled: true
@@ -52,8 +53,8 @@ spec:
       version: 1.20.6
       type: PAPER
       difficulty: normal
-      whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,Almethai,czarny_jobacz"
-      ops: "movi,GachouGoose,czarny_jobacz"
+      whitelist: "GachouGoose,movi,MicroGachou"
+      ops: "movi,GachouGoose"
       pvp: true
       motd: Meh
       worldSaveName: Kubeworld
