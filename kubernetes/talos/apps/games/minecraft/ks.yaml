@@ -23,7 +23,8 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: minecraft.${SECRET_DOMAIN}
+      HOSTNAME: minecraft.${PUBLIC_DOMAIN}
+      MAP_HOSTNAME: dynmap.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
       VOLSYNC_CLAIM: minecraft-data
