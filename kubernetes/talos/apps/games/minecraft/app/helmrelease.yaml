@@ -19,7 +19,7 @@ spec:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
       repository: itzg/minecraft-server
-      tag: 2024.2.0-java17
+      tag: 2024.6.0-java17
     resources:
       limits:
         memory: 3000Mi
@@ -46,9 +46,10 @@ spec:
         existingClaim: ${VOLSYNC_CLAIM}
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${CONFIG_MINECRAFT_IP}"
+      external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
     minecraftServer:
       eula: true
-      version: 1.20.2
+      version: 1.20.6
       type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,Felix_Black,Rzezikozik,gorzyga,Star_Rider,movi,MicroGachou,TheBoarKnight,Glithhh,Almethai,czarny_jobacz"
@@ -88,7 +89,7 @@ spec:
               gethomepage.dev/widget.type: minecraft
               gethomepage.dev/widget.url: udp://minecraft-minecraft.games:25565
             hosts:
-              - name: &host ${HOSTNAME}
+              - name: &host ${MAP_HOSTNAME}
                 path: /
             tls: [hosts: [*host]]
   valuesFrom:
