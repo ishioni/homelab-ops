@@ -23,3 +23,7 @@ spec:
         hostPort: 29999
     serviceMonitor:
       enabled: true
+    grafanaDashboard:
+      enabled: true
+      annotations:
+        grafana_folder: Kubernetes
