@@ -49,8 +49,6 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.106.1
-            command: /bin/sh
-            args: ["start-server.sh"]
             envFrom:
               - secretRef:
                   name: *secret
@@ -58,6 +56,7 @@ spec:
                   name: *configmap
             env:
               IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_WORKERS_INCLUDE: api
             resources:
               requests:
                 cpu: 100m
@@ -105,12 +104,13 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.106.1
-            args: ["start-microservices.sh"]
             envFrom:
               - secretRef:
                   name: *secret
               - configMapRef:
                   name: *configmap
+            env:
+              IMMICH_WORKERS_EXCLUDE: api
             resources:
               requests:
                 gpu.intel.com/i915: 1
