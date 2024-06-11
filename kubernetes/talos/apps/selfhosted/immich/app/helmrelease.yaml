@@ -48,7 +48,7 @@ spec:
           server:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.105.1
+              tag: v1.106.1
             command: /bin/sh
             args: ["start-server.sh"]
             envFrom:
@@ -104,7 +104,7 @@ spec:
           microservices:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.105.1
+              tag: v1.106.1
             args: ["start-microservices.sh"]
             envFrom:
               - secretRef:
@@ -142,7 +142,7 @@ spec:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.105.1
+              tag: v1.106.1
             resources:
               requests:
                 cpu: 100m
