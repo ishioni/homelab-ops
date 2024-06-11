@@ -53,12 +53,6 @@ module "secret_tandoor" {
   item   = "tandoor"
 }
 
-module "secret_midarr" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
-  vault  = "Homelab"
-  item   = "midarr"
-}
-
 module "secret_audiobookshelf" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"

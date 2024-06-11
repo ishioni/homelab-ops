@@ -70,24 +70,12 @@ module "proxy-bazarr" {
   auth_groups        = [authentik_group.media.id]
 }
 
-module "proxy-readarr" {
-  source             = "./proxy_application"
-  name               = "Readarr"
-  description        = "Books"
-  icon_url           = "https://raw.githubusercontent.com/Readarr/Readarr/develop/Logo/128.png"
-  group              = "Downloads"
-  slug               = "readarr"
-  domain             = module.secret_authentik.fields["CLUSTER_DOMAIN"]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  auth_groups        = [authentik_group.media.id]
-}
-
 module "proxy-navidrome" {
   source             = "./proxy_application"
   name               = "Navidrome"
   description        = "Music player"
   icon_url           = "https://github.com/navidrome/navidrome/raw/master/resources/logo-192x192.png"
-  group              = "Media"
+  group              = "Selfhosted"
   slug               = "navidrome"
   domain             = module.secret_authentik.fields["CLUSTER_DOMAIN"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -103,7 +91,7 @@ module "proxy-homepage" {
   name               = "Home"
   description        = "Homepage"
   icon_url           = "https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-192x192.png"
-  group              = "Home"
+  group              = "Selfhosted"
   slug               = "home"
   domain             = module.secret_authentik.fields["CLUSTER_DOMAIN"]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
@@ -132,7 +120,7 @@ module "oauth2-immich" {
   launch_url         = "https://photos.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
   description        = "Photo managment"
   newtab             = true
-  group              = "Media"
+  group              = "Selfhosted"
   auth_groups        = [authentik_group.media.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_immich.fields["OIDC_CLIENT_ID"]
@@ -171,7 +159,7 @@ module "oauth2-audiobookshelf" {
   launch_url         = "https://audiobooks.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}"
   description        = "Media player"
   newtab             = true
-  group              = "Media"
+  group              = "Selfhosted"
   auth_groups        = [authentik_group.media.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
@@ -186,7 +174,7 @@ module "oauth2-paperless" {
   launch_url         = "https://documents.movishell.pl"
   description        = "Documents"
   newtab             = true
-  group              = "Groupware"
+  group              = "Selfhosted"
   auth_groups        = [authentik_group.infrastructure.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_paperless.fields["OIDC_CLIENT_ID"]
@@ -201,7 +189,7 @@ module "oauth2-ocis" {
   launch_url         = "https://files.movishell.pl"
   description        = "Files"
   newtab             = true
-  group              = "Groupware"
+  group              = "Selfhosted"
   auth_groups        = [authentik_group.users.id]
   client_type        = "public"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
