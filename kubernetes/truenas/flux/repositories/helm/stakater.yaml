@@ -6,6 +6,7 @@ metadata:
   name: stakater
   namespace: flux-system
 spec:
+  type: oci
   interval: 1h
-  url: https://stakater.github.io/stakater-charts
+  url: oci://ghcr.io/stakater/charts
   timeout: 3m
