@@ -101,6 +101,7 @@ spec:
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Alert Manager
           gethomepage.dev/icon: alertmanager.svg
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
         hosts:
           - &host ${ALERT_HOSTNAME}
         tls: [hosts: [*host]]
@@ -144,6 +145,7 @@ spec:
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Prometheus
           gethomepage.dev/icon: prometheus.svg
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
           gethomepage.dev/widget.type: prometheus
           gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.monitor:9090
         pathType: Prefix
