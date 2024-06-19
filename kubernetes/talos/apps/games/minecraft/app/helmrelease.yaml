@@ -22,7 +22,7 @@ spec:
       tag: 2024.6.0-java21
     resources:
       limits:
-        memory: 3000Mi
+        memory: 4000Mi
       requests:
         cpu: 1000m
         memory: 2000Mi
@@ -61,7 +61,7 @@ spec:
       viewDistance: 12
       forceReDownload: true
       memory: ""
-      jvmXXOpts: "-XX:MaxRAMPercentage=75"
+      jvmXXOpts: "-XX:MaxRAMPercentage=70"
       # spigetResources:
       #   - 36618
       #   # Dynmap
