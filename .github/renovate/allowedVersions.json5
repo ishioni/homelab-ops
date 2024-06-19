@@ -5,6 +5,12 @@
       matchDatasources: ["docker", "github-releases"],
       allowedVersions: "<=1.30",
       matchPackageNames: ["kubernetes/kubernetes", "siderolabs/kubelet"],
+    },
+    {
+      description: "Lock version of csr-approver",
+      matchDatasources: ["helm"],
+      allowedVersions: "<=1.1.0",
+      matchPackageNames: ["kubelet-csr-approver"]
     }
   ]
 }
