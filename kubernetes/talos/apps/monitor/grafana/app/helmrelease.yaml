@@ -295,6 +295,13 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
+        volsync:
+          # renovate: depName="Volsync"
+          gnetId: 21356
+          revision: 2
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_REPLICATIONDESTNAME, value: '.*-rdst'}
       system:
         node-exporter:
           # renovate: depName="Node Exporter"
