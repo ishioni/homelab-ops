@@ -1,0 +1,267 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app kyoo
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 30m
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: &uid 568
+        runAsGroup: &gid 2000
+        fsGroup: *gid
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      back:
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            envFrom:
+              - secretRef:
+                  name: kyoo-secret
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.3
+          02-migrations:
+            envFrom:
+              - secretRef:
+                  name: kyoo-secret
+            image:
+              repository: ghcr.io/zoriya/kyoo_migrations
+              tag: 4.6.0
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zoriya/kyoo_back
+              tag: 4.6.0
+            env:
+              TRANSCODER_URL: http://kyoo-transcoder.media:7666
+            envFrom: &envFrom
+              - secretRef:
+                  name: kyoo-secret
+              - configMapRef:
+                  name: kyoo-config
+            resources:
+              requests:
+                cpu: 10m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+      front:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zoriya/kyoo_front
+              tag: 4.6.0
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+                memory: 100Mi
+              limits:
+                memory: 1Gi
+      scanner:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: &scannerimage ghcr.io/zoriya/kyoo_scanner
+              tag: &scannertag 4.6.0
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 1Gi
+      matcher:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: *scannerimage
+              tag: *scannertag
+            args: ["matcher"]
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 400Mi
+      autosync:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zoriya/kyoo_autosync
+              tag: 4.6.0
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 100Mi
+      transcoder:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zoriya/kyoo_transcoder
+              tag: 4.6.0
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 10m
+                memory: 500Mi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 8Gi
+        pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
+      meilisearch:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/getmeili/meilisearch
+              tag: v1.7
+            env:
+              MEILI_ENV: production
+              MEILI_MASTER_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: kyoo-secret
+                    key: MEILI_MASTER_KEY
+            probes:
+              liveness: &searchprobes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &searchport 7700
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *searchprobes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 1Gi
+      rabbitmq:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/rabbitmq
+              tag: 3-alpine
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 300Mi
+    service:
+      back:
+        controller: back
+        ports:
+          http:
+            port: 5000
+      front:
+        controller: front
+        ports:
+          http:
+            port: 8901
+      transcoder:
+        controller: transcoder
+        ports:
+          http:
+            port: 7666
+      rabbitmq:
+        controller: rabbitmq
+        ports:
+          http:
+            port: 5672
+      meilisearch:
+        controller: meilisearch
+        ports:
+          http:
+            port: *searchport
+    ingress:
+      main:
+        className: private
+        hosts:
+          - host: kyoo.${PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: front
+                  port: http
+              - path: /api
+                pathType: Prefix
+                service:
+                  identifier: back
+                  port: http
+    persistence:
+      kyoo:
+        existingClaim: ${VOLSYNC_CLAIM}
+        advancedMounts:
+          back:
+            app:
+              - path: /metadata
+      search:
+        existingClaim: kyoo-meilisearch
+        advancedMounts:
+          meilisearch:
+            app:
+              - path: /meili_data
+      transcoder-metadata:
+        existingClaim: kyoo-transcoder-metadata
+        advancedMounts:
+          transcoder:
+            app:
+              - path: /metadata
+      cache:
+        type: emptyDir
+        advancedMounts:
+          transcoder:
+            app:
+              - path: /cache
+      media:
+        existingClaim: media-datastore
+        globalMounts:
+          - path: /data
+            subPath: media

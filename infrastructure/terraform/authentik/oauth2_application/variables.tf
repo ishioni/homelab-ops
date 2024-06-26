@@ -36,7 +36,7 @@ variable "client_id" {
 }
 
 variable "client_secret" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -65,7 +65,7 @@ variable "sub_mode" {
 }
 
 variable "access_code_validity" {
-  type = string
+  type    = string
   default = "minutes=1"
 }
 
