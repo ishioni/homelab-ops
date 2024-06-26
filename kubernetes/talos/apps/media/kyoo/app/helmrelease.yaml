@@ -223,8 +223,11 @@ spec:
       main:
         className: private
         annotations:
+          nginx.ingress.kubernetes.io/large-client-header-buffers: 4 100k
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             rewrite /api/(.*) /$1 break;
+
         hosts:
           - host: kyoo.${PUBLIC_DOMAIN}
             paths:
