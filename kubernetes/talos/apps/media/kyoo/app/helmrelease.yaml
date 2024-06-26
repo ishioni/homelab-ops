@@ -266,10 +266,10 @@ spec:
       tv:
         existingClaim: media-datastore
         globalMounts:
-          - path: /data
+          - path: /data/TV
             subPath: TV
       movies:
         existingClaim: media-datastore
         globalMounts:
-          - path: /data
+          - path: /data/Movies
             subPath: Movies
