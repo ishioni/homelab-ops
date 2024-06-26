@@ -231,7 +231,7 @@ spec:
             large_client_header_buffers 4 100k;
 
         hosts:
-          - host: kyoo.${PUBLIC_DOMAIN}
+          - host: &host kyoo.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
@@ -243,6 +243,7 @@ spec:
                 service:
                   identifier: back
                   port: http
+        tls: [hosts: [*host]]
     persistence:
       kyoo:
         existingClaim: ${VOLSYNC_CLAIM}
