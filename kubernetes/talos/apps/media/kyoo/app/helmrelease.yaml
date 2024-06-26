@@ -222,6 +222,9 @@ spec:
     ingress:
       main:
         className: private
+        annotations:
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            rewrite /api/(.*) /$1 break;
         hosts:
           - host: kyoo.${PUBLIC_DOMAIN}
             paths:
