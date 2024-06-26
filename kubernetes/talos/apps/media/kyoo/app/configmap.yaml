@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kyoo-config
+data:
+  LIBRARY_ROOT: /data
+  SCANNER_LIBRARY_ROOT: /data
+  CACHE_ROOT: /cache
+  LIBRARY_LANGUAGES: en
+  REQUIRE_ACCOUNT_VERIFICATION: "false"
+  UNLOGGED_PERMISSIONS: overall.read
+  DEFAULT_PERMISSIONS: overall.read,overall.play
+
+  GOCODER_HWACCEL: vaapi
+  GOCODER_PRESET: fast
+  GOCODER_VAAPI_RENDERER: /dev/dri/renderD128
+  GOCODER_SAFE_PATH: /data
+  GOCODER_PREFIX: /video
+
+  PUBLIC_URL: https://kyoo.${PUBLIC_DOMAIN}
+  KYOO_URL: http://kyoo-back.media:5000
