@@ -263,13 +263,10 @@ spec:
           transcoder:
             app:
               - path: /cache
-      tv:
-        existingClaim: media-datastore
-        globalMounts:
-          - path: /data/TV
-            subPath: TV
-      movies:
+      media:
         existingClaim: media-datastore
         globalMounts:
           - path: /data/Movies
             subPath: Movies
+          - path: /data/TV
+            subPath: TV
