@@ -10,7 +10,7 @@ resource "authentik_provider_proxy" "proxy_provider" {
   name                  = var.name
   external_host         = "https://${var.slug}.${var.domain}"
   mode                  = "forward_single"
-  authorization_flow     = var.authorization_flow
+  authorization_flow    = var.authorization_flow
   access_token_validity = var.access_token_validity
   skip_path_regex       = var.ignore_paths
 }

@@ -236,7 +236,7 @@ module "oauth2-kyoo" {
   newtab             = true
   group              = "Selfhosted"
   auth_groups        = [authentik_group.users.id]
-  authorization_flow  = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   client_id          = module.secret_kyoo.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_kyoo.fields["OIDC_CLIENT_SECRET"]
   redirect_uris      = ["https://kyoo.movishell.pl"]
