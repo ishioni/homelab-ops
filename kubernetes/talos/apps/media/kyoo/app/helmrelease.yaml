@@ -41,12 +41,12 @@ spec:
                   name: kyoo-secret
             image:
               repository: ghcr.io/zoriya/kyoo_migrations
-              tag: 4.6.0
+              tag: edge@sha256:436dd3769c273d8e5c426383cf9d5d5552dc08b9185a1efbb4b183262d074253
         containers:
           app:
             image:
               repository: ghcr.io/zoriya/kyoo_back
-              tag: 4.6.0
+              tag: edge@sha256:9d4e600635c20753ff17142cf74fafe71a3add02688b8118a8e5f583db19ef46
             env:
               TRANSCODER_URL: http://kyoo-transcoder.media:7666
             envFrom: &envFrom
@@ -69,7 +69,7 @@ spec:
           app:
             image:
               repository: ghcr.io/zoriya/kyoo_front
-              tag: 4.6.0
+              tag: edge@sha256:f1865d9cc0683abda9e129720eac4c66c02109cb2cd74bfd30dcafe23d1d8184
             envFrom: *envFrom
             resources:
               requests:
@@ -84,7 +84,7 @@ spec:
           app:
             image:
               repository: &scannerimage ghcr.io/zoriya/kyoo_scanner
-              tag: &scannertag 4.6.0
+              tag: &scannertag edge@sha256:1550990b5003753983c8899c47a81f1d0691b509732c3ed4001f92f5c58a4c82
             envFrom: *envFrom
             resources:
               requests:
@@ -129,7 +129,7 @@ spec:
           app:
             image:
               repository: ghcr.io/zoriya/kyoo_transcoder
-              tag: 4.6.0
+              tag: edge@sha256:d763c391b9d9da67b7f5e1a1a375879fb9a013fa46c89f8b4397bc0d0be28447
             envFrom: *envFrom
             resources:
               requests:
