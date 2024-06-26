@@ -237,7 +237,7 @@ spec:
                   port: http
     persistence:
       kyoo:
-        existingClaim: *app
+        existingClaim: ${VOLSYNC_CLAIM}
         advancedMounts:
           back:
             app:
