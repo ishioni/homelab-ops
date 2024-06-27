@@ -225,10 +225,9 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/large-client-header-buffers: 4 100k
           nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          nginx.ingress.kubernetes.io/custom-http-errors: "418"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             rewrite /api/(.*) /$1 break;
-            client_header_buffer_size 100k;
-            large_client_header_buffers 4 100k;
 
         hosts:
           - host: &host kyoo.${PUBLIC_DOMAIN}
