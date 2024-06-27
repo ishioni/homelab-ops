@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 8.0.2
+      version: 8.1.1
       sourceRef:
         kind: HelmRepository
         name: grafana
@@ -294,8 +294,8 @@ spec:
           gnetId: 21356
           revision: 2
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
-            - { name: VAR_REPLICATIONDESTNAME, value: '.*-rdst'}
+            - {name: DS_PROMETHEUS, value: Prometheus}
+            - {name: VAR_REPLICATIONDESTNAME, value: ".*-rdst"}
       system:
         node-exporter:
           # renovate: depName="Node Exporter"
