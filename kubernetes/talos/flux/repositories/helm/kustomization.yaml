@@ -23,6 +23,7 @@ resources:
   - ./kubernetes-sigs-metrics-server.yaml
   - ./kyverno.yaml
   - ./minecraft-server.yaml
+  - ./movetokube.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
   - ./piped.yaml
