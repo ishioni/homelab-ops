@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./dragonfly/ks.yaml
+  - ./ext-postgres-operator/ks.yaml
