@@ -33,22 +33,22 @@ spec:
               POSTGRES_SERVER:
                 valueFrom:
                   secretKeyRef:
-                    name: database-kyoo
+                    name: database-kyoo-user
                     key: HOST
               POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: database-kyoo
+                    name: database-kyoo-user
                     key: LOGIN
               POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: database-kyoo
+                    name: database-kyoo-user
                     key: PASSWORD
               POSTGRES_DB:
                 valueFrom:
                   secretKeyRef:
-                    name: database-kyoo
+                    name: database-kyoo-user
                     key: DATABASE_NAME
               POSTGRES_PORT: "5432"
             envFrom:
