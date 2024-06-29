@@ -28,14 +28,29 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          01-init-db:
-            envFrom:
-              - secretRef:
-                  name: kyoo-secret
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16.3
-          02-migrations:
+          01-migrations:
+            env: &dbEnv
+              POSTGRES_SERVER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-kyoo-user
+                    key: HOST
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-kyoo-user
+                    key: LOGIN
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-kyoo-user
+                    key: PASSWORD
+              POSTGRES_DB:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-kyoo-user
+                    key: DATABASE_NAME
+              POSTGRES_PORT: "5432"
             envFrom:
               - secretRef:
                   name: kyoo-secret
@@ -48,6 +63,7 @@ spec:
               repository: ghcr.io/zoriya/kyoo_back
               tag: edge@sha256:9d4e600635c20753ff17142cf74fafe71a3add02688b8118a8e5f583db19ef46
             env:
+              <<: *dbEnv
               TRANSCODER_URL: http://kyoo-transcoder.media:7666
             envFrom: &envFrom
               - secretRef:
@@ -70,6 +86,7 @@ spec:
             image:
               repository: ghcr.io/zoriya/kyoo_front
               tag: edge@sha256:f1865d9cc0683abda9e129720eac4c66c02109cb2cd74bfd30dcafe23d1d8184
+            env: *dbEnv
             envFrom: *envFrom
             resources:
               requests:
@@ -102,6 +119,7 @@ spec:
               repository: *scannerimage
               tag: *scannertag
             args: ["matcher"]
+            env: *dbEnv
             envFrom: *envFrom
             resources:
               requests:
@@ -116,6 +134,7 @@ spec:
             image:
               repository: ghcr.io/zoriya/kyoo_autosync
               tag: 4.6.0
+            env: *dbEnv
             envFrom: *envFrom
             resources:
               requests:
@@ -130,6 +149,7 @@ spec:
             image:
               repository: ghcr.io/zoriya/kyoo_transcoder
               tag: edge@sha256:d763c391b9d9da67b7f5e1a1a375879fb9a013fa46c89f8b4397bc0d0be28447
+            env: *dbEnv
             envFrom: *envFrom
             resources:
               requests:
