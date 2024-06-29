@@ -1,0 +1,16 @@
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: kyoo
+spec:
+  database: kyoo
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: kyoo
+spec:
+  role: kyoo
+  database: kyoo
+  secretName: database
+  privileges: OWNER
