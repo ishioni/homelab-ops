@@ -6,6 +6,5 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./postgres.yaml
   - ./pvc.yaml
   - ../../../../templates/volsync
