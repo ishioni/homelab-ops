@@ -18,11 +18,11 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: &uid 568
-        runAsGroup: &gid 2000
+        runAsUser: &uid 0
+        runAsGroup: &gid 0
         fsGroup: *gid
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
+        supplementalGroups: [2000]
     controllers:
       back:
         strategy: Recreate
