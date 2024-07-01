@@ -22,6 +22,7 @@ spec:
         runAsGroup: &gid 2000
         fsGroup: *gid
         fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     controllers:
       back:
         strategy: Recreate
