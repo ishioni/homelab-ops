@@ -97,7 +97,7 @@ spec:
       enabled: true
       image:
         repository: ghcr.io/tarampampam/error-pages
-        tag: 2.27.0
+        tag: 3.0.1
       replicaCount: 1
       resources:
         requests:
@@ -107,9 +107,11 @@ spec:
           memory: 35Mi
       extraEnvs:
         - name: TEMPLATE_NAME
-          value: lost-in-space
+          value: l7
         - name: SHOW_DETAILS
           value: "false"
+        - name: SEND_SAME_HTTP_CODE
+          value: "true"
   valuesFrom:
     - kind: Secret
       name: nginx-maxmind
