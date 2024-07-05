@@ -107,9 +107,11 @@ spec:
           memory: 35Mi
       extraEnvs:
         - name: TEMPLATE_NAME
-          value: lost-in-space
+          value: l7
         - name: SHOW_DETAILS
           value: "false"
+        - name: SEND_SAME_HTTP_CODE
+          value: "true"
   valuesFrom:
     - kind: Secret
       name: nginx-maxmind
