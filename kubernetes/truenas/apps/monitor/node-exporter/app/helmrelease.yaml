@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: quay.io/prometheus/node-exporter
-              tag: v1.8.1
+              tag: v1.8.2
             args:
               - --path.procfs=/host/proc
               - --path.rootfs=/host/root
