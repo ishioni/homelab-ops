@@ -264,7 +264,7 @@ spec:
             app:
               - path: /metadata
       cache:
-        type: emptyDir
+        existingClaim: kyoo-cache
         advancedMounts:
           transcoder:
             app:

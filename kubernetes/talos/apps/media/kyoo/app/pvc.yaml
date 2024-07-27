@@ -22,3 +22,15 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: truenas-ssd-iscsi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kyoo-cache
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: truenas-ssd-nfs
