@@ -72,7 +72,6 @@ resource "proxmox_virtual_environment_vm" "node" {
   }
 
   vga {
-    enabled = true
     type    = "std"
     memory  = 16
   }
