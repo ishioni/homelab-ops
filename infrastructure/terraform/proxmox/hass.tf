@@ -53,7 +53,8 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   }
 
   vga {
-    enabled = true
+    type = "std"
+    memory = 16
   }
 
   scsi_hardware = "virtio-scsi-pci"
