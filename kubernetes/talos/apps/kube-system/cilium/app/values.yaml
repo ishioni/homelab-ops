@@ -65,3 +65,5 @@ cgroup:
   hostRoot: /sys/fs/cgroup
 endpointRoutes:
   enabled: true
+envoy:
+  enabled: false
