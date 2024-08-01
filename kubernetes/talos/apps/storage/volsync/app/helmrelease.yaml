@@ -20,12 +20,6 @@ spec:
     crds: CreateReplace
   values:
     manageCRDs: true
-    image:
-      repository: &image ghcr.io/onedr0p/volsync
-      tag: &tag 0.9.1
-    restic:
-      repository: *image
-      tag: *tag
     metrics:
       disableAuth: true
     resources:
