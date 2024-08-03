@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: unifi-poller
+  name: unpoller
 spec:
   chart:
     spec:
@@ -19,7 +19,7 @@ spec:
       unpoller:
         strategy: RollingUpdate
         annotations:
-          secret.reloader.stakater.com/reload: &secret unifi-poller-secret
+          secret.reloader.stakater.com/reload: &secret unpoller-secret
         pod:
           securityContext:
             runAsUser: 568
@@ -54,7 +54,7 @@ spec:
             port: 9130
     serviceMonitor:
       app:
-        serviceName: unifi-poller
+        serviceName: unpoller
         endpoints:
           - port: http
             scheme: http
