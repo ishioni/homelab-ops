@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-cloudflare
+  name: &app external-dns-unifi
 spec:
   chart:
     spec:
@@ -14,26 +14,44 @@ spec:
         name: external-dns
         namespace: flux-system
   interval: 30m
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     domainFilters: ["${PUBLIC_DOMAIN}"]
     policy: sync
-    sources: [ingress]
+    sources: [ingress, service]
     txtPrefix: talos.
     txtOwnerId: talos
-    extraArgs:
-      - --annotation-filter=external-dns.home.arpa/enabled in (true)
+    extraArgs: [--ignore-ingress-tls-spec]
     provider:
-      name: cloudflare
-    env:
-      - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: &secret externaldns-cloudflare-secret
-            key: CF_API_TOKEN
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/kashalls/external-dns-unifi-webhook
+          tag: v0.2.1
+        env:
+          - name: UNIFI_HOST
+            value: https://10.1.1.1
+          - name: UNIFI_USER
+            valueFrom:
+              secretKeyRef:
+                name: &secret externaldns-unifi-secret
+                key: UNIFI_USER
+          - name: UNIFI_PASS
+            valueFrom:
+              secretKeyRef:
+                name: *secret
+                key: UNIFI_PASS
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
     resources:
       requests:
         memory: 100Mi

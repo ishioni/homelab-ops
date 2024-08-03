@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-bind
+  name: &app external-dns-unifi
 spec:
   chart:
     spec:
@@ -20,38 +20,46 @@ spec:
     sources: [ingress, service]
     txtPrefix: truenas.
     txtOwnerId: truenas
+    extraArgs: [--ignore-ingress-tls-spec]
     provider:
-      name: rfc2136
-    env:
-      - name: EXTERNAL_DNS_RFC2136_HOST
-        value: 10.5.0.2
-      - name: EXTERNAL_DNS_RFC2136_PORT
-        value: "53"
-      - name: EXTERNAL_DNS_RFC2136_ZONE
-        value: "${PRIVATE_DOMAIN}"
-      - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
-        value: "true"
-      - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
-        valueFrom:
-          secretKeyRef:
-            name: &secret externaldns-bind-secret
-            key: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
-      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
-      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/kashalls/external-dns-unifi-webhook
+          tag: v0.2.1
+        env:
+          - name: UNIFI_HOST
+            value: https://10.1.1.1
+          - name: UNIFI_USER
+            valueFrom:
+              secretKeyRef:
+                name: &secret externaldns-unifi-secret
+                key: UNIFI_USER
+          - name: UNIFI_PASS
+            valueFrom:
+              secretKeyRef:
+                name: *secret
+                key: UNIFI_PASS
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
     resources:
       requests:
         memory: 100Mi
         cpu: 25m
       limits:
         memory: 250Mi
+    serviceMonitor:
+      enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: *secret
   postRenderers:
