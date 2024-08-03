@@ -19,24 +19,21 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret externaldns-cloudflare-secret
-    interval: 30s
-    # logLevel: debug
-    provider: cloudflare
+    domainFilters: ["${PUBLIC_DOMAIN}"]
+    policy: sync
+    sources: [ingress]
+    txtPrefix: talos.
+    txtOwnerId: talos
+    extraArgs:
+      - --annotation-filter=external-dns.home.arpa/enabled in (true)
+    provider:
+      name: cloudflare
     env:
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: *secret
+            name: &secret externaldns-cloudflare-secret
             key: CF_API_TOKEN
-    extraArgs:
-      - --annotation-filter=external-dns.home.arpa/enabled in (true)
-    policy: sync
-    sources: ["ingress"]
-    txtPrefix: "talos."
-    txtOwnerId: "talos"
-    domainFilters: ["${PUBLIC_DOMAIN}"]
     resources:
       requests:
         memory: 100Mi
@@ -45,3 +42,16 @@ spec:
         memory: 250Mi
     serviceMonitor:
       enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: *app
+            patch: |
+              - op: add
+                path: /spec/template/spec/enableServiceLinks
+                value: false
