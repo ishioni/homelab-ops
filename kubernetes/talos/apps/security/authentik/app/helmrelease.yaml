@@ -26,6 +26,9 @@ spec:
       initContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.3
+          env:
+            - name: AUTHENTIK_SESSION_STORAGE
+              value: db
           envFrom:
             - secretRef:
                 name: *secret
