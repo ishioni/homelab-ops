@@ -27,7 +27,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: "${{ steps.app-token.outputs.token }}"
 
       - name: MegaLinter
         uses: oxsecurity/megalinter/flavors/terraform@v7
@@ -41,8 +40,11 @@ jobs:
                 fromJSON('
                   [
                     "ACTION_ACTIONLINT",
-                    "KUBERNETES_KUBEVAL",
+                    "ANSIBLE_ANSIBLE_LINT",
+                    "COPYPASTE_JSCPD",
                     "MARKDOWN_MARKDOWNLINT",
+                    "PYTHON_FLAKE8",
+                    "PYTHON_PYLINT",
                     "REPOSITORY_GIT_DIFF",
                     "REPOSITORY_SECRETLINT",
                     "TERRAFORM_TERRAFORM_FMT",
@@ -53,14 +55,12 @@ jobs:
                 ','
               )
             }}
-          ANSIBLE_DIRECTORY: ansible
-          ANSIBLE_ANSIBLE_LINT_CONFIG_FILE: .github/linters/.ansible-lint
-          ANSIBLE_ANSIBLE_LINT_PRE_COMMANDS: '[{"command":"ansible-galaxy collection install -r ansible/requirements.yml --collections-path ~/.ansible/collections --force","continue_if_failed":false,"cwd":"workspace"}]'
-          KUBERNETES_DIRECTORY: kubernetes
-          KUBERNETES_KUBEVAL_ARGUMENTS: --ignore-missing-schemas
-          KUBERNETES_KUBEVAL_FILTER_REGEX_INCLUDE: "(kubernetes)"
-          MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .github/linters/.markdownlint.yaml
-          MARKDOWN_MARKDOWNLINT_RULES_PATH: .github/
-          YAML_YAMLLINT_CONFIG_FILE: .github/linters/.yamllint.yaml
-          YAML_PRETTIER_CONFIG_FILE: .github/linters/.prettierrc.yaml
-          YAML_PRETTIER_FILTER_REGEX_EXCLUDE: "(.*\\.sops\\.ya?ml)"
+          ACTION_ACTIONLINT_CONFIG_FILE: .ci/actionlint/actionlint.yml
+          ANSIBLE_ANSIBLE_LINT_ARGUMENTS: "-c .ci/ansible-lint/.ansible-lint ansible"
+          COPYPASTE_JSCPD_CONFIG_FILE: .ci/jscpd/jscpd.json
+          MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .ci/markdownlint/markdownlint.config.yaml
+          MARKDOWN_MARKDOWNLINT_RULES_PATH: .ci/markdownlint/
+          PYTHON_FLAKE8_CONFIG_FILE: .ci/flake8/.flake8
+          YAML_PRETTIER_CONFIG_FILE: .ci/prettier/.prettierrc.yaml
+          YAML_PRETTIER_ARGUMENTS: --ignore-path .ci/prettier/.prettierignore
+          YAML_YAMLLINT_CONFIG_FILE: .ci/yamllint/.yamllint.yaml
