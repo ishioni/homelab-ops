@@ -3,10 +3,10 @@
 version: "3"
 
 tasks:
-  all:
-    - task: markdown
-    - task: yaml
-  markdown:
+  format-all:
+    - task: format-markdown
+    - task: format-yaml
+  format-markdown:
     desc: Format Markdown
     cmds:
       - >-
@@ -18,7 +18,7 @@ tasks:
         --parser=markdown
         --write '*.md' '**/*.md'
     ignore_error: true
-  yaml:
+  format-yaml:
     desc: Format YAML
     cmds:
       - >-
@@ -31,4 +31,26 @@ tasks:
         --parser=yaml
         --write '*.y*ml'
         '**/*.y*ml'
+    ignore_error: true
+
+  format-general:
+    desc: Lint general formatting
+    cmds:
+      - prettier --ignore-path '.github/linters/.prettierignore' --config '.github/linters/.prettierrc.yaml' --check .
+    ignore_error: true
+
+  lint-all:
+    - task: lint-markdown
+    - task: lint-yaml
+
+  markdown:
+    desc: Lint Markdown
+    cmds:
+      - markdownlint -c '.github/linters/.markdownlint.yaml' *.md **/*.md
+    ignore_error: true
+
+  lint-yaml:
+    desc: Lint YAML
+    cmds:
+      - yamllint -c '.github/linters/.yamllint.yaml' .
     ignore_error: true
