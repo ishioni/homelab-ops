@@ -54,29 +54,22 @@ spec:
         nodeExporterRecording: true
         prometheus: true
         prometheusOperator: true
-    kubeControllerManager:
-      enabled: true
-      endpoints: &cp ["10.1.2.30", "10.1.2.31", "10.1.2.32"]
-    kubeEtcd:
-      enabled: true
-      endpoints: *cp
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels: [node]
-            targetLabel: instance
     kubeApiServer:
-      enabled: true
-      endpoints: *cp
+      serviceMonitor:
+        selector:
+          k8s-app: kube-apiserver
+    kubeScheduler:
+      service:
+        selector:
+          k8s-app: kube-scheduler
+    kubeControllerManager: &kubeControllerManager
+      service:
+        selector:
+          k8s-app: kube-controller-manager
+    kubeEtcd:
+      <<: *kubeControllerManager # etcd runs on control plane nodes
     kubeProxy:
       enabled: false
-    kubeScheduler:
-      enabled: true
-      endpoints: *cp
-    kubeStateMetrics:
-      enabled: true
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
