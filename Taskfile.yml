@@ -3,9 +3,8 @@
 version: "3"
 
 vars:
-  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/infrastructure/ansible"
-  TALOS_DIR: "{{.ROOT_DIR}}/infrastructure/talos"
+  TALOS_DIR: "{{.ROOT_DIR}}/kubernetes/talos/bootstrap/talos"
   TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
 
 dotenv: [".config.env"]
@@ -14,13 +13,24 @@ dotenv: [".config.env"]
 #   # KUBECONFIG: "$HOME/.kube/kubeconfig"
 
 includes:
-  kubernetes: .taskfiles/Kubernetes.yml
-  precommit: .taskfiles/Precommit.yml
-  ansible: .taskfiles/Ansible.yml
-  talos: .taskfiles/Talos.yml
-  format: .taskfiles/Format.yml
-  lint: .taskfiles/Lint.yml
-  flux: .taskfiles/Flux.yml
+  ansible:
+    dir: .taskfiles/ansible
+    taskfile: .taskfiles/ansible
+  flux:
+    dir: .taskfiles/flux
+    taskfile: .taskfiles/flux
+  format:
+    dir: .taskfiles/format
+    taskfile: .taskfiles/format
+  kubernetes:
+    dir: .taskfiles/kubernetes
+    taskfile: .taskfiles/kubernetes
+  precommit:
+    dir: .taskfiles/precommit
+    taskfile: .taskfiles/precommit
+  talos:
+    dir: .taskfiles/talos
+    taskfile: .taskfiles/talos
 
 tasks:
   default:
