@@ -4,7 +4,7 @@ data "unifi_network" "Servers" {
 
 module "talos-controlplanes" {
   source          = "./talos-node"
-  oncreate        = false
+  started         = true
   count           = 3
   machine_name    = "master-${count.index}"
   vmid            = sum([2030, count.index])
@@ -26,7 +26,7 @@ output "cp-macaddresses" {
 
 module "talos-workers" {
   source          = "./talos-node"
-  oncreate        = false
+  started         = true
   count           = 3
   machine_name    = "worker-${count.index}"
   vmid            = sum([2040, count.index])

@@ -21,7 +21,7 @@ variable "iso_path" {
   default = ""
 }
 
-variable "oncreate" {
+variable "started" {
   type    = bool
   default = true
 }
