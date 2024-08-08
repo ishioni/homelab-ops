@@ -1,22 +1,29 @@
 ---
+keys:
+  - &ishioni age1jcp34flxzy6rhx5wtpusfu6g8h2vafuy06cc7kduv9nq75pzvqgs2exz82
+  - &talos age1ktk20mc0fu6tjp00d393479g7lhds92022pplnrj52g45ct72y3qcppe8x
+  - &truenas age13vdqhufmfl5am098ycrgq5e4t578y5hg304euutwymu532w5kgqsjz0yf9
+
 creation_rules:
-  - path_regex: kubernetes/.*\.sops\.ya?ml
+  - path_regex: kubernetes/talos/.*\.sops\.ya?ml
+    input_type: yaml
     encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
     key_groups:
       - age:
-          - age1jcp34flxzy6rhx5wtpusfu6g8h2vafuy06cc7kduv9nq75pzvqgs2exz82
-  - path_regex: infrastructure/ansible/.*\.sops\.ya?ml
-    unencrypted_regex: "^(kind)$"
+          - *ishioni
+          - *talos
+
+  - path_regex: kubernetes/truenas/.*\.sops\.ya?ml
+    input_type: yaml
+    encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
     key_groups:
       - age:
-          - age1jcp34flxzy6rhx5wtpusfu6g8h2vafuy06cc7kduv9nq75pzvqgs2exz82
-  - path_regex: infrastructure/terraform/.*\.sops\.ya?ml
-    unencrypted_regex: "^(kind)$"
+          - *ishioni
+          - *truenas
+
+  - path_regex: infrastructure/.*\.sops\.ya?ml
     key_groups:
       - age:
-          - age1jcp34flxzy6rhx5wtpusfu6g8h2vafuy06cc7kduv9nq75pzvqgs2exz82
-  - path_regex: infrastructure/talos/.*\.sops\.ya?ml
-    unencrypted_regex: "^(kind)$"
-    key_groups:
-      - age:
-          - age1jcp34flxzy6rhx5wtpusfu6g8h2vafuy06cc7kduv9nq75pzvqgs2exz82
+          - *ishioni
