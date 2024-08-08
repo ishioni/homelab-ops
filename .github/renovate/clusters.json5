@@ -4,8 +4,7 @@
     {
       "description": "Separate PRs for talos cluster",
       "matchFileNames": [
-        "**/kubernetes/talos/**",
-        "**/infrastructure/talos/**"
+        "**/kubernetes/talos/**"
       ],
       "additionalBranchPrefix": "talos-"
     },
