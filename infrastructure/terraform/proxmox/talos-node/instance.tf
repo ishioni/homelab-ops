@@ -9,7 +9,7 @@ resource "proxmox_virtual_environment_vm" "node" {
   vm_id     = var.vmid
 
   on_boot         = var.onboot
-  started         = var.oncreate
+  started         = var.started
   tablet_device   = false
   timeout_stop_vm = var.timeout_stop_vm
   boot_order      = ["scsi0", "ide0"]
