@@ -212,7 +212,7 @@ tasks:
     cmds:
       - task: _wait_for_health
         vars: {TIMEOUT: 10m}
-      - echo "talosctl --context {{.cluster}} upgrade -n {{.hostname}} -m powercycle --image {{.TALOS_IMAGE }}"
+      - talosctl --context {{.cluster}} upgrade -n {{.hostname}} -m powercycle --image {{.TALOS_IMAGE }}
     requires:
       vars:
         - cluster
