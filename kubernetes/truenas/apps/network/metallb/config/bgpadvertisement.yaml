@@ -5,4 +5,4 @@ metadata:
   name: truenas
 spec:
   ipAddressPools:
-    - truenas
+    - truenas-bgp

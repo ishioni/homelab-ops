@@ -4,4 +4,4 @@ metadata:
   name: truenas
 spec:
   ipAddressPools:
-    - truenas
+    - truenas-l2
