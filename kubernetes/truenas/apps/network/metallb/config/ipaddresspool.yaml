@@ -1,13 +1,13 @@
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: truenas-bgp
-spec:
-  addresses:
-    - ${CONFIG_TRUENAS_BGP_POOL}
-  autoAssign: true
-  avoidBuggyIPs: true
----
+# apiVersion: metallb.io/v1beta1
+# kind: IPAddressPool
+# metadata:
+#   name: truenas-bgp
+# spec:
+#   addresses:
+#     - ${CONFIG_TRUENAS_BGP_POOL}
+#   autoAssign: true
+#   avoidBuggyIPs: true
+# ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
