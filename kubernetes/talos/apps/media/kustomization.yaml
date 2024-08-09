@@ -5,6 +5,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
-  - ./kyoo/ks.yaml
   - ./navidrome/ks.yaml
   - ./pvc
