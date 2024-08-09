@@ -1,13 +1,14 @@
+# ---
 # apiVersion: metallb.io/v1beta1
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/metallb.io/ipaddresspool_v1beta1.json
 # kind: IPAddressPool
 # metadata:
 #   name: truenas-bgp
 # spec:
 #   addresses:
 #     - ${CONFIG_TRUENAS_BGP_POOL}
-#   autoAssign: true
-#   avoidBuggyIPs: true
-# ---
+---
+yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/metallb.io/ipaddresspool_v1beta1.json
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -15,5 +16,3 @@ metadata:
 spec:
   addresses:
     - ${CONFIG_TRUENAS_L2_POOL}
-  autoAssign: true
-  avoidBuggyIPs: true
