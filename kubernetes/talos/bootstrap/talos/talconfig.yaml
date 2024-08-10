@@ -1,11 +1,11 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
-clusterName: talos
+clusterName: ${clusterName}
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
 talosVersion: v1.7.6
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
 kubernetesVersion: v1.30.3
-endpoint: "https://${clusterName}.${clusterDNSSuffix}:6443"
+endpoint: "https://${clusterName}-api.${clusterDNSSuffix}:6443"
 
 clusterPodNets:
   - 172.16.0.0/16
@@ -15,46 +15,59 @@ cniConfig:
   name: none
 
 additionalApiServerCertSans: &san
-  - ${clusterEndpointIP}
-  - ${clusterName}.${clusterDNSSuffix}
+  - ${clusterName}-api.${clusterDNSSuffix}
   - "127.0.0.1" # KubePrism
 
 additionalMachineCertSans: *san
 
 nodes:
   - hostname: master-0.${clusterDNSSuffix}
-    ipAddress: 10.1.2.30
+    ipAddress: 10.1.2.33
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+          driver: virtio_net
         mtu: 1500
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
 
   - hostname: master-1.${clusterDNSSuffix}
-    ipAddress: 10.1.2.31
+    ipAddress: 10.1.2.34
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+          driver: virtio_net
         mtu: 1500
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
 
   - hostname: master-2.${clusterDNSSuffix}
-    ipAddress: 10.1.2.32
+    ipAddress: 10.1.2.35
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+          driver: virtio_net
         mtu: 1500
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
 
   - hostname: worker-0.${clusterDNSSuffix}
-    ipAddress: 10.1.2.40
+    ipAddress: 10.1.2.36
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+          driver: virtio_net
         mtu: 1500
         dhcp: true
     # nodeLabels: &workerLabels
@@ -62,22 +75,26 @@ nodes:
 
   - hostname: worker-1.${clusterDNSSuffix}
     disableSearchDomain: true
-    ipAddress: 10.1.2.41
+    ipAddress: 10.1.2.37
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+          driver: virtio_net
         mtu: 1500
         dhcp: true
     # nodeLabels: *workerLabels
 
   - hostname: worker-2.${clusterDNSSuffix}
     disableSearchDomain: true
-    ipAddress: 10.1.2.42
+    ipAddress: 10.1.2.38
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:*"
+          driver: virtio_net
         mtu: 1500
         dhcp: true
     # nodeLabels: *workerLabels
@@ -109,7 +126,6 @@ patches:
     machine:
       kubelet:
         extraArgs:
-          feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: "true"
         nodeIP:
           validSubnets:
@@ -133,19 +149,19 @@ patches:
       network:
         disableSearchDomain: true
   # Configure cluster loopback
-  - &staticHostEntriesPatch |-
-    machine:
-      network:
-        extraHostEntries:
-          - ip: ${clusterEndpointIP}
-            aliases:
-              - ${clusterName}.${clusterDNSSuffix}
+  # - &staticHostEntriesPatch |-
+  #   machine:
+  #     network:
+  #       extraHostEntries:
+  #         - ip: ${clusterEndpointIP}
+  #           aliases:
+  #             - ${clusterName}.${clusterDNSSuffix}
 
 controlPlane:
   schematic:
     customization:
       extraKernelArgs:
-        - net.ifnames=0
+        - mitigations=off
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
@@ -201,7 +217,7 @@ worker:
   schematic:
     customization:
       extraKernelArgs:
-        - net.ifnames=0
+        - mitigations=off
         - i915.disable_display=true
       systemExtensions:
         officialExtensions:

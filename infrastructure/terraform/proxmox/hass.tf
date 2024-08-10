@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   }
 
   vga {
-    type = "std"
+    type   = "std"
     memory = 16
   }
 

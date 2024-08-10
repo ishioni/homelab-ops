@@ -72,8 +72,8 @@ resource "proxmox_virtual_environment_vm" "node" {
   }
 
   vga {
-    type    = "std"
-    memory  = 16
+    type   = "std"
+    memory = 16
   }
 
   dynamic "hostpci" {

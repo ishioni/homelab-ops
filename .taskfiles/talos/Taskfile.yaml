@@ -38,7 +38,7 @@ tasks:
     desc: Bootstrap core integrations needed for Talos
     cmds:
       - until kubectl --context {{.cluster}} wait --for=condition=Ready=False nodes --all --timeout=600s; do sleep 10; done
-      - helmfile --kube-context {{.cluster}} --file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - helmfile --kube-context {{.cluster}} --file {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - until kubectl --context {{.cluster}} wait --for=condition=Ready nodes --all --timeout=600s; do sleep 10; done
     requires:
       vars:
@@ -47,7 +47,7 @@ tasks:
       - which helmfile
       - sh: kubectl config get-contexts {{.cluster}}
         msg: "Kubectl context {{.cluster}} not found"
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/helmfile.yaml
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/helmfile.yaml
 
   fetch-kubeconfig:
     desc: Fetch kubeconfig from Talos controllers
@@ -59,6 +59,18 @@ tasks:
         - cluster
     preconditions:
       - talosctl config get-contexts | grep {{.cluster}}
+
+  generate-clustersecrets:
+    desc: Generate secrets for Talos
+    prompt: This will overwrite your talos cert file. Are you sure?
+    cmds:
+      - cd {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos && talhelper gensecret > talsecret.sops.yaml
+    requires:
+      vars:
+        - cluster
+    preconditions:
+      - which talhelper
+      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/talconfig.yaml
 
   generate-clusterconfig:
     desc: Generate clusterconfig for Talos
@@ -168,6 +180,7 @@ tasks:
           filename: "{{.ITEM}}"
           hostname: |-
             {{ trimPrefix (printf "%s-" .cluster) .ITEM | trimSuffix ".yaml" }}
+          insecure: '{{ .insecure | default "false" }}'
           dry_run: "{{ .dry_run }}"
     requires:
       vars:
@@ -181,6 +194,7 @@ tasks:
     desc: Apply a single Talos machineConfig to a Talos node
     cmds:
       - talosctl --context {{.cluster}} apply-config
+        {{ if eq "true" .insecure }} --insecure {{ end }}
         --nodes "{{.hostname}}"
         --file "{{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig/{{.filename}}"
         {{ if eq "true" .dry_run }}--dry-run{{ end }}
@@ -189,6 +203,7 @@ tasks:
         - cluster
         - hostname
         - filename
+        - insecure
     preconditions:
       - talosctl config get-contexts | grep {{.cluster}}
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/clusterconfig/{{.filename}}
