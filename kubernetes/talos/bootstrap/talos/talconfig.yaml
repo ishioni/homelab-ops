@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
-clusterName: talos-test
+clusterName: ${clusterName}
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
 talosVersion: v1.7.6
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
@@ -21,7 +21,7 @@ additionalApiServerCertSans: &san
 additionalMachineCertSans: *san
 
 nodes:
-  - hostname: tmaster-0.${clusterDNSSuffix}
+  - hostname: master-0.${clusterDNSSuffix}
     ipAddress: 10.1.2.11
     controlPlane: true
     installDisk: /dev/sda
@@ -34,7 +34,7 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
 
-  - hostname: tmaster-1.${clusterDNSSuffix}
+  - hostname: master-1.${clusterDNSSuffix}
     ipAddress: 10.1.2.12
     controlPlane: true
     installDisk: /dev/sda
@@ -47,7 +47,7 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
 
-  - hostname: tmaster-2.${clusterDNSSuffix}
+  - hostname: master-2.${clusterDNSSuffix}
     ipAddress: 10.1.2.13
     controlPlane: true
     installDisk: /dev/sda
@@ -60,7 +60,7 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
 
-  - hostname: tworker-0.${clusterDNSSuffix}
+  - hostname: worker-0.${clusterDNSSuffix}
     ipAddress: 10.1.2.14
     controlPlane: false
     installDisk: /dev/sda
@@ -73,7 +73,7 @@ nodes:
     # nodeLabels: &workerLabels
     #   node-role.kubernetes.io/worker: worker
 
-  - hostname: tworker-1.${clusterDNSSuffix}
+  - hostname: worker-1.${clusterDNSSuffix}
     disableSearchDomain: true
     ipAddress: 10.1.2.15
     controlPlane: false
@@ -86,7 +86,7 @@ nodes:
         dhcp: true
     # nodeLabels: *workerLabels
 
-  - hostname: tworker-2.${clusterDNSSuffix}
+  - hostname: worker-2.${clusterDNSSuffix}
     disableSearchDomain: true
     ipAddress: 10.1.2.16
     controlPlane: false
@@ -126,7 +126,6 @@ patches:
     machine:
       kubelet:
         extraArgs:
-          feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: "true"
         nodeIP:
           validSubnets:
@@ -161,6 +160,8 @@ patches:
 controlPlane:
   schematic:
     customization:
+      extraKernelArgs:
+        - mitigations=off
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
@@ -216,6 +217,7 @@ worker:
   schematic:
     customization:
       extraKernelArgs:
+        - mitigations=off
         - i915.disable_display=true
       systemExtensions:
         officialExtensions:
