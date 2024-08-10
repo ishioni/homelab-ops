@@ -3,5 +3,5 @@
 # }
 
 output "macaddr" {
-  value = "${proxmox_virtual_environment_vm.node.name }: ${macaddress.node.address}"
+  value = "${proxmox_virtual_environment_vm.node.name}: ${macaddress.node.address}"
 }
