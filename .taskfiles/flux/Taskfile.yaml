@@ -65,3 +65,32 @@ tasks:
         msg: "Kustomization file {{.kustomization_file}} not found"
       - sh: kubectl config get-contexts {{.cluster}}
         msg: "Kubectl context {{.cluster}} not found"
+
+
+  ks-suspend:
+    desc: Suspend all Flux HelmReleases
+    cmds:
+      - |
+        flux get ks --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -n2 bash -c 'flux -n $0 suspend ks $1'
+
+  ks-resume:
+    desc: Resume all Flux HelmReleases
+    cmds:
+      - |
+        flux get ks --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -n2 bash -c 'flux -n $0 resume ks $1'
+
+  hr-suspend:
+    desc: Suspend all Flux HelmReleases
+    cmds:
+      - |
+        flux get hr --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -n2 bash -c 'flux -n $0 suspend hr $1'
+
+  hr-resume:
+    desc: Resume all Flux HelmReleases
+    cmds:
+      - |
+        flux get hr --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -n2 bash -c 'flux -n $0 resume hr $1'
