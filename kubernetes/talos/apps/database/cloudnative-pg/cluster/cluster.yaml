@@ -24,7 +24,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v2
+      source: &previousCluster postgres-v3
   resources:
     requests:
       cpu: 200m
@@ -41,7 +41,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.${PRIVATE_DOMAIN}
-      serverName: &currentCluster postgres-v3
+      serverName: &currentCluster postgres-v4
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
