@@ -22,7 +22,7 @@ additionalMachineCertSans: *san
 
 nodes:
   - hostname: master-0.${clusterDNSSuffix}
-    ipAddress: 10.1.2.11
+    ipAddress: 10.1.2.33
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -35,7 +35,7 @@ nodes:
           ip: ${clusterEndpointIP}
 
   - hostname: master-1.${clusterDNSSuffix}
-    ipAddress: 10.1.2.12
+    ipAddress: 10.1.2.34
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -48,7 +48,7 @@ nodes:
           ip: ${clusterEndpointIP}
 
   - hostname: master-2.${clusterDNSSuffix}
-    ipAddress: 10.1.2.13
+    ipAddress: 10.1.2.35
     controlPlane: true
     installDisk: /dev/sda
     networkInterfaces:
@@ -61,7 +61,7 @@ nodes:
           ip: ${clusterEndpointIP}
 
   - hostname: worker-0.${clusterDNSSuffix}
-    ipAddress: 10.1.2.14
+    ipAddress: 10.1.2.36
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -75,7 +75,7 @@ nodes:
 
   - hostname: worker-1.${clusterDNSSuffix}
     disableSearchDomain: true
-    ipAddress: 10.1.2.15
+    ipAddress: 10.1.2.37
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
@@ -88,7 +88,7 @@ nodes:
 
   - hostname: worker-2.${clusterDNSSuffix}
     disableSearchDomain: true
-    ipAddress: 10.1.2.16
+    ipAddress: 10.1.2.38
     controlPlane: false
     installDisk: /dev/sda
     networkInterfaces:
