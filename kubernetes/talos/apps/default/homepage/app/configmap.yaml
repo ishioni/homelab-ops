@@ -73,7 +73,6 @@ data:
         - Unifi:
             href: https://unifi.${PRIVATE_DOMAIN}
             icon: unifi.png
-            description: Unifi Dashboard
             widget:
               type: unifi
               url: https://unifi.${PRIVATE_DOMAIN}
@@ -82,7 +81,6 @@ data:
         - TrueNAS:
             href: https://quadrant.${PRIVATE_DOMAIN}
             icon: truenas.png
-            description: NAS
             widget:
               type: truenas
               url: https://quadrant.${PRIVATE_DOMAIN}
@@ -90,7 +88,6 @@ data:
         - Proxmox:
             href: https://proxmox.${PRIVATE_DOMAIN}
             icon: proxmox.png
-            description: Hypervisor
             widget:
               type: proxmox
               url: https://proxmox.${PRIVATE_DOMAIN}
@@ -99,11 +96,9 @@ data:
         - MeshCentral:
             href: https://meshcentral.${PRIVATE_DOMAIN}
             icon: meshcentral.png
-            description: AMT
         - Minio:
             href: https://minio.${PRIVATE_DOMAIN}
             icon: minio.svg
-            description: S3
   settings.yaml: |
     title: Dashboard
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
