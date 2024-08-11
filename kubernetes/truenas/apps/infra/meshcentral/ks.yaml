@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/system/meshcentral/app
-  targetNamespace: system
+  targetNamespace: infra
   sourceRef:
     kind: GitRepository
     name: homelab-ops
