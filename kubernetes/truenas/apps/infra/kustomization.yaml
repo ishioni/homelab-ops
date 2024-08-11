@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./haproxy/ks.yaml
+  - ./meshcentral/ks.yaml
