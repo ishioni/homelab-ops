@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: system-meshcentral
+  name: infra-meshcentral
   namespace: flux-system
 spec:
   path: ./kubernetes/truenas/apps/infra/meshcentral/app
