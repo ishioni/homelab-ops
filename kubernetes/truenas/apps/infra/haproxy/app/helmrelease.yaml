@@ -65,7 +65,7 @@ spec:
                   identifier: stats
                   port: http
         tls:
-          - hosts: [*host]
+          - hosts: [*host, *statshost]
     persistence:
       config:
         type: configMap
