@@ -21,8 +21,8 @@ spec:
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: truenas-test
+  name: talos-api
 spec:
   addresses:
-    - 10.1.2.100/32
+    - 10.1.2.32/32
   autoAssign: false
