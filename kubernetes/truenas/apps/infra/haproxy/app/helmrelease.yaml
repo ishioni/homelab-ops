@@ -26,6 +26,15 @@ spec:
             image:
               repository: docker.io/haproxy
               tag: 3.0.3
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: 8404
+                    path: /
+              readiness: *probes
     service:
       app:
         controller: haproxy
