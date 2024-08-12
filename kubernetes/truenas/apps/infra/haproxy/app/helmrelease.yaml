@@ -30,6 +30,17 @@ spec:
         ports:
           http:
             port: 8080
+      talos:
+        annotations:
+          metallb.universe.tf/address-pool: truenas-test
+          external-dns.alpha.kubernetes.io/hostname: talos-api-test.ishioni.casa
+        controller: haproxy
+        type: LoadBalancer
+        ports:
+          k8s:
+            port: 6443
+          talos:
+            port: 50000
     ingress:
       app:
         className: ingress
