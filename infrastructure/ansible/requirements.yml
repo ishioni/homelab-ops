@@ -3,7 +3,7 @@ collections:
   - name: community.docker
     version: 3.12.0
   - name: community.general
-    version: 9.2.0
+    version: 9.3.0
   - name: community.sops
     version: 1.8.1
   - name: ansible.posix
