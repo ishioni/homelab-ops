@@ -33,7 +33,7 @@ spec:
       talos:
         annotations:
           metallb.universe.tf/address-pool: talos-api
-          external-dns.alpha.kubernetes.io/hostname: talos-api.ishioni.casa
+          external-dns.alpha.kubernetes.io/hostname: talos-api.${PRIVATE_DOMAIN}
         controller: haproxy
         type: LoadBalancer
         ports:
