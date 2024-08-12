@@ -18,7 +18,7 @@ spec:
     controllers:
       haproxy:
         strategy: RollingUpdate
-        replicas: 2
+        replicas: 1
         annotations:
           secret.reloader.stakater.com/reload: &configmap haproxy-config
         containers:
@@ -32,6 +32,11 @@ spec:
         ports:
           http:
             port: 8080
+      stats:
+        controller: haproxy
+        ports:
+          http:
+            port: 8404
       talos:
         annotations:
           metallb.universe.tf/address-pool: talos-api
@@ -52,6 +57,12 @@ spec:
               - path: /
                 service:
                   identifier: app
+                  port: http
+          - host: &statshost ${STATSHOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: stats
                   port: http
         tls:
           - hosts: [*host]

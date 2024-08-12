@@ -21,3 +21,4 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: proxmox.${PRIVATE_DOMAIN}
+      STATSHOSTNAME: haproxy.${PRIVATE_DOMAIN}
