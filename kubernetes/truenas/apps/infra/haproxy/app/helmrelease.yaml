@@ -32,7 +32,7 @@ spec:
             port: 8080
       talos:
         annotations:
-          metallb.universe.tf/address-pool: talos-ha
+          metallb.universe.tf/address-pool: talos-api
           external-dns.alpha.kubernetes.io/hostname: talos-api.ishioni.casa
         controller: haproxy
         type: LoadBalancer
