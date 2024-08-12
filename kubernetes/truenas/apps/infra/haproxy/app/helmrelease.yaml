@@ -20,7 +20,7 @@ spec:
         strategy: RollingUpdate
         replicas: 1
         annotations:
-          secret.reloader.stakater.com/reload: &configmap haproxy-config
+          configmap.reloader.stakater.com/reload: &configmap haproxy-config
         containers:
           app:
             image:
