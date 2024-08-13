@@ -56,20 +56,15 @@ spec:
     service:
       app:
         controller: go2rtc
-        type: LoadBalancer
         ports:
           http:
-            port: 9997
-          prometheus:
-            port: 9998
+            port: 80
       streams:
         controller: go2rtc
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.${PRIVATE_DOMAIN}
         ports:
-          api:
-            port: *port
           rtps:
             port: 554
           webrtc-tcp:
@@ -87,7 +82,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: api
+                  port: http
         tls:
           - hosts: [*host]
     persistence:
