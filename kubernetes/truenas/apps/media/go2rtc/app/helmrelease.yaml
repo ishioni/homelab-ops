@@ -65,6 +65,8 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.${PRIVATE_DOMAIN}
         ports:
+          api:
+            port: 80
           rtps:
             port: 554
           webrtc-tcp:
