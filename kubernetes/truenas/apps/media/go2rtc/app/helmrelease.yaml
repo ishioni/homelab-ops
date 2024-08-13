@@ -1,0 +1,102 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ${APP}
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      go2rtc:
+        strategy: RollingUpdate
+        annotations:
+          configmap.reloader.stakater.com/reload: &configMap go2rtc-configmap
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
+        containers:
+          app:
+            image:
+              repository: ghcr.io/alexxit/go2rtc
+              tag: 1.9.4
+            resources:
+              requests:
+                cpu: 50m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+    service:
+      app:
+        controller: go2rtc
+        type: LoadBalancer
+        ports:
+          http:
+            port: 9997
+          prometheus:
+            port: 9998
+      streams:
+        controller: go2rtc
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.${PRIVATE_DOMAIN}
+        ports:
+          api:
+            port: *port
+          rtps:
+            port: 554
+          webrtc-tcp:
+            port: 8555
+            protocol: TCP
+          webrtc-udp:
+            port: 8555
+            protocol: UDP
+    ingress:
+      app:
+        className: ingress
+        hosts:
+          - host: &host ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: api
+        tls:
+          - hosts: [*host]
+    persistence:
+      config:
+        type: configMap
+        name: *configMap
+        advancedMounts:
+          go2rtc:
+            app:
+              - path: /config/go2rtc.yaml
+                subPath: go2rtc.yaml
+                readOnly: true

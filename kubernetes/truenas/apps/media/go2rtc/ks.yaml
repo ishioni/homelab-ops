@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-go2rtc
+  namespace: flux-system
+spec:
+  path: ./kubernetes/truenas/apps/media/go2rtc/app
+  targetNamespace: media
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname go2rtc
+  prune: true
+  wait: false
+  interval: 10m
+  dependsOn:
+    - name: network-cert-manager
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: go2rtc.${PRIVATE_DOMAIN}

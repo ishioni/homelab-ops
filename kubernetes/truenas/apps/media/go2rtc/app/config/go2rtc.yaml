@@ -1,0 +1,17 @@
+---
+api:
+  listen: :80
+rtsp:
+  listen: :554
+webrtc:
+  listen: :8555
+  candidates:
+    - stun:8555
+  ice_servers:
+    - urls:
+        - stun:stun.cloudflare.com:3478
+streams:
+  kids:
+    - rtsp://camera-kids.ishioni.casa/live0
+  bedroom:
+    - rtsp://camera-bedroom.ishioni.casa/live0
