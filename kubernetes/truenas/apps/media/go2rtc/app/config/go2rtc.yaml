@@ -6,6 +6,7 @@ rtsp:
 webrtc:
   listen: :8555
   candidates:
+    - go2rtc-streams.${PRIVATE_DOMAIN}:8555
     - stun:8555
   ice_servers:
     - urls:
