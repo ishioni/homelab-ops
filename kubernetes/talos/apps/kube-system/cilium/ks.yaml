@@ -22,10 +22,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kube-system-cilium-config
+  name: kube-system-cilium-bgp
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/cilium/config
+  path: ./kubernetes/talos/apps/kube-system/cilium/bgp
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

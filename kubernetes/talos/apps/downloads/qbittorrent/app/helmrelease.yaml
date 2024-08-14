@@ -105,7 +105,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
-        # externalTrafficPolicy: Local
+        externalTrafficPolicy: Local
         ports:
           bittorrent:
             enabled: true
