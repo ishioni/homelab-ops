@@ -31,6 +31,8 @@ spec:
       enabled: true
       extraArgs:
         - --compact.concurrency=4
+        - --delete-delay=30m
+        - --retention.resolution-raw=30d
         - --downsampling.disable
       persistence:
         enabled: true
