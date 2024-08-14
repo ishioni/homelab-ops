@@ -119,6 +119,19 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 2500Mi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /server-info/ping
+                    port: &serverport 3001
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
       machine-learning:
         strategy: RollingUpdate
         annotations:
