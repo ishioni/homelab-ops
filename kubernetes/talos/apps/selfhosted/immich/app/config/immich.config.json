@@ -136,7 +136,7 @@
     }
   },
   "server": {
-    "externalDomain": "htts://photos.movishell.pl",
+    "externalDomain": "https://photos.movishell.pl",
     "loginPageMessage": ""
   },
   "notifications": {
