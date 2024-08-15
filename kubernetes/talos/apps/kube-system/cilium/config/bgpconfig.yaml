@@ -58,7 +58,6 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: bgp-pool-public
 spec:
-  allowFirstLastIPs: yes
   blocks:
     - cidr: ${CONFIG_BGP_PUBLIC_POOL_CIDR}
   serviceSelector:
@@ -70,7 +69,6 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: bgp-pool-private
 spec:
-  allowFirstLastIPs: yes
   blocks:
     - cidr: ${CONFIG_BGP_PRIVATE_POOL_CIDR}
   serviceSelector:
