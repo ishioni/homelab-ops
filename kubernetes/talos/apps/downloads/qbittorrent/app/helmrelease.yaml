@@ -97,8 +97,6 @@ spec:
     service:
       app:
         controller: qbittorrent
-        labels:
-          io.cilium/ippool: public
         ports:
           http:
             port: *port
@@ -107,6 +105,8 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
+        labels:
+          io.cilium/ippool: public
         externalTrafficPolicy: Local
         ports:
           bittorrent:
