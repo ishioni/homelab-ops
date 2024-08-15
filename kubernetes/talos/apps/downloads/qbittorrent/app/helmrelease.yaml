@@ -107,7 +107,7 @@ spec:
           io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
         labels:
           io.cilium/ippool: public
-        externalTrafficPolicy: Local
+        # externalTrafficPolicy: Local
         ports:
           bittorrent:
             enabled: true
