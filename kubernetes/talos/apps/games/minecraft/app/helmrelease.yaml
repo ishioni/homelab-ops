@@ -48,6 +48,8 @@ spec:
     serviceAnnotations:
       io.cilium/lb-ipam-ips: "${CONFIG_MINECRAFT_IP}"
       external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
+    serviceLabels:
+      io.cilium/ippool: public
     minecraftServer:
       eula: true
       version: 1.20.6
