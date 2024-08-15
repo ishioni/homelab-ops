@@ -63,7 +63,7 @@ spec:
     - cidr: ${CONFIG_BGP_PUBLIC_POOL_CIDR}
   serviceSelector:
     matchExpressions:
-      - {key: cilium/ippool, operator: In, values: [public]}
+      - {key: io.cilium/ippool, operator: In, values: [public]}
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
@@ -75,4 +75,4 @@ spec:
     - cidr: ${CONFIG_BGP_PRIVATE_POOL_CIDR}
   serviceSelector:
     matchExpressions:
-      - {key: cilium/ippool, operator: NotIn, values: [public]}
+      - {key: io.cilium/ippool, operator: NotIn, values: [public]}

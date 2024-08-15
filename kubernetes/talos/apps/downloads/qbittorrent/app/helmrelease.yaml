@@ -98,7 +98,7 @@ spec:
       app:
         controller: qbittorrent
         labels:
-          cilium/ippool: public
+          io.cilium/ippool: public
         ports:
           http:
             port: *port
