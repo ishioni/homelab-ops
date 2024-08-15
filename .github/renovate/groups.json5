@@ -17,6 +17,7 @@
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
+      sourceUrl: "https://github.com/immich-app/immich"
     },
     {
       description: "External-Sapshotter group",
