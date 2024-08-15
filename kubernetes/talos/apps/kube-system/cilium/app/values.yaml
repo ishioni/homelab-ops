@@ -2,21 +2,17 @@
 cluster:
   name: talos
   id: 1
-enableRuntimeDeviceDetection: true
-bgpControlPlane:
-  enabled: true
-bgp:
-  enabled: false
-  announce:
-    loadbalancerIP: true
-    podCIDR: false
 bandwidthManager:
   enabled: true
   bbr: true
+l2announcements:
+  enabled: true
+bgpControlPlane:
+  enabled: true
 bpf:
   masquerade: true
   tproxy: true
-k8sServiceHost: "localhost" # kubeprism load balancer
+k8sServiceHost: 127.0.0.1 # kubeprism load balancer
 k8sServicePort: 7445
 rollOutCiliumPods: true
 localRedirectPolicy: true
