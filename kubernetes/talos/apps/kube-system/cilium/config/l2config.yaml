@@ -1,0 +1,33 @@
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: cilium-l2
+spec:
+  loadBalancerIPs: true
+  interfaces: ["^enx.*"]
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/worker: "true"
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l2-pool-public
+spec:
+  blocks:
+    - cidr: ${CONFIG_L2_POOL_PUBLIC_CIDR}
+  serviceSelector:
+    matchExpressions:
+      - {key: io.cilium/ippool, operator: In, values: [public]}
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l2-pool-private
+spec:
+  blocks:
+    - cidr: ${CONFIG_L2_POOL_PRIVATE_CIDR}
+  serviceSelector:
+    matchExpressions:
+      - {key: io.cilium/ippool, operator: NotIn, values: [public]}
