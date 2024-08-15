@@ -259,9 +259,19 @@ spec:
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
+        unifi-client-dpi:
+          # renovate: depName="Unifi Client DPI"
+          gnetId: 11310
+          revision: 9
+          datasource: Prometheus
         unifi-usw-insights:
           # renovate: depName="Unifi USW"
           gnetId: 11312
+          revision: 9
+          datasource: Prometheus
+        unifi-cg-insights:
+          # renovate: depName="Unifi CG"
+          gnetId: 11313
           revision: 9
           datasource: Prometheus
         unifi-uap-insights:
