@@ -34,8 +34,6 @@ spec:
         controllerValue: "k8s.io/ingress-private"
       service:
         type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: "${CONFIG_INGRESS_PRIVATE_IP}"
       admissionWebhooks:
         objectSelector:
           matchExpressions:

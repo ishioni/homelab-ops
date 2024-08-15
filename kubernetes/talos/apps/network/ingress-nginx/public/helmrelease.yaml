@@ -37,6 +37,8 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
           io.cilium/lb-ipam-ips: "${CONFIG_INGRESS_PUBLIC_IP}"
+        labels:
+          io.cilium/ippool: public
       admissionWebhooks:
         objectSelector:
           matchExpressions:
