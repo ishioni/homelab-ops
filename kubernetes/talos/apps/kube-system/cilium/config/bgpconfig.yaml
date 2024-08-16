@@ -10,7 +10,7 @@ spec:
       - {key: node-role.kubernetes.io/control-plane, operator: NotIn, values: [""]}
   bgpInstances:
     - name: cilium
-      localASN: 65500
+      localASN: 65502
       peers:
         - name: gateway
           peerASN: 65500
