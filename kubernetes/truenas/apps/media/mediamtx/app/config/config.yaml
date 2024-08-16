@@ -33,7 +33,7 @@ paths:
   all:
     record: false
   kids:
-    source: rtsp://Testfoobar123:Testfoobar456@hcamera-kids.ishioni.casa/live0
+    source: rtsp://Testfoobar123:Testfoobar456@camera-kids.ishioni.casa/live0
     rtspTransport: automatic
     sourceOnDemand: true
   bedroom:
