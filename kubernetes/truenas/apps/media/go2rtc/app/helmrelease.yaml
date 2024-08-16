@@ -63,7 +63,7 @@ spec:
         controller: go2rtc
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.${PRIVATE_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: camera.${PRIVATE_DOMAIN}
           metallb.universe.tf/loadBalancerIPs: ${CONFIG_GO2RTC_IP}
         ports:
           api:

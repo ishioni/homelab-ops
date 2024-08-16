@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./go2rtc/ks.yaml
-  - ./mediamtx/ks.yaml
+  # - ./mediamtx/ks.yaml
