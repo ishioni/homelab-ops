@@ -7,4 +7,5 @@ metadata:
 spec:
   ipAddressPools:
     - truenas-l2
+    - truenas-l2-reserved
     - talos-api
