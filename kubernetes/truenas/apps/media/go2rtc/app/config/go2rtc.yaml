@@ -13,7 +13,8 @@ webrtc:
         - stun:stun.cloudflare.com:3478
 streams:
   kids:
-    - ffmpeg:rtsp://rtsp://Testfoobar123:Testfoobar456@camera-kids.ishioni.casa/live0#video=h264#audio=opus
+    - rtsp://Testfoobar123:Testfoobar456@camera-kids.ishioni.casa/live0
+    - ffmpeg:kids#audio=opus
   bedroom:
     - rtsp://camera-bedroom.ishioni.casa/live0
     - ffmpeg:bedroom#audio=opus
