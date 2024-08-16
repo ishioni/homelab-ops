@@ -14,5 +14,7 @@ webrtc:
 streams:
   kids:
     - rtsp://mediamtx-streams.media/kids
+    - ffmpeg:kids#audio=opus
   bedroom:
     - rtsp://mediamtx-streams.media/bedroom
+    - ffmpeg:bedroom#audio=opus
