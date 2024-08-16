@@ -2,19 +2,13 @@
 cluster:
   name: talos
   id: 1
-enableRuntimeDeviceDetection: true
 bandwidthManager:
   enabled: true
   bbr: true
 l2announcements:
-  enabled: false
+  enabled: true
 bgpControlPlane:
   enabled: true
-bgp:
-  enabled: false
-  announce:
-    loadbalancerIP: true
-    podCIDR: false
 bpf:
   masquerade: true
   tproxy: true
