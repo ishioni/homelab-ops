@@ -15,4 +15,4 @@ streams:
   kids:
     - rtsp://mediamtx-streams.media/kids
   bedroom:
-    - rtsp://mediamtx-streams.media/kids
+    - rtsp://mediamtx-streams.media/bedroom
