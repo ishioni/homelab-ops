@@ -14,5 +14,7 @@ webrtc:
 streams:
   kids:
     - rtsp://camera-kids.ishioni.casa/live0
+    - ffmpeg:kids#audio=opus
   bedroom:
     - rtsp://camera-bedroom.ishioni.casa/live0
+    - ffmpeg:bedroom#audio=opus
