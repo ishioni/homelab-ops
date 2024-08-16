@@ -22,4 +22,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: camera.${PRIVATE_DOMAIN}
+      HOSTNAME: cameramtx.${PRIVATE_DOMAIN}
