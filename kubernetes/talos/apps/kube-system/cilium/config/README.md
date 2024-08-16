@@ -6,6 +6,9 @@ This guide outlines the steps to enable and configure BGP routing on your UDM-Pr
 
 **Note:** FRRouting (FRR) was added to the UDM-Pro firmware in version 3.1.15. Ensure your device is running firmware version 3.1.15 or later to follow this guide.
 
+## Step 0: Make a subnet
+
+If you're using a subnet outside of your servers IP range, you need to create a dedicated subnet/vlan pair for it, otherwise UnifiOS will NAT your traffic and you'll loose the source IP
 
 ## Step 1: Enable the BGP Daemon
 
