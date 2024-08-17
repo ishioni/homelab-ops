@@ -19,7 +19,7 @@ spec:
       mediamtx:
         strategy: RollingUpdate
         annotations:
-          reloader.stakater.com/auto: "true"
+          secret.reloader.stakater.com/reload: &secret mediamtx-config
         pod:
           securityContext:
             runAsNonRoot: true
@@ -58,26 +58,13 @@ spec:
           rtsp-tcp:
             port: 554
             targetPort: 8554
-          hls:
-            port: 443
-            targetPort: 8888
     persistence:
       config-file:
         type: secret
-        name: mediamtx-secret
+        name: *secret
         globalMounts:
           - path: /mediamtx.yml
             subPath: mediamtx.yml
-            readOnly: true
-      cert-key:
-        type: secret
-        name: ${HOSTNAME}
-        globalMounts:
-          - path: /tls.key
-            subPath: tls.key
-            readOnly: true
-          - path: /tls.crt
-            subPath: tls.crt
             readOnly: true
     # serviceMonitor:
     #   main:
