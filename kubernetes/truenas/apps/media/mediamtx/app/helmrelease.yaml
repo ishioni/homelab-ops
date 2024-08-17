@@ -19,8 +19,7 @@ spec:
       mediamtx:
         strategy: RollingUpdate
         annotations:
-          configmap.reloader.stakater.com/reload: &configMap mediamtx-configmap
-          secret.reloader.stakater.com/reload: &secret ${HOSTNAME}
+          reloader.stakater.com/auto: "true"
         pod:
           securityContext:
             runAsNonRoot: true
@@ -67,15 +66,15 @@ spec:
             targetPort: 8888
     persistence:
       config-file:
-        type: configMap
-        name: *configMap
+        type: secret
+        name: mediamtx-secret
         globalMounts:
           - path: /mediamtx.yml
             subPath: mediamtx.yml
             readOnly: true
       cert-key:
         type: secret
-        name: *secret
+        name: ${HOSTNAME}
         globalMounts:
           - path: /tls.key
             subPath: tls.key
