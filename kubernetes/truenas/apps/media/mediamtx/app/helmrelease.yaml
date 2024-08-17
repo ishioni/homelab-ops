@@ -54,9 +54,6 @@ spec:
             port: 9998
       streams:
         controller: mediamtx
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
         ports:
           rtsp-tcp:
             port: 554
