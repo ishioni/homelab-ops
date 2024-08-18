@@ -47,9 +47,10 @@ spec:
             env:
               LIDARR__APP__INSTANCENAME: Lidarr
               LIDARR__APP__THEME: dark
-              LIDARR__AUTH_METHOD: External
-              LIDARR__AUTH_REQUIRED: DisabledForLocalAddresses
+              LIDARR__AUTH__METHOD: External
+              LIDARR__AUTH__REQUIRED: DisabledForLocalAddresses
               LIDARR__LOG__ANALYTICSENABLED: "False"
+              LIDARR__LOG__DBENABLED: "False"
               LIDARR__LOG__LEVEL: info
               LIDARR__SERVER__PORT: &port 80
               TZ: ${CONFIG_TIMEZONE}
