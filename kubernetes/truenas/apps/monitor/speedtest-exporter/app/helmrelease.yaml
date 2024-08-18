@@ -20,6 +20,9 @@ spec:
         pod:
           securityContext:
             runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 2000
+            fsGroup: 2000
         containers:
           app:
             image:
