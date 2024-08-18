@@ -17,6 +17,7 @@ spec:
   values:
     controllers:
       speedtest-exporter:
+        strategy: RollingUpdate
         pod:
           securityContext:
             runAsNonRoot: true
