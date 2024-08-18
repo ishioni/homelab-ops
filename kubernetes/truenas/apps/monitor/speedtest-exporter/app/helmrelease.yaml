@@ -43,3 +43,8 @@ spec:
         ports:
           http:
             port: *port
+    persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /.config
