@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name speedtest-exporter
 spec:
-  staticConfigs: [targets: [gateway.ishioni.casa:9798]]
+  staticConfigs: [targets: [speedtest.ishioni.casa:9798]]
   metricsPath: /metrics
   scrapeInterval: 30m
   scrapeTimeout: 60s
