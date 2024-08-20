@@ -172,7 +172,7 @@ spec:
           http:
             port: *serverport
           metrics:
-            port: 8081
+            port: 8086
       microservices:
         controller: microservices
         ports:
