@@ -13,7 +13,7 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname mediamtx
+      app.kubernetes.io/name: mediamtx
   prune: true
   wait: false
   interval: 10m
@@ -21,5 +21,4 @@ spec:
     - name: network-cert-manager
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: cameramtx.${PRIVATE_DOMAIN}

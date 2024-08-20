@@ -13,12 +13,11 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname haproxy
+      app.kubernetes.io/name: haproxy
   prune: true
   wait: false
   interval: 10m
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: proxmox.${PRIVATE_DOMAIN}
       STATSHOSTNAME: haproxy.${PRIVATE_DOMAIN}

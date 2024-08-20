@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ${APP}
+  name: hass-proxy
 spec:
   ingressClassName: public
   rules:
@@ -11,7 +11,7 @@ spec:
         paths:
           - backend:
               service:
-                name: ${APP}
+                name: hass-proxy
                 port:
                   name: http
             path: /

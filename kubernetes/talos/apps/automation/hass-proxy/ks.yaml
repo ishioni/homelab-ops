@@ -13,11 +13,10 @@ spec:
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname hass-proxy
+      app.kubernetes.io/name: hass-proxy
   prune: true
   wait: false
   interval: 10m
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: homeassistant.${PUBLIC_DOMAIN}
