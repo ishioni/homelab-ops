@@ -9,6 +9,7 @@ spec:
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
   storage:
     size: 20Gi
     storageClass: truenas-ssd-iscsi
