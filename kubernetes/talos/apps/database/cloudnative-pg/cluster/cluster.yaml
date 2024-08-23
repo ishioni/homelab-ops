@@ -5,8 +5,8 @@ kind: Cluster
 metadata:
   name: postgres
 spec:
-  instances: 1
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.4-v0.3.0
+  instances: 3
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v.0.2.1
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
@@ -25,7 +25,10 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v3
+      source: &previousCluster postgres-v4
+      recoveryTarget:
+        # Time base target for the recovery
+        targetTime: "2024-08-23 16:00:00.00000+02"
   resources:
     requests:
       cpu: 200m
@@ -42,7 +45,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.${PRIVATE_DOMAIN}
-      serverName: &currentCluster postgres-v4
+      serverName: &currentCluster postgres-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
