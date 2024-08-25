@@ -19,7 +19,7 @@ jobs:
           private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Label Size
-        uses: pascalgn/size-label-action@v0.5.2
+        uses: pascalgn/size-label-action@v0.5.4
         env:
           GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
         with:
