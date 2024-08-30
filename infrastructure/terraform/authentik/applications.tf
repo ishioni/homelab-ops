@@ -127,7 +127,7 @@ module "oauth2-immich" {
   client_secret      = module.secret_immich.fields["OIDC_CLIENT_SECRET"]
   redirect_uris = [
     "https://photos.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/auth/login",
-    "app.immich:/"
+    "app.immich:///oauth-callback"
   ]
 }
 
