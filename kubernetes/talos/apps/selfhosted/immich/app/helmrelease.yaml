@@ -231,6 +231,9 @@ spec:
           server:
             server:
               - path: /config
+          microservices:
+            microservices:
+              - path: /config
       library:
         existingClaim: immich-media
         advancedMounts:
