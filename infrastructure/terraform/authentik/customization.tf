@@ -51,7 +51,7 @@ data "authentik_scope_mapping" "scopes" {
   ]
 }
 
-resource "authentik_scope_mapping" "openid-nextcloud" {
+resource "authentik_property_mapping_provider_scope" "openid-nextcloud" {
   name       = "OAuth Mapping: OpenID 'nextcloud'"
   scope_name = "nextcloud"
   expression = <<EOF
