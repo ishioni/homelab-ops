@@ -51,7 +51,6 @@ spec:
         client-body-timeout: 120
         client-header-timeout: 120
         enable-brotli: "true"
-        enable-ocsp: "true"
         enable-real-ip: "true"
         hide-headers: Server,X-Powered-By
         hsts-max-age: 31449600
@@ -63,7 +62,7 @@ spec:
         proxy-buffer-size: 16k
         proxy-read-timeout: 120
         proxy-send-timeout: 120
-        use-geoip2: true
+        use-geoip2: false
         # log-format-escape-json: "true"
         # log-format-upstream: >
         #   {"time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr",
@@ -114,8 +113,3 @@ spec:
           value: "false"
         - name: SEND_SAME_HTTP_CODE
           value: "true"
-  valuesFrom:
-    - kind: Secret
-      name: nginx-maxmind
-      targetPath: controller.maxmindLicenseKey
-      valuesKey: MAXMIND_LICENSE_KEY
