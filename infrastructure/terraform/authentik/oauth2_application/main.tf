@@ -35,7 +35,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   sub_mode                   = var.sub_mode
   access_code_validity       = var.access_code_validity
   access_token_validity      = var.access_token_validity
-  property_mappings          = concat(data.authentik_scope_mapping.scopes.ids, var.additional_property_mappings)
+  property_mappings          = concat(data.authentik_property_mapping_provider_scope.scopes.ids, var.additional_property_mappings)
   redirect_uris              = var.redirect_uris
 }
 
