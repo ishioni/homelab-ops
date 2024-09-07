@@ -1,4 +1,12 @@
 ---
+log:
+  level: debug  # default level
+  api: debug
+  exec: debug
+  ngrok: debug
+  rtsp: debug
+  streams: debug
+  webrtc: debug
 api:
   listen: :80
 rtsp:
