@@ -11,5 +11,5 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./reloader/ks.yaml
-  - ./spegel/ks.yaml
+  # - ./spegel/ks.yaml
   - ./talos-backup/ks.yaml
