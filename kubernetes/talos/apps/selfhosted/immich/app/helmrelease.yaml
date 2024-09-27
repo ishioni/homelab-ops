@@ -14,6 +14,10 @@ spec:
         name: bjw-s
         namespace: flux-system
   interval: 30m
+  install:
+    timeout: 30m
+  upgrade:
+    timeout: 30m
   values:
     controllers:
       server:
