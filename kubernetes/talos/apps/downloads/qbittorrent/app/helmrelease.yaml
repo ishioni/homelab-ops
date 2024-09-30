@@ -105,6 +105,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
+          lbipam.cilium.io/sharing-key: qbittorrent
         labels:
           io.cilium/ippool: public
         # externalTrafficPolicy: Local
@@ -113,6 +114,19 @@ spec:
             enabled: true
             port: *bittorrentPort
             protocol: TCP
+      bittorrent-utp:
+        controller: qbittorrent
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${CONFIG_QBITTORRENT_IP}
+          lbipam.cilium.io/sharing-key: qbittorrent
+        labels:
+          io.cilium/ippool: public
+        # externalTrafficPolicy: Local
+        ports:
+          bittorrent-utp:
+            port: *bittorrentPort
+            protocol: UDP
     ingress:
       app:
         className: public
