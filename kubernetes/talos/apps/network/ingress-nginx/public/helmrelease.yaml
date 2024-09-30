@@ -94,22 +94,3 @@ spec:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/component: controller
               app.kubernetes.io/instance: ingress-public
-    defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 3.3.0
-      replicaCount: 1
-      resources:
-        requests:
-          cpu: 15m
-          memory: 30Mi
-        limits:
-          memory: 35Mi
-      extraEnvs:
-        - name: TEMPLATE_NAME
-          value: l7
-        - name: SHOW_DETAILS
-          value: "false"
-        - name: SEND_SAME_HTTP_CODE
-          value: "true"
