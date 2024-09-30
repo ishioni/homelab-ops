@@ -86,20 +86,3 @@ spec:
               app.kubernetes.io/name: ingress-nginx
               app.kubernetes.io/component: controller
               app.kubernetes.io/instance: ingress-private
-    defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 3.3.0
-      replicaCount: 1
-      resources:
-        requests:
-          cpu: 15m
-          memory: 30Mi
-        limits:
-          memory: 35Mi
-      extraEnvs:
-        - name: TEMPLATE_NAME
-          value: lost-in-space
-        - name: SHOW_DETAILS
-          value: "false"
