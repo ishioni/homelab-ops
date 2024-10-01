@@ -58,19 +58,19 @@ spec:
           rtsp-tcp:
             port: 554
             targetPort: 8554
-      webrtc:
-        controller: mediamtx
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: mediamtx-webrtc.${PRIVATE_DOMAIN}
-          metallb.universe.tf/loadBalancerIPs: ${CONFIG_MEDIAMTX_IP}
-        ports:
-          webrtc-tcp:
-            port: 8889
-            protocol: TCP
-          webrtc-udp:
-            port: 8889
-            protocol: UDP
+      # webrtc:
+      #   controller: mediamtx
+      #   type: LoadBalancer
+      #   annotations:
+      #     external-dns.alpha.kubernetes.io/hostname: mediamtx-webrtc.${PRIVATE_DOMAIN}
+      #     metallb.universe.tf/loadBalancerIPs: ${CONFIG_MEDIAMTX_IP}
+      #   ports:
+      #     webrtc-tcp:
+      #       port: 8889
+      #       protocol: TCP
+      #     webrtc-udp:
+      #       port: 8889
+      #       protocol: UDP
     persistence:
       config-file:
         type: secret
