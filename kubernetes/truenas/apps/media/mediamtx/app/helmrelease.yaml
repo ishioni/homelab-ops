@@ -58,8 +58,6 @@ spec:
         ports:
           http:
             port: 9997
-          prometheus:
-            port: 9998
       streams:
         controller: mediamtx
         ports:
