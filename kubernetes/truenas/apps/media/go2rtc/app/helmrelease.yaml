@@ -68,8 +68,6 @@ spec:
         ports:
           api:
             port: 80
-          rtps:
-            port: 554
           webrtc-tcp:
             port: 8555
             protocol: TCP

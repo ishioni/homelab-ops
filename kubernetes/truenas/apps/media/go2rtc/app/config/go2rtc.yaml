@@ -9,8 +9,6 @@ log:
   webrtc: debug
 api:
   listen: :80
-rtsp:
-  listen: :554
 webrtc:
   listen: :8555
   candidates:

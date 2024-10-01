@@ -38,9 +38,17 @@ spec:
                 memory: 200Mi
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v3/paths/list
+                    port: &port 9997
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
-              startup: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
