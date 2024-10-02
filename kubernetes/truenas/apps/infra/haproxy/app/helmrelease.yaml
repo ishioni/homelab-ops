@@ -46,17 +46,17 @@ spec:
         ports:
           http:
             port: 8404
-      talos:
-        annotations:
-          metallb.universe.tf/address-pool: talos-api
-          external-dns.alpha.kubernetes.io/hostname: talos-api.${PRIVATE_DOMAIN}
-        controller: haproxy
-        type: LoadBalancer
-        ports:
-          k8s:
-            port: 6443
-          talos:
-            port: 50000
+      # talos:
+      #   annotations:
+      #     metallb.universe.tf/address-pool: talos-api
+      #     external-dns.alpha.kubernetes.io/hostname: talos-api.${PRIVATE_DOMAIN}
+      #   controller: haproxy
+      #   type: LoadBalancer
+      #   ports:
+      #     k8s:
+      #       port: 6443
+      #     talos:
+      #       port: 50000
     ingress:
       app:
         className: ingress
