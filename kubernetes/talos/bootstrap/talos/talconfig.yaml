@@ -31,6 +31,8 @@ nodes:
           driver: virtio_net
         mtu: 1500
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
 
   - hostname: master-1.${clusterDNSSuffix}
     ipAddress: 10.1.2.34
