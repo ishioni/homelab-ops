@@ -44,6 +44,8 @@ nodes:
           driver: virtio_net
         mtu: 1500
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
 
   - hostname: master-2.${clusterDNSSuffix}
     ipAddress: 10.1.2.35
@@ -55,6 +57,8 @@ nodes:
           driver: virtio_net
         mtu: 1500
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
 
   - hostname: worker-0.${clusterDNSSuffix}
     ipAddress: 10.1.2.36
