@@ -46,7 +46,7 @@ spec:
         enabled: true
         existingClaim: ${VOLSYNC_CLAIM}
     serviceAnnotations:
-      io.cilium/lb-ipam-ips: "${CONFIG_MINECRAFT_IP}"
+      lbipam.cilium.io/ips: "${CONFIG_MINECRAFT_IP}"
       external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
     serviceLabels:
       io.cilium/ippool: public

@@ -22,7 +22,7 @@ spec:
       type: LoadBalancer
       port: 53
       annotations:
-        io.cilium/lb-ipam-ips: "${CONFIG_GATEWAY_DNS_IP}"
+        lbipam.cilium.io/ips: "${CONFIG_GATEWAY_DNS_IP}"
     resources:
       requests:
         cpu: 10m

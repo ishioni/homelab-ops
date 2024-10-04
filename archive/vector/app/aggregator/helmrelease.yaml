@@ -64,7 +64,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${CONFIG_VECTOR_IP}
+          lbipam.cilium.io/ips: ${CONFIG_VECTOR_IP}
           external-dns.alpha.kubernetes.io/hostname: vector.internal.${SECRET_DOMAIN}
         ports:
           http:

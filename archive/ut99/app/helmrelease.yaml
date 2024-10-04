@@ -60,7 +60,7 @@ spec:
         controller: main
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${CONFIG_UT99_IP}"
+          lbipam.cilium.io/ips: "${CONFIG_UT99_IP}"
           external-dns.alpha.kubernetes.io/hostname: ut.internal.${SECRET_DOMAIN}
         externalTrafficPolicy: Local
         ports:
