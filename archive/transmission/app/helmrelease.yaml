@@ -72,7 +72,7 @@ spec:
         controller: main
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${CONFIG_TRANSMISSION_IP}"
+          lbipam.cilium.io/ips: "${CONFIG_TRANSMISSION_IP}"
         externalTrafficPolicy: Local
         ports:
           utptcp:

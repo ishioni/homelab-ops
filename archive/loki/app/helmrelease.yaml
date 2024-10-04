@@ -110,7 +110,7 @@ spec:
       service:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${CONFIG_LOKI_IP}
+          lbipam.cilium.io/ips: ${CONFIG_LOKI_IP}
       ingress:
         enabled: true
         ingressClassName: private
