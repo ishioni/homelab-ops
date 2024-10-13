@@ -29,7 +29,4 @@ spec:
       VOLSYNC_CLAIM: actual-data
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
-      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
-      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
-      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
-      VOLSYNC_TIME: 0 3 * * *
+      VOLSYNC_TIME: 0 5 * * *
