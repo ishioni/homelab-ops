@@ -74,7 +74,7 @@ spec:
                 spec:
                   httpGet:
                     path: /server-info/ping
-                    port: &serverport 3001
+                    port: &serverport 2283
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
