@@ -73,7 +73,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /server-info/ping
+                    path: /api/server/ping
                     port: &serverport 2283
                   initialDelaySeconds: 0
                   periodSeconds: 10
