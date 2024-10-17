@@ -9,7 +9,7 @@ collections:
   - name: ansible.posix
     version: 1.6.1
   - name: prometheus.prometheus
-    version: 0.19.0
+    version: 0.20.0
 roles:
   - name: igor_nikiforov.journald
     src: https://github.com/igor-nikiforov/ansible-role-journald.git
