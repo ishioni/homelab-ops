@@ -215,7 +215,7 @@ spec:
           gethomepage.dev/name: Immich
           gethomepage.dev/icon: immich.png
           gethomepage.dev/widget.type: immich
-          gethomepage.dev/widget.url: http://immich-server.selfhosted:3001
+          gethomepage.dev/widget.url: http://immich-server.selfhosted:2283
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_IMMICH_TOKEN}}`}}"
         hosts:
           - host: &host ${HOSTNAME}
