@@ -217,6 +217,7 @@ spec:
           gethomepage.dev/widget.type: immich
           gethomepage.dev/widget.url: http://immich-server.selfhosted:2283
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_IMMICH_TOKEN}}`}}"
+          gethomepage.dev/widget.version: "2"
         hosts:
           - host: &host ${HOSTNAME}
             paths:
