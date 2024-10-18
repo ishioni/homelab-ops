@@ -22,6 +22,7 @@ spec:
           value: "${CONFIG_TIMEZONE}"
       extraArgs:
         default-ssl-certificate: "network/default-certificate"
+      terminationGracePeriodSeconds: 120
       kind: Deployment
       electionID: "ingress-private-leader"
       allowSnippetAnnotations: true
