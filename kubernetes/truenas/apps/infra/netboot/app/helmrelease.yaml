@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netboot
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      main:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/netbootxyz/netbootxyz
+              tag: 0.7.3-nbxyz2
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: &webport 3000
+                    path: /
+              readiness: *probes
+    defaultPodOptions:
+      hostNetwork: true
+    service:
+      app:
+        controller: main
+        ports:
+          http:
+            port: 3000
+      tftp:
+        controller: main
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: tftp.${PRIVATE_DOMAIN}
+          metallb.universe.tf/loadBalancerIPs: ${CONFIG_TFTP_IP}
+        ports:
+          http:
+            port: 80
+            protocol: TCP
+          tftp:
+            port: 69
+            protocol: UDP
+    ingress:
+      app:
+        className: ingress
+        hosts:
+          - host: &host ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls: [hosts: [*host]]
+    persistence:
+      config:
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        globalMounts:
+          - path: /config
+      data:
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        globalMounts:
+          - path: /assets
