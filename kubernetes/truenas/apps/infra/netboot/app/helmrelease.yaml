@@ -44,19 +44,6 @@ spec:
         ports:
           http:
             port: *webport
-      assets:
-        controller: main
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: tftp.${PRIVATE_DOMAIN}
-          metallb.universe.tf/loadBalancerIPs: ${CONFIG_TFTP_IP}
-        ports:
-          assets:
-            enabled: true
-            primary: false
-            port: 80
-            targetPort: *assetsPort
-            protocol: TCP
       tftp:
         controller: main
         type: NodePort
