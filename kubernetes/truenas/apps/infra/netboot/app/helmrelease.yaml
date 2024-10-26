@@ -15,6 +15,9 @@ spec:
         name: bjw-s
         namespace: flux-system
   values:
+    defaultPodOptions:
+      # TFTP won't work without this :(
+      hostNetwork: true
     controllers:
       main:
         containers:
@@ -23,6 +26,8 @@ spec:
               repository: ghcr.io/netbootxyz/netbootxyz
               tag: 0.7.3-nbxyz2
             env:
+              # FIX: Because it conflicts with truenas UI, set to alternet port
+              # NOTE: This is only set on initial start
               NGINX_PORT: &assetsPort 8081
             probes:
               liveness: &probes
