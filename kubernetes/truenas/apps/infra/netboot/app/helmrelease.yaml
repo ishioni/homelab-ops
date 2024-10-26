@@ -22,6 +22,8 @@ spec:
             image:
               repository: ghcr.io/netbootxyz/netbootxyz
               tag: 0.7.3-nbxyz2
+            env:
+              NGINX_PORT: &assetsPort 8081
             probes:
               liveness: &probes
                 enabled: true
@@ -36,17 +38,24 @@ spec:
         controller: main
         ports:
           http:
-            port: 3000
-      tftp:
+            port: *webport
+      assets:
         controller: main
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: tftp.${PRIVATE_DOMAIN}
           metallb.universe.tf/loadBalancerIPs: ${CONFIG_TFTP_IP}
         ports:
-          http:
+          assets:
+            enabled: true
+            primary: false
             port: 80
+            targetPort: *assetsPort
             protocol: TCP
+      tftp:
+        controller: main
+        type: NodePort
+        ports:
           tftp:
             port: 69
             protocol: UDP
