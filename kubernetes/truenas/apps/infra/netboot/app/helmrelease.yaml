@@ -31,8 +31,6 @@ spec:
                     port: &webport 3000
                     path: /
               readiness: *probes
-    defaultPodOptions:
-      hostNetwork: true
     service:
       app:
         controller: main
