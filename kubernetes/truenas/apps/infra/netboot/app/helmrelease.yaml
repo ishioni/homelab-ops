@@ -69,7 +69,4 @@ spec:
         globalMounts:
           - path: /config
       data:
-        accessMode: ReadWriteOnce
-        size: 20Gi
-        globalMounts:
-          - path: /assets
+        type: emptyDir
