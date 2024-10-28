@@ -143,6 +143,13 @@ patches:
         kubePrism:
           enabled: true
           port: 7445
+  - &hostDNS |-
+    machine:
+      features:
+        hostDNS:
+          enabled: true
+          resolveMemberNames: true
+          forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
   # Disable search domain everywhere
   - &disableSearchDomainPatch |-
     machine:
