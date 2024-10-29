@@ -13,7 +13,6 @@ metadata:
       it applies the external-dns annotations for use with external
       application access.
 spec:
-  generateExistingOnPolicyUpdate: true
   rules:
     - name: external-dns
       match:
