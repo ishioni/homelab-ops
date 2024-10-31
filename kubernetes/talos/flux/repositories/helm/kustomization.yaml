@@ -20,7 +20,6 @@ resources:
   - ./kubernetes-sigs-metrics-server.yaml
   - ./kyverno.yaml
   - ./minecraft-server.yaml
-  - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml
