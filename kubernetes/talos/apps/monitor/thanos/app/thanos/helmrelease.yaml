@@ -37,7 +37,7 @@ spec:
       persistence:
         enabled: true
         storageClass: "truenas-ssd-iscsi"
-        size: 15Gi
+        size: 30Gi
     # query:
     #   extraArgs: --alert.query-url=http://thanos.${PUBLIC_DOMAIN}
     # queryFrontend:
