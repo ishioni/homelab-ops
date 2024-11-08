@@ -35,6 +35,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   machine = "q35"
 
   cpu {
+    architecture = "x86_64"
     cores = 4
     type  = "host"
   }
