@@ -10,5 +10,4 @@ resources:
   - ./jetstack.yaml
   - ./kubernetes-sigs-metrics-server.yaml
   - ./metallb.yaml
-  # - ./prometheus-community.yaml
   - ./stakater.yaml
