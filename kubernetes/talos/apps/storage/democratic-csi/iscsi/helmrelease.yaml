@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: democratic-csi
-      version: 0.14.6
+      version: 0.14.7
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
@@ -31,6 +31,14 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       priorityClassName: system-cluster-critical
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "DoNotSchedule"
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/csi-role: controller
+              app.kubernetes.io/instance: democratic-csi-ssd-iscsi
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
