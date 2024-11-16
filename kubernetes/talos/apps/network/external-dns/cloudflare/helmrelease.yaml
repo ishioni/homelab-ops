@@ -22,6 +22,7 @@ spec:
     domainFilters: ["${PUBLIC_DOMAIN}"]
     policy: sync
     sources: [ingress]
+    triggerLoopOnEvent: true
     txtPrefix: talos.
     txtOwnerId: talos
     extraArgs:
