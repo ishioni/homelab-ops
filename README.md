@@ -32,7 +32,7 @@ There is a template over at [onedr0p/flux-cluster-template](https://github.com/o
 
 My cluster is [talos](https://talos.dev/) running on proxmox VMs. This is a semi hyper-converged cluster, workloads are sharing the same available resources on my nodes while I have a separate server for data storage.
 
-🔸 _[Click here](./ansible/) to see my Ansible playbooks and roles._
+🔸 _[Click here](./infrastructure/ansible/) to see my Ansible playbooks and roles._
 
 ### Core Components
 
