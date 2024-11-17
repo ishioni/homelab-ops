@@ -58,6 +58,20 @@ resource "proxmox_virtual_environment_vm" "node" {
     ssd          = true
   }
 
+  dynamic "disk" {
+    for_each = var.secondary_disk ? [1] : []
+    content {
+      size = var.secondary_disk_size
+      datastore_id = var.storage
+      interface = "scsi1"
+      discard = "on"
+      file_format  = var.file_format
+      ssd = true
+      iothread = false
+      cache = "writethrough"
+    }
+  }
+
   network_device {
     model       = "virtio"
     bridge      = var.bridge
