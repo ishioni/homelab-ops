@@ -62,12 +62,12 @@ variable "storage_size" {
 }
 
 variable "secondary_disk" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "secondary_disk_size" {
-  type = string
+  type    = string
   default = 150
 }
 

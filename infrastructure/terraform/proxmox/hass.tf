@@ -36,8 +36,8 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
 
   cpu {
     architecture = "x86_64"
-    cores = 4
-    type  = "host"
+    cores        = 4
+    type         = "host"
   }
 
   memory {
