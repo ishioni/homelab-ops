@@ -12,6 +12,9 @@ spec:
     repository: ${APP}-restic-s3
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    enableFileDeletion: true
     storageClassName: "${VOLSYNC_STORAGECLASS:-truenas-ssd-iscsi}"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
     moverSecurityContext:
