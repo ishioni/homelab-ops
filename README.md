@@ -1,6 +1,5 @@
 <div align="center">
 
-<img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
 ### My Kubernetes Lab cluster ⛵️
 
@@ -12,7 +11,7 @@ _... managed with Flux and Renovate_ :robot:
 
 <div align="center">
 
-[![Talos](https://img.shields.io/badge/v1.29-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
+[![Talos](https://img.shields.io/badge/v1.31-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://talos.dev/)
 [![Renovate](https://img.shields.io/github/actions/workflow/status/ishioni/homelab-ops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/ishioni/homelab-ops/actions/workflows/renovate.yaml)
 
 </div>
@@ -74,7 +73,6 @@ This Git repository contains the following directories under [kubernetes](./kube
 | ---------------------------------- | ---------------- |
 | Network VLAN                       | `10.1.1.0/24`    |
 | Servers VLAN                       | `10.1.2.0/24`    |
-| TrueNAS external services (BGP)    | `10.84.1.0/24`   |
 | Talos external services (BGP)      | `10.84.2.0/24`   |
 | Kubernetes pods                    | `172.16.0.0/16`  |
 | Kubernetes services                | `10.100.0.0/16`  |
@@ -93,7 +91,6 @@ The alternative solution to these two problems would be to host a Kubernetes clu
 | [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                               | Free             |
 | [Fastmail](https://fastmail.com/)            | Email hosting                                                  | $75/yr           |
 | [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments | Free             |
-| [Terraform Cloud](https://www.terraform.io/) | Storing Terraform state                                        | Free             |
 |                                              |                                                                | Total: $12.75/mo |
 
 ---
@@ -102,13 +99,7 @@ The alternative solution to these two problems would be to host a Kubernetes clu
 
 ### Home DNS
 
-On my Vyos router I have [Bind9](https://github.com/isc-projects/bind9) and [dnsdist](https://dnsdist.org/) deployed as containers. In my cluster `external-dns` is deployed with the `RFC2136` provider which syncs DNS records to `bind9`.
-
-Downstream DNS servers configured in `dnsdist` such as `bind9` (above) and [AdGuard DNS](https://adguard-dns.io/en/public-dns.html). All my clients use `dnsdist` as the upstream DNS server, this allows for more granularity with configuring DNS across my networks. These could be things like giving each of my VLANs a specific `adguard` profile, or having all requests for my domain forward to `bind9` on certain networks, or only using `1.1.1.1` instead of `adguard` on certain networks where adblocking isn't required.
-
-### Public DNS
-
-Outside the `external-dns` instance mentioned above another instance is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingress this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an ingress class name of `external` and contain an ingress annotation `external-dns.alpha.kubernetes.io/target`.
+In my cluster there are two [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) instances deployed. One is deployed with the [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook) which syncs DNS records to my UniFi router. The other ExternalDNS instance syncs DNS records to Cloudflare only when the ingresses and services have an ingress class name of `external` and contain an ingress annotation `external-dns.alpha.kubernetes.io/target`. All local clients on my network use my UniFi router as the upstream DNS server.
 
 ---
 
@@ -116,9 +107,9 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 | Device                     | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose             |
 | -------------------------- | ----- | ------------ | ----------------------- | ---- | ---------------- | ------------------- |
-| GOWIN GW-BS-1UR2           | 1     | 512GB NVMe   | -                       | 32GB | VyOS             | Router              |
+| Unifi Cloud Gateway         | 1     | -            | -                       | -    |                  | Router              |
 | Unifi USW-Enterprise-24-POE | 1     | -            | -                       | -    | -                | Network Switch      |
-| Dell Optiplex 7040         | 4     | 256GB NVMe   | -                       | 64GB | Debian 12 (PVE)  | Virtualization Host |
+| Dell Optiplex 7040         | 4     | 512GB NVMe   | -                       | 64GB | Debian 12 (PVE)  | Virtualization Host |
 | Cyberpower OR600ERM1U      | 1     | -            | -                       | -    | -                | UPS                 |
 | QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD | 32GB | TrueNAS Scale    | NAS                 |
 | ESP32+Ebyte 72 POE adapter | 1     | -            | -                       | -    | ESPHome          | Zigbee adapter      |
