@@ -63,7 +63,12 @@ nodes:
   - hostname: worker-0.${clusterDNSSuffix}
     ipAddress: 10.1.2.36
     controlPlane: false
-    installDisk: /dev/sda
+    installDiskSelector:
+      size: "<= 80GB"
+    # machineDisks:
+    #   - device: /dev/disk/by-id/ata-CT500MX500SSD1_2149E5EC1D9D
+    #     partitions:
+    #       - mountpoint: /var/mnt/sata
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"

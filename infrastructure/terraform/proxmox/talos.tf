@@ -26,13 +26,13 @@ output "cp-macaddresses" {
 
 module "talos-workers" {
   source       = "./talos-node"
-  started      = true
+  started      = false
   count        = 3
   machine_name = "worker-${count.index}"
   vmid         = sum([2036, count.index])
   target_node  = "proxmox-${count.index + 1}"
-  iso_path        = "none"
-  # iso_path        = "ISO:iso/talos-v1.7.6-worker.iso"
+  # iso_path        = "none"
+  iso_path        = "ISO:iso/talos-v1.8.3-worker.iso"
   timeout_stop_vm = 300
   qemu_agent      = true
   uefi            = false #gvtd doesn't play nice with UEFI
@@ -41,7 +41,9 @@ module "talos-workers" {
   gpu_gvtd        = true
   vlan_id         = data.unifi_network.Servers.vlan_id
   storage         = "local-zfs"
-  storage_size    = 60
+  storage_size    = 50
+  secondary_disk = true
+  secondary_disk_size = 150
 }
 
 output "workers-macaddresses" {

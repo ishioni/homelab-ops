@@ -61,6 +61,16 @@ variable "storage_size" {
   default = 8
 }
 
+variable "secondary_disk" {
+  type = bool
+  default = false
+}
+
+variable "secondary_disk_size" {
+  type = string
+  default = 150
+}
+
 variable "qemu_agent" {
   type    = bool
   default = false
