@@ -61,14 +61,14 @@ resource "proxmox_virtual_environment_vm" "node" {
   dynamic "disk" {
     for_each = var.secondary_disk ? [1] : []
     content {
-      size = var.secondary_disk_size
+      size         = var.secondary_disk_size
       datastore_id = var.storage
-      interface = "scsi1"
-      discard = "on"
+      interface    = "scsi1"
+      discard      = "on"
       file_format  = var.file_format
-      ssd = true
-      iothread = false
-      cache = "writethrough"
+      ssd          = true
+      iothread     = false
+      cache        = "writethrough"
     }
   }
 
