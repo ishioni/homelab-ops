@@ -26,13 +26,13 @@ output "cp-macaddresses" {
 
 module "talos-workers" {
   source       = "./talos-node"
-  started      = false
+  started      = true
   count        = 3
   machine_name = "worker-${count.index}"
   vmid         = sum([2036, count.index])
   target_node  = "proxmox-${count.index + 1}"
-  # iso_path        = "none"
-  iso_path        = "ISO:iso/talos-v1.8.3-worker.iso"
+  iso_path        = "none"
+  # iso_path        = "ISO:iso/talos-v1.8.3-worker.iso"
   timeout_stop_vm = 300
   qemu_agent      = true
   uefi            = false #gvtd doesn't play nice with UEFI
