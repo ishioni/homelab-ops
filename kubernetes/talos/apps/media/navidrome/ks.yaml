@@ -32,6 +32,5 @@ spec:
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
       VOLSYNC_STORAGECLASS: truenas-ssd-iscsi
-      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-iscsi
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
       VOLSYNC_TIME: 0 1 * * *
