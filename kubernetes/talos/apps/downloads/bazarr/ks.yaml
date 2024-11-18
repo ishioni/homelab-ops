@@ -30,6 +30,5 @@ spec:
       APP_GID: "2000"
       VOLSYNC_CLAIM: bazarr-config
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs
-      VOLSYNC_CACHE_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_TIME: 0 2 * * *
