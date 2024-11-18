@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: postgres-16
 spec:
   instances: 3
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
@@ -12,7 +12,7 @@ spec:
   primaryUpdateMethod: switchover
   storage:
     size: 20Gi
-    storageClass: truenas-ssd-iscsi
+    storageClass: openebs-hostpath
   postgresql:
     shared_preload_libraries: ["vectors.so"]
     parameters:
@@ -25,10 +25,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v4
-      recoveryTarget:
-        # Time base target for the recovery
-        targetTime: "2024-08-23 16:00:00.00000+02"
+      source: &previousCluster postgres-v1
   resources:
     requests:
       cpu: 200m
@@ -45,7 +42,7 @@ spec:
         maxParallel: 4
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.${PRIVATE_DOMAIN}
-      serverName: &currentCluster postgres-v1
+      serverName: &currentCluster postgres-16-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
