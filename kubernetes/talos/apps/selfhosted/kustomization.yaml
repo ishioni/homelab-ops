@@ -6,5 +6,5 @@ resources:
   - ./namespace.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
-  - ./ocis/ks.yaml
-  - ./paperless/ks.yaml
+  # - ./ocis/ks.yaml
+  # - ./paperless/ks.yaml
