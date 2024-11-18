@@ -8,18 +8,19 @@ spec:
   trigger:
     manual: restore-once
   restic:
-    copyMethod: Snapshot
-    repository: ${APP}-restic-s3
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
+    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-openebs-hostpath}"
+    capacity: "${VOLSYNC_CAPACITY:-1Gi}"
     cleanupCachePVC: true
     cleanupTempPVC: true
     enableFileDeletion: true
-    storageClassName: "${VOLSYNC_STORAGECLASS:-truenas-ssd-iscsi}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
+    copyMethod: Snapshot
     moverSecurityContext:
       runAsUser: ${APP_UID:-568}
       runAsGroup: ${APP_GID:-568}
       fsGroup: ${APP_GID:-568}
-    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
-    capacity: "${VOLSYNC_CAPACITY:-1Gi}"
+    repository: ${APP}-restic-s3
+    storageClassName: "${VOLSYNC_STORAGECLASS:-truenas-ssd-iscsi}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
