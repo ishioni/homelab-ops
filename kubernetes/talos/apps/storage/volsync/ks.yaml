@@ -6,14 +6,14 @@ metadata:
   name: storage-openebs
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/storage/openebs/app
+  path: ./kubernetes/talos/apps/storage/volsync/app
   targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname openebs
+      app.kubernetes.io/name: &appname volsync
   prune: true
   wait: true
   interval: 10m
