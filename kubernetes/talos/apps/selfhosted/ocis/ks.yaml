@@ -34,7 +34,6 @@ spec:
       VOLSYNC_CAPACITY: &size 20Gi
       VOLSYNC_CACHE_CAPACITY: *size
       VOLSYNC_STORAGECLASS: &class truenas-ssd-nfs
-      VOLSYNC_CACHE_SNAPSHOTCLASS: *class
       VOLSYNC_SNAPSHOTCLASS: *class
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 13 * * *
