@@ -249,3 +249,16 @@ worker:
           - siderolabs/qemu-guest-agent
           - siderolabs/i915-ucode
           - siderolabs/iscsi-tools
+  patches:
+    # Extra SSD to mount
+    - |-
+      machine:
+        kubelet:
+          extraMounts:
+            - destination: /var/mnt/secondary
+              type: bind
+              source: /var/mnt/secondary
+              options:
+                - rbind
+                - rshared
+                - rw
