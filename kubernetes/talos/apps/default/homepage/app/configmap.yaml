@@ -19,7 +19,7 @@ data:
             - href: https://www.phoronix.com
     - Social:
         - Kiwi:
-            - href: https://kiwifarms.net
+            - href: https://kiwifarms.st
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
