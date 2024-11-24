@@ -3,11 +3,11 @@ data "authentik_certificate_key_pair" "generated" {
 }
 
 resource "authentik_brand" "home" {
-  domain           = module.secret_authentik.fields["CLUSTER_DOMAIN"]
+  domain           = var.public_domain
   default          = false
   branding_title   = "Home"
-  branding_logo    = "https://static.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/branding/Banner2-white.svg"
-  branding_favicon = "https://static.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/branding/favicon.png"
+  branding_logo    = "https://static.${var.public_domain}/branding/Banner2-white.svg"
+  branding_favicon = "https://static.${var.public_domain}/branding/favicon.png"
 
   flow_authentication = authentik_flow.authentication.uuid
   flow_invalidation   = authentik_flow.invalidation.uuid
@@ -34,7 +34,7 @@ resource "authentik_outpost" "proxyoutpost" {
     module.proxy-homepage.id
   ]
   config = jsonencode({
-    authentik_host          = "https://auth.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}",
+    authentik_host          = "https://auth.${var.public_domain}",
     authentik_host_insecure = false,
     authentik_host_browser  = "",
     log_level               = "debug",

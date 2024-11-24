@@ -19,6 +19,10 @@ variable "authorization_flow" {
   type = string
 }
 
+variable "invalidation_flow" {
+  type = string
+}
+
 variable "newtab" {
   type    = bool
   default = true

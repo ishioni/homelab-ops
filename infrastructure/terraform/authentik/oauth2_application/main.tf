@@ -28,6 +28,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   client_id                  = var.client_id
   client_secret              = local.client_secret
   authorization_flow         = var.authorization_flow
+  invalidation_flow          = var.invalidation_flow
   signing_key                = data.authentik_certificate_key_pair.generated.id
   client_type                = var.client_type
   include_claims_in_id_token = var.include_claims_in_id_token
@@ -36,7 +37,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   access_code_validity       = var.access_code_validity
   access_token_validity      = var.access_token_validity
   property_mappings          = concat(data.authentik_property_mapping_provider_scope.scopes.ids, var.additional_property_mappings)
-  redirect_uris              = var.redirect_uris
+  allowed_redirect_uris      = local.allowed_redirect_uris
 }
 
 resource "authentik_application" "oauth2-application" {
