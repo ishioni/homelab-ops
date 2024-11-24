@@ -225,12 +225,12 @@ module "oauth2-ocis-android" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = "e4rAsNUSIUs0lF4nbv9FmCeUkTlV9GdgTLDH1b5uie7syb90SzEVrbN7HIpmWJeD"
   client_secret      = "dInFYGV33xKzhbRmpqQltYNdfLdJIfJ9L5ISoKhNoT9qZftpdWSP71VrpGR9pmoD"
-  redirect_uris      = ["oc://android.owncloud.com", ]
+  redirect_uris      = ["oc://android.owncloud.com"]
 }
 
 module "oauth2-ocis-desktop" {
   source             = "./oauth2_application"
-  name               = "owncloud-desktop"
+  name               = "Owncloud-desktop"
   launch_url         = "blank://blank"
   auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
