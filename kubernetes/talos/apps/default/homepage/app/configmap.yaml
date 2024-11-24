@@ -10,8 +10,6 @@ data:
             - href: https://youtube.com/feed/subscriptions
         - Rumble:
             - href: https://rumble.com
-        - Odysee:
-            - href: https://odysee.com/
     - Tech:
         - HackerNews:
             - href: https://news.ycombinator.com
@@ -19,15 +17,9 @@ data:
             - href: https://www.anandtech.com
         - Moronix:
             - href: https://www.phoronix.com
-        - ServeTheHome:
-            - href: https://www.servethehome.com
     - Social:
         - Kiwi:
             - href: https://kiwifarms.net
-        - Poast:
-            - href: https://poa.st
-        - zzzChan:
-            - href: https://zzzchan.xyz
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
