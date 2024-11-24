@@ -44,6 +44,10 @@ variable "authorization_flow" {
   type = string
 }
 
+variable "invalidation_flow" {
+  type = string
+}
+
 variable "client_type" {
   type    = string
   default = "confidential"
@@ -80,7 +84,7 @@ variable "additional_property_mappings" {
 }
 
 variable "redirect_uris" {
-  type = list(string)
+  type = list(any)
 }
 
 locals {
@@ -89,4 +93,16 @@ locals {
     ? var.client_secret != null ? var.client_secret : random_password.client_secret.result
     : null
   )
+
+  allowed_redirect_uris = [
+    for uri in var.redirect_uris : (
+      can(uri.url) ? {
+        matching_mode = lookup(uri, "matching_mode", "strict")
+        url           = uri.url
+        } : {
+        matching_mode = "strict"
+        url           = trim(uri, " ")
+      }
+    )
+  ]
 }
