@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ylianst/meshcentral
-              tag: 1.1.33
+              tag: 1.1.34
             env:
               TZ: ${CONFIG_TIMEZONE}
               NODE_ENV: production
