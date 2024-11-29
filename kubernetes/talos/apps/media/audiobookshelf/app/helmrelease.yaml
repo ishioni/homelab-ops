@@ -22,8 +22,8 @@ spec:
         pod:
           securityContext:
             runAsUser: &uid 568
-            runAsGroup: &gid 2000
-            fsGroup: 2000
+            runAsGroup: &gid 5000
+            fsGroup: 5000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           app:

@@ -27,7 +27,7 @@ spec:
       APP: *appname
       HOSTNAME: audiobooks.${PUBLIC_DOMAIN}
       APP_UID: "568"
-      APP_GID: "2000"
+      APP_GID: "5000"
       VOLSYNC_CLAIM: audiobookshelf-config
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
