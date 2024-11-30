@@ -11,8 +11,7 @@ spec:
         - "proxmox-2.${PRIVATE_DOMAIN}:9100"
         - "proxmox-3.${PRIVATE_DOMAIN}:9100"
         # - "proxmox-4.${SERVERS_DOMAIN}:9100"
-        - "nas-node.${PRIVATE_DOMAIN}:9100"
-        # - "gateway.${PRIVATE_DOMAIN}:9100"
+        - "quadrant.${PRIVATE_DOMAIN}:9100"
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:
