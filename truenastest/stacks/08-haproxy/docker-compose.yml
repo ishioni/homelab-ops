@@ -1,0 +1,30 @@
+---
+services:
+  haproxy:
+    image: docker.io/haproxy:3.1.0
+    container_name: haproxy
+    restart: unless-stopped
+    networks:
+      apps:
+    expose:
+      - &appPort ${APP_PORT}
+      - &statsPort ${HAPROXY_PORT}
+    volumes:
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.haproxy.loadbalancer.server.port: *appPort
+      traefik.http.routers.haproxy.entrypoints: https
+      traefik.http.routers.haproxy.rule: Host(`${HOST}`)
+      traefik.http.routers.haproxy.tls: true
+      traefik.http.routers.haproxy.service: haproxy
+
+      traefik.http.services.haproxy-stats.loadbalancer.server.port: *statsPort
+      traefik.http.routers.haproxy-stats.entrypoints: https
+      traefik.http.routers.haproxy-stats.rule: Host(`${HAPROXY_HOST}`)
+      traefik.http.routers.haproxy-stats.tls: true
+      traefik.http.routers.haproxy-stats.service: haproxy-stats
+
+networks:
+  apps:
+    external: true

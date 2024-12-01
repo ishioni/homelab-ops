@@ -1,0 +1,28 @@
+---
+services:
+  whoami:
+    image: docker.io/traefik/whoami:v1.10.3
+    container_name: whoami
+    restart: unless-stopped
+    environment:
+      WHOAMI_PORT_NUMBER: &port 8080
+    networks:
+      apps:
+    expose:
+      - *port
+
+    labels:
+      traefik.enable: "true"
+      # S3
+      traefik.http.services.whoami.loadbalancer.server.port: *port
+      traefik.http.routers.whoami.service: whoami
+      traefik.http.routers.whoami.entrypoints: https
+      traefik.http.routers.whoami.rule: Host(`${HOST}`) || HostRegexp(`^.+\.whoami\.ishioni\.casa$`)
+      traefik.http.routers.whoami.tls.certresolver: letsencrypt
+      traefik.http.routers.whoami.tls.domains[0].main: ${HOST}
+      traefik.http.routers.whoami.tls.domains[0].sans: '*.${HOST}'
+
+
+networks:
+  apps:
+    external: true
