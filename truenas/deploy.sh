@@ -1,5 +1,4 @@
 #!/bin/bash
-source .envrc
 SEARCH_DIR=${1:-.}
 
 if ! command -v sops &> /dev/null; then
