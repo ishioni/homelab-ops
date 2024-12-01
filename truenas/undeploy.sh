@@ -1,5 +1,5 @@
 #!/bin/bash
-SEARCH_DIR=${1:-.}
+SEARCH_DIR=${1:-./stacks}
 
 # Find all docker-compose.yml files and process them
 find "$SEARCH_DIR" -type f -name "docker-compose.yml" | sort -r | while read -r compose_file; do
