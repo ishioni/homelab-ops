@@ -14,16 +14,13 @@ creation_rules:
           - *ishioni
           - *talos
 
-  - path_regex: kubernetes/truenas/.*\.sops\.ya?ml
-    input_type: yaml
-    encrypted_regex: "^(data|stringData)$"
-    mac_only_encrypted: true
-    key_groups:
-      - age:
-          - *ishioni
-          - *truenas
-
   - path_regex: infrastructure/.*\.sops\.ya?ml
     key_groups:
       - age:
           - *ishioni
+
+  - path_regex: stacks/.*\.sops\.env
+    key_groups:
+      - age:
+          - *ishioni
+          - *truenas

@@ -1,0 +1,14 @@
+---
+http:
+  routers:
+    dashboard:
+      rule: Host(`traefik.ishioni.casa`) # && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      service: api@internal
+      entryPoints:
+        - https
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: ishioni.casa
+            sans:
+              - "*.ishioni.casa"
