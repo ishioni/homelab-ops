@@ -1,0 +1,38 @@
+---
+services:
+  meshcentral:
+    image: ghcr.io/netbootxyz/netbootxyz:0.7.3-nbxyz2
+    container_name: netboot
+    restart: unless-stopped
+    networks:
+      apps:
+    environment:
+      TFTPD_OPTS: "--tftp-single-port"
+    env_file:
+      - .env
+    ports:
+      - target: ${TFTP_PORT}
+        published: ${TFTP_PORT}
+        protocol: udp
+        mode: host
+    expose:
+      - &webapp ${APP_PORT}
+      - &assets ${ASSETS_PORT}
+    volumes:
+      - ${CONFIG_PATH}:/config
+      - ${ASSETS_PATH}:/assets
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.netboot.loadbalancer.server.port: *webapp
+      traefik.http.routers.netboot.entrypoints: https
+      traefik.http.routers.netboot.rule: Host(`${HOST}`)
+      traefik.http.routers.netboot.tls: true
+      traefik.http.routers.netboot.service: netboot
+      traefik.http.services.netbootassets.loadbalancer.server.port: *assets
+      traefik.http.routers.netbootassets.entrypoints: https
+      traefik.http.routers.netbootassets.rule: Host(`${ASSETS_HOST}`)
+      traefik.http.routers.netbootassets.tls: true
+      traefik.http.routers.netbootassets.service: netbootassets
+networks:
+  apps:
+    external: true

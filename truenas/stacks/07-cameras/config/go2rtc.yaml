@@ -1,0 +1,26 @@
+---
+log:
+  level: debug # default level
+  api: debug
+  exec: debug
+  ngrok: debug
+  rtsp: debug
+  streams: debug
+  webrtc: debug
+api:
+  listen: :${APP_PORT}
+webrtc:
+  listen: :${WEBRTC_PORT}
+  candidates:
+    - ${MACVLAN_ADDRESS}:${WEBRTC_PORT}
+    - stun:${WEBRTC_PORT}
+  ice_servers:
+    - urls:
+        - stun:stun.cloudflare.com:3478
+streams:
+  kids:
+    - rtsp://mediamtx/kids
+    - ffmpeg:kids#audio=opus
+  bedroom:
+    - rtsp://mediamtx/bedroom
+    - ffmpeg:bedroom#audio=opus

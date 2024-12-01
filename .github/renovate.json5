@@ -8,7 +8,6 @@
     "github>ishioni/renovate-config:automerge-terraform-providers",
     "local>ishioni/homelab-ops//.github/renovate/allowedVersions.json5",
     "local>ishioni/homelab-ops//.github/renovate/autoMerge.json5",
-    "local>ishioni/homelab-ops//.github/renovate/clusters.json5",
     "local>ishioni/homelab-ops//.github/renovate/commitMessage.json5",
     "local>ishioni/homelab-ops//.github/renovate/disabledDatasources.json5",
     "local>ishioni/homelab-ops//.github/renovate/grafanaDashboards.json5",
@@ -24,5 +23,5 @@
     "ghcr.io/fluxcd/notification-controller",
     "ghcr.io/fluxcd/source-controller",
   ],
-  ignorePaths: ["archive/**"],
+  ignorePaths: ["archive/**","truenas/archive/**"],
 }

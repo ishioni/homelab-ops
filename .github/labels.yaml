@@ -15,7 +15,7 @@
 # Clusters
 - name: cluster/talos
   color: "ffc300"
-- name: cluster/truenas
+- name: area/truenas
   color: "ffc300"
 # Renovate
 - name: renovate/ansible
