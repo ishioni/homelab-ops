@@ -23,7 +23,7 @@ services:
     ports:
       - ${NODE_PORT}:${NODE_PORT}
     volumes:
-      - '/:/host:ro,rslave'
+      - "/:/host:ro,rslave"
   smartctl-exporter:
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.12.0
     container_name: smartctl-exporter
@@ -48,4 +48,4 @@ services:
     ports:
       - ${SMART_PORT}:${SMART_PORT}
     volumes:
-      - '/dev:/hostdev:ro,rslave'
+      - "/dev:/hostdev:ro,rslave"

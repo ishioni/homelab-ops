@@ -30,7 +30,7 @@ services:
       traefik.http.routers.s3.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.s3\.ishioni\.casa$`)
       traefik.http.routers.s3.tls.certresolver: letsencrypt
       traefik.http.routers.s3.tls.domains[0].main: ${S3_HOST}
-      traefik.http.routers.s3.tls.domains[0].sans: '*.${S3_HOST}'
+      traefik.http.routers.s3.tls.domains[0].sans: "*.${S3_HOST}"
       traefik.http.routers.s3.service: s3
       # Dashboard
       traefik.http.services.minio.loadbalancer.server.port: *consoleport

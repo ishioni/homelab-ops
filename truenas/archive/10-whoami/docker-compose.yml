@@ -20,8 +20,7 @@ services:
       traefik.http.routers.whoami.rule: Host(`${HOST}`) || HostRegexp(`^.+\.whoami\.ishioni\.casa$`)
       traefik.http.routers.whoami.tls.certresolver: letsencrypt
       traefik.http.routers.whoami.tls.domains[0].main: ${HOST}
-      traefik.http.routers.whoami.tls.domains[0].sans: '*.${HOST}'
-
+      traefik.http.routers.whoami.tls.domains[0].sans: "*.${HOST}"
 
 networks:
   apps:

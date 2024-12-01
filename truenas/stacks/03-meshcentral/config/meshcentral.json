@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
   "settings": {
-    "plugins":{"enabled": false},
+    "plugins": {"enabled": false},
     "_mongoDb": null,
     "cert": "meshcentraltest.ishioni.casa",
     "_WANonly": true,
