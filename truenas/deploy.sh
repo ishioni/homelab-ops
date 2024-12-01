@@ -1,5 +1,5 @@
 #!/bin/bash
-SEARCH_DIR=${1:-.}
+SEARCH_DIR=${1:-./stacks}
 
 if ! command -v sops &> /dev/null; then
     echo "Error: sops is not installed or not in PATH"
