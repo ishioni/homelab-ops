@@ -21,6 +21,6 @@ area/terraform:
 cluster/talos:
   - changed-files:
       - any-glob-to-any-file: kubernetes/talos/**/*
-cluster/truenas:
+area/truenas:
   - changed-files:
-      - any-glob-to-any-file: kubernetes/truenas/**/*
+      - any-glob-to-any-file: truenas/**/*
