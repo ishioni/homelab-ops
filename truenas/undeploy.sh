@@ -1,5 +1,4 @@
 #!/bin/bash
-source .envrc
 SEARCH_DIR=${1:-.}
 
 # Find all docker-compose.yml files and process them
