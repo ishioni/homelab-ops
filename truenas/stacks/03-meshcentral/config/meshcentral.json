@@ -3,7 +3,7 @@
   "settings": {
     "plugins": {"enabled": false},
     "_mongoDb": null,
-    "cert": "meshcentraltest.ishioni.casa",
+    "cert": "meshcentral.ishioni.casa",
     "_WANonly": true,
     "_LANonly": true,
     "sessionKey": "9QXOEAO8M0DRI5ACNCR2W4LSJL7SVT8QQAQU81G4R5QBYBH1",
