@@ -8,6 +8,8 @@ services:
     command: --api.insecure=true
     container_name: traefik
     restart: always
+    environment:
+      TZ: Europe/Warsaw
     networks:
       traefik_macvlan:
         ipv4_address: ${MACVLAN_ADDRESS}

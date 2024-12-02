@@ -27,6 +27,8 @@ services:
       apps:
     env_file:
       - ./secrets.env
+    environment:
+      TZ: Europe/Warsaw
     expose:
       - ${RTSP_PORT}
     configs:
@@ -40,6 +42,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      TZ: Europe/Warsaw
     networks:
       apps:
       traefik_macvlan:

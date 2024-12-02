@@ -8,6 +8,8 @@ services:
       apps:
     env_file:
       - .env
+    environment:
+      TZ: Europe/Warsaw
     expose:
       - ${APP_PORT}
     volumes:
