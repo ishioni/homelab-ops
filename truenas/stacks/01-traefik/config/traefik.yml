@@ -1,9 +1,9 @@
 ---
 api:
   dashboard: true
-# accesslog: {}
+accesslog: {}
 log:
-  level: INFO
+  level: DEBUG
 entryPoints:
   http:
     address: "0.0.0.0:80"
