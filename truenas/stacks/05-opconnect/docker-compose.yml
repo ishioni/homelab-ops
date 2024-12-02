@@ -12,6 +12,7 @@ services:
       OP_HTTP_PORT: &appPort ${APP_PORT}
       OP_BUS_PORT: &busPort 11220
       OP_BUS_PEERS: "opconnect-sync:11220"
+      TZ: Europe/Warsaw
     expose:
       - *busPort
       - *appPort
@@ -35,6 +36,7 @@ services:
     environment:
       OP_BUS_PORT: *busPort
       OP_BUS_PEERS: "opconnect-api:11220"
+      TZ: Europe/Warsaw
     expose:
       - *busPort
     volumes:

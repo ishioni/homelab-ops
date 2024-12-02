@@ -4,6 +4,8 @@ services:
     image: docker.io/haproxy:3.1.0
     container_name: haproxy
     restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
     networks:
       apps:
     expose:

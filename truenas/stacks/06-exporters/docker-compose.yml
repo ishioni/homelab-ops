@@ -6,12 +6,15 @@ services:
     restart: unless-stopped
     environment:
       SPEEDTEST_PORT: ${SPEEDTEST_PORT}
+      TZ: Europe/Warsaw
     ports:
       - ${SPEEDTEST_PORT}:${SPEEDTEST_PORT}
   node-exporter:
     image: quay.io/prometheus/node-exporter:v1.8.2
     container_name: node-exporter
     restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
     command:
       - --path.rootfs=/host
       - --no-collector.filesystem
@@ -28,6 +31,8 @@ services:
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.12.0
     container_name: smartctl-exporter
     restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
     command:
       - --smartctl.path=/usr/sbin/smartctl
       - --smartctl.interval=120s
