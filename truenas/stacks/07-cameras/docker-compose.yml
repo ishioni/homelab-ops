@@ -35,7 +35,6 @@ services:
       - source: mediamtx-config
         target: /mediamtx.yml
     volumes:
-      - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
   go2rtc:
     image: ghcr.io/alexxit/go2rtc:1.9.7
