@@ -8,7 +8,6 @@ services:
       apps:
     environment:
       TFTPD_OPTS: "--tftp-single-port"
-      TZ: Europe/Warsaw
     env_file:
       - .env
     ports:
