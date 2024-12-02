@@ -5,7 +5,6 @@ services:
       - path: ./secrets.env
         required: true
     image: traefik:v3.1.7
-    command: --api.insecure=true
     container_name: traefik
     restart: always
     environment:
