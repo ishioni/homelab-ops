@@ -13,8 +13,6 @@ services:
     image: quay.io/prometheus/node-exporter:v1.8.2
     container_name: node-exporter
     restart: unless-stopped
-    environment:
-      TZ: Europe/Warsaw
     command:
       - --path.rootfs=/host
       - --no-collector.filesystem
