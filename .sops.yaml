@@ -5,6 +5,12 @@ keys:
   - &truenas age13vdqhufmfl5am098ycrgq5e4t578y5hg304euutwymu532w5kgqsjz0yf9
 
 creation_rules:
+  - path_regex: kubernetes/.*/talos/.*\.sops\.ya?ml$
+    key_groups:
+      - age:
+          - *ishioni
+          - *talos
+
   - path_regex: kubernetes/talos/.*\.sops\.ya?ml
     input_type: yaml
     encrypted_regex: "^(data|stringData)$"
