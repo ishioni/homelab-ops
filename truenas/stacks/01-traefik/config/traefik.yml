@@ -16,6 +16,8 @@ entryPoints:
     address: ":443"
     http2:
       maxConcurrentStreams: 20
+  metrics:
+    address: ":8082"
   # webrtc-tcp:
   #   address: "0.0.0.0:8555"
   # webrtc-udp:
@@ -46,3 +48,9 @@ tls:
           main: ishioni.casa
           sans:
             - "*.ishioni.casa"
+metrics:
+  prometheus:
+    entryPoint: metrics
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
