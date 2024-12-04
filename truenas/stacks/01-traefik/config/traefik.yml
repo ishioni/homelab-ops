@@ -15,7 +15,7 @@ entryPoints:
   https:
     address: ":443"
     http2:
-      maxConcurrentStreams: 20
+      maxConcurrentStreams: 100
   metrics:
     address: ":8082"
   # webrtc-tcp:
