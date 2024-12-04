@@ -284,6 +284,11 @@ spec:
           gnetId: 11315
           revision: 9
           datasource: Prometheus
+        traefik:
+          # renovate: depName="Traefik"
+          gnetId: 17346
+          revision: 9
+          datasource: Prometheus
       storage:
         dragonfly:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
