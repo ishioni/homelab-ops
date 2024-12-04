@@ -14,6 +14,8 @@ entryPoints:
           scheme: https
   https:
     address: ":443"
+    http2:
+      maxConcurrentStreams: 20
   # webrtc-tcp:
   #   address: "0.0.0.0:8555"
   # webrtc-udp:
