@@ -6,14 +6,14 @@ log:
   level: INFO
 entryPoints:
   http:
-    address: "0.0.0.0:80"
+    address: ":80"
     http:
       redirections:
         entryPoint:
           to: https
           scheme: https
   https:
-    address: "0.0.0.0:443"
+    address: ":443"
   # webrtc-tcp:
   #   address: "0.0.0.0:8555"
   # webrtc-udp:
