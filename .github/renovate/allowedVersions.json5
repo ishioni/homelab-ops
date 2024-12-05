@@ -15,7 +15,7 @@
     {
       description: "Traefik 3.2 is broken",
       matchDatasources: ["docker"],
-      allowedVersions: "<=3.1",
+      allowedVersions: "<=2.11",
       matchPackageNames: ["traefik"]
     }
   ]
