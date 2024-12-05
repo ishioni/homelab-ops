@@ -24,6 +24,7 @@ entryPoints:
   #   address: "0.0.0.0:8555/udp"
 providers:
   docker:
+    network: apps
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
   file:
