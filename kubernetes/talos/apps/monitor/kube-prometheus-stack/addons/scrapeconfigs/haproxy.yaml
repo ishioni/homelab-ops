@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: &name minio
+  name: &name haproxy
 spec:
   staticConfigs: [targets: ["haproxystats.${PRIVATE_DOMAIN}"]]
   scheme: HTTPS
