@@ -5,7 +5,7 @@ services:
       - path: ./secrets.env
         required: true
     image: ghcr.io/bjw-s/lego-auto:v0.3.0
-    user: "99:568"
+    user: 99:568
     environment:
       TZ: Europe/Warsaw
       LA_DATADIR: /certs
@@ -13,10 +13,10 @@ services:
       LA_PROVIDER: cloudflare
       LA_DOMAINS: "*.ishioni.casa"
     volumes:
-      - certs:/certs
+      - ${DATA_PATH}:/certs
   haproxy:
     image: docker.io/haproxy:3.1.0
-    user: "99:568"
+    user: 99:568
     container_name: haproxy
     restart: unless-stopped
     environment:
