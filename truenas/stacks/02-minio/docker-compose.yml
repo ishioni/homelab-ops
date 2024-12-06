@@ -27,7 +27,7 @@ services:
       # S3
       traefik.http.services.s3.loadbalancer.server.port: *s3port
       traefik.http.routers.s3.entrypoints: https
-      traefik.http.routers.s3.rule: Host(`${S3_HOST}`) || HostRegexp(`{subdomain:.+}.${S3_HOST}`)
+      traefik.http.routers.s3.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
       traefik.http.routers.s3.tls.certresolver: letsencrypt
       traefik.http.routers.s3.tls.domains[0].main: ${S3_HOST}
       traefik.http.routers.s3.tls.domains[0].sans: "*.${S3_HOST}"
