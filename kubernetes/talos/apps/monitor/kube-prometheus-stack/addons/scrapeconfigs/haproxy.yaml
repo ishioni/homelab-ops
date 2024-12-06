@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name haproxy
 spec:
-  staticConfigs: [targets: ["haproxystats.${PRIVATE_DOMAIN}"]]
+  staticConfigs: [targets: ["haproxymetrics.${PRIVATE_DOMAIN}"]]
   scheme: HTTPS
   relabelings:
     - action: replace
