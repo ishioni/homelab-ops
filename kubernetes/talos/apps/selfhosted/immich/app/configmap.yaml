@@ -5,7 +5,7 @@ metadata:
   name: immich-configmap
 data:
   DB_PORT: "5432"
-  # LOG_LEVEL: verbose
+  LOG_LEVEL: verbose
   NODE_ENV: "production"
   REDIS_HOSTNAME: dragonfly.database.svc.cluster.local
   REDIS_PORT: "6379"
