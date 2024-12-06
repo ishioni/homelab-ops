@@ -5,10 +5,9 @@ kind: ScrapeConfig
 metadata:
   name: &name traefik
 spec:
-  staticConfigs:
-    - targets:
-        - "traefik.${PRIVATE_DOMAIN}:8082"
+  staticConfigs: [targets: ["traefik.${PRIVATE_DOMAIN}"]]
   metricsPath: /metrics
+  scheme: HTTPS
   honorTimestamps: true
   relabelings:
     - action: replace
