@@ -11,3 +11,9 @@ http:
           - main: ishioni.casa
             sans:
               - "*.ishioni.casa"
+    metrics:
+      rule: Host(`traefik.ishioni.casa`) && (PathPrefix(`/metrics`)
+      service: prometheus@internal
+      entryPoints:
+        - https
+      tls: true
