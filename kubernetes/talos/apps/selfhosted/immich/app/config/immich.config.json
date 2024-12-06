@@ -63,7 +63,7 @@
   },
   "logging": {
     "enabled": true,
-    "level": "warn"
+    "level": "debug"
   },
   "machineLearning": {
     "enabled": true,
