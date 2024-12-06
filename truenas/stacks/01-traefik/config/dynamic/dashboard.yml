@@ -12,7 +12,7 @@ http:
             sans:
               - "*.ishioni.casa"
     metrics:
-      rule: Host(`traefik.ishioni.casa`) && (PathPrefix(`/metrics`)
+      rule: Host(`traefik.ishioni.casa`) && PathPrefix(`/metrics`)
       service: prometheus@internal
       entryPoints:
         - https
