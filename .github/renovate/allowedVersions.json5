@@ -11,12 +11,6 @@
       matchDatasources: ["helm"],
       allowedVersions: "<=1.1.0",
       matchPackageNames: ["kubelet-csr-approver"]
-    },
-    {
-      description: "Traefik 3.2 is broken",
-      matchDatasources: ["docker"],
-      allowedVersions: "<=2.11",
-      matchPackageNames: ["traefik"]
     }
   ]
 }
