@@ -3,7 +3,7 @@ api:
   dashboard: true
 # accesslog: {}
 log:
-  level: DEBUG
+  level: INFO #DEBUG
 entryPoints:
   http:
     address: ":80"
