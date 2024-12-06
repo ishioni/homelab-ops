@@ -23,9 +23,6 @@ services:
     networks:
       traefik_macvlan:
         ipv4_address: ${MACVLAN_ADDRESS}
-    expose:
-      - &appPort ${APP_PORT}
-      - &statsPort ${HAPROXY_PORT}
     volumes:
       - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
       - certs:/etc/haproxy/certs
