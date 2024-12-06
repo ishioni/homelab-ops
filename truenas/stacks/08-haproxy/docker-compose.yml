@@ -1,5 +1,19 @@
 ---
 services:
+  lego-auto:
+    env_file:
+      - path: ./secrets.env
+        required: true
+    image: ghcr.io/bjw-s/lego-auto:v0.3.0
+    user: "99:99"
+    environment:
+      TZ: Europe/Warsaw
+      LA_DATADIR: /certs
+      LA_CACHEDIR: /certs/.cache
+      LA_PROVIDER: cloudflare
+      LA_DOMAINS: "*.ishioni.casa"
+    volumes:
+      - certs:/certs
   haproxy:
     image: docker.io/haproxy:3.1.0
     container_name: haproxy
@@ -7,26 +21,20 @@ services:
     environment:
       TZ: Europe/Warsaw
     networks:
-      apps:
+      traefik_macvlan:
+        ipv4_address: ${MACVLAN_ADDRESS}
     expose:
       - &appPort ${APP_PORT}
       - &statsPort ${HAPROXY_PORT}
     volumes:
       - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    labels:
-      traefik.enable: "true"
-      traefik.http.services.haproxy.loadbalancer.server.port: *appPort
-      traefik.http.routers.haproxy.entrypoints: https
-      traefik.http.routers.haproxy.rule: Host(`${HOST}`)
-      traefik.http.routers.haproxy.tls: true
-      traefik.http.routers.haproxy.service: haproxy
+      - certs:/etc/haproxy/certs
 
-      traefik.http.services.haproxy-stats.loadbalancer.server.port: *statsPort
-      traefik.http.routers.haproxy-stats.entrypoints: https
-      traefik.http.routers.haproxy-stats.rule: Host(`${HAPROXY_HOST}`)
-      traefik.http.routers.haproxy-stats.tls: true
-      traefik.http.routers.haproxy-stats.service: haproxy-stats
+volumes:
+  certs:
 
 networks:
   apps:
+    external: true
+  traefik_macvlan:
     external: true
