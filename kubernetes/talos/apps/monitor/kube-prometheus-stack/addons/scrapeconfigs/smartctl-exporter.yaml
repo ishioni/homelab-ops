@@ -7,11 +7,11 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - "proxmox-1.${PRIVATE_DOMAIN}:9633"
-        - "proxmox-2.${PRIVATE_DOMAIN}:9633"
-        - "proxmox-3.${PRIVATE_DOMAIN}:9633"
-        # - "proxmox-4.${SERVERS_DOMAIN}:9633"
-        - quadrant.${PRIVATE_DOMAIN}:9633"
+        - proxmox-1.${PRIVATE_DOMAIN}:9633
+        - proxmox-2.${PRIVATE_DOMAIN}:9633
+        - proxmox-3.${PRIVATE_DOMAIN}:9633
+        # - proxmox-4.${SERVERS_DOMAIN}:9633
+        - quadrant.${PRIVATE_DOMAIN}:9633
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:
