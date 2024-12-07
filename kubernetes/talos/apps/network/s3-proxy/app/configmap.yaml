@@ -22,7 +22,7 @@ data:
         proxy_set_header Host "s3.${PRIVATE_DOMAIN}";
         proxy_hide_header "Set-Cookie";
         proxy_intercept_errors on;
-        proxy_pass https://s3.${PRIVATE_DOMAIN}/static-content/;
+        proxy_pass https://cdn.s3.${PRIVATE_DOMAIN}/;
         }
       }
     }

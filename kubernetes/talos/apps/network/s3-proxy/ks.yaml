@@ -20,4 +20,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: static.${PUBLIC_DOMAIN}
+      HOSTNAME: cdn.${PUBLIC_DOMAIN}

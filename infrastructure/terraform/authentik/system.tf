@@ -6,8 +6,8 @@ resource "authentik_brand" "home" {
   domain           = var.public_domain
   default          = false
   branding_title   = "Home"
-  branding_logo    = "https://static.${var.public_domain}/branding/Banner2-white.svg"
-  branding_favicon = "https://static.${var.public_domain}/branding/favicon.png"
+  branding_logo    = "https://cdn.${var.public_domain}/branding/Banner2-white.svg"
+  branding_favicon = "https://cdn.${var.public_domain}/branding/favicon.png"
 
   flow_authentication = authentik_flow.authentication.uuid
   flow_invalidation   = authentik_flow.invalidation.uuid
