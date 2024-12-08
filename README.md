@@ -121,7 +121,7 @@ In my cluster there are two [ExternalDNS](https://github.com/kubernetes-sigs/ext
 | Unifi USW-Enterprise-24-POE | 1     | -            | -                       | -    | -                | Network Switch      |
 | Dell Optiplex 7040         | 4     | 512GB NVMe   | -                       | 64GB | Debian 12 (PVE)  | Virtualization Host |
 | Cyberpower OR600ERM1U      | 1     | -            | -                       | -    | -                | UPS                 |
-| QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x4TB HDD | 32GB | TrueNAS Scale    | NAS                 |
+| QNAP TVS-682               | 1     | 2x256GB SATA | 2x512GB SSD + 4x12TB HDD| 32GB | TrueNAS Scale    | NAS                 |
 | ESP32+Ebyte 72 POE adapter | 1     | -            | -                       | -    | ESPHome          | Zigbee adapter      |
 
 ---
