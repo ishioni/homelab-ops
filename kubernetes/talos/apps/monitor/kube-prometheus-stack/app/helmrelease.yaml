@@ -150,6 +150,10 @@ spec:
       thanosServiceMonitor:
         enabled: true
       prometheusSpec:
+        image:
+          registry: quay.io
+          repository: prometheus/prometheus
+          tag: v3.0.1
         replicas: 1
         replicaExternalLabelName: "__replica__"
         scrapeInterval: 30s
@@ -162,9 +166,7 @@ spec:
         enableAdminAPI: true
         walCompression: true
         enabledFeatures:
-          - auto-gomaxprocs
           - memory-snapshot-on-shutdown
-          - new-service-discovery-manager
         retention: 2d
         retentionSize: 6GB
         ruleSelector: {}
