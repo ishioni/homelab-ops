@@ -21,6 +21,7 @@ services:
     volumes:
       - ${CONFIG_PATH}:/config
       - ${ASSETS_PATH}:/assets
+      - ./config/nginx.default.conf:/defaults/default
     labels:
       traefik.enable: "true"
       traefik.http.services.netboot.loadbalancer.server.port: *webapp
