@@ -11,3 +11,5 @@ spec:
   podTargetLabels: ["app"]
   podMetricsEndpoints:
     - port: admin
+  scrapeProtocols:
+    - PrometheusProto
