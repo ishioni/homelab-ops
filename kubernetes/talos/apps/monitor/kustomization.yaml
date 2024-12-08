@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
+  - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./nut-exporter/ks.yaml
   - ./thanos/ks.yaml
