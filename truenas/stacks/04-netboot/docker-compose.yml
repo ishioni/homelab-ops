@@ -22,7 +22,7 @@ services:
       - ${CONFIG_PATH}:/config
       - ${ASSETS_PATH}:/assets
       # https://github.com/netbootxyz/docker-netbootxyz/pull/70
-      # - ./config/nginx.default.conf:/defaults/default
+      - ./config/nginx.default.conf:/defaults/default
     labels:
       traefik.enable: "true"
       traefik.http.services.netboot.loadbalancer.server.port: *webapp
