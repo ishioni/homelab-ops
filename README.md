@@ -73,7 +73,7 @@ This Git repository contains the following directories under [kubernetes](./kube
 │   ├─📁 apps          # applications
 │   ├─📁 bootstrap     # bootstrap procedures
 │   └─📁 flux          # core flux configuration
- 📁 truenas        # Truenas docker-compose
+📁 truenas         # Truenas docker-compose
 ├── 📁 stacks          # applications
 ```
 
