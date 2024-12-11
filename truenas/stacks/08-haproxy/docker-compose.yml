@@ -15,7 +15,7 @@ services:
     volumes:
       - ${DATA_PATH}:/certs
   haproxy:
-    image: docker.io/haproxy:3.1.0
+    image: docker.io/haproxy:3.1.1
     user: 99:568
     container_name: haproxy
     restart: unless-stopped
