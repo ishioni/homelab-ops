@@ -186,6 +186,8 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
+        - init_on_alloc=0
+        - init_on_free=0
         - mitigations=off
       systemExtensions:
         officialExtensions:
@@ -242,6 +244,8 @@ worker:
   schematic:
     customization:
       extraKernelArgs:
+        - init_on_alloc=0
+        - init_on_free=0
         - mitigations=off
         - i915.disable_display=true
       systemExtensions:
