@@ -75,8 +75,6 @@ nodes:
           driver: virtio_net
         mtu: 1500
         dhcp: true
-    # nodeLabels: &workerLabels
-    #   node-role.kubernetes.io/worker: worker
 
   - hostname: worker-1.${clusterDNSSuffix}
     disableSearchDomain: true
@@ -94,7 +92,6 @@ nodes:
           driver: virtio_net
         mtu: 1500
         dhcp: true
-    # nodeLabels: *workerLabels
 
   - hostname: worker-2.${clusterDNSSuffix}
     disableSearchDomain: true
@@ -112,7 +109,6 @@ nodes:
           driver: virtio_net
         mtu: 1500
         dhcp: true
-    # nodeLabels: *workerLabels
 
 patches:
   # Force nameserver
@@ -173,14 +169,6 @@ patches:
     machine:
       network:
         disableSearchDomain: true
-  # Configure cluster loopback
-  # - &staticHostEntriesPatch |-
-  #   machine:
-  #     network:
-  #       extraHostEntries:
-  #         - ip: ${clusterEndpointIP}
-  #           aliases:
-  #             - ${clusterName}.${clusterDNSSuffix}
 
 controlPlane:
   schematic:
