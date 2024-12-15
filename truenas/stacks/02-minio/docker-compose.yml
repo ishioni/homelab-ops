@@ -1,7 +1,7 @@
 ---
 services:
   minio:
-    image: quay.io/minio/minio:RELEASE.2024-11-07T00-52-20Z
+    image: quay.io/minio/minio:RELEASE.2024-12-13T22-19-12Z
     command: ["minio", "server", "/data", "--console-address", ":9001"]
     container_name: minio
     restart: unless-stopped
