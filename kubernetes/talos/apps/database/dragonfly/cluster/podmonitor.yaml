@@ -11,3 +11,4 @@ spec:
   podTargetLabels: ["app"]
   podMetricsEndpoints:
     - port: admin
+  scrapeFallbackProtocol: PrometheusText0.0.4
