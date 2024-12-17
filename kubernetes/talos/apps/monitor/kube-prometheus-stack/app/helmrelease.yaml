@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 66.7.1
+      version: 67.2.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -161,13 +161,12 @@ spec:
         enableAdminAPI: true
         walCompression: true
         enabledFeatures:
-          - auto-gomaxprocs
           - memory-snapshot-on-shutdown
-          - new-service-discovery-manager
         retention: 2d
         retentionSize: 6GB
         ruleSelector: {}
         ruleNamespaceSelector: {}
+        scrapeFallbackProtocol: PrometheusProto
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
         podMonitorSelector: {}
