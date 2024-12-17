@@ -239,7 +239,7 @@ worker:
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
-          - siderolabs/i915-ucode
+          - siderolabs/i915
           - siderolabs/iscsi-tools
   patches:
     # Extra SSD to mount
