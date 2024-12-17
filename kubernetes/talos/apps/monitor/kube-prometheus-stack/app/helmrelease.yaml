@@ -166,7 +166,6 @@ spec:
         retentionSize: 6GB
         ruleSelector: {}
         ruleNamespaceSelector: {}
-        scrapeFallbackProtocol: PrometheusProto
         serviceMonitorSelector: {}
         serviceMonitorNamespaceSelector: {}
         podMonitorSelector: {}
