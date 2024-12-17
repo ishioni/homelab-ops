@@ -37,7 +37,7 @@ spec:
           init-config:
             image:
               repository: docker.io/owncloud/ocis
-              tag: 5.0.9
+              tag: 7.0.0
             command:
               - /bin/sh
               - -c
@@ -50,7 +50,7 @@ spec:
           ocis:
             image:
               repository: docker.io/owncloud/ocis
-              tag: 5.0.9
+              tag: 7.0.0
             envFrom:
               - secretRef:
                   name: *secret
