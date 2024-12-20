@@ -15,10 +15,17 @@ spec:
       - receiver: "null"
         matchers:
           - name: alertname
-            value: InfoInhibitor #|Watchdog|CPUThrottlingHigh"
+            value: InfoInhibitor
+            matchType: =
+          - name: alertname
+            value: Watchdog
             matchType: =
         continue: false
       - receiver: "telegram"
+        matchers:
+          - name: severity
+            value: critical
+            matchType: =
   inhibitRules:
     - equal: ["alertname", "namespace"]
       sourceMatch:
