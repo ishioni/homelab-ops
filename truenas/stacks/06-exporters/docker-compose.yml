@@ -26,7 +26,7 @@ services:
     volumes:
       - "/:/host:ro,rslave"
   smartctl-exporter:
-    image: quay.io/prometheuscommunity/smartctl-exporter:v0.12.0
+    image: quay.io/prometheuscommunity/smartctl-exporter:v0.13.0
     container_name: smartctl-exporter
     restart: unless-stopped
     environment:
