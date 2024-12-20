@@ -41,9 +41,6 @@ spec:
     - name: telegram
       telegramConfigs:
         - parseMode: "HTML"
-          disableNotifications: false
-          sendResolved: true
-          apiURL: https://api.telegram.org
           chatID: 879509412
           botToken:
             key: TELEGRAM_BOT_TOKEN
