@@ -14,7 +14,9 @@ spec:
     routes:
       - receiver: "null"
         matchers:
-          - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+          - name: alertname
+            value: InfoInhibitor |Watchdog|CPUThrottlingHigh"
+            matchType: ~=
         continue: false
       - receiver: "telegram"
   inhibitRules:
