@@ -15,8 +15,8 @@ spec:
       - receiver: "null"
         matchers:
           - name: alertname
-            value: InfoInhibitor |Watchdog|CPUThrottlingHigh"
-            matchType: ~=
+            value: InfoInhibitor #|Watchdog|CPUThrottlingHigh"
+            matchType: =
         continue: false
       - receiver: "telegram"
   inhibitRules:
