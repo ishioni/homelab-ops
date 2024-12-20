@@ -9,7 +9,7 @@ spec:
     groupBy: ["alertname", "job"]
     groupInterval: 10m
     groupWait: 1m
-    receiver: pushover
+    receiver: telegram
     repeatInterval: 12h
     routes:
       - receiver: "null"
