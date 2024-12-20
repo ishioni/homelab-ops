@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/alertmanagerconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager
+spec:
+  route:
+    groupBy: ["alertname", "job"]
+    groupInterval: 10m
+    groupWait: 1m
+    receiver: pushover
+    repeatInterval: 12h
+    routes:
+      - receiver: "null"
+        matchers:
+          - alertname =~ "InfoInhibitor|Watchdog|CPUThrottlingHigh"
+        continue: false
+      - receiver: "telegram"
+  inhibitRules:
+    - equal: ["alertname", "namespace"]
+      sourceMatch:
+        - name: severity
+          value: critical
+          matchType: =
+      targetMatch:
+        - name: severity
+          value: warning
+          matchType: =
+  receivers:
+    - name: "null"
+    - name: telegram
+      telegramConfigs:
+        - parseMode: "HTML"
+          disableNotifications: false
+          sendResolved: true
+          apiURL: https://api.telegram.org
+          chatID: 879509412
+          botToken:
+            key: TELEGRAM_BOT_TOKEN
+            name: alertmanager-secret

@@ -26,33 +26,6 @@ spec:
     crds:
       enabled: false
     cleanPrometheusOperatorObjectNames: true
-    defaultRules:
-      create: true
-      rules:
-        alertmanager: true
-        etcd: true
-        configReloaders: true
-        general: true
-        k8s: true
-        kubeApiserver: true
-        kubeApiserverAvailability: true
-        kubeApiserverSlos: true
-        kubelet: true
-        kubeProxy: false
-        kubePrometheusGeneral: true
-        kubePrometheusNodeRecording: true
-        kubernetesApps: true
-        kubernetesResources: true
-        kubernetesStorage: true
-        kubernetesSystem: true
-        kubeScheduler: false
-        kubeStateMetrics: true
-        network: true
-        node: true
-        nodeExporterAlerting: true
-        nodeExporterRecording: true
-        prometheus: true
-        prometheusOperator: true
     kubeApiServer:
       serviceMonitor:
         selector:
@@ -69,12 +42,8 @@ spec:
       <<: *kubeControllerManager # etcd runs on control plane nodes
     kubeProxy:
       enabled: false
-    kube-state-metrics:
-      fullnameOverride: kube-state-metrics
-      metricLabelsAllowlist:
-        - pods=[*]
-        - deployments=[*]
-        - persistentvolumeclaims=[*]
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
       prometheus:
         monitor:
           enabled: true
@@ -84,31 +53,12 @@ spec:
               replacement: $1
               sourceLabels: [__meta_kubernetes_pod_node_name]
               targetLabel: kubernetes_node
-    alertmanager:
-      ingress:
-        enabled: true
-        ingressClassName: private
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Infrastructure
-          gethomepage.dev/name: Alert Manager
-          gethomepage.dev/icon: alertmanager.svg
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
-        hosts:
-          - &host ${ALERT_HOSTNAME}
-        tls: [hosts: [*host]]
-      alertmanagerSpec:
-        useExistingSecret: true
-        configSecret: alertmanager-secret
-        storage:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: truenas-ssd-iscsi
-              resources:
-                requests:
-                  storage: 1Gi
-    prometheus-node-exporter:
-      fullnameOverride: node-exporter
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
       prometheus:
         monitor:
           enabled: true
@@ -128,6 +78,29 @@ spec:
       #     multicluster:
       #       etcd:
       #         enabled: true
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: private
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/name: Alert Manager
+          gethomepage.dev/icon: alertmanager.svg
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
+        hosts: ["${ALERT_HOSTNAME}"]
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: truenas-ssd-iscsi
+              resources:
+                requests:
+                  storage: 1Gi
     prometheus:
       ingress:
         enabled: true
@@ -141,13 +114,7 @@ spec:
           gethomepage.dev/widget.type: prometheus
           gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.monitor:9090
         pathType: Prefix
-        hosts:
-          - &host ${HOSTNAME}
-        tls: [hosts: [*host]]
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
+        hosts: ["${HOSTNAME}"]
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "__replica__"
@@ -164,12 +131,6 @@ spec:
           - memory-snapshot-on-shutdown
         retention: 2d
         retentionSize: 6GB
-        ruleSelector: {}
-        ruleNamespaceSelector: {}
-        serviceMonitorSelector: {}
-        serviceMonitorNamespaceSelector: {}
-        podMonitorSelector: {}
-        podMonitorNamespaceSelector: {}
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -183,3 +144,7 @@ spec:
             existingSecret:
               name: thanos-objectstore-secret
               key: objstore.yml
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
