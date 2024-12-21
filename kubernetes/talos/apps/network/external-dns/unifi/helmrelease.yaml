@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
-    domainFilters: ["${PUBLIC_DOMAIN}"]
+    domainFilters: ["${PUBLIC_DOMAIN}", "${PRIVATE_DOMAIN}"]
     policy: sync
     sources: [ingress, service]
     triggerLoopOnEvent: true
