@@ -28,7 +28,7 @@ services:
     volumes:
       - /:/host/root:ro
       - /proc:/host/proc:ro
-      - /sys:/hosts/sys:ro
+      - /sys:/host/sys:ro
   smartctl-exporter:
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.13.0
     container_name: smartctl-exporter
