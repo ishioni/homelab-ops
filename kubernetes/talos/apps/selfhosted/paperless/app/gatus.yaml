@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: Documents
         group: Applications
-        url: https://documents.${PUBLIC_DOMAIN}/status.php
+        url: https://${HOSTNAME}/status.php
         interval: 1m
         ui:
           hide-hostname: true

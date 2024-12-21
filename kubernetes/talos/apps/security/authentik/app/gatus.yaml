@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: SSO
         group: Services
-        url: https://auth.${PUBLIC_DOMAIN}
+        url: https://${HOSTNAME}
         interval: 1m
         ui:
           hide-hostname: true

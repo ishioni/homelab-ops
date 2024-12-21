@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: public
   rules:
-    - host: &host "flux-receiver.${PUBLIC_DOMAIN}"
+    - host: "flux-receiver.${PUBLIC_DOMAIN}"
       http:
         paths:
           - path: /hook/
@@ -16,4 +16,3 @@ spec:
                 name: webhook-receiver
                 port:
                   number: 80
-  tls: [hosts: [*host]]

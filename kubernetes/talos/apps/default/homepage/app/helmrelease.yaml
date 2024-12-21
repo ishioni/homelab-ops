@@ -58,13 +58,12 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: |-
             https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
         enabled: true

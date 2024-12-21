@@ -54,11 +54,8 @@ spec:
           gethomepage.dev/widget.type: authentik
           gethomepage.dev/widget.url: http://authentik-server.security
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
-        hosts:
-          - &host ${HOSTNAME}
-        paths:
-          - /
-        tls: [hosts: [*host]]
+        hosts: ["${HOSTNAME}"]
+        paths: [/]
     worker:
       replicas: 1
       resources:

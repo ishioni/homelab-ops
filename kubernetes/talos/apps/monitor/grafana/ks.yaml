@@ -22,5 +22,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: grafana.${PUBLIC_DOMAIN}
+      HOSTNAME: grafana.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}

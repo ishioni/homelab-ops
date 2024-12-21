@@ -219,14 +219,13 @@ spec:
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_IMMICH_TOKEN}}`}}"
           gethomepage.dev/widget.version: "2"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   identifier: server
                   port: http
-        tls: [hosts: [*host]]
 
     persistence:
       config:

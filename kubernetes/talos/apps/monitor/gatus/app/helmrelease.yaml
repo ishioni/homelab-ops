@@ -50,7 +50,6 @@ spec:
               TZ: ${CONFIG_TIMEZONE}
               PUBLIC_DOMAIN: ${PUBLIC_DOMAIN}
               PRIVATE_DOMAIN: ${PRIVATE_DOMAIN}
-              NAS_DOMAIN: ${NAS_DOMAIN}
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
               CUSTOM_WEB_PORT: &port 8080
@@ -108,13 +107,12 @@ spec:
       app:
         className: public
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     serviceAccount:
       create: true
       name: gatus

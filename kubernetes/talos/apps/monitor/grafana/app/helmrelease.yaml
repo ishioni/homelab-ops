@@ -43,9 +43,7 @@ spec:
         gethomepage.dev/name: Grafana
         gethomepage.dev/icon: grafana.svg
       ingressClassName: private
-      hosts:
-        - &host ${HOSTNAME}
-      tls: [hosts: [*host]]
+      hosts: ["${HOSTNAME}"]
     env:
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
     envFromSecrets:

@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: hass-proxy
 spec:
-  externalName: homeassistant.${PRIVATE_DOMAIN}
+  externalName: ${HOSTNAME}
   ports:
     - name: http
       port: 8123

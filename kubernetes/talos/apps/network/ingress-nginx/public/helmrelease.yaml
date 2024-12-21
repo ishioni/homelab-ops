@@ -21,7 +21,7 @@ spec:
         - name: TZ
           value: "${CONFIG_TIMEZONE}"
       extraArgs:
-        default-ssl-certificate: "network/default-certificate"
+        default-ssl-certificate: "network/default-public-certificate"
       terminationGracePeriodSeconds: 120
       kind: Deployment
       electionID: "ingress-public-leader"

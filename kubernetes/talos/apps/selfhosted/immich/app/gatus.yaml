@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: Photos
         group: Applications
-        url: https://photos.${PUBLIC_DOMAIN}
+        url: https://${HOSTNAME}
         interval: 1m
         ui:
           hide-hostname: true

@@ -73,13 +73,12 @@ spec:
           gethomepage.dev/widget.url: http://audiobookshelf.media:8080
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}`}}"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
