@@ -14,28 +14,32 @@ services:
     container_name: node-exporter
     restart: unless-stopped
     command:
-      - --path.rootfs=/host
-      - --no-collector.filesystem
-      - --no-collector.zfs
+      - --path.rootfs=/host/root
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sysfs
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+      # - --no-collector.filesystem
+      # - --no-collector.zfs
       # - --no-collector.filesystem
       # - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
       # - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
-    pid: host
     ports:
       - ${NODE_PORT}:${NODE_PORT}
     volumes:
-      - "/:/host:ro,rslave"
+      - /:/host/root:ro
+      - /proc:/host/proc:ro
+      - /sys:/hosts/sys:ro
   smartctl-exporter:
     image: quay.io/prometheuscommunity/smartctl-exporter:v0.13.0
     container_name: smartctl-exporter
     restart: unless-stopped
     environment:
       TZ: Europe/Warsaw
-    command:
-      - --smartctl.path=/usr/sbin/smartctl
-      - --smartctl.interval=120s
-      - --web.listen-address=0.0.0.0:9633
-      - --web.telemetry-path=/metrics
+    # command:
+    #   - --smartctl.path=/usr/sbin/smartctl
+    #   - --smartctl.interval=120s
+    #   - --web.listen-address=0.0.0.0:9633
+    #   - --web.telemetry-path=/metrics
       # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HJPV7VH
       # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HJUZERH
       # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HK07LRH
@@ -50,5 +54,5 @@ services:
     user: root
     ports:
       - ${SMART_PORT}:${SMART_PORT}
-    volumes:
-      - "/dev:/hostdev:ro,rslave"
+    # volumes:
+    #   - "/dev:/hostdev:ro,rslave"
