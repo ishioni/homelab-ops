@@ -16,7 +16,7 @@ services:
     command:
       - --path.rootfs=/host/root
       - --path.procfs=/host/proc
-      - --path.sysfs=/host/sysfs
+      - --path.sysfs=/host/sys
       - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
       # - --no-collector.filesystem
       # - --no-collector.zfs
