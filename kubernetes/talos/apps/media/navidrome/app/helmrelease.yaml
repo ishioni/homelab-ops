@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/navidrome/navidrome
-              tag: 0.53.3
+              tag: 0.54.1
             env:
               TZ: ${CONFIG_TIMEZONE}
               ND_DATAFOLDER: /config
@@ -43,6 +43,7 @@ spec:
               ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
               ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
               ND_AUTHREQUESTLIMIT: 0
+              ND_ENABLEINSIGHTSCOLLECTOR: "false"
             probes:
               liveness: &probes
                 enabled: true
