@@ -43,6 +43,7 @@ spec:
               ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
               ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
               ND_AUTHREQUESTLIMIT: 0
+              ND_ENABLEINSIGHTSCOLLECTOR: "false"
             probes:
               liveness: &probes
                 enabled: true
