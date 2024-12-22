@@ -53,7 +53,7 @@ spec:
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
               PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: ${CONFIG_TIMEZONE}
-              PAPERLESS_URL: https://documents.${PUBLIC_DOMAIN}
+              PAPERLESS_URL: https://${HOSTNAME}
               USERMAP_UID: 568
               USERMAP_GID: 568
             envFrom:
@@ -125,13 +125,12 @@ spec:
           # gethomepage.dev/widget.url: http://paperless.selfhosted:8000
           # gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       library:
         existingClaim: ${VOLSYNC_CLAIM}

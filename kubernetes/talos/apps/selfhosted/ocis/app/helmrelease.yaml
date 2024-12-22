@@ -63,7 +63,7 @@ spec:
               OCIS_OIDC_ISSUER: https://auth.movishell.pl/application/o/owncloud/
               OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: "false"
               OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: "true"
-              OCIS_URL: https://files.movishell.pl
+              OCIS_URL: https://${HOSTNAME}
               PROXY_AUTOPROVISION_ACCOUNTS: true
               PROXY_TLS: false
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
@@ -111,14 +111,13 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/custom-http-errors: "418"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
         type: configMap

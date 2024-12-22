@@ -39,10 +39,9 @@ spec:
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: IT-Tools
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]

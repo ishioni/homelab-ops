@@ -20,3 +20,4 @@ spec:
         selector:
           dnsZones:
             - ${PUBLIC_DOMAIN}
+            - ${PRIVATE_DOMAIN}

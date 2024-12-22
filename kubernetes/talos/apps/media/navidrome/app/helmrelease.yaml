@@ -82,13 +82,12 @@ spec:
           gethomepage.dev/widget.token: "{{`{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}`}}"
           gethomepage.dev/widget.salt: "{{`{{HOMEPAGE_VAR_NAVIDROME_SALT}}`}}"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
         existingClaim: ${VOLSYNC_CLAIM}

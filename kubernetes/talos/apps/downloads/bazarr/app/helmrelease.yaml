@@ -96,13 +96,12 @@ spec:
           gethomepage.dev/widget.url: http://bazarr.downloads:6767
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_BAZARR_TOKEN}}`}}"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
         enabled: true

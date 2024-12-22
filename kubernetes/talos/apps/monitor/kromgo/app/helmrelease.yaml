@@ -69,13 +69,12 @@ spec:
       app:
         className: public
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config-file:
         type: configMap

@@ -103,13 +103,12 @@ spec:
           gethomepage.dev/widget.url: http://lidarr.downloads
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_LIDARR_TOKEN}}`}}"
         hosts:
-          - host: &host ${HOSTNAME}
+          - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls: [hosts: [*host]]
     persistence:
       config:
         existingClaim: ${PVC_CLAIM}

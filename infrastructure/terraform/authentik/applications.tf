@@ -110,7 +110,7 @@ module "oauth2-grafana" {
   source             = "./oauth2_application"
   name               = "Grafana"
   icon_url           = "https://raw.githubusercontent.com/grafana/grafana/main/public/img/icons/mono/grafana.svg"
-  launch_url         = "https://grafana.${var.public_domain}"
+  launch_url         = "https://grafana.${var.private_domain}"
   description        = "Infrastructure graphs"
   newtab             = true
   group              = "Infrastructure"
@@ -119,7 +119,7 @@ module "oauth2-grafana" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_grafana.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_grafana.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://grafana.${var.public_domain}/login/generic_oauth"]
+  redirect_uris      = ["https://grafana.${var.private_domain}/login/generic_oauth"]
 }
 
 module "oauth2-immich" {
@@ -145,7 +145,7 @@ module "oauth2-proxmox" {
   source             = "./oauth2_application"
   name               = "Proxmox"
   icon_url           = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
-  launch_url         = "https://proxmox.ishioni.casa"
+  launch_url         = "https://proxmox.${var.private_domain}"
   description        = "Virtualization"
   newtab             = true
   group              = "Infrastructure"
@@ -155,11 +155,11 @@ module "oauth2-proxmox" {
   client_id          = module.secret_proxmox.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_proxmox.fields["OIDC_CLIENT_SECRET"]
   redirect_uris = [
-    "https://proxmox.ishioni.casa",
-    "https://proxmox-1.ishioni.casa",
-    "https://proxmox-2.ishioni.casa",
-    "https://proxmox-3.ishioni.casa",
-    "https://proxmox-4.ishioni.casa"
+    "https://proxmox.${var.private_domain}",
+    "https://proxmox-1.${var.private_domain}",
+    "https://proxmox-2.${var.private_domain}",
+    "https://proxmox-3.${var.private_domain}",
+    "https://proxmox-4.${var.private_domain}"
   ]
 }
 
@@ -183,7 +183,7 @@ module "oauth2-paperless" {
   source             = "./oauth2_application"
   name               = "Paperless"
   icon_url           = "https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/dev/resources/logo/web/svg/Color%20logo%20-%20no%20background.svg"
-  launch_url         = "https://documents.movishell.pl"
+  launch_url         = "https://documents.${var.private_domain}"
   description        = "Documents"
   newtab             = true
   group              = "Selfhosted"
@@ -192,14 +192,14 @@ module "oauth2-paperless" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_paperless.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_paperless.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://documents.movishell.pl/accounts/oidc/authentik/login/callback/"]
+  redirect_uris      = ["https://documents.${var.private_domain}/accounts/oidc/authentik/login/callback/"]
 }
 
 module "oauth2-ocis" {
   source             = "./oauth2_application"
   name               = "Owncloud"
   icon_url           = "https://raw.githubusercontent.com/owncloud/owncloud.github.io/main/static/favicon/favicon.png"
-  launch_url         = "https://files.movishell.pl"
+  launch_url         = "https://files.${var.public_domain}"
   description        = "Files"
   newtab             = true
   group              = "Selfhosted"
@@ -210,9 +210,9 @@ module "oauth2-ocis" {
   client_id          = module.secret_ocis.fields["OIDC_CLIENT_ID"]
   # additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
   redirect_uris = [
-    "https://files.movishell.pl",
-    "https://files.movishell.pl/oidc-callback.html",
-    "https://files.movishell.pl/oidc-silent-redirect.html"
+    "https://files.${var.public_domain}",
+    "https://files.${var.public_domain}/oidc-callback.html",
+    "https://files.${var.public_domain}/oidc-silent-redirect.html"
   ]
 }
 

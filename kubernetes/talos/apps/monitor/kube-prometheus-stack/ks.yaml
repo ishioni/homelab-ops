@@ -40,5 +40,5 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: prometheus.${PUBLIC_DOMAIN}
-      ALERT_HOSTNAME: alerts.${PUBLIC_DOMAIN}
+      HOSTNAME: prometheus.${PRIVATE_DOMAIN}
+      ALERT_HOSTNAME: alerts.${PRIVATE_DOMAIN}
