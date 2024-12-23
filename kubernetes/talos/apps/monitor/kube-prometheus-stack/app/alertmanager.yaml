@@ -15,17 +15,15 @@ spec:
       - receiver: "null"
         matchers:
           - name: alertname
-            value: InfoInhibitor
-            matchType: =
-          - name: alertname
-            value: Watchdog
-            matchType: =
+            value: InfoInhibitor|Watchdog
+            matchType: =~
         continue: false
       - receiver: "telegram"
         matchers:
           - name: severity
             value: critical
             matchType: =
+        continue: true
   inhibitRules:
     - equal: ["alertname", "namespace"]
       sourceMatch:
