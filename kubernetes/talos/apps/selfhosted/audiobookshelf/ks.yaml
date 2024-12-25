@@ -3,17 +3,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: media-navidrome
+  name: selfhosted-audiobookshelf
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/media/navidrome/app
-  targetNamespace: media
+  path: ./kubernetes/talos/apps/selfhosted/audiobookshelf/app
+  targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository
     name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname navidrome
+      app.kubernetes.io/name: &appname audiobookshelf
   prune: true
   wait: false
   interval: 10m
@@ -25,12 +25,11 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: navidrome.${PUBLIC_DOMAIN}
+      HOSTNAME: audiobooks.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "5000"
-      VOLSYNC_CLAIM: navidrome-config
+      VOLSYNC_CLAIM: audiobookshelf-config
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
       VOLSYNC_STORAGECLASS: truenas-ssd-iscsi
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
-      VOLSYNC_TIME: 0 1 * * *
