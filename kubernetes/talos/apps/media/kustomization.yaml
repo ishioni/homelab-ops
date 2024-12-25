@@ -6,4 +6,4 @@ resources:
   - ./namespace.yaml
   # - ./audiobookshelf/ks.yaml
   # - ./navidrome/ks.yaml
-  - ./pvc
+  # - ./pvc
