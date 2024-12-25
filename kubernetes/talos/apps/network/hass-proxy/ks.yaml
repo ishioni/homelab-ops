@@ -6,8 +6,8 @@ metadata:
   name: automation-hass-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/automation/hass-proxy/app
-  targetNamespace: automation
+  path: ./kubernetes/talos/apps/network/hass-proxy/app
+  targetNamespace: network
   sourceRef:
     kind: GitRepository
     name: homelab-ops
