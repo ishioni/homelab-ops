@@ -8,6 +8,6 @@ resources:
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./navidrome/ks.yaml
-  - ./nextcloud/ks.yaml
+  # - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml
   - ./pvc
