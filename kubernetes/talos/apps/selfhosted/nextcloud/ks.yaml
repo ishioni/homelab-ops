@@ -28,8 +28,8 @@ spec:
       APP: *appname
       HOSTNAME: files.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
-      APP_UID: "82"
-      APP_GID: "82"
+      APP_UID: "1022"
+      APP_GID: "1022"
       VOLSYNC_CLAIM: nextcloud-config
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
