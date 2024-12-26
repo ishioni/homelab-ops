@@ -25,11 +25,6 @@ spec:
       tag: 30.0.4-fpm-alpine
     nextcloud:
       host: ${HOSTNAME}
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_GID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.6
@@ -240,8 +235,6 @@ spec:
         repository: public.ecr.aws/nginx/nginx
       config:
         default: true
-      securityContext:
-        runAsGroup: ${APP_GID}
       resources:
         requests:
           cpu: 50m
@@ -268,7 +261,3 @@ spec:
         enabled: false
     cronjob:
       enabled: true
-      securityContext:
-        runAsGroup: ${APP_GID}
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
