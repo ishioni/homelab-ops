@@ -64,12 +64,6 @@ module "secret_paperless" {
   item   = "paperless"
 }
 
-module "secret_ocis" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
-  vault  = "Homelab"
-  item   = "ocis"
-}
-
 module "secret_kyoo" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"

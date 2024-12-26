@@ -8,6 +8,5 @@ resources:
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./navidrome/ks.yaml
-  - ./ocis/ks.yaml
   - ./paperless/ks.yaml
   - ./pvc
