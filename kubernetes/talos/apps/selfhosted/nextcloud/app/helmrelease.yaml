@@ -24,12 +24,6 @@ spec:
     image:
       tag: 30.0.4-fpm-alpine
     nextcloud:
-      podSecurityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_GID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
-        fsGroupChangePolicy: OnRootMismatch
       host: ${HOSTNAME}
       extraInitContainers:
         - name: init-db
