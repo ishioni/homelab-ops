@@ -195,17 +195,21 @@ module "oauth2-paperless" {
   redirect_uris      = ["https://documents.${var.private_domain}/accounts/oidc/authentik/login/callback/"]
 }
 
-# module "oauth2-kyoo" {
-#   source             = "./oauth2_application"
-#   name               = "Kyoo"
-#   icon_url           = "https://raw.githubusercontent.com/zoriya/Kyoo/master/icons/icon-256x256.png"
-#   launch_url         = "https://kyoo.movishell.pl"
-#   description        = "Movies"
-#   newtab             = true
-#   group              = "Selfhosted"
-#   auth_groups        = [authentik_group.users.id]
-#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-#   client_id          = module.secret_kyoo.fields["OIDC_CLIENT_ID"]
-#   client_secret      = module.secret_kyoo.fields["OIDC_CLIENT_SECRET"]
-#   redirect_uris      = ["https://kyoo.movishell.pl/api/auth/logged/authentik"]
-# }
+module "oauth2-nextcloud" {
+  source                       = "./oauth2_application"
+  name                         = "Nextcloud"
+  icon_url                     = "https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
+  launch_url                   = "https://files.${var.public_domain}"
+  description                  = "Files"
+  newtab                       = true
+  group                        = "Selfhosted"
+  auth_groups                  = [authentik_group.media.id]
+  authorization_flow           = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow            = resource.authentik_flow.provider-invalidation.uuid
+  client_id                    = module.secret_nextcloud.fields["OIDC_CLIENT_ID"]
+  client_secret                = module.secret_nextcloud.fields["OIDC_CLIENT_SECRET"]
+  include_claims_in_id_token   = false
+  additional_property_mappings = formatlist(authentik_property_mapping_provider_scope.openid-nextcloud.id)
+  sub_mode                     = "user_username"
+  redirect_uris                = ["https://files.${module.secret_authentik.fields["CLUSTER_DOMAIN"]}/apps/oidc_login/oidc"]
+}
