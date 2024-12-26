@@ -80,6 +80,7 @@ spec:
           authtype: LOGIN
       defaultConfigs:
         redis.config.php: false
+        s3.config.php: false
       configs:
         local.config.php: |-
           <?php
