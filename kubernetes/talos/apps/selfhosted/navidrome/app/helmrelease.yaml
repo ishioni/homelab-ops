@@ -77,7 +77,7 @@ spec:
           gethomepage.dev/name: Navidrome
           gethomepage.dev/icon: navidrome.svg
           gethomepage.dev/widget.type: navidrome
-          gethomepage.dev/widget.url: http://navidrome.media:8080
+          gethomepage.dev/widget.url: http://navidrome.selfhosted:8080
           gethomepage.dev/widget.user: "{{`{{HOMEPAGE_VAR_NAVIDROME_USER}}`}}"
           gethomepage.dev/widget.token: "{{`{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}`}}"
           gethomepage.dev/widget.salt: "{{`{{HOMEPAGE_VAR_NAVIDROME_SALT}}`}}"

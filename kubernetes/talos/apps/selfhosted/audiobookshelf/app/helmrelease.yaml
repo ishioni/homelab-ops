@@ -70,7 +70,7 @@ spec:
           gethomepage.dev/name: Audiobookshelf
           gethomepage.dev/icon: audiobookshelf.svg
           gethomepage.dev/widget.type: audiobookshelf
-          gethomepage.dev/widget.url: http://audiobookshelf.media:8080
+          gethomepage.dev/widget.url: http://audiobookshelf.selfhosted:8080
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_AUDIOBOOKSHELF_TOKEN}}`}}"
         hosts:
           - host: ${HOSTNAME}
