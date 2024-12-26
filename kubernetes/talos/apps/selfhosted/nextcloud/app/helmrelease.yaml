@@ -24,6 +24,12 @@ spec:
     image:
       tag: 30.0.4-fpm-alpine
     nextcloud:
+      podSecurityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_GID}
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
+        fsGroupChangePolicy: OnRootMismatch
       host: ${HOSTNAME}
       extraInitContainers:
         - name: init-db
@@ -73,10 +79,6 @@ spec:
           secure: ssl
           port: 465
           authtype: LOGIN
-      securityContext:
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_GID}
-        runAsNonRoot: true
       defaultConfigs:
         redis.config.php: false
         s3.config.php: false
@@ -235,10 +237,6 @@ spec:
           }
     nginx:
       enabled: true
-      image:
-        repository: public.ecr.aws/nginx/nginx
-      config:
-        default: true
       resources:
         requests:
           cpu: 50m
