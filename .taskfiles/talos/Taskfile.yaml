@@ -126,7 +126,7 @@ tasks:
           | grep {{.hostname}} \
           | awk '{split($0,u," "); print u[2]}'
     cmds:
-      - talosctl --context {{.cluster}} upgrade -n {{.hostname}} -m powercycle --image {{.TALOS_IMAGE }}
+      - talosctl --context {{.cluster}} upgrade -n {{.hostname}} --image {{.TALOS_IMAGE }}
     requires:
       vars:
         - cluster
@@ -227,7 +227,7 @@ tasks:
     cmds:
       - task: _wait_for_health
         vars: {TIMEOUT: 10m}
-      - talosctl --context {{.cluster}} upgrade -n {{.hostname}} -m powercycle --image {{.TALOS_IMAGE }}
+      - talosctl --context {{.cluster}} upgrade -n {{.hostname}} --image {{.TALOS_IMAGE }}
     requires:
       vars:
         - cluster
