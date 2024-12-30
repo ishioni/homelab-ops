@@ -42,6 +42,7 @@ spec:
               operator: In
               values: ["private"]
       config:
+        annotations-risk-level: Critical
         client-body-buffer-size: "100M"
         client-body-timeout: 120
         client-header-timeout: 120
