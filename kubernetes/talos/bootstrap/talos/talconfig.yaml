@@ -192,9 +192,6 @@ controlPlane:
     # Enable metrics scraping
     - |-
       cluster:
-        apiServer:
-          extraArgs:
-            feature-gates: AuthorizeNodeWithSelectors=false
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
@@ -204,15 +201,6 @@ controlPlane:
         scheduler:
           extraArgs:
             bind-address: 0.0.0.0
-    # Enable cluster discovery
-    - |-
-      cluster:
-        discovery:
-          registries:
-            kubernetes:
-              disabled: true
-            service:
-              disabled: false
     # Disable kube-proxy
     - |
       cluster:
