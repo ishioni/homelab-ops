@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: atuin
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      atuin:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          secret.reloader.stakater.com/reload: &secret atuin-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.6
+              pullPolicy: IfNotPresent
+            envFrom: &envFrom
+              - secretRef:
+                  name: *secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/atuinsh/atuin
+              tag: 2.17.6
+            env:
+              TZ: ${CONFIG_TIMEZONE}
+              ATUIN_HOST: 0.0.0.0
+              ATUIN_PORT: &port 8080
+              ATUIN_OPEN_REGISTRATION: true
+              # ATUIN_METRICS__ENABLE: true
+              # ATUIN_METRICS__HOST: 0.0.0.0
+              # ATUIN_METRICS__PORT: &metricsPort 8081
+            envFrom: *envFrom
+            args:
+              - server
+              - start
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 50m
+              limits:
+                memory: 250Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+    service:
+      app:
+        controller: atuin
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        className: private
+        hosts:
+          - host: ${HOSTNAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        type: emptyDir
