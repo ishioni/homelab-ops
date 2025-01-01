@@ -23,4 +23,4 @@ spec:
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: atuin.${PUBLIC_DOMAIN}
+      HOSTNAME: atuin.${PRIVATE_DOMAIN}
