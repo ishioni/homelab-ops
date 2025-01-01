@@ -13,6 +13,10 @@ spec:
         kind: HelmRepository
         name: intel
         namespace: flux-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   interval: 30m
   dependsOn:
     - name: node-feature-discovery
