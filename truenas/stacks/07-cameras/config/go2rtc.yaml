@@ -1,12 +1,12 @@
 ---
 log:
-  level: debug # default level
-  api: debug
-  exec: debug
-  ngrok: debug
-  rtsp: debug
-  streams: debug
-  webrtc: debug
+  level: warn # default level
+  api: warn
+  exec: warn
+  ngrok: warn
+  rtsp: warn
+  streams: warn
+  webrtc: warn
 api:
   listen: :${APP_PORT}
 webrtc:
