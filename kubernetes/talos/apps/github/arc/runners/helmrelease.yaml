@@ -71,5 +71,5 @@ spec:
             secret:
               secretName: actions-runner
     controllerServiceAccount:
-      name: actions-runner
+      name: github-arc
       namespace: github
