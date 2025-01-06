@@ -220,8 +220,10 @@ controlPlane:
             enabled: true
             allowedRoles:
               - os:etcd:backup
+              - os:admin
             allowedKubernetesNamespaces:
               - kube-system
+              - actions-runner-system
     # Disable default API server admission plugins.
     - |-
       - op: remove
