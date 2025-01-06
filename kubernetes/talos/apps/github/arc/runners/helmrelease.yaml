@@ -44,9 +44,10 @@ spec:
         storageClassName: openebs-hostpath
         resources:
           requests:
-            storage: 20Gi
+            storage: 2Gi
     template:
       spec:
+        automountServiceAccountToken: true
         containers:
           - name: runner
             image: ghcr.io/onedr0p/actions-runner:2.321.0
@@ -58,17 +59,17 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: status.hostIP
-            # volumeMounts:
-            #   - mountPath: /var/run/secrets/talos.dev
-            #     name: talos
-            #     readOnly: true
+            volumeMounts:
+              - mountPath: /var/run/secrets/talos.dev
+                name: talos
+                readOnly: true
         securityContext:
           fsGroup: 123
-        # serviceAccountName: actions-runner
-        # volumes:
-        #   - name: talos
-        #     secret:
-        #       secretName: actions-runner
-    # controllerServiceAccount:
-    #   name: gha-runner-scale-set-controller
-    #   namespace: actions-runner-system
+        serviceAccountName: actions-runner
+        volumes:
+          - name: talos
+            secret:
+              secretName: actions-runner
+    controllerServiceAccount:
+      name: actions-runner
+      namespace: github

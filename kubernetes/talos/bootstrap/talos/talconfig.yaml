@@ -223,7 +223,7 @@ controlPlane:
               - os:admin
             allowedKubernetesNamespaces:
               - kube-system
-              - actions-runner-system
+              - github
     # Disable default API server admission plugins.
     - |-
       - op: remove
