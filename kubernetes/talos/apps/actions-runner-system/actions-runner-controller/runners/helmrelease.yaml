@@ -42,7 +42,7 @@ spec:
       type: kubernetes
       kubernetesModeWorkVolumeClaim:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: truenas-ssd-iscsi
+        storageClassName: openebs-hostpath
         resources:
           requests:
             storage: 20Gi
