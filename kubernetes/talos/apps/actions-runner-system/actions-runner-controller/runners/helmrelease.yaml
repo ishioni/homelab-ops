@@ -59,17 +59,17 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: status.hostIP
-            volumeMounts:
-              - mountPath: /var/run/secrets/talos.dev
-                name: talos
-                readOnly: true
+            # volumeMounts:
+            #   - mountPath: /var/run/secrets/talos.dev
+            #     name: talos
+            #     readOnly: true
         securityContext:
           fsGroup: 123
-        serviceAccountName: actions-runner
-        volumes:
-          - name: talos
-            secret:
-              secretName: actions-runner
-    controllerServiceAccount:
-      name: gha-runner-scale-set-controller
-      namespace: actions-runner-system
+        # serviceAccountName: actions-runner
+        # volumes:
+        #   - name: talos
+        #     secret:
+        #       secretName: actions-runner
+    # controllerServiceAccount:
+    #   name: gha-runner-scale-set-controller
+    #   namespace: actions-runner-system
