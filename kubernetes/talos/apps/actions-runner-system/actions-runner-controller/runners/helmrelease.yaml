@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: actions-runner-controller
+  name: gha-runner-scale-set
 spec:
   chart:
     spec:
@@ -16,7 +16,6 @@ spec:
   interval: 30m
   driftDetection:
     mode: enabled
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
+  dependsOn:
+    - name: gha-runner-scale-set-controller
+      namespace: actions-runner-system
