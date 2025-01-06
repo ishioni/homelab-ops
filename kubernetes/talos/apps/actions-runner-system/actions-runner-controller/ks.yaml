@@ -35,4 +35,4 @@ spec:
   interval: 30m
   timeout: 5m
   dependsOn:
-    - name: action-runner-controller
+    - name: actions-runner-controller
