@@ -3,11 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: actions-runner-controller
+  name: github-arc
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/actions-runner-system/actions-runner-controller/operator
-  targetNamespace: actions-runner-system
+  path: ./kubernetes/talos/apps/github/arc/operator
+  targetNamespace: github
   sourceRef:
     kind: GitRepository
     name: homelab-ops
@@ -22,11 +22,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: actions-runner-controller-runners
+  name: github-arc-runners
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/actions-runner-system/actions-runner-controller/runners
-  targetNamespace: actions-runner-system
+  path: ./kubernetes/talos/apps/github/arc/runners
+  targetNamespace: github
   sourceRef:
     kind: GitRepository
     name: homelab-ops
@@ -35,4 +35,4 @@ spec:
   interval: 30m
   timeout: 5m
   dependsOn:
-    - name: actions-runner-controller
+    - name: github-arc

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: gha-runner-scale-set
+  name: arc-homelab
 spec:
   chart:
     spec:
@@ -17,8 +17,8 @@ spec:
   driftDetection:
     mode: enabled
   dependsOn:
-    - name: actions-runner-controller
-      namespace: actions-runner-system
+    - name: github-arc
+      namespace: github
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret
@@ -33,8 +33,7 @@ spec:
       name: actions-runner-controller-auth
       valuesKey: PRIVATE_KEY
   values:
-    nameOverride: gha-runner-scale-set
-    runnerScaleSetName: gha-runner-scale-set
+    runnerScaleSetName: arc-homelab
     githubConfigUrl: https://github.com/ishioni/homelab-ops
     minRunners: 0
     maxRunners: 3

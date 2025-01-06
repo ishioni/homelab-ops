@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: actions-runner-controller
+  name: github-arc
 spec:
   chart:
     spec:
@@ -20,3 +20,5 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  values:
+    fullnameOverride: github-arc
