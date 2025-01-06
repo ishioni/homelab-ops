@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: actions-runner-controller-charts/gha-runner-scale-set-controller
+      chart: gha-runner-scale-set-controller
       version: 0.10.1
       sourceRef:
         kind: HelmRepository
