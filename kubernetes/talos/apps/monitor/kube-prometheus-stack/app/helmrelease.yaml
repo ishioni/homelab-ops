@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
 spec:
+  interval: 30m
   chart:
     spec:
       chart: kube-prometheus-stack
@@ -17,7 +18,6 @@ spec:
     crds: Skip
   upgrade:
     crds: Skip
-  interval: 30m
   valuesFrom:
     - kind: ConfigMap
       name: kube-state-metrics-config

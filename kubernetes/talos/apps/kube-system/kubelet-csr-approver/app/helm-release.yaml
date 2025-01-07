@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: kubelet-csr-approver
 spec:
+  interval: 30m
   chart:
     spec:
       chart: kubelet-csr-approver
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: postfinance
         namespace: flux-system
-  interval: 30m
   valuesFrom:
     - kind: ConfigMap
       name: kubelet-csr-approver-values

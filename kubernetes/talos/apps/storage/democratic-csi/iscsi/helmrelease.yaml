@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: democratic-csi-ssd-iscsi
 spec:
+  interval: 30m
   chart:
     spec:
       chart: democratic-csi
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: democratic-csi
         namespace: flux-system
-  interval: 30m
   dependsOn:
     - name: snapshot-controller
   values:

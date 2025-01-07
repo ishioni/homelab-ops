@@ -16,7 +16,7 @@ spec:
       app.kubernetes.io/name: cilium
   prune: false
   wait: true
-  interval: 10m
+  interval: 30m
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -37,4 +37,4 @@ spec:
     - name: kube-system-cilium
   prune: true
   wait: false
-  interval: 10m
+  interval: 30m

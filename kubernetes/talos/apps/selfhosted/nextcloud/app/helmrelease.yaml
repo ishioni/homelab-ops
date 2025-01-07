@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: nextcloud
 spec:
+  interval: 30m
   chart:
     spec:
       chart: nextcloud
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: nextcloud
         namespace: flux-system
-  interval: 30m
   install:
     timeout: 60m
   upgrade:

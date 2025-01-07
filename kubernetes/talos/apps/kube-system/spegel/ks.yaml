@@ -16,4 +16,4 @@ spec:
       app.kubernetes.io/name: spegel
   prune: true
   wait: false
-  interval: 10m
+  interval: 30m

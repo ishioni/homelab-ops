@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: reloader
 spec:
+  interval: 30m
   chart:
     spec:
       chart: reloader
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: stakater
         namespace: flux-system
-  interval: 30m
   values:
     fullnameOverride: reloader
     resources:

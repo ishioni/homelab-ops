@@ -16,7 +16,7 @@ spec:
       app.kubernetes.io/name: &appname s3-proxy
   prune: true
   wait: false
-  interval: 10m
+  interval: 30m
   postBuild:
     substitute:
       APP: *appname

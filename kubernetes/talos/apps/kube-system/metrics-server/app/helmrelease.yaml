@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: metrics-server
 spec:
+  interval: 30m
   chart:
     spec:
       chart: metrics-server
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: kubernetes-sigs-metrics-server
         namespace: flux-system
-  interval: 30m
   values:
     metrics:
       enabled: false

@@ -13,7 +13,7 @@ spec:
     name: homelab-ops
   prune: true
   wait: true
-  interval: 10m
+  interval: 30m
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -32,7 +32,7 @@ spec:
       app.kubernetes.io/name: &appname kube-prometheus-stack
   prune: true
   wait: true
-  interval: 10m
+  interval: 30m
   dependsOn:
     - name: monitor-prometheus-operator-crds
     - name: storage-democratic-csi-iscsi

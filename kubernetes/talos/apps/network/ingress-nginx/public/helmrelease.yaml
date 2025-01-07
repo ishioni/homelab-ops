@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: ingress-public
 spec:
+  interval: 30m
   chart:
     spec:
       chart: ingress-nginx
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-  interval: 30m
   values:
     controller:
       replicaCount: 2

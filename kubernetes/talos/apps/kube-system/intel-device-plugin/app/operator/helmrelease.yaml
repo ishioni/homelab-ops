@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: intel-device-plugin-operator
 spec:
+  interval: 30m
   chart:
     spec:
       chart: intel-device-plugins-operator
@@ -17,7 +18,6 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  interval: 30m
   dependsOn:
     - name: node-feature-discovery
   values:

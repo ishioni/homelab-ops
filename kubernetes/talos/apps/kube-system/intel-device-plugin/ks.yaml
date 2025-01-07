@@ -18,4 +18,4 @@ spec:
     - name: kube-system-node-feature-discovery
   prune: true
   wait: true
-  interval: 10m
+  interval: 30m

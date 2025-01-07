@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: grafana
 spec:
+  interval: 30m
   chart:
     spec:
       chart: grafana
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-  interval: 30m
   values:
     annotations:
       secret.reloader.stakater.com/reload: &secret grafana-secret

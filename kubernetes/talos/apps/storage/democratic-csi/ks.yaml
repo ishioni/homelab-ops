@@ -16,7 +16,7 @@ spec:
   dependsOn:
     - name: security-secret-store
     - name: storage-snapshot-controller
-  interval: 10m
+  interval: 30m
 # ---
 # # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -35,7 +35,7 @@ spec:
 #   dependsOn:
 #     - name: security-secret-store
 #     - name: storage-snapshot-controller
-#   interval: 10m
+#   interval: 30m
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -54,4 +54,4 @@ spec:
   dependsOn:
     - name: security-secret-store
     - name: storage-snapshot-controller
-  interval: 10m
+  interval: 30m

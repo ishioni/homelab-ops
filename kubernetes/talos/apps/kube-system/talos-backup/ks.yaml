@@ -18,4 +18,4 @@ spec:
   wait: true
   dependsOn:
     - name: security-secret-store
-  interval: 10m
+  interval: 30m

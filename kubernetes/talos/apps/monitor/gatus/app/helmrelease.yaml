@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: gatus
 spec:
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  interval: 30m
   values:
     controllers:
       gatus:

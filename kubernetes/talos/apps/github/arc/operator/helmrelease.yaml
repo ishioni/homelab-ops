@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: github-arc
 spec:
+  interval: 30m
   chart:
     spec:
       chart: gha-runner-scale-set-controller
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: actions-runner-controller
         namespace: flux-system
-  interval: 30m
   driftDetection:
     mode: enabled
   install:

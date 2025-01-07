@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: volsync
 spec:
+  interval: 30m
   chart:
     spec:
       chart: volsync
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: backube
         namespace: flux-system
-  interval: 30m
   install:
     crds: CreateReplace
   upgrade:

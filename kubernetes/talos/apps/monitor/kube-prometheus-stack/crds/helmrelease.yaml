@@ -5,6 +5,7 @@ kind: HelmRelease
 metadata:
   name: prometheus-operator-crds
 spec:
+  interval: 30m
   chart:
     spec:
       chart: prometheus-operator-crds
@@ -17,4 +18,3 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  interval: 30m
