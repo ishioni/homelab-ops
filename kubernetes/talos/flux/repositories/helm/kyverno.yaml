@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/helmrepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:

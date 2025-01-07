@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
@@ -10,6 +11,7 @@ spec:
     matchLabels:
       node-role.kubernetes.io/worker: "true"
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumloadbalancerippool_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
@@ -21,6 +23,7 @@ spec:
     matchExpressions:
       - {key: io.cilium/ippool, operator: In, values: [public]}
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumloadbalancerippool_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
