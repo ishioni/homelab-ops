@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: "0 0 * * *" # Every day at midnight
   push:
-    branches: ["main"]
+    branches: ["master"]
     paths: [".github/workflows/schemas.yaml"]
 
 env:
