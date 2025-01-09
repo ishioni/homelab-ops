@@ -36,6 +36,7 @@ spec:
             env:
               SERVER_NAME: ${HOSTNAME}, php:80
               BASE_CURRENCY: EUR
+              CADDY_GLOBAL_OPTIONS: auto_https off
               DEFAULT_TIMEZONE: ${CONFIG_TIMEZONE}
               TRUSTED_PROXIES: 172.16.0.0/16
               TRUSTED_HOSTS: ${HOSTNAME}
