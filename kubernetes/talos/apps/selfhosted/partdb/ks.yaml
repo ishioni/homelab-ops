@@ -26,6 +26,8 @@ spec:
     substitute:
       APP: *appname
       HOSTNAME: partdb.${PRIVATE_DOMAIN}
+      APP_UID: "0"
+      APP_GID: "0"
       VOLSYNC_CLAIM: partdb-media
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
