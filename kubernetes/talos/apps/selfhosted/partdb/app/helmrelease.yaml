@@ -31,16 +31,20 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/partdborg/part-db
+              repository: docker.io/jbtronics/part-db1
               tag: v1.15.1
             env:
-              SERVER_NAME: ${HOSTNAME}, php:80
-              BASE_CURRENCY: EUR
-              CADDY_GLOBAL_OPTIONS: auto_https off
+              # SERVER_NAME: ${HOSTNAME}, php:80
+              BASE_CURRENCY: PLN
+              # CADDY_GLOBAL_OPTIONS: auto_https off
+              DEFAULT_LANG: en
               DEFAULT_TIMEZONE: ${CONFIG_TIMEZONE}
-              TRUSTED_PROXIES: 172.16.0.0/16
-              TRUSTED_HOSTS: ${HOSTNAME}
-              MERCURE_PUBLIC_URL: https://${HOSTNAME}/.well-known/mercure
+              DEFAULT_URI: https://${HOSTNAME}
+              CHECK_FOR_UPDATES: 0
+              INSTANCE_NAME: PartDB
+              TRUSTED_PROXIES: 127.0.0.0/8,172.16.0.0/16
+              # TRUSTED_HOSTS: ${HOSTNAME}
+              # MERCURE_PUBLIC_URL: https://${HOSTNAME}/.well-known/mercure
             envFrom:
               - secretRef:
                   name: *secret
@@ -85,10 +89,10 @@ spec:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
         globalMounts:
-          - path: /data
-            subPath: caddy-data
-          - path: /config
-            subPath: caddy-config
+          # - path: /data
+          #   subPath: caddy-data
+          # - path: /config
+          #   subPath: caddy-config
           - path: /var/www/html/uploads
             subPath: uploads
           - path: /var/www/html/public/media
