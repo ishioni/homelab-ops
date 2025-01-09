@@ -35,9 +35,9 @@ spec:
               repository: docker.io/partdborg/part-db
               tag: v1.15.1
             env:
+              SERVER_NAME: ${HOSTNAME}, php:80
               BASE_CURRENCY: EUR
               DEFAULT_TIMEZONE: ${CONFIG_TIMEZONE}
-              SERVER_NAME: ${HOSTNAME}
               TRUSTED_PROXIES: 172.16.0.0/16
               TRUSTED_HOSTS: ${HOSTNAME}
               MERCURE_PUBLIC_URL: https://${HOSTNAME}/.well-known/mercure
