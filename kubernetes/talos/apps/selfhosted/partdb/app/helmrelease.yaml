@@ -17,7 +17,6 @@ spec:
   values:
     controllers:
       partdb:
-        type: statefulset
         annotations:
           secret.reloader.stakater.com/reload: &secret partdb-secret
         initContainers:
