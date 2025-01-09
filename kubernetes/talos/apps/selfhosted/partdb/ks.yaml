@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: selfhosted-partdb
+  namespace: flux-system
+spec:
+  path: ./kubernetes/talos/apps/selfhosted/partdb/app
+  targetNamespace: selfhosted
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname partdb
+  prune: true
+  wait: false
+  interval: 30m
+  dependsOn:
+    - name: database-cloudnative-pg-cluster
+    - name: security-secret-store
+    - name: storage-democratic-csi-nfs
+    - name: storage-volsync
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: partdb.${PRIVATE_DOMAIN}
+      VOLSYNC_CLAIM: partdb-media
+      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CACHE_CAPACITY: 5Gi
+      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
+      VOLSYNC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_TIME: 0 10 * * *
