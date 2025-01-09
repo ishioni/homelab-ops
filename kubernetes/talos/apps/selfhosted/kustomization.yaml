@@ -11,4 +11,5 @@ resources:
   - ./navidrome/ks.yaml
   - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml
+  - ./partdb/ks.yaml
   - ./pvc
