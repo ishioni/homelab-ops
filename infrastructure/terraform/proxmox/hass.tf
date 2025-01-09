@@ -8,7 +8,7 @@ resource "macaddress" "homeassistant" {
 resource "proxmox_virtual_environment_vm" "homeassistant" {
   name          = "homeassistant"
   description   = "HASS OS managed by terraform"
-  node_name     = "proxmox-3"
+  node_name     = "proxmox-1"
   vm_id         = 3001
   on_boot       = true
   started       = true
