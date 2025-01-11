@@ -27,20 +27,15 @@ spec:
       webhook:
         image:
           repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.3.4
+          tag: v0.4.0
         env:
           - name: UNIFI_HOST
-            value: https://10.1.1.1
-          - name: UNIFI_USER
+            value: https://unifi.${PRIVATE_DOMAIN}
+          - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
                 name: &secret externaldns-unifi-secret
-                key: UNIFI_USER
-          - name: UNIFI_PASS
-            valueFrom:
-              secretKeyRef:
-                name: *secret
-                key: UNIFI_PASS
+                key: UNIFI_API_KEY
         livenessProbe:
           httpGet:
             path: /healthz
