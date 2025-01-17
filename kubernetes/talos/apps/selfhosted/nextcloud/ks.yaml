@@ -20,7 +20,7 @@ spec:
   dependsOn:
     - name: database-cloudnative-pg-cluster
     - name: database-dragonfly-cluster
-    - name: security-secret-store
+    - name: security-onepassword-store
     - name: storage-democratic-csi-nfs
     - name: storage-volsync
   postBuild:

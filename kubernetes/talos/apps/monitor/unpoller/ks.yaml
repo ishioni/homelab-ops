@@ -15,4 +15,4 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
-    - name: security-secret-store
+    - name: security-onepassword-store

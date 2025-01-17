@@ -18,7 +18,7 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
-    - name: security-secret-store
+    - name: security-onepassword-store
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -39,4 +39,4 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
-    - name: security-secret-store
+    - name: security-onepassword-store
