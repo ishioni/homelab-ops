@@ -3,32 +3,18 @@
 version: "3"
 
 tasks:
-  delete-failed-pods:
-    desc: Deletes failed pods
+  cleanup-pods:
+    desc: Clean up pods with a Failed/Pending/Succeeded phase
     summary: |
       Args:
         cluster: Cluster to run command against (default: talos)
     vars:
       cluster: '{{.cluster | default "talos"}}'
     cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
-
-  delete-completed-pods:
-    desc: Deletes failed pods
-    summary: |
-      Args:
-        cluster: Cluster to run command against (default: talos)
-    vars:
-      cluster: '{{.cluster | default "talos"}}'
-    cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
-
-  delete-pending-pods:
-    desc: Deletes pods with Pending phase
-    summary: |
-      Args:
-        cluster: Cluster to run command against (default: talos)
-    vars:
-      cluster: '{{.cluster | default "talos"}}'
-    cmds:
-      - kubectl --context {{.cluster}} delete pods --field-selector status.phase=Pending -A --ignore-not-found=true
+      - for:
+          matrix:
+            PHASE:
+              - Failed
+              - Pending
+              - Succeeded
+        cmd: kubectl --context {{.cluster}} delete pods --field-selector status.phase={{.ITEM.PHASE}} -A --ignore-not-found=true
