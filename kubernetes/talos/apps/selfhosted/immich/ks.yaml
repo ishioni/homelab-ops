@@ -20,7 +20,7 @@ spec:
   dependsOn:
     - name: database-dragonfly-cluster
     - name: database-cloudnative-pg-cluster
-    - name: onepassword-store
+    - name: security-onepassword-store
     - name: storage-democratic-csi-nfs
   postBuild:
     substitute:

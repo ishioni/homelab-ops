@@ -17,5 +17,5 @@ spec:
   prune: true
   wait: true
   dependsOn:
-    - name: onepassword-store
+    - name: security-onepassword-store
   interval: 30m
