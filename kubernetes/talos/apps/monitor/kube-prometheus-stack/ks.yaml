@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: monitor-prometheus-operator-crds
     - name: storage-democratic-csi-iscsi
-    - name: security-secret-store
+    - name: onepassword-store
   postBuild:
     substitute:
       APP: *appname

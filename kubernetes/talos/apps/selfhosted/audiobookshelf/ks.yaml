@@ -19,7 +19,7 @@ spec:
   interval: 30m
   dependsOn:
     - name: database-cloudnative-pg-cluster
-    - name: security-secret-store
+    - name: onepassword-store
     - name: storage-democratic-csi-iscsi
     - name: storage-volsync
   postBuild:

@@ -6,7 +6,7 @@ metadata:
   name: security-external-secrets
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/security/external-secrets/app
+  path: ./kubernetes/talos/apps/security/external-secrets/operator
   targetNamespace: security
   sourceRef:
     kind: GitRepository
@@ -22,7 +22,26 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: security-secret-store
+  name: security-onepassword
+  namespace: flux-system
+spec:
+  path: ./kubernetes/talos/apps/security/external-secrets/onepassword/
+  targetNamespace: security
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: onepassword
+  prune: true
+  wait: true
+  interval: 30m
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: security-onepassword-store
   namespace: flux-system
 spec:
   path: ./kubernetes/talos/apps/security/external-secrets/stores
@@ -38,4 +57,4 @@ spec:
   interval: 30m
   dependsOn:
     - name: security-external-secrets
-    - name: security-onepassword-connect
+    - name: security-onepassword

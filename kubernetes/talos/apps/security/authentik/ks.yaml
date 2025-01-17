@@ -20,7 +20,7 @@ spec:
   dependsOn:
     - name: database-cloudnative-pg-cluster
     - name: database-dragonfly-cluster
-    - name: security-secret-store
+    - name: onepassword-store
   postBuild:
     substitute:
       APP: *appname
