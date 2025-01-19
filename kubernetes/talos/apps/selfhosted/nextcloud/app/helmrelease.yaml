@@ -22,7 +22,7 @@ spec:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     image:
-      tag: 30.0.5-fpm-alpine
+      flavor: fpm
     nextcloud:
       host: ${HOSTNAME}
       extraInitContainers:
@@ -205,6 +205,9 @@ spec:
         gethomepage.dev/widget.type: nextcloud
         gethomepage.dev/widget.url: https://${HOSTNAME}
         gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_NEXTCLOUD_TOKEN}}"
+        nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
@@ -231,6 +234,9 @@ spec:
           }
     nginx:
       enabled: true
+      config:
+        headers:
+          "Strict-Transport-Security": "max-age=15768000; includeSubDomains;"
       resources:
         requests:
           cpu: 50m
