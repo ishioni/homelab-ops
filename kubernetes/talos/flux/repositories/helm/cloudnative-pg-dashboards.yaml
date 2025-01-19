@@ -6,6 +6,6 @@ metadata:
   name: cloudnative-pg-dashboards
   namespace: flux-system
 spec:
-  interval: 1h
   url: https://cloudnative-pg.github.io/grafana-dashboards
+  interval: 1h
   timeout: 3m

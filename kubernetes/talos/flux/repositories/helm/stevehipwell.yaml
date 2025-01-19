@@ -6,7 +6,7 @@ metadata:
   name: stevehipwell
   namespace: flux-system
 spec:
-  interval: 1h
   type: oci
   url: oci://ghcr.io/stevehipwell/helm-charts
+  interval: 1h
   timeout: 3m

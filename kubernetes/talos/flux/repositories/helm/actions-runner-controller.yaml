@@ -6,7 +6,7 @@ metadata:
   name: actions-runner-controller
   namespace: flux-system
 spec:
-  interval: 1h
   type: oci
   url: oci://ghcr.io/actions/actions-runner-controller-charts
+  interval: 1h
   timeout: 3m
