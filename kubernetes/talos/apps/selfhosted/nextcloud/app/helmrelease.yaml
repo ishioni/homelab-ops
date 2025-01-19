@@ -22,7 +22,7 @@ spec:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
     image:
-      tag: 30.0.4-fpm-alpine
+      tag: 30.0.5-fpm-alpine
     nextcloud:
       host: ${HOSTNAME}
       extraInitContainers:
