@@ -20,7 +20,7 @@ configs:
 
 services:
   mediamtx:
-    image: docker.io/bluenviron/mediamtx:1.11.1-ffmpeg
+    image: docker.io/bluenviron/mediamtx:1.11.2-ffmpeg
     container_name: mediamtx
     restart: unless-stopped
     networks:
