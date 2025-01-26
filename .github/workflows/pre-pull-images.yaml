@@ -50,6 +50,7 @@ jobs:
         with:
           args: >-
             get cluster
+            --all-namespaces
             --path /github/workspace/kubernetes/talos/flux
             --enable-images
             --output yaml
