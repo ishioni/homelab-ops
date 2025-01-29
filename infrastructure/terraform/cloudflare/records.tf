@@ -1,4 +1,4 @@
-data "cloudflare_zone" "domain" {
+data "cloudflare_zones" "domain" {
   filter = {
     name = var.public_domain
   }
@@ -67,7 +67,7 @@ resource "cloudflare_dns_record" "archie_ip_wildcard" {
 resource "cloudflare_dns_record" "caa" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = module.secret_cf.fields.DOMAIN
-  data {
+  data = {
     flags = "0"
     tag   = "issue"
     value = "letsencrypt.org"
@@ -137,7 +137,7 @@ resource "cloudflare_dns_record" "txt_dmarc" {
 resource "cloudflare_dns_record" "fastmail-caldavs" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_caldavs._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 1
     port     = 443
@@ -150,7 +150,7 @@ resource "cloudflare_dns_record" "fastmail-caldavs" {
 resource "cloudflare_dns_record" "fastmail-caldav" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_caldav._tcp.module.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 0
     port     = 0
@@ -163,7 +163,7 @@ resource "cloudflare_dns_record" "fastmail-caldav" {
 resource "cloudflare_dns_record" "fastmail-carddavs" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_carddavs._tcp.{$module.secret_cf.fields.DOMAIN}"
-  data {
+  data = {
     priority = 0
     weight   = 1
     port     = 443
@@ -176,7 +176,7 @@ resource "cloudflare_dns_record" "fastmail-carddavs" {
 resource "cloudflare_dns_record" "fastmail-carddav" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_carddav._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 0
     port     = 0
@@ -189,7 +189,7 @@ resource "cloudflare_dns_record" "fastmail-carddav" {
 resource "cloudflare_dns_record" "fastmail-imaps" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_imaps._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 1
     port     = 993
@@ -202,7 +202,7 @@ resource "cloudflare_dns_record" "fastmail-imaps" {
 resource "cloudflare_dns_record" "fastmail-imap" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_imap._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 0
     port     = 0
@@ -215,7 +215,7 @@ resource "cloudflare_dns_record" "fastmail-imap" {
 resource "cloudflare_dns_record" "fastmail-jmap" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_jmap._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 1
     port     = 443
@@ -228,7 +228,7 @@ resource "cloudflare_dns_record" "fastmail-jmap" {
 resource "cloudflare_dns_record" "fastmail-pop3s" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_pop3s._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 1
     port     = 995
@@ -241,7 +241,7 @@ resource "cloudflare_dns_record" "fastmail-pop3s" {
 resource "cloudflare_dns_record" "fastmail-pop3" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_pop3._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 0
     port     = 0
@@ -254,7 +254,7 @@ resource "cloudflare_dns_record" "fastmail-pop3" {
 resource "cloudflare_dns_record" "fastmail-submission" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_submission._tcp.${var.public_domain}"
-  data {
+  data = {
     priority = 0
     weight   = 1
     port     = 587
