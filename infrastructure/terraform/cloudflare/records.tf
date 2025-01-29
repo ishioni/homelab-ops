@@ -1,5 +1,5 @@
-data "cloudflare_zones" "domain" {
-  filter {
+data "cloudflare_zone" "domain" {
+  filter = {
     name = var.public_domain
   }
 }
@@ -8,7 +8,7 @@ data "http" "ipv4" {
   url = "http://ipv4.icanhazip.com"
 }
 
-resource "cloudflare_record" "root" {
+resource "cloudflare_dns_record" "root" {
   name    = module.secret_cf.fields.DOMAIN
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   content = chomp(data.http.ipv4.response_body)
@@ -16,7 +16,7 @@ resource "cloudflare_record" "root" {
   ttl     = 300
 }
 
-resource "cloudflare_record" "external" {
+resource "cloudflare_dns_record" "external" {
   name    = "external"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   content = chomp(data.http.ipv4.response_body)
@@ -24,7 +24,7 @@ resource "cloudflare_record" "external" {
   ttl     = 300
 }
 
-resource "cloudflare_record" "minecraft" {
+resource "cloudflare_dns_record" "minecraft" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "minecraft.${var.public_domain}"
   content = "external.${var.public_domain}"
@@ -32,7 +32,7 @@ resource "cloudflare_record" "minecraft" {
   ttl     = 60
 }
 
-resource "cloudflare_record" "mail-1" {
+resource "cloudflare_dns_record" "mail-1" {
   name    = "mail"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   content = "66.111.4.148"
@@ -40,7 +40,7 @@ resource "cloudflare_record" "mail-1" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "mail-2" {
+resource "cloudflare_dns_record" "mail-2" {
   name    = "mail"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   content = "66.111.4.147"
@@ -48,7 +48,7 @@ resource "cloudflare_record" "mail-2" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "archie_ip" {
+resource "cloudflare_dns_record" "archie_ip" {
   name    = "archie"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   content = module.secret_cf.fields.ARCHIE_IP
@@ -56,7 +56,7 @@ resource "cloudflare_record" "archie_ip" {
   ttl     = 60
 }
 
-resource "cloudflare_record" "archie_ip_wildcard" {
+resource "cloudflare_dns_record" "archie_ip_wildcard" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "*.archie.${var.public_domain}"
   content = "archie.${var.public_domain}"
@@ -64,7 +64,7 @@ resource "cloudflare_record" "archie_ip_wildcard" {
   ttl     = 60
 }
 
-resource "cloudflare_record" "caa" {
+resource "cloudflare_dns_record" "caa" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = module.secret_cf.fields.DOMAIN
   data {
@@ -76,7 +76,7 @@ resource "cloudflare_record" "caa" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "dkim-1" {
+resource "cloudflare_dns_record" "dkim-1" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "fm1._domainkey.${var.public_domain}"
   content = "fm1.${var.public_domain}.dkim.fmhosted.com"
@@ -84,7 +84,7 @@ resource "cloudflare_record" "dkim-1" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "dkim-2" {
+resource "cloudflare_dns_record" "dkim-2" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "fm2._domainkey.${var.public_domain}"
   content = "fm2.${var.public_domain}.dkim.fmhosted.com"
@@ -92,7 +92,7 @@ resource "cloudflare_record" "dkim-2" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "dkim-3" {
+resource "cloudflare_dns_record" "dkim-3" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "fm3._domainkey.${var.public_domain}"
   content = "fm3.${var.public_domain}.dkim.fmhosted.com"
@@ -100,7 +100,7 @@ resource "cloudflare_record" "dkim-3" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "mailmx-1" {
+resource "cloudflare_dns_record" "mailmx-1" {
   zone_id  = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name     = module.secret_cf.fields.DOMAIN
   content  = "in1-smtp.messagingengine.com"
@@ -109,7 +109,7 @@ resource "cloudflare_record" "mailmx-1" {
   ttl      = 1
 }
 
-resource "cloudflare_record" "mailmx-2" {
+resource "cloudflare_dns_record" "mailmx-2" {
   zone_id  = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name     = module.secret_cf.fields.DOMAIN
   content  = "in2-smtp.messagingengine.com"
@@ -118,7 +118,7 @@ resource "cloudflare_record" "mailmx-2" {
   ttl      = 1
 }
 
-resource "cloudflare_record" "txt_spf" {
+resource "cloudflare_dns_record" "txt_spf" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = module.secret_cf.fields.DOMAIN
   content = "v=spf1 include:spf.messagingengine.com -all"
@@ -126,7 +126,7 @@ resource "cloudflare_record" "txt_spf" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "txt_dmarc" {
+resource "cloudflare_dns_record" "txt_dmarc" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = module.secret_cf.fields.DOMAIN
   content = "v=DMARC1; p=quarantine; pct=100; rua=mailto:postmaster@${var.public_domain}; ruf=mailto:postmaster@${var.public_domain}"
@@ -134,7 +134,7 @@ resource "cloudflare_record" "txt_dmarc" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "fastmail-caldavs" {
+resource "cloudflare_dns_record" "fastmail-caldavs" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_caldavs._tcp.${var.public_domain}"
   data {
@@ -147,7 +147,7 @@ resource "cloudflare_record" "fastmail-caldavs" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-caldav" {
+resource "cloudflare_dns_record" "fastmail-caldav" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_caldav._tcp.module.${var.public_domain}"
   data {
@@ -160,7 +160,7 @@ resource "cloudflare_record" "fastmail-caldav" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-carddavs" {
+resource "cloudflare_dns_record" "fastmail-carddavs" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_carddavs._tcp.{$module.secret_cf.fields.DOMAIN}"
   data {
@@ -173,7 +173,7 @@ resource "cloudflare_record" "fastmail-carddavs" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-carddav" {
+resource "cloudflare_dns_record" "fastmail-carddav" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_carddav._tcp.${var.public_domain}"
   data {
@@ -186,7 +186,7 @@ resource "cloudflare_record" "fastmail-carddav" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-imaps" {
+resource "cloudflare_dns_record" "fastmail-imaps" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_imaps._tcp.${var.public_domain}"
   data {
@@ -199,7 +199,7 @@ resource "cloudflare_record" "fastmail-imaps" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-imap" {
+resource "cloudflare_dns_record" "fastmail-imap" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_imap._tcp.${var.public_domain}"
   data {
@@ -212,7 +212,7 @@ resource "cloudflare_record" "fastmail-imap" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-jmap" {
+resource "cloudflare_dns_record" "fastmail-jmap" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_jmap._tcp.${var.public_domain}"
   data {
@@ -225,7 +225,7 @@ resource "cloudflare_record" "fastmail-jmap" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-pop3s" {
+resource "cloudflare_dns_record" "fastmail-pop3s" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_pop3s._tcp.${var.public_domain}"
   data {
@@ -238,7 +238,7 @@ resource "cloudflare_record" "fastmail-pop3s" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-pop3" {
+resource "cloudflare_dns_record" "fastmail-pop3" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_pop3._tcp.${var.public_domain}"
   data {
@@ -251,7 +251,7 @@ resource "cloudflare_record" "fastmail-pop3" {
   ttl  = 1
 }
 
-resource "cloudflare_record" "fastmail-submission" {
+resource "cloudflare_dns_record" "fastmail-submission" {
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
   name    = "_submission._tcp.${var.public_domain}"
   data {
