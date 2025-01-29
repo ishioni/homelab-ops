@@ -10,7 +10,7 @@ data "http" "ipv4" {
 
 resource "cloudflare_dns_record" "root" {
   name    = module.secret_cf.fields.DOMAIN
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  zone_id = data.cloudflare_zones.domain.result[0].id
   content = chomp(data.http.ipv4.response_body)
   type    = "A"
   ttl     = 300
@@ -18,7 +18,7 @@ resource "cloudflare_dns_record" "root" {
 
 resource "cloudflare_dns_record" "external" {
   name    = "external"
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  zone_id = data.cloudflare_zones.domain.result[0].id
   content = chomp(data.http.ipv4.response_body)
   type    = "A"
   ttl     = 300
@@ -34,7 +34,7 @@ resource "cloudflare_dns_record" "minecraft" {
 
 resource "cloudflare_dns_record" "mail-1" {
   name    = "mail"
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  zone_id = data.cloudflare_zones.domain.result[0].id
   content = "66.111.4.148"
   type    = "A"
   ttl     = 1
@@ -42,7 +42,7 @@ resource "cloudflare_dns_record" "mail-1" {
 
 resource "cloudflare_dns_record" "mail-2" {
   name    = "mail"
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  zone_id = data.cloudflare_zones.domain.result[0].id
   content = "66.111.4.147"
   type    = "A"
   ttl     = 1
@@ -50,7 +50,7 @@ resource "cloudflare_dns_record" "mail-2" {
 
 resource "cloudflare_dns_record" "archie_ip" {
   name    = "archie"
-  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  zone_id = data.cloudflare_zones.domain.result[0].id
   content = module.secret_cf.fields.ARCHIE_IP
   type    = "A"
   ttl     = 60
