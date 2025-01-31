@@ -23,6 +23,8 @@ spec:
     - name: security-onepassword-store
     - name: storage-democratic-csi-nfs
     - name: storage-volsync
+  components:
+    - ../../../../components/volsync
   postBuild:
     substitute:
       APP: *appname
