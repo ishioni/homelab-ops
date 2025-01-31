@@ -21,7 +21,8 @@ spec:
     - name: database-cloudnative-pg-cluster
     - name: security-onepassword-store
     - name: storage-democratic-csi-nfs
-    - name: storage-volsync
+  components:
+    - ../../../../components/pvc
   postBuild:
     substitute:
       APP: *appname

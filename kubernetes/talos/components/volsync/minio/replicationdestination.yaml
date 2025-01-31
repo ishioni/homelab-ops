@@ -14,7 +14,7 @@ spec:
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-openebs-hostpath}"
     capacity: "${VOLSYNC_CAPACITY:-1Gi}"
     cleanupCachePVC: true
-    cleanupTempPVC: false
+    cleanupTempPVC: true
     enableFileDeletion: true
     copyMethod: Snapshot
     moverSecurityContext:
