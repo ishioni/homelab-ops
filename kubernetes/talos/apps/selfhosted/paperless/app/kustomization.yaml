@@ -6,4 +6,3 @@ resources:
   - ./externalsecret.yaml
   - ./gatus.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/volsync
