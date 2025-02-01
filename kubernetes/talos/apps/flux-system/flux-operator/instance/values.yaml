@@ -53,8 +53,8 @@ instance:
         target:
           kind: Deployment
           name: (kustomize-controller|helm-controller|source-controller)
-    # Increase the number of workers and limits
-    # Ref: https://fluxcd.io/flux/installation/configuration/vertical-scaling/#increase-the-number-of-workers-and-limits
+      # Increase the number of workers and limits
+      # Ref: https://fluxcd.io/flux/installation/configuration/vertical-scaling/#increase-the-number-of-workers-and-limits
       - patch: |
           apiVersion: apps/v1
           kind: Deployment
