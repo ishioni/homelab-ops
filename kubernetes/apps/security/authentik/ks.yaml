@@ -18,8 +18,10 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
-    - name: database-cloudnative-pg-cluster
-    - name: database-dragonfly-cluster
+    - name: postgres-cluster
+      namespace: database
+    - name: dragonfly-cluster
+      namespace: database
     - name: security-onepassword-store
   postBuild:
     substitute:
