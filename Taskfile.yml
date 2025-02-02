@@ -11,6 +11,8 @@ vars:
   TALOS_DIR: "{{.BOOTSTRAP_DIR}}/talos"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/infrastructure/ansible"
   TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
+env:
+  KUBERNETES_DIR: '{{.CLUSTER_DIR}}'
 
 dotenv: [".config.env"]
 
