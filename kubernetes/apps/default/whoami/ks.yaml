@@ -14,7 +14,7 @@ spec:
   postBuild:
     substitute:
       HOSTNAME: whoami.${PUBLIC_DOMAIN}
-  prune: false #Remove after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
