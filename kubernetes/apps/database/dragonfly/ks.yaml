@@ -30,7 +30,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: database-dragonfly
+    - name: dragonfly-operator
       namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/database/dragonfly/cluster
