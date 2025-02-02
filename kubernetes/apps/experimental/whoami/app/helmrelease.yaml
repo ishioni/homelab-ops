@@ -27,6 +27,9 @@ spec:
               WHOAMI_PORT_NUMBER: &port 8080
               TESTVAR: ${CONFIG_TIMEZONE}
               TESTUID: ${APP_UID}
+            envFrom:
+              - secretRef:
+                  name: sops-experiment
             probes:
               liveness: &probes
                 enabled: true
