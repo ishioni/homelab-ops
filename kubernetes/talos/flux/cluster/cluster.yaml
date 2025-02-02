@@ -12,7 +12,7 @@ spec:
       name: sops-age
   interval: 30m
   path: ./kubernetes/talos/flux/meta
-  prune: true
+  prune: false #Revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -65,7 +65,7 @@ spec:
         name: cluster-settings
       - kind: Secret
         name: cluster-secrets
-  prune: true
+  prune: false #Revert after merge
   sourceRef:
     kind: GitRepository
     name: flux-system
