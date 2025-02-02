@@ -6,5 +6,6 @@ namespace: experimental
 components:
   - ../../components/namespace
   - ../../components/global-vars
+  - ../../components/sops
 resources:
   - ./whoami/ks.yaml
