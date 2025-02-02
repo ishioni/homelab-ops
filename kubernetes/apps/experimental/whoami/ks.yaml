@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/global-vars
   interval: 30m
   path: ./kubernetes/apps/experimental/whoami/app
   postBuild:
