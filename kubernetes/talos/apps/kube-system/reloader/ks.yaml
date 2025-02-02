@@ -14,6 +14,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: reloader
-  prune: true
+  prune: false #Remove after merge
   wait: false
   interval: 30m

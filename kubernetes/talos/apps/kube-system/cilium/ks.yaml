@@ -35,6 +35,6 @@ spec:
       app.kubernetes.io/name: cilium
   dependsOn:
     - name: kube-system-cilium
-  prune: true
+  prune: false #Remove after merge
   wait: false
   interval: 30m

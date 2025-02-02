@@ -14,6 +14,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname snapshot-controller
-  prune: true
+  prune: false #Remove after merge
   wait: true
   interval: 30m

@@ -11,7 +11,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: true
+  prune: false #Remove after merge
   wait: true
   interval: 30m
 ---
@@ -24,7 +24,7 @@ metadata:
 spec:
   path: ./kubernetes/talos/apps/database/cloudnative-pg/cluster
   targetNamespace: database
-  prune: true
+  prune: false #Remove after merge
   sourceRef:
     kind: GitRepository
     name: homelab-ops
@@ -44,7 +44,7 @@ metadata:
 spec:
   path: ./kubernetes/talos/apps/database/cloudnative-pg/dashboard
   targetNamespace: database
-  prune: true
+  prune: false #Remove after merge
   sourceRef:
     kind: GitRepository
     name: homelab-ops

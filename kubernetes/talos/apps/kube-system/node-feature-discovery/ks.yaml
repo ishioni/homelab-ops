@@ -13,6 +13,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: node-feature-discovery
-  prune: true
+  prune: false #Remove after merge
   wait: true
   interval: 30m

@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname talos-backup
-  prune: true
+  prune: false #Remove after merge
   wait: true
   dependsOn:
     - name: security-onepassword-store
