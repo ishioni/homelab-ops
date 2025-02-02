@@ -6,7 +6,7 @@ metadata:
   name: default-homepage
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/default/homepage/app
+  path: ./kubernetes/apps/default/homepage/app
   targetNamespace: default
   sourceRef:
     kind: GitRepository

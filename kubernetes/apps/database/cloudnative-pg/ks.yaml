@@ -6,7 +6,7 @@ metadata:
   name: database-cloudnative-pg
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/database/cloudnative-pg/app
+  path: ./kubernetes/apps/database/cloudnative-pg/app
   targetNamespace: database
   sourceRef:
     kind: GitRepository
@@ -22,7 +22,7 @@ metadata:
   name: database-cloudnative-pg-cluster
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/database/cloudnative-pg/cluster
+  path: ./kubernetes/apps/database/cloudnative-pg/cluster
   targetNamespace: database
   prune: false #Remove after merge
   sourceRef:
@@ -42,7 +42,7 @@ metadata:
   name: database-cloudnative-pg-dashboard
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/database/cloudnative-pg/dashboard
+  path: ./kubernetes/apps/database/cloudnative-pg/dashboard
   targetNamespace: database
   prune: false #Remove after merge
   sourceRef:

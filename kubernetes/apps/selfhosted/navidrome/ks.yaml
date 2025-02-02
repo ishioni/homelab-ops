@@ -6,7 +6,7 @@ metadata:
   name: selfhosted-navidrome
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/navidrome/app
+  path: ./kubernetes/apps/selfhosted/navidrome/app
   targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository

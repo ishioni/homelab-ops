@@ -6,7 +6,7 @@ metadata:
   name: downloads-qbittorrent
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/downloads/qbittorrent/app
+  path: ./kubernetes/apps/downloads/qbittorrent/app
   targetNamespace: downloads
   sourceRef:
     kind: GitRepository

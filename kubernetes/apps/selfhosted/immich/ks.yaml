@@ -6,7 +6,7 @@ metadata:
   name: selfhosted-immich
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/immich/app
+  path: ./kubernetes/apps/selfhosted/immich/app
   targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository

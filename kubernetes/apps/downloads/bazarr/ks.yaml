@@ -6,7 +6,7 @@ metadata:
   name: downloads-bazarr
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/downloads/bazarr/app
+  path: ./kubernetes/apps/downloads/bazarr/app
   targetNamespace: downloads
   sourceRef:
     kind: GitRepository

@@ -6,7 +6,7 @@ metadata:
   name: selfhosted-audiobookshelf
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/audiobookshelf/app
+  path: ./kubernetes/apps/selfhosted/audiobookshelf/app
   targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository

@@ -6,7 +6,7 @@ metadata:
   name: database-dragonfly
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/database/dragonfly/operator
+  path: ./kubernetes/apps/database/dragonfly/operator
   targetNamespace: database
   sourceRef:
     kind: GitRepository
@@ -22,7 +22,7 @@ metadata:
   name: database-dragonfly-cluster
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/database/dragonfly/cluster
+  path: ./kubernetes/apps/database/dragonfly/cluster
   targetNamespace: database
   prune: false #Remove after merge
   sourceRef:

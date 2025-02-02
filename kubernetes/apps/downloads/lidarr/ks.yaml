@@ -6,7 +6,7 @@ metadata:
   name: downloads-lidarr
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/downloads/lidarr/app
+  path: ./kubernetes/apps/downloads/lidarr/app
   targetNamespace: downloads
   sourceRef:
     kind: GitRepository

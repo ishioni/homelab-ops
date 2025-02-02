@@ -6,7 +6,7 @@ metadata:
   name: talos-system-talos-backup
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/talos-backup/app
+  path: ./kubernetes/apps/kube-system/talos-backup/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

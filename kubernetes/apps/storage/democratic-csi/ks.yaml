@@ -6,7 +6,7 @@ metadata:
   name: storage-democratic-csi-nfs
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/storage/democratic-csi/nfs
+  path: ./kubernetes/apps/storage/democratic-csi/nfs
   targetNamespace: storage
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ spec:
 #   name: storage-democratic-csi-nvmeof
 #   namespace: flux-system
 # spec:
-#   path: ./kubernetes/talos/apps/storage/democratic-csi/nvmeof
+#   path: ./kubernetes/apps/storage/democratic-csi/nvmeof
 #   targetNamespace: storage
 #   sourceRef:
 #     kind: GitRepository
@@ -44,7 +44,7 @@ metadata:
   name: storage-democratic-csi-iscsi
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/storage/democratic-csi/iscsi
+  path: ./kubernetes/apps/storage/democratic-csi/iscsi
   targetNamespace: storage
   sourceRef:
     kind: GitRepository

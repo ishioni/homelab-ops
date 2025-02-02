@@ -6,7 +6,7 @@ metadata:
   name: network-default-certificate
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/ingress-nginx/default-certificate
+  path: ./kubernetes/apps/network/ingress-nginx/default-certificate
   targetNamespace: network
   sourceRef:
     kind: GitRepository
@@ -27,7 +27,7 @@ metadata:
   name: network-ingress-nginx-public
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/ingress-nginx/public
+  path: ./kubernetes/apps/network/ingress-nginx/public
   targetNamespace: network
   sourceRef:
     kind: GitRepository
@@ -48,7 +48,7 @@ metadata:
   name: network-ingress-nginx-private
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/ingress-nginx/private
+  path: ./kubernetes/apps/network/ingress-nginx/private
   targetNamespace: network
   sourceRef:
     kind: GitRepository

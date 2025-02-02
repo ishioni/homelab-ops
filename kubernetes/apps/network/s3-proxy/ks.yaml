@@ -6,7 +6,7 @@ metadata:
   name: network-s3-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/s3-proxy/app
+  path: ./kubernetes/apps/network/s3-proxy/app
   targetNamespace: network
   sourceRef:
     kind: GitRepository

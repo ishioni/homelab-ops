@@ -6,7 +6,7 @@ metadata:
   name: monitor-gatus
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/gatus/app
+  path: ./kubernetes/apps/monitor/gatus/app
   targetNamespace: monitor
   sourceRef:
     kind: GitRepository

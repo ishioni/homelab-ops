@@ -6,7 +6,7 @@ metadata:
   name: storage-openebs
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/storage/openebs/app
+  path: ./kubernetes/apps/storage/openebs/app
   targetNamespace: storage
   sourceRef:
     kind: GitRepository

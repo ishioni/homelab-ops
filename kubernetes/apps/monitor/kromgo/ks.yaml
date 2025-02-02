@@ -6,7 +6,7 @@ metadata:
   name: monitor-kromgo
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/kromgo/app
+  path: ./kubernetes/apps/monitor/kromgo/app
   targetNamespace: monitor
   sourceRef:
     kind: GitRepository

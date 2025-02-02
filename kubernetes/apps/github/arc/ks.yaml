@@ -6,7 +6,7 @@ metadata:
   name: github-arc
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/github/arc/operator
+  path: ./kubernetes/apps/github/arc/operator
   targetNamespace: github
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
   name: github-arc-runners
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/github/arc/runners
+  path: ./kubernetes/apps/github/arc/runners
   targetNamespace: github
   sourceRef:
     kind: GitRepository

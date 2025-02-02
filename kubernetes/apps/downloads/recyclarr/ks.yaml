@@ -6,7 +6,7 @@ metadata:
   name: downloads-recyclarr
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/downloads/recyclarr/app
+  path: ./kubernetes/apps/downloads/recyclarr/app
   targetNamespace: downloads
   sourceRef:
     kind: GitRepository

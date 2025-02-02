@@ -6,7 +6,7 @@ metadata:
   name: kube-system-spegel
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/spegel/app
+  path: ./kubernetes/apps/kube-system/spegel/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

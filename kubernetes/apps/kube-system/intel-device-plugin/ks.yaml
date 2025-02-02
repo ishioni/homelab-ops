@@ -6,7 +6,7 @@ metadata:
   name: kube-system-intel-device-plugin
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/intel-device-plugin/app
+  path: ./kubernetes/apps/kube-system/intel-device-plugin/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

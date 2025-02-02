@@ -6,7 +6,7 @@ metadata:
   name: storage-volsync
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/storage/volsync/app
+  path: ./kubernetes/apps/storage/volsync/app
   targetNamespace: storage
   sourceRef:
     kind: GitRepository

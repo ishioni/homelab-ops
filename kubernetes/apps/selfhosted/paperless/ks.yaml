@@ -6,7 +6,7 @@ metadata:
   name: selfhosted-paperless
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/paperless/app
+  path: ./kubernetes/apps/selfhosted/paperless/app
   targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository

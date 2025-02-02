@@ -6,7 +6,7 @@ metadata:
   name: monitor-nut-exporter
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/nut-exporter/app
+  path: ./kubernetes/apps/monitor/nut-exporter/app
   targetNamespace: monitor
   commonMetadata:
     labels:

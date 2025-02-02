@@ -6,7 +6,7 @@ metadata:
   name: kube-system-reloader
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/reloader/app
+  path: ./kubernetes/apps/kube-system/reloader/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

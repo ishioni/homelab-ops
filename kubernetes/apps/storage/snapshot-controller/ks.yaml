@@ -6,7 +6,7 @@ metadata:
   name: storage-snapshot-controller
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/storage/snapshot-controller/app
+  path: ./kubernetes/apps/storage/snapshot-controller/app
   targetNamespace: storage
   sourceRef:
     kind: GitRepository

@@ -6,7 +6,7 @@ metadata:
   name: downloads-radarr
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/downloads/radarr/app
+  path: ./kubernetes/apps/downloads/radarr/app
   targetNamespace: downloads
   sourceRef:
     kind: GitRepository

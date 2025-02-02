@@ -6,7 +6,7 @@ metadata:
   name: kube-system-kubelet-csr-approver
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/kubelet-csr-approver/app
+  path: ./kubernetes/apps/kube-system/kubelet-csr-approver/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

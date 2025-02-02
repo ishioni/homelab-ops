@@ -6,7 +6,7 @@ metadata:
   name: kube-system-descheduler
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/descheduler/app
+  path: ./kubernetes/apps/kube-system/descheduler/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

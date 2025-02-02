@@ -6,7 +6,7 @@ metadata:
   name: network-cert-manager
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/cert-manager/app
+  path: ./kubernetes/apps/network/cert-manager/app
   targetNamespace: network
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
   name: network-cert-manager-issuers
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/network/cert-manager/issuers
+  path: ./kubernetes/apps/network/cert-manager/issuers
   targetNamespace: network
   sourceRef:
     kind: GitRepository

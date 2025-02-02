@@ -6,7 +6,7 @@ metadata:
   name: monitor-grafana
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/grafana/app
+  path: ./kubernetes/apps/monitor/grafana/app
   targetNamespace: monitor
   sourceRef:
     kind: GitRepository

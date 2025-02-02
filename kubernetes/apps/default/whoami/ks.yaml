@@ -6,7 +6,7 @@ metadata:
   name: default-whoami
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/default/whoami/app
+  path: ./kubernetes/apps/default/whoami/app
   targetNamespace: default
   sourceRef:
     kind: GitRepository

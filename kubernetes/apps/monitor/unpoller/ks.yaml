@@ -6,7 +6,7 @@ metadata:
   name: monitor-unpoller
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/unpoller/app
+  path: ./kubernetes/apps/monitor/unpoller/app
   targetNamespace: monitor
   sourceRef:
     kind: GitRepository

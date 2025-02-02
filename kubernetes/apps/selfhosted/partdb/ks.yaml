@@ -6,7 +6,7 @@ metadata:
   name: selfhosted-partdb
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/partdb/app
+  path: ./kubernetes/apps/selfhosted/partdb/app
   targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository

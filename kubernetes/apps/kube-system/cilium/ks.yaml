@@ -6,7 +6,7 @@ metadata:
   name: kube-system-cilium
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/cilium/app
+  path: ./kubernetes/apps/kube-system/cilium/app
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
   name: kube-system-cilium-config
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/kube-system/cilium/config
+  path: ./kubernetes/apps/kube-system/cilium/config
   targetNamespace: kube-system
   sourceRef:
     kind: GitRepository

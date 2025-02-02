@@ -6,7 +6,7 @@ metadata:
   name: flux-system-addons
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/flux-system/add-ons
+  path: ./kubernetes/apps/flux-system/add-ons
   targetNamespace: flux-system
   sourceRef:
     kind: GitRepository

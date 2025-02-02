@@ -6,7 +6,7 @@ metadata:
   name: selfhosted-nextcloud
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/nextcloud/app
+  path: ./kubernetes/apps/selfhosted/nextcloud/app
   targetNamespace: selfhosted
   sourceRef:
     kind: GitRepository

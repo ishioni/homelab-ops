@@ -6,7 +6,7 @@ metadata:
   name: monitor-prometheus-operator-crds
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/kube-prometheus-stack/crds
+  path: ./kubernetes/apps/monitor/kube-prometheus-stack/crds
   targetNamespace: monitor
   sourceRef:
     kind: GitRepository
@@ -22,7 +22,7 @@ metadata:
   name: monitor-kube-prometheus-stack
   namespace: flux-system
 spec:
-  path: ./kubernetes/talos/apps/monitor/kube-prometheus-stack/app
+  path: ./kubernetes/apps/monitor/kube-prometheus-stack/app
   targetNamespace: monitor
   sourceRef:
     kind: GitRepository
