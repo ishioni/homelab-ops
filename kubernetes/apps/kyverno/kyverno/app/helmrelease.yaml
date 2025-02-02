@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: kyverno
 spec:
-  interval: 30m
   chart:
     spec:
       chart: kyverno
@@ -14,10 +13,14 @@ spec:
         kind: HelmRepository
         name: kyverno
         namespace: flux-system
+  maxHistory: 3
+  interval: 30m
   install:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  uninstall:
+    keepHistory: false
   values:
     crds:
       install: true
