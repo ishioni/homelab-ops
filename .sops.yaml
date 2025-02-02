@@ -11,7 +11,7 @@ creation_rules:
           - *ishioni
           - *talos
 
-  - path_regex: kubernetes/talos/.*\.sops\.ya?ml
+  - path_regex: kubernetes/.*\.sops\.ya?ml
     input_type: yaml
     encrypted_regex: "^(data|stringData)$"
     mac_only_encrypted: true

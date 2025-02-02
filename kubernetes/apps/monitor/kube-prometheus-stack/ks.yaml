@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: monitor-prometheus-operator-crds
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/monitor/kube-prometheus-stack/crds
+  targetNamespace: monitor
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  prune: false #Remove after merge
+  wait: true
+  interval: 30m
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: monitor-kube-prometheus-stack
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/monitor/kube-prometheus-stack/app
+  targetNamespace: monitor
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname kube-prometheus-stack
+  prune: false #Remove after merge
+  wait: true
+  interval: 30m
+  dependsOn:
+    - name: monitor-prometheus-operator-crds
+    - name: storage-democratic-csi-iscsi
+    - name: security-onepassword-store
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: prometheus.${PRIVATE_DOMAIN}
+      ALERT_HOSTNAME: alerts.${PRIVATE_DOMAIN}

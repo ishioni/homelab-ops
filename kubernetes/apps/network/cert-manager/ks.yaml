@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-cert-manager
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/network/cert-manager/app
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: cert-manager
+  prune: false #Remove after merge
+  wait: true
+  interval: 30m
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-cert-manager-issuers
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/network/cert-manager/issuers
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: cert-manager-issuers
+  prune: false #Remove after merge
+  wait: false
+  interval: 30m
+  dependsOn:
+    - name: network-cert-manager
+    - name: security-onepassword-store

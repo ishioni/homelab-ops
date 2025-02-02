@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: default-whoami
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/default/whoami/app
+  targetNamespace: default
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname whoami
+  prune: false #Remove after merge
+  wait: false
+  interval: 30m
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: whoami.${PUBLIC_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"

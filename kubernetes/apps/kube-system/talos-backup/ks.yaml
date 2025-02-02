@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: talos-system-talos-backup
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/kube-system/talos-backup/app
+  targetNamespace: kube-system
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname talos-backup
+  prune: false #Remove after merge
+  wait: true
+  dependsOn:
+    - name: security-onepassword-store
+  interval: 30m

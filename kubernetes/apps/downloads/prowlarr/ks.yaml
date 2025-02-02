@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: downloads-prowlarr
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/downloads/prowlarr/app
+  targetNamespace: downloads
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname prowlarr
+  prune: false #Remove after merge
+  wait: false
+  interval: 30m
+  dependsOn:
+    - name: database-cloudnative-pg-cluster
+    - name: security-onepassword-store
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: indexer.${PUBLIC_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "5000"

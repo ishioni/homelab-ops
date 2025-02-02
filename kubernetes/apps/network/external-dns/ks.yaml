@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-external-dns-cloudflare
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/network/external-dns/cloudflare
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname external-dns-cloudflare
+  prune: false #Remove after merge
+  wait: false
+  interval: 30m
+  dependsOn:
+    - name: security-onepassword-store
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: network-external-dns-unifi
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/network/external-dns/unifi
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname external-dns-unifi
+  prune: false #Remove after merge
+  wait: false
+  interval: 30m
+  dependsOn:
+    - name: security-onepassword-store
