@@ -22,7 +22,7 @@ spec:
     - name: security-onepassword-store
     - name: storage-democratic-csi-iscsi
   components:
-    - ../../../../components/pvc
+    - ../../../components/pvc
   postBuild:
     substitute:
       APP: *appname
