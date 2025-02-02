@@ -3,36 +3,44 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: github-arc
-  namespace: flux-system
+  name: &app github-arc
+  namespace: &namespace github
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: security-onepassword-store
+      namespace: security
+  interval: 30m
   path: ./kubernetes/apps/github/arc/operator
-  targetNamespace: github
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Remove after merge
+    namespace: flux-system
+  targetNamespace: *namespace
   wait: true
-  interval: 30m
-  timeout: 5m
-  dependsOn:
-    - name: security-onepassword-store
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: github-arc-runners
-  namespace: flux-system
+  name: &app arc-runners
+  namespace: &namespace github
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: github-arc
+      namespace: *namespace
+  interval: 30m
   path: ./kubernetes/apps/github/arc/runners
-  targetNamespace: github
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Remove after merge
+    namespace: flux-system
+  targetNamespace: *namespace
   wait: true
-  interval: 30m
-  timeout: 5m
-  dependsOn:
-    - name: github-arc

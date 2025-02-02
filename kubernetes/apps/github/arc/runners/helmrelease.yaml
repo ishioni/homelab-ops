@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: arc-homelab
 spec:
-  interval: 30m
   chart:
     spec:
       chart: gha-runner-scale-set
@@ -14,11 +13,15 @@ spec:
         kind: HelmRepository
         name: actions-runner-controller
         namespace: flux-system
-  driftDetection:
-    mode: enabled
   dependsOn:
     - name: github-arc
       namespace: github
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  interval: 30m
+  uninstall:
+    keepHistory: false
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret
