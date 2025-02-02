@@ -18,5 +18,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+    namespace: flux-system
   targetNamespace: *namespace
   wait: false
