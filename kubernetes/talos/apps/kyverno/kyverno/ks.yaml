@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: kyverno
-  prune: true
+  prune: false #Revert after merge
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -35,7 +35,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: kyverno
-  prune: true
+  prune: false #Revert after merge
   wait: false
   interval: 30m
   dependsOn:

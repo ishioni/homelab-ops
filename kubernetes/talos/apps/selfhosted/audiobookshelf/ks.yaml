@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname audiobookshelf
-  prune: true
+  prune: false #Revert after merge
   wait: false
   interval: 30m
   dependsOn:
