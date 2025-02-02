@@ -6,8 +6,8 @@ set: [pipefail]
 shopt: [globstar]
 
 vars:
-  CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes'
-  BOOTSTRAP_DIR: '{{.CLUSTER_DIR}}/bootstrap'
+  CLUSTER_DIR: "{{.ROOT_DIR}}/kubernetes"
+  BOOTSTRAP_DIR: "{{.CLUSTER_DIR}}/bootstrap"
   TALOS_DIR: "{{.BOOTSTRAP_DIR}}/talos"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/infrastructure/ansible"
   TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
