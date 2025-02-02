@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./add-ons/ks.yaml
+  - ./flux-operator/ks.yaml
