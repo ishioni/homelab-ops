@@ -3,33 +3,41 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: database-dragonfly
-  namespace: flux-system
+  name: &app dragonfly-operator
+  namespace: &namespace database
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  interval: 30m
   path: ./kubernetes/apps/database/dragonfly/operator
-  targetNamespace: database
+  prune: false #Remove after merge
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Remove after merge
+    namespace: flux-system
+  targetNamespace: *namespace
   wait: true
-  interval: 30m
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: database-dragonfly-cluster
-  namespace: flux-system
+  name: &app dragonfly-cluster
+  namespace: &namespace database
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: database-dragonfly
+      namespace: *namespace
+  interval: 30m
   path: ./kubernetes/apps/database/dragonfly/cluster
-  targetNamespace: database
   prune: false #Remove after merge
   sourceRef:
     kind: GitRepository
     name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
   wait: true
-  interval: 30m
-  dependsOn:
-    - name: database-dragonfly
-    - name: storage-democratic-csi-iscsi
