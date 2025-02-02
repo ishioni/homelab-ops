@@ -12,7 +12,7 @@ spec:
       name: sops-age
   interval: 30m
   path: ./kubernetes/talos/flux/cluster-meta
-  prune: false #Revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
@@ -61,7 +61,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
-  prune: false #Revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops

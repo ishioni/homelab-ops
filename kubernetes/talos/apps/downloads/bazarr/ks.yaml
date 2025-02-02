@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname bazarr
-  prune: false #Revert after merge
+  prune: true
   wait: false
   interval: 30m
   dependsOn:

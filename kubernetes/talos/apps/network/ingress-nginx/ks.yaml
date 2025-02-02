@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname default-certificate
-  prune: false #Revert after merge
+  prune: true
   wait: true
   interval: 30m
   dependsOn:
@@ -35,7 +35,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname nginx-public
-  prune: false #Revert after merge
+  prune: true
   wait: false
   interval: 30m
   dependsOn:
@@ -56,7 +56,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname nginx-private
-  prune: false #Revert after merge
+  prune: true
   wait: false
   interval: 30m
   dependsOn:

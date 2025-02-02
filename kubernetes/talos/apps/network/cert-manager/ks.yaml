@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: cert-manager
-  prune: false #Revert after merge
+  prune: true
   wait: true
   interval: 30m
 ---
@@ -33,7 +33,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: cert-manager-issuers
-  prune: false #Revert after merge
+  prune: true
   wait: false
   interval: 30m
   dependsOn:

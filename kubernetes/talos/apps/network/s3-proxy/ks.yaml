@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname s3-proxy
-  prune: false #Revert after merge
+  prune: true
   wait: false
   interval: 30m
   postBuild:

@@ -14,6 +14,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Revert after merge
+  prune: true
   wait: false
   interval: 30m

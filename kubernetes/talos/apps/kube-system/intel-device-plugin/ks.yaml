@@ -16,6 +16,6 @@ spec:
       app.kubernetes.io/name: intel-device-plugin
   dependsOn:
     - name: kube-system-node-feature-discovery
-  prune: false #Revert after merge
+  prune: true
   wait: true
   interval: 30m

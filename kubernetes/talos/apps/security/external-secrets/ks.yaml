@@ -14,7 +14,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: external-secrets
-  prune: false #Revert after merge
+  prune: true
   wait: true
   interval: 30m
 ---
@@ -33,7 +33,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: onepassword
-  prune: false #Revert after merge
+  prune: true
   wait: true
   interval: 30m
 ---
@@ -52,7 +52,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: secret-store
-  prune: false #Revert after merge
+  prune: true
   wait: true
   interval: 30m
   dependsOn:

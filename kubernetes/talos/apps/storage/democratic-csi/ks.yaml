@@ -11,7 +11,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Revert after merge
+  prune: true
   wait: true
   dependsOn:
     - name: security-onepassword-store
@@ -30,7 +30,7 @@ spec:
 #   sourceRef:
 #     kind: GitRepository
 #     name: homelab-ops
-#   prune: false #Revert after merge
+#   prune: true
 #   wait: true
 #   dependsOn:
 #     - name: security-onepassword-store
@@ -49,7 +49,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Revert after merge
+  prune: true
   wait: true
   dependsOn:
     - name: security-onepassword-store
