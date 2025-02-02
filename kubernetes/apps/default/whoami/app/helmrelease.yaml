@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: whoami
-  namespace: default
 spec:
   interval: 30m
   chart:
@@ -15,6 +14,9 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       whoami:
