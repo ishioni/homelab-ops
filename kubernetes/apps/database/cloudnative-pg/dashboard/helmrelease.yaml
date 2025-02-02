@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: cloudnative-pg-dashboard
 spec:
-  interval: 30m
   chart:
     spec:
       chart: cluster
@@ -15,6 +14,7 @@ spec:
         name: cloudnative-pg-dashboards
         namespace: flux-system
   maxHistory: 3
+  interval: 30m
   uninstall:
     keepHistory: false
   values:

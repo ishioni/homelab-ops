@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: &app dragonfly-operator
 spec:
-  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -15,6 +14,7 @@ spec:
         name: bjw-s
         namespace: flux-system
   maxHistory: 3
+  interval: 30m
   uninstall:
     keepHistory: false
   values:
