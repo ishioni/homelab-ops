@@ -32,16 +32,6 @@ instance:
         target:
           group: kustomize.toolkit.fluxcd.io
           kind: Kustomization
-      # Add system-settings to Kustomizations
-      - patch: |
-          - op: add
-            path: /spec/postBuild
-            value:
-              substituteFrom:
-                - kind: ConfigMap
-                  name: cluster-settings
-                - kind: Secret
-                  name: cluster-secrets
       # Increase the number of workers and limits
       # Ref: https://fluxcd.io/flux/installation/configuration/vertical-scaling/#increase-the-number-of-workers-and-limits
       - patch: |
