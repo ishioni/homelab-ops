@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: security-onepassword-store
-      namespace: security
+      namespace: flux-system
   interval: 30m
   path: ./kubernetes/apps/github/arc/operator
   prune: true
