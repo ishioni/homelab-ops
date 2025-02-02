@@ -14,10 +14,13 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg
         namespace: flux-system
+  maxHistory: 3
   install:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  uninstall:
+    keepHistory: false
   values:
     crds:
       create: true

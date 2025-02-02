@@ -14,6 +14,9 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg-dashboards
         namespace: flux-system
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
   values:
     grafanaDashboard:
       namespace: database
