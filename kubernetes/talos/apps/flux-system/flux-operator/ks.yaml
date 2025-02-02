@@ -16,7 +16,7 @@ spec:
   prune: false # Never delete this
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: homelab-ops
     namespace: flux-system
   wait: false
 ---
@@ -37,6 +37,6 @@ spec:
   prune: false # Never delete this
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: homelab-ops
     namespace: flux-system
   wait: false
