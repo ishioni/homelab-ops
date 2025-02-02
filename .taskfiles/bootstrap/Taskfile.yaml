@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  apps:
+    desc: Bootstrap Apps
+    prompt: Bootstrap apps into Talos cluster?
+    preconditions:
+      - which op helmfile kubectl minijinja-cli
+      - test -f "${KUBECONFIG}"
+      - test -f {{.BOOTSTRAP_DIR}}/apps/helmfile.yaml
+      - test -f {{.BOOTSTRAP_DIR}}/apps/bootstrap.env
+      - test -f {{.BOOTSTRAP_DIR}}/apps/templates/resources.yaml.j2
+      - op user get --me
+      - talosctl config info
+    cmds:
+      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - op run --env-file {{.BOOTSTRAP_DIR}}/apps/bootstrap.env --no-masking -- minijinja-cli "{{.BOOTSTRAP_DIR}}/apps/templates/resources.yaml.j2" | kubectl apply --server-side --filename -
+      - helmfile --quiet --file {{.BOOTSTRAP_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
