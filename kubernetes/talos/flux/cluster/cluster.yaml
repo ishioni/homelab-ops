@@ -11,7 +11,7 @@ spec:
     secretRef:
       name: sops-age
   interval: 30m
-  path: ./kubernetes/talos/flux/meta
+  path: ./kubernetes/talos/flux/cluster-meta
   prune: false #Revert after merge
   sourceRef:
     kind: GitRepository
