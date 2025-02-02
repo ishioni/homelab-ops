@@ -2,11 +2,14 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+set: [pipefail]
+shopt: [globstar]
+
 vars:
-  CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/talos'
+  CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes'
   BOOTSTRAP_DIR: '{{.CLUSTER_DIR}}/bootstrap'
+  TALOS_DIR: "{{.BOOTSTRAP_DIR}}/talos"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/infrastructure/ansible"
-  TALOS_DIR: "{{.ROOT_DIR}}/kubernetes/talos/bootstrap/talos"
   TERRAFORM_DIR: "{{.ROOT_DIR}}/infrastructure/terraform"
 
 dotenv: [".config.env"]
