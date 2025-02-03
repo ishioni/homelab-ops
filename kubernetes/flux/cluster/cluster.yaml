@@ -57,6 +57,10 @@ spec:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
         labelSelector: substitution.flux.home.arpa/disabled notin (true)
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-settings
   prune: true
   sourceRef:
     kind: GitRepository
