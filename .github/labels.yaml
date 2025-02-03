@@ -2,21 +2,16 @@
 # Area
 - name: area/ansible
   color: "72ccf3"
-- name: area/github
+- name: area/terraform
   color: "72ccf3"
-- name: area/taskfiles
+- name: area/github
   color: "72ccf3"
 - name: area/kubernetes
   color: "72ccf3"
-- name: area/talos
-  color: "72ccf3"
-- name: area/terraform
-  color: "72ccf3"
-# Clusters
-- name: cluster/talos
-  color: "ffc300"
 - name: area/truenas
-  color: "ffc300"
+  color: "72ccf3"
+- name: area/taskfiles
+  color: "72ccf3"
 # Renovate
 - name: renovate/ansible
   color: "ffc300"

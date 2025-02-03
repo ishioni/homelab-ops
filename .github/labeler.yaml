@@ -2,25 +2,20 @@
 area/ansible:
   - changed-files:
       - any-glob-to-any-file: "infrastructure/ansible/**/*"
-area/taskfiles:
+area/terraform:
   - changed-files:
-      - any-glob-to-any-file: ".taskfiles/**/*"
-area/talos:
-  - changed-files:
-      - any-glob-to-any-file: "infrastructure/talos/**/*"
-      - any-glob-to-any-file: Taskfile*
+      - any-glob-to-any-file: "infrastructure/terraform/**/*"
 area/github:
   - changed-files:
       - any-glob-to-any-file: ".github/**/*"
 area/kubernetes:
   - changed-files:
       - any-glob-to-any-file: "kubernetes/**/*"
-area/terraform:
-  - changed-files:
-      - any-glob-to-any-file: "infrastructure/terraform/**/*"
-cluster/talos:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/talos/**/*
 area/truenas:
   - changed-files:
-      - any-glob-to-any-file: truenas/**/*
+      - any-glob-to-any-file: "truenas/**/*"
+area/taskfiles:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".taskfiles/**/*"
+          - "Taskfile.yaml"
