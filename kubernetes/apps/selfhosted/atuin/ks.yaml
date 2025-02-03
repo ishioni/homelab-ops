@@ -3,26 +3,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: selfhosted-atuin
-  namespace: flux-system
+  name: &app atuin
+  namespace: &namespace selfhosted
 spec:
-  path: ./kubernetes/apps/selfhosted/atuin/app
-  targetNamespace: selfhosted
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname atuin
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: postgres-cluster
       namespace: database
     - name: onepassword-store
       namespace: security
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/atuin/app
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: atuin.${PRIVATE_DOMAIN}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

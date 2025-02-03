@@ -3,20 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: selfhosted-navidrome
-  namespace: flux-system
+  name: &app navidrome
+  namespace: &namespace selfhosted
 spec:
-  path: ./kubernetes/apps/selfhosted/navidrome/app
-  targetNamespace: selfhosted
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname navidrome
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -26,11 +20,11 @@ spec:
       namespace: storage
     - name: volsync
       namespace: storage
-  components:
-    - ../../../../components/volsync
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/navidrome/app
   postBuild:
     substitute:
-      APP: *appname
+      APP: *app
       HOSTNAME: navidrome.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "5000"
@@ -40,3 +34,10 @@ spec:
       VOLSYNC_STORAGECLASS: truenas-ssd-iscsi
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
       VOLSYNC_TIME: 0 1 * * *
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

@@ -3,9 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: immich
+  name: &app immich
 spec:
-  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -16,8 +15,12 @@ spec:
         namespace: flux-system
   install:
     timeout: 30m
+  interval: 30m
+  maxHistory: 3
   upgrade:
     timeout: 30m
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       server:
@@ -46,7 +49,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/instance: ${APP}
+                  app.kubernetes.io/instance: *app
                   app.kubernetes.io/component: server
         containers:
           server:
@@ -99,7 +102,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/instance: ${APP}
+                  app.kubernetes.io/instance: *app
                   app.kubernetes.io/component: microservices
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
@@ -140,7 +143,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/instance: ${APP}
+                  app.kubernetes.io/instance: *app
                   app.kubernetes.io/component: machine-learning
         containers:
           machine-learning:
@@ -277,5 +280,3 @@ spec:
           machine-learning:
             machine-learning:
               - path: /cache
-      #   # globalMounts:
-      #   #   - path: /config

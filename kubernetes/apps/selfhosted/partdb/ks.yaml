@@ -3,20 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: selfhosted-partdb
-  namespace: flux-system
+  name: &app partdb
+  namespace: &namespace selfhosted
 spec:
-  path: ./kubernetes/apps/selfhosted/partdb/app
-  targetNamespace: selfhosted
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname partdb
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -26,11 +20,11 @@ spec:
       namespace: storage
     - name: volsync
       namespace: storage
-  components:
-    - ../../../../components/volsync
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/partdb/app
   postBuild:
     substitute:
-      APP: *appname
+      APP: *app
       HOSTNAME: partdb.${PRIVATE_DOMAIN}
       APP_UID: "0"
       APP_GID: "0"
@@ -41,3 +35,10 @@ spec:
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 10 * * *
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true
