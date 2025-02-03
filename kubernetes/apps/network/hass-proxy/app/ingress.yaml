@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: public
   rules:
-    - host: &host ${HOSTNAME}
+    - host: ${HOSTNAME}
       http:
         paths:
           - backend:

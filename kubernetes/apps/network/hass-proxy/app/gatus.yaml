@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: Home Assistant
         group: Applications
-        url: http://homeassistant.${PRIVATE_DOMAIN}:8123
+        url: http://${HOSTNAME}:8123
         interval: 1m
         ui:
           hide-hostname: true
