@@ -86,7 +86,7 @@ spec:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
       media:
-        existingClaim: media-datastore
+        existingClaim: selfhosted-pvc
         globalMounts:
           - path: /audiobooks
             subPath: Audiobooks

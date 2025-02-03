@@ -142,7 +142,7 @@ spec:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
       downloads:
-        existingClaim: downloads-datastore
+        existingClaim: downloads-pvc
         globalMounts:
           - path: /downloads
             subPath: Downloads

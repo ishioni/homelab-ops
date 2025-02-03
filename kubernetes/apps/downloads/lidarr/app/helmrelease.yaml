@@ -122,6 +122,6 @@ spec:
         globalMounts:
           - path: /config/logs
       media:
-        existingClaim: downloads-datastore
+        existingClaim: downloads-pvc
         globalMounts:
           - path: /media

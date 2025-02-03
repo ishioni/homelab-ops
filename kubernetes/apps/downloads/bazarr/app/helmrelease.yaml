@@ -111,6 +111,6 @@ spec:
         existingClaim: ${VOLSYNC_CLAIM}
       media:
         enabled: true
-        existingClaim: downloads-datastore
+        existingClaim: downloads-pvc
         globalMounts:
           - path: /media

@@ -10,9 +10,9 @@ components:
   - ../../components/sops
 resources:
   - ./bazarr/ks.yaml
+  - ./downloads-pvc/ks.yaml
   - ./lidarr/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./pvc
   - ./qbittorrent/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml

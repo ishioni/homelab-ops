@@ -95,7 +95,7 @@ spec:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
       music:
-        existingClaim: media-datastore
+        existingClaim: selfhosted-pvc
         globalMounts:
           - path: /music
             subPath: Music

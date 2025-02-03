@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: media-datastore
+  name: selfhosted-pvc
 spec:
   capacity:
     storage: 4000Gi
@@ -18,8 +18,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-datastore
-  namespace: selfhosted
+  name: selfhosted-pvc
 spec:
   accessModes: [ReadWriteMany]
   resources:
@@ -27,4 +26,4 @@ spec:
       storage: 4000Gi
   storageClassName: nfs
   volumeMode: Filesystem
-  volumeName: media-datastore
+  volumeName: selfhosted-pvc
