@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: node-feature-discovery
 spec:
-  interval: 30m
   chart:
     spec:
       chart: node-feature-discovery
@@ -14,10 +13,14 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery
         namespace: flux-system
+  interval: 30m
   install:
     crds: CreateReplace
+  maxHistory: 3
   upgrade:
     crds: CreateReplace
+  uninstall:
+    keepHistory: false
   values:
     prometheus:
       enable: true

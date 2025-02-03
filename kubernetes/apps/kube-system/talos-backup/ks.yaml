@@ -3,20 +3,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: talos-system-talos-backup
-  namespace: flux-system
+  name: &app talos-backup
+  namespace: &namespace kube-system
 spec:
-  path: ./kubernetes/apps/kube-system/talos-backup/app
-  targetNamespace: kube-system
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname talos-backup
-  prune: false #Remove after merge
-  wait: true
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword-store
       namespace: security
   interval: 30m
+  path: ./kubernetes/apps/kube-system/talos-backup/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

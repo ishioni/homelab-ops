@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: reloader
 spec:
-  interval: 30m
   chart:
     spec:
       chart: reloader
@@ -14,6 +13,10 @@ spec:
         kind: HelmRepository
         name: stakater
         namespace: flux-system
+  interval: 30m
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
   values:
     fullnameOverride: reloader
     resources:
