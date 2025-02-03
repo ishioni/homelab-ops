@@ -1,8 +1,8 @@
 <div align="center">
 
-### My Kubernetes Lab cluster ⛵️
+## My Homelab Ops repository
 
-_... managed with Flux and Renovate_ :robot:
+_... managed by Flux, Renovate and GitHub Actions_ :robot:
 
 </div>
 
