@@ -22,8 +22,10 @@ spec:
       namespace: database
     - name: onepassword-store
       namespace: security
-    - name: storage-democratic-csi-nfs
-    - name: storage-volsync
+    - name: democratic-csi-nfs
+      namespace: storage
+    - name: volsync
+      namespace: storage
   components:
     - ../../../../components/volsync
   postBuild:

@@ -16,8 +16,8 @@ spec:
       namespace: database
     - name: onepassword-store
       namespace: security
-    - name: storage-democratic-csi-nfs
-      namespace: flux-system
+    - name: democratic-csi-nfs
+      namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/radarr/app
   postBuild:

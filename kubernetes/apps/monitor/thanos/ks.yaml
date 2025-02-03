@@ -18,7 +18,8 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
-    - name: storage-democratic-csi-iscsi
+    - name: democratic-csi-iscsi
+      namespace: storage
     - name: onepassword-store
       namespace: security
     - name: monitor-kube-prometheus-stack

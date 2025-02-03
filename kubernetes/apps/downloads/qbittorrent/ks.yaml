@@ -12,10 +12,10 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: storage-democratic-csi-nfs
-      namespace: flux-system
-    - name: storage-volsync
-      namespace: flux-system
+    - name: democratic-csi-nfs
+      namespace: storage
+    - name: volsync
+      namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/qbittorrent/app
   postBuild:

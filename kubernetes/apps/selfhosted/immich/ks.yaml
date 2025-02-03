@@ -24,7 +24,8 @@ spec:
       namespace: database
     - name: onepassword-store
       namespace: security
-    - name: storage-democratic-csi-nfs
+    - name: democratic-csi-nfs
+      namespace: storage
   postBuild:
     substitute:
       APP: *appname

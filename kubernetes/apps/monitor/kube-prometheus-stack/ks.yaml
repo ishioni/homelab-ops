@@ -35,7 +35,8 @@ spec:
   interval: 30m
   dependsOn:
     - name: monitor-prometheus-operator-crds
-    - name: storage-democratic-csi-iscsi
+    - name: democratic-csi-iscsi
+      namespace: storage
     - name: onepassword-store
       namespace: security
   postBuild:
