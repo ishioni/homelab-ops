@@ -19,10 +19,6 @@ spec:
     keepHistory: false
   values:
     args:
-      - --secure-port=10250
-      - --cert-dir=/tmp
-      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
-      - --kubelet-use-node-status-port
       - --metric-resolution=10s
       - --kubelet-request-timeout=2s
     metrics:
