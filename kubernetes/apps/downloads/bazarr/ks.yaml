@@ -24,6 +24,7 @@ spec:
   path: ./kubernetes/apps/downloads/bazarr/app
   postBuild:
     substitute:
+      APP: *app
       HOSTNAME: bazarr.${PUBLIC_DOMAIN}
       VOLSYNC_CLAIM: bazarr-config
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs

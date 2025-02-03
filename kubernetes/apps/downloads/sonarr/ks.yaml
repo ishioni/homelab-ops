@@ -22,6 +22,7 @@ spec:
   path: ./kubernetes/apps/downloads/sonarr/app
   postBuild:
     substitute:
+      APP: *app
       HOSTNAME: tv.${PUBLIC_DOMAIN}
       PVC_CLAIM: sonarr-config
       PVC_STORAGECLASS: truenas-ssd-nfs

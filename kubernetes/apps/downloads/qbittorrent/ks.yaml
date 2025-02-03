@@ -20,6 +20,7 @@ spec:
   path: ./kubernetes/apps/downloads/qbittorrent/app
   postBuild:
     substitute:
+      APP: *app
       HOSTNAME: torrent.${PUBLIC_DOMAIN}
       VOLSYNC_CLAIM: qbittorrent-config
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs
