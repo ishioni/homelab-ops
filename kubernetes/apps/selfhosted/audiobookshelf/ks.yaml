@@ -25,6 +25,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "568"
+      APP_GID: "5000"
       HOSTNAME: audiobooks.${PUBLIC_DOMAIN}
       VOLSYNC_CLAIM: audiobookshelf-config
       VOLSYNC_CAPACITY: 5Gi

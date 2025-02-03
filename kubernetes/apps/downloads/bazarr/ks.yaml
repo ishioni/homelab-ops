@@ -25,6 +25,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "568"
+      APP_GID: "5000"
       HOSTNAME: bazarr.${PUBLIC_DOMAIN}
       VOLSYNC_CLAIM: bazarr-config
       VOLSYNC_STORAGECLASS: truenas-ssd-nfs
