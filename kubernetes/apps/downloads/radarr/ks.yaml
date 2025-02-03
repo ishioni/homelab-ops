@@ -3,33 +3,31 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: downloads-radarr
-  namespace: flux-system
+  name: &app radarr
+  namespace: &namespace downloads
 spec:
-  path: ./kubernetes/apps/downloads/radarr/app
-  targetNamespace: downloads
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname radarr
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/pvc
   dependsOn:
     - name: postgres-cluster
       namespace: database
     - name: onepassword-store
       namespace: security
     - name: storage-democratic-csi-iscsi
-  components:
-    - ../../../../components/pvc
+  interval: 30m
+  path: ./kubernetes/apps/downloads/radarr/app
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: movies.${PUBLIC_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "5000"
       PVC_CLAIM: radarr-config
       PVC_STORAGECLASS: truenas-ssd-nfs
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

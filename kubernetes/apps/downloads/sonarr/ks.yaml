@@ -3,33 +3,31 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: downloads-sonarr
-  namespace: flux-system
+  name: &app sonarr
+  namespace: &namespace downloads
 spec:
-  path: ./kubernetes/apps/downloads/sonarr/app
-  targetNamespace: downloads
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname sonarr
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/pvc
   dependsOn:
     - name: postgres-cluster
       namespace: database
     - name: onepassword-store
       namespace: security
     - name: storage-democratic-csi-nfs
-  components:
-    - ../../../../components/pvc
+  interval: 30m
+  path: ./kubernetes/apps/downloads/sonarr/app
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: tv.${PUBLIC_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "5000"
       PVC_CLAIM: sonarr-config
       PVC_STORAGECLASS: truenas-ssd-nfs
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

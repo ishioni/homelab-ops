@@ -3,28 +3,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: downloads-prowlarr
-  namespace: flux-system
+  name: &app prowlarr
+  namespace: &namespace downloads
 spec:
-  path: ./kubernetes/apps/downloads/prowlarr/app
-  targetNamespace: downloads
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname prowlarr
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: postgres-cluster
       namespace: database
     - name: onepassword-store
       namespace: security
+  interval: 30m
+  path: ./kubernetes/apps/downloads/prowlarr/app
   postBuild:
     substitute:
-      APP: *appname
       HOSTNAME: indexer.${PUBLIC_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "5000"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

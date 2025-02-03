@@ -3,23 +3,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: downloads-recyclarr
-  namespace: flux-system
+  name: &app recyclarr
+  namespace: &namespace downloads
 spec:
-  path: ./kubernetes/apps/downloads/recyclarr/app
-  targetNamespace: downloads
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname recyclarr
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: onepassword-store
       namespace: security
-  postBuild:
-    substitute:
-      APP: *appname
+  interval: 30m
+  path: ./kubernetes/apps/downloads/recyclarr/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

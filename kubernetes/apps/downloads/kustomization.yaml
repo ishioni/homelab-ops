@@ -2,8 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: downloads
+components:
+  - ../../components/namespace
+  - ../../components/global-vars
+  - ../../components/sops
 resources:
-  - ./namespace.yaml
   - ./bazarr/ks.yaml
   - ./lidarr/ks.yaml
   - ./prowlarr/ks.yaml
