@@ -17,4 +17,4 @@ resources:
   - ./nextcloud/ks.yaml
   - ./paperless/ks.yaml
   - ./partdb/ks.yaml
-  - ./selfhosted-pvc
+  - ./selfhosted-pvc/ks.yaml
