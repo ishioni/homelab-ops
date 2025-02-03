@@ -38,4 +38,5 @@ spec:
   interval: 30m
   dependsOn:
     - name: network-cert-manager
-    - name: security-onepassword-store
+    - name: onepassword-store
+      namespace: security

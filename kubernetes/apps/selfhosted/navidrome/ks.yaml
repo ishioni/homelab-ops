@@ -20,7 +20,8 @@ spec:
   dependsOn:
     - name: postgres-cluster
       namespace: database
-    - name: security-onepassword-store
+    - name: onepassword-store
+      namespace: security
     - name: storage-democratic-csi-iscsi
     - name: storage-volsync
   components:

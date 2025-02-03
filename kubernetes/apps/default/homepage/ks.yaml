@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: security-onepassword-store
-      namespace: flux-system
+    - name: onepassword-store
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/default/homepage/app
   postBuild:

@@ -34,8 +34,8 @@ spec:
       namespace: database
     - name: storage-openebs
       namespace: flux-system
-    - name: security-onepassword-store
-      namespace: flux-system
+    - name: onepassword-store
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true

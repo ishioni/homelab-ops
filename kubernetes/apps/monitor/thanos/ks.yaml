@@ -19,5 +19,6 @@ spec:
   interval: 30m
   dependsOn:
     - name: storage-democratic-csi-iscsi
-    - name: security-onepassword-store
+    - name: onepassword-store
+      namespace: security
     - name: monitor-kube-prometheus-stack

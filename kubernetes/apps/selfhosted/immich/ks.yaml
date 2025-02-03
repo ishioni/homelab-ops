@@ -22,7 +22,8 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: security-onepassword-store
+    - name: onepassword-store
+      namespace: security
     - name: storage-democratic-csi-nfs
   postBuild:
     substitute:

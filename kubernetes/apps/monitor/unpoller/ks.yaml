@@ -15,4 +15,5 @@ spec:
   wait: false
   interval: 30m
   dependsOn:
-    - name: security-onepassword-store
+    - name: onepassword-store
+      namespace: security

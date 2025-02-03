@@ -17,5 +17,6 @@ spec:
   prune: false #Remove after merge
   wait: true
   dependsOn:
-    - name: security-onepassword-store
+    - name: onepassword-store
+      namespace: security
   interval: 30m
