@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
 spec:
-  interval: 30m
   chart:
     spec:
       chart: kube-prometheus-stack
@@ -14,10 +13,14 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
+  interval: 30m
   install:
     crds: Skip
+  maxHistory: 3
   upgrade:
     crds: Skip
+  uninstall:
+    keepHistory: false
   valuesFrom:
     - kind: ConfigMap
       name: kube-state-metrics-config

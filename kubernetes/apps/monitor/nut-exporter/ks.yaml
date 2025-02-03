@@ -3,17 +3,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: monitor-nut-exporter
-  namespace: flux-system
+  name: &app nut-exporter
+  namespace: &namespace monitor
 spec:
-  path: ./kubernetes/apps/monitor/nut-exporter/app
-  targetNamespace: monitor
   commonMetadata:
     labels:
-      app.kubernetes.io/name: nut-exporter
+      app.kubernetes.io/name: *app
+  interval: 30m
+  path: ./kubernetes/apps/monitor/nut-exporter/app
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true

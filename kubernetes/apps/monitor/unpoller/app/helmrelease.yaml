@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: unpoller
 spec:
-  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -14,6 +13,10 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  interval: 30m
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       unpoller:

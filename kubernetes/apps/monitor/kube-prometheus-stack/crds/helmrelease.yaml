@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: prometheus-operator-crds
 spec:
-  interval: 30m
   chart:
     spec:
       chart: prometheus-operator-crds
@@ -16,5 +15,9 @@ spec:
         namespace: flux-system
   install:
     crds: CreateReplace
+  interval: 30m
+  maxHistory: 3
   upgrade:
     crds: CreateReplace
+  uninstall:
+    keepHistory: false

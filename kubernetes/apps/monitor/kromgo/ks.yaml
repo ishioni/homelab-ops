@@ -3,23 +3,24 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: monitor-kromgo
-  namespace: flux-system
+  name: &app kromgo
+  namespace: &namespace monitor
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitor
+  interval: 30m
   path: ./kubernetes/apps/monitor/kromgo/app
-  targetNamespace: monitor
+  postBuild:
+    substitute:
+      HOSTNAME: kromgo.${PUBLIC_DOMAIN}
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &appname kromgo
-  prune: false #Remove after merge
-  wait: false
-  interval: 30m
-  dependsOn:
-    - name: monitor-kube-prometheus-stack
-  postBuild:
-    substitute:
-      APP: *appname
-      HOSTNAME: kromgo.${PUBLIC_DOMAIN}
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true
