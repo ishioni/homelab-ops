@@ -32,8 +32,8 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: database
-    - name: storage-openebs
-      namespace: flux-system
+    - name: openebs
+      namespace: storage
     - name: onepassword-store
       namespace: security
   interval: 30m
