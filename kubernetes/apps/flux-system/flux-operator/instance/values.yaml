@@ -15,7 +15,7 @@ instance:
     kind: GitRepository
     url: https://github.com/ishioni/homelab-ops
     ref: refs/heads/master
-    path: kubernetes/talos/flux/cluster
+    path: kubernetes/flux/cluster
   commonMetadata:
     labels:
       app.kubernetes.io/name: flux
