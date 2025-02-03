@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: Home Assistant
         group: Applications
-        url: http://${HOSTNAME}
+        url: https://${HOSTNAME}
         interval: 1m
         ui:
           hide-hostname: true
