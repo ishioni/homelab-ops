@@ -30,7 +30,7 @@ metadata:
   namespace: flux-system
 spec:
   components:
-    - ../../components/global-vars
+    - ../components/global-vars
   decryption:
     provider: sops
     secretRef:
