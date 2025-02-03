@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: external-secrets
 spec:
-  interval: 30m
   chart:
     spec:
       chart: external-secrets
@@ -14,10 +13,14 @@ spec:
         kind: HelmRepository
         name: external-secrets
         namespace: flux-system
+  interval: 30m
   install:
     crds: CreateReplace
+  maxHistory: 3
   upgrade:
     crds: CreateReplace
+  uninstall:
+    keepHistory: false
   values:
     installCRDs: true
     replicaCount: 2
