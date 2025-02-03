@@ -18,12 +18,6 @@ spec:
             value: InfoInhibitor|Watchdog
             matchType: =~
         continue: false
-      - receiver: "telegram"
-        matchers:
-          - name: severity
-            value: critical
-            matchType: =
-        continue: true
       - receiver: pushover
         matchers:
           - name: severity
@@ -41,13 +35,6 @@ spec:
           matchType: =
   receivers:
     - name: "null"
-    - name: telegram
-      telegramConfigs:
-        - parseMode: "HTML"
-          chatID: 879509412
-          botToken:
-            key: TELEGRAM_BOT_TOKEN
-            name: &secret alertmanager-secret
     - name: pushover
       pushoverConfigs:
         - html: true
@@ -79,7 +66,7 @@ spec:
             {{ .CommonLabels.alertname }}
           ttl: 86400s
           token:
-            name: *secret
+            name: &secret alertmanager-secret
             key: PUSHOVER_ALERTMANAGER_KEY
           userKey:
             name: *secret
