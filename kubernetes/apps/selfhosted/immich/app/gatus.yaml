@@ -20,6 +20,5 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: telegram
-            send-on-resolved: true
           - type: pushover
+            send-on-resolved: true

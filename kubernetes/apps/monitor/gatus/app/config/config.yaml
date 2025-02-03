@@ -1,8 +1,5 @@
 ---
 alerting:
-  telegram:
-    id: ${CUSTOM_TELEGRAM_CHANNEL_ID}
-    token: ${CUSTOM_TELEGRAM_BOT_TOKEN}
   pushover:
     title: Gatus
     application-token: ${PUSHOVER_GATUS_KEY}
@@ -31,7 +28,7 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
     alerts:
-      - type: telegram
+      - type: pushover
         send-on-resolved: true
   - name: Flux webhook
     group: Services
@@ -45,7 +42,7 @@ endpoints:
     conditions:
       - "[STATUS] == 404"
     alerts:
-      - type: telegram
+      - type: pushover
         send-on-resolved: true
   - name: Minio
     group: Services
@@ -59,7 +56,7 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
     alerts:
-      - type: telegram
+      - type: pushover
         send-on-resolved: true
 
 metrics: true
