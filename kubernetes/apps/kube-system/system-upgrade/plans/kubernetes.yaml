@@ -17,6 +17,10 @@ spec:
     matchExpressions:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+      operator: Exists
   upgrade:
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs:
