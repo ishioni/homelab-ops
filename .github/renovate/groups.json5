@@ -2,22 +2,45 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "Flux group",
-      groupName: "Flux",
-      matchPackagePatterns: ["flux"],
-      matchDatasources: ["docker", "github-tags"],
-      versioning: "semver",
+      description: "1Password Connect and Sync images",
+      groupName: "1Password",
+      matchPackagePatterns: ["1password"],
+      matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
     },
     {
-      description: "Immich group",
-      groupName: "Immich",
-      matchPackagePatterns: ["immich"],
+      description: "Flux operator group",
+      groupName: "Flux operator",
+      matchPackagePatterns: ["flux-operator", "flux-instance"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"}
+    },
+    {
+      "description": ["Intel Device Plugins Group"],
+      "groupName": "Intel device plugins",
+      "matchPackagePatterns": ["intel-device-plugins"],
+      "matchDatasources": ["helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}}"
+      }
+    },
+    {
+      description: "Talos",
+      groupName: "Talos",
+      matchPackagePatterns: [
+      "ghcr.io/siderolabs/talosctl",
+      "ghcr.io/siderolabs/installer"
+      ],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
-      separateMinorPatch: true,
-      sourceUrl: "https://github.com/immich-app/immich"
+    },
+    {
+      description: "Cilium",
+      groupName: "Cilium",
+      matchPackagePatterns: ["cilium"],
+      matchDatasources: ["helm"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
       description: "External-Sapshotter group",
@@ -30,25 +53,13 @@
       separateMinorPatch: true,
     },
     {
-      description: "1Password Connect and Sync images",
-      groupName: "1Password",
-      matchPackagePatterns: ["1password"],
+      description: "Immich group",
+      groupName: "Immich",
+      matchPackagePatterns: ["immich"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
-    },
-    {
-      description: "Talos images",
-      groupName: "Talos",
-      matchPackagePatterns: ["talos-images","installer"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
-    },
-    {
-      description: "Cilium",
-      groupName: "Cilium",
-      matchPackagePatterns: ["cilium"],
-      matchDatasources: ["helm"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
+      sourceUrl: "https://github.com/immich-app/immich"
     },
   ],
 }
