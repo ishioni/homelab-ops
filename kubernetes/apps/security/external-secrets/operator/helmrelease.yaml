@@ -44,7 +44,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: external-secrets-cert-controller
+              app.kubernetes.io/name: external-secrets-webhook
               app.kubernetes.io/instance: external-secrets
       serviceMonitor:
         enabled: true
