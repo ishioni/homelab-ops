@@ -17,4 +17,5 @@ resources:
   - ./kubelet-csr-approver/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
+  - ./system-upgrade/ks.yaml
   - ./talos-backup/ks.yaml
