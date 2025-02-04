@@ -10,7 +10,9 @@ l2announcements:
 bgpControlPlane:
   enabled: true
 bpf:
+  datapathMode: netkit
   masquerade: true
+  preallocateMaps: true
   tproxy: true
 k8sServiceHost: 127.0.0.1 # kubeprism load balancer
 k8sServicePort: 7445
