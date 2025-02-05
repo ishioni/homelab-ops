@@ -25,7 +25,7 @@ spec:
       APP_GID: "5000"
       HOSTNAME: library.${PRIVATE_DOMAIN}
       VOLSYNC_CLAIM: calibre-config
-      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CAPACITY: 2Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
       VOLSYNC_STORAGECLASS: truenas-ssd-iscsi
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
