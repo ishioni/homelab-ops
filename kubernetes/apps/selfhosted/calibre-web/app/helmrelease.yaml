@@ -34,11 +34,6 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthcheck
-                    port: *port
               readiness: *probes
             resources:
               requests:
@@ -46,12 +41,6 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 600Mi
-        pod:
-          securityContext:
-            runAsUser: *uid
-            runAsGroup: *gid
-            fsGroup: *gid
-            fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: calibre-web
