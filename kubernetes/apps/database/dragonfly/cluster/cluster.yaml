@@ -10,12 +10,23 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --default_lua_flags=allow-undeclared-keys
+    - --s3_endpoint s3.${PRIVATE_DOMAIN}
   env:
     - name: MAX_MEMORY
       valueFrom:
         resourceFieldRef:
           resource: limits.memory
           divisor: 1Mi
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          key: AWS_ACCESS_KEY_ID
+          name: dragonfly-secret
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          key: AWS_SECRET_ACCESS_KEY
+          name: dragonfly-secret
   image: ghcr.io/dragonflydb/dragonfly:v1.26.2
   labels:
     dragonflydb.io/cluster: dragonfly
@@ -25,6 +36,8 @@ spec:
       cpu: 100m
     limits:
       memory: 512Mi
+  snapshot:
+    dir: "s3://dragonfly"
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: "kubernetes.io/hostname"
