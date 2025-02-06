@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/helmrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: dragonfly
+  namespace: flux-system
+spec:
+  type: oci
+  url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm
+  interval: 1h
+  timeout: 3m
