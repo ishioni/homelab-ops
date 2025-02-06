@@ -25,7 +25,7 @@ spec:
     serviceMonitor:
       enabled: true
     grafanaDashboard:
-      enabled: false
+      enabled: true
       folder: Storage
       # -- Grafana dashboard configmap annotations.
       annotations:
