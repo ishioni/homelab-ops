@@ -23,7 +23,7 @@ spec:
     keepHistory: false
   values:
     serviceMonitor:
-      enabled: true
+      enabled: false
     grafanaDashboard:
       enabled: true
       folder: Storage
