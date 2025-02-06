@@ -5,19 +5,21 @@ kind: Dragonfly
 metadata:
   name: dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.26.2
-  replicas: 3
+  args:
+    - --maxmemory=$(MAX_MEMORY)Mi
+    - --proactor_threads=2
+    - --cluster_mode=emulated
+    - --default_lua_flags=allow-undeclared-keys
   env:
     - name: MAX_MEMORY
       valueFrom:
         resourceFieldRef:
           resource: limits.memory
           divisor: 1Mi
-  args:
-    - --maxmemory=$(MAX_MEMORY)Mi
-    - --proactor_threads=2
-    - --cluster_mode=emulated
-    - --default_lua_flags=allow-undeclared-keys
+  image: ghcr.io/dragonflydb/dragonfly:v1.26.2
+  labels:
+    dragonflydb.io/cluster: dragonfly
+  replicas: 3
   resources:
     requests:
       cpu: 100m
