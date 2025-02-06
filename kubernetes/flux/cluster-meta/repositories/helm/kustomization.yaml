@@ -13,6 +13,7 @@ resources:
   - ./controlplaneio.yaml
   - ./democratic-csi.yaml
   - ./descheduler.yaml
+  - ./dragonfly.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./grafana.yaml
