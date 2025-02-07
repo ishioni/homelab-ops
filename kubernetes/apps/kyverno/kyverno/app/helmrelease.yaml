@@ -24,9 +24,9 @@ spec:
   values:
     crds:
       install: true
-    global:
-      image:
-        registry: ghcr.io
+    # global:
+    #   image:
+    #     registry: ghcr.io
     grafana:
       enabled: true
       annotations:
@@ -64,13 +64,13 @@ spec:
     reportsController:
       serviceMonitor:
         enabled: true
-    webhooksCleanup:
-      image:
-        registry: registry.k8s.io
-        repository: kubectl
-        tag: v1.32.1
-    policyReportsCleanup:
-      image:
-        registry: registry.k8s.io
-        repository: kubectl
-        tag: v1.32.1
+    # webhooksCleanup:
+    #   image:
+    #     registry: registry.k8s.io
+    #     repository: kubectl
+    #     tag: v1.32.1
+    # policyReportsCleanup:
+    #   image:
+    #     registry: registry.k8s.io
+    #     repository: kubectl
+    #     tag: v1.32.1
