@@ -24,6 +24,9 @@ spec:
   values:
     crds:
       install: true
+    global:
+      image:
+        registry: ghcr.io
     grafana:
       enabled: true
       annotations:
