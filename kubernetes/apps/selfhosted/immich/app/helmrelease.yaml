@@ -55,7 +55,7 @@ spec:
           server:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.125.7
+              tag: v1.126.0
             envFrom:
               - secretRef:
                   name: *secret
@@ -110,7 +110,7 @@ spec:
           microservices:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.125.7
+              tag: v1.126.0
             envFrom:
               - secretRef:
                   name: *secret
@@ -149,7 +149,7 @@ spec:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.125.7
+              tag: v1.126.0
             resources:
               requests:
                 cpu: 100m
