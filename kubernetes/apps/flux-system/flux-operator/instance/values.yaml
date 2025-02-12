@@ -16,6 +16,7 @@ instance:
     url: https://github.com/ishioni/homelab-ops
     ref: refs/heads/master
     path: kubernetes/flux/cluster
+    interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: flux
