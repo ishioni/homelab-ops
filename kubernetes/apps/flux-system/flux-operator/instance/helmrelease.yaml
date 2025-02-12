@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: flux-instance
-      version: 0.13.0
+      version: 0.14.0
       sourceRef:
         kind: HelmRepository
         name: controlplaneio
@@ -20,13 +20,3 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: flux-instance-helm-values
-  postRenderers:
-    - kustomize:
-        patches:
-            # Don't pull the repo every 1 minute. Replace once the chart supports this
-          - patch: |
-              - op: replace
-                path: /spec/sync/interval
-                value: 30m
-            target:
-              kind: FluxInstance
