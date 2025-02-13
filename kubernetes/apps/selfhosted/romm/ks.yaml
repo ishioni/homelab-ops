@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ishioni/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app romm
+  namespace: &namespace selfhosted
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: postgres-cluster
+      namespace: database
+    - name: dragonfly-cluster
+      namespace: database
+    - name: onepassword-store
+      namespace: security
+    - name: democratic-csi-iscsi
+      namespace: storage
+    - name: volsync
+      namespace: storage
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/romm/app
+  postBuild:
+    substitute:
+      APP: *app
+      HOSTNAME: romm.${PRIVATE_DOMAIN}
+      AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
+      VOLSYNC_CLAIM: romm-config
+      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CACHE_CAPACITY: 5Gi
+      VOLSYNC_TIME: 0 40 * * *
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true
