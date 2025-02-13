@@ -31,12 +31,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 5000
-            fsGroup: 5000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
