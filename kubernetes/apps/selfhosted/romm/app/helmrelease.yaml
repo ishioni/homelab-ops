@@ -19,7 +19,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      partdb:
+      romm:
         annotations:
           secret.reloader.stakater.com/reload: &secret romm-secret
         initContainers:
