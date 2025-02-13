@@ -64,6 +64,12 @@ module "secret_paperless" {
   item   = "paperless"
 }
 
+module "secret_romm" {
+  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  vault  = "Homelab"
+  item   = "romm"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["ENDPOINT_URL"]
   token = module.secret_authentik.fields["TERRAFORM_TOKEN"]
