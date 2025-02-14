@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/volsync
+    - ../../../../components/pvc
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -31,12 +31,8 @@ spec:
       APP_GID: "5000"
       HOSTNAME: romm.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
-      VOLSYNC_CLAIM: romm-config
-      VOLSYNC_CAPACITY: 5Gi
-      VOLSYNC_CACHE_CAPACITY: 5Gi
-      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
-      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
-      VOLSYNC_TIME: 0 40 * * *
+      PVC_CLAIM: romm-config
+      PVC_STORAGECLASS: truenas-ssd-nfs
   prune: true
   sourceRef:
     kind: GitRepository
