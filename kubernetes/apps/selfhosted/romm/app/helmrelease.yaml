@@ -18,6 +18,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 5000
+        fsGroup: 5000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       romm:
         annotations:
@@ -31,12 +38,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 5000
-            fsGroup: 5000
-            fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
@@ -70,6 +71,11 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 1Gi
+            securityContext:
+              securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: romm
@@ -93,12 +99,23 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      data:
         existingClaim: ${PVC_CLAIM}
         advancedMounts:
           romm:
             app:
-              - path: /romm
+              - subPath: "resources"
+                path: "/romm/resources"
+              - subPath: "assets"
+                path: "/romm/assets"
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /romm/config
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
       games:
         existingClaim: selfhosted-pvc
         advancedMounts:
