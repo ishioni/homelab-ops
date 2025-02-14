@@ -101,7 +101,12 @@ spec:
         advancedMounts:
           romm:
             app:
-              - path: /romm
+              - path: /romm/config
+                subPath: config
+              - path: /romm/assets
+                subPath: assets
+              - path: /romm/resources
+                subPath: resources
       tmp:
         type: emptyDir
         globalMounts:
