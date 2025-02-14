@@ -21,10 +21,12 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 5000
-        fsGroup: 5000
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [5000]
+        seccompProfile: { type: RuntimeDefault }
     controllers:
       romm:
         annotations:
@@ -71,11 +73,6 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 1Gi
-            securityContext:
-              securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: romm
