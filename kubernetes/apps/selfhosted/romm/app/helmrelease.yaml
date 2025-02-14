@@ -101,14 +101,7 @@ spec:
         advancedMounts:
           romm:
             app:
-              - subPath: "resources"
-                path: "/romm/resources"
-              - subPath: "assets"
-                path: "/romm/assets"
-      config:
-        type: emptyDir
-        globalMounts:
-          - path: /romm/config
+              - path: /romm
       tmp:
         type: emptyDir
         globalMounts:
@@ -119,4 +112,4 @@ spec:
           romm:
             app:
               - path: /romm/library
-                subPath: Games
+                subPath: Romm
