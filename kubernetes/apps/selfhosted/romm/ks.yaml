@@ -32,7 +32,7 @@ spec:
       HOSTNAME: romm.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       PVC_CLAIM: romm-config
-      PVC_STORAGECLASS: truenas-ssd-nfs
+      PVC_STORAGECLASS: truenas-ssd-iscsi
   prune: true
   sourceRef:
     kind: GitRepository

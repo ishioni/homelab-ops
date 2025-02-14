@@ -21,11 +21,10 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 5000
+        fsGroup: 5000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [5000]
         seccompProfile: { type: RuntimeDefault }
     controllers:
       romm:
