@@ -31,6 +31,7 @@ spec:
       APP_GID: "5000"
       HOSTNAME: romm.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
+      PVC_CAPACITY: 5Gi
       PVC_CLAIM: romm-config
       PVC_STORAGECLASS: truenas-ssd-iscsi
   prune: true
