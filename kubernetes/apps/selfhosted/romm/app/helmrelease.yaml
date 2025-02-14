@@ -116,4 +116,4 @@ spec:
           romm:
             app:
               - path: /romm/library
-                subPath: Romm
+                subPath: Games
