@@ -40,16 +40,16 @@ services:
     #   - --smartctl.interval=120s
     #   - --web.listen-address=0.0.0.0:9633
     #   - --web.telemetry-path=/metrics
-      # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HJPV7VH
-      # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HJUZERH
-      # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HK07LRH
-      # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HK6Z84H
-      # - --smartctl.device=/dev/disk/by-id/ata-Samsung_SSD_860_EVO_M.2_500GB_S414NR0R202377Y
-      # - --smartctl.device=/dev/disk/by-id/ata-Samsung_SSD_860_EVO_M.2_500GB_S414NW0R103489Y
-      # - --smartctl.device=/dev/disk/by-id/ata-WDC_WDS240G2G0B-00EPW0_21039U457308
-      # - --smartctl.device=/dev/disk/by-id/ata-WDC_WDS240G2G0B-00EPW0_21039U467107
-      # - --smartctl.device=/dev/disk/by-id/nvme-INTEL_SSDPEK1A058GA_BTOC125601MJ058A
-      # - --smartctl.device=/dev/disk/by-id/nvme-INTEL_SSDPEK1A058GA_BTOC14120Y0A058A
+    # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HJPV7VH
+    # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HJUZERH
+    # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HK07LRH
+    # - --smartctl.device=/dev/disk/by-id/ata-HUH721212ALE601_8HK6Z84H
+    # - --smartctl.device=/dev/disk/by-id/ata-Samsung_SSD_860_EVO_M.2_500GB_S414NR0R202377Y
+    # - --smartctl.device=/dev/disk/by-id/ata-Samsung_SSD_860_EVO_M.2_500GB_S414NW0R103489Y
+    # - --smartctl.device=/dev/disk/by-id/ata-WDC_WDS240G2G0B-00EPW0_21039U457308
+    # - --smartctl.device=/dev/disk/by-id/ata-WDC_WDS240G2G0B-00EPW0_21039U467107
+    # - --smartctl.device=/dev/disk/by-id/nvme-INTEL_SSDPEK1A058GA_BTOC125601MJ058A
+    # - --smartctl.device=/dev/disk/by-id/nvme-INTEL_SSDPEK1A058GA_BTOC14120Y0A058A
     privileged: true
     user: root
     ports:
