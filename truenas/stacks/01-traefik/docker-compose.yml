@@ -35,9 +35,9 @@ networks:
     driver: macvlan
     name: traefik_macvlan
     driver_opts:
-      parent: ens12
+      # parent: ens12
       # parent: ens12f0
-      # parent: enp10s0
+      parent: enp1s0f0
     ipam:
       driver: default
       config:

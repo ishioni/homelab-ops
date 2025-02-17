@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name speedtest-exporter
 spec:
-  staticConfigs: [targets: ["quadrant.${PRIVATE_DOMAIN}:9798"]]
+  staticConfigs: [targets: ["leo.${PRIVATE_DOMAIN}:9798"]]
   metricsPath: /metrics
   scrapeInterval: 30m
   scrapeTimeout: 60s

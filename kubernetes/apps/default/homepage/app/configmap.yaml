@@ -71,11 +71,11 @@ data:
               username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
         - TrueNAS:
-            href: https://quadrant.${PRIVATE_DOMAIN}
+            href: https://leo.${PRIVATE_DOMAIN}
             icon: truenas.png
             widget:
               type: truenas
-              url: https://quadrant.${PRIVATE_DOMAIN}
+              url: https://leo.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
         - Proxmox:
             href: https://proxmox.${PRIVATE_DOMAIN}
