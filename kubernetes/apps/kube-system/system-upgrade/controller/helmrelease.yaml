@@ -25,23 +25,20 @@ spec:
           app:
             image:
               repository: docker.io/rancher/system-upgrade-controller
-              tag: v0.14.2
+              tag: v0.15.0
             env:
-              SYSTEM_UPGRADE_CONTROLLER_DEBUG: false
-              SYSTEM_UPGRADE_CONTROLLER_THREADS: 2
-              SYSTEM_UPGRADE_JOB_ACTIVE_DEADLINE_SECONDS: 900
-              SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: 99
-              SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: IfNotPresent
-              SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: registry.k8s.io/kubectl:v1.32.2
-              SYSTEM_UPGRADE_JOB_POD_REPLACEMENT_POLICY: Failed
-              SYSTEM_UPGRADE_JOB_PRIVILEGED: true
-              SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: 900
-              SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
+              SYSTEM_UPGRADE_CONTROLLER_LEADER_ELECT: true
               SYSTEM_UPGRADE_CONTROLLER_NAME: *app
               SYSTEM_UPGRADE_CONTROLLER_NAMESPACE:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
+              SYSTEM_UPGRADE_CONTROLLER_NODE_NAME:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+              SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: "99"
+              SYSTEM_UPGRADE_JOB_PRIVILEGED: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
