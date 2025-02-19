@@ -123,9 +123,5 @@ spec:
         existingClaim: downloads-pvc
         globalMounts:
           - path: /media
-      media2:
-        existingClaim: downloads-pvc2
-        globalMounts:
-          - path: /media2
       tmp:
         type: emptyDir
