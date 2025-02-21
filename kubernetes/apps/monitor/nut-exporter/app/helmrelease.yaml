@@ -51,7 +51,7 @@ spec:
             path: *metrics
             scrapeTimeout: 10s
             params:
-              target: ["10.1.2.2:3493"]
+              target: ["nut.ishioni.casa:3493"]
             relabelings:
               - sourceLabels: [__param_target]
                 targetLabel: target
