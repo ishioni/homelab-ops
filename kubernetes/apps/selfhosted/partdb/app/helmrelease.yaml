@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: docker.io/jbtronics/part-db1
-              tag: v1.15.2
+              tag: v1.16.0
             env:
               # SERVER_NAME: ${HOSTNAME}, php:80
               BASE_CURRENCY: PLN
