@@ -37,6 +37,10 @@ services:
     container_name: go2rtc
     depends_on:
       - mediamtx
+    deploy:
+      resources:
+        limits:
+          memory: 250M
     restart: unless-stopped
     env_file:
       - .env
