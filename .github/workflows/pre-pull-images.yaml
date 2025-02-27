@@ -11,9 +11,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
-env:
-  HOMEBREW_NO_ANALYTICS: "1"
-
 jobs:
   extract-images:
     name: Extract Images
