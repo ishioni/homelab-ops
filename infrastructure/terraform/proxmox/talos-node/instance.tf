@@ -80,7 +80,6 @@ resource "proxmox_virtual_environment_vm" "node" {
   }
 
   cdrom {
-    enabled   = true
     file_id   = var.iso_path
     interface = "ide0"
   }
