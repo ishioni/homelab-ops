@@ -16,7 +16,7 @@ module "talos-controlplanes" {
   memory          = 4 * 1024
   vlan_id         = data.unifi_network.Servers.vlan_id
   storage         = "local-zfs"
-  storage_size    = 20
+  storage_size    = 50
 }
 
 output "cp-macaddresses" {
@@ -39,7 +39,7 @@ module "talos-workers" {
   gpu_gvtd            = true
   vlan_id             = data.unifi_network.Servers.vlan_id
   storage             = "local-zfs"
-  storage_size        = 50
+  storage_size        = 100
   secondary_disk      = true
   secondary_disk_size = 150
 }
