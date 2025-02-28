@@ -45,7 +45,7 @@ provider "proxmox" {
 }
 
 provider "unifi" {
-  username = module.secret_unifi.fields.TERRAFORM_USER
-  password = module.secret_unifi.fields.TERRAFORM_PASSWORD
+  username = module.secret_unifi.fields.TOFU_USER
+  password = module.secret_unifi.fields.TOFU_PASSWORD
   api_url  = "https://unifi.ishioni.casa"
 }
