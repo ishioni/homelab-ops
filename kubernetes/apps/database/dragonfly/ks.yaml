@@ -34,6 +34,10 @@ spec:
       namespace: *namespace
     - name: onepassword-store
       namespace: security
+  healthCheckExprs:
+    - apiVersion: dragonflydb.io/v1alpha1
+      kind: Dragonfly
+      current: status.phase == 'ready'
   interval: 30m
   path: ./kubernetes/apps/database/dragonfly/cluster
   prune: true
