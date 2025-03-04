@@ -130,6 +130,8 @@ patches:
   - &kubeletFlagsPatch |-
     machine:
       kubelet:
+        extraConfig:
+          serializeImagePulls: false
         extraArgs:
           rotate-server-certificates: "true"
         nodeIP:
@@ -228,6 +230,7 @@ controlPlane:
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
+
 
 worker:
   schematic:
