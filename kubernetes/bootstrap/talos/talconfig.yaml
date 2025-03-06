@@ -208,6 +208,19 @@ controlPlane:
       cluster:
         proxy:
           disabled: true
+    # Disable imagelocality
+    - |
+      cluster:
+        scheduler:
+          config:
+            apiVersion: kubescheduler.config.k8s.io/v1
+            kind: KubeSchedulerConfiguration
+            profiles:
+              - schedulerName: default-scheduler
+                plugins:
+                  score:
+                    disabled:
+                      - name: ImageLocality
     # etcd configuration
     - |-
       cluster:
