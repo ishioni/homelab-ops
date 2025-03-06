@@ -9,7 +9,7 @@
     "threads": 2,
     "preset": "veryfast",
     "targetVideoCodec": "hevc",
-    "acceptedVideoCodecs": ["h264", "hevc", "vp9"],
+    "acceptedVideoCodecs": ["h264"],
     "targetAudioCodec": "aac",
     "acceptedAudioCodecs": ["aac", "mp3", "libopus"],
     "targetResolution": "720",
