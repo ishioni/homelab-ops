@@ -117,6 +117,7 @@ spec:
               - configMapRef:
                   name: *configmap
             env:
+              IMMICH_CONFIG_FILE: /config/immich.config.json
               IMMICH_WORKERS_EXCLUDE: api
             resources:
               requests:
