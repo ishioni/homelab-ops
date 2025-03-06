@@ -1,6 +1,7 @@
 ---
 services:
   lego-auto:
+    container_name: lego
     env_file:
       - path: ./secrets.env
         required: true
@@ -15,9 +16,9 @@ services:
     volumes:
       - ${DATA_PATH}:/certs
   haproxy:
+    container_name: haproxy
     image: docker.io/haproxy:3.1.5
     user: 99:568
-    container_name: haproxy
     restart: unless-stopped
     environment:
       TZ: Europe/Warsaw
