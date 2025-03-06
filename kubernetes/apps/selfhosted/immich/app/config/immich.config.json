@@ -8,7 +8,7 @@
     "crf": 23,
     "threads": 2,
     "preset": "veryfast",
-    "targetVideoCodec": "hevc",
+    "targetVideoCodec": "h264",
     "acceptedVideoCodecs": ["h264"],
     "targetAudioCodec": "aac",
     "acceptedAudioCodecs": ["aac", "mp3", "libopus"],
