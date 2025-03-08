@@ -101,7 +101,7 @@ nodes:
   - hostname: experiment-0.${clusterDNSSuffix}
     disableSearchDomain: true
     ipAddress: 10.1.2.39
-    controlPlane: true
+    controlPlane: false
     installDiskSelector:
       model: KINGSTON SA2000M8250G # KINGSTON SKC3000S512G on others
     networkInterfaces:
