@@ -98,7 +98,7 @@ nodes:
         mtu: 1500
         dhcp: true
 
-  - hostname: experiment-0.${clusterDNSSuffix}
+  - hostname: experiment-9.${clusterDNSSuffix}
     disableSearchDomain: true
     ipAddress: 10.1.2.39
     controlPlane: false
@@ -111,9 +111,7 @@ nodes:
       - deviceSelector:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:14:3b
-        dhcp: false
-        vlans:
-          - {vlanId: 2, mtu: 1500, dhcp: true}
+        dhcp: true
 
 patches:
   # Force nameserver
