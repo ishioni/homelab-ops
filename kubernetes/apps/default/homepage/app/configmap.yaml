@@ -23,6 +23,7 @@ data:
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
+    ingress: true
   services.yaml: |
     - Calendar:
         # - Calendar:
