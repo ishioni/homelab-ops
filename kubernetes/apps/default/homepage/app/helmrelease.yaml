@@ -31,7 +31,7 @@ spec:
               tag: v1.0.2
             env:
               TZ: ${CONFIG_TIMEZONE}
-              HOMEPAGE_ALLOWED_HOSTS: "*"
+              HOMEPAGE_ALLOWED_HOSTS: ${HOSTNAME}
               # LOG_LEVEL: debug
             envFrom:
               - secretRef:
@@ -44,6 +44,9 @@ spec:
                   httpGet:
                     port: 3000
                     path: /api/healthcheck
+                    httpHeaders:
+                      - name: Host
+                        value: ${HOSTNAME}
                   initialDelaySeconds: 0
               readiness: *probes
               startup: *probes
