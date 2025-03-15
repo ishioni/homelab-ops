@@ -31,7 +31,7 @@ spec:
               tag: v1.0.2
             env:
               TZ: ${CONFIG_TIMEZONE}
-              HOMEPAGE_ALLOWED_HOSTS: 172.16.0.0/16
+              HOMEPAGE_ALLOWED_HOSTS: "*"
               # LOG_LEVEL: debug
             envFrom:
               - secretRef:
