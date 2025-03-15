@@ -77,6 +77,7 @@ data:
               type: truenas
               url: https://leo.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
+              enablePools: true
         - Proxmox:
             href: https://proxmox.${PRIVATE_DOMAIN}
             icon: proxmox.png
