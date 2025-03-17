@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/szinn/lidarr
-              tag: 2.9.6.4552
+              tag: 2.10.1.4589
             env:
               LIDARR__APP__INSTANCENAME: Lidarr
               LIDARR__APP__THEME: dark
