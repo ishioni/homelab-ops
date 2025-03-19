@@ -29,8 +29,8 @@ spec:
         initContainers:
           01-init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16.8
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17.4
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
@@ -45,7 +45,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/bazarr
+              repository: ghcr.io/home-operations/bazarr
               tag: 1.5.1
             env:
               TZ: ${CONFIG_TIMEZONE}
