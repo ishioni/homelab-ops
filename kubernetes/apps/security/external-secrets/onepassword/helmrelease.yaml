@@ -28,8 +28,8 @@ spec:
         containers:
           api:
             image:
-              repository: ghcr.io/onedr0p/onepassword-connect-api
-              tag: 1.7.2
+              repository: docker.io/1password/connect-api
+              tag: 1.7.3
             env:
               XDG_DATA_HOME: &configDir /config
               OP_HTTP_PORT: &apiPort 8080
@@ -72,8 +72,8 @@ spec:
                 memory: 128Mi
           sync:
             image:
-              repository: ghcr.io/onedr0p/onepassword-sync
-              tag: 1.7.2
+              repository: docker.io/1password/connect-sync
+              tag: 1.7.3
             env:
               XDG_DATA_HOME: *configDir
               OP_HTTP_PORT: &syncport 8081

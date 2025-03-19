@@ -31,8 +31,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/qbittorrent
-              tag: "5.0.4"
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.0.4
             env:
               TZ: ${CONFIG_TIMEZONE}
               QBITTORRENT__PORT: &port 80
