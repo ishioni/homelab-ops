@@ -30,7 +30,7 @@ spec:
       host: ${HOSTNAME}
       extraInitContainers:
         - name: init-db
-          image: ghcr.io/onedr0p/postgres-init:16.8
+          image: ghcr.io/home-operations/postgres-init:17.4
           envFrom:
             - secretRef:
                 name: *secret
