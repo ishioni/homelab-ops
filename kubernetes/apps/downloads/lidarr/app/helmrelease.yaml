@@ -45,7 +45,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/szinn/lidarr
+              repository: ghcr.io/home-operations/lidarr
               tag: 2.10.1.4589
             env:
               LIDARR__APP__INSTANCENAME: Lidarr
