@@ -23,7 +23,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: intel-device-plugin-gpu
+    name: intel-device-plugins-gpu
   dependsOn:
     - name: intel-device-plugin-operator
       namespace: kube-system
