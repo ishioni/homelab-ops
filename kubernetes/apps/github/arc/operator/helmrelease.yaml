@@ -1,18 +1,27 @@
-# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: gha-runner-scale-set-controller
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.10.1
+  url: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: github-arc
 spec:
-  chart:
-    spec:
-      chart: gha-runner-scale-set-controller
-      version: 0.10.1
-      sourceRef:
-        kind: HelmRepository
-        name: actions-runner-controller
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: gha-runner-scale-set-controller
   driftDetection:
     mode: enabled
   maxHistory: 3
@@ -25,3 +34,14 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: github-arc
+  # TODO: Remove on 0.11.0
+  # Ref: https://github.com/actions/actions-runner-controller/pull/3729
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+            patch: |
+              - op: replace
+                path: /spec/template/metadata/labels/app.kubernetes.io~1version
+                value: 0.10.1
