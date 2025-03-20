@@ -1,18 +1,27 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: kyverno
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 3.3.7
+  url: oci://ghcr.io/kyverno/charts/kyverno
+---
 # yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kyverno
 spec:
-  chart:
-    spec:
-      chart: kyverno
-      version: 3.3.7
-      sourceRef:
-        kind: HelmRepository
-        name: kyverno
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: kyverno
   maxHistory: 3
   interval: 30m
   install:

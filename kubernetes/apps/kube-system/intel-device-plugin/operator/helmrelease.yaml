@@ -1,18 +1,29 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: intel-device-plugin-operator
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.32.0
+  url: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugin-operator
+  verify:
+    provider: cosign
+---
 # yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: intel-device-plugin-operator
 spec:
-  chart:
-    spec:
-      chart: intel-device-plugins-operator
-      version: 0.32.0
-      sourceRef:
-        kind: HelmRepository
-        name: intel
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: intel-device-plugin-operator
   dependsOn:
     - name: node-feature-discovery
       namespace: kube-system
