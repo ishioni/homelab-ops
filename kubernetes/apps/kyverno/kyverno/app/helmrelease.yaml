@@ -12,6 +12,8 @@ spec:
   ref:
     tag: 3.3.7
   url: oci://ghcr.io/kyverno/charts/kyverno
+  verify:
+    provider: cosign
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
