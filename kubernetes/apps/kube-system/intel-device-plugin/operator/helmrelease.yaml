@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: intel-device-plugin-operator
+  name: intel-device-plugins-operator
 spec:
   interval: 1h
   layerSelector:
@@ -11,7 +11,7 @@ spec:
     operation: copy
   ref:
     tag: 0.32.0
-  url: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugin-operator
+  url: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-operator
   verify:
     provider: cosign
 ---
@@ -23,7 +23,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: intel-device-plugin-operator
+    name: intel-device-plugins-operator
   dependsOn:
     - name: node-feature-discovery
       namespace: kube-system
