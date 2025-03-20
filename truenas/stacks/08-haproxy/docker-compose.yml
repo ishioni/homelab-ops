@@ -17,7 +17,7 @@ services:
       - ${DATA_PATH}:/certs
   haproxy:
     container_name: haproxy
-    image: docker.io/haproxy:3.1.5
+    image: docker.io/haproxy:3.1.6
     user: 99:568
     restart: unless-stopped
     environment:
