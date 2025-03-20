@@ -1,18 +1,29 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: descheduler
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.32.2
+  url: oci://ghcr.io/home-operations/charts-mirror/descheduler
+  verify:
+    provider: cosign
+---
 # yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: descheduler
 spec:
-  chart:
-    spec:
-      chart: descheduler
-      version: 0.32.2
-      sourceRef:
-        kind: HelmRepository
-        name: descheduler
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: descheduler
   interval: 30m
   maxHistory: 3
   uninstall:
