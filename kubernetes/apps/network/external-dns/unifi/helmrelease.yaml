@@ -4,6 +4,9 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app external-dns-unifi
+  # https://github.com/kubernetes-sigs/external-dns/issues/5206
+  annotations:
+    helm.toolkit.fluxcd.io/skip-values-validation: "true"
 spec:
   chart:
     spec:
