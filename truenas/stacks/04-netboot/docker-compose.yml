@@ -1,6 +1,6 @@
 ---
 services:
-  meshcentral:
+  netboot:
     image: ghcr.io/netbootxyz/netbootxyz:0.7.5-nbxyz2
     container_name: netboot
     restart: unless-stopped
