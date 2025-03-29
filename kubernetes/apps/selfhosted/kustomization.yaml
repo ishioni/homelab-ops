@@ -10,8 +10,6 @@ components:
   - ../../components/sops
 resources:
   - ./atuin/ks.yaml
-  - ./audiobookshelf/ks.yaml
-  - ./calibre-web/ks.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./navidrome/ks.yaml

@@ -163,21 +163,21 @@ module "oauth2-proxmox" {
   ]
 }
 
-module "oauth2-audiobookshelf" {
-  source             = "./oauth2_application"
-  name               = "Audiobookshelf"
-  icon_url           = "https://raw.githubusercontent.com/advplyr/audiobookshelf-web/master/static/Logo.png"
-  launch_url         = "https://audiobooks.${var.public_domain}"
-  description        = "Media player"
-  newtab             = true
-  group              = "Selfhosted"
-  auth_groups        = [authentik_group.media.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_audiobookshelf.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://audiobooks.${var.public_domain}/auth/openid/callback", "audiobookshelf://oauth"]
-}
+# module "oauth2-audiobookshelf" {
+#   source             = "./oauth2_application"
+#   name               = "Audiobookshelf"
+#   icon_url           = "https://raw.githubusercontent.com/advplyr/audiobookshelf-web/master/static/Logo.png"
+#   launch_url         = "https://audiobooks.${var.public_domain}"
+#   description        = "Media player"
+#   newtab             = true
+#   group              = "Selfhosted"
+#   auth_groups        = [authentik_group.media.id]
+#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+#   client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
+#   client_secret      = module.secret_audiobookshelf.fields["OIDC_CLIENT_SECRET"]
+#   redirect_uris      = ["https://audiobooks.${var.public_domain}/auth/openid/callback", "audiobookshelf://oauth"]
+# }
 
 module "oauth2-paperless" {
   source             = "./oauth2_application"
