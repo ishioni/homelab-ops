@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: democratic-csi
-      version: 0.14.7
+      version: 0.15.0
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
@@ -31,15 +31,17 @@ spec:
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
-      cleanup:
-        image: public.ecr.aws/docker/library/busybox:1.37.0
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.9.3
+        image:
+          registry: ghcr.io/democratic-csi/democratic-csi
+          tag: v1.9.3
         logLevel: debug
         imagePullPolicy: IfNotPresent
       priorityClassName: system-node-critical
     csiProxy:
-      image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.6
+      image:
+        registry: ghcr.io/democratic-csi/democratic-csi
+        tag: v1.9.3
     csiDriver:
       name: "org.democratic-csi.nvmeof"
     storageClasses:
