@@ -21,7 +21,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicaCount: 2
+      replicaCount: 1
       podAnnotations:
         secret.reloader.stakater.com/reload: &secret dcsi-test-secret
       driver:
