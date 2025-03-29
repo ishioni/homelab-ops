@@ -28,6 +28,7 @@ spec:
         image:
           registry: ghcr.io/democratic-csi/democratic-csi
           tag: next
+        logLevel: debug
         # imagePullPolicy: Always
       tolerations:
         - effect: NoSchedule
