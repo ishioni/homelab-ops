@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: democratic-csi
-      version: 0.14.7
+      version: 0.15.0
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
@@ -25,7 +25,9 @@ spec:
       podAnnotations:
         secret.reloader.stakater.com/reload: &secret dcsi-test-secret
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.9.3
+        image:
+          registry: ghcr.io/democratic-csi/democratic-csi
+          tag: v1.9.3
         # imagePullPolicy: Always
       tolerations:
         - effect: NoSchedule
@@ -46,10 +48,10 @@ spec:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
       hostPID: true
-      cleanup:
-        image: public.ecr.aws/docker/library/busybox:1.37.0
       driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.9.3
+        image:
+          registry: ghcr.io/democratic-csi/democratic-csi
+          tag: v1.9.3
         # imagePullPolicy: Always
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
@@ -60,7 +62,9 @@ spec:
         iscsiDirHostPathType: ""
       priorityClassName: system-node-critical
     csiProxy:
-      image: ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.6
+      image:
+        registry: ghcr.io/democratic-csi/csi-grpc-proxy
+        tag: v0.5.6
     csiDriver:
       name: org.democratic-csi.tntest
     storageClasses:
