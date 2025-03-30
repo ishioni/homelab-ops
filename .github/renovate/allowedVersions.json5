@@ -11,6 +11,12 @@
       matchDatasources: ["helm"],
       allowedVersions: "<=1.1.0",
       matchPackageNames: ["kubelet-csr-approver"]
+    },
+    {
+      description: "Cloudflare tf provider is FUCKED",
+      matchDatasources: ["terraform"],
+      allowedVersions: "<=5.1",
+      matchPackageNames: ["cloudflare"]
     }
   ]
 }
