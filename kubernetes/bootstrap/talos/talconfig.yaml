@@ -65,10 +65,6 @@ nodes:
     controlPlane: false
     installDiskSelector:
       size: "<= 80GB"
-    machineDisks:
-      - device: /dev/sdb
-        partitions:
-          - mountpoint: /var/mnt/secondary
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
@@ -82,10 +78,6 @@ nodes:
     controlPlane: false
     installDiskSelector:
       size: "<= 80GB"
-    machineDisks:
-      - device: /dev/sdb
-        partitions:
-          - mountpoint: /var/mnt/secondary
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
@@ -99,10 +91,6 @@ nodes:
     controlPlane: false
     installDiskSelector:
       size: "<= 80GB"
-    machineDisks:
-      - device: /dev/sdb
-        partitions:
-          - mountpoint: /var/mnt/secondary
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:*"
@@ -267,13 +255,6 @@ worker:
             - destination: /var/openebs/local
               type: bind
               source: /var/openebs/local
-              options:
-                - rbind
-                - rshared
-                - rw
-            - destination: /var/mnt/secondary
-              type: bind
-              source: /var/mnt/secondary
               options:
                 - rbind
                 - rshared
