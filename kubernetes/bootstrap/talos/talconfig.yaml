@@ -34,6 +34,8 @@ nodes:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:15:c2
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
     machineSpec: &machineSpec
       secureboot: true
       useUKI: true
@@ -59,6 +61,8 @@ nodes:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:13:8a
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
     machineSpec: *machineSpec
     extensionServices:
       - *lldpd
@@ -76,6 +80,8 @@ nodes:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:13:d8
         dhcp: true
+        vip:
+          ip: ${clusterEndpointIP}
     machineSpec: *machineSpec
     extensionServices:
       - *lldpd
