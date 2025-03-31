@@ -81,11 +81,38 @@ nodes:
       - *lldpd
 
 patches:
+  # etcd configuration
+  - |-
+    cluster:
+      etcd:
+        advertisedSubnets:
+          - 10.1.2.0/24
   # Disable kube-proxy
   - |
     cluster:
       proxy:
         disabled: true
+  # Spegel
+  - |
+    cluster:
+      scheduler:
+        config:
+          apiVersion: kubescheduler.config.k8s.io/v1
+          kind: KubeSchedulerConfiguration
+          profiles:
+            - schedulerName: default-scheduler
+              plugins:
+                score:
+                  disabled:
+                    - name: ImageLocality
+  - |-
+    machine:
+      files:
+        - op: create
+          path: /etc/cri/conf.d/20-customization.part
+          content: |
+            [plugins."io.containerd.cri.v1.images"]
+              discard_unpacked_layers = false
   # Enable metrics scraping
   - |-
     cluster:
@@ -99,15 +126,6 @@ patches:
       scheduler:
         extraArgs:
           bind-address: 0.0.0.0
-  # Spegel
-  - |-
-    machine:
-      files:
-        - op: create
-          path: /etc/cri/conf.d/20-customization.part
-          content: |
-            [plugins."io.containerd.cri.v1.images"]
-              discard_unpacked_layers = false
   # Kubelet flags
   - |-
     machine:
@@ -138,44 +156,19 @@ patches:
         devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_power
         devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_power
         devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_power
-  # Enable KubePrism
+  # Kubeprism
   - |-
     machine:
       features:
         kubePrism:
           enabled: true
           port: 7445
-  - |-
-    machine:
-      features:
         hostDNS:
           enabled: true
           resolveMemberNames: true
           forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
-  # Disable search domain everywhere
-  - |-
-    machine:
       network:
         disableSearchDomain: true
-  # Disable imagelocality
-  - |
-    cluster:
-      scheduler:
-        config:
-          apiVersion: kubescheduler.config.k8s.io/v1
-          kind: KubeSchedulerConfiguration
-          profiles:
-            - schedulerName: default-scheduler
-              plugins:
-                score:
-                  disabled:
-                    - name: ImageLocality
-  # etcd configuration
-  - |-
-    cluster:
-      etcd:
-        advertisedSubnets:
-          - 10.1.2.0/24
   # Enable K8s Talos API Access
   - |-
     machine:
@@ -192,7 +185,7 @@ patches:
   - |-
     - op: remove
       path: /cluster/apiServer/admissionControl
-  # Extra SSD to mount
+  # OpenEBS mount
   - |-
     machine:
       kubelet:
