@@ -30,7 +30,7 @@ spec:
         enabled: true
         name: openebs-hostpath
         isDefaultClass: false
-        basePath: /var/mnt/secondary/openebs/local
+        basePath: /var/openebs/local
       analytics:
         enabled: false
 
