@@ -7,8 +7,8 @@ metadata:
 spec:
   nodeSelector:
     matchExpressions:
-      # - {key: somekey, operator: NotIn, values: ["never-used-value"]}
-      - {key: node-role.kubernetes.io/control-plane, operator: NotIn, values: [""]}
+      - {key: somekey, operator: NotIn, values: ["never-used-value"]}
+      # - {key: node-role.kubernetes.io/control-plane, operator: NotIn, values: [""]}
   bgpInstances:
     - name: cilium
       localASN: 65500
