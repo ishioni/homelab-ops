@@ -21,92 +21,97 @@ additionalApiServerCertSans: &san
 additionalMachineCertSans: *san
 
 nodes:
-  - hostname: master-0.${clusterDNSSuffix}
-    ipAddress: 10.1.2.33
+  - hostname: talos-1.${clusterDNSSuffix}
+    ipAddress: 10.1.2.3
     controlPlane: true
-    installDisk: /dev/sda
+    installDiskSelector:
+      model: KINGSTON SKC3000S512G
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-          driver: virtio_net
-        mtu: 1500
+          driver: e1000e
+        ignore: true
+      - deviceSelector:
+          driver: r8169
+          hardwareAddr: 1c:fd:08:75:15:c2
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
+    machineSpec: &machineSpec
+      secureboot: true
+      useUKI: true
+    extensionServices:
+      - &lldpd
+        name: lldpd
+        configFiles:
+          - mountPath: /usr/local/etc/lldpd/lldpd.conf
+            content: |
+              configure lldpd portidsubtype ifname
+              configure system description "Talos Node"
 
-  - hostname: master-1.${clusterDNSSuffix}
-    ipAddress: 10.1.2.34
+  - hostname: talos-2.${clusterDNSSuffix}
+    ipAddress: 10.1.2.4
     controlPlane: true
-    installDisk: /dev/sda
+    installDiskSelector:
+      model: KINGSTON SKC3000S512G
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-          driver: virtio_net
-        mtu: 1500
+          driver: e1000e
+        ignore: true
+      - deviceSelector:
+          driver: r8169
+          hardwareAddr: 1c:fd:08:75:13:8a
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
+    machineSpec: *machineSpec
+    extensionServices:
+      - *lldpd
 
-  - hostname: master-2.${clusterDNSSuffix}
-    ipAddress: 10.1.2.35
+  - hostname: talos-3.${clusterDNSSuffix}
+    ipAddress: 10.1.2.5
     controlPlane: true
-    installDisk: /dev/sda
+    installDiskSelector:
+      model: KINGSTON SKC3000S512G
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-          driver: virtio_net
-        mtu: 1500
+          driver: e1000e
+        ignore: true
+      - deviceSelector:
+          driver: r8169
+          hardwareAddr: 1c:fd:08:75:13:d8
         dhcp: true
         vip:
           ip: ${clusterEndpointIP}
-
-  - hostname: worker-0.${clusterDNSSuffix}
-    ipAddress: 10.1.2.36
-    controlPlane: false
-    installDiskSelector:
-      size: "<= 80GB"
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-          driver: virtio_net
-        mtu: 1500
-        dhcp: true
-
-  - hostname: worker-1.${clusterDNSSuffix}
-    disableSearchDomain: true
-    ipAddress: 10.1.2.37
-    controlPlane: false
-    installDiskSelector:
-      size: "<= 80GB"
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-          driver: virtio_net
-        mtu: 1500
-        dhcp: true
-
-  - hostname: worker-2.${clusterDNSSuffix}
-    disableSearchDomain: true
-    ipAddress: 10.1.2.38
-    controlPlane: false
-    installDiskSelector:
-      size: "<= 80GB"
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "bc:24:11:*"
-          driver: virtio_net
-        mtu: 1500
-        dhcp: true
+    machineSpec: *machineSpec
+    extensionServices:
+      - *lldpd
 
 patches:
-  # Force nameserver
-  - &nameserverPatch |-
-    machine:
-      network:
-        nameservers:
-          - 10.1.2.1
-  # Enable unprivileged ports
-  - &containerdPatch |-
+  # etcd configuration
+  - |-
+    cluster:
+      etcd:
+        advertisedSubnets:
+          - 10.1.2.0/24
+  # Disable kube-proxy
+  - |
+    cluster:
+      proxy:
+        disabled: true
+  # Spegel
+  - |
+    cluster:
+      scheduler:
+        config:
+          apiVersion: kubescheduler.config.k8s.io/v1
+          kind: KubeSchedulerConfiguration
+          profiles:
+            - schedulerName: default-scheduler
+              plugins:
+                score:
+                  disabled:
+                    - name: ImageLocality
+  - |-
     machine:
       files:
         - op: create
@@ -114,8 +119,21 @@ patches:
           content: |
             [plugins."io.containerd.cri.v1.images"]
               discard_unpacked_layers = false
+  # Enable metrics scraping
+  - |-
+    cluster:
+      allowSchedulingOnControlPlanes: true
+      controllerManager:
+        extraArgs:
+          bind-address: 0.0.0.0
+      etcd:
+        extraArgs:
+          listen-metrics-urls: http://0.0.0.0:2381
+      scheduler:
+        extraArgs:
+          bind-address: 0.0.0.0
   # Kubelet flags
-  - &kubeletFlagsPatch |-
+  - |-
     machine:
       kubelet:
         extraConfig:
@@ -126,7 +144,7 @@ patches:
           validSubnets:
             - 10.1.2.0/24
   # Sysctl
-  - &sysctlPatch |-
+  - |-
     machine:
       sysctls:
         fs.inotify.max_queued_events: "65536"
@@ -134,39 +152,57 @@ patches:
         fs.inotify.max_user_watches: 1048576
         net.core.rmem_max: "7500000"
         net.core.wmem_max: "7500000"
-  # Enable KubePrism
-  - &kubePrismPatch |-
+      sysfs:
+        devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
+        devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_power
+        devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_power
+  # Kubeprism
+  - |-
     machine:
       features:
         kubePrism:
           enabled: true
           port: 7445
-  - &hostDNS |-
-    machine:
-      features:
         hostDNS:
           enabled: true
           resolveMemberNames: true
           forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
-  # Disable search domain everywhere
-  - &disableSearchDomainPatch |-
-    machine:
       network:
         disableSearchDomain: true
+  # Enable K8s Talos API Access
   - |-
     machine:
-      sysctls:
-        fs.inotify.max_user_watches: 1048576   # Watchdog
-        fs.inotify.max_user_instances: 8192    # Watchdog
-        net.core.default_qdisc: fq             # 10Gb/s
-        net.core.rmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-        net.core.wmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-        net.ipv4.tcp_congestion_control: bbr   # 10Gb/s
-        net.ipv4.tcp_fastopen: 3               # TCP Fast Open
-        net.ipv4.tcp_mtu_probing: 1            # 10Gb/s | Jumbo frames
-        net.ipv4.tcp_rmem: 4096 87380 33554432 # 10Gb/s
-        net.ipv4.tcp_wmem: 4096 65536 33554432 # 10Gb/s
-        net.ipv4.tcp_window_scaling: 1         # 10Gb/s
+      features:
+        kubernetesTalosAPIAccess:
+          enabled: true
+          allowedRoles:
+            - os:etcd:backup
+            - os:admin
+          allowedKubernetesNamespaces:
+            - kube-system
+            - github
+  # Disable default API server admission plugins.
+  - |-
+    - op: remove
+      path: /cluster/apiServer/admissionControl
+  # OpenEBS mount
+  - |-
+    machine:
+      kubelet:
+        extraMounts:
+          - destination: /var/openebs/local
+            type: bind
+            source: /var/openebs/local
+            options:
+              - rbind
+              - rshared
+              - rw
 
 controlPlane:
   schematic:
@@ -177,89 +213,8 @@ controlPlane:
         - mitigations=off
       systemExtensions:
         officialExtensions:
-          - siderolabs/qemu-guest-agent
-  patches:
-    # Enable metrics scraping
-    - |-
-      cluster:
-        controllerManager:
-          extraArgs:
-            bind-address: 0.0.0.0
-        etcd:
-          extraArgs:
-            listen-metrics-urls: http://0.0.0.0:2381
-        scheduler:
-          extraArgs:
-            bind-address: 0.0.0.0
-    # Disable kube-proxy
-    - |
-      cluster:
-        proxy:
-          disabled: true
-    # Disable imagelocality
-    - |
-      cluster:
-        scheduler:
-          config:
-            apiVersion: kubescheduler.config.k8s.io/v1
-            kind: KubeSchedulerConfiguration
-            profiles:
-              - schedulerName: default-scheduler
-                plugins:
-                  score:
-                    disabled:
-                      - name: ImageLocality
-    # etcd configuration
-    - |-
-      cluster:
-        etcd:
-          advertisedSubnets:
-            - 10.1.2.0/24
-    # Enable K8s Talos API Access
-    - |-
-      machine:
-        features:
-          kubernetesTalosAPIAccess:
-            enabled: true
-            allowedRoles:
-              - os:etcd:backup
-              - os:admin
-            allowedKubernetesNamespaces:
-              - kube-system
-              - github
-    # Disable default API server admission plugins.
-    - |-
-      - op: remove
-        path: /cluster/apiServer/admissionControl
-
-
-worker:
-  schematic:
-    customization:
-      extraKernelArgs:
-        - init_on_alloc=0
-        - init_on_free=0
-        - mitigations=off
-        - i915.disable_display=true
-      systemExtensions:
-        officialExtensions:
-          - siderolabs/qemu-guest-agent
           - siderolabs/i915
+          - siderolabs/intel-ucode
+          - siderolabs/mei
           - siderolabs/iscsi-tools
-  patches:
-    # Extra SSD to mount
-    - |-
-      machine:
-        kubelet:
-          extraMounts:
-            - destination: /var/openebs/local
-              type: bind
-              source: /var/openebs/local
-              options:
-                - rbind
-                - rshared
-                - rw
-    - |-
-      machine:
-        sysctls:
-          kernel.kexec_load_disabled: 1 # Disable kexec on gvtd nodes
+          - siderolabs/lldpd
