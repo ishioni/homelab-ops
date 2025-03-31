@@ -36,5 +36,5 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controllerExtraArgs: |
-      - --devices=gpu
+    devices:
+      gpu: true
