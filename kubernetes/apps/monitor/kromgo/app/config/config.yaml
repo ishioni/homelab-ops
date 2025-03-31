@@ -23,8 +23,8 @@ metrics:
   - name: cluster_node_count
     query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
     colors:
-      - {color: "green", min: 6, max: 9999}
-      - {color: "red", min: 0, max: 5}
+      - {color: "green", min: 3, max: 9999}
+      - {color: "red", min: 0, max: 2}
     title: Nodes
 
   - name: cluster_pod_count
