@@ -299,11 +299,6 @@ spec:
           gnetId: 17346
           revision: 9
           datasource: Prometheus
-        haproxy:
-          # renovate: depName="HAProxy"
-          gnetId: 12693
-          revision: 8
-          datasource: Prometheus
       storage:
         minio-dashboard:
           # renovate: depName="Minio"
