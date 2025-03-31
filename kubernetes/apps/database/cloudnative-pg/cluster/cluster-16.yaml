@@ -25,7 +25,7 @@ spec:
     enablePodMonitor: true
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v1
+      source: &previousCluster postgres-16-v1
   resources:
     requests:
       cpu: 200m
