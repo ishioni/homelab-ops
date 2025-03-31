@@ -5,13 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name node-exporter
 spec:
-  staticConfigs:
-    - targets:
-        - proxmox-1.${PRIVATE_DOMAIN}:9100
-        - proxmox-2.${PRIVATE_DOMAIN}:9100
-        - proxmox-3.${PRIVATE_DOMAIN}:9100
-        # - proxmox-4.${SERVERS_DOMAIN}:9100
-        - leo.${PRIVATE_DOMAIN}:9100
+  staticConfigs: [targets: ["leo.${PRIVATE_DOMAIN}:9100"]]
   metricsPath: /metrics
   honorTimestamps: true
   relabelings:
