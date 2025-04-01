@@ -153,7 +153,7 @@ patches:
         net.core.rmem_max: "7500000"
         net.core.wmem_max: "7500000"
       sysfs:
-        devices.system.cpu.intel_pstate.no_turbo: 1
+        devices.system.cpu.intel_pstate.no_turbo: 0
         devices.system.cpu.intel_pstate.hwp_dynamic_boost: 0
         devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_power
         devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_power
@@ -163,6 +163,10 @@ patches:
         devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_power
         devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_power
         devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_power
+        class.scsi_host.host0.link_power_management_policy: med_power_with_dipm
+        class.scsi_host.host1.link_power_management_policy: med_power_with_dipm
+        class.scsi_host.host2.link_power_management_policy: med_power_with_dipm
+        class.scsi_host.host3.link_power_management_policy: med_power_with_dipm
   # Kubeprism
   - |-
     machine:
