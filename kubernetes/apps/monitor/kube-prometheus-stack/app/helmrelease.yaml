@@ -64,7 +64,7 @@ spec:
               regex: (.*)
               replacement: $1
               sourceLabels: [__meta_kubernetes_pod_node_name]
-              targetLabel: kubernetes_node
+              targetLabels: kubernetes_node
             - action: replace
               replacement: $1
               sourceLabels: [__meta_kubernetes_pod_node_name]
