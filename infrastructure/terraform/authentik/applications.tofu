@@ -141,28 +141,6 @@ module "oauth2-immich" {
   ]
 }
 
-module "oauth2-proxmox" {
-  source             = "./oauth2_application"
-  name               = "Proxmox"
-  icon_url           = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
-  launch_url         = "https://proxmox.${var.private_domain}"
-  description        = "Virtualization"
-  newtab             = true
-  group              = "Infrastructure"
-  auth_groups        = [authentik_group.infrastructure.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = module.secret_proxmox.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_proxmox.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris = [
-    "https://proxmox.${var.private_domain}",
-    "https://proxmox-1.${var.private_domain}",
-    "https://proxmox-2.${var.private_domain}",
-    "https://proxmox-3.${var.private_domain}",
-    "https://proxmox-4.${var.private_domain}"
-  ]
-}
-
 # module "oauth2-audiobookshelf" {
 #   source             = "./oauth2_application"
 #   name               = "Audiobookshelf"
