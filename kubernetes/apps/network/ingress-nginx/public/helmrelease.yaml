@@ -63,6 +63,7 @@ spec:
         keep-alive: 120
         # custom-http-errors: 400,401,403,404,500,502,503,504
         ssl-protocols: "TLSv1.3 TLSv1.2"
+        force-ssl-redirect: "true"
         proxy-body-size: 0
         proxy-buffer-size: 16k
         proxy-read-timeout: 120
