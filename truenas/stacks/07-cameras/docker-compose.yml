@@ -35,8 +35,8 @@ services:
   go2rtc:
     image: ghcr.io/alexxit/go2rtc:1.9.9
     container_name: go2rtc
-    depends_on:
-      - mediamtx
+    # depends_on:
+    #   - mediamtx
     deploy:
       resources:
         limits:
