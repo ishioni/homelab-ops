@@ -27,6 +27,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    config:
+      device_include: "/dev/nvme.*"
     fullnameOverride: *app
     serviceMonitor:
       enabled: true
