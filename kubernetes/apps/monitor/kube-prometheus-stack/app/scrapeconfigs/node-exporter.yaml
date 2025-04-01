@@ -12,3 +12,7 @@ spec:
     - action: replace
       targetLabel: job
       replacement: *name
+    - sourceLabels: [__address__]
+      regex: '([^:]+):\d+'
+      replacement: '$1'
+      targetLabel: instance
