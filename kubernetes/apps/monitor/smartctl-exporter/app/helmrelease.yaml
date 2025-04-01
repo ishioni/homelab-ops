@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     config:
-      device_include: "/dev/nvme.*"
+      device_include: "nvme.*"
     fullnameOverride: *app
     serviceMonitor:
       enabled: true
