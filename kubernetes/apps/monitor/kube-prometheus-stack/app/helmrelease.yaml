@@ -64,12 +64,12 @@ spec:
               regex: (.*)
               replacement: $1
               sourceLabels: [__meta_kubernetes_pod_node_name]
-              targetLabels: kubernetes_node
+              targetLabel: kubernetes_node
             - action: replace
               regex: (.*)
               replacement: $1
               sourceLabels: [__meta_kubernetes_pod_node_name]
-              targetLabels: instance
+              targetLabel: instance
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
