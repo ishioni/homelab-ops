@@ -1,7 +1,5 @@
 ---
 # Area
-- name: area/ansible
-  color: "72ccf3"
 - name: area/terraform
   color: "72ccf3"
 - name: area/github
@@ -13,8 +11,6 @@
 - name: area/taskfiles
   color: "72ccf3"
 # Renovate
-- name: renovate/ansible
-  color: "ffc300"
 - name: renovate/container
   color: "ffc300"
 - name: renovate/github-action

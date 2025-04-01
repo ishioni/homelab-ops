@@ -1,7 +1,4 @@
 ---
-area/ansible:
-  - changed-files:
-      - any-glob-to-any-file: "infrastructure/ansible/**/*"
 area/terraform:
   - changed-files:
       - any-glob-to-any-file: "infrastructure/terraform/**/*"

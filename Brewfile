@@ -1,5 +1,4 @@
 brew "age"
-brew "ansible"
 brew "direnv"
 brew "findutils"
 brew "helm"
