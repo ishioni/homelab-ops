@@ -19,19 +19,19 @@ configs:
       srt: false
 
 services:
-  mediamtx:
-    image: docker.io/bluenviron/mediamtx:1.11.3-ffmpeg
-    container_name: mediamtx
-    restart: unless-stopped
-    networks:
-      apps:
-    env_file:
-      - ./secrets.env
-    expose:
-      - ${RTSP_PORT}
-    configs:
-      - source: mediamtx-config
-        target: /mediamtx.yml
+  # mediamtx:
+  #   image: docker.io/bluenviron/mediamtx:1.11.3-ffmpeg
+  #   container_name: mediamtx
+  #   restart: unless-stopped
+  #   networks:
+  #     apps:
+  #   env_file:
+  #     - ./secrets.env
+  #   expose:
+  #     - ${RTSP_PORT}
+  #   configs:
+  #     - source: mediamtx-config
+  #       target: /mediamtx.yml
   go2rtc:
     image: ghcr.io/alexxit/go2rtc:1.9.9
     container_name: go2rtc
@@ -44,6 +44,7 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+      - ./secrets.env
     environment:
       TZ: Europe/Warsaw
     networks:

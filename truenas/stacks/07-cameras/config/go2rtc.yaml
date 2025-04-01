@@ -19,10 +19,10 @@ webrtc:
         - stun:stun.cloudflare.com:3478
 streams:
   kids:
-    - rtsp://Kidsrtspuser1:r6nYFuUJUwD9c2nH@camera-kids.ishioni.casa/live0
+    - ${RTSP_PATHS_KIDS_SOURCE}
     - ffmpeg:kids#audio=opus
   bedroom:
-    - rtsp://Bedroomrtspuser1:3HpV2CLNMHebWgsF@camera-bedroom.ishioni.casa/live0
+    - ${RTSP_PATHS_BEDROOM_SOURCE}
     - ffmpeg:bedroom#audio=opus
 # streams:
 #   kids:
