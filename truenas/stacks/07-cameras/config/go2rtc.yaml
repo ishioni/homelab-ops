@@ -19,8 +19,15 @@ webrtc:
         - stun:stun.cloudflare.com:3478
 streams:
   kids:
-    - rtsp://mediamtx/kids
+    - rtsp://Kidsrtspuser1:r6nYFuUJUwD9c2nH@camera-kids.ishioni.casa/live0
     - ffmpeg:kids#audio=opus
   bedroom:
-    - rtsp://mediamtx/bedroom
+    - rtsp://Bedroomrtspuser1:3HpV2CLNMHebWgsF@camera-bedroom.ishioni.casa/live0
     - ffmpeg:bedroom#audio=opus
+# streams:
+#   kids:
+#     - rtsp://mediamtx/kids
+#     - ffmpeg:kids#audio=opus
+#   bedroom:
+#     - rtsp://mediamtx/bedroom
+#     - ffmpeg:bedroom#audio=opus
