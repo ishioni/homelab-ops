@@ -79,14 +79,6 @@ data:
               url: https://leo.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
               enablePools: true
-        - Proxmox:
-            href: https://proxmox.${PRIVATE_DOMAIN}
-            icon: proxmox.png
-            widget:
-              type: proxmox
-              url: https://proxmox.${PRIVATE_DOMAIN}
-              username: {{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}
-              password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
         - MeshCentral:
             href: https://meshcentral.${PRIVATE_DOMAIN}
             icon: meshcentral.png
