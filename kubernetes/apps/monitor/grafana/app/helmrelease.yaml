@@ -247,8 +247,12 @@ spec:
             - {name: DS_PROMETHEUS, value: Prometheus}
       networking:
         cert-manager:
-          url: https://raw.githubusercontent.com/szinn/k8s-homelab/main/kubernetes/main/apps/cert-manager/cert-manager/app/cert-manager-dashboard.json
-          datasource: Prometheus
+          # renovate: dashboardName="cert-manager"
+          gnetId: 20340
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         ingress-nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
@@ -272,7 +276,7 @@ spec:
         unifi-client-dpi:
           # renovate: depName="Unifi Client DPI"
           gnetId: 11310
-          revision: 9
+          revision: 5
           datasource: Prometheus
         unifi-usw-insights:
           # renovate: depName="Unifi USW"
