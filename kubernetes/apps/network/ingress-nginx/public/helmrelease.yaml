@@ -5,14 +5,10 @@ kind: HelmRelease
 metadata:
   name: ingress-public
 spec:
-  chart:
-    spec:
-      chart: ingress-nginx
-      version: 4.12.1
-      sourceRef:
-        kind: HelmRepository
-        name: ingress-nginx
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: ingress-nginx
+    namespace: flux-system
   interval: 30m
   maxHistory: 3
   uninstall:
