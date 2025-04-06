@@ -2,52 +2,58 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
+      description: "Github ARC group",
+      "groupName": "Github ARC",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/gha-runner-scale-set-controller/", "/gha-runner-scale-set/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}}",
+      }
+    },
+    {
       description: "1Password Connect and Sync images",
       groupName: "1Password",
-      matchPackagePatterns: ["1password"],
+      matchPackagePatterns: ["/1password/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
     },
     {
-      description: "Flux operator group",
+      description: "Cilium",
+      groupName: "Cilium",
+      matchPackagePatterns: ["cilium"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    },
+    {
+      description: "Kubelet CSR Approver",
+      groupName: "Kubelet CSR Approver",
+      matchPackagePatterns: ["/kubelet-csr-approver/"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    },
+    {
+      description: "Flux operator",
       groupName: "Flux operator",
-      matchPackagePatterns: ["flux-operator", "flux-instance"],
+      matchPackagePatterns: ["/flux-operator/", "/flux-instance/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"}
     },
     {
-      "description": ["Intel Device Plugins Group"],
+      "description": "Intel Device Plugins",
       "groupName": "Intel device plugins",
-      "matchPackagePatterns": ["intel-device-plugins"],
-      "matchDatasources": ["helm"],
+      "matchPackagePatterns": ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
+      "matchDatasources": ["docker"],
       "group": {
         "commitMessageTopic": "{{{groupName}}}"
       }
     },
     {
-      description: "Talos",
-      groupName: "Talos",
-      matchPackagePatterns: [
-      "ghcr.io/siderolabs/talosctl",
-      "ghcr.io/siderolabs/installer"
-      ],
-      matchDatasources: ["docker"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
-    },
-    {
-      description: "Cilium",
-      groupName: "Cilium",
-      matchPackagePatterns: ["cilium"],
-      matchDatasources: ["helm"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
-    },
-    {
       description: "External-Sapshotter group",
       groupName: "External Snapshotter",
       matchPackagePatterns: [
-        "snapshot-controller",
-        "snapshot-validation-webhook",
+        "/snapshot-controller/",
+        "/snapshot-validation-webhook/",
       ],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
@@ -55,7 +61,7 @@
     {
       description: "Immich group",
       groupName: "Immich",
-      matchPackagePatterns: ["immich"],
+      matchPackagePatterns: ["/immich/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
