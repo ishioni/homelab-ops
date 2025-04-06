@@ -13,5 +13,3 @@ resources:
   - ./minecraft-server.yaml
   - ./nextcloud.yaml
   - ./node-feature-discovery.yaml
-  - ./piraeus.yaml
-  - ./postfinance.yaml
