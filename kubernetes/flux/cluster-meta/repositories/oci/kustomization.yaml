@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./app-template.yaml
   - ./democratic-csi.yaml
+  - ./external-dns.yaml
