@@ -23,5 +23,5 @@
     "ghcr.io/fluxcd/notification-controller",
     "ghcr.io/fluxcd/source-controller",
   ],
-  ignorePaths: ["archive/**","truenas/archive/**"],
+  ignorePaths: ["archive/**", "truenas/archive/**"],
 }

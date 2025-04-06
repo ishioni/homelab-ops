@@ -16,5 +16,5 @@ spec:
       replacement: *name
     - sourceLabels: [__address__]
       regex: '([^:]+):\d+'
-      replacement: '$1'
+      replacement: "$1"
       targetLabel: instance

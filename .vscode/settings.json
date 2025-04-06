@@ -1,15 +1,15 @@
 {
-    "files.associations": {
-        "*.json5": "json5",
-        "**/infrastructure/terraform/**/*.tf": "terraform"
-    },
-    "prettier.configPath": ".github/linters/.prettierrc.yaml",
-    "prettier.ignorePath": ".github/linters/.prettierignore",
-    "yaml.schemas": {
-        "kubernetes": "kubernetes/*.yaml",
-        "https://taskfile.dev/schema.json": ".taskfiles/*.y*ml"
-    },
-    "editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs":"active",
-    "editor.hover.delay": 1500
+  "files.associations": {
+    "*.json5": "json5",
+    "**/infrastructure/terraform/**/*.tf": "terraform"
+  },
+  "prettier.configPath": ".github/linters/.prettierrc.yaml",
+  "prettier.ignorePath": ".github/linters/.prettierignore",
+  "yaml.schemas": {
+    "kubernetes": "kubernetes/*.yaml",
+    "https://taskfile.dev/schema.json": ".taskfiles/*.y*ml"
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.hover.delay": 1500
 }
