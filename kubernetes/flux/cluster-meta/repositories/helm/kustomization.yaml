@@ -6,7 +6,6 @@ resources:
   - ./actions-runner-controller.yaml
   - ./authentik.yaml
   - ./backube.yaml
-  - ./bjw-s.yaml
   - ./cilium.yaml
   - ./cloudnative-pg-dashboards.yaml
   - ./cloudnative-pg.yaml
@@ -28,7 +27,6 @@ resources:
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml
-  - ./prometheus-community.yaml
   - ./spegel.yaml
   - ./stakater.yaml
   - ./stevehipwell.yaml
