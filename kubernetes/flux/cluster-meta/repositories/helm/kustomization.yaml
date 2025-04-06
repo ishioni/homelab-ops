@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./authentik.yaml
   - ./backube.yaml
-  - ./cilium.yaml
   - ./cloudnative-pg-dashboards.yaml
   - ./cloudnative-pg.yaml
   - ./democratic-csi.yaml
