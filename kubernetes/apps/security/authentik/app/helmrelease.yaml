@@ -1,18 +1,27 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: authentik
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 2025.2.3
+  url: oci://ghcr.io/goauthentik/helm-charts/authentik
+---
 # yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: authentik
 spec:
-  chart:
-    spec:
-      chart: authentik
-      version: 2025.2.3
-      sourceRef:
-        kind: HelmRepository
-        name: authentik
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: authentik
   interval: 30m
   maxHistory: 3
   uninstall:
