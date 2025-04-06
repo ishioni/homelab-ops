@@ -6,10 +6,6 @@ helmDefaults:
   wait: true
   waitForJobs: true
 
-repositories:
-  - name: postfinance
-    url: https://postfinance.github.io/kubelet-csr-approver
-
 releases:
   - name: prometheus-operator-crds
     namespace: monitoring
@@ -26,7 +22,7 @@ releases:
 
   - name: kubelet-csr-approver
     namespace: kube-system
-    chart: postfinance/kubelet-csr-approver
+    chart: oci://ghcr.io/home-operations/charts-mirror/kubelet-csr-approver
     version: 1.2.2
     values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/kubelet-csr-approver/app/values.yaml']
     needs: ["kube-system/cilium", "monitoring/prometheus-operator-crds"]
