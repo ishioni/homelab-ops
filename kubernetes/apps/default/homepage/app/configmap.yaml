@@ -69,8 +69,7 @@ data:
             widget:
               type: unifi
               url: https://unifi.${PRIVATE_DOMAIN}
-              username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
-              password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
+              key: {{HOMEPAGE_VAR_UNIFI_TOKEN}}
         - TrueNAS:
             href: https://leo.${PRIVATE_DOMAIN}
             icon: truenas.png
