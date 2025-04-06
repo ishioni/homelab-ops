@@ -3,12 +3,15 @@
   packageRules: [
     {
       description: "Github ARC group",
-      "groupName": "Github ARC",
+      groupName: "Github ARC",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/gha-runner-scale-set-controller/", "/gha-runner-scale-set/"],
+      matchPackageNames: [
+        "/gha-runner-scale-set-controller/",
+        "/gha-runner-scale-set/",
+      ],
       group: {
         commitMessageTopic: "{{{groupName}}}",
-      }
+      },
     },
     {
       description: "1Password Connect and Sync images",
@@ -37,16 +40,19 @@
       groupName: "Flux operator",
       matchPackagePatterns: ["/flux-operator/", "/flux-instance/"],
       matchDatasources: ["docker"],
-      group: {commitMessageTopic: "{{{groupName}}}"}
+      group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
-      "description": "Intel Device Plugins",
-      "groupName": "Intel device plugins",
-      "matchPackagePatterns": ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}}"
-      }
+      description: "Intel Device Plugins",
+      groupName: "Intel device plugins",
+      matchPackagePatterns: [
+        "/intel-device-plugins-operator/",
+        "/intel-device-plugins-gpu/",
+      ],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}}",
+      },
     },
     {
       description: "External-Sapshotter group",
@@ -65,7 +71,7 @@
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
-      sourceUrl: "https://github.com/immich-app/immich"
+      sourceUrl: "https://github.com/immich-app/immich",
     },
   ],
 }

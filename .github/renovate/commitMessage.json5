@@ -11,6 +11,6 @@
     {
       matchDatasources: ["docker"],
       commitMessageTopic: "image {{depName}}",
-    }
+    },
   ],
 }

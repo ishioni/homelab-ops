@@ -31,7 +31,7 @@
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
-      matchPackagePatterns: ["sonarr", "lidarr", "radarr", "prowlarr"]
-    }
+      matchPackagePatterns: ["sonarr", "lidarr", "radarr", "prowlarr"],
+    },
   ],
 }
