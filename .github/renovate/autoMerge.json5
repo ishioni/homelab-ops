@@ -25,5 +25,13 @@
       matchPackagePatterns: ["reloader"],
       ignoreTests: true,
     },
+    {
+      description: "Automerge arrs",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackagePatterns: ["sonarr", "lidarr", "radarr", "prowlarr"]
+    }
   ],
 }
