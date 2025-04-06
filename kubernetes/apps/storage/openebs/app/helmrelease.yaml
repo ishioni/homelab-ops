@@ -29,15 +29,10 @@ spec:
     name: openebs
   install:
     disableHooks: true
-    remediation:
-      retries: -1
   interval: 30m
   maxHistory: 3
   upgrade:
-    cleanupOnFail: true
     disableHooks: true
-    remediation:
-      retries: 3
   uninstall:
     keepHistory: false
   values:
