@@ -5,7 +5,7 @@ kind: GitRepository
 metadata:
   name: gateway-api-crd
 spec:
-  interval: 30m
+  interval: 60m
   url: https://github.com/kubernetes-sigs/gateway-api
   ref:
     # renovate: depName=kubernetes-sigs/gateway-api datasource=github-releases
@@ -27,6 +27,5 @@ spec:
     kind: GitRepository
     name: gateway-api-crd
   wait: true
-  interval: 15m
-  retryInterval: 1m
+  interval: 30m
   timeout: 5m
