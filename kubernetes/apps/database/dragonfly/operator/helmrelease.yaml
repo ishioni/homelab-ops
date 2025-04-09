@@ -10,7 +10,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.1.10
+    tag: v1.1.11
   url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm/dragonfly-operator
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
