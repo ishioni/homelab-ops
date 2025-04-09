@@ -25,7 +25,7 @@ spec:
           registry: ghcr.io/democratic-csi/democratic-csi
           tag: next
         logLevel: debug
-        # imagePullPolicy: Always
+        imagePullPolicy: Always
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane
@@ -49,7 +49,7 @@ spec:
         image:
           registry: ghcr.io/democratic-csi/democratic-csi
           tag: next
-        # imagePullPolicy: Always
+        imagePullPolicy: Always
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter
