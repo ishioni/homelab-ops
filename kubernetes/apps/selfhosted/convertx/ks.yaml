@@ -15,7 +15,7 @@ spec:
   path: ./kubernetes/apps/selfhosted/convertx/app
   postBuild:
     substitute:
-      HOSTNAME: convert.${PUBLIC_DOMAIN}
+      HOSTNAME: convert.${PRIVATE_DOMAIN}
       PVC_CLAIM: convertx-data
       PVC_STORAGECLASS: truenas-ssd-nfs
   prune: true
