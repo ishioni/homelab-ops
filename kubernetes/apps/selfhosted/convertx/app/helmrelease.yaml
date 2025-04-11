@@ -22,6 +22,8 @@ spec:
             runAsGroup: *uid
             fsGroup: *uid
             fsGroupChangePolicy: OnRootMismatch
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
         strategy: RollingUpdate
         containers:
           app:
