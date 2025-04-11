@@ -16,7 +16,7 @@
     {
       description: "1Password Connect and Sync images",
       groupName: "1Password",
-      matchPackagePatterns: ["/1password/"],
+      matchPackageNames: ["/1password/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
@@ -24,28 +24,28 @@
     {
       description: "Cilium",
       groupName: "Cilium",
-      matchPackagePatterns: ["cilium"],
+      matchPackageNames: ["cilium"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
       description: "Kubelet CSR Approver",
       groupName: "Kubelet CSR Approver",
-      matchPackagePatterns: ["/kubelet-csr-approver/"],
+      matchPackageNames: ["/kubelet-csr-approver/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
       description: "Flux operator",
       groupName: "Flux operator",
-      matchPackagePatterns: ["/flux-operator/", "/flux-instance/"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
       description: "Intel Device Plugins",
       groupName: "Intel device plugins",
-      matchPackagePatterns: [
+      matchPackageNames: [
         "/intel-device-plugins-operator/",
         "/intel-device-plugins-gpu/",
       ],
@@ -57,7 +57,7 @@
     {
       description: "External-Sapshotter group",
       groupName: "External Snapshotter",
-      matchPackagePatterns: [
+      matchPackageNames: [
         "/snapshot-controller/",
         "/snapshot-validation-webhook/",
       ],
@@ -67,7 +67,7 @@
     {
       description: "Immich group",
       groupName: "Immich",
-      matchPackagePatterns: ["/immich/"],
+      matchPackageNames: ["/immich/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
       separateMinorPatch: true,
