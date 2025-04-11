@@ -73,5 +73,12 @@
       separateMinorPatch: true,
       sourceUrl: "https://github.com/immich-app/immich",
     },
+    {
+      description: "Prometheus operator CRD",
+      groupName: "Prometheus operator CRD",
+      matchPackageNames: ["/prometheus-operator-crds/"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    },
   ],
 }
