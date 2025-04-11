@@ -10,6 +10,7 @@ components:
   - ../../components/sops
 resources:
   - ./atuin/ks.yaml
+  - ./convertx/ks.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./navidrome/ks.yaml
