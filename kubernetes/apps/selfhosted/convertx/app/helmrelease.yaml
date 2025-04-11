@@ -36,6 +36,11 @@ spec:
               HTTP_ALLOWED: false
               ALLOW_UNAUTHENTICATED: true
               AUTO_DELETE_EVERY_N_HOURS: 1
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+              limits:
+                gpu.intel.com/i915: 1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
