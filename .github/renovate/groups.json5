@@ -29,6 +29,13 @@
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
+      description: "External Secrets Operator Group",
+      groupName: "External Secrets Operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/external-secrets/"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    },
+    {
       description: "Kubelet CSR Approver",
       groupName: "Kubelet CSR Approver",
       matchPackageNames: ["/kubelet-csr-approver/"],
