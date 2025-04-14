@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/helmfile
 helmDefaults:
-  force: true
+  cleanupOnFail: true
   timeout: 600
   wait: true
   waitForJobs: true
@@ -23,6 +23,17 @@ releases:
       ]
     needs: ["monitoring/prometheus-operator-crds"]
 
+  - name: spegel
+    namespace: kube-system
+    atomic: true
+    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
+    version: 0.1.1
+    values:
+      [
+        '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/spegel/app/values.yaml',
+      ]
+    needs: ["kube-system/cilium"]
+
   - name: kubelet-csr-approver
     namespace: kube-system
     chart: oci://ghcr.io/home-operations/charts-mirror/kubelet-csr-approver
@@ -32,6 +43,17 @@ releases:
         '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/kubelet-csr-approver/app/values.yaml',
       ]
     needs: ["kube-system/cilium", "monitoring/prometheus-operator-crds"]
+
+  - name: cert-manager
+    namespace: network
+    atomic: true
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.17.1
+    values:
+      [
+        '{{ requiredEnv "KUBERNETES_DIR" }}/apps/network/cert-manager/app/values.yaml',
+      ]
+    needs: ["kube-system/spegel"]
 
   - name: external-secrets
     namespace: security
@@ -79,4 +101,4 @@ releases:
       [
         '{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-operator/instance/values.yaml',
       ]
-    needs: ["flux-system/flux-operator"]
+    needs: ["flux-system/flux-operator", "security/external-secrets"]
