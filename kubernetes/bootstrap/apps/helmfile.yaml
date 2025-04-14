@@ -37,11 +37,8 @@ releases:
     namespace: security
     atomic: true
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 0.15.0
-    values:
-      [
-        '{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/operator/values.yaml',
-      ]
+    version: 0.16.0
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/operator/values.yaml']
     hooks:
       - # Wait for external-secrets CRDs to be available
         events: ["postsync"]
