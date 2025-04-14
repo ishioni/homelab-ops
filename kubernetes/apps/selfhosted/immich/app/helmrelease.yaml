@@ -142,17 +142,21 @@ spec:
                 matchLabels:
                   app.kubernetes.io/instance: *app
                   app.kubernetes.io/component: machine-learning
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
         containers:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.131.2
+              tag: v1.131.2-openvino
             resources:
               requests:
                 cpu: 100m
                 memory: 250Mi
+                gpu.intel.com/i915: 1
               limits:
                 memory: 4000Mi
+                gpu.intel.com/i915: 1
             probes:
               liveness: &probes
                 enabled: true
