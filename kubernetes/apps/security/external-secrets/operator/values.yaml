@@ -1,0 +1,49 @@
+installCRDs: true
+replicaCount: 2
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: external-secrets
+        app.kubernetes.io/instance: external-secrets
+leaderElect: true
+serviceMonitor:
+  enabled: true
+  interval: 1m
+webhook:
+  replicaCount: 2
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: external-secrets-webhook
+          app.kubernetes.io/instance: external-secrets
+  serviceMonitor:
+    enabled: true
+    interval: 1m
+  resources:
+    requests:
+      cpu: 15m
+      memory: 50Mi
+    limits:
+      memory: 100Mi
+certController:
+  serviceMonitor:
+    enabled: true
+    interval: 1m
+  resources:
+    requests:
+      cpu: 15m
+      memory: 80Mi
+    limits:
+      memory: 150Mi
+resources:
+  requests:
+    cpu: 15m
+    memory: 50Mi
+  limits:
+    memory: 150Mi

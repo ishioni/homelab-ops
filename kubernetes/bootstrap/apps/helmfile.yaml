@@ -33,6 +33,31 @@ releases:
       ]
     needs: ["kube-system/cilium", "monitoring/prometheus-operator-crds"]
 
+  - name: external-secrets
+    namespace: security
+    atomic: true
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.15.0
+    values: ['{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/operator/values.yaml']
+    hooks:
+      - # Wait for external-secrets CRDs to be available
+        events: ['postsync']
+        command: bash
+        args:
+          - -c
+          - until kubectl get crd clustersecretstores.external-secrets.io &>/dev/null; do sleep 10; done
+        showlogs: true
+      - # Apply cluster secret store configuration
+        events: ['postsync']
+        command: kubectl
+        args:
+          - apply
+          - --namespace=security
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename={{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/stores/clustersecretstore.yaml
+        showlogs: true
+
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
