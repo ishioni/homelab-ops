@@ -13,8 +13,6 @@ data:
     - Tech:
         - HackerNews:
             - href: https://news.ycombinator.com
-        - Anandtech:
-            - href: https://www.anandtech.com
         - Moronix:
             - href: https://www.phoronix.com
     - Social:
@@ -26,22 +24,6 @@ data:
     ingress: true
   services.yaml: |
     - Calendar:
-        # - Calendar:
-        #     widget:
-        #       type: calendar
-        #       firstDayInWeek: sunday # optional - defaults to monday
-        #       view: monthly # optional - possible values monthly, agenda
-        #       maxEvents: 10 # optional - defaults to 10
-        #       integrations: # optional
-        #         - type: sonarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr
-        #           service_group: Downloads # group name where widget exists
-        #           service_name: Sonarr # service name for that widget
-        #         - type: radarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr
-        #           service_group: Downloads # group name where widget exists
-        #           service_name: Radarr # service name for that widget
-        #         - type: readarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr
-        #           service_group: Downloads # group name where widget exists
-        #           service_name: Readarr # service name for that
         - Agenda:
             widget:
               type: calendar
@@ -75,6 +57,7 @@ data:
             icon: truenas.png
             widget:
               type: truenas
+              fields: []
               url: https://leo.${PRIVATE_DOMAIN}
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
               enablePools: true

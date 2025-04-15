@@ -67,10 +67,10 @@ spec:
     ingress:
       app:
         className: private
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Selfhosted
-          gethomepage.dev/name: ConvertX
+        # annotations:
+        #   gethomepage.dev/enabled: "true"
+        #   gethomepage.dev/group: Selfhosted
+        #   gethomepage.dev/name: ConvertX
         hosts:
           - host: ${HOSTNAME}
             paths:

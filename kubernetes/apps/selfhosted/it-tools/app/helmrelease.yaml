@@ -33,10 +33,10 @@ spec:
     ingress:
       app:
         className: public
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Selfhosted
-          gethomepage.dev/name: IT-Tools
+        # annotations:
+        #   gethomepage.dev/enabled: "true"
+        #   gethomepage.dev/group: Selfhosted
+        #   gethomepage.dev/name: IT-Tools
         hosts:
           - host: ${HOSTNAME}
             paths:

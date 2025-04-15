@@ -94,12 +94,12 @@ spec:
       ingress:
         enabled: true
         ingressClassName: private
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Infrastructure
-          gethomepage.dev/name: Alert Manager
-          gethomepage.dev/icon: alertmanager.svg
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
+        # annotations:
+        #   gethomepage.dev/enabled: "true"
+        #   gethomepage.dev/group: Infrastructure
+        #   gethomepage.dev/name: Alert Manager
+        #   gethomepage.dev/icon: alertmanager.svg
+        #   gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
         hosts: ["${ALERT_HOSTNAME}"]
       alertmanagerSpec:
         alertmanagerConfiguration:
