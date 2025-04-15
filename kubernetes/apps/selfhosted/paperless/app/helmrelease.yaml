@@ -122,7 +122,7 @@ spec:
           gethomepage.dev/icon: paperless-ngx.png
           gethomepage.dev/widget.type: paperlessngx
           gethomepage.dev/widget.url: http://paperless.selfhosted:8000
-          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}"
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}`}}"
         hosts:
           - host: ${HOSTNAME}
             paths:
