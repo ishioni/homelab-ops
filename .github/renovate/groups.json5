@@ -24,7 +24,7 @@
     {
       description: "Cilium",
       groupName: "Cilium",
-      matchPackageNames: ["cilium"],
+      matchPackageNames: ["/cilium/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
