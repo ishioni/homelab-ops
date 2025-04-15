@@ -95,13 +95,7 @@ data:
         style: columns
       Automation:
         style: columns
-      Media:
-        style: columns
-        columns: 3
       Selfhosted:
-        style: row
-        columns: 2
-      Security:
         style: row
         columns: 2
       Downloads:

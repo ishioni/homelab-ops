@@ -72,7 +72,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: |-
             https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Media
+          gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: Navidrome
           gethomepage.dev/icon: navidrome.svg
           gethomepage.dev/widget.type: navidrome

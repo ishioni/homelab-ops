@@ -59,7 +59,7 @@ spec:
         ingressClassName: public
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Security
+          gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Authentik
           gethomepage.dev/icon: authentik.png
           gethomepage.dev/pod-selector: app.kubernetes.io/name=authentik
