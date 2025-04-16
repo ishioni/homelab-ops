@@ -28,7 +28,7 @@ spec:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
       repository: itzg/minecraft-server
-      tag: 2024.12.0-java21
+      tag: 2025.4.0-java21
     resources:
       limits:
         memory: 4000Mi
@@ -61,7 +61,7 @@ spec:
       io.cilium/ippool: public
     minecraftServer:
       eula: true
-      version: 1.20.6
+      version: 1.21.4
       type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,movi,MicroGachou"
