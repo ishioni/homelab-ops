@@ -8,3 +8,5 @@ components:
   - ../../components/namespace
   - ../../components/global-vars
   - ../../components/sops
+resources:
+  - ./minecraft/ks.yaml
