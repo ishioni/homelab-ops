@@ -27,7 +27,7 @@ spec:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
-      repository: itzg/minecraft-server
+      repository: ghcr.io/itzg/minecraft-server
       tag: 2025.4.0-java21
     resources:
       limits:
