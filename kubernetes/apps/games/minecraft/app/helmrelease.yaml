@@ -100,7 +100,7 @@ spec:
               gethomepage.dev/icon: minecraft.svg
               gethomepage.dev/pod-selector: app.kubernetes.io/name=minecraft
               gethomepage.dev/widget.type: minecraft
-              gethomepage.dev/widget.url: udp://minecraft-minecraft.games:25565
+              gethomepage.dev/widget.url: udp://minecraft.games:25565
             hosts:
               - name: &host ${MAP_HOSTNAME}
                 path: /
