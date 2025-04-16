@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/nginx/nginx
-              tag: "1.27.4"
+              tag: "1.27.5"
     service:
       app:
         controller: s3proxy
