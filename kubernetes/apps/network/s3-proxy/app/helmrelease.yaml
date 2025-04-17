@@ -15,11 +15,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      s3:
-        containers: {}
     service:
       s3:
-        controller: s3
+        controller: foobar
         type: ExternalName
         externalName: cdn.s3.${PRIVATE_DOMAIN}
         ports:
