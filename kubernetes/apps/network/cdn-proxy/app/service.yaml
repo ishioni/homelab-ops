@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cdn-proxy
+spec:
+  externalName: cdn.s3.${PRIVATE_DOMAIN}
+  ports:
+    - name: http
+      port: &port 443
+      protocol: TCP
+      targetPort: *port
+  type: ExternalName

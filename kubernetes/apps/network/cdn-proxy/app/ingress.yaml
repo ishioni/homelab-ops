@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cnd-proxy
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-body-size: "128m"
+    nginx.ingress.kubernetes.io/proxy-hide-headers: "Set-Cookie"
+    nginx.ingress.kubernetes.io/proxy-intercept-errors: "on"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Host "cdn.s3.${PRIVATE_DOMAIN}";
+spec:
+  ingressClassName: public
+  rules:
+    - host: ${HOSTNAME}
+      http:
+        paths:
+          - backend:
+              service:
+                name: cdn-proxy
+                port:
+                  name: https
+            path: /
+            pathType: Prefix
