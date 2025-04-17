@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app s3-proxy
+  name: &app cdn-proxy
   namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: ./kubernetes/apps/network/s3-proxy/app
+  path: ./kubernetes/apps/network/cdn-proxy/app
   postBuild:
     substitute:
       HOSTNAME: cdn.${PUBLIC_DOMAIN}
