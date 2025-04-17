@@ -14,39 +14,29 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controllers:
-      s3proxy:
-        strategy: RollingUpdate
-        annotations:
-          configmap.reloader.stakater.com/reload: &configmap s3-proxy-configmap
-        containers:
-          app:
-            image:
-              repository: public.ecr.aws/nginx/nginx
-              tag: "1.27.5"
     service:
-      app:
-        controller: s3proxy
+      s3:
+        type: ExternalName
+        externalName: cdn.s3.${PRIVATE_DOMAIN}
         ports:
-          http:
-            port: 80
+          https:
+            port: 443
     ingress:
-      app:
+      s3:
         enabled: true
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: /
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          nginx.ingress.kubernetes.io/proxy-body-size: "128m"
+          nginx.ingress.kubernetes.io/proxy-hide-headers: "Set-Cookie"
+          nginx.ingress.kubernetes.io/proxy-intercept-errors: "on"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Host "cdn.s3.${PRIVATE_DOMAIN}";
         className: public
         hosts:
           - host: ${HOSTNAME}
             paths:
               - path: /
                 service:
-                  identifier: app
-                  port: http
-    persistence:
-      nginx-config:
-        type: "custom"
-        globalMounts:
-          - path: /etc/nginx/nginx.conf
-            subPath: nginx-config
-        volumeSpec:
-          configMap:
-            name: *configmap
+                  identifier: s3
+                  port: https
