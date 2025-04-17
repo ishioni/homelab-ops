@@ -6,7 +6,7 @@ metadata:
 spec:
   externalName: cdn.s3.${PRIVATE_DOMAIN}
   ports:
-    - name: http
+    - name: https
       port: &port 443
       protocol: TCP
       targetPort: *port
