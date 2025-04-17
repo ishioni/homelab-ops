@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
   interval: 30m
   path: ./kubernetes/apps/security/authentik/app

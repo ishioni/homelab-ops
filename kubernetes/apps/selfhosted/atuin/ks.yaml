@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: postgres-cluster
       namespace: database
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
   interval: 30m
   path: ./kubernetes/apps/selfhosted/atuin/app

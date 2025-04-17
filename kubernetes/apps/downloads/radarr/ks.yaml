@@ -14,7 +14,7 @@ spec:
   dependsOn:
     - name: postgres-cluster
       namespace: database
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
     - name: democratic-csi-nfs
       namespace: storage

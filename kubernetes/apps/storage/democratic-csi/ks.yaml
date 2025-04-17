@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
     - name: snapshot-controller
       namespace: *namespace
@@ -32,7 +32,7 @@ spec:
 #   namespace: &namespace storage
 # spec:
 #   dependsOn:
-#     - name: onepassword-store
+#     - name: external-secrets
 #       namespace: security
 #     - name: snapshot-controller
 #       namespace: *namespace
@@ -57,7 +57,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
     - name: snapshot-controller
       namespace: *namespace
@@ -82,7 +82,7 @@ spec:
 #     labels:
 #       app.kubernetes.io/name: *app
 #   dependsOn:
-#     - name: onepassword-store
+#     - name: external-secrets
 #       namespace: security
 #     - name: snapshot-controller
 #       namespace: *namespace

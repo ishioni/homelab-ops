@@ -34,7 +34,7 @@ spec:
       namespace: database
     - name: openebs
       namespace: storage
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
   healthCheckExprs:
     - apiVersion: postgresql.cnpg.io/v1

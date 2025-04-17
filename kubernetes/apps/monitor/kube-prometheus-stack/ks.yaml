@@ -34,7 +34,7 @@ spec:
       namespace: monitor
     - name: democratic-csi-iscsi
       namespace: storage
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
   interval: 30m
   path: ./kubernetes/apps/monitor/kube-prometheus-stack/app

@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: democratic-csi-iscsi
       namespace: storage
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
     - name: kube-prometheus-stack
       namespace: monitor
