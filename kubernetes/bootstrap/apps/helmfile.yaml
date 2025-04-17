@@ -62,7 +62,7 @@ releases:
     version: 0.16.1
     values:
       [
-        '{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/operator/values.yaml',
+        '{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/app/values.yaml',
       ]
     hooks:
       - # Wait for external-secrets CRDs to be available
@@ -80,7 +80,7 @@ releases:
           - --namespace=security
           - --server-side
           - --field-manager=kustomize-controller
-          - --filename={{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/stores/clustersecretstore.yaml
+          - --filename={{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/app/clustersecretstore.yaml
         showlogs: true
 
   - name: flux-operator
