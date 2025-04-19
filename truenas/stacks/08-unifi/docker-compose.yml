@@ -16,17 +16,23 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.services.unifi.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.services.unifi.loadbalancer.server.scheme: https
       traefik.http.routers.unifi.entrypoints: https
       traefik.http.routers.unifi.rule: Host(`${HOST}`)
       traefik.http.routers.unifi.tls: true
       traefik.http.routers.unifi.service: unifi
     networks:
+      apps:
       traefik_macvlan:
         ipv4_address: ${MACVLAN_ADDRESS}
+    expose:
+      - ${APP_PORT}
     volumes:
       - ${DATA_PATH}:/unifi
       - /etc/certificates:/unifi/cert
 
 networks:
+  apps:
+    external: true
   traefik_macvlan:
     external: true
