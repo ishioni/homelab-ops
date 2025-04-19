@@ -1,0 +1,33 @@
+---
+services:
+  unifi:
+    container_name: unifi
+    image: docker.io/haproxy:v9.0.114
+    user: 99:568
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
+      RUNAS_UID0: "false"
+      UNIFI_UID: "568"
+      UNIFI_GID: "568"
+      UNIFI_STDOUT: "true"
+      CERTNAME: "casa.crt"
+      CERT_PRIVATE_NAME: "casa.key"
+      CERT_IS_CHAIN: "true"
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.unifi.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.unifi.entrypoints: https
+      traefik.http.routers.unifi.rule: Host(`${HOST}`)
+      traefik.http.routers.unifi.tls: true
+      traefik.http.routers.unifi.service: unifi
+    networks:
+      traefik_macvlan:
+        ipv4_address: ${MACVLAN_ADDRESS}
+    volumes:
+      - ${DATA_PATH}:/unifi
+      - /etc/certificates:/unifi/cert
+
+networks:
+  traefik_macvlan:
+    external: true
