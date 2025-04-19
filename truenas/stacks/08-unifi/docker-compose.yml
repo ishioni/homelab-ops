@@ -3,7 +3,6 @@ services:
   unifi:
     container_name: unifi
     image: ghcr.io/jacobalberty/unifi-docker:v9.0.114
-    user: 99:568
     restart: unless-stopped
     environment:
       TZ: Europe/Warsaw
