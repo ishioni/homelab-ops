@@ -16,3 +16,21 @@ spec:
                   name: http
             path: /
             pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hass-ostroda-proxy
+spec:
+  ingressClassName: public
+  rules:
+    - host: haos.ostroda.${PUBLIC_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: hass-ostroda-proxy
+                port:
+                  name: http
+            path: /
+            pathType: Prefix

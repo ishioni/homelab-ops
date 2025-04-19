@@ -8,6 +8,7 @@ spec:
   dnsNames:
     - "${PUBLIC_DOMAIN}"
     - "*.${PUBLIC_DOMAIN}"
+    - "*.ostroda.${PUBLIC_DOMAIN}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
@@ -23,6 +24,7 @@ spec:
   dnsNames:
     - "${PUBLIC_DOMAIN}"
     - "*.${PUBLIC_DOMAIN}"
+    - "*.ostroda.${PUBLIC_DOMAIN}"
     - "${PRIVATE_DOMAIN}"
     - "*.${PRIVATE_DOMAIN}"
   issuerRef:

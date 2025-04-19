@@ -11,3 +11,16 @@ spec:
       protocol: TCP
       targetPort: 8123
   type: ExternalName
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hass-ostroda-proxy
+spec:
+  externalName: haos-ostroda.${PRIVATE_DOMAIN}
+  ports:
+    - name: http
+      port: 8123
+      protocol: TCP
+      targetPort: 8123
+  type: ExternalName
