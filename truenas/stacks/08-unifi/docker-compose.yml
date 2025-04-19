@@ -2,7 +2,7 @@
 services:
   unifi:
     container_name: unifi
-    image: docker.io/haproxy:v9.0.114
+    image: ghcr.io/jacobalberty/unifi-docker:v9.0.114
     user: 99:568
     restart: unless-stopped
     environment:
