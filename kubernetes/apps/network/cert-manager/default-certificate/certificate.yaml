@@ -19,16 +19,13 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "default-both-certificate"
+  name: "default-private-certificate"
 spec:
   dnsNames:
-    - "${PUBLIC_DOMAIN}"
-    - "*.${PUBLIC_DOMAIN}"
-    - "*.ostroda.${PUBLIC_DOMAIN}"
     - "${PRIVATE_DOMAIN}"
     - "*.${PRIVATE_DOMAIN}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
     group: cert-manager.io
-  secretName: "default-both-certificate"
+  secretName: "default-private-certificate"
