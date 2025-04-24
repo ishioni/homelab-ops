@@ -37,7 +37,6 @@
       separateMinorPatch: true,
     },
     {
-    {
       description: "External Secrets Operator Group",
       groupName: "External Secrets Operator",
       matchDatasources: ["docker"],
