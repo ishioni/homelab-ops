@@ -29,6 +29,15 @@
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
+      description: "Cert manager",
+      groupName: "Cert manager",
+      matchPackageNames: ["/cert-manager/"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+      separateMinorPatch: true,
+    },
+    {
+    {
       description: "External Secrets Operator Group",
       groupName: "External Secrets Operator",
       matchDatasources: ["docker"],
