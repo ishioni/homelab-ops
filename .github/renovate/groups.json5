@@ -90,8 +90,8 @@
     {
       description: "Gateway API CRD",
       groupName: "Gateway API CRD",
-      matchPackageNames: ["/gateway-api/"],
-      matchDatasources: ["docker"],
+      matchPackageNames: ["/kubernetes-sigs/gateway-api/"],
+      matchDatasources: ["github-releases", "github-tags"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     }
   ],
