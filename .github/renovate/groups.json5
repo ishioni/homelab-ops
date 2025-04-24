@@ -87,5 +87,12 @@
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
+    {
+      description: "Gateway API CRD",
+      groupName: "Gateway API CRD",
+      matchPackageNames: ["/gateway-api/"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    }
   ],
 }
