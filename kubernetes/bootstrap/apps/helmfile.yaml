@@ -48,7 +48,7 @@ releases:
     namespace: network
     atomic: true
     chart: oci://quay.io/jetstack/charts/cert-manager
-    version: v1.17.1
+    version: v1.17.2
     values:
       [
         '{{ requiredEnv "KUBERNETES_DIR" }}/apps/network/cert-manager/app/values.yaml',
