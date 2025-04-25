@@ -17,14 +17,17 @@ services:
       - --path.rootfs=/host/root
       - --path.procfs=/host/proc
       - --path.sysfs=/host/sys
-      # - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
-      - --no-collector.filesystem
-      - --no-collector.zfs
+      - --path.udev.data=/host/root/run/udev/data
+      - --web.listen-address=0.0.0.0:9100
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+      # - --no-collector.filesystem
+      # - --no-collector.zfs
       # - --no-collector.filesystem
       # - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
       # - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
     ports:
       - ${NODE_PORT}:${NODE_PORT}
+    network_mode: host
     volumes:
       - /:/host/root:ro
       - /proc:/host/proc:ro
