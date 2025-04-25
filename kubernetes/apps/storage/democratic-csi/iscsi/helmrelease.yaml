@@ -23,7 +23,7 @@ spec:
       driver:
         image: &image
           registry: ghcr.io/democratic-csi/democratic-csi
-          tag: v1.9.3
+          tag: next
         # imagePullPolicy: Always
       tolerations:
         - effect: NoSchedule
