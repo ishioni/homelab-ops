@@ -14,7 +14,7 @@ spec:
           cloudflare:
             apiTokenSecretRef:
               name: certmanager-cloudflare-secret
-              key: API_TOKEN
+              key: CF_API_TOKEN
         selector:
           dnsZones:
             - ${PUBLIC_DOMAIN}
