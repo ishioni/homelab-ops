@@ -10,7 +10,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 3.3.7
+    tag: 3.4.0
   url: oci://ghcr.io/kyverno/charts/kyverno
   verify:
     provider: cosign
@@ -35,14 +35,16 @@ spec:
   values:
     crds:
       install: true
-    # global:
-    #   image:
-    #     registry: ghcr.io
-    grafana:
-      enabled: true
-      annotations:
-        grafana_folder: System
+      migration:
+        image:
+          registry: ghcr.io
     admissionController:
+      initContainer:
+        image:
+          registry: ghcr.io
+      container:
+        image:
+          registry: ghcr.io
       replicas: 3
       topologySpreadConstraints:
         - maxSkew: 1
@@ -53,6 +55,8 @@ spec:
               app.kubernetes.io/instance: kyverno
               app.kubernetes.io/component: kyverno
     backgroundController:
+      image:
+        registry: ghcr.io
       serviceMonitor:
         enabled: true
       rbac:
@@ -70,11 +74,22 @@ spec:
                 - get
                 - list
     cleanupController:
+      image:
+        registry: ghcr.io
       serviceMonitor:
         enabled: true
     reportsController:
+      image:
+        registry: ghcr.io
       serviceMonitor:
         enabled: true
+    migration:
+      image:
+        registry: ghcr.io
+    grafana:
+      enabled: true
+      annotations:
+        grafana_folder: System
     # webhooksCleanup:
     #   image:
     #     registry: registry.k8s.io
