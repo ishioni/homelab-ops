@@ -44,6 +44,13 @@
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
+      description: "Spegel",
+      groupName: "Spegel",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/spegel/"],
+      group: {commitMessageTopic: "{{{groupName}}}"},
+    },
+    {
       description: "Kubelet CSR Approver",
       groupName: "Kubelet CSR Approver",
       matchPackageNames: ["/kubelet-csr-approver/"],
