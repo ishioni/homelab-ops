@@ -1,0 +1,13 @@
+---
+services:
+  lldpd:
+    image: ghcr.io/lldpd/lldpd:1.0.19
+    container_name: lldpd
+    network_mode: host
+    uts: host
+    cap_add:
+      - NET_RAW
+      - net_ADMIN
+    volumes:
+      - /etc/os-release:/etc/os-release
+    restart: unless-stopped
