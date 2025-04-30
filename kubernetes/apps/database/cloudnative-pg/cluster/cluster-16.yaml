@@ -7,6 +7,10 @@ metadata:
 spec:
   instances: 3
   imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
   enableSuperuserAccess: true
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
