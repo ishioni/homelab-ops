@@ -30,9 +30,6 @@ spec:
     global:
       deploymentAnnotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
-      env:
-        - name: AUTHENTIK_SESSION_STORAGE
-          value: db
       envFrom:
         - secretRef:
             name: *secret
@@ -80,8 +77,7 @@ spec:
       log_level: debug
       redis:
         host: dragonfly.database.svc.cluster.local
-      error_reporting:
-        enabled: false
+      session_storage: db
     prometheus:
       rules:
         enabled: true
