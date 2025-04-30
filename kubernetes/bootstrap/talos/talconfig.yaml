@@ -28,9 +28,6 @@ nodes:
       model: KINGSTON SKC3000S512G
     networkInterfaces:
       - deviceSelector:
-          driver: e1000e
-        ignore: true
-      - deviceSelector:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:15:c2
         dhcp: true
@@ -55,9 +52,6 @@ nodes:
       model: KINGSTON SKC3000S512G
     networkInterfaces:
       - deviceSelector:
-          driver: e1000e
-        ignore: true
-      - deviceSelector:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:13:8a
         dhcp: true
@@ -73,9 +67,6 @@ nodes:
     installDiskSelector:
       model: KINGSTON SKC3000S512G
     networkInterfaces:
-      - deviceSelector:
-          driver: e1000e
-        ignore: true
       - deviceSelector:
           driver: r8169
           hardwareAddr: 1c:fd:08:75:13:d8
