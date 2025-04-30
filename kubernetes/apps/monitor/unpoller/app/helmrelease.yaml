@@ -29,12 +29,13 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.14.1
+              tag: v2.15.0
             env:
               TZ: ${CONFIG_TIMEZONE}
               UP_UNIFI_DEFAULT_ROLE: MoviNet
               UP_UNIFI_DEFAULT_URL: https://unifi.${PRIVATE_DOMAIN}
               UP_UNIFI_DEFAULT_VERIFY_SSL: true
+              UP_DEFAULT_SITE_NAME_OVERRIDE: Movinet
               UP_INFLUXDB_DISABLE: true
               UP_UNIFI_DYNAMIC: false
               UP_UNIFI_DEFAULT_SAVE_DPI: true
