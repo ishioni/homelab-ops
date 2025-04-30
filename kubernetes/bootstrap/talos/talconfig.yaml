@@ -216,6 +216,7 @@ controlPlane:
         - init_on_alloc=0
         - init_on_free=0
         - mitigations=off
+        - module_blacklist=e1000e
       systemExtensions:
         officialExtensions:
           - siderolabs/i915
