@@ -78,6 +78,8 @@ spec:
       redis:
         host: dragonfly.database.svc.cluster.local
       session_storage: db
+      worker:
+        concurrency: 4
     prometheus:
       rules:
         enabled: true
