@@ -62,6 +62,8 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: ${CONFIG_GO2RTC_IP}
+        labels:
+          io.cilium/ippool: public
         ports:
           webrtc-tcp:
             port: 8555
