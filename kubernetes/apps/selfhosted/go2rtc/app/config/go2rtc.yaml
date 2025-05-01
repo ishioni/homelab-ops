@@ -1,12 +1,12 @@
 ---
-log:
-  level: warn # default level
-  api: warn
-  exec: warn
-  ngrok: warn
-  rtsp: warn
-  streams: warn
-  webrtc: warn
+# log:
+#   level: warn # default level
+#   api: warn
+#   exec: warn
+#   ngrok: warn
+#   rtsp: warn
+#   streams: warn
+#   webrtc: warn
 api:
   listen: :80
 webrtc:
