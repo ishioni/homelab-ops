@@ -16,7 +16,7 @@ spec:
   path: ./kubernetes/apps/selfhosted/go2rtc/app
   postBuild:
     substitute:
-      HOSTNAME: go2rtc-test.${PRIVATE_DOMAIN}
+      HOSTNAME: go2rtc.${PRIVATE_DOMAIN}
   prune: true
   sourceRef:
     kind: GitRepository
