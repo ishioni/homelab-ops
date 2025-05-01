@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrelease.yaml
+  - ./externalsecret.yaml
+configMapGenerator:
+  - name: go2rtc-config
+    files:
+      - go2rtc.yaml=./config/go2rtc.yaml
+configurations:
+  - kustomizeconfig.yaml

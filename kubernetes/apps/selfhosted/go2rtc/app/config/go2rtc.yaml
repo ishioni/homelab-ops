@@ -1,0 +1,26 @@
+---
+log:
+  level: warn # default level
+  api: warn
+  exec: warn
+  ngrok: warn
+  rtsp: warn
+  streams: warn
+  webrtc: warn
+api:
+  listen: :80
+webrtc:
+  listen: :8555
+  candidates:
+    - ${CONFIG_GO2RTC_IP}:8555
+    - stun:8555
+  ice_servers:
+    - urls:
+        - stun:stun.cloudflare.com:3478
+streams:
+  kids:
+    - ${RTSP_PATHS_KIDS_SOURCE}
+    - ffmpeg:kids#audio=opus
+  bedroom:
+    - ${RTSP_PATHS_BEDROOM_SOURCE}
+    - ffmpeg:bedroom#audio=opus
