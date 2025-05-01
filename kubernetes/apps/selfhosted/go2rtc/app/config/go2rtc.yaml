@@ -19,8 +19,8 @@ webrtc:
         - stun:stun.cloudflare.com:3478
 streams:
   kids:
-    - ${RTSP_PATHS_KIDS_SOURCE}
+    - $${RTSP_PATHS_KIDS_SOURCE}
     - ffmpeg:kids#audio=opus
   bedroom:
-    - ${RTSP_PATHS_BEDROOM_SOURCE}
+    - $${RTSP_PATHS_BEDROOM_SOURCE}
     - ffmpeg:bedroom#audio=opus
