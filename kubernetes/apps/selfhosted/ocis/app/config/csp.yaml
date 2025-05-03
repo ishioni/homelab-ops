@@ -4,9 +4,9 @@ directives:
     - "'self'"
   connect-src:
     - "'self'"
-    - 'blob:'
-    - 'https://raw.githubusercontent.com/owncloud/awesome-ocis/'
-    - 'https://auth.${SECRET_DOMAIN}/'
+    - "blob:"
+    - "https://raw.githubusercontent.com/owncloud/awesome-ocis/"
+    - "https://${AUTH_HOSTNAME}/"
   default-src:
     - "'none'"
   font-src:
@@ -15,20 +15,20 @@ directives:
     - "'none'"
   frame-src:
     - "'self'"
-    - 'blob:'
-    - 'https://embed.diagrams.net/'
+    - "blob:"
+    - "https://embed.diagrams.net/"
   img-src:
     - "'self'"
-    - 'data:'
-    - 'blob:'
-    - 'https://raw.githubusercontent.com/owncloud/awesome-ocis/'
+    - "data:"
+    - "blob:"
+    - "https://raw.githubusercontent.com/owncloud/awesome-ocis/"
   manifest-src:
     - "'self'"
   media-src:
     - "'self'"
   object-src:
     - "'self'"
-    - 'blob:'
+    - "blob:"
   script-src:
     - "'self'"
     - "'unsafe-inline'"
