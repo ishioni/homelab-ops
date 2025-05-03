@@ -73,7 +73,7 @@ spec:
               STORAGE_USERS_S3NG_ENDPOINT: https://s3.${PRIVATE_DOMAIN}
               STORAGE_USERS_S3NG_REGION: default
               STORAGE_USERS_S3NG_BUCKET: ocis
-              WEB_OIDC_METADATA_URL: https://auth.movishell.pl/application/o/owncloud/.well-known/openid-configuration
+              WEB_OIDC_METADATA_URL: https://${AUTH_HOSTNAME}/application/o/owncloud/.well-known/openid-configuration
               WEB_OIDC_SCOPE: "openid profile email groups"
             resources:
               requests:
