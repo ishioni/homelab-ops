@@ -19,7 +19,7 @@ spec:
     - name: volsync
       namespace: storage
   interval: 30m
-  path: ./kubernetes/talos/apps/selfhosted/ocis/app
+  path: ./kubernetes/apps/selfhosted/ocis/app
   postBuild:
     substitute:
       APP: *appname
