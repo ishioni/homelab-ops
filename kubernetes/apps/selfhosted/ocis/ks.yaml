@@ -3,28 +3,27 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: selfhosted-ocis
-  namespace: flux-system
+  name: &app ocis
+  namespace: &namespace selfhosted
 spec:
-  path: ./kubernetes/talos/apps/selfhosted/ocis/app
-  targetNamespace: selfhosted
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname ocis
-  prune: true
-  wait: false
-  interval: 30m
+  components:
+    - ../../../../components/volsync
   dependsOn:
-    - name: security-secret-store
-    - name: storage-democratic-csi-nfs
-    - name: storage-volsync
+    - name: external-secrets
+      namespace: security
+    - name: democratic-csi-nfs
+      namespace: storage
+    - name: volsync
+      namespace: storage
+  interval: 30m
+  path: ./kubernetes/talos/apps/selfhosted/ocis/app
   postBuild:
     substitute:
       APP: *appname
-      HOSTNAME: files.${PUBLIC_DOMAIN}
+      HOSTNAME: ocis.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
@@ -35,3 +34,9 @@ spec:
       VOLSYNC_SNAPSHOTCLASS: *class
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 13 * * *
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+  targetNamespace: selfhosted
+  wait: false
