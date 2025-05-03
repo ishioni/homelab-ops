@@ -21,6 +21,7 @@ resource "authentik_stage_identification" "authentication-identification" {
   case_insensitive_matching = false
   show_source_labels        = true
   show_matched_user         = false
+  enable_remember_me        = true
   password_stage            = authentik_stage_password.authentication-password.id
   passwordless_flow         = authentik_flow.passwordless_authentication.uuid
   recovery_flow             = authentik_flow.recovery.uuid
