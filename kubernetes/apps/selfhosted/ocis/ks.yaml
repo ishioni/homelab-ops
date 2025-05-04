@@ -27,12 +27,12 @@ spec:
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
-      VOLSYNC_CLAIM: ocis-data
-      VOLSYNC_CAPACITY: &size 20Gi
+      PVC_CLAIM: ocis-data
+      PVC_CAPACITY: &size 20Gi
       VOLSYNC_CACHE_CAPACITY: *size
       VOLSYNC_STORAGECLASS: &class truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: *class
-      VOLSYNC_ACCESSMODES: ReadWriteMany
+      PVC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 13 * * *
   prune: true
   sourceRef:

@@ -134,7 +134,7 @@ spec:
             subPath: csp.yaml
             readOnly: true
       data:
-        existingClaim: ocis-data
+        existingClaim: ${PVC_CLAIM}
         globalMounts:
           - path: /var/lib/ocis
             subPath: data
