@@ -30,7 +30,7 @@ spec:
       PVC_CLAIM: ocis-data
       PVC_CAPACITY: &size 20Gi
       VOLSYNC_CACHE_CAPACITY: *size
-      VOLSYNC_STORAGECLASS: &class truenas-ssd-nfs
+      PVC_STORAGECLASS: &class truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: *class
       PVC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 13 * * *
