@@ -5,14 +5,10 @@ kind: HelmRelease
 metadata:
   name: &app ocis
 spec:
-  chart:
-    spec:
-      chart: app-template
-      version: 3.5.1
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   interval: 30m
   values:
     controllers:
@@ -25,7 +21,7 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
             fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
+            fsGroupChangePolicy: OnRootMismatch
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
@@ -37,7 +33,7 @@ spec:
           init-config:
             image:
               repository: docker.io/owncloud/ocis
-              tag: 7.0.0
+              tag: 7.1.2
             command:
               - /bin/sh
               - -c
@@ -50,7 +46,7 @@ spec:
           ocis:
             image:
               repository: docker.io/owncloud/ocis
-              tag: 7.0.0
+              tag: 7.1.2
             envFrom:
               - secretRef:
                   name: *secret
@@ -60,13 +56,15 @@ spec:
               OCIS_LOG_COLOR: false
               OCIS_LOG_LEVEL: info
               OCIS_LOG_PRETTY: false
-              OCIS_OIDC_ISSUER: https://auth.movishell.pl/application/o/owncloud/
-              OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: "false"
-              OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: "true"
+              OCIS_OIDC_ISSUER: https://${AUTH_HOSTNAME}/application/o/owncloud/
+              OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
+              OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: true
               OCIS_URL: https://${HOSTNAME}
+              PROXY_CSP_CONFIG_FILE_LOCATION: /etc/ocis/csp.yaml
               PROXY_AUTOPROVISION_ACCOUNTS: true
               PROXY_TLS: false
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
+              PROXY_OIDC_SKIP_USER_INFO: false
               PROXY_OIDC_REWRITE_WELLKNOWN: true
               PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
               PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
@@ -76,8 +74,8 @@ spec:
               STORAGE_USERS_S3NG_ENDPOINT: https://s3.${PRIVATE_DOMAIN}
               STORAGE_USERS_S3NG_REGION: default
               STORAGE_USERS_S3NG_BUCKET: ocis
-              WEB_OIDC_METADATA_URL: https://auth.movishell.pl/application/o/owncloud/.well-known/openid-configuration
-              WEB_OIDC_SCOPE: "openid profile email groups"
+              WEB_OIDC_METADATA_URL: https://${AUTH_HOSTNAME}/application/o/owncloud/.well-known/openid-configuration
+              WEB_OIDC_SCOPE: openid profile email groups
             resources:
               requests:
                 cpu: 100m
@@ -107,9 +105,12 @@ spec:
             port: *port
     ingress:
       app:
-        className: "public"
+        className: public
         annotations:
-          nginx.ingress.kubernetes.io/custom-http-errors: "418"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: ownCloud Infinite Scale
+          gethomepage.dev/icon: owncloud.svg
         hosts:
           - host: ${HOSTNAME}
             paths:
@@ -121,7 +122,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: ocis-configmap
+        name: ocis
         globalMounts:
           - path: /etc/ocis/proxy.yaml
             subPath: proxy.yaml
@@ -129,8 +130,11 @@ spec:
           - path: /etc/ocis/web.yaml
             subPath: web.yaml
             readOnly: true
+          - path: /etc/ocis/csp.yaml
+            subPath: csp.yaml
+            readOnly: true
       data:
-        existingClaim: ocis-data
+        existingClaim: ${PVC_CLAIM}
         globalMounts:
           - path: /var/lib/ocis
             subPath: data
