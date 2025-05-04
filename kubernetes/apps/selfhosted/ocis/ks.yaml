@@ -9,8 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &appname ocis
-  # components:
-  #   - ../../../../components/volsync
+  components:
+    - ../../../../components/pvc
   dependsOn:
     - name: external-secrets
       namespace: security
