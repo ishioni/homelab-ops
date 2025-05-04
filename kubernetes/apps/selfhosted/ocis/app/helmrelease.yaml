@@ -21,7 +21,7 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
             fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
+            fsGroupChangePolicy: OnRootMismatch
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname
@@ -57,8 +57,8 @@ spec:
               OCIS_LOG_LEVEL: info
               OCIS_LOG_PRETTY: false
               OCIS_OIDC_ISSUER: https://${AUTH_HOSTNAME}/application/o/owncloud/
-              OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: "false"
-              OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: "true"
+              OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
+              OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: true
               OCIS_URL: https://${HOSTNAME}
               PROXY_CSP_CONFIG_FILE_LOCATION: /etc/ocis/csp.yaml
               PROXY_AUTOPROVISION_ACCOUNTS: true
@@ -75,7 +75,7 @@ spec:
               STORAGE_USERS_S3NG_REGION: default
               STORAGE_USERS_S3NG_BUCKET: ocis
               WEB_OIDC_METADATA_URL: https://${AUTH_HOSTNAME}/application/o/owncloud/.well-known/openid-configuration
-              WEB_OIDC_SCOPE: "openid profile email groups"
+              WEB_OIDC_SCOPE: openid profile email groups
             resources:
               requests:
                 cpu: 100m
@@ -105,7 +105,7 @@ spec:
             port: *port
     ingress:
       app:
-        className: "public"
+        className: public
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
