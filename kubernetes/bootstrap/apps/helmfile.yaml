@@ -59,7 +59,7 @@ releases:
     namespace: security
     atomic: true
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 0.16.1
+    version: 0.16.2
     values:
       [
         '{{ requiredEnv "KUBERNETES_DIR" }}/apps/security/external-secrets/app/values.yaml',
