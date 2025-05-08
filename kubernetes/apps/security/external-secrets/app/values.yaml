@@ -41,6 +41,10 @@ certController:
       memory: 80Mi
     limits:
       memory: 150Mi
+grafanaDashboard:
+  enabled: true
+  annotations:
+    grafana_folder: Networking
 resources:
   requests:
     cpu: 15m

@@ -270,9 +270,6 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        external-secrets:
-          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-          datasource: Prometheus
         unifi-client-dpi:
           # renovate: depName="Unifi Client DPI"
           gnetId: 11310
