@@ -42,6 +42,19 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 9130
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 15m
@@ -53,7 +66,7 @@ spec:
         controller: unpoller
         ports:
           http:
-            port: 9130
+            port: *port
     serviceMonitor:
       app:
         serviceName: unpoller
