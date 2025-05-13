@@ -12,7 +12,7 @@ configMapGenerator:
   - name: immich-config-tpl
     files: [./config/immich.config.json]
 configurations:
-  - ./config/kustomizeconfig.yaml
+  - ./kustomizeconfig.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: immich
