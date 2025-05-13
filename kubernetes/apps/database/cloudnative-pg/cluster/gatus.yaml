@@ -20,3 +20,25 @@ data:
         alerts:
           - type: pushover
             send-on-resolved: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-pg16-gatus-ep
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    endpoints:
+      - name: Postgres
+        group: Services
+        url: tcp://immich-pg16-rw.database.svc.cluster.local:5432
+        interval: 1m
+        ui:
+          hide-url: true
+          hide-hostname: true
+        conditions:
+          - "[CONNECTED] == true"
+        alerts:
+          - type: pushover
+            send-on-resolved: true
