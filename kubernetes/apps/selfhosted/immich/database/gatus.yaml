@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-immich-gatus-ep
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    endpoints:
+      - name: Postgres Immich
+        group: Services
+        url: tcp://postgres-immich-16-rw.selfhosted.svc.cluster.local:5432
+        interval: 1m
+        ui:
+          hide-url: true
+          hide-hostname: true
+        conditions:
+          - "[CONNECTED] == true"
+        alerts:
+          - type: pushover
+            send-on-resolved: true

@@ -1,0 +1,69 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-pg16
+spec:
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  backup:
+    retentionPolicy: 7d
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 4
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: https://s3.${PRIVATE_DOMAIN}
+      serverName: &currentCluster immich-pg16-v1
+      s3Credentials:
+        accessKeyId:
+          name: &secret immich-pg-secret
+          key: s3-access-key
+        secretAccessKey:
+          name: *secret
+          key: s3-secret-key
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster immich-pg16-v1
+  enableSuperuserAccess: true
+  instances: 3
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
+  monitoring:
+    enablePodMonitor: true
+  postgresql:
+    shared_preload_libraries: ["vectors.so"]
+    parameters:
+      max_connections: "300"
+      work_mem: 64MB
+      shared_buffers: 128MB
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  resources:
+    requests:
+      cpu: 200m
+      memory: 500Mi
+    limits:
+      memory: 2Gi
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: immich-pg-secret
+
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       destinationPath: s3://cloudnative-pg/
+  #       endpointURL: https://s3.${PRIVATE_DOMAIN}
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: *secret
+  #           key: s3-access-key
+  #         secretAccessKey:
+  #           name: *secret
+  #           key: s3-secret-key

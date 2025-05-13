@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./externalsecret.yaml
+  - ./gatus.yaml
+  - ./immich-pg16.yaml
+  - ./scheduledbackup.yaml
+  - ./service.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: immich
