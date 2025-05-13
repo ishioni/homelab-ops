@@ -10,10 +10,9 @@ resources:
   - ./pvc.yaml
 configMapGenerator:
   - name: immich-config-tpl
-    files:
-      - ./config/immich.config.json
-generatorOptions:
-  disableNameSuffixHash: true
+    files: [./config/immich.config.json]
+configurations:
+  - ./kustomizeconfig.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: immich
