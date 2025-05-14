@@ -28,8 +28,15 @@ spec:
           name: cloudnative-pg-secret
           key: s3-secret-key
   bootstrap:
-    recovery:
-      source: &previousCluster postgres-17-v1
+    # recovery:
+    #   source: &previousCluster postgres-16-v1
+    initdb:
+      import:
+        databases: ['*']
+        roles: ['*']
+        source:
+          externalCluster: postgres-16
+        type: monolith
   enableSuperuserAccess: true
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5
@@ -55,14 +62,24 @@ spec:
     name: cloudnative-pg-secret
 
   externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        destinationPath: s3://cloudnative-pg/
-        endpointURL: https://s3.${PRIVATE_DOMAIN}
-        s3Credentials:
-          accessKeyId:
-            name: cloudnative-pg-secret
-            key: s3-access-key
-          secretAccessKey:
-            name: cloudnative-pg-secret
-            key: s3-secret-key
+    # - name: *previousCluster
+    #   barmanObjectStore:
+    #     destinationPath: s3://cloudnative-pg/
+    #     endpointURL: https://s3.${PRIVATE_DOMAIN}
+    #     s3Credentials:
+    #       accessKeyId:
+    #         name: cloudnative-pg-secret
+    #         key: s3-access-key
+    #       secretAccessKey:
+    #         name: cloudnative-pg-secret
+    #         key: s3-secret-key
+    - name: postgres-16
+      connectionParameters:
+        # Use the correct IP or host name for the source database
+        host: postgres-16-rw.database.svc.cluster.local
+        user: postgres
+        dbname: postgres
+        sslmode: require
+      password:
+        name: cloudnative-pg-secret
+        key: password
