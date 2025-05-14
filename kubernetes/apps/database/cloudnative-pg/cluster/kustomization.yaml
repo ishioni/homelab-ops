@@ -4,6 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./cluster-16.yaml
+  - ./cluster-17.yaml
   - ./externalsecret.yaml
   - ./gatus.yaml
   - ./prometheusrule.yaml

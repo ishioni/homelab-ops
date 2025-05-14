@@ -19,6 +19,23 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: postgres-17
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: postgres-17.${PRIVATE_DOMAIN}
+spec:
+  type: LoadBalancer
+  ports:
+    - name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    cnpg.io/cluster: postgres-17
+    cnpg.io/instanceRole: primary
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: immich-pg16
   annotations:
     external-dns.alpha.kubernetes.io/hostname: immich-pg16.${PRIVATE_DOMAIN}
