@@ -28,6 +28,10 @@ spec:
           name: *secret
           key: s3-secret-key
   bootstrap:
+    # initdb:
+    #   postInitSQL:
+    #     - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+    #     - CREATE EXTENSION IF NOT EXISTS "vectors";
     recovery:
       source: &previousCluster immich-pg16-v1
   enableSuperuserAccess: true
