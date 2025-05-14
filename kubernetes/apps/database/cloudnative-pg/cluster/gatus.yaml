@@ -30,7 +30,7 @@ metadata:
 data:
   config.yaml: |
     endpoints:
-      - name: Postgres
+      - name: Immich-DB
         group: Services
         url: tcp://immich-pg16-rw.database.svc.cluster.local:5432
         interval: 1m
