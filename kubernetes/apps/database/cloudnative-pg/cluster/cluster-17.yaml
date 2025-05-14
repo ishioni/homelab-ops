@@ -32,8 +32,8 @@ spec:
     #   source: &previousCluster postgres-16-v1
     initdb:
       import:
-        databases: ['*']
-        roles: ['*']
+        databases: ["*"]
+        roles: ["*"]
         source:
           externalCluster: postgres-16
         type: monolith
