@@ -18,7 +18,6 @@ spec:
     size: 20Gi
     storageClass: openebs-hostpath
   postgresql:
-    shared_preload_libraries: ["vectors.so"]
     parameters:
       max_connections: "300"
       work_mem: 64MB
