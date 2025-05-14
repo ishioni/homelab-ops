@@ -1,0 +1,68 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-17
+spec:
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  backup:
+    retentionPolicy: 7d
+    barmanObjectStore:
+      data:
+        compression: bzip2
+      wal:
+        compression: bzip2
+        maxParallel: 4
+      destinationPath: s3://cloudnative-pg/
+      endpointURL: https://s3.${PRIVATE_DOMAIN}
+      serverName: &currentCluster postgres-17-v1
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: s3-access-key
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: s3-secret-key
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres-17-v1
+  enableSuperuserAccess: true
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5
+  monitoring:
+    enablePodMonitor: true
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  postgresql:
+    parameters:
+      max_connections: "300"
+      work_mem: 64MB
+      shared_buffers: 128MB
+  resources:
+    requests:
+      cpu: 200m
+      memory: 500Mi
+    limits:
+      memory: 2Gi
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        destinationPath: s3://cloudnative-pg/
+        endpointURL: https://s3.${PRIVATE_DOMAIN}
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-secret
+            key: s3-access-key
+          secretAccessKey:
+            name: cloudnative-pg-secret
+            key: s3-secret-key
