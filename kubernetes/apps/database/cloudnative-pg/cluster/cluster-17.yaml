@@ -39,6 +39,7 @@ spec:
     #     type: monolith
   enableSuperuserAccess: true
   instances: 3
+  # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5
   monitoring:
     enablePodMonitor: true
