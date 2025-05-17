@@ -37,7 +37,7 @@
       description: "Auto-merge OCI Charts",
       matchDatasources: ["docker"],
       automerge: true,
-      automergeType: "pr",
+      automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: ["/kube-prometheus-stack/", "/grafana/"],
       ignoreTests: false,
