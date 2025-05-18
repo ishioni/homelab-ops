@@ -53,7 +53,7 @@ spec:
     persistence:
       dataDir:
         enabled: true
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: ${PVC_CLAIM}
     serviceAnnotations:
       lbipam.cilium.io/ips: "${CONFIG_MINECRAFT_IP}"
       external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}

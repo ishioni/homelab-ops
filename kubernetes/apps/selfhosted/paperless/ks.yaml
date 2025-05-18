@@ -30,10 +30,10 @@ spec:
       HOSTNAME: documents.${PRIVATE_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
-      VOLSYNC_CLAIM: paperless-data
-      VOLSYNC_CAPACITY: 5Gi
+      PVC_CLAIM: paperless-data
+      PVC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
-      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      PVC_STORAGECLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_TIME: 0 3 * * *
   prune: true

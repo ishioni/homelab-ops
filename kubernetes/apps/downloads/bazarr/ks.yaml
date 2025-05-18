@@ -28,8 +28,8 @@ spec:
       APP_UID: "568"
       APP_GID: "5000"
       HOSTNAME: bazarr.${PUBLIC_DOMAIN}
-      VOLSYNC_CLAIM: bazarr-config
-      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      PVC_CLAIM: bazarr-config
+      PVC_STORAGECLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_TIME: 0 2 * * *
   prune: true

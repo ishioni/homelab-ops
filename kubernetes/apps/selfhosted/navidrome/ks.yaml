@@ -28,10 +28,10 @@ spec:
       HOSTNAME: navidrome.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "5000"
-      VOLSYNC_CLAIM: navidrome-config
-      VOLSYNC_CAPACITY: 5Gi
+      PVC_CLAIM: navidrome-config
+      PVC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
-      VOLSYNC_STORAGECLASS: truenas-ssd-iscsi
+      PVC_STORAGECLASS: truenas-ssd-iscsi
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
       VOLSYNC_TIME: 0 1 * * *
   prune: true

@@ -136,7 +136,7 @@ spec:
                   port: http
     persistence:
       config:
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: ${PVC_CLAIM}
       downloads:
         existingClaim: downloads-pvc
         globalMounts:

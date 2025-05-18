@@ -24,8 +24,8 @@ spec:
       APP_UID: "568"
       APP_GID: "5000"
       HOSTNAME: torrent.${PUBLIC_DOMAIN}
-      VOLSYNC_CLAIM: qbittorrent-config
-      VOLSYNC_STORAGECLASS: truenas-ssd-nfs
+      PVC_CLAIM: qbittorrent-config
+      PVC_STORAGECLASS: truenas-ssd-nfs
       VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
       VOLSYNC_TIME: 0 4 * * *
   prune: true
