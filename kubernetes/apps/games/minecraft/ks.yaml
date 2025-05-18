@@ -25,10 +25,10 @@ spec:
       MAP_HOSTNAME: dynmap.${PUBLIC_DOMAIN}
       APP_UID: "568"
       APP_GID: "568"
-      VOLSYNC_CLAIM: minecraft-data
-      VOLSYNC_CAPACITY: 15Gi
+      PVC_CLAIM: minecraft-data
+      PVC_CAPACITY: 15Gi
       VOLSYNC_CACHE_CAPACITY: 15Gi
-      VOLSYNC_STORAGECLASS: &iscsi truenas-ssd-iscsi
+      PVC_STORAGECLASS: &iscsi truenas-ssd-iscsi
       VOLSYNC_CACHE_SNAPSHOTCLASS: *iscsi
       VOLSYNC_SNAPSHOTCLASS: *iscsi
   prune: true

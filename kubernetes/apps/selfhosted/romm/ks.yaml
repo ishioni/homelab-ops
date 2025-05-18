@@ -31,8 +31,8 @@ spec:
       APP_GID: "5000"
       HOSTNAME: romm.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
-      VOLSYNC_CAPACITY: 10Gi
-      VOLSYNC_CLAIM: romm-config
+      PVC_CAPACITY: 10Gi
+      PVC_CLAIM: romm-config
   prune: true
   sourceRef:
     kind: GitRepository

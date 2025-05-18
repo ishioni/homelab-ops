@@ -4,13 +4,13 @@ kind: PersistentVolumeClaim
 metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
-  name: ${VOLSYNC_CLAIM:-${APP}}
+  name: ${PVC_CLAIM:-${APP}}
 spec:
-  accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
-  storageClassName: ${VOLSYNC_STORAGECLASS:-truenas-ssd-iscsi}
+  accessModes: ["${PVC_ACCESSMODES:-ReadWriteOnce}"]
+  storageClassName: ${PVC_STORAGECLASS:-truenas-ssd-iscsi}
   resources:
     requests:
-      storage: ${VOLSYNC_CAPACITY:-1Gi}
+      storage: ${PVC_CAPACITY:-1Gi}
   dataSourceRef:
     name: ${APP}-rdst
     kind: ReplicationDestination

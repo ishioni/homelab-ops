@@ -94,7 +94,7 @@ spec:
                   port: http
     persistence:
       data:
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: ${PVC_CLAIM}
         advancedMounts:
           romm:
             app:
