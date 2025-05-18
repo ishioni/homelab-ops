@@ -30,7 +30,7 @@ spec:
           01-init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 17.4
+              tag: 17.5
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
@@ -92,7 +92,7 @@ spec:
                   port: http
     persistence:
       data:
-        existingClaim: ${PVC_CLAIM}
+        existingClaim: ${VOLSYNC_CLAIM}
         advancedMounts:
           romm:
             app:
