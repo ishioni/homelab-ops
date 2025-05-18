@@ -41,6 +41,8 @@ spec:
               repository: ghcr.io/rommapp/romm
               tag: 3.9.0
             env:
+              DISABLE_CSRF_PROTECTION: true
+              IS_PYTEST_RUN: true
               TZ: ${CONFIG_TIMEZONE}
               ROMM_DB_DRIVER: postgresql
               REDIS_HOST: dragonfly.database.svc.cluster.local
@@ -49,7 +51,7 @@ spec:
               OIDC_ENABLED: true
               OIDC_PROVIDER: authentik
               OIDC_REDIRECT_URI: https://${HOSTNAME}/api/oauth/openid
-              OIDC_SERVER_APPLICATION_URL: https://${AUTH_HOSTNAME}/application/o/romm/
+              OIDC_SERVER_APPLICATION_URL: https://${AUTH_HOSTNAME}/application/o/romm
             envFrom:
               - secretRef:
                   name: *secret
