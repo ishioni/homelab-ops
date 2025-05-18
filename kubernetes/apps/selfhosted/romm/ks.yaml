@@ -10,15 +10,15 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/pvc
+    - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
     - name: dragonfly-cluster
       namespace: database
-    - name: onepassword-store
+    - name: external-secrets
       namespace: security
-    - name: democratic-csi-iscsi
+    - name: democratic-csi-nfs
       namespace: storage
     - name: volsync
       namespace: storage
@@ -31,9 +31,8 @@ spec:
       APP_GID: "5000"
       HOSTNAME: romm.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
-      PVC_CAPACITY: 5Gi
-      PVC_CLAIM: romm-config
-      PVC_STORAGECLASS: truenas-ssd-iscsi
+      VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CLAIM: romm-config
   prune: true
   sourceRef:
     kind: GitRepository

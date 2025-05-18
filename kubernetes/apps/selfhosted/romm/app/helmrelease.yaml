@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/rommapp/romm
-              tag: 3.8.1
+              tag: 3.9.0
             env:
               TZ: ${CONFIG_TIMEZONE}
               ROMM_DB_DRIVER: postgresql
@@ -47,9 +47,9 @@ spec:
               REDIS_PORT: 6379
               REDIS_DB: 5
               OIDC_ENABLED: true
-              OIDC_PROVIDER: movishell
+              OIDC_PROVIDER: authentik
               OIDC_REDIRECT_URI: https://${HOSTNAME}/api/oauth/openid
-              OIDC_SERVER_APPLICATION_URL: https://${AUTH_HOSTNAME}/application/o/romm
+              OIDC_SERVER_APPLICATION_URL: https://${AUTH_HOSTNAME}/application/o/romm/
             envFrom:
               - secretRef:
                   name: *secret
