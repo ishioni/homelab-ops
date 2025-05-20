@@ -25,9 +25,6 @@ This command changes the bgpd option from no to yes, activating the BGP daemon o
 Next, you'll need to adjust the FRR configuration to define your BGP neighbors. This involves editing the /etc/frr/frr.conf file. Below is a template for the necessary changes. Remember to repeat the neighbor configuration blocks for each neighbor you have, rather than listing every neighbor in this template.
 
 ```conf
-# FRRouting Configuration
-#
-# Log settings
 log syslog informational
 
 ! BGP configuration starts here
@@ -36,28 +33,25 @@ frr defaults traditional
 
 router bgp 64513
 no bgp ebgp-requires-policy
-bgp router-id 10.1.1.1
-
-# Neighbor configuration
-# Repeat this block for each BGP neighbor
-neighbor <NEIGHBOR_IP> remote-as <NEIGHBOR_AS>
-neighbor <NEIGHBOR_IP> description <NEIGHBOR_DESCRIPTION>
-neighbor <NEIGHBOR_IP> update-source <VLAN_BRIDGE>
-neighbor <NEIGHBOR_IP> soft-reconfiguration inbound
-#
-
-# IPv4 unicast configuration
-address-family ipv4 unicast
-# Repeat this block for all neighbours
-neighbor <NEIGHBOR_IP> next-hop-self
-#
-exit-address-family
-
 maximum-path 1
-line vty
+line vtyrouter
+bgp 65500
+  bgp router-id <ROUTER_ID>
+  !maximum-paths 1
+  !maximum-paths ibgp 1
+  no bgp ebgp-requires-policy
+  neighbor talos peer-group
+  neighbor talos remote-as <NEIGHBOR_AS>
+  # Repeat this line for each BGP neighbor
+  neighbor <NEIGHBOR_IP> peer-group talos
+  address-family ipv4 unicast
+    neighbor talos next-hop-self
+    neighbor talos soft-reconfiguration inbound
+  exit-address-family
+exit
 ```
 
-Replace <NEIGHBOR_IP> with the IP address of each BGP neighbor and <NEIGHBOR_AS> with the respective AS (Autonomous System) number. Ensure to repeat the neighbor configuration block for each neighbor. <VLAN_BRIDGE> as the name suggest is the name of your vlan interface
+Replace <NEIGHBOR_IP> with the IP address of each BGP neighbor and <NEIGHBOR_AS> with the respective AS (Autonomous System) number. Ensure to repeat the neighbor configuration block for each neighbor.
 
 ## Step 3: Enable and Start the FRR Service
 
