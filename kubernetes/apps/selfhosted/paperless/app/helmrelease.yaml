@@ -93,7 +93,7 @@ spec:
           gotenberg:
             image:
               repository: docker.io/thecodingmachine/gotenberg
-              tag: 8.20.1
+              tag: 8.21.0
             env:
               - {name: DISABLE_GOOGLE_CHROME, value: "1"}
             securityContext:
