@@ -29,8 +29,8 @@ spec:
           key: s3-secret-key
   bootstrap:
     initdb:
-    #   postInitSQL:
-    #     - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+      #   postInitSQL:
+      #     - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
       import:
         databases: ["*"]
         roles: ["*"]
