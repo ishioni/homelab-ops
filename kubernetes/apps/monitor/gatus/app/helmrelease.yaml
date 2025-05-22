@@ -126,3 +126,19 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
+    rbac:
+      bindings:
+        gatus:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: gatus
+          subjects:
+            - identifier: gatus
+      roles:
+        gatus:
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources: ["configmaps", "secrets"]
+              verbs: ["get", "watch", "list"]
