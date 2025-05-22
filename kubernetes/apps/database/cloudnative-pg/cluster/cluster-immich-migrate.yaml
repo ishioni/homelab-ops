@@ -68,13 +68,11 @@ spec:
 
   externalClusters:
     - name: *previousCluster
-      barmanObjectStore:
-        destinationPath: s3://cloudnative-pg/
-        endpointURL: https://s3.${PRIVATE_DOMAIN}
-        s3Credentials:
-          accessKeyId:
-            name: &secret cloudnative-pg-secret
-            key: s3-access-key
-          secretAccessKey:
-            name: *secret
-            key: s3-secret-key
+      connectionParameters:
+        host: immich-pg16.database.svc.cluster.local
+        user: postgres
+        dbname: postgres
+        sslmode: require
+      password:
+        key: cloudnative-pg-secret
+        name: password
