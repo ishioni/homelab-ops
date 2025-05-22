@@ -43,11 +43,11 @@ spec:
     #   source: &previousCluster immich-pg16
   enableSuperuserAccess: true
   instances: 1
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.3.0
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
   monitoring:
     enablePodMonitor: true
   postgresql:
-    shared_preload_libraries: ["vchord.so"]
+    shared_preload_libraries: ["vectors.so"]
     parameters:
       max_connections: "300"
       work_mem: 64MB
