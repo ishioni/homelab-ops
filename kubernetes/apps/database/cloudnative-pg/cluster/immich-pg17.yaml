@@ -52,7 +52,7 @@ spec:
       autovacuum_vacuum_cost_limit: "1000"
       effective_io_concurrency: "200"
       random_page_cost: "1.2"
-      shared_buffers: 512MB
+      shared_buffers: 256MB
       max_connections: "300"
       work_mem: 16MB
   primaryUpdateStrategy: unsupervised
@@ -60,7 +60,7 @@ spec:
   resources:
     requests:
       cpu: 200m
-      memory: 500Mi
+      memory: 1Gi
     limits:
       memory: 2Gi
   storage:
