@@ -89,3 +89,47 @@ spec:
             path: /app/config/widgets.yaml
     serviceAccount:
       homepage: {}
+    rbac:
+      bindings:
+        homepage:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: homepage
+          subjects:
+            - identifier: homepage
+      roles:
+        homepage:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - namespaces
+                - pods
+                - nodes
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - extensions
+                - networking.k8s.io
+              resources:
+                - ingresses
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - metrics.k8s.io
+              resources:
+                - nodes
+                - pods
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - apiextensions.k8s.io
+              resources:
+                - customresourcedefinitions/status
+              verbs:
+                - get
