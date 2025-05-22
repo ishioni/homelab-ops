@@ -27,16 +27,16 @@ spec:
         secretAccessKey:
           name: *secret
           key: s3-secret-key
-  bootstrap:
-    initdb:
+  # bootstrap:
+    # initdb:
       #   postInitSQL:
       #     - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-      import:
-        databases: ["*"]
-        roles: ["*"]
-        source:
-          externalCluster: immich-pg16
-        type: monolith
+      # import:
+      #   databases: ["*"]
+      #   roles: ["*"]
+      #   source:
+      #     externalCluster: immich-pg16
+      #   type: monolith
     # recovery:
     #   source: &previousCluster immich-pg17-v1
   enableSuperuserAccess: true
@@ -69,7 +69,7 @@ spec:
   superuserSecret:
     name: cloudnative-pg-secret
 
-  externalClusters:
+  # externalClusters:
     # - name: *previousCluster
     #   barmanObjectStore:
     #     destinationPath: s3://cloudnative-pg/
@@ -81,13 +81,13 @@ spec:
     #       secretAccessKey:
     #         name: *secret
     #         key: s3-secret-key
-    - name: immich-pg16
-      connectionParameters:
-        # Use the correct IP or host name for the source database
-        host: immich-pg16-rw.database.svc.cluster.local
-        user: postgres
-        dbname: postgres
-        sslmode: require
-      password:
-        name: cloudnative-pg-secret
-        key: password
+    # - name: immich-pg16
+    #   connectionParameters:
+    #     # Use the correct IP or host name for the source database
+    #     host: immich-pg16-rw.database.svc.cluster.local
+    #     user: postgres
+    #     dbname: postgres
+    #     sslmode: require
+    #   password:
+    #     name: cloudnative-pg-secret
+    #     key: password

@@ -24,7 +24,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: immich-pg16-gatus-ep
+  name: immich-pg17-gatus-ep
   labels:
     gatus.io/enabled: "true"
 data:
@@ -32,7 +32,7 @@ data:
     endpoints:
       - name: Immich-DB
         group: Services
-        url: tcp://immich-pg16-rw.database.svc.cluster.local:5432
+        url: tcp://immich-pg17-rw.database.svc.cluster.local:5432
         interval: 1m
         ui:
           hide-url: true
