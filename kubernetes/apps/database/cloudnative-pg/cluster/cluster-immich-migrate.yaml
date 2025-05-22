@@ -74,5 +74,5 @@ spec:
         dbname: postgres
         sslmode: require
       password:
-        key: cloudnative-pg-secret
-        name: password
+        name: cloudnative-pg-secret
+        key: password
