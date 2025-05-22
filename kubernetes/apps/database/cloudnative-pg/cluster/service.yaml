@@ -32,20 +32,3 @@ spec:
   selector:
     cnpg.io/cluster: immich-pg16
     cnpg.io/instanceRole: primary
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: immich-pg16-migrate
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: immich-pg16-migrate.${PRIVATE_DOMAIN}
-spec:
-  type: LoadBalancer
-  ports:
-    - name: postgres
-      port: 5432
-      protocol: TCP
-      targetPort: 5432
-  selector:
-    cnpg.io/cluster: immich-pg16-migrate
-    cnpg.io/instanceRole: primary

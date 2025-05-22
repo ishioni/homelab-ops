@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./cluster-17.yaml
   - ./cluster-immich.yaml
-  - ./cluster-immich-migrate.yaml
   - ./externalsecret.yaml
   - ./gatus.yaml
   - ./prometheusrule.yaml
