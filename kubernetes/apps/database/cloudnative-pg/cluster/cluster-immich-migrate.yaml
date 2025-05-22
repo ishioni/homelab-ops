@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-pg16-migrate
+spec:
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  # backup:
+  #   retentionPolicy: 7d
+  #   barmanObjectStore:
+  #     data:
+  #       compression: bzip2
+  #     wal:
+  #       compression: bzip2
+  #       maxParallel: 4
+  #     destinationPath: s3://cloudnative-pg/
+  #     endpointURL: https://s3.${PRIVATE_DOMAIN}
+  #     serverName: &currentCluster immich-pg16-v2
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: &secret cloudnative-pg-secret
+  #         key: s3-access-key
+  #       secretAccessKey:
+  #         name: *secret
+  #         key: s3-secret-key
+  bootstrap:
+    # initdb:
+    #   postInitSQL:
+    #     - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+    #     - CREATE EXTENSION IF NOT EXISTS "vectors";
+    initdb:
+      import:
+        databases: ["*"]
+        roles: ["*"]
+        source:
+          externalCluster: &previousCluster immich-pg16
+        type: monolith
+    # recovery:
+    #   source: &previousCluster immich-pg16
+  enableSuperuserAccess: true
+  instances: 1
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
+  monitoring:
+    enablePodMonitor: true
+  postgresql:
+    shared_preload_libraries: ["vectors.so"]
+    parameters:
+      max_connections: "300"
+      work_mem: 64MB
+      shared_buffers: 128MB
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  resources:
+    requests:
+      cpu: 200m
+      memory: 500Mi
+    limits:
+      memory: 2Gi
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+
+  externalClusters:
+    - name: *previousCluster
+      connectionParameters:
+        host: immich-pg16.database.svc.cluster.local
+        user: postgres
+        dbname: postgres
+        sslmode: require
+      password:
+        key: cloudnative-pg-secret
+        name: password
