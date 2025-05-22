@@ -1,9 +1,0 @@
----
-# yaml-language-server: $schema=https://crd.movishell.pl/talos.dev/serviceaccount_v1alpha1.json
-apiVersion: talos.dev/v1alpha1
-kind: ServiceAccount
-metadata:
-  name: system-upgrade-controller
-spec:
-  roles:
-    - os:admin
