@@ -110,3 +110,14 @@ spec:
         existingClaim: downloads-pvc
         globalMounts:
           - path: /media
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          bazarr:
+            app:
+              - path: /config/cache
+                subPath: cache
+              - path: /config/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
