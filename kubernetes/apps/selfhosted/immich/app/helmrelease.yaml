@@ -147,6 +147,11 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.133.1
+            env:
+              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-B-32__openai
+              MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-32__openai
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
             resources:
               requests:
                 cpu: 100m
@@ -272,8 +277,11 @@ spec:
             microservices:
               - path: /usr/src/app/.transformers_cache
       model-cache:
-        type: emptyDir
+        existingClaim: immich-ml-cache
         advancedMounts:
           machine-learning:
             machine-learning:
               - path: /cache
+                subPath: cache
+              - path: /.cache
+                subPath: dotCache

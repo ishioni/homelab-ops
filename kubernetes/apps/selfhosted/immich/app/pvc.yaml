@@ -25,3 +25,16 @@ spec:
     requests:
       storage: 1Mi
   volumeName: immich-media
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-ml-cache
+spec:
+  storageClassName: truenas-ssd-nfs
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
