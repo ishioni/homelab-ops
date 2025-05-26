@@ -18,5 +18,11 @@
       allowedVersions: "<=5.1",
       matchPackageNames: ["cloudflare"],
     },
+    {
+      description: "Minio became enshittified",
+      matchDatasources: ["docker"],
+      allowedVersions: "<=RELEASE.2025-04-22T22-12-26Z",
+      matchPagackageNames: ["minio"]
+    }
   ],
 }
