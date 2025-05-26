@@ -148,8 +148,8 @@ spec:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.133.1
             env:
-              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-B-32__openai
-              MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-32__openai
+              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-B-16-SigLIP__webli
+              MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-16-SigLIP__webli
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
             resources:

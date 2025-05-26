@@ -70,7 +70,7 @@
     "urls": ["http://immich-machine-learning.selfhosted:3003"],
     "clip": {
       "enabled": true,
-      "modelName": "ViT-B-32__openai"
+      "modelName": "ViT-B-16-SigLIP__webli"
     },
     "facialRecognition": {
       "enabled": true,
