@@ -21,8 +21,8 @@
     {
       description: "Minio became enshittified",
       matchDatasources: ["docker"],
-      allowedVersions: "<=2025-04-22T22-12-26Z",
-      matchPagackageNames: ["minio"]
+      matchPagackageNames: ["minio"],
+      enabled: false
     }
   ],
 }
