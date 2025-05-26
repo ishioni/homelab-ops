@@ -46,7 +46,7 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/instance: *app
-                  app.kubernetes.io/component: server
+                  app.kubernetes.io/controller: server
         containers:
           server:
             image:
@@ -99,7 +99,7 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/instance: *app
-                  app.kubernetes.io/component: microservices
+                  app.kubernetes.io/controller: microservices
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
         containers:
@@ -141,7 +141,7 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/instance: *app
-                  app.kubernetes.io/component: machine-learning
+                  app.kubernetes.io/controller: machine-learning
         containers:
           machine-learning:
             image:
