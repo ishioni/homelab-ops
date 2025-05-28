@@ -17,12 +17,6 @@
       matchDatasources: ["terraform"],
       allowedVersions: "<=5.1",
       matchPackageNames: ["cloudflare"],
-    },
-    {
-      description: "Minio became enshittified",
-      matchDatasources: ["docker"],
-      matchPagackageNames: ["minio"],
-      enabled: false
     }
   ],
 }
