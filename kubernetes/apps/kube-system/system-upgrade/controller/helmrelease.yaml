@@ -74,5 +74,6 @@ spec:
         apiVersion: talos.dev/v1alpha1
         kind: ServiceAccount
         spec:
-          roles:
-            - os:admin
+          spec:
+            roles:
+              - os:admin
