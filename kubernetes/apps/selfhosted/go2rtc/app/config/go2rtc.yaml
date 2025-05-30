@@ -24,3 +24,5 @@ streams:
   bedroom:
     - $${RTSP_PATHS_BEDROOM_SOURCE}
     - ffmpeg:bedroom#audio=opus
+  bedroomthingio:
+    - $${RTSP_PATHS_BEDROOM_THINGIO_SOURCE}
