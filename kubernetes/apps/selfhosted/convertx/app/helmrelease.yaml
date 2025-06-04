@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/c4illin/convertx
-              tag: v0.14.0
+              tag: v0.14.1
             env:
               TZ: ${CONFIG_TIMEZONE}
               ACCOUNT_REGISTRATION: false
