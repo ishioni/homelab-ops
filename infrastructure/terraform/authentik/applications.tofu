@@ -236,3 +236,20 @@ module "oauth2-ocis-desktop" {
     { matching_mode = "regex", url = "http://localhost(:.*)?" }
   ]
 }
+
+module "oauth2-vaultwarden" {
+  source             = "./oauth2_application"
+  name               = "Vaultwarden"
+  icon_url           = "https://raw.githubusercontent.com/dani-garcia/vaultwarden/refs/heads/main/resources/vaultwarden-icon.svg"
+  launch_url         = "https://passwords.${var.public_domain}"
+  description        = "Passwords"
+  newtab             = true
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.media.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_vaultwarden.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_vaultwarden.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://passwords.${var.private_domain}/identity/connect/oidc-signin"]
+  access_token_validity = "minutes=5"
+}
