@@ -50,6 +50,7 @@ spec:
               INVITATION_ORG_NAME: ${PUBLIC_DOMAIN}
               TRASH_AUTO_DELETE_DAYS: "30"
               SSO_ENABLED: "true"
+              SSO_ONLY: "true"
               SSO_AUTHORITY: https://auth.${PUBLIC_DOMAIN}/application/o/vaultwarden/
               SSO_SCOPES: email profile offline_access
             envFrom:
