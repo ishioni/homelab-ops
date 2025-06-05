@@ -250,6 +250,6 @@ module "oauth2-vaultwarden" {
   invalidation_flow     = resource.authentik_flow.provider-invalidation.uuid
   client_id             = module.secret_vaultwarden.fields["OIDC_CLIENT_ID"]
   client_secret         = module.secret_vaultwarden.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris         = ["https://passwords.${var.private_domain}/identity/connect/oidc-signin"]
+  redirect_uris         = ["https://passwords.${var.public_domain}/identity/connect/oidc-signin"]
   access_token_validity = "minutes=5"
 }
