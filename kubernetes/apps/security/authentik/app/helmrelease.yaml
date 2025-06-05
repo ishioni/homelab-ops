@@ -77,7 +77,6 @@ spec:
       log_level: debug
       redis:
         host: dragonfly.database.svc.cluster.local
-      session_storage: db
       worker:
         concurrency: 4
     prometheus:
