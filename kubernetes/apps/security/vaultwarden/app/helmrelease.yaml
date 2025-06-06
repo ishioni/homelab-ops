@@ -86,7 +86,7 @@ spec:
         className: public
         annotations:
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Security
+          gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Vaultwarden
           gethomepage.dev/icon: vaultwarden.svg
         hosts:
