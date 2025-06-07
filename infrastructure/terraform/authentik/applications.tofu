@@ -251,5 +251,5 @@ module "oauth2-vaultwarden" {
   client_id             = module.secret_vaultwarden.fields["OIDC_CLIENT_ID"]
   client_secret         = module.secret_vaultwarden.fields["OIDC_CLIENT_SECRET"]
   redirect_uris         = ["https://passwords.${var.public_domain}/identity/connect/oidc-signin"]
-  access_token_validity = "minutes=5"
+  access_token_validity = "hours=1"
 }
