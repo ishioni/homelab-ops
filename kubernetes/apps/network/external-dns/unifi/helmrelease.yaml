@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: external-dns
     namespace: flux-system
-  install:
-    # https://github.com/kubernetes-sigs/external-dns/issues/5206
-    disableSchemaValidation: true
   interval: 30m
   maxHistory: 3
   upgrade:
