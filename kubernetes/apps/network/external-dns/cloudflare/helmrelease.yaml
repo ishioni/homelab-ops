@@ -18,6 +18,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    logLevel: info
     domainFilters: ["${PUBLIC_DOMAIN}"]
     policy: sync
     sources: [ingress]
@@ -44,14 +45,3 @@ spec:
       enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: *secret
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Deployment
-              name: *app
-            patch: |
-              - op: add
-                path: /spec/template/spec/enableServiceLinks
-                value: false
