@@ -34,14 +34,3 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: github-arc
-  # TODO: Remove on 0.11.0
-  # Ref: https://github.com/actions/actions-runner-controller/pull/3729
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-            patch: |
-              - op: replace
-                path: /spec/template/metadata/labels/app.kubernetes.io~1version
-                value: 0.10.1
