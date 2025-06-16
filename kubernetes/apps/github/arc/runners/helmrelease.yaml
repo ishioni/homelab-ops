@@ -31,19 +31,6 @@ spec:
   interval: 30m
   uninstall:
     keepHistory: false
-  valuesFrom:
-    - targetPath: githubConfigSecret.github_app_id
-      kind: Secret
-      name: arc-auth
-      valuesKey: APP_ID
-    - targetPath: githubConfigSecret.github_app_installation_id
-      kind: Secret
-      name: arc-auth
-      valuesKey: HOMELAB_INSTALLATION_ID
-    - targetPath: githubConfigSecret.github_app_private_key
-      kind: Secret
-      name: arc-auth
-      valuesKey: PRIVATE_KEY
   values:
     runnerScaleSetName: arc-homelab
     githubConfigUrl: https://github.com/ishioni/homelab-ops
