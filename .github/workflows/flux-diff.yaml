@@ -14,7 +14,7 @@ concurrency:
 jobs:
   flux-diff:
     name: Flux Diff
-    runs-on: arc-homelab
+    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     strategy:
@@ -90,7 +90,7 @@ jobs:
     needs: ["flux-diff"]
     if: ${{ always() }}
     name: Flux Diff successful
-    runs-on: arc-homelab
+    runs-on: ubuntu-latest
     steps:
       - name: Check matrix status
         if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}

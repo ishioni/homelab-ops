@@ -14,7 +14,7 @@ concurrency:
 jobs:
   extract-images:
     name: Extract Images
-    runs-on: arc-homelab
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         branches: ["default", "pull"]
@@ -58,7 +58,7 @@ jobs:
 
   compare-images:
     name: Compare Images
-    runs-on: arc-homelab
+    runs-on: ubuntu-latest
     needs: ["extract-images"]
     outputs:
       images: ${{ steps.compare-images.outputs.images }}
@@ -76,7 +76,7 @@ jobs:
   pre-pull-images:
     if: ${{ needs.compare-images.outputs.images != '[]' }}
     name: Pre-pull images
-    runs-on: arc-homelab
+    runs-on: ["arc-homelab"]
     needs: ["compare-images"]
     strategy:
       matrix:
@@ -94,7 +94,7 @@ jobs:
     if: ${{ always() }}
     needs: ["pre-pull-images"]
     name: Pre-pull Images Successful
-    runs-on: arc-homelab
+    runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
         name: Check matrix status
