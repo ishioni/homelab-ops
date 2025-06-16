@@ -8,7 +8,7 @@ on: # yamllint disable-line rule:truthy
 jobs:
   enforce-label:
     name: Enforce PR labels
-    runs-on: ubuntu-latest
+    runs-on: arc-homelab-dind
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
