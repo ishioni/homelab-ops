@@ -67,7 +67,6 @@ spec:
                 readOnly: true
               - name: docker-graph-storage
                 mountPath: /var/lib/docker
-        sidecars:
           - name: docker
             image: docker:dind
             securityContext:
