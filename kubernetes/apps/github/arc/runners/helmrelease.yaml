@@ -47,6 +47,7 @@ spec:
   values:
     runnerScaleSetName: arc-homelab
     githubConfigUrl: https://github.com/ishioni/homelab-ops
+    githubConfigSecret: arc-auth
     minRunners: 0
     maxRunners: 3
     containerMode:
