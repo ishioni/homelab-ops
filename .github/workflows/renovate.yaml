@@ -36,7 +36,7 @@ env:
 jobs:
   renovate:
     name: Renovate
-    runs-on: arc-homelab
+    runs-on: ubuntu-latest
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
