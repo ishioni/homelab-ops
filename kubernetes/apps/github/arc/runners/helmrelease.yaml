@@ -71,7 +71,7 @@ spec:
             image: docker:dind
             securityContext:
               privileged: true
-            args: ["--host=tcp://0.0.0.0:2375"]
+            args: ["--host=tcp://0.0.0.0:2375", "--tls=false"]
             volumeMounts:
               - name: docker-graph-storage
                 mountPath: /var/lib/docker
