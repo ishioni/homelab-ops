@@ -73,3 +73,40 @@ spec:
     controllerServiceAccount:
       name: github-arc
       namespace: github
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: arc-homelab-dind
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: gha-runner-scale-set
+  dependsOn:
+    - name: github-arc
+      namespace: github
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  interval: 30m
+  uninstall:
+    keepHistory: false
+  values:
+    runnerScaleSetName: arc-homelab-dind
+    githubConfigUrl: https://github.com/ishioni/homelab-ops
+    githubConfigSecret: arc-auth
+    minRunners: 0
+    maxRunners: 3
+    containerMode:
+      type: dind
+    template:
+      spec:
+        automountServiceAccountToken: true
+        containers:
+          - name: runner
+            image: ghcr.io/home-operations/actions-runner:2.325.0@sha256:8345f634bbaaedbbdff1abb212649b1821baf295e5bcddf420f07847d7f35a87
+            command: ["/home/runner/run.sh"]
+    controllerServiceAccount:
+      name: github-arc
+      namespace: github
