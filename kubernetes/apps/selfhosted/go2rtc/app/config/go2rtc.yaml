@@ -26,3 +26,4 @@ streams:
     - ffmpeg:bedroom#audio=opus
   thingino-kids:
     - $${RTSP_PATHS_THINGIO_KIDS_SOURCE}
+    - ffmpeg:bedroom#audio=opus
