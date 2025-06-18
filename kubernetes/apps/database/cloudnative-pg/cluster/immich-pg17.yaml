@@ -41,7 +41,7 @@ spec:
     #   source: &previousCluster immich-pg17-v1
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2
   monitoring:
     enablePodMonitor: true
   postgresql:
