@@ -9,6 +9,7 @@ components:
   - ../../components/global-vars
   - ../../components/sops
 resources:
+  - ./audiobookshelf/ks.yaml
   - ./atuin/ks.yaml
   - ./convertx/ks.yaml
   - ./go2rtc/ks.yaml
