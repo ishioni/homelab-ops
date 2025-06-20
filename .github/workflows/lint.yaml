@@ -24,12 +24,12 @@ jobs:
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - name: MegaLinter
-        uses: oxsecurity/megalinter/flavors/terraform@v8
+        uses: oxsecurity/megalinter/flavors/terraform@e08c2b05e3dbc40af4c23f41172ef1e068a7d651 # v8.8.0
         env:
           GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
           PRINT_ALPACA: false
@@ -40,10 +40,7 @@ jobs:
                 fromJSON('
                   [
                     "ACTION_ACTIONLINT",
-                    "COPYPASTE_JSCPD",
                     "MARKDOWN_MARKDOWNLINT",
-                    "PYTHON_FLAKE8",
-                    "PYTHON_PYLINT",
                     "REPOSITORY_GIT_DIFF",
                     "REPOSITORY_SECRETLINT",
                     "TERRAFORM_TERRAFORM_FMT",
@@ -55,10 +52,8 @@ jobs:
               )
             }}
           ACTION_ACTIONLINT_CONFIG_FILE: .ci/actionlint/actionlint.yml
-          COPYPASTE_JSCPD_CONFIG_FILE: .ci/jscpd/jscpd.json
           MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .ci/markdownlint/markdownlint.config.yaml
           MARKDOWN_MARKDOWNLINT_RULES_PATH: .ci/markdownlint/
-          PYTHON_FLAKE8_CONFIG_FILE: .ci/flake8/.flake8
           YAML_PRETTIER_CONFIG_FILE: .ci/prettier/.prettierrc.yaml
           YAML_PRETTIER_ARGUMENTS: --ignore-path .ci/prettier/.prettierignore
           YAML_YAMLLINT_CONFIG_FILE: .ci/yamllint/.yamllint.yaml
