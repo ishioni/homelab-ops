@@ -103,8 +103,8 @@ jobs:
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository && steps.diff.outputs.diff != '' }}
         id: app-token
         with:
-          app-id: ${{ secrets.LAB_ASSISTANT_APP_ID }}
-          private-key: ${{ secrets.LAB_ASSISTANT_APP_KEY }}
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add Comment
