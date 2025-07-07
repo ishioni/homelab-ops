@@ -1,263 +1,271 @@
 data "cloudflare_zones" "domain" {
-  name = var.public_domain
+  filter {
+    name = var.public_domain
+  }
+}
+
+locals {
+  public_domain_zone = data.cloudflare_zones.domain.zones[0].id
 }
 
 data "http" "ipv4" {
   url = "http://ipv4.icanhazip.com"
 }
 
-resource "cloudflare_dns_record" "root" {
-  name    = module.secret_cf.fields.DOMAIN
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "root" {
+  name    = var.public_domain
   content = chomp(data.http.ipv4.response_body)
+  ttl     = 60
   type    = "A"
-  ttl     = 300
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "external" {
+resource "cloudflare_record" "external" {
   name    = "external"
-  zone_id = data.cloudflare_zones.domain.result[0].id
   content = chomp(data.http.ipv4.response_body)
+  ttl     = 60
   type    = "A"
-  ttl     = 300
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "minecraft" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "minecraft" {
   name    = "minecraft.${var.public_domain}"
   content = "external.${var.public_domain}"
+  ttl     = 300
   type    = "CNAME"
-  ttl     = 60
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "mail-1" {
-  name    = "mail"
-  zone_id = data.cloudflare_zones.domain.result[0].id
-  content = "66.111.4.148"
-  type    = "A"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "mail-2" {
-  name    = "mail"
-  zone_id = data.cloudflare_zones.domain.result[0].id
-  content = "66.111.4.147"
-  type    = "A"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "archie_ip" {
+resource "cloudflare_record" "archie_ip" {
   name    = "archie"
-  zone_id = data.cloudflare_zones.domain.result[0].id
   content = module.secret_cf.fields.ARCHIE_IP
-  type    = "A"
   ttl     = 60
+  type    = "A"
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "archie_ip_wildcard" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "archie_ip_wildcard" {
   name    = "*.archie.${var.public_domain}"
   content = "archie.${var.public_domain}"
-  type    = "CNAME"
   ttl     = 60
+  type    = "CNAME"
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "caa" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
-  name    = module.secret_cf.fields.DOMAIN
-  data = {
+resource "cloudflare_record" "mail-1" {
+  name    = "mail"
+  content = "66.111.4.148"
+  ttl     = 3600
+  type    = "A"
+  zone_id = local.public_domain_zone
+}
+
+resource "cloudflare_record" "caa" {
+  name    = var.public_domain
+  type = "CAA"
+  ttl  = 43200
+  zone_id = local.public_domain_zone
+  data {
     flags = "0"
     tag   = "issue"
     value = "letsencrypt.org"
   }
-  type = "CAA"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "dkim-1" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "mail-2" {
+  name    = "mail"
+  content = "66.111.4.147"
+  ttl     = 3600
+  type    = "A"
+  zone_id = local.public_domain_zone
+}
+
+resource "cloudflare_record" "dkim-1" {
   name    = "fm1._domainkey.${var.public_domain}"
   content = "fm1.${var.public_domain}.dkim.fmhosted.com"
+  ttl     = 43200
   type    = "CNAME"
-  ttl     = 1
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "dkim-2" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "dkim-2" {
   name    = "fm2._domainkey.${var.public_domain}"
   content = "fm2.${var.public_domain}.dkim.fmhosted.com"
+  ttl     = 43200
   type    = "CNAME"
-  ttl     = 1
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "dkim-3" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "dkim-3" {
   name    = "fm3._domainkey.${var.public_domain}"
   content = "fm3.${var.public_domain}.dkim.fmhosted.com"
+  ttl     = 43200
   type    = "CNAME"
-  ttl     = 1
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "mailmx-1" {
-  zone_id  = data.cloudflare_zones.domain.result[0].id
-  name     = module.secret_cf.fields.DOMAIN
+resource "cloudflare_record" "mailmx-1" {
+  name     = var.public_domain
   content  = "in1-smtp.messagingengine.com"
-  type     = "MX"
   priority = 10
-  ttl      = 1
-}
-
-resource "cloudflare_dns_record" "mailmx-2" {
-  zone_id  = data.cloudflare_zones.domain.result[0].id
-  name     = module.secret_cf.fields.DOMAIN
-  content  = "in2-smtp.messagingengine.com"
   type     = "MX"
+  ttl      = 3600
+  zone_id  = local.public_domain_zone
+}
+
+resource "cloudflare_record" "mailmx-2" {
+  name     = var.public_domain
+  content  = "in2-smtp.messagingengine.com"
   priority = 20
-  ttl      = 1
+  ttl      = 3600
+  type     = "MX"
+  zone_id  = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "txt_spf" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
-  name    = module.secret_cf.fields.DOMAIN
+resource "cloudflare_record" "txt_spf" {
+  name    = var.public_domain
   content = "v=spf1 include:spf.messagingengine.com -all"
+  ttl     = 43200
   type    = "TXT"
-  ttl     = 1
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "txt_dmarc" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
-  name    = module.secret_cf.fields.DOMAIN
+resource "cloudflare_record" "txt_dmarc" {
+  name    = var.public_domain
   content = "v=DMARC1; p=quarantine; pct=100; rua=mailto:postmaster@${var.public_domain}; ruf=mailto:postmaster@${var.public_domain}"
   type    = "TXT"
-  ttl     = 1
+  ttl     = 43200
+  zone_id = local.public_domain_zone
 }
 
-resource "cloudflare_dns_record" "fastmail-caldavs" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-caldavs" {
   name    = "_caldavs._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 1
     port     = 443
     target   = "caldav.fastmail.com"
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-caldav" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-caldav" {
   name    = "_caldav._tcp.module.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 0
     port     = 0
     target   = "."
   }
-  type = "SRV"
-  ttl  = 1
+
 }
 
-resource "cloudflare_dns_record" "fastmail-carddavs" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
-  name    = "_carddavs._tcp.{$module.secret_cf.fields.DOMAIN}"
-  data = {
+resource "cloudflare_record" "fastmail-carddavs" {
+  name    = "_carddavs._tcp.{$var.public_domain}"
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 1
     port     = 443
     target   = "carddav.fastmail.com"
   }
-  type = "SRV"
-  ttl  = 1
+
 }
 
-resource "cloudflare_dns_record" "fastmail-carddav" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-carddav" {
   name    = "_carddav._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 0
     port     = 0
     target   = "."
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-imaps" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-imaps" {
   name    = "_imaps._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 1
     port     = 993
     target   = "imap.fastmail.com"
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-imap" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-imap" {
   name    = "_imap._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 0
     port     = 0
     target   = "."
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-jmap" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-jmap" {
   name    = "_jmap._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 1
     port     = 443
     target   = "jmap.fastmail.com"
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-pop3s" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-pop3s" {
   name    = "_pop3s._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 1
     port     = 995
     target   = "pop.fastmail.com"
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-pop3" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-pop3" {
   name    = "_pop3._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 0
     port     = 0
     target   = "."
   }
-  type = "SRV"
-  ttl  = 1
 }
 
-resource "cloudflare_dns_record" "fastmail-submission" {
-  zone_id = data.cloudflare_zones.domain.result[0].id
+resource "cloudflare_record" "fastmail-submission" {
   name    = "_submission._tcp.${var.public_domain}"
-  data = {
+  ttl  = 3600
+  type = "SRV"
+  zone_id = local.public_domain_zone
+  data {
     priority = 0
     weight   = 1
     port     = 587
     target   = "smtp.fastmail.com"
   }
-  type = "SRV"
-  ttl  = 1
 }

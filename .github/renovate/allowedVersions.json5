@@ -15,7 +15,7 @@
     {
       description: "Cloudflare tf provider is FUCKED",
       matchDatasources: ["terraform"],
-      allowedVersions: "<=5.1",
+      allowedVersions: "<=4.52",
       matchPackageNames: ["cloudflare"],
     }
   ],
