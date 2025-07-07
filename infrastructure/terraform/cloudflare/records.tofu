@@ -1,11 +1,9 @@
-data "cloudflare_zones" "domain" {
-  filter {
+data "cloudflare_zone" "domain" {
     name = var.public_domain
-  }
 }
 
 locals {
-  public_domain_zone = data.cloudflare_zones.domain.zones[0].id
+  public_domain_zone = data.cloudflare_zone.domain.id
 }
 
 data "http" "ipv4" {
