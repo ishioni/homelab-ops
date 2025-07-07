@@ -30,7 +30,7 @@ webhook:
       cpu: 15m
       memory: 50Mi
     limits:
-      memory: 100Mi
+      memory: 250Mi
 certController:
   serviceMonitor:
     enabled: true
@@ -50,4 +50,4 @@ resources:
     cpu: 15m
     memory: 50Mi
   limits:
-    memory: 150Mi
+    memory: 250Mi
