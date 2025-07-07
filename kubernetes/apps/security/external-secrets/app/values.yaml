@@ -1,4 +1,7 @@
 installCRDs: true
+leaderElect: true
+image:
+  repository: ghcr.io/external-secrets/external-secrets
 replicaCount: 2
 topologySpreadConstraints:
   - maxSkew: 1
@@ -8,11 +11,22 @@ topologySpreadConstraints:
       matchLabels:
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/instance: external-secrets
-leaderElect: true
 serviceMonitor:
   enabled: true
   interval: 1m
+grafanaDashboard:
+  enabled: true
+  annotations:
+    grafana_folder: Networking
+certController:
+  image:
+    repository: ghcr.io/external-secrets/external-secrets
+  serviceMonitor:
+    enabled: true
+    interval: 1m
 webhook:
+  image:
+    repository: ghcr.io/external-secrets/external-secrets
   replicaCount: 2
   topologySpreadConstraints:
     - maxSkew: 1
@@ -25,29 +39,3 @@ webhook:
   serviceMonitor:
     enabled: true
     interval: 1m
-  resources:
-    requests:
-      cpu: 15m
-      memory: 50Mi
-    limits:
-      memory: 250Mi
-certController:
-  serviceMonitor:
-    enabled: true
-    interval: 1m
-  resources:
-    requests:
-      cpu: 15m
-      memory: 80Mi
-    limits:
-      memory: 150Mi
-grafanaDashboard:
-  enabled: true
-  annotations:
-    grafana_folder: Networking
-resources:
-  requests:
-    cpu: 15m
-    memory: 50Mi
-  limits:
-    memory: 250Mi
