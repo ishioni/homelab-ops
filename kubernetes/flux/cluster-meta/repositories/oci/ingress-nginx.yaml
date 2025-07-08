@@ -11,7 +11,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 4.12.3
+    tag: 4.13.0
   url: oci://ghcr.io/home-operations/charts-mirror/ingress-nginx
   verify:
     provider: cosign
