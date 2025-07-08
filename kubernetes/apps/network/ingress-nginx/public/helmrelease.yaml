@@ -62,6 +62,7 @@ spec:
         force-ssl-redirect: "true"
         proxy-body-size: 0
         proxy-buffer-size: 16k
+        proxy-busy-buffers-size: 16k
         proxy-read-timeout: 120
         proxy-send-timeout: 120
         use-geoip2: false
