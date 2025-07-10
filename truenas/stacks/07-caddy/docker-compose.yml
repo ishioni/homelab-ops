@@ -6,7 +6,7 @@ services:
     env_file:
       - ./secrets.env
     environment:
-      - TZ=Europe/Warsaw
+      TZ: Europe/Warsaw
     networks:
       traefik_macvlan:
         ipv4_address: ${MACVLAN_ADDRESS}
