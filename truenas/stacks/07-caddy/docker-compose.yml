@@ -23,3 +23,5 @@ volumes:
 networks:
   traefik_macvlan:
     external: true
+  apps:
+    external: true
