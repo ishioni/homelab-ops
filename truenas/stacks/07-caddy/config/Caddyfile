@@ -1,0 +1,13 @@
+{
+    email {env.ACME_EMAIL}
+}
+
+ishioni.casa, *.ishioni.casa {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+}
+
+meshcentral.ishioni.casa {
+    reverse_proxy meshcentral.apps:8080
+}

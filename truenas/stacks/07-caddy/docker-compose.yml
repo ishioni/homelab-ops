@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  caddy:
+    image: ghcr.io/caddybuilds/caddy-cloudflare:2.10
+    container_name: caddy
+    restart: always
+    env_file:
+      - ./secrets.env
+    environment:
+      - TZ=Europe/Warsaw
+    networks:
+      traefik_macvlan:
+        ipv4_address: ${MACVLAN_ADDRESS}
+      apps:
+    volumes:
+      - ./config/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  traefik_macvlan:
+    external: true
