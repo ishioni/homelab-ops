@@ -32,11 +32,11 @@ networks:
   apps:
     name: apps
   traefik_macvlan:
-    driver: macvlan
+    driver: ipvlan
     name: traefik_macvlan
     driver_opts:
       # parent: enp1s0f0
-      parent: vlan22
+      parent: vlan2
     ipam:
       driver: default
       config:
