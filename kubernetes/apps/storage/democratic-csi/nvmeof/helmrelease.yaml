@@ -33,6 +33,12 @@ spec:
           tag: v1.9.3
         logLevel: debug
         imagePullPolicy: IfNotPresent
+      mount:
+        checkFilesystem:
+          xfs:
+            enabled: true
+          ext4:
+            enabled: true
       priorityClassName: system-node-critical
     csiProxy:
       image:
