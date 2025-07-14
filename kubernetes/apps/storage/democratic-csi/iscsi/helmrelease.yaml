@@ -54,12 +54,6 @@ spec:
             value: /usr/local/sbin/iscsiadm
         iscsiDirHostPath: /var/lib/iscsi
         iscsiDirHostPathType: ""
-      mount:
-        checkFilesystem:
-          xfs:
-            enabled: true
-          ext4:
-            enabled: true
       priorityClassName: system-node-critical
     csiProxy:
       image:
@@ -96,3 +90,10 @@ spec:
       config:
         driver: freenas-api-iscsi
       existingConfigSecret: *secret
+      node:
+        mount:
+          checkFilesystem:
+            xfs:
+              enabled: true
+            ext4:
+              enabled: true
