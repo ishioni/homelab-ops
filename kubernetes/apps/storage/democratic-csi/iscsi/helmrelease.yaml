@@ -90,10 +90,3 @@ spec:
       config:
         driver: freenas-api-iscsi
       existingConfigSecret: *secret
-      node:
-        mount:
-          checkFilesystem:
-            xfs:
-              enabled: true
-            ext4:
-              enabled: true
