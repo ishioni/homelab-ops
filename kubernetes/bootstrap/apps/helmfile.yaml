@@ -16,7 +16,7 @@ releases:
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/home-operations/charts-mirror/cilium
-    version: 1.17.5
+    version: 1.17.6
     values:
       [
         '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/values.yaml',
