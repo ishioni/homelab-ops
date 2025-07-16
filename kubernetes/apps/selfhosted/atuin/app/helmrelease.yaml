@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/atuinsh/atuin
-              tag: v18.7.0
+              tag: v18.7.1
             env:
               TZ: ${CONFIG_TIMEZONE}
               ATUIN_HOST: 0.0.0.0
