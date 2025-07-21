@@ -41,8 +41,8 @@ spec:
               repository: ghcr.io/rommapp/romm
               tag: 4.0.0
             env:
-              DISABLE_CSRF_PROTECTION: true
-              IS_PYTEST_RUN: true
+              HASHEOUS_API_ENABLED: true
+              PLAYMATCH_API_ENABLED: true
               TZ: ${CONFIG_TIMEZONE}
               ROMM_DB_DRIVER: postgresql
               REDIS_HOST: dragonfly.database.svc.cluster.local
