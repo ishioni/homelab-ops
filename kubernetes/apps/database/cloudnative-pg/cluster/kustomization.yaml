@@ -4,9 +4,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./cluster-17.yaml
-  - ./immich-pg17.yaml
   - ./externalsecret.yaml
   - ./gatus.yaml
+  - ./immich-pg17.yaml
+  - ./objectstore.yaml
   - ./prometheusrule.yaml
   - ./scheduledbackup.yaml
   - ./service.yaml

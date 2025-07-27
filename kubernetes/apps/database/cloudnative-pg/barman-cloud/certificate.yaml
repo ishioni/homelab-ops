@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: barman-cloud
+spec:
+  selfSigned: {}
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: barman-cloud-client
+spec:
+  commonName: barman-cloud-client
+  duration: 2160h
+  isCA: false
+  issuerRef:
+    name: barman-cloud
+    kind: Issuer
+    group: cert-manager.io
+  renewBefore: 360h
+  secretName: barman-cloud-client-tls
+  usages: ["client auth"]
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: barman-cloud-server
+spec:
+  commonName: barman-cloud
+  dnsNames: ["barman-cloud"]
+  duration: 2160h
+  isCA: false
+  issuerRef:
+    name: barman-cloud
+    kind: Issuer
+    group: cert-manager.io
+  renewBefore: 360h
+  secretName: barman-cloud-server-tls
+  usages: ["server auth"]
