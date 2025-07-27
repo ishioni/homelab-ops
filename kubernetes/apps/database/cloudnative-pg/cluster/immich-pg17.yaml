@@ -4,46 +4,25 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: immich-pg17
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: required
-  backup:
-    retentionPolicy: 7d
-    barmanObjectStore:
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 4
-      destinationPath: s3://cloudnative-pg/
-      endpointURL: https://s3.${PRIVATE_DOMAIN}
-      serverName: &currentCluster immich-pg17-v1
-      s3Credentials:
-        accessKeyId:
-          name: &secret cloudnative-pg-secret
-          key: s3-access-key
-        secretAccessKey:
-          name: *secret
-          key: s3-secret-key
-  # bootstrap:
-    # initdb:
-      #   postInitSQL:
-      #     - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-      # import:
-      #   databases: ["*"]
-      #   roles: ["*"]
-      #   source:
-      #     externalCluster: immich-pg16
-      #   type: monolith
-    # recovery:
-    #   source: &previousCluster immich-pg17-v1
   enableSuperuserAccess: true
   instances: 3
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2
   monitoring:
     enablePodMonitor: true
+  plugins:
+    - enabled: true
+      isWALArchiver: false
+      name: barman-cloud.cloudnative-pg.io
+      parameters: &barmanParameters
+        barmanObjectName: minio
+        serverName: immich-pg17-v2
   postgresql:
     shared_preload_libraries: ["vchord.so"]
     parameters:
@@ -68,26 +47,13 @@ spec:
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
-
-  # externalClusters:
-    # - name: *previousCluster
-    #   barmanObjectStore:
-    #     destinationPath: s3://cloudnative-pg/
-    #     endpointURL: https://s3.${PRIVATE_DOMAIN}
-    #     s3Credentials:
-    #       accessKeyId:
-    #         name: *secret
-    #         key: s3-access-key
-    #       secretAccessKey:
-    #         name: *secret
-    #         key: s3-secret-key
-    # - name: immich-pg16
-    #   connectionParameters:
-    #     # Use the correct IP or host name for the source database
-    #     host: immich-pg16-rw.database.svc.cluster.local
-    #     user: postgres
-    #     dbname: postgres
-    #     sslmode: require
-    #   password:
-    #     name: cloudnative-pg-secret
-    #     key: password
+  # bootstrap:
+  #   recovery:
+  #     source: source
+  externalClusters:
+    - name: source
+      plugin:
+        enabled: true
+        isWALArchiver: false
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *barmanParameters
