@@ -5,11 +5,14 @@ kind: ScheduledBackup
 metadata:
   name: &cluster postgres-17
 spec:
-  schedule: "@daily"
-  immediate: true
   backupOwnerReference: self
   cluster:
     name: *cluster
+  immediate: true
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  schedule: "@daily"
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/scheduledbackup_v1.json
 apiVersion: postgresql.cnpg.io/v1

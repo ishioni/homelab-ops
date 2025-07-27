@@ -4,52 +4,33 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres-17
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: required
-  backup:
-    retentionPolicy: 7d
-    barmanObjectStore:
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 4
-      destinationPath: s3://cloudnative-pg/
-      endpointURL: https://s3.${PRIVATE_DOMAIN}
-      serverName: &currentCluster postgres-17-v1
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: s3-access-key
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: s3-secret-key
-  # bootstrap:
-    # recovery:
-    #   source: &previousCluster postgres-16-v1
-    # initdb:
-    #   import:
-    #     databases: ["*"]
-    #     roles: ["*"]
-    #     source:
-    #       externalCluster: postgres-16
-    #     type: monolith
   enableSuperuserAccess: true
   instances: 3
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5
   monitoring:
     enablePodMonitor: true
-  primaryUpdateStrategy: unsupervised
-  primaryUpdateMethod: switchover
+  plugins:
+    - enabled: true
+      isWALArchiver: true
+      name: barman-cloud.cloudnative-pg.io
+      parameters: &barmanParameters
+        barmanObjectName: minio
+        serverName: postgres-17-v2
   postgresql:
     parameters:
       max_connections: "300"
       work_mem: 64MB
       shared_buffers: 128MB
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
   resources:
     requests:
       cpu: 200m
@@ -61,26 +42,13 @@ spec:
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
-
-  # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       destinationPath: s3://cloudnative-pg/
-  #       endpointURL: https://s3.${PRIVATE_DOMAIN}
-  #       s3Credentials:
-  #         accessKeyId:
-  #           name: cloudnative-pg-secret
-  #           key: s3-access-key
-  #         secretAccessKey:
-  #           name: cloudnative-pg-secret
-  #           key: s3-secret-key
-  #   - name: postgres-16
-  #     connectionParameters:
-  #       # Use the correct IP or host name for the source database
-  #       host: postgres-16-rw.database.svc.cluster.local
-  #       user: postgres
-  #       dbname: postgres
-  #       sslmode: require
-  #     password:
-  #       name: cloudnative-pg-secret
-  #       key: password
+  bootstrap:
+    recovery:
+      source: source
+  externalClusters:
+    - name: source
+      plugin:
+        enabled: true
+        isWALArchiver: false
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *barmanParameters
