@@ -59,6 +59,7 @@ spec:
                   name: *configmap
             env:
               IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_MEDIA_LOCATION: &mediaLocation /data
               IMMICH_WORKERS_INCLUDE: api
             resources:
               requests:
@@ -114,6 +115,7 @@ spec:
                   name: *configmap
             env:
               IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_MEDIA_LOCATION: *mediaLocation
               IMMICH_WORKERS_EXCLUDE: api
             resources:
               requests:
@@ -148,6 +150,7 @@ spec:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.137.0
             env:
+              IMMICH_MEDIA_LOCATION: *mediaLocation
               MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-B-16-SigLIP__webli
               MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-16-SigLIP__webli
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
@@ -248,10 +251,10 @@ spec:
         advancedMounts:
           server:
             server:
-              - path: /usr/src/app/upload
+              - path: *mediaLocation
           microservices:
             microservices:
-              - path: /usr/src/app/upload
+              - path: *mediaLocation
       geocoding-dump:
         type: emptyDir
         advancedMounts:
