@@ -32,7 +32,8 @@ spec:
               ND_DATAFOLDER: /config
               ND_MUSICFOLDER: /music
               ND_PORT: &port 8080
-              ND_SCANSCHEDULE: 30m
+              ND_SCANNER_SCHEDULE: 0 * * * *
+              ND_SCANNER_PURGEMISSING: always
               ND_ENABLEDOWNLOADS: "true"
               ND_ENABLEEXTERNALSERVICES: "true"
               ND_ENABLESHARING: "false"
