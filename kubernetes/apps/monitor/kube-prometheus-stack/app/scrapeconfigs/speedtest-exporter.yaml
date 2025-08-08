@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs: [targets: ["leo.${PRIVATE_DOMAIN}:9798"]]
   metricsPath: /metrics
-  scrapeInterval: 30m
+  scrapeInterval: 60m
   scrapeTimeout: 60s
   honorTimestamps: true
   relabelings:
