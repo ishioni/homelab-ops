@@ -110,14 +110,12 @@
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
     {
-      description: "CNPG Barman-cloud plugin",
+      description: "CNPG Barman-cloud",
       groupName: "CNPG Barman-cloud",
-      matchPackageName: [
-        "/plugin-barman-cloud/",
-        "/plugin-barman-cloud-sidecar/",
-      ],
+      matchPackageNames: ["/plugin-barman-cloud/"],
       matchDatasources: ["docker"],
       group: {commitMessageTopic: "{{{groupName}}}"},
+      separateMinorPatch: true,
     },
   ],
 }
