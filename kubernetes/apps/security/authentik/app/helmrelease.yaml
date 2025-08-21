@@ -74,7 +74,7 @@ spec:
         limits:
           memory: 1200Mi
     authentik:
-      log_level: debug
+      # log_level: debug
       redis:
         host: dragonfly.database.svc.cluster.local
     prometheus:
