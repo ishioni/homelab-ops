@@ -91,6 +91,13 @@ spec:
                   identifier: app
                   port: http
     persistence:
+      config:
+        type: configMap
+        name: romm-config
+        globalMounts:
+          - path: /romm/config/config.yml
+            subPath: config.yml
+            readOnly: true
       data:
         existingClaim: ${PVC_CLAIM}
         advancedMounts:

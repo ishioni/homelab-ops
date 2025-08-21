@@ -5,3 +5,11 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: romm-config
+    files: [./config/config.yml]
+configurations:
+  - ./kustomizeconfig.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: romm
