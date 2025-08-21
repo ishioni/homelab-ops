@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cloudnative-pg/plugin-barman-cloud
-              tag: v0.5.0@sha256:d84794c09178e8a39944dce04ca234a14e1551f914af90f1768c1222733438a6
+              tag: v0.6.0@sha256:2adabf02728307119a22c13abb9efc52371ad6d74106db6204c6dee5abe75fb8
             args:
               - operator
               - --leader-elect

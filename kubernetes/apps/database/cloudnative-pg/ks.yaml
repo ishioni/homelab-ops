@@ -37,7 +37,7 @@ spec:
   postBuild:
     substitute:
       # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar
-      SIDECAR_IMAGE_VERSION: v0.5.0
+      SIDECAR_IMAGE_VERSION: v0.6.0
   prune: true
   retryInterval: 5m
   sourceRef:
