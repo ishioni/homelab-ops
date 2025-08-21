@@ -1,7 +1,7 @@
 ---
 services:
   opconnect-api:
-    image: docker.io/1password/connect-api:1.7.4
+    image: ghcr.io/1password/connect-api:1.7.4
     container_name: opconnect-api
     restart: unless-stopped
     networks:
@@ -26,7 +26,7 @@ services:
       traefik.http.routers.opconnect.tls: true
       traefik.http.routers.opconnect.service: opconnect
   opconnect-sync:
-    image: docker.io/1password/connect-sync:1.7.4
+    image: ghcr.io/1password/connect-sync:1.7.4
     container_name: opconnect-sync
     restart: unless-stopped
     networks:
