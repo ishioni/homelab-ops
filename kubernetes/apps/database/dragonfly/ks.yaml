@@ -34,10 +34,10 @@ spec:
       namespace: *namespace
     - name: external-secrets
       namespace: security
-  healthCheckExprs:
-    - apiVersion: dragonflydb.io/v1alpha1
-      kind: Dragonfly
-      current: status.phase == 'ready'
+  # healthCheckExprs:
+  #   - apiVersion: dragonflydb.io/v1alpha1
+  #     kind: Dragonfly
+  #     current: status.phase == 'ready'
   interval: 30m
   path: ./kubernetes/apps/database/dragonfly/cluster
   prune: true
