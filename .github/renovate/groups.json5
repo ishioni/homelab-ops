@@ -109,15 +109,5 @@
       matchDatasources: ["github-releases", "github-tags"],
       group: {commitMessageTopic: "{{{groupName}}}"},
     },
-    {
-      description: "CNPG Barman-cloud plugin",
-      groupName: "CNPG Barman-cloud",
-      matchPackageName: [
-        "/plugin-barman-cloud/",
-        "/plugin-barman-cloud-sidecar/",
-      ],
-      matchDatasources: ["docker"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
-    },
   ],
 }
