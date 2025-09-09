@@ -11,4 +11,4 @@ spec:
     operation: copy
   ref:
     tag: v1.18.2
-  url: oci://quay.io/jetstack/charts/cert-manager
+  url: oci://docker.io/envoyproxy/gateway-helm
