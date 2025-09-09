@@ -34,7 +34,7 @@ releases:
     needs: ["kube-system/cilium"]
 
   - name: spegel
-    namespace: system
+    namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: 0.3.0
     values: ["templates/values.yaml.gotmpl"]
