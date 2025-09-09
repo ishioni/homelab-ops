@@ -1,5 +1,0 @@
----
-providerRegex: |
-  ^(master|worker|talos)-\d$
-
-bypassDnsResolution: true

@@ -5,9 +5,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helm-release.yaml
-configMapGenerator:
-  - name: kubelet-csr-approver-values
-    files:
-      - values.yaml=./values.yaml
-configurations:
-  - kustomizeconfig.yaml
+  - ./ocirepository.yaml
