@@ -36,7 +36,6 @@ spec:
       annotations:
         grafana_folder: Networking
     devices: enp3s0
-    enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     envoy:
