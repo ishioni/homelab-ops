@@ -49,3 +49,11 @@ spec:
                 service:
                   identifier: app
                   port: http
+    route:
+      app:
+        hostnames:
+          - ${HOSTNAME}
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
