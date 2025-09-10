@@ -21,12 +21,14 @@ spec:
     logLevel: info
     domainFilters: ["${PUBLIC_DOMAIN}"]
     policy: sync
-    sources: [ingress]
+    sources: [ingress, gateway-httproute]
     triggerLoopOnEvent: true
     txtPrefix: talos.
     txtOwnerId: talos
     extraArgs:
       - --annotation-filter=external-dns.home.arpa/enabled in (true)
+      # Once switched to gateway
+      # - --gateway-name=envoy-external
     provider:
       name: cloudflare
     env:
