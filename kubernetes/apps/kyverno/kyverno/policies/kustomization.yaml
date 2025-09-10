@@ -3,6 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ./httproute-external-dns.yaml
   - ./ingress-authentik-annotation.yaml
   - ./ingress-cert-manager-annotation.yaml
   - ./ingress-external-dns-annotation.yaml
