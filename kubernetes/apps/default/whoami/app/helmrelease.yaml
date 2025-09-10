@@ -38,17 +38,17 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
-      app:
-        enabled: true
-        className: public
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: public
+    #     hosts:
+    #       - host: ${HOSTNAME}
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
     route:
       app:
         hostnames:
