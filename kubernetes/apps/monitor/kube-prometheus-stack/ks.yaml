@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: prometheus-operator-crds
-      namespace: monitor
     - name: democratic-csi-iscsi
       namespace: storage
     - name: external-secrets
