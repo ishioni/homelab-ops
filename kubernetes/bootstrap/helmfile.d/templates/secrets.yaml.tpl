@@ -10,8 +10,7 @@ metadata:
   name: sops-age
   namespace: flux-system
 stringData:
-  age.agekey: |
-    {{ ENV.FLUX_SOPS_PRIVATE_KEY | indent(4) }}
+  age.agekey: op://Homelab/flux/AGE_PRIVATE_KEY
 ---
 apiVersion: v1
 kind: Namespace
@@ -24,6 +23,6 @@ metadata:
   name: onepassword-secret
   namespace: security
 stringData:
-  1password-credentials.json: {{ ENV.ONEPASSWORD_CREDENTIALS }}
-  token: {{ ENV.ONEPASSWORD_CONNECT_TOKEN }}
-  ESO_TOKEN: {{ ENV.ESO_TOKEN }}
+  1password-credentials.json: op://Homelab/op-connect/credentials
+  token: op://Homelab/op-connect/token
+  ESO_TOKEN: op://Homelab/op-connect/ESO_TOKEN

@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+# This helmfile is for installing Custom Resource Definitions (CRDs) from Helm charts.
+# It is not intended to be used with helmfile apply or sync.
+
+helmDefaults:
+  args: ["--include-crds", "--no-hooks"] # Prevent helmfile apply or sync
+  postRenderer: bash
+  postRendererArgs: [-c, "yq ea --exit-status 'select(.kind == \"CustomResourceDefinition\")'"]
+
+releases:
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.19.2
+
+  - name: envoy-gateway
+    namespace: network
+    chart: oci://docker.io/envoyproxy/gateway-helm
+    version: 1.5.0
+
+  - name: kube-prometheus-stack
+    namespace: observability
+    chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+    version: 77.6.0

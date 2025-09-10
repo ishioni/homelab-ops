@@ -12,20 +12,3 @@ spec:
   ref:
     tag: 1.2.11
   url: oci://ghcr.io/postfinance/charts/kubelet-csr-approver
----
-# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: kubelet-csr-approver
-spec:
-  chartRef:
-    kind: OCIRepository
-    name: kubelet-csr-approver
-  interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
-  valuesFrom:
-    - kind: ConfigMap
-      name: kubelet-csr-approver-values

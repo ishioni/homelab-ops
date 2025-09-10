@@ -3,22 +3,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: spegel
+  name: kubelet-csr-approver
 spec:
   chartRef:
     kind: OCIRepository
-    name: spegel
+    name: kubelet-csr-approver
   interval: 30m
   maxHistory: 3
   uninstall:
     keepHistory: false
   values:
-    spegel:
-      appendMirrors: true
-      containerdSock: /run/containerd/containerd.sock
-      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
-    service:
-      registry:
-        hostPort: 29999
-    serviceMonitor:
-      enabled: true
+    providerRegex: |
+      ^talos-\d$
+    bypassDnsResolution: true
