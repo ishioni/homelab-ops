@@ -19,7 +19,7 @@ spec:
     logLevel: &logLevel info
     domainFilters: ["${PUBLIC_DOMAIN}", "${PRIVATE_DOMAIN}"]
     policy: sync
-    sources: [ingress, service]
+    sources: [ingress, gateway-httproute, service]
     triggerLoopOnEvent: true
     txtPrefix: talos.
     txtOwnerId: talos

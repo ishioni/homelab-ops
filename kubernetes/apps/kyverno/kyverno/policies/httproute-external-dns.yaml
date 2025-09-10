@@ -1,0 +1,39 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kyverno.io/clusterpolicy_v1.json
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-label-annotation-for-envoy-external
+  annotations:
+    policies.kyverno.io/title: "Add label and annotation when parentRef is envoy-external"
+    policies.kyverno.io/subject: "HTTPRoute"
+    policies.kyverno.io/category: "Networking"
+    policies.kyverno.io/description: |
+      This policy checks if an HTTPRoute has a parentRef with name 'envoy-external'.
+      If so, it mutates the resource to add a label 'traffic-gateway=envoy-external'
+      and an annotation 'routed-via=envoy-external' **only if they are missing**.
+spec:
+  rules:
+    - name: add-label-and-annotation-when-envoy-external
+      match:
+        any:
+          - resources:
+              kinds:
+                - HTTPRoute
+      preconditions:
+        all:
+          # Check if spec.parentRefs exists
+          - key: "{{ request.object.spec.parentRefs }}"
+            operator: NotEquals
+            value: null
+          # Check if any parentRef has name 'envoy-external'
+          - key: "{{ request.object.spec.parentRefs[?(@.name=='envoy-external')] | length(@) }}"
+            operator: GreaterThan
+            value: 0
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            labels:
+              traffic-gateway: "envoy-external"
+            annotations:
+              routed-via: "envoy-external"

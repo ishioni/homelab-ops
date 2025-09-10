@@ -38,14 +38,22 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    # ingress:
+    #   app:
+    #     enabled: true
+    #     className: public
+    #     hosts:
+    #       - host: ${HOSTNAME}
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
+    route:
       app:
-        enabled: true
-        className: public
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - ${HOSTNAME}
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
