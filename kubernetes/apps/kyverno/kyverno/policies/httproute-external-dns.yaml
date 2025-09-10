@@ -14,26 +14,23 @@ metadata:
       and an annotation 'routed-via=envoy-external' **only if they are missing**.
 spec:
   rules:
-    - name: add-label-and-annotation-when-envoy-external
+    - name: add-label-and-annotation-for-envoy-external
       match:
-        any:
-          - resources:
-              kinds:
-                - HTTPRoute
-      preconditions:
-        all:
-          # Check if spec.parentRefs exists
-          - key: "{{ request.object.spec.parentRefs }}"
-            operator: NotEquals
-            value: null
-          # Check if any parentRef has name 'envoy-external'
-          - key: "{{ request.object.spec.parentRefs[?(@.name=='envoy-external')] | length(@) }}"
-            operator: GreaterThan
-            value: 0
+        resources:
+          kinds:
+            - HTTPRoute
       mutate:
-        patchStrategicMerge:
-          metadata:
-            labels:
-              traffic-gateway: "envoy-external"
-            annotations:
-              routed-via: "envoy-external"
+        foreach:
+          - list: "request.object.spec.parentRefs"
+            # Only apply to envoy-external gateway
+            preconditions:
+              all:
+                - key: "{{ element.name }}"
+                  operator: Equals
+                  value: "envoy-external"
+            patchStrategicMerge:
+              metadata:
+                labels:
+                  +(traffic-gateway): "envoy-external"
+                annotations:
+                  +(routed-via): "envoy-external"
