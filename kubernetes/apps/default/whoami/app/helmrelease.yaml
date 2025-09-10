@@ -54,6 +54,6 @@ spec:
         hostnames:
           - ${HOSTNAME}
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
             sectionName: https
