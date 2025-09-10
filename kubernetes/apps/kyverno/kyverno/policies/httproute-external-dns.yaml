@@ -32,4 +32,4 @@ spec:
               metadata:
                 annotations:
                   +(external-dns.home.arpa/enabled): "true"
-                  +(external-dns.alpha.kubernetes.io/target): gateway-external.movishell.pl
+                  +(external-dns.alpha.kubernetes.io/target): envoy-external.movishell.pl
