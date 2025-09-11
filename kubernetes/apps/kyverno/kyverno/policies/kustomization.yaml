@@ -5,5 +5,5 @@ kind: Kustomization
 resources:
   - ./httproute-external-dns.yaml
   - ./ingress-authentik-annotation.yaml
-  - ./ingress-cert-manager-annotation.yaml
+  # - ./ingress-cert-manager-annotation.yaml
   - ./ingress-external-dns-annotation.yaml
