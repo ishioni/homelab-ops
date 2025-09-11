@@ -30,20 +30,6 @@ spec:
         ports:
           http:
             port: 80
-    ingress:
-      app:
-        className: public
-        # annotations:
-        #   gethomepage.dev/enabled: "true"
-        #   gethomepage.dev/group: Selfhosted
-        #   gethomepage.dev/name: IT-Tools
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
     route:
       app:
         # annotations:
