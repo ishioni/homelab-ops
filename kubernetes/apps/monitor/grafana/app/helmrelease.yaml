@@ -47,15 +47,19 @@ spec:
       enabled: true
     serviceAccount:
       autoMount: true
-    ingress:
-      enabled: true
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Infrastructure
-        gethomepage.dev/name: Grafana
-        gethomepage.dev/icon: grafana.svg
-      ingressClassName: private
-      hosts: ["${HOSTNAME}"]
+    route:
+      main:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/name: Grafana
+          gethomepage.dev/icon: grafana.svg
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
     env:
       GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: true
     envFromSecrets:
@@ -266,6 +270,12 @@ spec:
           datasource: Prometheus
         ingress-nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+          datasource: Prometheus
+        envoy-gateway:
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
+          datasource: Prometheus
+        envoy-proxy:
+          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
           datasource: Prometheus
         speedtest-exporter-hub:
           # renovate: depName="Speedtest-Exporter"

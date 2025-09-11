@@ -64,20 +64,17 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: private
-        # annotations:
-        #   gethomepage.dev/enabled: "true"
-        #   gethomepage.dev/group: Selfhosted
-        #   gethomepage.dev/name: ConvertX
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        annotations:
+          # gethomepage.dev/enabled: "true"
+          # gethomepage.dev/group: Selfhosted
+          # gethomepage.dev/name: ConvertX
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
     persistence:
       data:
         existingClaim: ${PVC_CLAIM}

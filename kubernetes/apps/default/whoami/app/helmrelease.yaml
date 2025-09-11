@@ -38,21 +38,9 @@ spec:
         ports:
           http:
             port: *port
-    # ingress:
-    #   app:
-    #     enabled: true
-    #     className: public
-    #     hosts:
-    #       - host: ${HOSTNAME}
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
     route:
       app:
-        hostnames:
-          - ${HOSTNAME}
+        hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
             namespace: network
