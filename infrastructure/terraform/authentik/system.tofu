@@ -49,6 +49,13 @@ resource "authentik_outpost" "proxyoutpost" {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
     },
     kubernetes_ingress_secret_name = "proxy-outpost-tls",
+    kubernetes_httproute_parent_refs = [{
+      group       = "gateway.networking.k8s.io"
+      kind        = "Gateway"
+      name        = "envoy-external"
+      namespace   = "network"
+      sectionName = "https"
+    }]
     kubernetes_service_type        = "ClusterIP",
     kubernetes_disabled_components = [],
     kubernetes_image_pull_secrets  = []
