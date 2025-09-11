@@ -211,9 +211,8 @@ spec:
     #         interval: 1m
     #         scrapeTimeout: 30s
 
-    ingress:
-      server:
-        className: "public"
+    route:
+      app:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
@@ -223,15 +222,11 @@ spec:
           gethomepage.dev/widget.url: http://immich-server.selfhosted:2283
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_IMMICH_TOKEN}}`}}"
           gethomepage.dev/widget.version: "2"
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: server
-                  port: http
-
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config:
         type: secret

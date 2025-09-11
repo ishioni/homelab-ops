@@ -81,21 +81,18 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: public
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Vaultwarden
           gethomepage.dev/icon: vaultwarden.svg
-        hosts:
-          - host: &host ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       data:
         existingClaim: ${PVC_CLAIM}

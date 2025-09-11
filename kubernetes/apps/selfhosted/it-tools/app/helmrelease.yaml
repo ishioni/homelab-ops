@@ -44,3 +44,14 @@ spec:
                 service:
                   identifier: app
                   port: http
+    route:
+      app:
+        # annotations:
+        #   gethomepage.dev/enabled: "true"
+        #   gethomepage.dev/group: Selfhosted
+        #   gethomepage.dev/name: IT-Tools
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https

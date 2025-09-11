@@ -64,16 +64,13 @@ spec:
             port: *serverPort
           health:
             port: *healthPort
-    ingress:
+    route:
       app:
-        className: public
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config-file:
         type: configMap
