@@ -35,7 +35,7 @@ spec:
       service:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
+          # external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
           lbipam.cilium.io/ips: "${CONFIG_INGRESS_PUBLIC_IP}"
         labels:
           io.cilium/ippool: public
