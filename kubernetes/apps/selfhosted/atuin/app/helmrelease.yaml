@@ -75,16 +75,13 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
-      main:
-        className: private
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+    route:
+      app:
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
     persistence:
       config:
         type: emptyDir
