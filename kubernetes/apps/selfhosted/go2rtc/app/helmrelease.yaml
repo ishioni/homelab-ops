@@ -71,16 +71,17 @@ spec:
           webrtc-udp:
             port: 8555
             protocol: UDP
-    ingress:
+    route:
       app:
-        className: private
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         type: configMap

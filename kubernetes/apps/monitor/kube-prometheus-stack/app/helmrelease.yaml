@@ -77,21 +77,26 @@ spec:
       #       etcd:
       #         enabled: true
     alertmanager:
-      ingress:
-        enabled: true
-        ingressClassName: private
-        # annotations:
-        #   gethomepage.dev/enabled: "true"
-        #   gethomepage.dev/group: Infrastructure
-        #   gethomepage.dev/name: Alert Manager
-        #   gethomepage.dev/icon: alertmanager.svg
-        #   gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
-        hosts: ["${ALERT_HOSTNAME}"]
+      route:
+        main:
+          enabled: true
+          annotations:
+            # gethomepage.dev/enabled: "true"
+            # gethomepage.dev/group: Infrastructure
+            # gethomepage.dev/name: Alert Manager
+            # gethomepage.dev/icon: alertmanager.svg
+            # gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
+          hostnames: ["${ALERT_HOSTNAME}"]
+          parentRefs:
+            - name: envoy-internal
+              namespace: network
+              sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
           global:
             resolveTimeout: 5m
+        externalUrl: https://${ALERT_HOSTNAME}/
         storage:
           volumeClaimTemplate:
             spec:
@@ -100,24 +105,28 @@ spec:
                 requests:
                   storage: 1Gi
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: private
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Infrastructure
-          gethomepage.dev/name: Prometheus
-          gethomepage.dev/icon: prometheus.svg
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
-          gethomepage.dev/widget.type: prometheus
-          gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.monitor:9090
-        pathType: Prefix
-        hosts: ["${HOSTNAME}"]
+      route:
+        main:
+          enabled: true
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Infrastructure
+            gethomepage.dev/name: Prometheus
+            gethomepage.dev/icon: prometheus.svg
+            gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
+            gethomepage.dev/widget.type: prometheus
+            gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.monitor:9090
+          hostnames: ["${HOSTNAME}"]
+          parentRefs:
+            - name: envoy-internal
+              namespace: network
+              sectionName: https
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "__replica__"
         scrapeInterval: 30s
         podAntiAffinity: hard
+        externalUrl: https://prometheus.${PRIVATE_DOMAIN}/
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false

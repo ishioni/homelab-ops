@@ -22,6 +22,7 @@ data:
   kubernetes.yaml: |
     mode: cluster
     ingress: true
+    gateway: true
   services.yaml: |
     - Calendar:
         - Agenda:
