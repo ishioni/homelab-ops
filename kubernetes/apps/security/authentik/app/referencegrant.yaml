@@ -17,6 +17,6 @@ spec:
       kind: SecurityPolicy
       namespace: selfhosted
   to:
-    - group: ''
+    - group: ""
       kind: Service
       name: ak-outpost-proxy-outpost
