@@ -227,6 +227,10 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: server
+                port: *serverport
     persistence:
       config:
         type: secret
