@@ -26,9 +26,7 @@ spec:
     txtPrefix: talos.
     txtOwnerId: talos
     extraArgs:
-      - --annotation-filter=external-dns.home.arpa/enabled in (true)
-      # Once switched to gateway
-      # - --gateway-name=envoy-external
+      - --gateway-name=envoy-external
     provider:
       name: cloudflare
     env:

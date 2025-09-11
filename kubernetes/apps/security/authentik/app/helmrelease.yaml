@@ -52,7 +52,7 @@ spec:
         serviceMonitor:
           enabled: true
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: public
         annotations:
           gethomepage.dev/enabled: "true"
@@ -65,6 +65,25 @@ spec:
           gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
         hosts: ["${HOSTNAME}"]
         paths: [/]
+      route:
+        main:
+          enabled: true
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Infrastructure
+            gethomepage.dev/name: Authentik
+            gethomepage.dev/icon: authentik.png
+            gethomepage.dev/pod-selector: app.kubernetes.io/name=authentik
+            gethomepage.dev/widget.type: authentik
+            gethomepage.dev/widget.url: http://authentik-server.security
+            gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
+          hostnames: ["${HOSTNAME}"]
+          parentRefs:
+            - group: gateway.networking.k8s.io
+              kind: Gateway
+              name: envoy-external
+              namespace: network
+              sectionName: https
     worker:
       replicas: 1
       resources:
