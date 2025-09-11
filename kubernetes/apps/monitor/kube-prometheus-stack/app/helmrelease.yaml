@@ -126,6 +126,7 @@ spec:
         replicaExternalLabelName: "__replica__"
         scrapeInterval: 30s
         podAntiAffinity: hard
+        externalUrl: https://prometheus.${PRIVATE_DOMAIN}/
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
