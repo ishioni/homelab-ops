@@ -87,13 +87,9 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: public
         annotations:
-          authentik.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/auth-signin: |-
-            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Lidarr
@@ -101,13 +97,11 @@ spec:
           gethomepage.dev/widget.type: lidarr
           gethomepage.dev/widget.url: http://lidarr.downloads
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_LIDARR_TOKEN}}`}}"
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config:
         existingClaim: ${PVC_CLAIM}
