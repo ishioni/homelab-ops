@@ -96,6 +96,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
+        externalUrl: https://${ALERT_HOSTNAME}/
         storage:
           volumeClaimTemplate:
             spec:
