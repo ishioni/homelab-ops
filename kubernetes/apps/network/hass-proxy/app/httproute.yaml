@@ -14,7 +14,7 @@ spec:
     - backendRefs:
         - kind: Service
           name: hass-proxy
-          port: 8123
+          port: 80
       matches:
         - path:
             type: PathPrefix

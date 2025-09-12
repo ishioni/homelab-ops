@@ -4,11 +4,12 @@ kind: Service
 metadata:
   name: hass-proxy
 spec:
-  externalName: haos.${PRIVATE_DOMAIN}
+  # externalName: haos.${PRIVATE_DOMAIN}
+  externalName: thesucc.ishioni.casa
   ports:
     - name: http
-      port: 8123
-      appProtocol: kubernetes.io/wss
+      port: 80
+      # appProtocol: kubernetes.io/wss
       protocol: TCP
-      targetPort: 8123
+      targetPort: 80
   type: ExternalName
