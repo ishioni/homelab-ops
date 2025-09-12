@@ -8,6 +8,7 @@ spec:
   ports:
     - name: http
       port: 8123
+      appProtocol: kubernetes.io/wss
       protocol: TCP
       targetPort: 8123
   type: ExternalName
