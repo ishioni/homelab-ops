@@ -1,12 +1,12 @@
 ---
 api:
   dashboard: true
-accesslog:
-  format: json
-  fields:
-    defaultMode: keep
-    headers:
-      defaultMode: keep
+accesslog: {}
+  # format: json
+  # fields:
+  #   defaultMode: keep
+  #   headers:
+  #     defaultMode: keep
 log:
   level: INFO #DEBUG
 entryPoints:
