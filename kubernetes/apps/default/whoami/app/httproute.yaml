@@ -5,7 +5,7 @@ kind: HTTPRoute
 metadata:
   name: experiment
 spec:
-  hostnames: whoami-test.movishell.pl
+  hostnames: [whoami-test.movishell.pl]
   parentRefs:
     - name: envoy-external
       namespace: network
