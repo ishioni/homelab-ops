@@ -24,6 +24,9 @@ spec:
         - type: URLRewrite
           urlRewrite:
             hostname: cdn.s3.${PRIVATE_DOMAIN}
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /
         - type: RequestHeaderModifier
           requestHeaderModifier:
             remove: [Set-Cookie]
