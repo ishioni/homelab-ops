@@ -1,7 +1,12 @@
 ---
 api:
   dashboard: true
-# accesslog: {}
+accesslog:
+  format: json
+  fields:
+    defaultMode: keep
+    headers:
+      defaultMode: keep
 log:
   level: INFO #DEBUG
 entryPoints:
