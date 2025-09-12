@@ -14,4 +14,3 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./external-dns/ks.yaml
   - ./hass-proxy/ks.yaml
-  - ./ingress-nginx/ks.yaml
