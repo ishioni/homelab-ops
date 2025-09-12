@@ -12,10 +12,10 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - group: ""
-          kind: Service
-          name: whoami
-          port: 8080
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: whoami-proxy
+          port: 443
       matches:
         - path:
             type: PathPrefix
@@ -24,9 +24,6 @@ spec:
         - type: URLRewrite
           urlRewrite:
             hostname: cdn.s3.${PRIVATE_DOMAIN}
-            path:
-              type: ReplaceFullPath
-              replaceFullPath: /
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            remove: [Set-Cookie]
+        # - type: RequestHeaderModifier
+        #   requestHeaderModifier:
+        #     remove: [Set-Cookie]

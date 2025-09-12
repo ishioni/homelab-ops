@@ -1,0 +1,26 @@
+---
+services:
+  meshcentral:
+    image: docker.io/traefik/whoami:v1.11.0
+    container_name: whoami
+    restart: unless-stopped
+    networks:
+      apps:
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Warsaw
+      WHOAMI_PORT_NUMBER: ${APP_PORT}
+    expose:
+      - ${APP_PORT}
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.whoami.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.whoami.entrypoints: https
+      traefik.http.routers.whoami.rule: Host(`${HOST}`)
+      traefik.http.routers.whoami.tls: true
+      traefik.http.routers.whoami.service: whoami
+
+networks:
+  apps:
+    external: true
