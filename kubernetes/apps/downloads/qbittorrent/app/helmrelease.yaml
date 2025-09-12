@@ -131,7 +131,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: http
+                port: *port
     persistence:
       config:
         existingClaim: ${PVC_CLAIM}
