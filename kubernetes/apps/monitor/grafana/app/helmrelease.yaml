@@ -248,9 +248,6 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
-        nfd:
-          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-          datasource: Prometheus
         spegel:
           # renovate: depName="Spegel"
           gnetId: 18089
@@ -265,12 +262,6 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-        ingress-nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        ingress-nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
         envoy-gateway:
           url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
           datasource: Prometheus
