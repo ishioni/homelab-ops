@@ -23,5 +23,7 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
+        extensionApis:
+          enableBackend: true
     global:
       imageRegistry: mirror.gcr.io
