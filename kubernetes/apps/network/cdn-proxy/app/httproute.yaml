@@ -20,8 +20,10 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      # filters:
-      #   - type: RequestHeaderModifier
-      #     responseHeaderModifier:
-      #       remove:
-      #         - Set-Cookie
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: elsewhere.example
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            remove: [Set-Cookie]
