@@ -35,20 +35,10 @@ resource "authentik_outpost" "proxyoutpost" {
   ]
   config = jsonencode({
     authentik_host          = "https://auth.${var.public_domain}",
-    authentik_host_insecure = false,
-    authentik_host_browser  = "",
-    log_level               = "debug",
+    log_level               = "warning",
     object_naming_template  = "ak-outpost-%(name)s",
-    docker_network          = null,
-    docker_map_ports        = true,
-    docker_labels           = null,
-    container_image         = null,
     kubernetes_replicas     = 1,
     kubernetes_namespace    = "security",
-    kubernetes_ingress_annotations = {
-      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
-    },
-    kubernetes_ingress_secret_name = "proxy-outpost-tls",
     kubernetes_httproute_parent_refs = [{
       group       = "gateway.networking.k8s.io"
       kind        = "Gateway"
@@ -57,7 +47,6 @@ resource "authentik_outpost" "proxyoutpost" {
       sectionName = "https"
     }]
     kubernetes_service_type        = "ClusterIP",
-    kubernetes_disabled_components = [],
-    kubernetes_image_pull_secrets  = []
+    kubernetes_disabled_components = ["ingress"],
   })
 }
