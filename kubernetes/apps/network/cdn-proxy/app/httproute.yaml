@@ -12,7 +12,8 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - kind: Service
+        - group: gateway.envoyproxy.io
+          kind: Backend
           name: cdn-proxy
           port: 443
       matches:
