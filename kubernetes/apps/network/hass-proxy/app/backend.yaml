@@ -5,6 +5,8 @@ kind: Backend
 metadata:
   name: hass-proxy
 spec:
+  appProtocols:
+    - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
         hostname: haos.ishioni.casa
