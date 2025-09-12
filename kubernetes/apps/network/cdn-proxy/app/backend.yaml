@@ -9,3 +9,6 @@ spec:
     - fqdn:
         hostname: cdn.s3.${PRIVATE_DOMAIN}
         port: 443
+  tls:
+    # wellKnownCACertificates: System
+    insecureSkipVerify: true

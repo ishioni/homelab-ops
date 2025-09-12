@@ -23,7 +23,7 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            hostname: cdn.s3.${PRIVATE_DOMAIN}
+            hostname: whoami.${PRIVATE_DOMAIN}
         # - type: RequestHeaderModifier
         #   requestHeaderModifier:
         #     remove: [Set-Cookie]
