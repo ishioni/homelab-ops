@@ -19,8 +19,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      filters:
-        - type: RequestHeaderModifier
-          responseHeaderModifier:
-            remove:
-              - Set-Cookie
+      # filters:
+      #   - type: RequestHeaderModifier
+      #     responseHeaderModifier:
+      #       remove:
+      #         - Set-Cookie
