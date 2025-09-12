@@ -12,9 +12,9 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - kind: Service
+        - group: gateway.envoyproxy.io
+          kind: Backend
           name: hass-proxy
-          port: 80
       matches:
         - path:
             type: PathPrefix

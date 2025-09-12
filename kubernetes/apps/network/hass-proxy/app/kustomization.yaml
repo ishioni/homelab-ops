@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./gatus.yaml
   - ./httproute.yaml
-  - ./service.yaml
+  - ./backend.yaml
