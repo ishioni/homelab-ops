@@ -4,7 +4,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/target: envoy-external.movishell.pl
+    external-dns.alpha.kubernetes.io/target: external.movishell.pl
   name: envoy-external
   labels:
     type: external
@@ -12,7 +12,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: envoy-external.movishell.pl
+      external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
       lbipam.cilium.io/ips: "${CONFIG_GATEWAY_PUBLIC_IP}"
     labels:
       io.cilium/ippool: public

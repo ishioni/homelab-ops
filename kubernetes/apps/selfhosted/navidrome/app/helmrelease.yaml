@@ -65,13 +65,9 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
-      main:
-        className: public
+    route:
+      app:
         annotations:
-          authentik.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/auth-signin: |-
-            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: Navidrome
@@ -81,13 +77,11 @@ spec:
           gethomepage.dev/widget.user: "{{`{{HOMEPAGE_VAR_NAVIDROME_USER}}`}}"
           gethomepage.dev/widget.token: "{{`{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}`}}"
           gethomepage.dev/widget.salt: "{{`{{HOMEPAGE_VAR_NAVIDROME_SALT}}`}}"
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config:
         existingClaim: ${PVC_CLAIM}

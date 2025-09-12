@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: ${APP}
+spec:
+  extAuth:
+    failOpen: false
+    headersToExtAuth:
+      - cookie
+    http:
+      backendRefs:
+        - name: ak-outpost-proxy-outpost
+          namespace: security
+          port: 9000
+      path: /outpost.goauthentik.io/auth/envoy
+      headersToBackend:
+        - set-cookie
+        - x-authentik-*
+        - authorization
+  targetRefs:
+    - group: ${EXT_AUTH_GROUP:-gateway.networking.k8s.io}
+      kind: ${EXT_AUTH_KIND:-HTTPRoute}
+      name: ${EXT_AUTH_TARGET:-${APP}}

@@ -79,14 +79,9 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        enabled: true
-        className: public
         annotations:
-          authentik.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/auth-signin: |-
-            https://${HOSTNAME}/outpost.goauthentik.io/start?rd=$escaped_request_uri
           gethomepage.dev/enabled: "false"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Bazarr
@@ -94,13 +89,11 @@ spec:
           gethomepage.dev/widget.type: bazarr
           gethomepage.dev/widget.url: http://bazarr.downloads:6767
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_BAZARR_TOKEN}}`}}"
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config:
         enabled: true

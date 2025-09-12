@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/authentik-proxy
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -16,6 +18,7 @@ spec:
   path: ./kubernetes/apps/default/homepage/app
   postBuild:
     substitute:
+      APP: *app
       HOSTNAME: home.${PUBLIC_DOMAIN}
   prune: true
   sourceRef:

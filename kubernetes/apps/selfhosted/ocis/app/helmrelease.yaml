@@ -103,22 +103,18 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: public
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: ownCloud Infinite Scale
           gethomepage.dev/icon: owncloud.svg
-        hosts:
-          - host: ${HOSTNAME}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config:
         type: configMap

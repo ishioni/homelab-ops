@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/authentik-proxy
     - ../../../../components/pvc
   dependsOn:
     - name: postgres-cluster
