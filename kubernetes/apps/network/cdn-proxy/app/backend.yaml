@@ -3,7 +3,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
-  name: hass-proxy
+  name: cdn-proxy
 spec:
   endpoints:
     - fqdn:
