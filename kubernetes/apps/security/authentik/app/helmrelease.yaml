@@ -75,7 +75,7 @@ spec:
             gethomepage.dev/icon: authentik.png
             gethomepage.dev/pod-selector: app.kubernetes.io/name=authentik
             gethomepage.dev/widget.type: authentik
-            gethomepage.dev/widget.version: 2
+            gethomepage.dev/widget.version: "2"
             gethomepage.dev/widget.url: http://authentik-server.security
             gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
           hostnames: ["${HOSTNAME}"]
