@@ -248,12 +248,12 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
-        spegel:
-          # renovate: depName="Spegel"
-          gnetId: 18089
-          revision: 1
-          datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+        # spegel:
+        #   # renovate: depName="Spegel"
+        #   gnetId: 18089
+        #   revision: 1
+        #   datasource:
+        #     - {name: DS_PROMETHEUS, value: Prometheus}
       networking:
         cert-manager:
           # renovate: dashboardName="cert-manager"
