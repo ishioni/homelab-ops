@@ -8,6 +8,7 @@
     "github>ishioni/renovate-config:automerge-terraform-providers",
     "local>ishioni/homelab-ops//.github/renovate/allowedVersions.json5",
     "local>ishioni/homelab-ops//.github/renovate/autoMerge.json5",
+    "local>ishioni/homelab-ops//.github/renovate/changelogs.json5",
     "local>ishioni/homelab-ops//.github/renovate/commitMessage.json5",
     "local>ishioni/homelab-ops//.github/renovate/customManagers.json5",
     "local>ishioni/homelab-ops//.github/renovate/disabledDatasources.json5",
