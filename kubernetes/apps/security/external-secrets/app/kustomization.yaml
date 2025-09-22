@@ -5,9 +5,4 @@ kind: Kustomization
 resources:
   - ./clustersecretstore.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: eso-values
-    files:
-      - values.yaml=./values.yaml
-configurations:
-  - kustomizeconfig.yaml
+  - ./ocirepository.yaml

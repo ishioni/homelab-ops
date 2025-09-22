@@ -6,3 +6,5 @@ resources:
   - ./externalsecret.yaml
   - ./gatus.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
+  - ./referencegrant.yaml
