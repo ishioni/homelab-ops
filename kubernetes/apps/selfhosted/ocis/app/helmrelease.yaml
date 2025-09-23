@@ -115,6 +115,10 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - timeouts:
+              request: 0s
+              backendRequest: 0s
     persistence:
       config:
         type: configMap
