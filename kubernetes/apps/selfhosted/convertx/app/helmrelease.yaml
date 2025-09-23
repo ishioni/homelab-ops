@@ -77,7 +77,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: convertx
+              - identifier: app
     persistence:
       data:
         existingClaim: ${PVC_CLAIM}
