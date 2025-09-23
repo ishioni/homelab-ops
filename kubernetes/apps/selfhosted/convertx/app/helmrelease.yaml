@@ -75,6 +75,9 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: convertx
     persistence:
       data:
         existingClaim: ${PVC_CLAIM}
