@@ -27,6 +27,3 @@ spec:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             remove: [Set-Cookie]
-      timeouts:
-        request: 0s
-        backendRequest: 0s
