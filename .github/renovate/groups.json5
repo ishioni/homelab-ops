@@ -96,18 +96,15 @@
       sourceUrl: "https://github.com/immich-app/immich",
     },
     {
-      description: "Prometheus operator CRD",
-      groupName: "Prometheus operator CRD",
-      matchPackageNames: ["/prometheus-operator-crds/"],
+      description: "Barman cloud plugin",
+      groupName: "Barman cloud plugin",
+      matchPackageNames: [
+        "/plugin-barman-cloud/",
+        "/plugin-barman-cloud-sidecar/",
+      ],
       matchDatasources: ["docker"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
-    },
-    {
-      description: "Gateway API CRD",
-      groupName: "Gateway API CRD",
-      matchPackageNames: ["/kubernetes-sigs/gateway-api/"],
-      matchDatasources: ["github-releases", "github-tags"],
-      group: {commitMessageTopic: "{{{groupName}}}"},
-    },
+      group: {
+        commitMessageTopic: "{{{groupName}}}",
+      },
   ],
 }
