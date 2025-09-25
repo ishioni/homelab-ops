@@ -31,8 +31,9 @@ spec:
               TZ: ${CONFIG_TIMEZONE}
               ND_DATAFOLDER: /config
               ND_MUSICFOLDER: /music
+              ND_CACHEFOLDER: /cache
               ND_PORT: &port 8080
-              ND_TRANSCODINGCACHESIZE: "4GB"
+              ND_TRANSCODINGCACHESIZE: "8GB"
               ND_SCANNER_SCHEDULE: 0 * * * *
               ND_SCANNER_PURGEMISSING: always
               ND_ENABLEDOWNLOADS: "true"
@@ -91,6 +92,12 @@ spec:
               request: 0s
               backendRequest: 0s
     persistence:
+      cache:
+        suffix: cache
+        type: persistentVolumeClaim
+        storageClass: truenas-ssd-nfs
+        accessMode: ReadWriteOnce
+        size: 10G
       config:
         existingClaim: ${PVC_CLAIM}
       music:
