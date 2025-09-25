@@ -87,6 +87,11 @@ variable "redirect_uris" {
   type = list(any)
 }
 
+variable "logout_uri" {
+  type = string
+  default = ""
+}
+
 locals {
   client_secret = (
     var.client_type == "confidential"

@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./externalsecret.yaml
+  - ./gatus.yaml
+  - ./helmrelease.yaml
+# configMapGenerator:
+#   - name: ocis
+#     files:
+#       - csp.yaml=./config/csp.yaml
+#       - proxy.yaml=./config/proxy.yaml
+#       - web.yaml=./config/web.yaml
+# configurations:
+#   - ./config/kustomizeconfig.yaml

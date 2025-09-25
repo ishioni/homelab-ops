@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app opencloud
+  namespace: &namespace selfhosted
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &appname ocis
+  components:
+    - ../../../../components/pvc
+  dependsOn:
+    - name: external-secrets
+      namespace: security
+    - name: democratic-csi-nfs
+      namespace: storage
+    - name: volsync
+      namespace: storage
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/opencloud/app
+  postBuild:
+    substitute:
+      APP: *appname
+      HOSTNAME: opencloud.${PUBLIC_DOMAIN}
+      AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
+      APP_UID: "568"
+      APP_GID: "568"
+      PVC_CLAIM: opencloud-data
+      PVC_CAPACITY: &size 20Gi
+      VOLSYNC_CACHE_CAPACITY: *size
+      PVC_STORAGECLASS: &class truenas-ssd-nfs
+      VOLSYNC_SNAPSHOTCLASS: *class
+      PVC_ACCESSMODES: ReadWriteMany
+      VOLSYNC_TIME: 0 13 * * *
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: selfhosted
+  wait: false
