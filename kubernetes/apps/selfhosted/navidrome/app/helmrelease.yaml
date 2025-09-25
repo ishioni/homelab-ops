@@ -91,14 +91,12 @@ spec:
               request: 0s
               backendRequest: 0s
     persistence:
-      cache2:
+      cache:
         volumeName: navidrome-cache
         type: persistentVolumeClaim
         storageClass: truenas-ssd-nfs
         accessMode: ReadWriteOnce
         size: 20G
-      cache:
-        existingClaim: navidrome-cache
       config:
         existingClaim: ${PVC_CLAIM}
       music:
