@@ -92,6 +92,8 @@ spec:
               backendRequest: 0s
     persistence:
       cache2:
+        type: persistentVolumeClaim
+        storageClass: truenas-ssd-nfs
         accessMode: ReadWriteOnce
         size: 20G
       cache:
