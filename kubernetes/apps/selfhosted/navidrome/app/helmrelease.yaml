@@ -91,6 +91,11 @@ spec:
               request: 0s
               backendRequest: 0s
     persistence:
+      cache2:
+        accessMode: ReadWriteOnce
+        size: 20G
+      cache:
+        existingClaim: navidrome-cache
       config:
         existingClaim: ${PVC_CLAIM}
       music:
