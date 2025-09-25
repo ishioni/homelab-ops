@@ -92,7 +92,7 @@ spec:
               backendRequest: 0s
     persistence:
       cache:
-        prefix: lol
+        suffix: musiccache
         volumeName: navidrome-cache
         type: persistentVolumeClaim
         storageClass: truenas-ssd-nfs
