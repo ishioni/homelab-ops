@@ -92,6 +92,7 @@ spec:
               backendRequest: 0s
     persistence:
       cache2:
+        volumeName: navidrome-cache
         type: persistentVolumeClaim
         storageClass: truenas-ssd-nfs
         accessMode: ReadWriteOnce
