@@ -92,8 +92,7 @@ spec:
               backendRequest: 0s
     persistence:
       cache:
-        suffix: musiccache
-        volumeName: navidrome-cache
+        suffix: cache
         type: persistentVolumeClaim
         storageClass: truenas-ssd-nfs
         accessMode: ReadWriteOnce
