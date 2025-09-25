@@ -92,6 +92,7 @@ spec:
               backendRequest: 0s
     persistence:
       cache:
+        prefix: lol
         volumeName: navidrome-cache
         type: persistentVolumeClaim
         storageClass: truenas-ssd-nfs
