@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/timshel/oidcwarden
-              tag: v2025.8.1-1
+              tag: v2025.9.0-1
             env:
               DATA_FOLDER: "data"
               ICON_CACHE_FOLDER: "data/icon_cache"
