@@ -7,7 +7,7 @@ resources:
   - ./gatus.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: ocis
+  - name: opencloud
     files:
       - csp.yaml=./config/csp.yaml
       - proxy.yaml=./config/proxy.yaml
