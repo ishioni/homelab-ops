@@ -55,6 +55,7 @@ spec:
   compression:
     - type: Brotli
     - type: Gzip
+  tcpKeepalive: {}
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -65,10 +66,13 @@ spec:
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 1
+  http2:
+    onInvalidMessage: TerminateStream
   http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
+  tcpKeepalive: {}
   tls:
     minVersion: "1.2"
     alpnProtocols:
