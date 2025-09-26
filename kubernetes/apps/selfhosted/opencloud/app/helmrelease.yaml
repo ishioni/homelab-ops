@@ -1,0 +1,122 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.0.1/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: opencloud
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 30m
+  values:
+    controllers:
+      opencloud:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret opencloud-secret
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          opencloud:
+            image:
+              repository: docker.io/opencloudeu/opencloud-rolling
+              tag: 3.5.0@sha256:15963603ee31edf92317dea6ccd420afd9c40caf95d5ebc9901e42eb339789ef
+            command:
+              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            envFrom:
+              - secretRef:
+                  name: *secret
+            env:
+              OC_INSECURE: true
+              OC_URL: https://${HOSTNAME}
+              OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
+              OCIS_LOG_COLOR: false
+              OCIS_LOG_LEVEL: info
+              OCIS_LOG_PRETTY: false
+
+              GATEWAY_GRPC_ADDR: 0.0.0.0:9142
+              OC_ENABLE_OCM: false
+
+              STORAGE_USERS_DRIVER: decomposeds3
+              STORAGE_SYSTEM_DRIVER: decomposed
+              STORAGE_USERS_EVENTS_NUM_CONSUMERS: "5"
+
+              OC_ADMIN_USER_ID: ""
+              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: false
+              GRAPH_ASSIGN_DEFAULT_USER_ROLE: false
+              GRAPH_USERNAME_MATCH: none
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 2000Mi
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 9200
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 5
+              readiness: *probes
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: opencloud
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: OpenCloud
+          gethomepage.dev/icon: sh-opencloud.svg
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+            timeouts:
+              request: 0s
+              backendRequest: 0s
+    persistence:
+      config:
+        type: configMap
+        name: opencloud
+        globalMounts:
+          - path: /etc/opencloud/proxy.yaml
+            subPath: proxy.yaml
+            readOnly: true
+          - path: /etc/opencloud/csp.yaml
+            subPath: csp.yaml
+            readOnly: true
+      data:
+        existingClaim: ${PVC_CLAIM}
+        globalMounts:
+          - path: /var/lib/opencloud
+            subPath: data
+          - path: /etc/opencloud
+            subPath: config
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp

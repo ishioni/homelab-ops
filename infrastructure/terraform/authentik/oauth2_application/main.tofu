@@ -38,6 +38,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   access_token_validity      = var.access_token_validity
   property_mappings          = concat(data.authentik_property_mapping_provider_scope.scopes.ids, var.additional_property_mappings)
   allowed_redirect_uris      = local.allowed_redirect_uris
+  backchannel_logout_uri     = var.logout_uri
 }
 
 resource "authentik_application" "oauth2-application" {
