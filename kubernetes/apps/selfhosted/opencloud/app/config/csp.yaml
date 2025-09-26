@@ -18,7 +18,7 @@ directives:
     - "blob:"
     - "https://embed.diagrams.net/"
     # This is needed for the external-sites web extension when embedding sites
-    - 'https://docs.opencloud.eu'
+    - "https://docs.opencloud.eu"
   img-src:
     - "'self'"
     - "data:"
