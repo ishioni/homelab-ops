@@ -38,29 +38,36 @@ spec:
               - secretRef:
                   name: *secret
             env:
-              TZ: "${CONFIG_TIMEZONE}"
-              DEMO_USERS: false
-              OC_LOG_COLOR: false
-              OC_LOG_LEVEL: info
-              OC_LOG_PRETTY: false
-              OCIS_OIDC_ISSUER: https://${AUTH_HOSTNAME}/application/o/owncloud/
-              OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
-              OCIS_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD: true
-              OCIS_URL: https://${HOSTNAME}
-              PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
-              PROXY_AUTOPROVISION_ACCOUNTS: true
-              PROXY_TLS: false
-              PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
-              PROXY_OIDC_SKIP_USER_INFO: false
-              PROXY_OIDC_REWRITE_WELLKNOWN: true
-              PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
-              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: groups
-              PROXY_USER_OIDC_CLAIM: preferred_username
+              OC_INSECURE: true
+              OC_URL: https://${HOSTNAME}
+              OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
+              OCIS_LOG_COLOR: false
+              OCIS_LOG_LEVEL: info
+              OCIS_LOG_PRETTY: false
+
+              GATEWAY_GRPC_ADDR: 0.0.0.0:9142
+              OC_ENABLE_OCM: false
+              OC_EXCLUDE_RUN_SERVICES: idp
+
               STORAGE_USERS_DRIVER: decomposeds3
               STORAGE_SYSTEM_DRIVER: decomposed
               STORAGE_USERS_EVENTS_NUM_CONSUMERS: "5"
-              WEB_OIDC_METADATA_URL: https://${AUTH_HOSTNAME}/application/o/owncloud/.well-known/openid-configuration
-              WEB_OIDC_SCOPE: openid profile email groups
+
+              PROXY_TLS: false
+              PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
+              PROXY_USER_OIDC_CLAIM: "preferred_username"
+              PROXY_USER_CS3_CLAIM: "username"
+              PROXY_AUTOPROVISION_ACCOUNTS: "true"
+              PROXY_ROLE_ASSIGNMENT_DRIVER: "oidc"
+              PROXY_ACCESS_TOKEN_VERIFY_METHOD: "none"
+              PROXY_OIDC_REWRITE_WELLKNOWN: "true"
+              PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: "groups"
+              PROXY_AUTOPROVISION_CLAIM_USERNAME: "preferred_username"
+
+              OC_ADMIN_USER_ID: ""
+              SETTINGS_SETUP_DEFAULT_ASSIGNMENTS: "false"
+              GRAPH_ASSIGN_DEFAULT_USER_ROLE: "false"
+              GRAPH_USERNAME_MATCH: "none"
             resources:
               requests:
                 cpu: 100m
@@ -114,9 +121,6 @@ spec:
         globalMounts:
           - path: /etc/opencloud/proxy.yaml
             subPath: proxy.yaml
-            readOnly: true
-          - path: /etc/opencloud/web.yaml
-            subPath: web.yaml
             readOnly: true
           - path: /etc/opencloud/csp.yaml
             subPath: csp.yaml

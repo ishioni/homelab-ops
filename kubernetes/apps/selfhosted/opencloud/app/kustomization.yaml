@@ -6,11 +6,10 @@ resources:
   - ./externalsecret.yaml
   - ./gatus.yaml
   - ./helmrelease.yaml
-# configMapGenerator:
-#   - name: ocis
-#     files:
-#       - csp.yaml=./config/csp.yaml
-#       - proxy.yaml=./config/proxy.yaml
-#       - web.yaml=./config/web.yaml
-# configurations:
-#   - ./config/kustomizeconfig.yaml
+configMapGenerator:
+  - name: ocis
+    files:
+      - csp.yaml=./config/csp.yaml
+      - proxy.yaml=./config/proxy.yaml
+configurations:
+  - ./config/kustomizeconfig.yaml
