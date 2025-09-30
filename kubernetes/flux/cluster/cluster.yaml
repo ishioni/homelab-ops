@@ -10,8 +10,6 @@ spec:
     - ../../components/global-vars
   decryption:
     provider: sops
-    secretRef:
-      name: sops-age
   interval: 30m
   path: ./kubernetes/flux/cluster-meta
   prune: true
@@ -33,8 +31,6 @@ metadata:
 spec:
   decryption:
     provider: sops
-    secretRef:
-      name: sops-age
   dependsOn:
     - name: cluster-meta
       namespace: flux-system
@@ -49,8 +45,6 @@ spec:
         spec:
           decryption:
             provider: sops
-            secretRef:
-              name: sops-age
           postBuild:
             substituteFrom:
               - kind: ConfigMap
