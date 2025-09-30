@@ -87,10 +87,6 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 8080
     persistence:
       config:
         type: configMap
