@@ -56,6 +56,9 @@ spec:
     - type: Brotli
     - type: Gzip
   tcpKeepalive: {}
+  timeout:
+    http:
+      requestTimeout: 0s
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -73,6 +76,9 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
   tls:
     minVersion: "1.2"
     alpnProtocols:

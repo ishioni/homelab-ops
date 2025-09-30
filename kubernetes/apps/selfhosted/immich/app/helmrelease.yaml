@@ -231,9 +231,6 @@ spec:
           - backendRefs:
               - identifier: server
                 port: *serverport
-            timeouts:
-              request: 0s
-              backendRequest: 0s
     persistence:
       config:
         type: secret
