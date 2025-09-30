@@ -131,9 +131,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-            timeouts:
-              request: 0s
-              backendRequest: 0s
     persistence:
       library:
         existingClaim: ${PVC_CLAIM}

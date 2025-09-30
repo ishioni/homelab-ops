@@ -91,9 +91,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 8080
-            timeouts:
-              request: 0s
-              backendRequest: 0s
     persistence:
       config:
         type: configMap

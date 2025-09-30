@@ -82,9 +82,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-            timeouts:
-              request: 0s
-              backendRequest: 0s
     persistence:
       config:
         type: configMap

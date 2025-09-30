@@ -20,9 +20,6 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      timeouts:
-        request: 0s
-        backendRequest: 0s
       filters:
         - type: URLRewrite
           urlRewrite:
