@@ -7,7 +7,6 @@ components:
   - ../../components/alerts
   - ../../components/namespace
   - ../../components/global-vars
-  - ../../components/sops
 resources:
   - ./cdn-proxy/ks.yaml
   - ./cert-manager/ks.yaml

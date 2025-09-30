@@ -7,7 +7,6 @@ components:
   - ../../components/alerts
   - ../../components/namespace
   - ../../components/global-vars
-  - ../../components/sops
 resources:
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
