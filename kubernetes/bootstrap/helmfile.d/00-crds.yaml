@@ -24,3 +24,13 @@ releases:
     namespace: observability
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     version: 77.14.0
+
+  - name: cloudnative-pg
+    namespace: database
+    chart: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg
+    version: 0.26.0
+
+  - name: barman-cloud
+    namespace: database
+    chart: oci://ghcr.io/cloudnative-pg/charts/plugin-barman-cloud
+    version: 0.2.0
