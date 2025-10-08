@@ -100,8 +100,6 @@ spec:
                 matchLabels:
                   app.kubernetes.io/instance: *app
                   app.kubernetes.io/controller: microservices
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
         containers:
           microservices:
             image:
