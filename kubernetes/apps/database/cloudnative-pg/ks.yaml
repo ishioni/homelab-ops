@@ -23,35 +23,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudnative-pg-barman-cloud
-  namespace: &namespace database
-spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: cert-manager
-      namespace: network
-  interval: 30m
-  path: ./kubernetes/apps/database/cloudnative-pg/barman-cloud
-  postBuild:
-    substitute:
-      # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar
-      SIDECAR_IMAGE_VERSION: v0.7.0
-  prune: true
-  retryInterval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: true
----
-# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: &app postgres-cluster
   namespace: &namespace database
 spec:
@@ -60,8 +31,6 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
-      namespace: database
-    - name: cloudnative-pg-barman-cloud
       namespace: database
     - name: openebs
       namespace: storage
