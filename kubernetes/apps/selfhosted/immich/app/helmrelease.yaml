@@ -116,12 +116,12 @@ spec:
               IMMICH_CONFIG_FILE: /config/immich.config.json
               IMMICH_WORKERS_EXCLUDE: api
             resources:
+              claims:
+                - name: gpu
               requests:
-                gpu.intel.com/i915: 1
                 cpu: 100m
                 memory: 250Mi
               limits:
-                gpu.intel.com/i915: 1
                 memory: 2500Mi
       machine-learning:
         strategy: RollingUpdate

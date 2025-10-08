@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/gpu
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -18,10 +20,13 @@ spec:
       namespace: security
     - name: democratic-csi-nfs
       namespace: storage
+    - name: intel-gpu-resource-driver
+      namespace: kube-system
   interval: 30m
   path: ./kubernetes/apps/selfhosted/immich/app
   postBuild:
     substitute:
+      APP: *app
       HOSTNAME: photos.${PUBLIC_DOMAIN}
   prune: true
   sourceRef:
