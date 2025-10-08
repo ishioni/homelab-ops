@@ -17,13 +17,13 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5
   monitoring:
     enablePodMonitor: true
-  plugins:
-    - enabled: true
-      isWALArchiver: true
-      name: barman-cloud.cloudnative-pg.io
-      parameters: &barmanParameters
-        barmanObjectName: minio
-        serverName: postgres-17-v2
+  # plugins:
+  #   - enabled: true
+  #     isWALArchiver: true
+  #     name: barman-cloud.cloudnative-pg.io
+  #     parameters: &barmanParameters
+  #       barmanObjectName: minio
+  #       serverName: postgres-17-v2
   postgresql:
     parameters:
       max_connections: "300"
@@ -45,10 +45,10 @@ spec:
   # bootstrap:
   #   recovery:
   #     source: source
-  externalClusters:
-    - name: source
-      plugin:
-        enabled: true
-        isWALArchiver: false
-        name: barman-cloud.cloudnative-pg.io
-        parameters: *barmanParameters
+  # externalClusters:
+  #   - name: source
+  #     plugin:
+  #       enabled: true
+  #       isWALArchiver: false
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters: *barmanParameters
