@@ -16,13 +16,13 @@ spec:
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2
   monitoring:
     enablePodMonitor: true
-  # plugins:
-  #   - enabled: true
-  #     isWALArchiver: false
-  #     name: barman-cloud.cloudnative-pg.io
-  #     parameters: &barmanParameters
-  #       barmanObjectName: minio
-  #       serverName: immich-pg17-v2
+  plugins:
+    - enabled: true
+      isWALArchiver: true
+      name: barman-cloud.cloudnative-pg.io
+      parameters: &barmanParameters
+        barmanObjectName: minio
+        serverName: immich-pg17-v2
   postgresql:
     shared_preload_libraries: ["vchord.so"]
     parameters:
@@ -54,6 +54,6 @@ spec:
   #   - name: source
   #     plugin:
   #       enabled: true
-  #       isWALArchiver: false
+  #       isWALArchiver: true
   #       name: barman-cloud.cloudnative-pg.io
   #       parameters: *barmanParameters
