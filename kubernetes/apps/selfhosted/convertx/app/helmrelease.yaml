@@ -37,10 +37,8 @@ spec:
               ALLOW_UNAUTHENTICATED: true
               AUTO_DELETE_EVERY_N_HOURS: 1
             resources:
-              requests:
-                gpu.intel.com/i915: 1
-              limits:
-                gpu.intel.com/i915: 1
+              claims:
+                - name: gpu
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -58,6 +56,10 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimName: convertx-gpu
     service:
       app:
         controller: convertx
