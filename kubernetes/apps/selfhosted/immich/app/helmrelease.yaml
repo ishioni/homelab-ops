@@ -174,7 +174,7 @@ spec:
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimName: immich-gpu
+          resourceClaimTemplateName: immich-gpu
     service:
       server:
         controller: server
