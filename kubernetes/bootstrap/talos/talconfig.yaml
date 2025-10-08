@@ -110,6 +110,9 @@ patches:
           content: |
             [plugins."io.containerd.cri.v1.images"]
               discard_unpacked_layers = false
+            [plugins."io.containerd.cri.v1.runtime"]
+              cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
+              device_ownership_from_security_context = true
   # Enable metrics scraping
   - |-
     cluster:
@@ -123,12 +126,23 @@ patches:
       scheduler:
         extraArgs:
           bind-address: 0.0.0.0
+  # Apiserver flags
+  - |-
+    cluster:
+      apiServer:
+        extraArgs:
+          enable-aggregator-routing: true
+          feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true,ResourceHealthStatus=true
+          runtime-config: admissionregistration.k8s.io/v1beta1=true
   # Kubelet flags
   - |-
     machine:
       kubelet:
         extraConfig:
           serializeImagePulls: false
+          featureGates:
+            ImageVolume: true
+            ResourceHealthStatus: true
         extraArgs:
           rotate-server-certificates: "true"
         nodeIP:
@@ -137,6 +151,8 @@ patches:
   # Sysctl
   - |-
     machine:
+      nodeLabels:
+        node.kubernetes.io/gpu: "true"
       sysctls:
         fs.inotify.max_queued_events: 1048576
         fs.inotify.max_user_instances: 8192

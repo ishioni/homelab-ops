@@ -10,9 +10,8 @@ components:
 resources:
   - ./cilium/ks.yaml
   - ./descheduler/ks.yaml
-  - ./intel-device-plugin/ks.yaml
+  - ./intel-gpu-resource-driver/ks.yaml
   - ./metrics-server/ks.yaml
-  - ./node-feature-discovery/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
