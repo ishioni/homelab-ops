@@ -87,6 +87,9 @@ spec:
           secret.reloader.stakater.com/reload: *secret
           configmap.reloader.stakater.com/reload: *configmap
         pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: immich-gpu
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -171,10 +174,6 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-    defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: immich-gpu
     service:
       server:
         controller: server
