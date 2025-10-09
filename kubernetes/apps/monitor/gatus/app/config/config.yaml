@@ -40,4 +40,4 @@ ui:
   title: Status | Gatus
   header: Status
 web:
-  port: ${CUSTOM_WEB_PORT}
+  port: ${GATUS_WEB_PORT}
