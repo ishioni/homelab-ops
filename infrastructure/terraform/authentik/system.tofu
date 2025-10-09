@@ -46,6 +46,9 @@ resource "authentik_outpost" "proxyoutpost" {
       namespace   = "network"
       sectionName = "https"
     }]
+    kubernetes_httproute_annotations = {
+      "gatus.home-operations.com/enabled" = "false"
+    }
     kubernetes_service_type        = "ClusterIP",
     kubernetes_disabled_components = ["ingress"],
   })
