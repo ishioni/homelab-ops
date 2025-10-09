@@ -7,7 +7,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: external.movishell.pl
     gatus.home-operations.com/endpoint: |-
       client:
-        dns-resolver: tcp://1.1.1.1:53
+        dns-resolver: tcp://10.1.2.1:53
       group: external
       alerts:
         - type: pushover
