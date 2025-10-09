@@ -7,6 +7,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: postgres-17.${PRIVATE_DOMAIN}
     gatus.home-operations.com/enabled: "true"
     gatus.home-operations.com/endpoint: |
+      name: postgres-17
       conditions:
         - "[CONNECTED] == true"
       group: Services

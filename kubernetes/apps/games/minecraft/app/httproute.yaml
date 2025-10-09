@@ -5,6 +5,8 @@ kind: HTTPRoute
 metadata:
   name: minecraft-map
   annotations:
+    gatus.home-operations.com/endpoint: |-
+      name: minecraft
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Games
     gethomepage.dev/name: Minecraft
