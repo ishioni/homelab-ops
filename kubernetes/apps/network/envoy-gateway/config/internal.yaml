@@ -10,6 +10,9 @@ metadata:
       ui:
         hide-hostname: true
         hide-url: true
+      alerts:
+        - type: pushover
+          send-on-resolved: true
   labels:
     type: internal
 spec:

@@ -9,6 +9,9 @@ metadata:
       client:
         dns-resolver: tcp://1.1.1.1:53
       group: external
+      alerts:
+        - type: pushover
+          send-on-resolved: true
   name: envoy-external
   labels:
     type: external
