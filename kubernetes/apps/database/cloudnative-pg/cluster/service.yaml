@@ -10,6 +10,9 @@ metadata:
       conditions:
         - "[CONNECTED] == true"
       group: Services
+      ui:
+        hide-hostname: true
+        hide-url: true
 spec:
   type: LoadBalancer
   ports:
@@ -32,6 +35,9 @@ metadata:
       conditions:
         - "[CONNECTED] == true"
       group: Services
+      ui:
+        hide-hostname: true
+        hide-url: true
 spec:
   type: LoadBalancer
   ports:

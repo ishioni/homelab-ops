@@ -52,3 +52,6 @@ spec:
         conditions:
           - "[CONNECTED] == true"
         group: Services
+        ui:
+          hide-hostname: true
+          hide-url: true
