@@ -16,7 +16,7 @@ connectivity:
     target: 1.1.1.1:53
     interval: 1m
 endpoints:
-  - name: Minio
+  - name: minio
     group: Services
     url: https://minio.${PRIVATE_DOMAIN}/minio/health/live
     interval: 1m
