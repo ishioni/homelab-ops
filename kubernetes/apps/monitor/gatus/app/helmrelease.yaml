@@ -27,31 +27,32 @@ spec:
             envFrom: &envfrom
               - secretRef:
                   name: *secret
-          init-config:
-            dependsOn: init-db
+          gatus-sidecar:
             image:
-              repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.30.10
-            env:
-              FOLDER: /config
-              LABEL: gatus.io/enabled
-              NAMESPACE: ALL
-              RESOURCE: both
-              UNIQUE_FILENAMES: true
-              METHOD: WATCH
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.8@sha256:79c4622f9b379d6bb4e81d775dc4290ddab65eb2d1e4fa4d37a3e7aeef1975d5
+            args:
+              - --auto-httproute
+              - --enable-httproute
+              - --enable-service
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
             restartPolicy: Always
         containers:
           app:
             image:
               repository: ghcr.io/twin/gatus
-              tag: v5.26.0
+              tag: v5.26.0@sha256:3c0314bd1b1e9d7c34d8f2efee16b380770a9639ec5386cc305e8df104e097dc
             env:
+              GATUS_CONFIG_PATH: /config
+              GATUS_DELAY_START_SECONDS: 5
+              GATUS_WEB_PORT: &port 80
               TZ: ${CONFIG_TIMEZONE}
               PUBLIC_DOMAIN: ${PUBLIC_DOMAIN}
               PRIVATE_DOMAIN: ${PRIVATE_DOMAIN}
-              GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
-              CUSTOM_WEB_PORT: &port 8080
             envFrom: *envfrom
             probes:
               liveness: &probes
@@ -76,19 +77,11 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 250Mi
-        serviceAccount:
-          identifier: gatus
     defaultPodOptions:
-      dnsConfig:
-        options:
-          - {name: ndots, value: "1"}
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
         runAsGroup: 65534
-        fsGroup: 65534
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: {type: RuntimeDefault}
     service:
       app:
         controller: gatus
@@ -111,18 +104,6 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-    serviceAccount:
-      gatus: {}
-    persistence:
-      config:
-        type: emptyDir
-      config-file:
-        type: configMap
-        name: *configmap
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
-            readOnly: true
     rbac:
       bindings:
         gatus:
@@ -137,5 +118,20 @@ spec:
           type: ClusterRole
           rules:
             - apiGroups: [""]
-              resources: ["configmaps", "secrets"]
+              resources: ["services"]
               verbs: ["get", "watch", "list"]
+            - apiGroups: ["gateway.networking.k8s.io"]
+              resources: ["gateways", "httproutes"]
+              verbs: ["get", "watch", "list"]
+    serviceAccount:
+      gatus: {}
+    persistence:
+      config:
+        type: emptyDir
+      config-file:
+        type: configMap
+        name: *configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true

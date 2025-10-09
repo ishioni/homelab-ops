@@ -5,6 +5,11 @@ metadata:
   name: &dbcluster postgres-17
   annotations:
     external-dns.alpha.kubernetes.io/hostname: postgres-17.${PRIVATE_DOMAIN}
+    gatus.home-operations.com/enabled: "true"
+    gatus.home-operations.com/endpoint: |
+      conditions:
+        - "[CONNECTED] == true"
+      group: Services
 spec:
   type: LoadBalancer
   ports:
@@ -22,6 +27,11 @@ metadata:
   name: &dbcluster immich-pg17
   annotations:
     external-dns.alpha.kubernetes.io/hostname: immich-pg17.${PRIVATE_DOMAIN}
+    gatus.home-operations.com/enabled: "true"
+    gatus.home-operations.com/endpoint: |
+      conditions:
+        - "[CONNECTED] == true"
+      group: Services
 spec:
   type: LoadBalancer
   ports:
