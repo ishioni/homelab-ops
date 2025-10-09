@@ -88,7 +88,7 @@ variable "redirect_uris" {
 }
 
 variable "logout_uri" {
-  type = string
+  type    = string
   default = ""
 }
 
