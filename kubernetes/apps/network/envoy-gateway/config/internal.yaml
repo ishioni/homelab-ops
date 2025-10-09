@@ -7,6 +7,9 @@ metadata:
   annotations:
     gatus.home-operations.com/endpoint: |-
       group: internal
+      ui:
+        hide-hostname: true
+        hide-url: true
   labels:
     type: internal
 spec:
