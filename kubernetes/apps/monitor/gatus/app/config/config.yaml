@@ -39,5 +39,12 @@ storage:
 ui:
   title: Status | Gatus
   header: Status
+  logo: https://avatars.githubusercontent.com/u/50323052
+  link: https://github.com/ishioni
+  buttons:
+    - name: Github
+      link: https://github.com/ishioni
+    - name: Homelab
+      link: https://github.com/ishioni/homelab-ops
 web:
   port: ${GATUS_WEB_PORT}

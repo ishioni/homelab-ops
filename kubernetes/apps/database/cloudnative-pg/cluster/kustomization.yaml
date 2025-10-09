@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./cluster-17.yaml
   - ./externalsecret.yaml
-  - ./gatus.yaml
+  # - ./gatus.yaml
   - ./immich-pg17.yaml
   - ./objectstore.yaml
   - ./prometheusrule.yaml
