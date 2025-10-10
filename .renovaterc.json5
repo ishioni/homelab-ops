@@ -20,10 +20,7 @@
     ":timezone(Europe/Warsaw)",
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  suppressNotifications: [
-    "prEditedNotification",
-    "prIgnoreNotification",
-  ],
+  suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
   ignorePaths: ["archive/**", "truenas/archive/**"],
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
