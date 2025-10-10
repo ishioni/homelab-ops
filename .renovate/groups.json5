@@ -1,0 +1,87 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      description: "1Password Connect Group",
+      groupName: "1password-connect",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/1password/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Github ARC Group",
+      groupName: "actions-runner-controller",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/gha-runner-scale-set-controller/",
+        "/gha-runner-scale-set/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Flux Operator Group",
+      groupName: "flux-operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/flux-instance/",
+        "/flux-operator/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 3,
+    },
+    {
+      description: "Kubernetes Group",
+      groupName: "kubernetes",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/kube-apiserver/",
+        "/kube-controller-manager/",
+        "/kube-proxy/",
+        "/kube-scheduler/",
+        "/kubelet/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 5,
+    },
+    {
+      description: "Talos Group",
+      groupName: "talos",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/installer/", "/talosctl/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Immich group",
+      groupName: "immich",
+      matchPackageNames: ["/immich/"],
+      matchDatasources: ["docker"],
+      group: {commitMessageTopic: "{{{groupName}}} group"},
+      separateMinorPatch: true,
+      sourceUrl: "https://github.com/immich-app/immich",
+    },
+    {
+      description: "Barman cloud plugin",
+      groupName: "plugin-barman-cloud",
+      matchPackageNames: [
+        "/plugin-barman-cloud/",
+        "/plugin-barman-cloud-sidecar/",
+      ],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+  ],
+}
