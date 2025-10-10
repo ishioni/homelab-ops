@@ -24,9 +24,9 @@ services:
       - "/dev/sdb"
       - "/dev/sdc"
       - "/dev/sdd"
-      - "/dev/nvme0n1"
-      - "/dev/nvme1n1"
-      - "/dev/nvme2n1"
+      - "/dev/nvme0"
+      - "/dev/nvme1"
+      - "/dev/nvme2"
     labels:
       traefik.enable: "true"
       traefik.http.services.scrutiny.loadbalancer.server.port: ${APP_PORT}
