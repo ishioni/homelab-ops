@@ -1,0 +1,40 @@
+---
+services:
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:v0.8.1-omnibus@66a65d1d7f2bf330a55e0bb073a3b2496a7b61dc6414c8c53550bc0c3f6885dd
+    container_name: scrutiny
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    restart: unless-stopped
+    networks:
+      apps:
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Warsaw
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - /run/udev:/run/udev:ro
+      - ${SCRUTINY_DATA_PATH}/config:/opt/scrutiny/config
+      - ${SCRUTINY_DATA_PATH}/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/nvme0n1"
+      - "/dev/nvme1n1"
+      - "/dev/nvme2n1"
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.scrutiny.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.scrutiny.entrypoints: https
+      traefik.http.routers.scrutiny.rule: Host(`${HOST}`)
+      traefik.http.routers.scrutiny.tls: true
+      traefik.http.routers.scrutiny.service: scrutiny
+
+networks:
+  apps:
+    external: true

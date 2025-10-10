@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
+  "settings": {
+    "plugins": {"enabled": false},
+    "_mongoDb": null,
+    "cert": "meshcentral.ishioni.casa",
+    "_WANonly": true,
+    "_LANonly": true,
+    "sessionKey": "9QXOEAO8M0DRI5ACNCR2W4LSJL7SVT8QQAQU81G4R5QBYBH1",
+    "port": 8080,
+    "_aliasPort": 443,
+    "redirPort": 80,
+    "_redirAliasPort": 80,
+    "AgentPong": 300,
+    "TLSOffload": true,
+    "SelfUpdate": false,
+    "AllowFraming": false,
+    "WebRTC": false
+  },
+  "domains": {
+    "": {
+      "_title": "MyServer",
+      "_title2": "Servername",
+      "minify": true,
+      "NewAccounts": false,
+      "localSessionRecording": false,
+      "_userNameIsEmail": true,
+      "certUrl": "https://meshcentral.ishioni.casa:443"
+    }
+  }
+}
