@@ -13,7 +13,6 @@ services:
       - ./secrets.env
     environment:
       TZ: Europe/Warsaw
-      SCRUTINY_NOTIFY_URLS: "[\"pushover://shoutrrr:${PUSHOVER_SCRUTINY_API_KEY}@${PUSHOVER_USER_KEY}/\"]"
     expose:
       - ${APP_PORT}
     volumes:
