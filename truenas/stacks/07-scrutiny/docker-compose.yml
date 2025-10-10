@@ -13,7 +13,7 @@ services:
       - ./secrets.env
     environment:
       TZ: Europe/Warsaw
-      COLLECTOR_CRON_SCHEDULE: "0/10 * * * *"
+      COLLECTOR_CRON_SCHEDULE: "0 * * * *"
     expose:
       - ${APP_PORT}
     volumes:
