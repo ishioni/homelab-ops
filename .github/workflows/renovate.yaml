@@ -2,36 +2,36 @@
 name: Renovate
 
 on:
-  workflow_dispatch:
-    inputs:
-      dryRun:
-        description: Dry-Run
-        default: "false"
-        required: false
-      logLevel:
-        description: Log-Level
-        default: debug
-        required: false
-  schedule:
-    - cron: "0 * * * *"
   push:
     branches: ["master"]
     paths:
-      - .github/renovate.json5
-      - .github/renovate/**.json5
+      - .renovaterc.json5
+      - .renovate/**.json5
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: Dry Run
+        type: boolean
+        default: false
+        required: true
+      logLevel:
+        description: Log Level
+        type: choice
+        default: debug
+        options:
+          - debug
+          - info
+        required: true
+      version:
+        description: Renovate Version
+        default: latest
+        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
-
-env:
-  RENOVATE_AUTODISCOVER: true
-  RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
-  RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"
-  RENOVATE_PLATFORM: github
-  RENOVATE_PLATFORM_COMMIT: true
-  RENOVATE_CONFIG_FILE: .github/renovate.json5
-  LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
 
 jobs:
   renovate:
@@ -52,6 +52,14 @@ jobs:
 
       - name: Renovate
         uses: renovatebot/github-action@e2421a9a80287bba9997b41a15ea1e5585d96925 # v43.0.16
+        env:
+          LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
+          RENOVATE_AUTODISCOVER: true
+          RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
+          RENOVATE_DRY_RUN: ${{ inputs.dryRun }}
+          RENOVATE_INTERNAL_CHECKS_FILTER: strict
+          RENOVATE_PLATFORM: github
+          RENOVATE_PLATFORM_COMMIT: true
         with:
-          configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.app-token.outputs.token }}"
+          renovate-version: ${{ inputs.version || 'latest' }}
