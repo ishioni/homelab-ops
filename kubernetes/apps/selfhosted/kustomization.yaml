@@ -6,7 +6,6 @@ namespace: selfhosted
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/global-vars
 resources:
   - ./atuin/ks.yaml
   - ./convertx/ks.yaml

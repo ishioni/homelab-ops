@@ -6,7 +6,6 @@ namespace: database
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/global-vars
 resources:
   - ./cloudnative-pg/ks.yaml
   - ./dragonfly/ks.yaml

@@ -18,7 +18,7 @@ metadata:
   name: l2-pool-public
 spec:
   blocks:
-    - cidr: ${CONFIG_L2_POOL_PUBLIC_CIDR}
+    - cidr: 10.1.2.96/27
   serviceSelector:
     matchExpressions:
       - {key: io.cilium/ippool, operator: In, values: [public]}
@@ -30,7 +30,7 @@ metadata:
   name: l2-pool-private
 spec:
   blocks:
-    - cidr: ${CONFIG_L2_POOL_PRIVATE_CIDR}
+    - cidr: 10.1.2.128/27
   serviceSelector:
     matchExpressions:
       - {key: io.cilium/ippool, operator: NotIn, values: [public]}

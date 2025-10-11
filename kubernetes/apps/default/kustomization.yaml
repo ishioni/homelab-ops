@@ -6,7 +6,6 @@ namespace: default
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/global-vars
 resources:
   - ./homepage/ks.yaml
   - ./whoami/ks.yaml
