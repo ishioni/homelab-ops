@@ -6,7 +6,6 @@ namespace: network
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/global-vars
 resources:
   - ./cdn-proxy/ks.yaml
   - ./cert-manager/ks.yaml

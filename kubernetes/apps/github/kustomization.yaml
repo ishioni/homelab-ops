@@ -6,6 +6,5 @@ namespace: github
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/global-vars
 resources:
   - ./arc/ks.yaml

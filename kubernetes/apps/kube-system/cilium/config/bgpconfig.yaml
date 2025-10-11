@@ -63,7 +63,7 @@ metadata:
   name: bgp-pool-public
 spec:
   blocks:
-    - cidr: ${CONFIG_BGP_PUBLIC_POOL_CIDR}
+    - cidr: 10.84.2.0/27
   serviceSelector:
     matchExpressions:
       - {key: io.cilium/ippool, operator: In, values: [public]}
@@ -75,7 +75,7 @@ metadata:
   name: bgp-pool-private
 spec:
   blocks:
-    - cidr: ${CONFIG_BGP_PRIVATE_POOL_CIDR}
+    - cidr: 10.84.2.32/27
   serviceSelector:
     matchExpressions:
       - {key: io.cilium/ippool, operator: NotIn, values: [public]}

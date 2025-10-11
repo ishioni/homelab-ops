@@ -61,7 +61,7 @@ spec:
         controller: go2rtc
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: ${CONFIG_GO2RTC_IP}
+          lbipam.cilium.io/ips: 10.84.2.4
         labels:
           io.cilium/ippool: public
         ports:

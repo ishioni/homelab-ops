@@ -33,6 +33,12 @@ spec:
       namespace: flux-system
   interval: 30m
   path: ./kubernetes/apps
+  postBuild:
+    substitute:
+      PUBLIC_DOMAIN: movishell.pl
+      PRIVATE_DOMAIN: ishioni.casa
+      CONFIG_TRUENAS_IP: 10.1.2.2
+      CONFIG_TIMEZONE: Europe/Warsaw
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -69,16 +75,14 @@ spec:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
           postBuild:
-            substituteFrom:
-              - kind: ConfigMap
-                name: cluster-settings
+            substitute:
+              PUBLIC_DOMAIN: movishell.pl
+              PRIVATE_DOMAIN: ishioni.casa
+              CONFIG_TRUENAS_IP: 10.1.2.2
+              CONFIG_TIMEZONE: Europe/Warsaw
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-settings
   prune: true
   sourceRef:
     kind: GitRepository
