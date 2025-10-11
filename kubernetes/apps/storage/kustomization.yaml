@@ -6,7 +6,6 @@ namespace: storage
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/global-vars
 resources:
   - ./democratic-csi/ks.yaml
   - ./openebs/ks.yaml
