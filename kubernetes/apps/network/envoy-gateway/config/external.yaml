@@ -20,7 +20,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
-      lbipam.cilium.io/ips: 10.84.2.5
+      lbipam.cilium.io/ips: 10.84.2.1
     labels:
       io.cilium/ippool: public
   listeners:
