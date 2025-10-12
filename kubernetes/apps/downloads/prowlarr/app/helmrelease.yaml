@@ -8,8 +8,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
-    namespace: flux-system
+    name: prowlarr
   interval: 30m
   maxHistory: 3
   uninstall:

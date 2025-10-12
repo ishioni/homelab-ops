@@ -3,13 +3,12 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: democratic-csi
-  namespace: flux-system
+  name: it-tools
 spec:
   interval: 1h
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.15.0
-  url: oci://ghcr.io/democratic-csi/charts/democratic-csi
+    tag: 4.3.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template

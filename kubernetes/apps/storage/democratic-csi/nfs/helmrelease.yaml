@@ -7,8 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: democratic-csi
-    namespace: flux-system
+    name: democratic-csi-nfs
   dependsOn:
     - name: snapshot-controller
   interval: 30m

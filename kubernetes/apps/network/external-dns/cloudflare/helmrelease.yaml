@@ -3,12 +3,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-cloudflare
+  name: external-dns-cloudflare
 spec:
   chartRef:
     kind: OCIRepository
-    name: external-dns
-    namespace: flux-system
+    name: external-dns-cloudflare
   install:
     crds: CreateReplace
   interval: 30m
