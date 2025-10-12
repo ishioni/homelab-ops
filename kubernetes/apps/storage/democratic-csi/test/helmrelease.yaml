@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: democratic-csi-ssd-test
+  name: democratic-csi-test
 spec:
   chartRef:
     kind: OCIRepository
@@ -40,7 +40,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/csi-role: controller
-              app.kubernetes.io/instance: democratic-csi-ssd-iscsi
+              app.kubernetes.io/instance: democratic-csi-test
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret

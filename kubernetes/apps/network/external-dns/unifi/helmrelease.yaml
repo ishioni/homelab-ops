@@ -3,12 +3,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-unifi
+  name: external-dns-unifi
 spec:
   chartRef:
     kind: OCIRepository
-    name: external-dns
-    namespace: flux-system
+    name: external-dns-unifi
   interval: 30m
   maxHistory: 3
   upgrade:

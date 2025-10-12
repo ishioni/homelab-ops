@@ -47,7 +47,7 @@ spec:
     csiDriver:
       name: "org.democratic-csi.nvmeof"
     storageClasses:
-      - name: truenas-ssd-nvmeof
+      - name: truenass-nvmeof
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
@@ -64,7 +64,7 @@ spec:
           node-publish-secret:
           controller-expand-secret:
     volumeSnapshotClasses:
-      - name: truenas-ssd-nvmeof
+      - name: truenas-nvmeof
         driver: org.democratic-csi.nvmeof
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "false"
