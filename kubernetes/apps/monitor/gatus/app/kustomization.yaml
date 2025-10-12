@@ -6,6 +6,7 @@ namespace: monitor
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
 configMapGenerator:
   - name: gatus-configmap
     files:
