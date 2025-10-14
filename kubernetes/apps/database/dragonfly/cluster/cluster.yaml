@@ -27,7 +27,7 @@ spec:
         secretKeyRef:
           key: AWS_SECRET_ACCESS_KEY
           name: dragonfly-secret
-  image: ghcr.io/dragonflydb/dragonfly:v1.34.1
+  image: ghcr.io/dragonflydb/dragonfly:v1.34.2
   labels:
     dragonflydb.io/cluster: dragonfly
   replicas: 3
