@@ -17,6 +17,14 @@
       ],
     },
     {
+      description: "Auto merge terraform providers",
+      matchDatasources: ["terraform-provider"],
+      automerge: true,
+      automergeType: "branch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "ignoreTests": true
+    },
+    {
       description: "Auto-merge trusted container digests",
       matchDatasources: ["docker"],
       automerge: true,
