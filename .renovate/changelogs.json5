@@ -15,6 +15,11 @@
       description: "Changelog for Envoy",
       matchPackageNames: ["/envoy/"],
       sourceUrl: "https://github.com/envoyproxy/envoy",
+    },
+    {
+      description: "Changelog for Talos",
+      matchPackageNames: ["/installer/"],
+      sourceUrl: "https://github.com/siderolabs/talos"
     }
   ],
 }
