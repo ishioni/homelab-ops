@@ -11,5 +11,10 @@
       matchPackageNames: ["/spegel/"],
       changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
     },
+    {
+      description: "Changelog for Envoy",
+      matchPackageNames: ["/envoy/"],
+      sourceUrl: "https://github.com/envoyproxy/envoy",
+    }
   ],
 }
