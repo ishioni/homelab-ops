@@ -13,7 +13,7 @@ spec:
     podAntiAffinityType: required
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.6-0.4.2
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2
   monitoring:
     enablePodMonitor: true
   plugins:
