@@ -20,6 +20,11 @@
       description: "Changelog for Talos",
       matchPackageNames: ["/installer/"],
       sourceUrl: "https://github.com/siderolabs/talos"
-    }
+    },
+    {
+      description: "Changelog for OIDCWarden",
+      matchPackageNames: ["/oidcwarden/"],
+      changelogUrl: "https://raw.githubusercontent.com/Timshel/OIDCWarden/refs/heads/main/CHANGELOG.md"
+    },
   ],
 }
