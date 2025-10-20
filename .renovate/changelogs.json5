@@ -26,5 +26,10 @@
       matchPackageNames: ["/oidcwarden/"],
       changelogUrl: "https://raw.githubusercontent.com/Timshel/OIDCWarden/refs/heads/main/CHANGELOG.md"
     },
+    {
+      description: "Changelog for it-tools",
+      matchPackageNames: ["/it-tools/"],
+      sourceUrl: "https://github.com/sharevb/it-tools"
+    }
   ],
 }
