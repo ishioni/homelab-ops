@@ -16,6 +16,3 @@ spec:
     crds: CreateReplace
   uninstall:
     keepHistory: false
-  values:
-    webhook:
-      enabled: false
