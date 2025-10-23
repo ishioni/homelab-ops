@@ -32,8 +32,8 @@
       sourceUrl: "https://github.com/sharevb/it-tools"
     }
     {
-      description: "Changelog for OIDCWarden",
-      matchPackageNames: ["/oidcwarden/"],
+      description: "Changelog for atuin",
+      matchPackageNames: ["/atuin/"],
       changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md"
     },
   ],
