@@ -30,7 +30,7 @@
       description: "Changelog for it-tools",
       matchPackageNames: ["/it-tools/"],
       sourceUrl: "https://github.com/sharevb/it-tools"
-    }
+    },
     {
       description: "Changelog for atuin",
       matchPackageNames: ["/atuin/"],
