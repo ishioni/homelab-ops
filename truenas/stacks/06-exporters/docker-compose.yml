@@ -10,7 +10,7 @@ services:
     ports:
       - ${SPEEDTEST_PORT}:${SPEEDTEST_PORT}
   node-exporter:
-    image: quay.io/prometheus/node-exporter:v1.9.1
+    image: quay.io/prometheus/node-exporter:v1.10.0
     container_name: node-exporter
     restart: unless-stopped
     command:
