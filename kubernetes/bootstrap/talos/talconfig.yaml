@@ -209,8 +209,10 @@ patches:
             - github
   # Disable default API server admission plugins.
   - |-
-    - op: remove
-      path: /cluster/apiServer/admissionControl
+    cluster:
+      apiServer:
+        admissionControl:
+          $$patch: delete
   # OpenEBS mount
   - |-
     machine:
