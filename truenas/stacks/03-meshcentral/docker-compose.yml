@@ -1,7 +1,7 @@
 ---
 services:
   meshcentral:
-    image: ghcr.io/ylianst/meshcentral:1.1.52
+    image: ghcr.io/ylianst/meshcentral:1.1.53
     container_name: meshcentral
     restart: unless-stopped
     networks:
