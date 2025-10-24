@@ -37,6 +37,7 @@ tasks:
     requires:
       vars:
         - cluster
+        - controller
     preconditions:
       - talosctl config get-contexts | grep {{.cluster}}
 
