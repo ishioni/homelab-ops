@@ -41,5 +41,10 @@
       matchPackageNames: ["/thanos/"],
       sourceUrl: "https://github.com/thanos-io/thanos"
     },
+    {
+      description: "Changelog for authentik",
+      matchPackageNames: ["/authentik/"],
+      sourceUrl: "https://github.com/goauthentik/authentik"
+    },
   ],
 }
