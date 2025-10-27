@@ -36,5 +36,10 @@
       matchPackageNames: ["/atuin/"],
       changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md"
     },
+    {
+      description: "Changelog for thanos",
+      matchPackageNames: ["/thanos/"],
+      sourceUrl: "https://github.com/thanos-io/thanos"
+    },
   ],
 }
