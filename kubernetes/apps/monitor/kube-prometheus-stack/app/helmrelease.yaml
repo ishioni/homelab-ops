@@ -150,7 +150,7 @@ spec:
                 requests:
                   storage: 10Gi
         thanos:
-          image: quay.io/thanos/thanos:v0.40.0
+          image: quay.io/thanos/thanos:v0.40.1
           objectStorageConfig:
             existingSecret:
               name: thanos-objectstore-secret
