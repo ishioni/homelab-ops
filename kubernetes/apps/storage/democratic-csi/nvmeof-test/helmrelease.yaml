@@ -89,5 +89,5 @@ spec:
           detachedSnapshots: false
     driver:
       config:
-        driver: freenas-api-iscsi
+        driver: freenas-api-nvmeof
       existingConfigSecret: *secret
