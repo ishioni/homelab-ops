@@ -47,7 +47,7 @@ spec:
       io.cilium/ippool: public
     minecraftServer:
       eula: true
-      version: 1.21.8
+      version: 1.21.10
       type: PAPER
       difficulty: normal
       whitelist: "GachouGoose,movi,MicroGachou"
