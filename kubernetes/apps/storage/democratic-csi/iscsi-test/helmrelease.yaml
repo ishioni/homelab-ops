@@ -8,7 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: democratic-csi-iscsi-test
-    namespace: flux-system
   dependsOn:
     - name: snapshot-controller
   interval: 30m
