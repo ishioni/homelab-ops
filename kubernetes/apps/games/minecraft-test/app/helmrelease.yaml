@@ -84,11 +84,11 @@ spec:
             annotations:
               gethomepage.dev/enabled: "true"
               gethomepage.dev/group: Games
-              gethomepage.dev/name: Minecraft
+              gethomepage.dev/name: Minecraft Test
               gethomepage.dev/icon: minecraft.svg
               gethomepage.dev/pod-selector: app.kubernetes.io/name=minecraft
               gethomepage.dev/widget.type: minecraft
-              gethomepage.dev/widget.url: udp://minecraft.games:25565
+              gethomepage.dev/widget.url: udp://minecraft-test.games:25565
             hosts:
               - name: &host ${MAP_HOSTNAME}
                 path: /
