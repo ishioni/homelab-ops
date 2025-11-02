@@ -87,7 +87,7 @@ spec:
     - name: snapshot-controller
       namespace: *namespace
   interval: 30m
-  path: ./kubernetes/apps/storage/democratic-csi/isci-test
+  path: ./kubernetes/apps/storage/democratic-csi/iscsi-test
   prune: true
   sourceRef:
     kind: GitRepository
