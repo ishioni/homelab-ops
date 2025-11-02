@@ -47,13 +47,13 @@ spec:
       driver:
         image: *image
         # imagePullPolicy: Always
-        extraEnv:
-          - name: ISCSIADM_HOST_STRATEGY
-            value: nsenter
-          - name: ISCSIADM_HOST_PATH
-            value: /usr/local/sbin/iscsiadm
-        iscsiDirHostPath: /usr/local/etc/iscsi
-        iscsiDirHostPathType: ""
+        # extraEnv:
+        #   - name: ISCSIADM_HOST_STRATEGY
+        #     value: nsenter
+        #   - name: ISCSIADM_HOST_PATH
+        #     value: /usr/local/sbin/iscsiadm
+        # iscsiDirHostPath: /usr/local/etc/iscsi
+        # iscsiDirHostPathType: ""
       priorityClassName: system-node-critical
     csiProxy:
       image:
