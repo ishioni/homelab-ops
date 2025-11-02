@@ -41,7 +41,7 @@ spec:
         enabled: true
         existingClaim: ${PVC_CLAIM}
     serviceAnnotations:
-      lbipam.cilium.io/ips: 10.84.2.3
+      lbipam.cilium.io/ips: 10.84.2.12
       external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
     serviceLabels:
       io.cilium/ippool: public
