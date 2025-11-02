@@ -63,7 +63,7 @@ spec:
           # BlueMap
           - swbUV1cr
           # Freezehibernate
-          - 7KTcTCzs
+          - paper:freezehibernate:1.0
       jvmXXOpts: "-XX:MaxRAMPercentage=70 -Ddisable.watchdog=true"
       rcon:
         enabled: true
