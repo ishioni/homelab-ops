@@ -8,3 +8,4 @@ components:
   - ../../components/namespace
 resources:
   - ./minecraft/ks.yaml
+  - ./minecraft-test/ks.yaml
