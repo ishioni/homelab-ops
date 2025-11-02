@@ -57,7 +57,7 @@ spec:
     - name: volsync
       namespace: storage
   interval: 30m
-  path: ./kubernetes/apps/games/minecraft/app
+  path: ./kubernetes/apps/games/minecraft-test/app
   postBuild:
     substitute:
       APP: *appname
