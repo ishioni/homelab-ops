@@ -1,0 +1,92 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dcsi-iscsi-test
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: democratic-csi-iscsi-test
+  dependsOn:
+    - name: snapshot-controller
+  interval: 30m
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      replicaCount: 1
+      podAnnotations:
+        secret.reloader.stakater.com/reload: &secret dcsi-iscsi-test-secret
+      driver:
+        image:
+          registry: ghcr.io/democratic-csi/democratic-csi
+          tag: next
+        logLevel: debug
+        imagePullPolicy: Always
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Equal
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
+      priorityClassName: system-cluster-critical
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "DoNotSchedule"
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/csi-role: controller
+              app.kubernetes.io/instance: democratic-csi-test
+    node:
+      podAnnotations:
+        secret.reloader.stakater.com/reload: *secret
+      hostPID: true
+      driver:
+        image:
+          registry: ghcr.io/democratic-csi/democratic-csi
+          tag: next
+        imagePullPolicy: Always
+        extraEnv:
+          - name: ISCSIADM_HOST_STRATEGY
+            value: nsenter
+          - name: ISCSIADM_HOST_PATH
+            value: /usr/local/sbin/iscsiadm
+        iscsiDirHostPath: /usr/local/etc/iscsi
+        iscsiDirHostPathType: ""
+      priorityClassName: system-node-critical
+    csiProxy:
+      image:
+        registry: ghcr.io/democratic-csi/csi-grpc-proxy
+        tag: v0.5.6
+    csiDriver:
+      name: org.democratic-csi.iscsitest
+    storageClasses:
+      - name: dcsi-iscsi-test
+        defaultClass: false
+        reclaimPolicy: Delete
+        volumeBindingMode: Immediate
+        allowVolumeExpansion: true
+        parameters:
+          fsType: ext4
+          detachedVolumesFromSnapshots: true
+          detachedVolumesFromVolumes: true
+        mountOptions: []
+        secrets:
+          provisioner-secret:
+          controller-publish-secret:
+          node-stage-secret:
+          node-publish-secret:
+          controller-expand-secret:
+    volumeSnapshotClasses:
+      - name: dcsi-iscsi-test
+        driver: org.democratic-csi.iscsitest
+        deletionPolicy: Delete
+        parameters:
+          detachedSnapshots: false
+    driver:
+      config:
+        driver: freenas-api-iscsi
+      existingConfigSecret: *secret

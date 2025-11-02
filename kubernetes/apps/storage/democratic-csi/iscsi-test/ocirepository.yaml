@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: democratic-csi-test
+  name: democratic-csi-iscsi-test
 spec:
   interval: 1h
   layerSelector:
