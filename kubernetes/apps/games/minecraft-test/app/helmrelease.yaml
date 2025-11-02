@@ -1,0 +1,100 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minecraft-test
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: minecraft
+  interval: 30m
+  values:
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret minecraft-secret
+    image:
+      repository: ghcr.io/itzg/minecraft-server
+      tag: 2025.10.5-java25
+    resources:
+      limits:
+        memory: 4000Mi
+      requests:
+        cpu: 1000m
+        memory: 2000Mi
+    securityContext:
+      runAsUser: ${APP_UID}
+      fsGroup: ${APP_GID}
+    livenessProbe:
+      initialDelaySeconds: 0
+    readinessProbe:
+      initialDelaySeconds: 0
+    startupProbe:
+      enabled: true
+    extraEnv:
+      TZ: "${CONFIG_TIMEZONE}"
+      ENABLE_ROLLING_LOGS: true
+      UID: ${APP_UID}
+      GID: ${APP_GID}
+      MEMORY: ""
+    persistence:
+      dataDir:
+        enabled: true
+        existingClaim: ${PVC_CLAIM}
+    serviceAnnotations:
+      lbipam.cilium.io/ips: 10.84.2.3
+      external-dns.alpha.kubernetes.io/hostname: ${HOSTNAME}
+    serviceLabels:
+      io.cilium/ippool: public
+    minecraftServer:
+      eula: true
+      version: 1.21.10
+      type: PAPER
+      difficulty: normal
+      whitelist: "GachouGoose,movi,MicroGachou"
+      ops: "movi,GachouGoose"
+      pvp: true
+      motd: Meh
+      worldSaveName: Kubeworld
+      viewDistance: 12
+      forceReDownload: true
+      memory: ""
+      modrinth:
+        projects:
+          # BlueMap
+          - paper:bluemap
+          # Freezehibernate
+          - paper:freezehibernate:bMcXRaEu
+      jvmXXOpts: "-XX:MaxRAMPercentage=70 -Ddisable.watchdog=true"
+      rcon:
+        enabled: true
+        serviceType: ClusterIP
+      serviceType: LoadBalancer
+      extraPorts:
+        - name: map
+          containerPort: 8100
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: false
+            type: ClusterIP
+            port: 8100
+          ingress:
+            ingressClassName: public
+            enabled: false
+            annotations:
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/group: Games
+              gethomepage.dev/name: Minecraft
+              gethomepage.dev/icon: minecraft.svg
+              gethomepage.dev/pod-selector: app.kubernetes.io/name=minecraft
+              gethomepage.dev/widget.type: minecraft
+              gethomepage.dev/widget.url: udp://minecraft.games:25565
+            hosts:
+              - name: &host ${MAP_HOSTNAME}
+                path: /
+            tls: [hosts: [*host]]
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: RCON_PASSWORD
+      targetPath: minecraftServer.rcon.password
