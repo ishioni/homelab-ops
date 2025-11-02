@@ -61,9 +61,9 @@ spec:
       modrinth:
         projects:
           # BlueMap
-          - swbUV1cr
+          - paper:bluemap
           # Freezehibernate
-          - paper:freezehibernate:1.0
+          - paper:freezehibernate:bMcXRaEu
       jvmXXOpts: "-XX:MaxRAMPercentage=70 -Ddisable.watchdog=true"
       rcon:
         enabled: true
