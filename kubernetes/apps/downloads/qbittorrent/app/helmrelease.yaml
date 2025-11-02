@@ -116,6 +116,7 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/enabled: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: QBittorrent

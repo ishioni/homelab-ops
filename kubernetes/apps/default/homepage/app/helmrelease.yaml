@@ -55,6 +55,8 @@ spec:
             port: 3000
     route:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
