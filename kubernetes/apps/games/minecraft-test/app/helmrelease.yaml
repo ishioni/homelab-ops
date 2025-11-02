@@ -11,7 +11,7 @@ spec:
   interval: 30m
   values:
     deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret minecraft-secret
+      secret.reloader.stakater.com/reload: &secret minecraft-secret-test
     image:
       repository: ghcr.io/itzg/minecraft-server
       tag: 2025.10.5-java25
