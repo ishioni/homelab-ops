@@ -21,8 +21,8 @@ spec:
         secret.reloader.stakater.com/reload: &secret dcsi-nvmeof-test-secret
       driver:
         image: &image
-          registry: ghcr.io/democratic-csi/democratic-csi
-          tag: next@ea71bf6d5979138aa33dd5d41d6ce2fafb109a7e5c6f783471547040868ae701
+          registry: ghcr.io/democratic-csi/democratic-csi@sha256
+          tag: ea71bf6d5979138aa33dd5d41d6ce2fafb109a7e5c6f783471547040868ae701
         logLevel: debug
         # imagePullPolicy: Always
       tolerations:
