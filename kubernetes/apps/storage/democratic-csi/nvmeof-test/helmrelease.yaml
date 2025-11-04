@@ -62,7 +62,7 @@ spec:
     csiDriver:
       name: org.democratic-csi.nvmeoftest
     storageClasses:
-      - name: dcsi-nvmeoftest-test
+      - name: dcsi-nvmeof-test
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: Immediate
