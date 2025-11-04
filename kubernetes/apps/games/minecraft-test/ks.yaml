@@ -28,7 +28,7 @@ spec:
       PVC_CLAIM: minecraft-data-test
       PVC_CAPACITY: 15Gi
       VOLSYNC_CACHE_CAPACITY: 15Gi
-      PVC_STORAGECLASS: &nvme dcsi-nvmeoftest-test
+      PVC_STORAGECLASS: &nvme dcsi-nvmeof-test
       VOLSYNC_CACHE_SNAPSHOTCLASS: *nvme
       VOLSYNC_SNAPSHOTCLASS: *nvme
   prune: true
