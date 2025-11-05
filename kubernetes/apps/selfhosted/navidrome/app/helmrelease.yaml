@@ -88,7 +88,7 @@ spec:
       cache:
         suffix: cache
         type: persistentVolumeClaim
-        storageClass: truenas-ssd-nfs
+        storageClass: dcsi-nfs
         accessMode: ReadWriteOnce
         size: 10G
       config:
