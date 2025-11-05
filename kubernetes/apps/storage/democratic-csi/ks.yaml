@@ -53,7 +53,7 @@ spec:
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: &app democratic-csi-nvmeof-test
+#   name: &app dcsi-nvmeof
 #   namespace: &namespace storage
 # spec:
 #   commonMetadata:
@@ -65,7 +65,7 @@ spec:
 #     - name: snapshot-controller
 #       namespace: *namespace
 #   interval: 30m
-#   path: ./kubernetes/apps/storage/democratic-csi/nvmeof-test
+#   path: ./kubernetes/apps/storage/democratic-csi/nvmeof
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository

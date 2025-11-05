@@ -51,6 +51,7 @@ spec:
             substitute:
               PUBLIC_DOMAIN: movishell.pl
               PRIVATE_DOMAIN: ishioni.casa
+              CONFIG_TRUENAS_HOST: leo.ishioni.casa
               CONFIG_TRUENAS_IP: 10.1.2.2
               CONFIG_TIMEZONE: Europe/Warsaw
       target:
