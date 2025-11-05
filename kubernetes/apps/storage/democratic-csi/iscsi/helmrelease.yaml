@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: dcsi-iscsi
+  name: &release dcsi-iscsi
 spec:
   chartRef:
     kind: OCIRepository
@@ -15,7 +15,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    nameOverride: "{{ .Release.Name }}"
+    nameOverride: *release
     controller:
       replicaCount: 2
       podAnnotations:
@@ -33,7 +33,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/csi-role: controller
-              app.kubernetes.io/instance: dcsi-iscsi
+              app.kubernetes.io/instance: *release
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret

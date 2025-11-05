@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: dcsi-nvmeof
+  name: &release dcsi-nvmeof
 spec:
   chartRef:
     kind: OCIRepository
@@ -15,11 +15,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    nameOverride: "{{ .Release.Name }}"
+    nameOverride: *release
     controller:
       replicaCount: 1
       podAnnotations:
-        secret.reloader.stakater.com/reload: &secret dcsi-nvmeof-test-secret
+        secret.reloader.stakater.com/reload: &secret dcsi-nvmeof-secret
       driver:
         image: &image
           registry: ghcr.io/democratic-csi/democratic-csi@sha256
@@ -40,7 +40,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/csi-role: controller
-              app.kubernetes.io/instance: democratic-csi-test
+              app.kubernetes.io/instance: *release
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
