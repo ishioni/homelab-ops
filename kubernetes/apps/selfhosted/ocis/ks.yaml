@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: &appname ocis
   components:
-    - ../../../../components/pvc
+    - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -30,8 +30,8 @@ spec:
       PVC_CLAIM: ocis-data
       PVC_CAPACITY: &size 20Gi
       VOLSYNC_CACHE_CAPACITY: *size
-      PVC_STORAGECLASS: &class truenas-ssd-nfs
-      VOLSYNC_SNAPSHOTCLASS: *class
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
       PVC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 13 * * *
   prune: true
