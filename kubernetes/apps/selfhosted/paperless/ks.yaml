@@ -33,8 +33,8 @@ spec:
       PVC_CLAIM: paperless-data
       PVC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
-      PVC_STORAGECLASS: truenas-ssd-nfs
-      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 3 * * *
   prune: true
   sourceRef:
