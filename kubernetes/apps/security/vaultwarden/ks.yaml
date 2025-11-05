@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/pvc
+    - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -26,7 +26,7 @@ spec:
       APP_GID: "568"
       PVC_CLAIM: vaultwarden-data
       PVC_ACCESSMODES: ReadWriteMany
-      PVC_STORAGECLASS: &nfs truenas-ssd-nfs
+      PVC_STORAGECLASS: &nfs dcsi-nfs
       VOLSYNC_SNAPSHOTCLASS: *nfs
       VOLSYNC_TIME: 0 15 * * *
   prune: true
