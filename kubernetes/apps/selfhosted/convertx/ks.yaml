@@ -22,7 +22,7 @@ spec:
       APP: *app
       HOSTNAME: convert.${PRIVATE_DOMAIN}
       PVC_CLAIM: convertx-data
-      PVC_STORAGECLASS: truenas-ssd-nfs
+      PVC_STORAGECLASS: dcsi-nfs
       PVC_ACCESSMODES: ReadWriteMany
   prune: true
   sourceRef:

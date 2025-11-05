@@ -8,11 +8,11 @@ components:
   - ../../components/namespace
 resources:
   - ./atuin/ks.yaml
-  # - ./convertx/ks.yaml
+  - ./convertx/ks.yaml
   - ./go2rtc/ks.yaml
   # - ./immich/ks.yaml
   - ./it-tools/ks.yaml
-  # - ./navidrome/ks.yaml
+  - ./navidrome/ks.yaml
   # - ./ocis/ks.yaml
   # - ./paperless/ks.yaml
   # - ./romm/ks.yaml

@@ -32,8 +32,8 @@ spec:
       PVC_CLAIM: navidrome-config
       PVC_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
-      PVC_STORAGECLASS: truenas-ssd-iscsi
-      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-iscsi
+      PVC_STORAGECLASS: &sc dcsi-iscsi
+      VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 1 * * *
   prune: true
   sourceRef:
