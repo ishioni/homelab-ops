@@ -46,7 +46,7 @@ spec:
             value: nsenter
           - name: ISCSIADM_HOST_PATH
             value: /usr/local/sbin/iscsiadm
-        iscsiDirHostPath: /var/lib/iscsi
+        iscsiDirHostPath: /var/iscsi
         iscsiDirHostPathType: ""
       priorityClassName: system-node-critical
     csiProxy:
