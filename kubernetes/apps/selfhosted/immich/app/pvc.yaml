@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "${CONFIG_TRUENAS_IP}"
-    path: /mnt/SSD/talos-applications/immich
+    path: /mnt/SSD/talos/volumes/immich
   mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "noatime"]
 ---
 apiVersion: v1
