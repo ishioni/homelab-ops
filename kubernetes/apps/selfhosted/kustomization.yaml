@@ -15,5 +15,5 @@ resources:
   - ./navidrome/ks.yaml
   - ./ocis/ks.yaml
   - ./paperless/ks.yaml
-  # - ./romm/ks.yaml
+  - ./romm/ks.yaml
   - ./selfhosted-pvc/ks.yaml
