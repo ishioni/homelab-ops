@@ -22,5 +22,5 @@ spec:
       runAsGroup: ${APP_GID:-568}
       fsGroup: ${APP_GID:-568}
     repository: ${APP}-restic-s3
-    storageClassName: "${PVC_STORAGECLASS:-truenas-ssd-iscsi}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
+    storageClassName: "${PVC_STORAGECLASS:-dcsi-iscsi}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-dcsi-iscsi}"
