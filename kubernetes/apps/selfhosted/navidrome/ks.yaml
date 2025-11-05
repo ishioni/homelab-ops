@@ -17,7 +17,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: democratic-csi-iscsi
+    - name: dcsi-iscsi
       namespace: storage
     - name: volsync
       namespace: storage
