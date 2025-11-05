@@ -15,6 +15,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    nameOverride: {{ .Release.Name }}
     controller:
       replicaCount: 2
       podAnnotations:
