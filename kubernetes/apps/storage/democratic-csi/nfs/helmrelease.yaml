@@ -74,7 +74,7 @@ spec:
         driver: org.democratic-csi.nfs-ssd
         deletionPolicy: Delete
         parameters:
-          detachedSnapshots: false
+          detachedSnapshots: true
     driver:
       config:
         driver: freenas-api-nfs

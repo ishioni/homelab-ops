@@ -84,7 +84,7 @@ spec:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
         parameters:
-          detachedSnapshots: false
+          detachedSnapshots: true
     driver:
       config:
         driver: freenas-api-iscsi
