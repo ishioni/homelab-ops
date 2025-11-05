@@ -31,7 +31,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: immich-ml-cache
 spec:
-  storageClassName: truenas-ssd-nfs
+  storageClassName: dcsi-nfs
   resources:
     requests:
       storage: 10Gi
