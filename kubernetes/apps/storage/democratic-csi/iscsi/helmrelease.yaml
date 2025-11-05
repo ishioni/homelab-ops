@@ -22,7 +22,7 @@ spec:
       driver:
         image: &image
           registry: ghcr.io/democratic-csi/democratic-csi@sha256
-          tag: a5e1c97eeed1958ad0a92c7c151ac9285232be917c415981b4c2920ff7538dfe
+          tag: ea71bf6d5979138aa33dd5d41d6ce2fafb109a7e5c6f783471547040868ae701
         # imagePullPolicy: Always
       tolerations:
         - effect: NoSchedule
