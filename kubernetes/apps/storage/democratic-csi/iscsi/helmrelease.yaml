@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: democratic-csi-ssd-iscsi
+  name: dcsi-iscsi
 spec:
   chartRef:
     kind: OCIRepository
@@ -24,12 +24,6 @@ spec:
           registry: ghcr.io/democratic-csi/democratic-csi@sha256
           tag: ea71bf6d5979138aa33dd5d41d6ce2fafb109a7e5c6f783471547040868ae701
         # imagePullPolicy: Always
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
-          operator: Equal
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: ""
       priorityClassName: system-cluster-critical
       topologySpreadConstraints:
         - maxSkew: 1
@@ -38,7 +32,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/csi-role: controller
-              app.kubernetes.io/instance: democratic-csi-ssd-iscsi
+              app.kubernetes.io/instance: dcsi-iscsi
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
