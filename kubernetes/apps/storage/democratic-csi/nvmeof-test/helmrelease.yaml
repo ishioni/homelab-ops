@@ -83,7 +83,7 @@ spec:
         driver: org.democratic-csi.nvmeoftest
         deletionPolicy: Delete
         parameters:
-          detachedSnapshots: false
+          detachedSnapshots: true
     driver:
       config:
         driver: freenas-api-nvmeof
