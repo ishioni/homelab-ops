@@ -28,8 +28,7 @@ spec:
       PVC_CLAIM: minecraft-data
       PVC_CAPACITY: 15Gi
       VOLSYNC_CACHE_CAPACITY: 15Gi
-      PVC_STORAGECLASS: &iscsi truenas-ssd-iscsi
-      VOLSYNC_CACHE_SNAPSHOTCLASS: *iscsi
+      PVC_STORAGECLASS: &iscsi dcsi-iscsi
       VOLSYNC_SNAPSHOTCLASS: *iscsi
   prune: true
   sourceRef:
