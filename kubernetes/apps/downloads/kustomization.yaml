@@ -7,11 +7,11 @@ components:
   - ../../components/alerts
   - ../../components/namespace
 resources:
-  - ./bazarr/ks.yaml
+  # - ./bazarr/ks.yaml
   - ./downloads-pvc/ks.yaml
-  - ./lidarr/ks.yaml
-  - ./prowlarr/ks.yaml
-  - ./qbittorrent/ks.yaml
-  - ./radarr/ks.yaml
-  - ./recyclarr/ks.yaml
-  - ./sonarr/ks.yaml
+  # - ./lidarr/ks.yaml
+  # - ./prowlarr/ks.yaml
+  # - ./qbittorrent/ks.yaml
+  # - ./radarr/ks.yaml
+  # - ./recyclarr/ks.yaml
+  # - ./sonarr/ks.yaml
