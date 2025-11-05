@@ -48,9 +48,9 @@ spec:
         registry: ghcr.io/democratic-csi/csi-grpc-proxy
         tag: v0.5.6
     csiDriver:
-      name: org.democratic-csi.nvmeof
+      name: &driver org.dcsi.nfs
     storageClasses:
-      - name: dcsi-nvmeof
+      - name: &class dcsi-nvmeof
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: Immediate
@@ -67,8 +67,8 @@ spec:
           node-publish-secret:
           controller-expand-secret:
     volumeSnapshotClasses:
-      - name: dcsi-nvmeof
-        driver: org.democratic-csi.nvmeof
+      - name: *class
+        driver: *driver
         deletionPolicy: Delete
         parameters:
           detachedSnapshots: true

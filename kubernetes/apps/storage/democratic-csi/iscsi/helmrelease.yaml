@@ -54,9 +54,9 @@ spec:
         registry: ghcr.io/democratic-csi/csi-grpc-proxy
         tag: v0.5.6
     csiDriver:
-      name: org.democratic-csi.iscsi-ssd
+      name: &driver org.dcsi.iscsi
     storageClasses:
-      - name: truenas-ssd-iscsi
+      - name: &class dcsi-iscsi
         defaultClass: true
         reclaimPolicy: Delete
         volumeBindingMode: Immediate
@@ -73,8 +73,8 @@ spec:
           node-publish-secret:
           controller-expand-secret:
     volumeSnapshotClasses:
-      - name: truenas-ssd-iscsi
-        driver: org.democratic-csi.iscsi-ssd
+      - name: *class
+        driver: *driver
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
