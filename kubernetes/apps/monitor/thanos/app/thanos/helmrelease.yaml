@@ -34,7 +34,7 @@ spec:
         - --downsampling.disable
       persistence:
         enabled: true
-        storageClass: "truenas-ssd-iscsi"
+        storageClass: dcsi-iscsi
         size: 30Gi
     # query:
     #   extraArgs: --alert.query-url=http://thanos.${PUBLIC_DOMAIN}
