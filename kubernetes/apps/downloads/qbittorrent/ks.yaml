@@ -26,8 +26,8 @@ spec:
       APP_GID: "5000"
       HOSTNAME: torrent.${PUBLIC_DOMAIN}
       PVC_CLAIM: qbittorrent-config
-      PVC_STORAGECLASS: truenas-ssd-nfs
-      VOLSYNC_SNAPSHOTCLASS: truenas-ssd-nfs
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 4 * * *
   prune: true
   sourceRef:

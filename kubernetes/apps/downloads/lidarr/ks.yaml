@@ -26,7 +26,7 @@ spec:
       APP: *app
       HOSTNAME: music.${PUBLIC_DOMAIN}
       PVC_CLAIM: lidarr-config
-      PVC_STORAGECLASS: truenas-ssd-nfs
+      PVC_STORAGECLASS: dcsi-nfs
   prune: true
   sourceRef:
     kind: GitRepository
