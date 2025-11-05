@@ -23,5 +23,5 @@ spec:
     retain:
       daily: 7
       within: 3d
-    storageClassName: "${PVC_STORAGECLASS:-truenas-ssd-iscsi}"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-truenas-ssd-iscsi}"
+    storageClassName: "${PVC_STORAGECLASS:-dcsi-iscsi}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-dcsi-iscsi}"

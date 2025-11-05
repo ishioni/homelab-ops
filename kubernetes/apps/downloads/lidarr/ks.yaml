@@ -17,7 +17,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: democratic-csi-nfs
+    - name: dcsi-nfs
       namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/lidarr/app

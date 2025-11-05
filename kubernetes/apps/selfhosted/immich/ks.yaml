@@ -18,7 +18,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: democratic-csi-nfs
+    - name: dcsi-nfs
       namespace: storage
     - name: intel-gpu-resource-driver
       namespace: kube-system

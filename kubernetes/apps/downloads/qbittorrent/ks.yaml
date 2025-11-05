@@ -13,7 +13,7 @@ spec:
     - ../../../../components/authentik-proxy
     - ../../../../components/volsync
   dependsOn:
-    - name: democratic-csi-nfs
+    - name: dcsi-nfs
       namespace: storage
     - name: volsync
       namespace: storage

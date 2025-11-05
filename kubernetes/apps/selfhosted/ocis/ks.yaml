@@ -14,7 +14,7 @@ spec:
   dependsOn:
     - name: external-secrets
       namespace: security
-    - name: democratic-csi-nfs
+    - name: dcsi-nfs
       namespace: storage
     - name: volsync
       namespace: storage

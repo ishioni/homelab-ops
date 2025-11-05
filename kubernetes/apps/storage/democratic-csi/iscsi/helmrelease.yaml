@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: democratic-csi-ssd-iscsi
+  name: &release dcsi-iscsi
 spec:
   chartRef:
     kind: OCIRepository
@@ -15,6 +15,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    nameOverride: *release
     controller:
       replicaCount: 2
       podAnnotations:
@@ -24,12 +25,6 @@ spec:
           registry: ghcr.io/democratic-csi/democratic-csi@sha256
           tag: ea71bf6d5979138aa33dd5d41d6ce2fafb109a7e5c6f783471547040868ae701
         # imagePullPolicy: Always
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
-          operator: Equal
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: ""
       priorityClassName: system-cluster-critical
       topologySpreadConstraints:
         - maxSkew: 1
@@ -38,7 +33,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/csi-role: controller
-              app.kubernetes.io/instance: democratic-csi-ssd-iscsi
+              app.kubernetes.io/instance: *release
     node:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
@@ -59,9 +54,9 @@ spec:
         registry: ghcr.io/democratic-csi/csi-grpc-proxy
         tag: v0.5.6
     csiDriver:
-      name: org.democratic-csi.iscsi-ssd
+      name: &driver org.dcsi.iscsi
     storageClasses:
-      - name: truenas-ssd-iscsi
+      - name: &class dcsi-iscsi
         defaultClass: true
         reclaimPolicy: Delete
         volumeBindingMode: Immediate
@@ -78,8 +73,8 @@ spec:
           node-publish-secret:
           controller-expand-secret:
     volumeSnapshotClasses:
-      - name: truenas-ssd-iscsi
-        driver: org.democratic-csi.iscsi-ssd
+      - name: *class
+        driver: *driver
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
