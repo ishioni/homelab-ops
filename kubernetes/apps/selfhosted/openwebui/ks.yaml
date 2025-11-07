@@ -23,7 +23,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      HOSTNAME: openwebui.${PUBLIC_DOMAIN}
+      HOSTNAME: openwebui.${PRIVATE_DOMAIN}
       APP_UID: "0"
       APP_GID: "0"
       PVC_CLAIM: openwebui-data
