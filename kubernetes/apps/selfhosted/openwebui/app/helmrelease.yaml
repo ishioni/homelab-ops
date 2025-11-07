@@ -34,7 +34,9 @@ spec:
               TZ: ${CONFIG_TIMEZONE}
               WEBUI_URL: https://${HOSTNAME}
               CORS_ALLOW_ORIGIN: https://${HOSTNAME}
+              # Ollama
               ENABLE_OLLAMA_API: true
+              OLLAMA_BASE_URL: https://ollama.${PRIVATE_DOMAIN}
               ENABLE_OPENAI_API: false
               ENABLE_SIGNUP: false
               ENABLE_LOGIN_FORM: false
