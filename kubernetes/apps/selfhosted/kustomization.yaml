@@ -14,6 +14,7 @@ resources:
   - ./it-tools/ks.yaml
   - ./navidrome/ks.yaml
   - ./ocis/ks.yaml
+  - ./openwebui/ks.yaml
   - ./paperless/ks.yaml
   - ./romm/ks.yaml
   - ./searxng/ks.yaml

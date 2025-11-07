@@ -82,6 +82,12 @@ module "secret_vaultwarden" {
   item   = "vaultwarden"
 }
 
+module "secret_openwebui" {
+  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  vault  = "Homelab"
+  item   = "openwebui"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["ENDPOINT_URL"]
   token = module.secret_authentik.fields["TERRAFORM_TOKEN"]

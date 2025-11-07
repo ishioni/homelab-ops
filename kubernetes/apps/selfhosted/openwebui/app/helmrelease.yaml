@@ -1,0 +1,101 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.4.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openwebui
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: openwebui
+  interval: 30m
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      openwebui:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret openwebui-secret
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17@sha256:86a1992d46273c58fd4ad95b626081dfaabfe16bd56944675169e406d1a660dd
+            envFrom:
+              - secretRef:
+                  name: *secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/open-webui/open-webui
+              tag: v0.6.36@sha256:dfe43b30a5474164b1a81e1cce298a6769bb22144f74df556beefee4ccca5394
+            env:
+              TZ: ${CONFIG_TIMEZONE}
+              WEBUI_URL: https://${HOSTNAME}
+              CORS_ALLOW_ORIGIN: https://${HOSTNAME}
+              ENABLE_OLLAMA_API: true
+              ENABLE_OPENAI_API: false
+              ENABLE_SIGNUP: false
+              ENABLE_LOGIN_FORM: false
+              ENABLE_PERSISTENT_CONFIG: false
+              WEBUI_SESSION_COOKIE_SAME_SITE: lax
+              WEBUI_SESSION_COOKIE_SECURE: true
+              # Searx
+              ENABLE_RAG_WEB_SEARCH: true
+              ENABLE_SEARCH_QUERY: true
+              RAG_WEB_SEARCH_ENGINE: searxng
+              SEARXNG_QUERY_URL: http://searxng.selfhosted.svc.cluster.local:8080/search?q=<query>
+              # Redis
+              ENABLE_WEBSOCKET_SUPPORT: true
+              WEBSOCKET_MANAGER: redis
+              # OIDC
+              ENABLE_OAUTH_SIGNUP: true
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
+              OAUTH_UPDATE_PICTURE_ON_LOGIN: true
+              OAUTH_PROVIDER_NAME: Movishell
+              OAUTH_SCOPES: openid profile email groups
+            envFrom:
+              - secretRef:
+                  name: *secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop:}
+              readOnlyRootFilesystem: false
+        pod:
+          securityContext:
+            runAsNonRoot: false
+            runAsGroup: 0
+            runAsUser: 0
+            fsGroup: 0
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: openwebui
+        ports:
+          http:
+            port: 8080
+    persistence:
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          openwebui:
+            app:
+              - path: /tmp
+                subPath: tmp
+      config:
+        enabled: true
+        existingClaim: "${PVC_CLAIM}"
+        globalMounts:
+          - path: /app/backend/data
+    route:
+      app:
+        # annotations:
+        #   gethomepage.dev/enabled: "true"
+        #   gethomepage.dev/group: Selfhosted
+        #   gethomepage.dev/name: IT-Tools
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
