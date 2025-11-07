@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app openwebui
+  namespace: &namespace selfhosted
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: postgres-cluster
+      namespace: database
+    - name: dragonfly-cluster
+      namespace: database
+    - name: external-secrets
+      namespace: security
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/openwebui/app
+  postBuild:
+    substitute:
+      APP: *app
+      HOSTNAME: openwebui.${PRIVATE_DOMAIN}
+      APP_UID: "0"
+      APP_GID: "0"
+      PVC_CLAIM: openwebui-data
+      PVC_CAPACITY: 10Gi
+      VOLSYNC_CACHE_CAPACITY: 10Gi
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: false
