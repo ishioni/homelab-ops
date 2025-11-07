@@ -40,10 +40,6 @@ spec:
       driver:
         image: *image
         # imagePullPolicy: Always
-    csiProxy:
-      image:
-        registry: ghcr.io/democratic-csi/csi-grpc-proxy
-        tag: v0.5.6
     csiDriver:
       name: &driver org.dcsi.nfs
     storageClasses:

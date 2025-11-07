@@ -43,10 +43,6 @@ spec:
         image: *image
         # imagePullPolicy: Always
       priorityClassName: system-node-critical
-    csiProxy:
-      image:
-        registry: ghcr.io/democratic-csi/csi-grpc-proxy
-        tag: v0.5.6
     csiDriver:
       name: &driver org.dcsi.nfs
     storageClasses:
