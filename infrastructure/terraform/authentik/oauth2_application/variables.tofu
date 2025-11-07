@@ -87,6 +87,11 @@ variable "redirect_uris" {
   type = list(any)
 }
 
+variable "logout_method" {
+  type    = string
+  default = "backchannel"
+}
+
 variable "logout_uri" {
   type    = string
   default = ""
