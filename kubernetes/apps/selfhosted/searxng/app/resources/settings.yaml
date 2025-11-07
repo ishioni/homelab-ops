@@ -1,0 +1,54 @@
+use_default_settings: true
+server:
+  limiter: true
+  base_url: "https://${HOSTNAME}/"
+  image_proxy: true
+  method: GET # https://github.com/searxng/searxng/pull/3619
+  public_instance: false
+general:
+  instance_name: Movishell SearxNG
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: false
+search:
+  safe_search: 0
+  autocomplete: duckduckgo
+  favicon_resolver: duckduckgo
+  autocomplete_min: 2
+  languages:
+    - all
+    - en
+    - en-US
+    - pl
+    - pl-PL
+  formats:
+    - html
+    - json
+  max_page: 0
+ui:
+  default_theme: simple
+  static_use_hash: true
+  infinite_scroll: true
+  query_in_title: true
+  theme_args:
+    simple_style: auto
+enabled_plugins:
+  - Basic Calculator
+  - Hash plugin
+  - Open Access DOI rewrite
+  - Search on category select
+  - Self Informations
+  - Tracker URL remover
+  - Unit converter plugin
+hostnames:
+  high_priority:
+    - (.*)\/blog\/(.*)
+    - (.*\.)?wikipedia.org$
+    - (.*\.)?github.com$
+    - (.*\.)?reddit.com$
+    - (.*\.)?docker.com$
+    - (.*\.)?archlinux.org$
+    - (.*\.)?stackoverflow.com$
+    - (.*\.)?askubuntu.com$
+    - (.*\.)?superuser.com$
