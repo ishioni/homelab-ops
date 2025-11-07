@@ -66,12 +66,6 @@ spec:
           detachedVolumesFromSnapshots: true
           detachedVolumesFromVolumes: true
         mountOptions: []
-        secrets:
-          provisioner-secret:
-          controller-publish-secret:
-          node-stage-secret:
-          node-publish-secret:
-          controller-expand-secret:
     volumeSnapshotClasses:
       - name: *class
         driver: *driver
