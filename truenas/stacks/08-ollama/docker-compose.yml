@@ -7,7 +7,7 @@ services:
     networks:
       apps:
     volumes:
-      - ollama:/root/.ollama
+      - ollama_data:/root/.ollama
     container_name: ollama
     pull_policy: always
     tty: true
