@@ -53,7 +53,7 @@ spec:
       - name: &class dcsi-nvmeof
         defaultClass: false
         reclaimPolicy: Delete
-        volumeBindingMode: Immediate
+        volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
         parameters:
           fsType: ext4

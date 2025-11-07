@@ -59,7 +59,7 @@ spec:
       - name: &class dcsi-iscsi
         defaultClass: true
         reclaimPolicy: Delete
-        volumeBindingMode: Immediate
+        volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
         parameters:
           fsType: ext4

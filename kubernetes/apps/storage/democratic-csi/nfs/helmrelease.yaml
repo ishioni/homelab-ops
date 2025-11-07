@@ -50,7 +50,7 @@ spec:
       - name: &class dcsi-nfs
         defaultClass: false
         reclaimPolicy: Delete
-        volumeBindingMode: Immediate
+        volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
         parameters:
           fsType: nfs
