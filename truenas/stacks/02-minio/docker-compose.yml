@@ -15,6 +15,7 @@ services:
       MINIO_UPDATE: "off"
       MINIO_PROMETHEUS_JOB_ID: minio
       MINIO_PROMETHEUS_AUTH_TYPE: public
+      GOMEMLIMIT: 2GiB
     networks:
       apps:
     expose:
