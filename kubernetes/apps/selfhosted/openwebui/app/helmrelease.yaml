@@ -94,6 +94,6 @@ spec:
         #   gethomepage.dev/name: IT-Tools
         hostnames: ["${HOSTNAME}"]
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
             sectionName: https
