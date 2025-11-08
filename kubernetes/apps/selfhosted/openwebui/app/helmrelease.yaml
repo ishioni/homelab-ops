@@ -59,6 +59,7 @@ spec:
               ENABLE_OAUTH_GROUP_MANAGEMENT: "true"
               OAUTH_ALLOWED_ROLES: "media, infrastructure"
               OAUTH_ROLES_CLAIM: "groups"
+              OAUTH_ADMIN_ROLES: "infrastructure"
               DEFAULT_USER_ROLE: "user"
             envFrom:
               - secretRef:
