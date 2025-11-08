@@ -20,7 +20,7 @@ creation_rules:
           - *ishioni
           - *talos
 
-  - path_regex: infrastructure/.*\.sops\.ya?ml
+  - path_regex: terraform/.*\.sops\.ya?ml
     key_groups:
       - age:
           - *ishioni

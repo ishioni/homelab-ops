@@ -1,7 +1,7 @@
 ---
 area/terraform:
   - changed-files:
-      - any-glob-to-any-file: "infrastructure/terraform/**/*"
+      - any-glob-to-any-file: "terraform/**/*"
 area/github:
   - changed-files:
       - any-glob-to-any-file: ".github/**/*"
