@@ -57,6 +57,7 @@ spec:
               OAUTH_SCOPES: openid profile email offline_access
               ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
               ENABLE_OAUTH_GROUP_MANAGEMENT: "true"
+              ENABLE_OAUTH_GROUP_CREATION: "true"
               OAUTH_ALLOWED_ROLES: "media, infrastructure"
               OAUTH_ROLES_CLAIM: "groups"
               OAUTH_ADMIN_ROLES: "infrastructure"
