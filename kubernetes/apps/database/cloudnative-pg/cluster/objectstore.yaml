@@ -1,9 +1,16 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/barmancloud.cnpg.io/objectstore_v1.json
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
   name: minio
 spec:
+  instanceSidecarConfiguration:
+    resources:
+      requests:
+        cpu: 50m
+      limits:
+        memory: 300Mi
   configuration:
     data:
       compression: bzip2
