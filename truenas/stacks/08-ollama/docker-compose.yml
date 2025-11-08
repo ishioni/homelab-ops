@@ -2,6 +2,8 @@
 services:
   ollama:
     image: docker.io/ollama/ollama:0.12.10
+    device:
+      - /dev/dri
     ports:
       - ${APP_PORT}
     networks:
