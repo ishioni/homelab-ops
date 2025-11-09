@@ -50,6 +50,8 @@ tls:
           main: ishioni.casa
           sans:
             - "*.ishioni.casa"
+            - "s3.movishell.pl"
+            - "*.s3.movishell.pl"
 metrics:
   prometheus:
     entryPoint: metrics

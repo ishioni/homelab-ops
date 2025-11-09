@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: &name minio
 spec:
-  staticConfigs: [targets: ["s3.${PRIVATE_DOMAIN}"]]
+  staticConfigs: [targets: ["s3.${PUBLIC_DOMAIN}"]]
   metricsPath: /minio/v2/metrics/cluster
   scheme: HTTPS
   relabelings:
