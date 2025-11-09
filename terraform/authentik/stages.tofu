@@ -109,7 +109,8 @@ resource "authentik_stage_prompt" "source-enrollment-prompt" {
     resource.authentik_stage_prompt_field.name.id,
     resource.authentik_stage_prompt_field.email.id,
     resource.authentik_stage_prompt_field.password.id,
-    resource.authentik_stage_prompt_field.password-repeat.id
+    resource.authentik_stage_prompt_field.password-repeat.id,
+    resource.authentik_stage_prompt_field.avatar.id
   ]
   validation_policies = [
     resource.authentik_policy_password.password-complexity.id
@@ -134,7 +135,8 @@ resource "authentik_stage_prompt" "user-settings" {
     resource.authentik_stage_prompt_field.username.id,
     resource.authentik_stage_prompt_field.name.id,
     resource.authentik_stage_prompt_field.email.id,
-    resource.authentik_stage_prompt_field.locale.id
+    resource.authentik_stage_prompt_field.locale.id,
+    resource.authentik_stage_prompt_field.avatar.id
   ]
 
   validation_policies = [

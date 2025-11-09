@@ -53,3 +53,9 @@ resource "authentik_outpost" "proxyoutpost" {
     kubernetes_disabled_components = ["ingress"],
   })
 }
+
+resource "authentik_system_settings" "settings" {
+  avatars                   = "attributes.picture, initials"
+  default_user_change_email = true
+  event_retention           = "days=14"
+}
