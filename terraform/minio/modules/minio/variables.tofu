@@ -17,6 +17,11 @@ variable "vault" {
   type = string
 }
 
+variable "acl" {
+  type    = string
+  default = "private"
+}
+
 variable "versioning" {
   type    = bool
   default = false

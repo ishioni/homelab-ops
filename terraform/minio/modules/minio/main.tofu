@@ -9,12 +9,12 @@ terraform {
 module "onepassword" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = var.vault
-  item   = var.bucket_name
+  item   = var.user_name != null ? var.user_name : var.bucket_name
 }
 
 resource "minio_s3_bucket" "bucket" {
   bucket = var.bucket_name
-  acl    = "private"
+  acl    = var.acl
 }
 
 resource "minio_s3_bucket_versioning" "bucket" {
