@@ -10,7 +10,7 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --default_lua_flags=allow-undeclared-keys
-    - --s3_endpoint=s3.${PRIVATE_DOMAIN}
+    - --s3_endpoint=s3.${PUBLIC_DOMAIN}
   env:
     - name: MAX_MEMORY
       valueFrom:
