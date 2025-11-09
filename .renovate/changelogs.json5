@@ -46,5 +46,10 @@
       matchPackageNames: ["/authentik/"],
       sourceUrl: "https://github.com/goauthentik/authentik"
     },
+    {
+      description: "Changelog for navidrome",
+      matchPackageNames: ["/navidrome/"],
+      sourceUrl: "https://github.com/navidrome/navidrome"
+    },
   ],
 }
