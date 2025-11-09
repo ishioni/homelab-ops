@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -21,6 +23,13 @@ spec:
   postBuild:
     substitute:
       HOSTNAME: auth.${PUBLIC_DOMAIN}
+      APP: *app
+      APP_UID: "1000"
+      APP_GID: "1000"
+      PVC_CLAIM: authentik-media
+      PVC_ACCESSMODES: ReadWriteMany
+      PVC_STORAGECLASS: &nfs dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *nfs
   prune: true
   sourceRef:
     kind: GitRepository
