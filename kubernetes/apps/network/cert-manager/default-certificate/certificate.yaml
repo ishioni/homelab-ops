@@ -7,7 +7,6 @@ metadata:
 spec:
   dnsNames:
     - "${PUBLIC_DOMAIN}"
-    - "cdn.s3.${PUBLIC_DOMAIN}"
     - "*.${PUBLIC_DOMAIN}"
   issuerRef:
     name: letsencrypt-production

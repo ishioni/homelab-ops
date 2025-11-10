@@ -13,7 +13,7 @@ spec:
   path: ./kubernetes/apps/network/cdn-proxy/app
   postBuild:
     substitute:
-      HOSTNAME: cdn.s3.${PUBLIC_DOMAIN}
+      HOSTNAME: cdn.${PUBLIC_DOMAIN}
   prune: true
   sourceRef:
     kind: GitRepository
