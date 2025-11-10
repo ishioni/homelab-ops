@@ -6,6 +6,7 @@ resource "authentik_brand" "home" {
   domain                           = var.public_domain
   default                          = false
   branding_title                   = "Movishell"
+  branding_custom_css              = file("./styles/glassmorphism.css")
   branding_logo                    = "https://cdn.${var.public_domain}/branding/Pacifico.svg"
   branding_favicon                 = "https://cdn.${var.public_domain}/branding/favicon.png"
   branding_default_flow_background = "https://cdn.${var.public_domain}/branding/Beachfront.webp"
