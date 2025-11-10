@@ -10,13 +10,16 @@ data "authentik_certificate_key_pair" "generated" {
   name = "authentik Self-signed Certificate"
 }
 
-data "authentik_property_mapping_provider_scope" "scopes" {
+data "authentik_property_mapping_provider_scope" "default-scopes" {
   managed_list = [
     "goauthentik.io/providers/oauth2/scope-email",
     "goauthentik.io/providers/oauth2/scope-openid",
-    "goauthentik.io/providers/oauth2/scope-profile",
     "goauthentik.io/providers/oauth2/scope-offline_access"
   ]
+}
+
+data "authentik_property_mapping_provider_scope" "profile" {
+  scope_name = "profile"
 }
 
 resource "random_password" "client_secret" {
@@ -36,7 +39,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   sub_mode                   = var.sub_mode
   access_code_validity       = var.access_code_validity
   access_token_validity      = var.access_token_validity
-  property_mappings          = concat(data.authentik_property_mapping_provider_scope.scopes.ids, var.additional_property_mappings)
+  property_mappings          = concat(data.authentik_property_mapping_provider_scope.default-scopes.ids, [data.authentik_property_mapping_provider_scope.profile.id], var.additional_property_mappings)
   allowed_redirect_uris      = local.allowed_redirect_uris
   logout_method              = var.logout_method
   logout_uri                 = var.logout_uri
