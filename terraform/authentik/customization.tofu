@@ -16,15 +16,6 @@ resource "authentik_policy_expression" "user-settings-authorization" {
   name       = "user-settings-authorization"
   expression = file("./expressions/user-settings-authorization.py")
 }
-## OAuth scopes
-data "authentik_property_mapping_provider_scope" "default-scopes" {
-  managed_list = [
-    "goauthentik.io/providers/oauth2/scope-email",
-    "goauthentik.io/providers/oauth2/scope-openid",
-    "goauthentik.io/providers/oauth2/scope-profile",
-    "goauthentik.io/providers/oauth2/scope-offline_access"
-  ]
-}
 
 resource "authentik_property_mapping_provider_scope" "profile" {
   name       = "OAuth Mapping: OpenID 'profile'"
