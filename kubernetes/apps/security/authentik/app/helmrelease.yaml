@@ -22,7 +22,7 @@ spec:
       volumes:
         - name: media
           persistentVolumeClaim:
-            claimname: authentik-media
+            claimName: authentik-media
       volumeMounts:
         - name: media
           mountPath: /media
