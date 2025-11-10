@@ -8,7 +8,7 @@ module "proxy-transmission" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.downloads.id]
 }
 
 module "proxy-prowlarr" {
@@ -21,7 +21,7 @@ module "proxy-prowlarr" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.downloads.id]
 }
 
 module "proxy-radarr" {
@@ -34,7 +34,7 @@ module "proxy-radarr" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.downloads.id]
 }
 
 module "proxy-sonarr" {
@@ -47,7 +47,7 @@ module "proxy-sonarr" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.downloads.id]
 }
 
 module "proxy-lidarr" {
@@ -60,7 +60,7 @@ module "proxy-lidarr" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.downloads.id]
 }
 
 module "proxy-bazarr" {
@@ -73,7 +73,7 @@ module "proxy-bazarr" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.downloads.id]
 }
 
 module "proxy-navidrome" {
@@ -86,7 +86,7 @@ module "proxy-navidrome" {
   domain             = var.public_domain
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.users.id]
   ignore_paths       = <<-EOT
   /rest/*
   /share/*
@@ -130,7 +130,7 @@ module "oauth2-immich" {
   description        = "Photo managment"
   newtab             = true
   group              = "Selfhosted"
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_immich.fields["OIDC_CLIENT_ID"]
@@ -141,22 +141,6 @@ module "oauth2-immich" {
   ]
 }
 
-# module "oauth2-audiobookshelf" {
-#   source             = "./oauth2_application"
-#   name               = "Audiobookshelf"
-#   icon_url           = "https://raw.githubusercontent.com/advplyr/audiobookshelf-web/master/static/Logo.png"
-#   launch_url         = "https://audiobooks.${var.public_domain}"
-#   description        = "Media player"
-#   newtab             = true
-#   group              = "Selfhosted"
-#   auth_groups        = [authentik_group.media.id]
-#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-#   client_id          = module.secret_audiobookshelf.fields["OIDC_CLIENT_ID"]
-#   client_secret      = module.secret_audiobookshelf.fields["OIDC_CLIENT_SECRET"]
-#   redirect_uris      = ["https://audiobooks.${var.public_domain}/auth/openid/callback", "audiobookshelf://oauth"]
-# }
-
 module "oauth2-paperless" {
   source             = "./oauth2_application"
   name               = "Paperless"
@@ -165,7 +149,7 @@ module "oauth2-paperless" {
   description        = "Documents"
   newtab             = true
   group              = "Selfhosted"
-  auth_groups        = [authentik_group.infrastructure.id]
+  auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_paperless.fields["OIDC_CLIENT_ID"]
@@ -180,8 +164,8 @@ module "oauth2-romm" {
   launch_url         = "https://romm.${var.private_domain}"
   description        = "Games"
   newtab             = true
-  group              = "Selfhosted"
-  auth_groups        = [authentik_group.media.id]
+  group              = "Downloads"
+  auth_groups        = [authentik_group.downloads.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_romm.fields["OIDC_CLIENT_ID"]
@@ -197,7 +181,7 @@ module "oauth2-ocis" {
   description        = "ownCloud Infinite Scale"
   newtab             = true
   group              = "Selfhosted"
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.users.id]
   client_type        = "public"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
@@ -214,7 +198,7 @@ module "oauth2-ocis-android" {
   source             = "./oauth2_application"
   name               = "Owncloud-android"
   launch_url         = "blank://blank"
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = "e4rAsNUSIUs0lF4nbv9FmCeUkTlV9GdgTLDH1b5uie7syb90SzEVrbN7HIpmWJeD"
@@ -226,7 +210,7 @@ module "oauth2-ocis-desktop" {
   source             = "./oauth2_application"
   name               = "Owncloud-desktop"
   launch_url         = "blank://blank"
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = "xdXOt13JKxym1B1QcEncf2XDkLAexMBFwiT9j6EfhhHFJhs2KM9jbjTmf8JBXE69"
@@ -245,7 +229,7 @@ module "oauth2-vaultwarden" {
   description           = "Passwords"
   newtab                = true
   group                 = "Selfhosted"
-  auth_groups           = [authentik_group.media.id]
+  auth_groups           = [authentik_group.users.id]
   authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow     = resource.authentik_flow.provider-invalidation.uuid
   client_id             = module.secret_vaultwarden.fields["OIDC_CLIENT_ID"]
@@ -258,11 +242,11 @@ module "oauth2-openwebui" {
   source             = "./oauth2_application"
   name               = "OpenWebUI"
   icon_url           = "https://raw.githubusercontent.com/open-webui/open-webui/refs/heads/main/static/favicon.png"
-  launch_url         = "https://openwebui.${var.public_domain}"
+  launch_url         = "https://ai.${var.public_domain}"
   description        = "AI-powered web interface"
   newtab             = true
   group              = "Selfhosted"
-  auth_groups        = [authentik_group.media.id]
+  auth_groups        = [authentik_group.users.id]
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_openwebui.fields["OIDC_CLIENT_ID"]

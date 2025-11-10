@@ -3,14 +3,16 @@ data "authentik_certificate_key_pair" "generated" {
 }
 
 resource "authentik_brand" "home" {
-  domain           = var.public_domain
-  default          = false
-  branding_title   = "Home"
-  branding_logo    = "https://cdn.${var.public_domain}/branding/Banner2-white.svg"
-  branding_favicon = "https://cdn.${var.public_domain}/branding/favicon.png"
+  domain                           = var.public_domain
+  default                          = false
+  branding_title                   = "Movishell"
+  branding_logo                    = "https://cdn.${var.public_domain}/branding/Pacifico.svg"
+  branding_favicon                 = "https://cdn.${var.public_domain}/branding/favicon.png"
+  branding_default_flow_background = "https://cdn.${var.public_domain}/branding/Beachfront.webp"
 
   flow_authentication = authentik_flow.authentication.uuid
   flow_invalidation   = authentik_flow.invalidation.uuid
+  flow_recovery       = authentik_flow.recovery.uuid
   flow_user_settings  = authentik_flow.user-settings.uuid
 }
 
@@ -55,7 +57,7 @@ resource "authentik_outpost" "proxyoutpost" {
 }
 
 resource "authentik_system_settings" "settings" {
-  avatars                   = "attributes.picture, initials"
+  avatars                   = "attributes.avatar, initials"
   default_user_change_email = true
   event_retention           = "days=14"
 }

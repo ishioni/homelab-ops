@@ -2,16 +2,24 @@
 
 resource "authentik_stage_authenticator_totp" "authenticator-totp-setup" {
   name           = "authenticator-totp-setup"
+  friendly_name  = "TOTP Authenticator"
   digits         = 6
   configure_flow = authentik_flow.authenticator-totp-setup.uuid
 }
 
 resource "authentik_stage_authenticator_webauthn" "authenticator-webauthn-setup" {
   name                     = "authenticator-webauthn-setup"
-  friendly_name            = "Setup Webauthn"
+  friendly_name            = "Passkey"
   resident_key_requirement = "preferred"
   user_verification        = "preferred"
   configure_flow           = authentik_flow.authenticator-webauthn-setup.uuid
+}
+
+resource "authentik_stage_authenticator_email" "authenticator-email" {
+  name          = "authenticator-email-setup"
+  friendly_name = "Email code"
+  subject       = "Authentication code"
+  template      = "email/email_otp.html"
 }
 
 ## Authorization stages
@@ -36,10 +44,10 @@ resource "authentik_stage_password" "authentication-password" {
 
 resource "authentik_stage_authenticator_validate" "authentication-mfa-validation" {
   name                  = "authentication-mfa-validation"
-  device_classes        = ["totp", "webauthn", "email"]
+  device_classes        = ["totp", "email"]
   not_configured_action = "configure"
   configuration_stages = [
-    authentik_stage_authenticator_webauthn.authenticator-webauthn-setup.id,
+    authentik_stage_authenticator_email.authenticator-email.id,
     authentik_stage_authenticator_totp.authenticator-totp-setup.id
   ]
 }
@@ -55,7 +63,8 @@ resource "authentik_stage_authenticator_validate" "authentication-passkey-valida
 }
 
 resource "authentik_stage_user_login" "authentication-login" {
-  name = "authentication-login"
+  name             = "authentication-login"
+  session_duration = "hours=24"
 }
 
 ## Invalidation stages
@@ -73,11 +82,9 @@ resource "authentik_stage_identification" "recovery-identification" {
 }
 
 resource "authentik_stage_email" "recovery-email" {
-  name                     = "recovery-email"
-  activate_user_on_success = true
-  use_global_settings      = true
-  template                 = "email/password_reset.html"
-  subject                  = "Password recovery"
+  name     = "recovery-email"
+  template = "email/password_reset.html"
+  subject  = "Password recovery"
 }
 
 resource "authentik_stage_prompt" "password-change-prompt" {
