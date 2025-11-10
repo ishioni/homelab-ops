@@ -36,7 +36,7 @@ resource "authentik_stage_password" "authentication-password" {
 
 resource "authentik_stage_authenticator_validate" "authentication-mfa-validation" {
   name                  = "authentication-mfa-validation"
-  device_classes        = ["static", "totp", "webauthn"]
+  device_classes        = ["totp", "webauthn", "email"]
   not_configured_action = "configure"
   configuration_stages = [
     authentik_stage_authenticator_webauthn.authenticator-webauthn-setup.id,
@@ -113,7 +113,8 @@ resource "authentik_stage_prompt" "source-enrollment-prompt" {
     resource.authentik_stage_prompt_field.avatar.id
   ]
   validation_policies = [
-    resource.authentik_policy_password.password-complexity.id
+    resource.authentik_policy_password.password-complexity.id,
+    resource.authentik_policy_expression.user-settings-avatar-authorization.id
   ]
 }
 
@@ -121,6 +122,7 @@ resource "authentik_stage_user_write" "enrollment-user-write" {
   name                     = "enrollment-user-write"
   create_users_as_inactive = false
   create_users_group       = authentik_group.users.id
+  user_type                = "internal"
 }
 
 resource "authentik_stage_user_login" "source-enrollment-login" {
