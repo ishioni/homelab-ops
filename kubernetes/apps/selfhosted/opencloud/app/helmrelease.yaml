@@ -105,9 +105,17 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-            timeouts:
-              request: 0s
-              backendRequest: 0s
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /.well-known/webfinger
     persistence:
       config:
         type: configMap
