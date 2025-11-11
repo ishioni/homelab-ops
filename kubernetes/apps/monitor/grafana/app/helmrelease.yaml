@@ -37,6 +37,8 @@ spec:
       main:
         enabled: true
         annotations:
+          gatus.home-operations.com/endpoint: |-
+              url: https://grafana.ishioni.casa/api/health
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Grafana
