@@ -25,6 +25,7 @@ spec:
     substitute:
       APP: *app
       HOSTNAME: music.${PUBLIC_DOMAIN}
+      PVC_CAPACITY: 5Gi
       PVC_CLAIM: lidarr-config
       PVC_STORAGECLASS: dcsi-nfs
   prune: true
