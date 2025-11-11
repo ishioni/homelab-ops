@@ -48,9 +48,10 @@ spec:
         main:
           enabled: true
           annotations:
-            gatus.home-operations.com/endpoint: |-
-              name: authentik
-              url: https://auth.movishell.pl/-/health/live/
+            gatus.home-operations.com/enabled: "false"
+            # gatus.home-operations.com/endpoint: |-
+            #   name: authentik
+            #   url: https://auth.movishell.pl/-/health/live/
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Infrastructure
             gethomepage.dev/name: Authentik
