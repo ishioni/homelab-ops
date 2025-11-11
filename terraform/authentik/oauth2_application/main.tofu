@@ -47,7 +47,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
 
 resource "authentik_application" "oauth2-application" {
   name              = var.name
-  slug              = lower(var.name)
+  slug              = var.slug != null ? var.slug : lower(var.name)
   group             = var.group
   protocol_provider = authentik_provider_oauth2.oauth2-application.id
   meta_icon         = var.icon_url

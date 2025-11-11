@@ -140,7 +140,7 @@ spec:
                 requestHeaderModifier:
                   add:
                     - name: X-Issuer-Suffix
-                      value: opencloud-desktop
+                      value: openclouddesktop
           # Android UA
           - backendRefs:
               - identifier: app
@@ -158,7 +158,7 @@ spec:
                 requestHeaderModifier:
                   add:
                     - name: X-Issuer-Suffix
-                      value: opencloud-android
+                      value: opencloudandroid
           # iOS UA
           - backendRefs:
               - identifier: app
@@ -176,7 +176,7 @@ spec:
                 requestHeaderModifier:
                   add:
                     - name: X-Issuer-Suffix
-                      value: opencloud-ios
+                      value: opencloudios
     persistence:
       config:
         type: configMap

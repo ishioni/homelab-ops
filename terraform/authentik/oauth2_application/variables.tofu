@@ -40,6 +40,11 @@ variable "client_secret" {
   default = null
 }
 
+variable "slug" {
+  type    = string
+  default = null
+}
+
 variable "authorization_flow" {
   type = string
 }
