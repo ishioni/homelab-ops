@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.0.1/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.4.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -109,13 +109,74 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
+          # browser UA
           - backendRefs:
               - identifier: app
                 port: 9201
             matches:
               - path:
-                  type: PathPrefix
+                  type: Exact
                   value: /.well-known/webfinger
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: opencloud
+          # desktop UA
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                headers:
+                  - type: RegularExpression
+                    name: User-Agent
+                    value: ".*mirall.*OpenCloud.*"
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: opencloud-desktop
+          # Android UA
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                headers:
+                  - type: RegularExpression
+                    name: User-Agent
+                    value: "*OpenCloud-android"
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: opencloud-android
+          # iOS UA
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                headers:
+                  - type: RegularExpression
+                    name: User-Agent
+                    value: "*OpenCloudApp"
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: opencloud-ios
     persistence:
       config:
         type: configMap
