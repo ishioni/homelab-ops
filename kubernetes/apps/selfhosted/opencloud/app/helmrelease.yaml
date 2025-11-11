@@ -152,7 +152,7 @@ spec:
                 headers:
                   - type: RegularExpression
                     name: User-Agent
-                    value: "*OpenCloud-android"
+                    value: ".*OpenCloud-android"
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
@@ -170,7 +170,7 @@ spec:
                 headers:
                   - type: RegularExpression
                     name: User-Agent
-                    value: "*OpenCloudApp"
+                    value: ".*OpenCloudApp"
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
