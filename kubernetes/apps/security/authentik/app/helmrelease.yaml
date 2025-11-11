@@ -50,6 +50,7 @@ spec:
           annotations:
             gatus.home-operations.com/endpoint: |-
               name: authentik
+              url: https://authentik.movishell.pl/-/health/live/
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Infrastructure
             gethomepage.dev/name: Authentik
