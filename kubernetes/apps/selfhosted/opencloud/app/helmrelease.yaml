@@ -109,20 +109,20 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
-          # browser UA
-          - backendRefs:
-              - identifier: app
-                port: 9201
-            matches:
-              - path:
-                  type: Exact
-                  value: /.well-known/webfinger
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: X-Issuer-Suffix
-                      value: opencloud
+          # browser UA - unneeded?
+          # - backendRefs:
+          #     - identifier: app
+          #       port: 9201
+          #   matches:
+          #     - path:
+          #         type: Exact
+          #         value: /.well-known/webfinger
+          #   filters:
+          #     - type: RequestHeaderModifier
+          #       requestHeaderModifier:
+          #         add:
+          #           - name: X-Issuer-Suffix
+          #             value: opencloud
           # desktop UA
           - backendRefs:
               - identifier: app
