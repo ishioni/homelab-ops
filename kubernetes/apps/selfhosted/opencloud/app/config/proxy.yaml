@@ -6,6 +6,6 @@ role_assignment:
     role_claim: groups
     role_mapping:
       - role_name: admin
-        claim_value: superusers
+        claim_value: infrastructure
       - role_name: user
         claim_value: users
