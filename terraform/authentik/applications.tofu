@@ -157,21 +157,21 @@ module "oauth2-paperless" {
   redirect_uris      = ["https://documents.${var.private_domain}/accounts/oidc/authentik/login/callback/"]
 }
 
-module "oauth2-romm" {
-  source             = "./oauth2_application"
-  name               = "Romm"
-  icon_url           = "https://raw.githubusercontent.com/rommapp/romm/refs/heads/release/frontend/assets/isotipo.svg"
-  launch_url         = "https://romm.${var.private_domain}"
-  description        = "Games"
-  newtab             = true
-  group              = "Downloads"
-  auth_groups        = [authentik_group.downloads.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = module.secret_romm.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_romm.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://romm.${var.private_domain}/api/oauth/openid"]
-}
+# module "oauth2-romm" {
+#   source             = "./oauth2_application"
+#   name               = "Romm"
+#   icon_url           = "https://raw.githubusercontent.com/rommapp/romm/refs/heads/release/frontend/assets/isotipo.svg"
+#   launch_url         = "https://romm.${var.private_domain}"
+#   description        = "Games"
+#   newtab             = true
+#   group              = "Downloads"
+#   auth_groups        = [authentik_group.downloads.id]
+#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+#   client_id          = module.secret_romm.fields["OIDC_CLIENT_ID"]
+#   client_secret      = module.secret_romm.fields["OIDC_CLIENT_SECRET"]
+#   redirect_uris      = ["https://romm.${var.private_domain}/api/oauth/openid"]
+# }
 
 module "oauth2-ocis" {
   source             = "./oauth2_application"
