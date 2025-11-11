@@ -37,7 +37,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Grafana

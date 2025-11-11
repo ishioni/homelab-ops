@@ -90,8 +90,6 @@ spec:
           - path: /app/backend/data
     route:
       app:
-        annotations:
-          gatus.home-operations.com/enabled: "false"
         # annotations:
         #   gethomepage.dev/enabled: "true"
         #   gethomepage.dev/group: Selfhosted
