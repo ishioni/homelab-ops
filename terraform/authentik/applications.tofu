@@ -254,62 +254,62 @@ module "oauth2-openwebui" {
   redirect_uris      = ["https://ai.${var.public_domain}/oauth/oidc/callback"]
 }
 
-# module "oauth2-opencloud" {
-#   source             = "./oauth2_application"
-#   name               = "OpenCloud"
-#   icon_url           = "https://raw.githubusercontent.com/opencloud-eu/docs/refs/heads/main/static/img/oc-favicon.svg"
-#   launch_url         = "https://opencloud.${var.public_domain}"
-#   description        = "OpenCloud"
-#   newtab             = true
-#   group              = "Selfhosted"
-#   auth_groups        = [authentik_group.media.id]
-#   client_type        = "public"
-#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-#   client_id          = "web"
-#   # additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
-#   redirect_uris = [
-#     "https://opencloud.${var.public_domain}",
-#     "https://opencloud.${var.public_domain}/oidc-callback.html",
-#     "https://opencloud.${var.public_domain}/oidc-silent-redirect.html"
-#   ]
-# }
+module "oauth2-opencloud" {
+  source             = "./oauth2_application"
+  name               = "OpenCloud"
+  icon_url           = "https://raw.githubusercontent.com/opencloud-eu/docs/refs/heads/main/static/img/oc-favicon.svg"
+  launch_url         = "https://opencloud.${var.public_domain}"
+  description        = "OpenCloud"
+  newtab             = true
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.users.id]
+  client_type        = "public"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = "web"
+  # additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
+  redirect_uris = [
+    "https://opencloud.${var.public_domain}",
+    "https://opencloud.${var.public_domain}/oidc-callback.html",
+    "https://opencloud.${var.public_domain}/oidc-silent-redirect.html"
+  ]
+}
 
-# module "oauth2-opencloud-desktop" {
-#   source             = "./oauth2_application"
-#   name               = "OpenCloud-desktop"
-#   launch_url         = "blank://blank"
-#   auth_groups        = [authentik_group.media.id]
-#   client_type        = "public"
-#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-#   client_id          = "OpenCloudDesktop"
-#   redirect_uris = [
-#     { matching_mode = "regex", url = "http://127.0.0.1(:.*)?" },
-#     { matching_mode = "regex", url = "http://localhost(:.*)?" }
-#   ]
-# }
+module "oauth2-opencloud-desktop" {
+  source             = "./oauth2_application"
+  name               = "OpenCloudDesktop"
+  launch_url         = "blank://blank"
+  auth_groups        = [authentik_group.users.id]
+  client_type        = "public"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = "OpenCloudDesktop"
+  redirect_uris = [
+    { matching_mode = "regex", url = "http://127.0.0.1(:.*)?" },
+    { matching_mode = "regex", url = "http://localhost(:.*)?" }
+  ]
+}
 
-# module "oauth2-opencloud-android" {
-#   source             = "./oauth2_application"
-#   name               = "OpenCloud-android"
-#   launch_url         = "blank://blank"
-#   auth_groups        = [authentik_group.media.id]
-#   client_type        = "public"
-#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-#   client_id          = "OpenCloudAndroid"
-#   redirect_uris      = ["oc://android.opencloud.eu"]
-# }
+module "oauth2-opencloud-android" {
+  source             = "./oauth2_application"
+  name               = "OpenCloudAndroid"
+  launch_url         = "blank://blank"
+  auth_groups        = [authentik_group.users.id]
+  client_type        = "public"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = "OpenCloudAndroid"
+  redirect_uris      = ["oc://android.opencloud.eu"]
+}
 
-# module "oauth2-opencloud-ios" {
-#   source             = "./oauth2_application"
-#   name               = "OpenCloud-ios"
-#   launch_url         = "blank://blank"
-#   auth_groups        = [authentik_group.media.id]
-#   client_type        = "public"
-#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-#   client_id          = "OpenCloudIOS"
-#   redirect_uris      = ["oc://ios.opencloud.eu"]
-# }
+module "oauth2-opencloud-ios" {
+  source             = "./oauth2_application"
+  name               = "OpenCloudIOS"
+  launch_url         = "blank://blank"
+  auth_groups        = [authentik_group.users.id]
+  client_type        = "public"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = "OpenCloudIOS"
+  redirect_uris      = ["oc://ios.opencloud.eu"]
+}

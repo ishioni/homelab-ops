@@ -23,6 +23,16 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
         containers:
+          webfiger-proxy:
+            image:
+              repository: ghcr.io/2bros-group/opencloud-oidc-webfinger-proxy
+              tag: v1.0.0
+            env:
+              PORT: "9201"
+              UPSTREAM_URL: https://${HOSTNAME}
+              HREF_PATTERN: &href https://${AUTH_HOSTNAME}/application/o/
+              HREF_REPLACEMENT: *href
+              DEFAULT_SUFFIX: opencloud
           opencloud:
             image:
               repository: docker.io/opencloudeu/opencloud-rolling
