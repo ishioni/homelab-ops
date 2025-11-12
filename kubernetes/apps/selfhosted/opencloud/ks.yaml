@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: &appname ocis
   components:
-    - ../../../../components/pvc
+    - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
