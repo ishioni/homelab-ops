@@ -1,7 +1,7 @@
 {
   "files.associations": {
     "*.json5": "json5",
-    "**/infrastructure/terraform/**/*.tf": "terraform"
+    "*.tofu": "opentofu"
   },
   "prettier.configPath": ".github/linters/.prettierrc.yaml",
   "prettier.ignorePath": ".github/linters/.prettierignore",

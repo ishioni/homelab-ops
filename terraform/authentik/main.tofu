@@ -70,12 +70,6 @@ module "secret_romm" {
   item   = "romm"
 }
 
-module "secret_ocis" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
-  vault  = "Homelab"
-  item   = "ocis"
-}
-
 module "secret_vaultwarden" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"
