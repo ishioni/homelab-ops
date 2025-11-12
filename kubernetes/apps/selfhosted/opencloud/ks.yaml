@@ -4,11 +4,11 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app opencloud
-  namespace: &namespace selfhosted
+  namespace: selfhosted
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: &appname ocis
+      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -22,7 +22,7 @@ spec:
   path: ./kubernetes/apps/selfhosted/opencloud/app
   postBuild:
     substitute:
-      APP: *appname
+      APP: *app
       HOSTNAME: opencloud.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
       APP_UID: "568"
