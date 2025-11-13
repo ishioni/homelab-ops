@@ -44,7 +44,7 @@ spec:
         # imagePullPolicy: Always
       priorityClassName: system-node-critical
     csiDriver:
-      name: &driver org.dcsi.nfs
+      name: &driver org.dcsi.nvmeof
     storageClasses:
       - name: &class dcsi-nvmeof
         defaultClass: false
