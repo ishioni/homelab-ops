@@ -30,7 +30,6 @@ spec:
       VOLSYNC_CACHE_CAPACITY: 15Gi
       PVC_STORAGECLASS: &nvme dcsi-nvmeof
       VOLSYNC_SNAPSHOTCLASS: *nvme
-      VOLSYNC_CACHE_SNAPSHOTCLASS: *nvme
   prune: true
   sourceRef:
     kind: GitRepository
