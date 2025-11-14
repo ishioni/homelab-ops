@@ -21,7 +21,7 @@ spec:
           01-init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18.1
+              tag: 18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
               pullPolicy: IfNotPresent
             envFrom:
               - secretRef:
@@ -94,7 +94,7 @@ spec:
               repository: docker.io/thecodingmachine/gotenberg
               tag: 8.24.0
             env:
-              - {name: DISABLE_GOOGLE_CHROME, value: "1"}
+              - { name: DISABLE_GOOGLE_CHROME, value: "1" }
             securityContext:
               runAsUser: 65534
               runAsGroup: 65534
