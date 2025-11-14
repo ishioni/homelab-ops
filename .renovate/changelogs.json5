@@ -19,37 +19,42 @@
     {
       description: "Changelog for Talos",
       matchPackageNames: ["/installer/"],
-      sourceUrl: "https://github.com/siderolabs/talos"
+      sourceUrl: "https://github.com/siderolabs/talos",
     },
     {
       description: "Changelog for OIDCWarden",
       matchPackageNames: ["/oidcwarden/"],
-      changelogUrl: "https://github.com/Timshel/OIDCWarden/blob/main/CHANGELOG.md"
+      changelogUrl: "https://github.com/Timshel/OIDCWarden/blob/main/CHANGELOG.md",
     },
     {
       description: "Changelog for it-tools",
       matchPackageNames: ["/it-tools/"],
-      sourceUrl: "https://github.com/sharevb/it-tools"
+      sourceUrl: "https://github.com/sharevb/it-tools",
     },
     {
       description: "Changelog for atuin",
       matchPackageNames: ["/atuin/"],
-      changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md"
+      changelogUrl: "https://github.com/atuinsh/atuin/blob/main/CHANGELOG.md",
     },
     {
       description: "Changelog for thanos",
       matchPackageNames: ["/thanos/"],
-      sourceUrl: "https://github.com/thanos-io/thanos"
+      sourceUrl: "https://github.com/thanos-io/thanos",
     },
     {
       description: "Changelog for authentik",
       matchPackageNames: ["/authentik/"],
-      sourceUrl: "https://github.com/goauthentik/authentik"
+      sourceUrl: "https://github.com/goauthentik/authentik",
     },
     {
       description: "Changelog for navidrome",
       matchPackageNames: ["/navidrome/"],
-      sourceUrl: "https://github.com/navidrome/navidrome"
+      sourceUrl: "https://github.com/navidrome/navidrome",
+    },
+    {
+      description: "Changelog for ollama",
+      matchPackageNames: ["/ollama/"],
+      sourceUrl: "https://github.com/ollama/ollama",
     },
   ],
 }
