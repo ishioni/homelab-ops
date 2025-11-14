@@ -17,7 +17,7 @@ spec:
       secret.reloader.stakater.com/reload: &secret grafana-secret
     extraInitContainers:
       - name: init-db
-        image: ghcr.io/home-operations/postgres-init:17.6
+        image: ghcr.io/home-operations/postgres-init:18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
         envFrom:
           - secretRef:
               name: *secret
@@ -38,7 +38,7 @@ spec:
         enabled: true
         annotations:
           gatus.home-operations.com/endpoint: |-
-              url: https://grafana.ishioni.casa/api/health
+            url: https://grafana.ishioni.casa/api/health
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
           gethomepage.dev/name: Grafana
