@@ -15,10 +15,7 @@
       description: "Github ARC Group",
       groupName: "actions-runner-controller",
       matchDatasources: ["docker"],
-      matchPackageNames: [
-        "/gha-runner-scale-set-controller/",
-        "/gha-runner-scale-set/",
-      ],
+      matchPackageNames: ["/gha-runner-scale-set-controller/", "/gha-runner-scale-set/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
@@ -38,17 +35,10 @@
       description: "Kubernetes Group",
       groupName: "kubernetes",
       matchDatasources: ["docker"],
-      matchPackageNames: [
-        "/kube-apiserver/",
-        "/kube-controller-manager/",
-        "/kube-proxy/",
-        "/kube-scheduler/",
-        "/kubelet/",
-      ],
+      matchPackageNames: ["/kubelet/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 5,
     },
     {
       description: "Talos Group",
@@ -71,10 +61,7 @@
     {
       description: "Barman cloud plugin",
       groupName: "plugin-barman-cloud",
-      matchPackageNames: [
-        "/plugin-barman-cloud/",
-        "/plugin-barman-cloud-sidecar/",
-      ],
+      matchPackageNames: ["/plugin-barman-cloud/", "/plugin-barman-cloud-sidecar/"],
       matchDatasources: ["docker"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
