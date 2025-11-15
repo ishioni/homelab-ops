@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.19.5
+              tag: 2.19.6
             env:
               PAPERLESS_CONSUMER_POLLING: 60
               PAPERLESS_CONSUMER_RECURSIVE: "true"
@@ -94,7 +94,7 @@ spec:
               repository: docker.io/thecodingmachine/gotenberg
               tag: 8.24.0
             env:
-              - { name: DISABLE_GOOGLE_CHROME, value: "1" }
+              - {name: DISABLE_GOOGLE_CHROME, value: "1"}
             securityContext:
               runAsUser: 65534
               runAsGroup: 65534
