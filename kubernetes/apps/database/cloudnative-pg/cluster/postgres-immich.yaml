@@ -77,7 +77,7 @@ spec:
             spec:
               type: LoadBalancer
           updateStrategy: patch
-      disabledDefaultServices: ["ro"]
+      disabledDefaultServices: ["r", "ro"]
   # bootstrap:
   #   recovery:
   #     source: source
