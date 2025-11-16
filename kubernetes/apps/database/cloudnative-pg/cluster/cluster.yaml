@@ -65,29 +65,13 @@ spec:
               type: LoadBalancer
           updateStrategy: patch
       disabledDefaultServices: ["ro"]
-  bootstrap:
-    initdb:
-      import:
-        databases: ["*"]
-        roles: ["*"]
-        source:
-          externalCluster: postgres-17
-        type: monolith
+  # bootstrap:
   #   recovery:
   #     source: source
-  externalClusters:
-    - name: postgres-17
-      connectionParameters:
-        host: postgres-17-rw.database.svc.cluster.local
-        user: postgres
-        dbname: postgres
-        sslmode: require
-      password:
-        key: password
-        name: cloudnative-pg-secret
-    # - name: source
-    #   plugin:
-    #     enabled: true
-    #     isWALArchiver: true
-    #     name: barman-cloud.cloudnative-pg.io
-    #     parameters: *barmanParameters
+  # externalClusters:
+  #   - name: source
+  #     plugin:
+  #       enabled: true
+  #       isWALArchiver: true
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters: *barmanParameters
