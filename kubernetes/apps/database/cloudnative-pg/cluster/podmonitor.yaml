@@ -2,30 +2,6 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: &cluster postgres-17
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-  selector:
-    matchLabels:
-      cnpg.io/cluster: *cluster
-      cnpg.io/podRole: instance
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: &cluster immich-pg17
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-  selector:
-    matchLabels:
-      cnpg.io/cluster: *cluster
-      cnpg.io/podRole: instance
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
   name: &cluster postgres
 spec:
   podMetricsEndpoints:
