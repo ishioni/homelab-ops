@@ -14,7 +14,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: &cluster immich
+  name: &cluster postgres-immich
 spec:
   podMetricsEndpoints:
     - port: metrics
