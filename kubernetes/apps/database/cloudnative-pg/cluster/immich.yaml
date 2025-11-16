@@ -13,7 +13,7 @@ spec:
     podAntiAffinityType: required
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.6-0.5.3
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18.0-0.5.3
   plugins:
     - enabled: true
       isWALArchiver: true
@@ -70,26 +70,9 @@ spec:
               type: LoadBalancer
           updateStrategy: patch
       disabledDefaultServices: ["ro"]
-  bootstrap:
-    initdb:
-      import:
-        databases: ["*"]
-        roles: ["*"]
-        source:
-          externalCluster: immich-pg17
-        type: monolith
+  # bootstrap:
   #   recovery:
   #     source: source
-  externalClusters:
-    - name: immich-pg17
-      connectionParameters:
-        host: immich-pg17-rw.database.svc.cluster.local
-        user: postgres
-        dbname: postgres
-        sslmode: require
-      password:
-        key: password
-        name: cloudnative-pg-secret
   # externalClusters:
   #   - name: source
   #     plugin:
