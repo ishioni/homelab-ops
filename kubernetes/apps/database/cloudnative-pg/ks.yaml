@@ -61,11 +61,15 @@ spec:
       namespace: storage
     - name: external-secrets
       namespace: security
-  # healthCheckExprs:
-  #   - apiVersion: postgresql.cnpg.io/v1
-  #     kind: Cluster
-  #     current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
-  #     failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres
+      namespace: database
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres-immich
+      namespace: database
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true
