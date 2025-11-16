@@ -14,7 +14,7 @@ spec:
   enableSuperuserAccess: true
   instances: 3
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.0-system-trixie@sha256
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.0-system-trixie
   plugins:
     - enabled: true
       isWALArchiver: true
