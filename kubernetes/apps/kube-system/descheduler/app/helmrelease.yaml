@@ -21,21 +21,11 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
-                evictFailedBarePods: true
-                evictLocalStoragePods: true
-                evictSystemCriticalPods: true
-                nodeFit: true
-            - name: RemovePodsViolatingInterPodAntiAffinity
-            - name: RemovePodsViolatingNodeAffinity
-              args:
-                nodeAffinityType:
-                  - requiredDuringSchedulingIgnoredDuringExecution
-            - name: RemovePodsViolatingNodeTaints
-            - name: RemovePodsViolatingTopologySpreadConstraint
-              args:
-                constraints:
-                  - DoNotSchedule
-                  - ScheduleAnyway
+                podProtections:
+                  defaultDisabled:
+                    - FailedBarePods
+                    - PodsWithLocalStorage
+                    - SystemCriticalPods
             - name: LowNodeUtilization
               args:
                 thresholds:
@@ -49,15 +39,22 @@ spec:
             - name: RemoveFailedPods
               args:
                 reasons:
+                  - ContainerStatusUnknown
+                  - NodeAffinity
                   - NodeShutdown
-                  - ImagePullBackOff
-                  - CreateContainerConfigError
-                exitCodes:
-                  - 1
+                  - Terminated
+                  - UnexpectedAdmissionError
                 includingInitContainers: true
                 excludeOwnerKinds:
                   - Job
-                minPodLifetimeSeconds: 3600
+                minPodLifetimeSeconds: 1800
+            - name: RemovePodsViolatingInterPodAntiAffinity
+            - name: RemovePodsViolatingNodeAffinity
+              args:
+                nodeAffinityType:
+                  - requiredDuringSchedulingIgnoredDuringExecution
+            - name: RemovePodsViolatingNodeTaints
+            - name: RemovePodsViolatingTopologySpreadConstraint
             - name: RemovePodsHavingTooManyRestarts
               args:
                 podRestartThreshold: 5
@@ -69,11 +66,11 @@ spec:
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
-                - RemovePodsHavingTooManyRestarts
+                - RemoveFailedPods
                 - RemovePodsViolatingInterPodAntiAffinity
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingNodeTaints
-                - RemoveFailedPods
+                - RemovePodsHavingTooManyRestarts
     service:
       enabled: true
     serviceMonitor:
