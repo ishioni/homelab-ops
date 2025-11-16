@@ -1,0 +1,93 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: &pgname postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+spec:
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  enableSuperuserAccess: true
+  instances: 3
+  # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.6
+  plugins:
+    - enabled: true
+      isWALArchiver: true
+      name: barman-cloud.cloudnative-pg.io
+      parameters: &barmanParameters
+        barmanObjectName: minio
+        serverName: postgres-v1
+  postgresql:
+    parameters:
+      max_connections: "300"
+      work_mem: 64MB
+      shared_buffers: 128MB
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  resources:
+    requests:
+      cpu: 200m
+      memory: 500Mi
+    limits:
+      memory: 2Gi
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+  managed:
+    services:
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: *pgname
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: postgres.${PRIVATE_DOMAIN}
+                gatus.home-operations.com/enabled: "true"
+                gatus.home-operations.com/endpoint: |
+                  name: postgres
+                  conditions:
+                    - "[CONNECTED] == true"
+                  group: Services
+                  ui:
+                    hide-hostname: true
+                    hide-url: true
+                  alerts:
+                    - type: pushover
+                      send-on-resolved: true
+            spec:
+              type: LoadBalancer
+          updateStrategy: patch
+      disabledDefaultServices: ["ro"]
+  bootstrap:
+    initdb:
+      import:
+        databases: ["*"]
+        roles: ["*"]
+        source:
+          externalCluster: postgres-17
+        type: monolith
+  #   recovery:
+  #     source: source
+  externalClusters:
+    - name: postgres-17
+      connectionParameters:
+        host: postgres-17-rw.database.svc.cluster.local
+        user: postgres
+        dbname: postgres
+        sslmode: require
+      password:
+        key: password
+        name: cloudnative-pg-secret
+    # - name: source
+    #   plugin:
+    #     enabled: true
+    #     isWALArchiver: true
+    #     name: barman-cloud.cloudnative-pg.io
+    #     parameters: *barmanParameters
