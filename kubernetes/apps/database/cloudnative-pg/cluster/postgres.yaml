@@ -65,6 +65,8 @@ spec:
               type: LoadBalancer
           updateStrategy: patch
       disabledDefaultServices: ["r", "ro"]
+  monitoring:
+    enablePodMonitor: true
   # bootstrap:
   #   recovery:
   #     source: source
