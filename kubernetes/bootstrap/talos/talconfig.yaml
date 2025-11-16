@@ -132,7 +132,7 @@ patches:
       apiServer:
         extraArgs:
           enable-aggregator-routing: true
-          feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true,ResourceHealthStatus=true
+          feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
           runtime-config: admissionregistration.k8s.io/v1beta1=true
   # Kubelet flags
   - |-
@@ -142,7 +142,6 @@ patches:
           serializeImagePulls: false
           featureGates:
             ImageVolume: true
-            ResourceHealthStatus: true
         extraArgs:
           rotate-server-certificates: "true"
         nodeIP:
