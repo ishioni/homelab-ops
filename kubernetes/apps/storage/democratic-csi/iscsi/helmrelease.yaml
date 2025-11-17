@@ -23,7 +23,7 @@ spec:
       driver:
         image: &image
           registry: ghcr.io/democratic-csi/democratic-csi@sha256
-          tag: ea71bf6d5979138aa33dd5d41d6ce2fafb109a7e5c6f783471547040868ae701
+          tag: 5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
         # imagePullPolicy: Always
       priorityClassName: system-cluster-critical
       topologySpreadConstraints:
@@ -69,7 +69,7 @@ spec:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
         parameters:
-          detachedSnapshots: true
+          detachedSnapshots: false
     driver:
       config:
         driver: freenas-api-iscsi
