@@ -54,31 +54,31 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   wait: true
-# ---
-# # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: &app dcsi-nvmeof
-#   namespace: &namespace storage
-# spec:
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: *app
-#   dependsOn:
-#     - name: external-secrets
-#       namespace: security
-#     - name: snapshot-controller
-#       namespace: *namespace
-#   interval: 30m
-#   path: ./kubernetes/apps/storage/democratic-csi/nvmeof
-#   postBuild:
-#     substitute:
-#       LEO_HOSTNAME: leo.${PRIVATE_DOMAIN}
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: homelab-ops
-#     namespace: flux-system
-#   targetNamespace: *namespace
-#   wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app dcsi-nvmeof
+  namespace: &namespace storage
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-secrets
+      namespace: security
+    - name: snapshot-controller
+      namespace: *namespace
+  interval: 30m
+  path: ./kubernetes/apps/storage/democratic-csi/nvmeof
+  postBuild:
+    substitute:
+      LEO_HOSTNAME: leo.${PRIVATE_DOMAIN}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true
