@@ -50,7 +50,7 @@ spec:
           server:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v2.3.0
+              tag: v2.3.1
             envFrom:
               - secretRef:
                   name: *secret
@@ -106,7 +106,7 @@ spec:
           microservices:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v2.3.0
+              tag: v2.3.1
             envFrom:
               - secretRef:
                   name: *secret
@@ -146,7 +146,7 @@ spec:
           machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v2.3.0
+              tag: v2.3.1
             env:
               MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-B-16-SigLIP__webli
               MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-16-SigLIP__webli
