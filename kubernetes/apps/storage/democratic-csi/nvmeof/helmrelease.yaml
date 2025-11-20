@@ -53,8 +53,8 @@ spec:
         allowVolumeExpansion: true
         parameters:
           fsType: ext4
-          detachedVolumesFromSnapshots: true
-          detachedVolumesFromVolumes: true
+          detachedVolumesFromSnapshots: false
+          detachedVolumesFromVolumes: false
         mountOptions: []
     volumeSnapshotClasses:
       - name: *class
