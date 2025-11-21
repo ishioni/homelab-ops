@@ -1,0 +1,61 @@
+---
+services:
+  garage:
+    image: docker.io/dxflrs/garage:v2.1.0@sha256:4c9b34c113e61358466e83fd6e7d66e6d18657ede14b776eb78a93ee8da7cf6a
+    container_name: garage
+    restart: unless-stopped
+    env_file:
+      - path: ./secrets.env
+        required: true
+    environment:
+      TZ: Europe/Warsaw
+    networks:
+      apps:
+    expose:
+      - ${S3_PORT}
+      - ${API_PORT}
+    volumes:
+      - ./config/config.toml:/etc/garage.toml
+      - ${DATA_PATH}:/data
+    labels:
+      traefik.enable: "true"
+      # S3
+      traefik.http.services.garage-s3.loadbalancer.server.port: ${S3_PORT}
+      traefik.http.routers.garage-s3.entrypoints: https
+      traefik.http.routers.garage-s3.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
+      traefik.http.routers.garage-s3.tls.certresolver: letsencrypt
+      traefik.http.routers.garage-s3.tls.domains[0].main: ${S3_HOST}
+      traefik.http.routers.garage-s3.tls.domains[0].sans: "*.${S3_HOST}"
+      traefik.http.routers.garage-s3.service: garage-s3
+      # API
+      traefik.http.services.garage-api.loadbalancer.server.port: ${API_PORT}
+      traefik.http.routers.garage-api.entrypoints: https
+      traefik.http.routers.garage-api.rule: Host(`${API_HOST}`)
+      traefik.http.routers.garage-api.tls: true
+      traefik.http.routers.garage-api.service: garage-api
+  garage-ui:
+    image: khairul169/garage-webui:1.1.0@sha256:17c793551873155065bf9a022dabcde874de808a1f26e648d4b82e168806439c
+    container_name: garage-ui
+    restart: unless-stopped
+    env_file:
+      - path: ./secrets.env
+        required: true
+    environment:
+      API_BASE_URL: "http://garage:${API_PORT}"
+      S3_ENDPOINT_URL: "http://garage:${S3_PORT}"
+    networks:
+      apps:
+    expose:
+      - ${UI_PORT}
+    volumes:
+      - ./config/config.toml:/etc/garage.toml
+    labels:
+      traefik.http.services.garage-ui.loadbalancer.server.port: ${UI_PORT}
+      traefik.http.routers.garage-ui.entrypoints: https
+      traefik.http.routers.garage-ui.rule: Host(`${UI_HOST}`)
+      traefik.http.routers.garage-ui.tls: true
+      traefik.http.routers.garage-ui.service: garage-api
+
+networks:
+  apps:
+    external: true
