@@ -54,7 +54,7 @@ services:
       traefik.http.routers.garage-ui.entrypoints: https
       traefik.http.routers.garage-ui.rule: Host(`${UI_HOST}`)
       traefik.http.routers.garage-ui.tls: true
-      traefik.http.routers.garage-ui.service: garage-api
+      traefik.http.routers.garage-ui.service: garage-ui
 
 networks:
   apps:
