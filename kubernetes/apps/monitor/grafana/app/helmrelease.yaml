@@ -298,6 +298,10 @@ spec:
           revision: 9
           datasource: Prometheus
       storage:
+        garage-dashboard:
+          url: https://git.deuxfleurs.fr/Deuxfleurs/garage/raw/branch/main-v1/script/telemetry/grafana-garage-dashboard-prometheus.json
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
         minio-dashboard:
           # renovate: depName="Minio"
           gnetId: 13502
