@@ -1,0 +1,39 @@
+---
+services:
+  garage:
+    image: docker.io/dxflrs/garage:v2.1.0@sha256:4c9b34c113e61358466e83fd6e7d66e6d18657ede14b776eb78a93ee8da7cf6a
+    container_name: garage
+    restart: unless-stopped
+    env_file:
+      - path: ./secrets.env
+        required: true
+    environment:
+      TZ: Europe/Warsaw
+    networks:
+      apps:
+    expose:
+      - ${S3_PORT}
+      - ${API_PORT}
+    volumes:
+      - ./config/config.toml:/etc/garage.toml
+      - ${DATA_PATH}:/data
+    labels:
+      traefik.enable: "true"
+      # S3
+      traefik.http.services.garage-s3.loadbalancer.server.port: ${S3_PORT}
+      traefik.http.routers.garage-s3.entrypoints: https
+      traefik.http.routers.garage-s3.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
+      traefik.http.routers.garage-s3.tls.certresolver: letsencrypt
+      traefik.http.routers.garage-s3.tls.domains[0].main: ${S3_HOST}
+      traefik.http.routers.garage-s3.tls.domains[0].sans: "*.${S3_HOST}"
+      traefik.http.routers.garage-s3.service: garage-s3
+      # API
+      traefik.http.services.garage-api.loadbalancer.server.port: ${API_PORT}
+      traefik.http.routers.garage-api.entrypoints: https
+      traefik.http.routers.garage-api.rule: Host(`${API_HOST}`)
+      traefik.http.routers.scrutiny.tls: true
+      traefik.http.routers.garage-api.service: garage-api
+
+networks:
+  apps:
+    external: true
