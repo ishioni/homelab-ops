@@ -50,6 +50,7 @@ services:
     volumes:
       - ./config/config.toml:/etc/garage.toml
     labels:
+      traefik.enable: "true"
       traefik.http.services.garage-ui.loadbalancer.server.port: ${UI_PORT}
       traefik.http.routers.garage-ui.entrypoints: https
       traefik.http.routers.garage-ui.rule: Host(`${UI_HOST}`)
