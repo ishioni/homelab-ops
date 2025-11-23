@@ -8,8 +8,13 @@ variable "user_name" {
   default   = null
 }
 
-variable "user_secret_item" {
+variable "access_key" {
   type      = string
+  sensitive = true
+}
+
+variable "secret_key" {
+  type = string
   sensitive = true
 }
 

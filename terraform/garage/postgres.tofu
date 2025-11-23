@@ -3,5 +3,6 @@ module "s3_cloudnative-pg" {
   vault       = "Homelab"
   bucket_name = "cloudnative-pg"
   # The OP provider converts the fields with toLower!
-  user_secret_item = "POSTGRES_S3_SECRET_KEY"
+  access_key = "GARAGE_ACCESS_KEY"
+  secret_key = "GARAGE_SECRET_KEY"
 }
