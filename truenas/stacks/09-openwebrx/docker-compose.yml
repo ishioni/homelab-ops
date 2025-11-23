@@ -1,0 +1,34 @@
+---
+services:
+  openwebrx:
+    image: slechev/openwebrxplus-softmbe:1.2.99@sha256:f92a36c76b25c1eef05dfd196a29b6ef41abdc41bd0b142cf024f8a7ccadddcf
+    container_name: openwebrx
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    restart: unless-stopped
+    networks:
+      apps:
+    env_file:
+      - ./secrets.env
+    environment:
+      TZ: Europe/Warsaw
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - owrx/etc:/etc/openwebrx
+      - owrx/var:/var/lib/openwebrx
+      - owrx/plugins:/usr/lib/python3/dist-packages/htdocs/plugins
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.owrx.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.owrx.entrypoints: https
+      traefik.http.routers.owrx.rule: Host(`${HOST}`)
+      traefik.http.routers.owrx.tls: true
+      traefik.http.routers.owrx.service: owrx
+
+networks:
+  apps:
+    external: true
+
+volumes:
+  owrx:
