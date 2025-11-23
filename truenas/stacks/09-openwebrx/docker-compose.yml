@@ -15,9 +15,9 @@ services:
     expose:
       - ${APP_PORT}
     volumes:
-      - owrx/etc:/etc/openwebrx
-      - owrx/var:/var/lib/openwebrx
-      - owrx/plugins:/usr/lib/python3/dist-packages/htdocs/plugins
+      - owrx_etc:/etc/openwebrx
+      - owrx_var:/var/lib/openwebrx
+      - owrx_plugins:/usr/lib/python3/dist-packages/htdocs/plugins
     labels:
       traefik.enable: "true"
       traefik.http.services.owrx.loadbalancer.server.port: ${APP_PORT}
@@ -31,4 +31,6 @@ networks:
     external: true
 
 volumes:
-  owrx:
+  owrx_etc:
+  owrx_var:
+  owrx_plugins:
