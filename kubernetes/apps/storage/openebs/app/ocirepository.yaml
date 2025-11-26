@@ -11,9 +11,4 @@ spec:
     operation: copy
   ref:
     tag: 4.4.0
-  url: oci://ghcr.io/home-operations/charts-mirror/openebs
-  verify:
-    provider: cosign
-    matchOIDCIdentity:
-      - issuer: "^https://token.actions.githubusercontent.com$"
-        subject: "^https://github.com/home-operations/charts-mirror.*$"
+    url: oci://ghcr.io/openebs/charts/openebs
