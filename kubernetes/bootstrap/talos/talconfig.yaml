@@ -191,7 +191,7 @@ patches:
         hostDNS:
           enabled: true
           resolveMemberNames: true
-          forwardKubeDNSToHost: true # Requires Cilium socketLB features
+          forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
       network:
         disableSearchDomain: true
   # Enable K8s Talos API Access
