@@ -23,6 +23,12 @@ resource "authentik_property_mapping_provider_scope" "profile" {
   expression = file("./expressions/openid-scope-profile.py")
 }
 
+resource "authentik_property_mapping_provider_scope" "email" {
+  name       = "OAuth Mapping: OpenID 'email'"
+  scope_name = "email"
+  expression = file("./expressions/openid-scope-email.py")
+}
+
 resource "authentik_property_mapping_provider_scope" "openid-nextcloud" {
   name       = "OAuth Mapping: OpenID 'nextcloud'"
   scope_name = "nextcloud"
