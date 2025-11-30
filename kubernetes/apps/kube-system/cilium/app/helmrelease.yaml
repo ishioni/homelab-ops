@@ -54,8 +54,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       mode: dsr
-    localRedirectPolicies:
-      enabled: true
+    localRedirectPolicy: true
     operator:
       enabled: true
       replicas: 2
@@ -96,6 +95,3 @@ spec:
             SETUID,
           ]
         cleanCiliumState: [NET_ADMIN, SYS_ADMIN, SYS_RESOURCE]
-    socketLB:
-      enabled: true
-      hostNamespaceOnly: true
