@@ -16,5 +16,6 @@ resources:
   - ./opencloud/ks.yaml
   - ./openwebui/ks.yaml
   - ./paperless/ks.yaml
+  - ./readur/ks.yaml
   - ./searxng/ks.yaml
   - ./selfhosted-pvc/ks.yaml
