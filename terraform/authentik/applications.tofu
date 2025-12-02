@@ -265,3 +265,19 @@ module "oauth2-opencloud-ios" {
   client_id          = "OpenCloudIOS"
   redirect_uris      = ["oc://ios.opencloud.eu"]
 }
+
+module "oauth2-readur" {
+  source             = "./oauth2_application"
+  name               = "Readur"
+  icon_url           = "https://raw.githubusercontent.com/readur/readur/refs/heads/main/frontend/public/readur-64.png"
+  launch_url         = "https://readur.${var.public_domain}"
+  description        = "Documents managment system"
+  newtab             = true
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.users.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_readur.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_readur.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://readur.${var.public_domain}/api/auth/oidc/callback"]
+}

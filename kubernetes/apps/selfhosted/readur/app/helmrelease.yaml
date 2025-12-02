@@ -1,0 +1,67 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.4.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: readur
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: readur
+  interval: 30m
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        containers:
+          readur:
+            image:
+              repository: readur/readur
+              tag: 2.6.3@sha256:78d1fabe3798b3abad8311ddd79d4aadc7756c1472a8bc5d7985e00bfc9ae5cc
+            env:
+              # Server Configuration
+              SERVER_HOST: "0.0.0.0"
+              SERVER_PORT: "8000"
+              # OIDC
+              OIDC_ENABLED: true
+              # File Management
+              UPLOAD_PATH: "/app/uploads"
+              WATCH_FOLDER: "/app/watch"
+              ALLOWED_FILE_TYPES: "pdf,txt,doc,docx,png,jpg,jpeg"
+              MAX_FILE_SIZE_MB: "50"
+              MAX_FILE_AGE_HOURS: "24"
+              # OCR Settings
+              OCR_LANGUAGE: "eng"
+              CONCURRENT_OCR_JOBS: "4"
+              OCR_TIMEOUT_SECONDS: "300"
+              # Performance
+              MEMORY_LIMIT_MB: "512"
+              CPU_PRIORITY: "normal"
+              # File Watching
+              WATCH_INTERVAL_SECONDS: "30"
+              FILE_STABILITY_CHECK_MS: "1000"
+              ALLOW_LOCAL_AUTH: false
+
+    persistence:
+      uploads:
+        existingClaim: ${PVC_CLAIM}
+        globalMounts:
+          - path: /app/uploads
+
+    service:
+      main:
+        controller: main
+        enabled: true
+        ports:
+          http:
+            port: 8000
+            targetPort: 8000
+    route:
+      app:
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
