@@ -14,7 +14,18 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      readur:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret readur-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
         containers:
           readur:
             image:
@@ -55,15 +66,15 @@ spec:
           - path: /app/watch
 
     service:
-      main:
-        controller: main
+      readur:
+        controller: readur
         enabled: true
         ports:
           http:
             port: 8000
             targetPort: 8000
     route:
-      app:
+      readur:
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-internal
