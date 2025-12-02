@@ -46,7 +46,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /
+                    path: /healthcheck
                     port: &port 3000
                   initialDelaySeconds: 0
                   periodSeconds: 10
