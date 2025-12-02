@@ -16,10 +16,10 @@ spec:
           secret.reloader.stakater.com/reload: &secret opencloud-secret
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: &uid 1000
+            runAsGroup: *uid
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: *uid
             fsGroupChangePolicy: OnRootMismatch
         containers:
           webfiger-proxy:
@@ -36,8 +36,7 @@ spec:
             image:
               repository: docker.io/opencloudeu/opencloud-rolling
               tag: 3.7.0@sha256:7bd41ba329a29869227804875f62cb59f23ed9178ae3b6be36f3a7f0e514077e
-            command:
-              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             envFrom:
               - secretRef:
                   name: *secret

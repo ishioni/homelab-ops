@@ -25,8 +25,8 @@ spec:
       APP: *app
       HOSTNAME: opencloud.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
+      APP_UID: "1000"
+      APP_GID: "1000"
       PVC_CLAIM: opencloud-data
       PVC_CAPACITY: &size 20Gi
       VOLSYNC_CACHE_CAPACITY: *size
