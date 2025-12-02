@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/c4illin/convertx
-              tag: v0.15.1
+              tag: v0.16.0
             env:
               TZ: ${CONFIG_TIMEZONE}
               ACCOUNT_REGISTRATION: false
@@ -46,7 +46,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /
+                    path: /healthcheck
                     port: &port 3000
                   initialDelaySeconds: 0
                   periodSeconds: 10
