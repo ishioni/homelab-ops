@@ -33,7 +33,7 @@ spec:
               MAX_FILE_SIZE_MB: "50"
               MAX_FILE_AGE_HOURS: "24"
               # OCR Settings
-              OCR_LANGUAGE: "eng"
+              OCR_LANGUAGE: "pol+eng"
               CONCURRENT_OCR_JOBS: "4"
               OCR_TIMEOUT_SECONDS: "300"
               # Performance
@@ -49,6 +49,10 @@ spec:
         existingClaim: ${PVC_CLAIM}
         globalMounts:
           - path: /app/uploads
+      watch:
+        type: emptyDir
+        globalMounts:
+          - path: /app/watch
 
     service:
       main:
