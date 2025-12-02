@@ -279,5 +279,5 @@ module "oauth2-readur" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_readur.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_readur.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://readur.${var.public_domain}/api/auth/oidc/callback"]
+  redirect_uris      = ["https://readur.${var.private_domain}/api/auth/oidc/callback"]
 }
