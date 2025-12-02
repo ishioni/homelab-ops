@@ -54,6 +54,9 @@ spec:
               WATCH_INTERVAL_SECONDS: "30"
               FILE_STABILITY_CHECK_MS: "1000"
               ALLOW_LOCAL_AUTH: false
+            envFrom:
+              - secretRef:
+                  name: *secret
 
     persistence:
       uploads:
