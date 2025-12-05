@@ -1,8 +1,8 @@
-module "proxy-transmission" {
+module "proxy-qbittorrent" {
   source             = "./proxy_application"
-  name               = "Transmission"
+  name               = "QBittorrent"
   description        = "Torrent client"
-  icon_url           = "https://github.com/transmission/transmission/raw/main/web/assets/img/logo.png"
+  icon_url           = "https://raw.githubusercontent.com/qbittorrent/qBittorrent/master/src/webui/www/public/images/qbittorrent-tray.svg"
   group              = "Downloads"
   slug               = "torrent"
   domain             = var.public_domain
@@ -74,6 +74,22 @@ module "proxy-bazarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+}
+
+module "oauth2-qui" {
+  source             = "./oauth2_application"
+  name               = "Qui"
+  icon_url           = "https://raw.githubusercontent.com/autobrr/qui/refs/heads/main/web/public/qui.png"
+  launch_url         = "https://qui.${var.private_domain}"
+  description        = "Torrent UI"
+  newtab             = true
+  group              = "Downloads"
+  auth_groups        = [authentik_group.downloads.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_qui.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_qui.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://qui.${var.private_domain}/api/auth/oidc/callback"]
 }
 
 module "proxy-navidrome" {
@@ -280,20 +296,4 @@ module "oauth2-readur" {
   client_id          = module.secret_readur.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_readur.fields["OIDC_CLIENT_SECRET"]
   redirect_uris      = ["https://readur.${var.private_domain}/api/auth/oidc/callback"]
-}
-
-module "oauth2-qui" {
-  source             = "./oauth2_application"
-  name               = "Qui"
-  icon_url           = "https://raw.githubusercontent.com/autobrr/qui/refs/heads/main/web/public/qui.png"
-  launch_url         = "https://qui.${var.private_domain}"
-  description        = "Torrent UI"
-  newtab             = true
-  group              = "Selfhosted"
-  auth_groups        = [authentik_group.downloads.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = module.secret_qui.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_qui.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://qui.${var.private_domain}/api/auth/oidc/callback"]
 }
