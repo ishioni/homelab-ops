@@ -25,7 +25,7 @@ spec:
       APP_GID: "5000"
       HOSTNAME: qui.${PRIVATE_DOMAIN}
       PVC_CLAIM: qui-config
-      PVC_STORAGECLASS: &sc dcsi-nfs
+      PVC_STORAGECLASS: &sc dcsi-iscsi
       VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 8 * * *
   prune: true
