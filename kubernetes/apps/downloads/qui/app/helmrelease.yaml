@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.4.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qui
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: qui
+  interval: 30m
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      qui:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret qui-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/autobrr/qui
+              tag: v1.8.1@sha256:50baeb397f5807be0c2e9b7089eae6ffd60e0e2ee303e1da7188d9cffde9e99f
+            env:
+              QUI__HOST: 0.0.0.0
+              QUI__PORT: &port 80
+              QUI__LOG_LEVEL: INFO
+              TZ: ${CONFIG_TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 5000
+        fsGroup: 5000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+    persistence:
+      config:
+        existingClaim: qui-config

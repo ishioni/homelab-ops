@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app qui
+  namespace: &namespace downloads
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: dcsi-nfs
+      namespace: storage
+    - name: volsync
+      namespace: storage
+  interval: 30m
+  path: ./kubernetes/apps/downloads/qui/app
+  postBuild:
+    substitute:
+      APP: *app
+      APP_UID: "568"
+      APP_GID: "5000"
+      HOSTNAME: qui.${PRIVATE_DOMAIN}
+      PVC_CLAIM: qui-config
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
+      VOLSYNC_TIME: 0 8 * * *
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
