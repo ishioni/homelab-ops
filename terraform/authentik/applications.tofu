@@ -281,3 +281,19 @@ module "oauth2-readur" {
   client_secret      = module.secret_readur.fields["OIDC_CLIENT_SECRET"]
   redirect_uris      = ["https://readur.${var.private_domain}/api/auth/oidc/callback"]
 }
+
+module "oauth2-qui" {
+  source             = "./oauth2_application"
+  name               = "Qui"
+  icon_url           = "https://raw.githubusercontent.com/autobrr/qui/refs/heads/main/web/public/qui.png"
+  launch_url         = "https://qui.${var.private_domain}"
+  description        = "Torrent UI"
+  newtab             = true
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.downloads.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_qui.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_qui.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://qui.${var.private_domain}/api/auth/oidc/callback"]
+}
