@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: foobar
+  namespace: database
+spec:
+  name: foobar
+  owner: foobar-user
+  cluster:
+    name: postgres
