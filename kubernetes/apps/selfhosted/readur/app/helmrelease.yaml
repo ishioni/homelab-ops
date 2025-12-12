@@ -30,7 +30,7 @@ spec:
           readur:
             image:
               repository: ghcr.io/readur/readur
-              tag: 2.7.0@sha256:a81a2f7286b9f5dcd75511b82ae42563ee0dbe100ad1148c5d4db79b30706656
+              tag: 2.7.1@sha256:38b7df16594da89432152bfc51dab1370dc6793f78b0fc1c9a4cb01e28d60b5e
             env:
               # Server Configuration
               SERVER_HOST: "0.0.0.0"
