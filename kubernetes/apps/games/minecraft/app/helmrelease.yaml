@@ -35,7 +35,8 @@ spec:
       ENABLE_ROLLING_LOGS: true
       UID: ${APP_UID}
       GID: ${APP_GID}
-      MEMORY: ""
+      INIT_MEMORY: 25%
+      MAX_MEMORY: 70%
     persistence:
       dataDir:
         enabled: true
@@ -64,7 +65,7 @@ spec:
           - paper:bluemap
           # Freezehibernate
           - paper:freezehibernate:bMcXRaEu
-      jvmXXOpts: "-XX:MaxRAMPercentage=70 -Ddisable.watchdog=true"
+      jvmXXOpts: "-Ddisable.watchdog=true"
       rcon:
         enabled: true
         serviceType: ClusterIP
