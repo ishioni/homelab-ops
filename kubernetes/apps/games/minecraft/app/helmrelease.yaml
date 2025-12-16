@@ -14,7 +14,7 @@ spec:
       secret.reloader.stakater.com/reload: &secret minecraft-secret
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2025.10.5-java25
+      tag: 2025.12.0-java25
     resources:
       limits:
         memory: 4000Mi
@@ -35,7 +35,8 @@ spec:
       ENABLE_ROLLING_LOGS: true
       UID: ${APP_UID}
       GID: ${APP_GID}
-      MEMORY: ""
+      INIT_MEMORY: 25%
+      MAX_MEMORY: 70%
     persistence:
       dataDir:
         enabled: true
@@ -64,7 +65,7 @@ spec:
           - paper:bluemap
           # Freezehibernate
           - paper:freezehibernate:bMcXRaEu
-      jvmXXOpts: "-XX:MaxRAMPercentage=70 -Ddisable.watchdog=true"
+      jvmXXOpts: "-Ddisable.watchdog=true"
       rcon:
         enabled: true
         serviceType: ClusterIP
