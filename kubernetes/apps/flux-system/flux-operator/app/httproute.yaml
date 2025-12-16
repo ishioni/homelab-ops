@@ -8,7 +8,7 @@ metadata:
     gatus.home-operations.com/endpoint: |-
       name: flux-operator
 spec:
-  hostnames: ["flux-operator.${PRIVAT_DOMAIN}"]
+  hostnames: ["flux-operator.${PRIVATE_DOMAIN}"]
   parentRefs:
     - name: envoy-internal
       namespace: network
