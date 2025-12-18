@@ -13,10 +13,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 256Mi
     spegel:
-      appendMirrors: true
       containerdSock: /run/containerd/containerd.sock
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+      mirrorResolveTimeout: 40ms
     service:
       registry:
         hostPort: 29999
