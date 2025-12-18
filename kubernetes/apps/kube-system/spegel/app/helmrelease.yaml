@@ -19,7 +19,6 @@ spec:
       limits:
         memory: 256Mi
     spegel:
-      # containerdSock: /run/containerd/containerd.sock
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
       mirrorResolveTimeout: 40ms
     service:
