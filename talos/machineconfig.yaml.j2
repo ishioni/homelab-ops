@@ -99,7 +99,6 @@ machine:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: "0"
     devices.system.cpu.intel_pstate.no_turbo: "0"
   token: op://homelab/talos/MACHINE_TOKEN
-  type: controlPlane
 cluster:
   ca:
     crt: op://homelab/talos/CLUSTER_CA_CRT
@@ -141,7 +140,6 @@ cluster:
     certSANs:
       - talos-api.ishioni.casa
       - 127.0.0.1
-    disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
       feature-gates: MutatingAdmissionPolicy=true
@@ -181,47 +179,24 @@ cluster:
   {% endif %}
 ---
 apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: link.driver == "igc" && mac(link.permanent_addr).startsWith("88:ae:dd:72:")
+kind: ExtensionServiceConfig
+name: lldpd
+configFiles:
+  - content: |
+      configure lldpd portidsubtype ifname
+      configure system description "Talos Node"
+    mountPath: /usr/local/etc/lldpd/lldpd.conf
 ---
 apiVersion: v1alpha1
-kind: BondConfig
-name: bond0
-links:
-  - net0
-bondMode: active-backup
-mtu: 9000
+kind: LinkConfig
+name: net0
+up: true
 ---
 apiVersion: v1alpha1
 kind: DHCPv4Config
-name: bond0
-clientIdentifier: mac
+name: net0
 ---
 apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.70
-vlanID: 70
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.90
-vlanID: 90
-parent: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: disk.model == "Corsair MP600 MICRO" && !system_disk
-  minSize: 1TB
----
-apiVersion: v1alpha1
-kind: WatchdogTimerConfig
-device: /dev/watchdog0
-timeout: 5m
+kind: Layer2VIPConfig
+name: 10.1.2.6
+link: net0
