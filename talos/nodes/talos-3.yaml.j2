@@ -1,0 +1,13 @@
+---
+machine:
+  type: controlplane
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: talos-3
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: mac(link.permanent_addr) == "1c:fd:08:75:13:d8"

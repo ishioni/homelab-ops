@@ -23,9 +23,6 @@ includes:
   format: .taskfiles/format
   kubernetes: .taskfiles/kubernetes
   precommit: .taskfiles/precommit
-  talos:
-    dir: .taskfiles/talos
-    taskfile: .taskfiles/talos
 
 tasks:
   default:

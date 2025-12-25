@@ -3,7 +3,7 @@
 Thumbs.db
 # k8s
 kubeconfig
-talconfig
+talosconfig
 # vscode-sops
 secrets.env
 .decrypted~*.*
