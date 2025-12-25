@@ -102,7 +102,7 @@ spec:
         controller: qbittorrent
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.84.2.2
+          lbipam.cilium.io/ips: 10.84.2.3
         labels:
           io.cilium/ippool: public
         # externalTrafficPolicy: Local
