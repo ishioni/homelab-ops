@@ -16,12 +16,11 @@ generate-talosconfig:
   talosctl gen key --name admin
   talosctl gen csr --key admin.key --ip 127.0.0.1
   talosctl gen crt --ca ca --csr admin.csr --name admin --hours 87600
-  op item edit --vault homelab {{ secret_id }} "ADMIN_CRT[text]=$(cat admin.crt | base64 -w 0)" > /dev/null
-  op item edit --vault homelab {{ secret_id }} "ADMIN_KEY[text]=$(cat admin.key | base64 -w 0)" > /dev/null
+  op item edit --vault homelab {{ secret_id }} "Admin.ADMIN_CRT[password]=$(cat admin.crt | base64 -w 0)" > /dev/null
+  op item edit --vault homelab {{ secret_id }} "Admin.ADMIN_KEY[password]=$(cat admin.key | base64 -w 0)" > /dev/null
   rm ca.crt ca.key admin.crt admin.csr admin.key
   just template "{{ talos_dir }}/talosconfig.j2" > talosconfig
   mv talosconfig $TALOSCONFIG
-  op item edit --vault homelab {{ secret_id }} "talosconfig[text]=$(cat $TALOSCONFIG)" > /dev/null
 
 [doc('Apply Talos config to a node')]
 apply-node node *args:
