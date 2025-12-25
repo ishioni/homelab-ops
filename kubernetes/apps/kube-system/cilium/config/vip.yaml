@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-api
+  annotations:
+    # external-dns.alpha.kubernetes.io/hostname: talos-api.${PRIVATE_DOMAIN}
+    io.cilium/ippool: public
+    lbipam.cilium.io/ips: 10.84.2.1
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    k8s-app: kube-apiserver
+    tier: control-plane
+  ports:
+    - name: https
+      port: 6443
+      protocol: TCP
+      targetPort: 6443

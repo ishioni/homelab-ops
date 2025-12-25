@@ -6,3 +6,4 @@ namespace: kube-system
 resources:
   - ./bgpconfig.yaml
   # - ./l2config.yaml
+  - ./vip.yaml
