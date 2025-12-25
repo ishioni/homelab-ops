@@ -72,8 +72,6 @@ spec:
   dependsOn:
     - name: github-arc
       namespace: github
-  driftDetection:
-    mode: enabled
   maxHistory: 3
   interval: 30m
   uninstall:

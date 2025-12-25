@@ -8,15 +8,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set-controller
-  driftDetection:
-    mode: enabled
-  maxHistory: 3
   interval: 30m
   install:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  uninstall:
-    keepHistory: false
   values:
     fullnameOverride: github-arc
