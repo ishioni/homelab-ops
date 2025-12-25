@@ -12,7 +12,7 @@ api:
 webrtc:
   listen: :8555
   candidates:
-    - 10.84.2.4:8555
+    - 10.84.2.5:8555
     - stun:8555
   ice_servers:
     - urls:
