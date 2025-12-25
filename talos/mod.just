@@ -2,11 +2,26 @@ set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 talos_dir := justfile_dir() + '/talos'
+secret_id := 'talos'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 
 [private]
 default:
     just -l talos
+
+[doc('Generate talosconfig for the cluster')]
+generate-talosconfig:
+  op read op://homelab/talos/MACHINE_CA_CRT | base64 -d > ca.crt
+  op read op://homelab/talos/MACHINE_CA_KEY | base64 -d > ca.key
+  talosctl gen key --name admin
+  talosctl gen csr --key admin.key --ip 127.0.0.1
+  talosctl gen crt --ca ca --csr admin.csr --name admin --hours 87600
+  op item edit --vault homelab {{ secret_id }} "ADMIN_CRT[text]=$(cat admin.crt | base64 -w 0)" > /dev/null
+  op item edit --vault homelab {{ secret_id }} "ADMIN_KEY[text]=$(cat admin.key | base64 -w 0)" > /dev/null
+  rm ca.crt ca.key admin.crt admin.csr admin.key
+  just template "{{ talos_dir }}/talosconfig.j2" > talosconfig
+  mv talosconfig $TALOSCONFIG
+  op item edit --vault homelab {{ secret_id }} "talosconfig[text]=$(cat $TALOSCONFIG)" > /dev/null
 
 [doc('Apply Talos config to a node')]
 apply-node node *args:
