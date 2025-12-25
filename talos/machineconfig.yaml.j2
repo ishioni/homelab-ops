@@ -32,7 +32,6 @@ machine:
       enabled: true
     {% endif %}
     rbac: true
-    stableHostname: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -54,6 +53,7 @@ machine:
       rotate-server-certificates: "true"
     extraConfig:
       serializeImagePulls: false
+      imageMaximumGCAge: 24h
     extraMounts:
       - destination: /var/openebs/local
         type: bind
