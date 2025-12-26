@@ -54,14 +54,6 @@ machine:
     extraConfig:
       serializeImagePulls: false
       imageMaximumGCAge: 24h
-    extraMounts:
-      - destination: /var/openebs/local
-        type: bind
-        source: /var/openebs/local
-        options:
-          - rbind
-          - rshared
-          - rw
     image: ghcr.io/siderolabs/kubelet:v1.35.0
     nodeIP:
       validSubnets:
@@ -186,6 +178,26 @@ configFiles:
       configure lldpd portidsubtype ifname
       configure system description "Talos Node"
     mountPath: /usr/local/etc/lldpd/lldpd.conf
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 128GB
+  maxSize: 128GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 1GB
+  grow: true
+filesystem:
+  type: xfs
 ---
 apiVersion: v1alpha1
 kind: LinkConfig
