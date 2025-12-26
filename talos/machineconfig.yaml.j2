@@ -65,8 +65,7 @@ machine:
       imageMaximumGCAge: 24h
     image: ghcr.io/siderolabs/kubelet:v1.35.0
     nodeIP:
-      validSubnets:
-        - 10.1.2.0/24
+      validSubnets: ["10.1.2.0/24"]
   nodeLabels:
     node.kubernetes.io/gpu: "true"
     node.kubernetes.io/exclude-from-external-load-balancers: ""
@@ -112,19 +111,15 @@ cluster:
   discovery:
     enabled: true
     registries:
-      kubernetes:
-        disabled: true
-      service:
-        disabled: false
+      kubernetes: { disabled: true }
+      service: { disabled: false }
   id: op://homelab/talos/CLUSTER_ID
   network:
     cni:
       name: none
     dnsDomain: cluster.local
-    podSubnets:
-      - 172.16.0.0/16
-    serviceSubnets:
-      - 10.100.0.0/16
+    podSubnets: ["172.16.0.0/16"]
+    serviceSubnets: ["10.100.0.0/16"]
   secret: op://homelab/talos/CLUSTER_SECRET
   token: op://homelab/talos/CLUSTER_TOKEN
   {% if ENV.IS_CONTROLLER %}
@@ -151,8 +146,7 @@ cluster:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-controller-manager:v1.35.0
   etcd:
-    advertisedSubnets:
-      - 10.1.2.0/24
+    advertisedSubnets: ["10.1.2.0/24"]
     ca:
       crt: op://homelab/talos/ETCD_CA_CRT
       key: op://homelab/talos/ETCD_CA_KEY
