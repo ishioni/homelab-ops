@@ -7,7 +7,7 @@
       name: ishioni
     - # namespace
       source: string
-      name: renovate
+      name: github
     - # project
       source: payload
       name: repository.full_name
