@@ -9,3 +9,4 @@ components:
 resources:
   - ./arc/ks.yaml
   - ./renovate/ks.yaml
+  - ./webhook/ks.yaml
