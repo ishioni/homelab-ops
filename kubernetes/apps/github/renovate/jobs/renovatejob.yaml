@@ -5,7 +5,8 @@ kind: RenovateJob
 metadata:
   name: ishioni
 spec:
-  discoveryFilter: ishioni/homelab-ops
+  discoveryFilter: ishioni/*
+  discoverTopics: renovate
   extraEnv:
     - name: LOG_LEVEL
       value: debug
