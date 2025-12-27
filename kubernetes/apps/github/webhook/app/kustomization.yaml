@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+  - ./ocirepository.yaml
+configMapGenerator:
+  - name: webhook-configmap
+    files:
+      - hooks.yaml=./resources/hooks.yaml
+      - renovate-operator.sh=./resources/renovate-operator.sh
+configurations:
+  - ./resources/kustomizeconfig.yaml
