@@ -5,7 +5,6 @@ kind: RenovateJob
 metadata:
   name: ishioni
 spec:
-  discoveryFilter: ishioni/*
   discoverTopics: renovate
   extraEnv:
     - name: LOG_LEVEL
