@@ -20,7 +20,7 @@ spec:
   values:
     githubConfigUrl: https://github.com/ishioni/homelab-ops
     githubConfigSecret: arc-auth
-    minRunners: 0
+    minRunners: 1
     maxRunners: 10
     containerMode:
       type: kubernetes
@@ -78,7 +78,7 @@ spec:
   values:
     githubConfigUrl: https://github.com/ishioni/homelab-ops
     githubConfigSecret: arc-auth
-    minRunners: 0
+    minRunners: 1
     maxRunners: 10
     containerMode:
       type: dind
