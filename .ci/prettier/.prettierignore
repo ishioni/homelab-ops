@@ -1,4 +1,6 @@
 .direnv
 .private
+.venv
 .vscode
+.zed
 *.sops.*
