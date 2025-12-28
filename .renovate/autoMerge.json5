@@ -21,8 +21,8 @@
       matchDatasources: ["terraform-provider"],
       automerge: true,
       automergeType: "branch",
-      "matchUpdateTypes": ["minor", "patch"],
-      "ignoreTests": true
+      matchUpdateTypes: ["minor", "patch"],
+      ignoreTests: true,
     },
     {
       description: "Auto-merge trusted container digests",
@@ -31,6 +31,16 @@
       automergeType: "pr",
       matchUpdateTypes: ["digest"],
       matchPackageNames: ["/home-operations/"],
+      ignoreTests: false,
+    },
+    {
+      description: "Auto-merge renovate",
+      matchDatasources: ["docker"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["ghcr.io/renovatebot/renovate"],
+      minimumReleaseAge: "1 day",
       ignoreTests: false,
     },
     {
@@ -67,11 +77,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: [
-        "/external-dns/",
-        "/gateway-api/",
-        "/prometheus-operator/",
-      ],
+      matchPackageNames: ["/external-dns/", "/gateway-api/", "/prometheus-operator/"],
       ignoreTests: true,
     },
   ],
