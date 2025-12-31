@@ -35,4 +35,4 @@ releases:
   - name: barman-cloud
     namespace: database
     chart: oci://ghcr.io/cloudnative-pg/charts/plugin-barman-cloud
-    version: 0.3.1
+    version: 0.4.0
