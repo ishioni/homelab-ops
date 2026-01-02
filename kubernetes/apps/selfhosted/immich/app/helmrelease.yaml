@@ -279,6 +279,7 @@ spec:
             microservices:
               - path: /usr/src/app/.transformers_cache
       model-cache:
+        suffix: mlcache
         size: 10GB
         accessMode: ReadWriteMany
         storageClass: dcsi-nfs
