@@ -22,7 +22,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: &secret immich-secret
-          configmap.reloader.stakater.com/reload: &configmap immich-configmap
         initContainers:
           01-init-db:
             image:
@@ -54,8 +53,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-              - configMapRef:
-                  name: *configmap
             env:
               IMMICH_CONFIG_FILE: /config/immich.config.json
               IMMICH_WORKERS_INCLUDE: api
@@ -84,7 +81,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: *secret
-          configmap.reloader.stakater.com/reload: *configmap
         pod:
           resourceClaims:
             - name: gpu
@@ -110,8 +106,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-              - configMapRef:
-                  name: *configmap
             env:
               IMMICH_CONFIG_FILE: /config/immich.config.json
               IMMICH_WORKERS_EXCLUDE: api
@@ -125,8 +119,6 @@ spec:
                 memory: 2500Mi
       machine-learning:
         strategy: RollingUpdate
-        annotations:
-          configmap.reloader.stakater.com/reload: *configmap
         pod:
           enableServiceLinks: false
           securityContext:
@@ -241,6 +233,18 @@ spec:
           microservices:
             microservices:
               - path: /config
+      config-test:
+        type: secret
+        name: immich-config
+        advancedMounts:
+          server:
+            server:
+              - path: /config/immich-config-test.yaml
+                subPath: immich-config-test.yaml
+          microservices:
+            microservices:
+              - path: /config/immich-config-test.yaml
+                subPath: immich-config-test.yaml
       library:
         existingClaim: immich-media
         advancedMounts:
@@ -275,7 +279,10 @@ spec:
             microservices:
               - path: /usr/src/app/.transformers_cache
       model-cache:
-        existingClaim: immich-ml-cache
+        size: 10GB
+        accessMode: ReadWriteMany
+        storageClass: dcsi-nfs
+        type: persistentVolumeClaim
         advancedMounts:
           machine-learning:
             machine-learning:
