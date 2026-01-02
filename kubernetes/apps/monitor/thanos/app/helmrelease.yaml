@@ -11,9 +11,6 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     objstoreConfig:
       # Creates by kps

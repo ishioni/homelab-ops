@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: webhook
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       webhook:

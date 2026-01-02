@@ -9,9 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: homepage
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       homepage:

@@ -33,9 +33,12 @@ spec:
                     crds: CreateReplace
                     strategy:
                       name: RetryOnFailure
+                  maxHistory: 3
                   rollback:
                     cleanupOnFail: true
                     recreate: true
+                  uninstall:
+                    keepHistory: false
                   upgrade:
                     cleanupOnFail: true
                     crds: CreateReplace

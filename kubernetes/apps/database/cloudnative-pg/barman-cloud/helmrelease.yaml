@@ -9,10 +9,3 @@ spec:
     kind: OCIRepository
     name: cloudnative-pg-barman-cloud
   interval: 30m
-  maxHistory: 3
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
-  uninstall:
-    keepHistory: false

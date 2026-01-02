@@ -8,11 +8,4 @@ spec:
   chartRef:
     kind: OCIRepository
     name: snapshot-controller
-  install:
-    crds: CreateReplace
   interval: 30m
-  maxHistory: 3
-  upgrade:
-    crds: CreateReplace
-  uninstall:
-    keepHistory: false

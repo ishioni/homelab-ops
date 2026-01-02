@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: grafana
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     annotations:
       secret.reloader.stakater.com/reload: &secret grafana-secret

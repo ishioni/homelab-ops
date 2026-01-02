@@ -8,14 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openebs
-  install:
-    disableHooks: true
   interval: 30m
-  maxHistory: 3
-  upgrade:
-    disableHooks: true
-  uninstall:
-    keepHistory: false
   values:
     localpv-provisioner:
       rbac:

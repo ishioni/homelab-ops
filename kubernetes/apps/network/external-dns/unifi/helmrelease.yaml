@@ -9,11 +9,6 @@ spec:
     kind: OCIRepository
     name: external-dns-unifi
   interval: 30m
-  maxHistory: 3
-  upgrade:
-    disableSchemaValidation: true
-  uninstall:
-    keepHistory: false
   values:
     logLevel: &logLevel info
     domainFilters: ["${PUBLIC_DOMAIN}", "${PRIVATE_DOMAIN}"]

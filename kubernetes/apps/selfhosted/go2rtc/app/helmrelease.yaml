@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: go2rtc
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       go2rtc:
