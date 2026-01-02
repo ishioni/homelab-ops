@@ -9,12 +9,6 @@ spec:
     kind: OCIRepository
     name: envoy-gateway
   interval: 30m
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
-  uninstall:
-    keepHistory: false
   values:
     config:
       envoyGateway:

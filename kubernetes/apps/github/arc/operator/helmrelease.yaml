@@ -9,9 +9,5 @@ spec:
     kind: OCIRepository
     name: gha-runner-scale-set-controller
   interval: 30m
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     fullnameOverride: github-arc

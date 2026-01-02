@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: kubelet-csr-approver
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     providerRegex: |
       ^talos-\d$

@@ -8,10 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudnative-pg-dashboard
-  maxHistory: 3
   interval: 30m
-  uninstall:
-    keepHistory: false
   values:
     grafanaDashboard:
       namespace: database

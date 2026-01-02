@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: intel-gpu-resource-driver
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     cdi:
       staticPath: /var/cdi/static

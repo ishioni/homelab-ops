@@ -8,14 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: external-dns-cloudflare
-  install:
-    crds: CreateReplace
   interval: 30m
-  maxHistory: 3
-  upgrade:
-    crds: CreateReplace
-  uninstall:
-    keepHistory: false
   values:
     logLevel: info
     domainFilters: ["${PUBLIC_DOMAIN}"]

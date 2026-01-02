@@ -11,9 +11,6 @@ spec:
   dependsOn:
     - name: snapshot-controller
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     nameOverride: *release
     controller:

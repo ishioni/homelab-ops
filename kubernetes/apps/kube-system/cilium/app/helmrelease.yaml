@@ -8,9 +8,6 @@ spec:
     kind: OCIRepository
     name: cilium
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:

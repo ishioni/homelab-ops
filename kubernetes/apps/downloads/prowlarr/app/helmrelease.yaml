@@ -4,15 +4,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: prowlarr
-  namespace: downloads
 spec:
   chartRef:
     kind: OCIRepository
     name: prowlarr
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       prowlarr:

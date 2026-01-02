@@ -9,10 +9,6 @@ spec:
     kind: OCIRepository
     name: renovate-operator
   interval: 30m
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     fullnameOverride: renovate-operator
     webhook:

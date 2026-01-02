@@ -12,9 +12,6 @@ spec:
     - name: sonarr
     - name: radarr
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       bazarr:

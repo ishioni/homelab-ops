@@ -11,4 +11,4 @@ configMapGenerator:
     files:
       - go2rtc.yaml=./config/go2rtc.yaml
 configurations:
-  - kustomizeconfig.yaml
+  - ./config/kustomizeconfig.yaml

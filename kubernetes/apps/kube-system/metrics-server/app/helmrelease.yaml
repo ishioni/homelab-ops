@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: metrics-server
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     args:
       - --metric-resolution=10s

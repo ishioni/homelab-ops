@@ -9,9 +9,6 @@ spec:
     kind: OCIRepository
     name: prometheus-smartctl-exporter
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     config:
       device_include: "nvme.*"

@@ -12,9 +12,6 @@ spec:
     - name: prowlarr
     - name: qbittorrent
   interval: 30m
-  maxHistory: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       radarr:

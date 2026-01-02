@@ -9,13 +9,6 @@ spec:
     kind: OCIRepository
     name: external-secrets
   interval: 30m
-  install:
-    crds: CreateReplace
-  maxHistory: 3
-  upgrade:
-    crds: CreateReplace
-  uninstall:
-    keepHistory: false
   values:
     installCRDs: true
     leaderElect: true
