@@ -6,12 +6,6 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
-  - ./pvc.yaml
-configMapGenerator:
-  - name: immich-config-tpl
-    files: [./config/immich.config.json]
-configurations:
-  - ./config/kustomizeconfig.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: immich

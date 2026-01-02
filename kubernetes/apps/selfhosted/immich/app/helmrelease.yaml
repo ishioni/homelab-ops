@@ -225,28 +225,20 @@ spec:
     persistence:
       config:
         type: secret
-        name: immich-config-secret
-        advancedMounts:
-          server:
-            server:
-              - path: /config
-          microservices:
-            microservices:
-              - path: /config
-      config-test:
-        type: secret
         name: immich-config
         advancedMounts:
           server:
             server:
-              - path: /config/immich-config-test.yaml
-                subPath: immich-config-test.yaml
+              - path: /config/immich-config.yaml
+                subPath: immich-config.yaml
           microservices:
             microservices:
-              - path: /config/immich-config-test.yaml
-                subPath: immich-config-test.yaml
+              - path: /config/immich-config.yaml
+                subPath: immich-config.yaml
       library:
-        existingClaim: immich-media
+        type: nfs
+        server: ${CONFIG_TRUENAS_IP}
+        path: /mnt/SSD/talos/volumes/immich
         advancedMounts:
           server:
             server:
