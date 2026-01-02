@@ -54,7 +54,7 @@ spec:
               - secretRef:
                   name: *secret
             env:
-              IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_INCLUDE: api
             resources:
               requests:
@@ -107,7 +107,7 @@ spec:
               - secretRef:
                   name: *secret
             env:
-              IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_EXCLUDE: api
             resources:
               claims:
