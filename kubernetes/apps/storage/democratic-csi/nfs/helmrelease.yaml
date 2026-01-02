@@ -49,7 +49,8 @@ spec:
           fsType: nfs
           detachedVolumesFromSnapshots: true
           detachedVolumesFromVolumes: true
-        mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "noatime", "nodiratime"]
+        mountOptions:
+          ["nfsvers=4.2", "nconnect=8", "hard", "noatime", "nodiratime"]
     volumeSnapshotClasses:
       - name: *class
         driver: *driver
