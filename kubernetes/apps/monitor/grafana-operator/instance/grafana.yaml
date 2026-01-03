@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafana_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana
+  labels:
+    grafana.internal/instance: grafana
+spec:
+  config:
+    analytics:
+      check_for_updates: "false"
+      check_for_plugin_updates: "false"
+      feedback_links_enabled: "false"
+      reporting_enabled: "false"
+    auth:
+      oauth_auto_login: "true"
+      oauth_allow_insecure_email_lookup: "true"
+    auth.anonymous:
+      enabled: "false"
+    auth.basic:
+      enabled: "false"
+    auth.generic_oauth:
+      allow_assign_grafana_admin: "true"
+      api_url: https://${AUTH_HOSTNAME}/application/o/userinfo/
+      auth_url: https://${AUTH_HOSTNAME}/application/o/authorize/
+      enabled: "true"
+      icon: signin
+      name: ${PUBLIC_DOMAIN}
+      role_attribute_path: contains(groups[*], 'infrastructure') && 'Admin' || 'Viewer'
+      scopes: openid email profile offline_access
+      signout_redirect_url: https://${AUTH_HOSTNAME}/application/o/grafana/end-session/
+      token_url: https://${AUTH_HOSTNAME}/application/o/token/
+      use_pkce: "true"
+      use_refresh_token: "true"
+    database:
+      type: postgres
+      ssl_mode: disable
+    log:
+      mode: console
+    metrics:
+      enabled: "true"
+    news:
+      news_feed_enabled: "false"
+    plugins:
+      plugin_admin_enabled: "false"
+    security:
+      angular_support_enabled: "true"
+      disable_initial_admin_creation: "true"
+    server:
+      enable_gzip: "true"
+      root_url: https://${HOSTNAME}
+  disableDefaultAdminSecret: true
+  deployment:
+    metadata:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret grafana-secret
+    spec:
+      template:
+        spec:
+          initContainers:
+            - name: init-db
+              image: ghcr.io/home-operations/postgres-init:18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
+              envFrom:
+                - secretRef:
+                    name: *secret
+          containers:
+            - name: grafana
+              envFrom:
+                - secretRef:
+                    name: *secret
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: {drop: ["ALL"]}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 2000
+            runAsGroup: 2000
+  httpRoute:
+    metadata:
+      annotations:
+        gatus.home-operations.com/endpoint: |-
+          url: https://grafana.${PRIVATE_DOMAIN}/api/health
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Infrastructure
+        gethomepage.dev/name: Grafana
+        gethomepage.dev/icon: grafana.svg
+    spec:
+      hostnames: ["${HOSTNAME}"]
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+          sectionName: https
+  disableDefaultSecurityContext: All

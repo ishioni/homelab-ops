@@ -135,7 +135,10 @@ module "oauth2-grafana" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_grafana.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_grafana.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://grafana.${var.private_domain}/login/generic_oauth"]
+  redirect_uris      = [
+    "https://grafana.${var.private_domain}/login/generic_oauth",
+    "https://grafana-instance.${var.private_domain}/login/generic_oauth"
+  ]
 }
 
 module "oauth2-immich" {
