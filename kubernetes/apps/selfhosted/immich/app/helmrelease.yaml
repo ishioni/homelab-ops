@@ -225,7 +225,7 @@ spec:
     persistence:
       config:
         type: secret
-        name: immich-config
+        name: immich-secret
         advancedMounts:
           server:
             server:
