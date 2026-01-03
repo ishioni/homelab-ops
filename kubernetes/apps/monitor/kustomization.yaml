@@ -9,6 +9,7 @@ components:
 resources:
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
+  - ./grafana-operator/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./nut-exporter/ks.yaml
