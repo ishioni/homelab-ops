@@ -269,7 +269,7 @@ spec:
               - path: /config/matplotlib
       model-cache:
         suffix: mlcache
-        size: 10 GB
+        size: 10Gi
         accessMode: ReadWriteMany
         storageClass: dcsi-nfs
         type: persistentVolumeClaim
