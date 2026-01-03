@@ -22,7 +22,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: &secret immich-secret
-          configmap.reloader.stakater.com/reload: &configmap immich-configmap
         initContainers:
           01-init-db:
             image:
@@ -54,10 +53,8 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-              - configMapRef:
-                  name: *configmap
             env:
-              IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_INCLUDE: api
             resources:
               requests:
@@ -84,7 +81,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: *secret
-          configmap.reloader.stakater.com/reload: *configmap
         pod:
           resourceClaims:
             - name: gpu
@@ -110,10 +106,8 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-              - configMapRef:
-                  name: *configmap
             env:
-              IMMICH_CONFIG_FILE: /config/immich.config.json
+              IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_EXCLUDE: api
             resources:
               claims:
@@ -125,8 +119,6 @@ spec:
                 memory: 2500Mi
       machine-learning:
         strategy: RollingUpdate
-        annotations:
-          configmap.reloader.stakater.com/reload: *configmap
         pod:
           enableServiceLinks: false
           securityContext:
@@ -152,6 +144,7 @@ spec:
               MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-16-SigLIP__webli
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
+              MPLCONFIGDIR: /cache/matplotlib
             resources:
               requests:
                 cpu: 100m
@@ -233,16 +226,20 @@ spec:
     persistence:
       config:
         type: secret
-        name: immich-config-secret
+        name: immich-secret
         advancedMounts:
           server:
             server:
-              - path: /config
+              - path: /config/immich-config.yaml
+                subPath: immich-config.yaml
           microservices:
             microservices:
-              - path: /config
+              - path: /config/immich-config.yaml
+                subPath: immich-config.yaml
       library:
-        existingClaim: immich-media
+        type: nfs
+        server: ${CONFIG_TRUENAS_IP}
+        path: /mnt/SSD/talos/volumes/immich
         advancedMounts:
           server:
             server:
@@ -250,32 +247,32 @@ spec:
           microservices:
             microservices:
               - path: /data
-      geocoding-dump:
+      tmpfs:
         type: emptyDir
         advancedMounts:
           server:
             server:
               - path: /usr/src/app/.reverse-geocoding-dump
+                subPath: geocoding-dump
+              - path: /usr/src/app/.transformers_cache
+                subPath: transformers-cache
           microservices:
             microservices:
               - path: /usr/src/app/.reverse-geocoding-dump
-      geoname-dump:
-        type: emptyDir
-        advancedMounts:
-          microservices:
-            microservices:
+                subPath: geocoding-dump
               - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
-      transformers-cache:
-        type: emptyDir
-        advancedMounts:
-          server:
-            server:
+                subPath: geonames
               - path: /usr/src/app/.transformers_cache
-          microservices:
-            microservices:
-              - path: /usr/src/app/.transformers_cache
+                subPath: transformers-cache
+          machine-learning:
+            machine-learning:
+              - path: /config/matplotlib
       model-cache:
-        existingClaim: immich-ml-cache
+        suffix: mlcache
+        size: 10GB
+        accessMode: ReadWriteMany
+        storageClass: dcsi-nfs
+        type: persistentVolumeClaim
         advancedMounts:
           machine-learning:
             machine-learning:
