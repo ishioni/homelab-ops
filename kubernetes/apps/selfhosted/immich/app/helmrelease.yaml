@@ -144,6 +144,7 @@ spec:
               MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-B-16-SigLIP__webli
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
               MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
+              MPLCONFIGDIR: /cache/matplotlib
             resources:
               requests:
                 cpu: 100m
@@ -246,30 +247,26 @@ spec:
           microservices:
             microservices:
               - path: /data
-      geocoding-dump:
+      tmpfs:
         type: emptyDir
         advancedMounts:
           server:
             server:
               - path: /usr/src/app/.reverse-geocoding-dump
+                subPath: geocoding-dump
+              - path: /usr/src/app/.transformers_cache
+                subPath: transformers-cache
           microservices:
             microservices:
               - path: /usr/src/app/.reverse-geocoding-dump
-      geoname-dump:
-        type: emptyDir
-        advancedMounts:
-          microservices:
-            microservices:
+                subPath: geocoding-dump
               - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
-      transformers-cache:
-        type: emptyDir
-        advancedMounts:
-          server:
-            server:
+                subPath: geonames
               - path: /usr/src/app/.transformers_cache
-          microservices:
-            microservices:
-              - path: /usr/src/app/.transformers_cache
+                subPath: transformers-cache
+          machine-learning:
+            machine-learning:
+              - path: /config/matplotlib
       model-cache:
         suffix: mlcache
         size: 10GB
