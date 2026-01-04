@@ -24,7 +24,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: network
+  folder: networking
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana-instance
