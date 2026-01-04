@@ -7,7 +7,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana-instance
+      grafana.internal/instance: grafana-instance
   title: Kubernetes
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
@@ -18,7 +18,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana-instance
+      grafana.internal/instance: grafana-instance
   title: Networking
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
@@ -29,7 +29,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana-instance
+      grafana.internal/instance: grafana-instance
   title: Storage
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
@@ -40,5 +40,5 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana-instance
+      grafana.internal/instance: grafana-instance
   title: System
