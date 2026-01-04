@@ -37,7 +37,7 @@ spec:
     - name: external-secrets
       namespace: security
   interval: 30m
-  path: ./kubernetes/apps/monitor/grafana/app
+  path: ./kubernetes/apps/monitor/grafana-operator/instance
   postBuild:
     substitute:
       HOSTNAME: grafana-instance.${PRIVATE_DOMAIN}
