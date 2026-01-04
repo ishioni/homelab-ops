@@ -1,0 +1,96 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: unifi-client-dpi
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: network
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/11310/revisions/5/download
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: unifi-sites
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: network
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/11311/revisions/5/download
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: unifi-usw
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: network
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/11312/revisions/9/download
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: unifi-gateways
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: network
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/11313/revisions/9/download
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: unifi-ap
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: network
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/11314/revisions/10/download
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: unifi-client
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: network
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/11315/revisions/9/download

@@ -12,3 +12,19 @@ spec:
     - action: replace
       targetLabel: job
       replacement: *name
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: minio
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: storage
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  url: https://grafana.com/api/dashboards/13502/revisions/26/download
