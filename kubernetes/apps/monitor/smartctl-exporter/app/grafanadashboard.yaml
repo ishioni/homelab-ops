@@ -3,16 +3,14 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: grafana-operator
+  name: smartctl-exporter
 spec:
   allowCrossNamespaceImport: true
-  configMapRef:
-    name: grafana-operator-dashboard
-    key: grafana-operator.json
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
+  folder: storage
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana-instance
-  folder: operators
+  url: https://grafana.com/api/dashboards/22604/revisions/2/download
