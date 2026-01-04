@@ -83,4 +83,8 @@ spec:
         - name: envoy-internal
           namespace: network
           sectionName: https
+      rules:
+        - backendRefs:
+            - name: grafana-instance-service
+              port: 3000
   disableDefaultSecurityContext: All
