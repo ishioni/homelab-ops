@@ -6,5 +6,4 @@ resources:
   - ./externalsecret.yaml
   - ./grafana.yaml
   - ./grafanadatasource.yaml
-  - ./grafanafolder.yaml
   - ./servicemonitor.yaml

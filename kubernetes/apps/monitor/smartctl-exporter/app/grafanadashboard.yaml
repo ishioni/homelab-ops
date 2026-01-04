@@ -9,7 +9,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: storage
+  folder: Storage
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana

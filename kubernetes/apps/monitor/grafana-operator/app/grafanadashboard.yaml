@@ -15,4 +15,4 @@ spec:
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
-  folder: operators
+  folder: Operators

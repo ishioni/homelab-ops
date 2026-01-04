@@ -9,7 +9,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_GRAFANACLOUD-DENYAGO-PROM
-  folder: system
+  folder: System
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana

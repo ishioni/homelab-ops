@@ -9,7 +9,7 @@ spec:
   configMapRef:
     name: cilium-dashboard
     key: cilium-dashboard.json
-  folder: networking
+  folder: Networking
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
@@ -30,7 +30,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: operators
+  folder: Operators
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana

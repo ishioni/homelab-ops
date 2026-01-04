@@ -12,7 +12,7 @@ spec:
   envs:
     - name: VAR_REPLICATIONDESTNAME
       value: .*-rdst
-  folder: storage
+  folder: Storage
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana

@@ -9,7 +9,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -25,7 +25,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -41,7 +41,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -57,7 +57,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -73,7 +73,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -89,7 +89,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -105,7 +105,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -121,7 +121,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: system
+  folder: System
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -137,7 +137,7 @@ spec:
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  folder: kubernetes
+  folder: Kubernetes
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
