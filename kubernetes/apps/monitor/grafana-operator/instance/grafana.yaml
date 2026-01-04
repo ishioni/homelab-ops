@@ -33,9 +33,9 @@ spec:
       token_url: https://${AUTH_HOSTNAME}/application/o/token/
       use_pkce: "true"
       use_refresh_token: "true"
-    database:
-      type: postgres
-      ssl_mode: disable
+    # database:
+    #   type: postgres
+    #   ssl_mode: disable
     log:
       mode: console
     metrics:
@@ -57,12 +57,12 @@ spec:
     spec:
       template:
         spec:
-          initContainers:
-            - name: init-db
-              image: ghcr.io/home-operations/postgres-init:18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
-              envFrom:
-                - secretRef:
-                    name: *secret
+          # initContainers:
+          #   - name: init-db
+          #     image: ghcr.io/home-operations/postgres-init:18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
+          #     envFrom:
+          #       - secretRef:
+          #           name: *secret
           containers:
             - name: grafana
               envFrom:
