@@ -14,7 +14,7 @@ spec:
       feedback_links_enabled: "false"
       reporting_enabled: "false"
     auth:
-      oauth_auto_login: "true"
+      disable_login_form: "false"
       oauth_allow_insecure_email_lookup: "true"
     auth.anonymous:
       enabled: "false"
@@ -46,7 +46,6 @@ spec:
       plugin_admin_enabled: "false"
     security:
       angular_support_enabled: "true"
-      disable_initial_admin_creation: "true"
     server:
       enable_gzip: "true"
       root_url: https://${HOSTNAME}
