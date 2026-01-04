@@ -61,14 +61,12 @@ spec:
               targetLabel: kubernetes_node
     grafana:
       enabled: false
-      forceDeployDashboards: false
-      # sidecar:
-      #   dashboards:
-      #     annotations:
-      #       grafana_folder: Kubernetes
-      #     multicluster:
-      #       etcd:
-      #         enabled: true
+      forceDeployDashboards: true
+      operator:
+        dashboardsConfigMapRefEnabled: true
+        folder: kubernetes
+        matchLabels:
+          grafana.internal/instance: grafana-instance
     alertmanager:
       route:
         main:
