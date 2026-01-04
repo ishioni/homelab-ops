@@ -9,7 +9,7 @@ spec:
   configMapRef:
     name: cilium-dashboard
     key: cilium-dashboard.json
-  folder: network
+  folder: networking
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
