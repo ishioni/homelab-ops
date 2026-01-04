@@ -40,7 +40,7 @@ spec:
   path: ./kubernetes/apps/monitor/grafana-operator/instance
   postBuild:
     substitute:
-      HOSTNAME: grafana-instance.${PRIVATE_DOMAIN}
+      HOSTNAME: grafana.${PRIVATE_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
   prune: true
   sourceRef:
