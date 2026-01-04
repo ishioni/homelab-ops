@@ -78,8 +78,6 @@ spec:
               type: LoadBalancer
           updateStrategy: patch
       disabledDefaultServices: ["r", "ro"]
-  monitoring:
-    enablePodMonitor: true
   # bootstrap:
   #   recovery:
   #     source: source
@@ -90,3 +88,30 @@ spec:
   #       isWALArchiver: true
   #       name: barman-cloud.cloudnative-pg.io
   #       parameters: *barmanParameters
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: &cluster postgres-immich
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+  selector:
+    matchLabels:
+      cnpg.io/cluster: *cluster
+      cnpg.io/podRole: instance
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/scheduledbackup_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: &cluster postgres-immich
+spec:
+  backupOwnerReference: self
+  cluster:
+    name: *cluster
+  immediate: true
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  schedule: "@daily"

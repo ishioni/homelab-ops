@@ -5,8 +5,6 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./objectstore.yaml
-  # - ./podmonitor.yaml
   - ./postgres.yaml
   - ./postgres-immich.yaml
   - ./prometheusrule.yaml
-  - ./scheduledbackup.yaml
