@@ -64,7 +64,7 @@ spec:
       forceDeployDashboards: true
       operator:
         dashboardsConfigMapRefEnabled: true
-        folder: kubernetes
+        folder: Kubernetes
         matchLabels:
           grafana.internal/instance: grafana
     alertmanager:

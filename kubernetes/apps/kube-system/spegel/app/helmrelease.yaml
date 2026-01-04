@@ -29,4 +29,4 @@ spec:
       grafanaOperator:
         matchLabels:
           grafana.internal/instance: grafana
-        folder: kubernetes
+        folder: Kubernetes
