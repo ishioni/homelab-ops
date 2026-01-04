@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cilium
+spec:
+  allowCrossNamespaceImport: true
+  configMapRef:
+    name: cilium-dashboard
+    key: cilium-dashboard.json
+  folder: network
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: cilium-operator
+spec:
+  allowCrossNamespaceImport: true
+  configMapRef:
+    name: cilium-operator-dashboard
+    key: cilium-operator-dashboard.json
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: operators
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance

@@ -25,5 +25,7 @@ spec:
       enabled: true
     grafanaDashboard:
       enabled: true
-      annotations:
-        grafana_folder: Kubernetes
+      mode: GrafanaOperator
+      matchLabels:
+        grafana.internal/instance: grafana-instance
+      folder: kubernetes
