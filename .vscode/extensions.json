@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "britesnow.vscode-toggle-quotes",
-    "ms-kubernetes-tools.vscode-kubernetes-tools",
-    "oderwat.indent-rainbow",
-    "signageos.signageos-vscode-sops",
-    "usernamehw.errorlens",
-  ]
-}
