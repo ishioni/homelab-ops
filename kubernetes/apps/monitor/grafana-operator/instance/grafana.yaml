@@ -18,8 +18,6 @@ spec:
       oauth_allow_insecure_email_lookup: "true"
     auth.anonymous:
       enabled: "false"
-    auth.basic:
-      enabled: "false"
     auth.generic_oauth:
       allow_assign_grafana_admin: "true"
       api_url: https://${AUTH_HOSTNAME}/application/o/userinfo/
@@ -57,12 +55,6 @@ spec:
     spec:
       template:
         spec:
-          # initContainers:
-          #   - name: init-db
-          #     image: ghcr.io/home-operations/postgres-init:18.1@sha256:866f15038ed5185a2b8118821f470bb7ca0df8c4231b8e277446e681ebb1ed84
-          #     envFrom:
-          #       - secretRef:
-          #           name: *secret
           containers:
             - name: grafana
               envFrom:
