@@ -77,6 +77,9 @@ spec:
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana-instance
+  plugins:
+    - name: grafana-clock-panel
+      version: 3.2.0
   url: https://grafana.com/api/dashboards/11314/revisions/10/download
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
