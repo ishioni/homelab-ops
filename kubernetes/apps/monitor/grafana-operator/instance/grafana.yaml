@@ -54,7 +54,7 @@ spec:
   deployment:
     metadata:
       annotations:
-        secret.reloader.stakater.com/reload: &secret grafana-secret
+        secret.reloader.stakater.com/reload: &secret grafana-instance-secret
     spec:
       template:
         spec:
