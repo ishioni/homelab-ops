@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadatasource_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  datasource:
+    type: prometheus
+    name: prometheus
+    access: proxy
+    isDefault: true
+    url: http://thanos-query.monitor.svc.cluster.local:10902/
+    jsonData:
+      timeInterval: 30s
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadatasource_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: alertmanager
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  datasource:
+    type: alertmanager
+    name: alertmanager
+    access: proxy
+    jsonData:
+      implementation: prometheus
+    url: http://alertmanager.monitor.svc.cluster.local:9093
