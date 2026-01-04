@@ -19,8 +19,6 @@ spec:
       oauth_allow_insecure_email_lookup: "true"
     auth.anonymous:
       enabled: "false"
-    auth.basic:
-      enabled: "false"
     auth.generic_oauth:
       allow_assign_grafana_admin: "true"
       api_url: https://${AUTH_HOSTNAME}/application/o/userinfo/
