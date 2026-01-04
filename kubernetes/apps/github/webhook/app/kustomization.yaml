@@ -13,3 +13,6 @@ configMapGenerator:
       - renovate-operator.sh=./resources/renovate-operator.sh
 configurations:
   - ./resources/kustomizeconfig.yaml
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
