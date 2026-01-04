@@ -14,6 +14,7 @@ spec:
       feedback_links_enabled: "false"
       reporting_enabled: "false"
     auth:
+      oauth_auto_login: "true"
       disable_login_form: "false"
       oauth_allow_insecure_email_lookup: "true"
     auth.anonymous:
