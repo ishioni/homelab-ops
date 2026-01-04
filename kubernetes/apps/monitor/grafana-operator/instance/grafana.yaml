@@ -3,9 +3,9 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
-  name: grafana
+  name: grafana-instance
   labels:
-    grafana.internal/instance: grafana
+    grafana.internal/instance: grafana-instance
 spec:
   config:
     analytics:
@@ -72,7 +72,7 @@ spec:
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
-                capabilities: { drop: ["ALL"] }
+                capabilities: {drop: ["ALL"]}
           securityContext:
             runAsNonRoot: true
             runAsUser: 2000
