@@ -3,9 +3,9 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
-  name: grafana-instance
+  name: grafana
   labels:
-    grafana.internal/instance: grafana-instance
+    grafana.internal/instance: grafana
 spec:
   config:
     analytics:
@@ -54,7 +54,7 @@ spec:
             - name: grafana
               envFrom:
                 - secretRef:
-                    name: grafana-instance-secret
+                    name: grafana-secret
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
@@ -80,6 +80,6 @@ spec:
           sectionName: https
       rules:
         - backendRefs:
-            - name: grafana-instance-service
+            - name: grafana-service
               port: 3000
   disableDefaultSecurityContext: All

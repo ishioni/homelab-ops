@@ -15,4 +15,4 @@ spec:
   folder: storage
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana

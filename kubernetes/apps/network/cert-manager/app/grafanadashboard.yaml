@@ -12,5 +12,5 @@ spec:
   folder: operators
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana
   url: https://grafana.com/api/dashboards/20340/revisions/1/download

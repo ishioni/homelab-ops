@@ -32,5 +32,5 @@ spec:
   folder: networking
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana
   url: https://grafana.com/api/dashboards/13665/revisions/4/download

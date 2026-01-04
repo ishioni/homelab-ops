@@ -15,7 +15,7 @@ spec:
       inputName: DS_PROMETHEUS
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -33,4 +33,4 @@ spec:
   folder: operators
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana

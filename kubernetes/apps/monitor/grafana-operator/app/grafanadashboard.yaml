@@ -14,5 +14,5 @@ spec:
       inputName: DS_PROMETHEUS
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana
   folder: operators

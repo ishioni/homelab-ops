@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: grafana-instance
+  name: grafana
 spec:
   endpoints:
     - port: grafana
@@ -15,4 +15,4 @@ spec:
       - observability
   selector:
     matchLabels:
-      grafana.internal/instance: grafana-instance
+      grafana.internal/instance: grafana

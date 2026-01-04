@@ -28,5 +28,5 @@ spec:
       mode: GrafanaOperator
       grafanaOperator:
         matchLabels:
-          grafana.internal/instance: grafana-instance
+          grafana.internal/instance: grafana
         folder: kubernetes
