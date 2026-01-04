@@ -31,9 +31,6 @@ spec:
       token_url: https://${AUTH_HOSTNAME}/application/o/token/
       use_pkce: "true"
       use_refresh_token: "true"
-    # database:
-    #   type: postgres
-    #   ssl_mode: disable
     log:
       mode: console
     metrics:
@@ -47,11 +44,8 @@ spec:
     server:
       enable_gzip: "true"
       root_url: https://${HOSTNAME}
-  disableDefaultAdminSecret: true
+  disableDefaultAdminSecret: false
   deployment:
-    metadata:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret grafana-instance-secret
     spec:
       template:
         spec:
@@ -59,7 +53,7 @@ spec:
             - name: grafana
               envFrom:
                 - secretRef:
-                    name: *secret
+                    name: grafana-instance-secret
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
