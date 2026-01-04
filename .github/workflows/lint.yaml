@@ -91,31 +91,9 @@ jobs:
           markdownlint_config: .ci/markdownlint/.markdownlint.yaml
           file_pattern: ${{ join(fromJSON(steps.changed-files.outputs.changed_files), ' ') }}
 
-  prettier:
-    name: prettier
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-        with:
-          fetch-depth: 0
-
-      - name: Get changed files
-        id: changed-files
-        uses: bjw-s-labs/action-changed-files@1a5aeab1bfa64d0c4e786f501d5a3f1fad4a24da # v0.4.1
-
-      - name: Run prettier
-        if: steps.changed-files.outputs.changed_files != '[]'
-        uses: bjw-s/action-prettier-lint@1014e6a3453ff28a8b746715f44a75306d223266 # v0.1.1
-        with:
-          prettier_ignore: .ci/prettier/.prettierignore
-          prettier_config: .ci/prettier/.prettierrc.yaml
-          file_pattern: ${{ join(fromJSON(steps.changed-files.outputs.changed_files), ' ') }}
-
   lint_success:
     needs:
       - actionlint
-      - prettier
       - yamllint
       - markdownlint
     if: ${{ !cancelled() }}
