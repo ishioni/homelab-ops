@@ -6,12 +6,13 @@ metadata:
   name: grafana-operator
 spec:
   allowCrossNamespaceImport: true
-  instanceSelector:
-    matchLabels:
-      grafana.internal/instance: grafana-instance
-  datasources:
-    - datasourceName: prometheus
-      inputName: DS_PROMETHEUS
   configMapRef:
     name: grafana-operator-dashboard
     key: grafana-operator.json
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana-instance
+  folder: Kubernetes

@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: Kubernetes
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana-instance
+  title: Kubernetes
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: Networking
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana-instance
+  title: Networking
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: Storage
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana-instance
+  title: Storage
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanafolder_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: System
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana-instance
+  title: System
