@@ -56,5 +56,10 @@
       matchPackageNames: ["/ollama/"],
       sourceUrl: "https://github.com/ollama/ollama",
     },
+    {
+      description: "Changelog for renovate-operator",
+      matchPackageNames: ["/renovate-operator/"],
+      sourceUrl: "https://github.com/mogenius/renovate-operator",
+    },
   ],
 }
