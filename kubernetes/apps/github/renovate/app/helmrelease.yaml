@@ -12,8 +12,10 @@ spec:
   values:
     fullnameOverride: renovate-operator
     route:
+      annotations:
+        gatus.home-operations.com/endpoint: "name: renovate-operator"
       enabled: true
-      hostnames: ["${HOSTNAME}"]
+      hostnames: ["renovate.${PRIVATE_DOMAIN}"]
       parentRefs:
         - name: envoy-internal
           namespace: network
