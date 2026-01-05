@@ -67,7 +67,7 @@ spec:
     metadata:
       annotations:
         gatus.home-operations.com/endpoint: |-
-          name: renovate-operator
+          name: grafana
           url: https://grafana.${PRIVATE_DOMAIN}/api/health
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Infrastructure
