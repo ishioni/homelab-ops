@@ -11,5 +11,12 @@ spec:
   interval: 30m
   values:
     fullnameOverride: renovate-operator
+    route:
+      enabled: true
+      hostnames: ["${HOSTNAME}"]
+      parentRefs:
+        - name: envoy-internal
+          namespace: network
+          sectionName: https
     webhook:
       enabled: true
