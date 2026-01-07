@@ -11,7 +11,7 @@ spec:
     - targets:
         - https://unifi.${PRIVATE_DOMAIN}
         - https://unifi.ostroda.${PRIVATE_DOMAIN}
-  metricsPath: /scrap
+  metricsPath: /scrape
   relabelings:
     - sourceLabels: [__address__]
       targetLabel: __param_target
