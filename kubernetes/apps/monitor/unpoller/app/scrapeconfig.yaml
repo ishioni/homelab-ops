@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name unpoller
+spec:
+  jobName: unpoller
+  scrapeInterval: 30s
+  staticConfigs:
+    - targets:
+        - https://unifi.${PRIVATE_DOMAIN}
+        - https://unifi.ostroda.${PRIVATE_DOMAIN}
+  metricsPath: /scrap
+  relabelings:
+    - sourceLabels: [__address__]
+      targetLabel: __param_target
+    - sourceLabels: [__param_target]
+      targetLabel: instance
+    - targetLabel: __address__
+      replacement: unpoller:9130
