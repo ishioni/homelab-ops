@@ -63,7 +63,7 @@
     },
     {
       description: "Changelog for scrutiny",
-      matchPackageNames: ["/scrutiny/"],
+      matchPackageNames: ["/starosdev/scrutiny/"],
       sourceUrl: "https://github.com/Starosdev/scrutiny",
     },
   ],
