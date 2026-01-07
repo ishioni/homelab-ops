@@ -20,11 +20,11 @@ spec:
     - targetLabel: __address__
       replacement: unpoller:9130
   metricRelabelings:
-    - sourceLabels: [site_name, __param_target]
-      regex: Default \(default\);https://unifi\.ishioni\.casa
+    - sourceLabels: [site_name, instance]
+      regex: 'Default \(default\);https://unifi\.ishioni\.casa'
       targetLabel: site_name
       replacement: MoviNet
-    - sourceLabels: [site_name, __param_target]
-      regex: Default \(default\);https://unifi\.ostroda\.ishioni\.casa
+    - sourceLabels: [site_name, instance]
+      regex: 'Default \(default\);https://unifi\.ostroda\.ishioni\.casa'
       targetLabel: site_name
       replacement: Ostróda
