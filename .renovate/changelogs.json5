@@ -61,5 +61,10 @@
       matchPackageNames: ["/renovate-operator/"],
       sourceUrl: "https://github.com/mogenius/renovate-operator",
     },
+    {
+      description: "Changelog for scrutiny",
+      matchPackageNames: ["/scrutiny/"],
+      sourceUrl: "https://github.com/Starosdev/scrutiny",
+    },
   ],
 }
