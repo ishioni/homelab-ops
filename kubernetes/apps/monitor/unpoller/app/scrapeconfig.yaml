@@ -16,6 +16,14 @@ spec:
     - sourceLabels: [__address__]
       targetLabel: __param_target
     - sourceLabels: [__param_target]
+      regex: https?://unifi\.ishioni\.casa:8443
+      targetLabel: site_name
+      replacement: MoviNet
+    - sourceLabels: [__param_target]
+      regex: https?://unifi\.ostroda\.ishioni\.casa:8443
+      targetLabel: site_name
+      replacement: Ostróda
+    - sourceLabels: [__param_target]
       targetLabel: instance
     - targetLabel: __address__
       replacement: unpoller:9130
