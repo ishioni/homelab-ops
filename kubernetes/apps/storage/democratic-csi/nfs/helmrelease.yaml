@@ -19,8 +19,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret dcsi-nfs-secret
       driver:
         image: &image
-          registry: ghcr.io/democratic-csi/democratic-csi@sha256
-          tag: 5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
+          tag: v1.9.5@sha256:5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
         # imagePullPolicy: Always
       priorityClassName: system-cluster-critical
       topologySpreadConstraints:
@@ -49,8 +48,7 @@ spec:
           fsType: nfs
           detachedVolumesFromSnapshots: true
           detachedVolumesFromVolumes: true
-        mountOptions:
-          ["nfsvers=4.2", "nconnect=8", "hard", "noatime", "nodiratime"]
+        mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "noatime", "nodiratime"]
     volumeSnapshotClasses:
       - name: *class
         driver: *driver
