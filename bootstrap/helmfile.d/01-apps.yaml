@@ -14,9 +14,7 @@ releases:
     values: ["./templates/values.yaml.gotmpl"]
     hooks:
       # Apply cilium network configuration
-      - events:
-          - postsync
-        command: kubectl
+      - command: kubectl
         args:
           - apply
           - --namespace=kube-system
@@ -24,6 +22,7 @@ releases:
           - --field-manager=kustomize-controller
           - --kustomize
           - ../../kubernetes/apps/kube-system/cilium/config/
+        events: [postsync]
         showlogs: true
 
   - name: kubelet-csr-approver
@@ -47,6 +46,37 @@ releases:
     version: v1.19.2
     values: ["templates/values.yaml.gotmpl"]
     needs: ["kube-system/spegel"]
+
+  - name: external-secrets
+    namespace: security
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.19.2
+    values: ["templates/values.yaml.gotmpl"]
+    needs: ["kube-system/spegel"]
+
+  - name: onepassword
+    namespace: security
+    chart: oci://ghcr.io/bjw-s-labs/helm/app-template
+    version: 4.6.0
+    values: ["templates/values.yaml.gotmpl"]
+    hooks:
+      # Wait for ExternalSecrets CRDs to be available
+      - command: bash
+        args:
+          - -c
+          - until kubectl get crd clustersecretstores.external-secrets.io &>/dev/null; do sleep 5; done
+        events: [postsync]
+        showlogs: true
+      # Apply ExternalSecret Resources
+      - command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename=../../kubernetes/apps/security/onepassword/app/clustersecretstore.yaml
+        events: [postsync]
+        showlogs: true
+    needs: ["security/external-secrets"]
 
   - name: flux-operator
     namespace: flux-system

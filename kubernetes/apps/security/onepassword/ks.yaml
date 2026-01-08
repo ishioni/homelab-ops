@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app onepassword-connect
+  name: &app onepassword
   namespace: &namespace security
 spec:
   dependsOn:
@@ -22,7 +22,7 @@ spec:
       failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   interval: 30m
-  path: ./kubernetes/apps/security/onepassword-connect/app
+  path: ./kubernetes/apps/security/onepassword/app
   prune: true
   sourceRef:
     kind: GitRepository
