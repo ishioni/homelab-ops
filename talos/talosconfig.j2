@@ -1,0 +1,14 @@
+context: main
+contexts:
+    main:
+        endpoints:
+            - 10.1.2.3
+            - 10.1.2.4
+            - 10.1.2.5
+        nodes:
+            - talos-1
+            - talos-2
+            - talos-3
+        ca: op://homelab/talos/MACHINE_CA_CRT
+        crt: op://homelab/talos/ADMIN_CRT
+        key: op://homelab/talos/ADMIN_KEY

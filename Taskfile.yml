@@ -16,12 +16,7 @@ env:
 dotenv: [".config.env"]
 
 includes:
-  bootstrap: .taskfiles/bootstrap
-  flux:
-    dir: .taskfiles/flux
-    taskfile: .taskfiles/flux
   format: .taskfiles/format
-  kubernetes: .taskfiles/kubernetes
   precommit: .taskfiles/precommit
 
 tasks:
@@ -32,7 +27,6 @@ tasks:
     desc: Initialize workstation dependencies with Brew
     cmds:
       - brew bundle {{.CLI_ARGS}}
-      - curl -Lo /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz https://github.com/budimanjojo/talhelper/releases/download/{{.TALHELPER_VERSION}}/talhelper_$(uname -s | tr "[:upper:]" "[:lower:]")_$(uname -m).tar.gz && tar -xzf /tmp/talhelper-{{.TALHELPER_VERSION}}.tar.gz -C /tmp && sudo mv /tmp/talhelper /usr/local/bin/talhelper
     preconditions:
       - sh: command -v brew
         msg: |

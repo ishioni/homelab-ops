@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+# This helmfile is for installing Custom Resource Definitions (CRDs) from Helm charts.
+# It is not intended to be used with helmfile apply or sync.
+
+helmDefaults:
+  args: ["--include-crds", "--no-hooks"] # Prevent helmfile apply or sync
+
+releases:
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 1.2.0
+
+  - name: envoy-gateway
+    namespace: network
+    chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
+    version: v1.6.1
+
+  - name: kube-prometheus-stack
+    namespace: observability
+    chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+    version: 80.6.0
+
+  - name: cloudnative-pg
+    namespace: database
+    chart: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg
+    version: 0.27.0
+
+  - name: barman-cloud
+    namespace: database
+    chart: oci://ghcr.io/cloudnative-pg/charts/plugin-barman-cloud
+    version: 0.3.1

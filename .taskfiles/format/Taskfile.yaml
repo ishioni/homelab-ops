@@ -6,7 +6,7 @@ tasks:
   all:
     - task: markdown
     - task: yaml
-    - task: terraform
+    - task: tofu
 
   markdown:
     desc: Format Markdown
@@ -34,8 +34,8 @@ tasks:
         '{{.ROOT_DIR}}/**/*.y*ml'
     ignore_error: true
 
-  terraform:
+  tofu:
     desc: Format Terraform
     cmds:
-      - terraform fmt -recursive {{.ROOT_DIR}}
+      - tofu fmt -recursive {{.ROOT_DIR}}
     ignore_error: true
