@@ -19,8 +19,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret dcsi-iscsi-secret
       driver:
         image: &image
-          registry: ghcr.io/democratic-csi/democratic-csi@sha256
-          tag: 5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
+          tag: v1.9.5@sha256:5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
         # imagePullPolicy: Always
       priorityClassName: system-cluster-critical
       topologySpreadConstraints:
