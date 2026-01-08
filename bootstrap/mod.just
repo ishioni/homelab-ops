@@ -8,11 +8,7 @@ controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
 [private]
-default:
-    just -l bootstrap
-
-# [private]
-# default: talos kube (kubeconfig "node") wait namespaces resources crds apps kubeconfig
+default: talos kube (kubeconfig "node") wait namespaces resources crds apps kubeconfig
 
 [doc('Install Talos')]
 talos:
