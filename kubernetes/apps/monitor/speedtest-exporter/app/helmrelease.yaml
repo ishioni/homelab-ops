@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.5.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: speedtest-exporter
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: speedtest-exporter
+  interval: 30m
+  values:
+    controllers:
+      speedtest-exporter:
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: ghcr.io/miguelndecarvalho/speedtest-exporter
+              tag: v3.5.4
+            env:
+              TZ: ${CONFIG_TIMEZONE}
+            resources:
+              requests:
+                cpu: 15m
+                memory: 64Mi
+              limits:
+                memory: 64Mi
+    service:
+      app:
+        ports:
+          http:
+            port: 9798
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            scrapeInterval: 60m
+            scrapeTimeout: 1m
+            # relabelings:
+            #   - action: replace
+            #     targetLabel: job
+            #     replacement: speedtext-exporter
+            #   - sourceLabels: [__address__]
+            #     regex: '([^:]+):\d+'
+            #     replacement: "$1"
+            #     targetLabel: instance
