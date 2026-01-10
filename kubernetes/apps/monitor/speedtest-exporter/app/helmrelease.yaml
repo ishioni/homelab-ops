@@ -33,6 +33,7 @@ spec:
             port: 9798
     serviceMonitor:
       app:
+        serviceName: nut-exporter
         endpoints:
           - port: http
             scheme: http
