@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: 0.6.43@sha256:9cb724e0bc84f05ba2f81a3da5f53f5add07e1001065d83f3b6b70b9a9eeef19
+              tag: 0.7.1@sha256:d9c509017a46ac0713aa5d94101fd10ea53fbaf9582627216026666257b115ee
             env:
               TZ: ${CONFIG_TIMEZONE}
               WEBUI_URL: https://${HOSTNAME}
