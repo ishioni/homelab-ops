@@ -33,7 +33,7 @@ spec:
             port: 9798
     serviceMonitor:
       app:
-        serviceName: nut-exporter
+        serviceName: speedtest-exporter
         endpoints:
           - port: http
             scheme: http
