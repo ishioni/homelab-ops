@@ -6,5 +6,4 @@ resources:
   - ./minio.yaml
   - ./node-exporter.yaml
   - ./smartctl-exporter.yaml
-  - ./speedtest-exporter.yaml
   - ./traefik.yaml
