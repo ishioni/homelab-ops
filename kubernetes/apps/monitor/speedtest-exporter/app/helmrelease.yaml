@@ -40,11 +40,7 @@ spec:
             path: /metrics
             interval: 60m
             scrapeTimeout: 1m
-            # relabelings:
-            #   - action: replace
-            #     targetLabel: job
-            #     replacement: speedtext-exporter
-            #   - sourceLabels: [__address__]
-            #     regex: '([^:]+):\d+'
-            #     replacement: "$1"
-            #     targetLabel: instance
+            relabelings:
+              - action: replace
+                targetLabel: instance
+                replacement: speedtest-exporter
