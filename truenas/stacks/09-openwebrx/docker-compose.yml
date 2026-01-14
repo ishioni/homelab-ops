@@ -1,7 +1,7 @@
 ---
 services:
   openwebrx:
-    image: slechev/openwebrxplus-softmbe:1.2.104@sha256:7113449b9983eff0efe77c8c38b143b46795dec0dc612d5b46e584bdecc17d66
+    image: slechev/openwebrxplus-softmbe:1.2.104@sha256:c9d9df2962aa5951893d164f66b9e8aa84cd82b31b02ddbd599b23cc7224849d
     container_name: openwebrx
     devices:
       - /dev/bus/usb:/dev/bus/usb
