@@ -57,7 +57,7 @@ releases:
   - name: onepassword
     namespace: security
     chart: oci://ghcr.io/bjw-s-labs/helm/app-template
-    version: 4.6.0
+    version: 4.6.1
     values: ["templates/values.yaml.gotmpl"]
     hooks:
       # Wait for ExternalSecrets CRDs to be available
