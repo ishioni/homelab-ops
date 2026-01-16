@@ -10,4 +10,4 @@ PROJECT=${3:-}
 PROJECT=$(echo "${PROJECT}" | jq -Rr @uri)
 
 curl -s -X POST \
-  "http://renovate-operator-webhook.github.svc.cluster.local:8082/webhook/v1/schedule?job=${JOB}&namespace=${NAMESPACE}&project=${PROJECT}"
+  "http://renovate-operator.github.svc.cluster.local:8082/webhook/v1/schedule?job=${JOB}&namespace=${NAMESPACE}&project=${PROJECT}"
