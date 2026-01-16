@@ -31,7 +31,7 @@
       automergeType: "pr",
       matchUpdateTypes: ["digest"],
       matchPackageNames: ["/home-operations/"],
-      minimumReleaseAge: "1 hour",
+      minimumReleaseAge: null,
       ignoreTests: false,
     },
     {
@@ -41,7 +41,7 @@
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: ["ghcr.io/renovatebot/renovate"],
-      minimumReleaseAge: "1 hour",
+      minimumReleaseAge: null,
       ignoreTests: false,
     },
     {
@@ -51,7 +51,7 @@
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: ["/kube-prometheus-stack/", "/grafana/", "/reloader/"],
-      minimumReleaseAge: "1 hour",
+      minimumReleaseAge: null,
       ignoreTests: false,
     },
     {
@@ -60,7 +60,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch", "digest"],
-      minimumReleaseAge: "1 hour",
+      minimumReleaseAge: null,
       ignoreTests: true,
     },
     {
@@ -70,7 +70,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch", "digest"],
-      minimumReleaseAge: "1 hour",
+      minimumReleaseAge: null,
       ignoreTests: true,
     },
     {
@@ -80,7 +80,7 @@
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: ["/external-dns/", "/gateway-api/", "/prometheus-operator/"],
-      minimumReleaseAge: "1 hour",
+      minimumReleaseAge: null,
       ignoreTests: true,
     },
   ],
