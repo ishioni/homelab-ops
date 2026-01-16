@@ -31,6 +31,7 @@ resource "authentik_stage_identification" "authentication-identification" {
   show_matched_user         = false
   enable_remember_me        = true
   password_stage            = authentik_stage_password.authentication-password.id
+  passwordless_flow         = authentik_flow.passwordless_authentication.uuid
   recovery_flow             = authentik_flow.recovery.uuid
   webauthn_stage            = authentik_stage_authenticator_validate.authentication-passkey-validation.id
 }
