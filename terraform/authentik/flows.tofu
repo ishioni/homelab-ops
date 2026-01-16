@@ -1,4 +1,8 @@
 ## Authenticator setup
+#
+locals {
+  default_flow_background = "https://cdn.movishell.pl/branding/Beachfront.webp"
+}
 
 resource "authentik_flow" "authenticator-totp-setup" {
   name           = "authenticator-totp-setup"
@@ -6,6 +10,7 @@ resource "authentik_flow" "authenticator-totp-setup" {
   slug           = "authenticator-totp-setup"
   designation    = "stage_configuration"
   authentication = "require_authenticated"
+  background = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "authenticator-totp-setup-binding-00" {
@@ -20,6 +25,7 @@ resource "authentik_flow" "authenticator-webauthn-setup" {
   slug           = "authenticator-webauthn-setup"
   designation    = "stage_configuration"
   authentication = "require_authenticated"
+  background = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "authenticator-webauthn-setup-binding-00" {
@@ -36,6 +42,7 @@ resource "authentik_flow" "authentication" {
   slug               = "authentication-flow"
   designation        = "authentication"
   policy_engine_mode = "all"
+  background = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "authentication-flow-binding-00" {
@@ -62,6 +69,7 @@ resource "authentik_flow" "passwordless_authentication" {
   slug               = "passwordless-flow"
   designation        = "authentication"
   policy_engine_mode = "all"
+  background = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "passwordless_authentication-binding-00" {
@@ -86,6 +94,7 @@ resource "authentik_flow" "invalidation" {
   policy_engine_mode = "any"
   designation        = "invalidation"
   denied_action      = "continue"
+  background         = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "invalidation-flow-binding-00" {
@@ -102,6 +111,7 @@ resource "authentik_flow" "provider-invalidation" {
   policy_engine_mode = "any"
   designation        = "invalidation"
   denied_action      = "continue"
+  background = local.default_flow_background
 }
 
 ## Password recovery flow
@@ -111,6 +121,7 @@ resource "authentik_flow" "recovery" {
   slug               = "password-recovery"
   designation        = "recovery"
   compatibility_mode = true
+  background = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "recovery-flow-binding-00" {
@@ -144,6 +155,7 @@ resource "authentik_flow" "enrollment-invitation" {
   slug               = "enrollmment-invitation"
   designation        = "enrollment"
   compatibility_mode = true
+  background = local.default_flow_background
 }
 
 resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-00" {
@@ -200,4 +212,5 @@ resource "authentik_flow" "provider-authorization-implicit-consent" {
   policy_engine_mode = "any"
   denied_action      = "message_continue"
   designation        = "authorization"
+  background = local.default_flow_background
 }
