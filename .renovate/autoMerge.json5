@@ -29,7 +29,7 @@
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: ["/home-operations/"],
+      matchPackagePrefixes: ["ghcr.io/home-operations"],
       ignoreTests: false,
     },
     {
