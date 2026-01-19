@@ -60,6 +60,7 @@ data:
               type: truenas
               fields: []
               url: https://leo.${PRIVATE_DOMAIN}
+              version: 2
               key: {{HOMEPAGE_VAR_TRUENAS_TOKEN}}
               enablePools: true
         - MeshCentral:
