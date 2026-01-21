@@ -210,3 +210,9 @@ up: true
 apiVersion: v1alpha1
 kind: DHCPv4Config
 name: net0
+---
+apiVersion: v1alpha1
+kind: OOMConfig
+triggerExpression: "false"
+cgroupRankingExpression: "0.0"
+sampleInterval: "5s"
