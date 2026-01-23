@@ -15,6 +15,7 @@
         "adrienverge/yamllint",
         "pre-commit/pre-commit-hooks",
       ],
+      ignoreTests: true,
     },
     {
       description: "Auto merge terraform providers",
@@ -39,6 +40,7 @@
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: ["ghcr.io/renovatebot/renovate"],
+      ignoreTests: true,
     },
     {
       description: "Auto-merge OCI Charts",
@@ -47,6 +49,7 @@
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: ["/kube-prometheus-stack/", "/grafana/", "/reloader/"],
+      ignoreTests: true,
     },
     {
       description: "Auto-merge GitHub Actions",
@@ -54,6 +57,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch", "digest"],
+      ignoreTests: true,
     },
   ],
 }
