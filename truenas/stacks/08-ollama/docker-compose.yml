@@ -1,7 +1,7 @@
 ---
 services:
   ollama:
-    image: docker.io/ollama/ollama:0.15.1
+    image: docker.io/ollama/ollama:0.15.2
     devices:
       - /dev/dri
     ports:
