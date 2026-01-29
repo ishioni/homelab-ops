@@ -52,11 +52,11 @@ spec:
           for: 15m
           labels:
             severity: critical
-        - alert: SmartDeviceAvailableSpareUnderThreadhold
+        - alert: SmartDeviceAvailableSpareUnderThreshold
           annotations:
             summary: |
               Device {{ $labels.device }} on instance {{ $labels.instance }}
-              is under available spare threashold.
+              is under available spare threshold.
           expr: smartctl_device_available_spare_threshold > smartctl_device_available_spare
           for: 15m
           labels:
