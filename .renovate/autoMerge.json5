@@ -23,6 +23,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
+      ignoreTests: true,
     },
     {
       description: "Auto-merge trusted container digests",
