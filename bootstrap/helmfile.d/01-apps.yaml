@@ -28,7 +28,7 @@ releases:
   - name: kubelet-csr-approver
     namespace: kube-system
     chart: oci://ghcr.io/postfinance/charts/kubelet-csr-approver
-    version: 1.2.12
+    version: 1.2.13
     values: ["./templates/values.yaml.gotmpl"]
     needs: ["kube-system/cilium"]
 
