@@ -12,6 +12,9 @@ spec:
   values:
     config:
       envoyGateway:
+        gatewayAPI:
+          enabled:
+            - XListenerSet
         provider:
           type: Kubernetes
           kubernetes:
