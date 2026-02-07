@@ -72,6 +72,9 @@ spec:
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 1
+  path:
+    disableMergeSlashes: true
+    escapedSlashesAction: KeepUnchanged
   connection:
     bufferLimit: 8Mi
     maxAcceptPerSocketEvent: 0
