@@ -14,7 +14,7 @@ spec:
       secret.reloader.stakater.com/reload: &secret minecraft-secret-test
     image:
       repository: ghcr.io/itzg/minecraft-server
-      tag: 2026.1.3-java25
+      tag: 2026.2.0-java25
     resources:
       limits:
         memory: 4000Mi
