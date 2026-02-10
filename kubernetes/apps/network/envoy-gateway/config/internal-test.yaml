@@ -63,7 +63,7 @@ spec:
               start: 500
       redirect:
         scheme: https
-        hostname: whoami.test.ishioni.casa
+        hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
           replaceFullPath: /
@@ -76,7 +76,7 @@ spec:
               start: 400
       redirect:
         scheme: https
-        hostname: whoami.test.ishioni.casa
+        hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
           replaceFullPath: /
