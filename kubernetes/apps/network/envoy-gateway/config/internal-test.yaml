@@ -63,10 +63,10 @@ spec:
               start: 500
       redirect:
         scheme: https
-        hostname: error.test.ishioni.casa
+        hostname: whoami.movishell.pl
         path:
           type: ReplaceFullPath
-          replaceFullPath: /500.html
+          replaceFullPath: /
         statusCode: 302
     - match:
         statusCodes:
@@ -76,13 +76,8 @@ spec:
               start: 400
       redirect:
         scheme: https
-        hostname: error.test.ishioni.casa
+        hostname: whoami.movishell.pl
         path:
           type: ReplaceFullPath
-          replaceFullPath: /400.html
+          replaceFullPath: /
         statusCode: 302
-      response:
-        header:
-          set:
-            - name: Host
-              value: whoami.ishioni.casa
