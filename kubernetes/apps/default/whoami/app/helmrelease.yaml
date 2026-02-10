@@ -52,6 +52,7 @@ spec:
               - kind: Service
                 name: whoami
                 namespace: default
+                port: *port
             matches:
               - path:
                   type: PathPrefix
