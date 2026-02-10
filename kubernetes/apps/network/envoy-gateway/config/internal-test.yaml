@@ -47,7 +47,7 @@ spec:
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
-  name: envoy
+  name: envoy-test-redirects
 spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
