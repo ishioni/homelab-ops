@@ -68,3 +68,16 @@ spec:
           type: ReplaceFullPath
           replaceFullPath: /500.html
         statusCode: 302
+    - match:
+        statusCodes:
+          - type: Range
+            range:
+              end: 400
+              start: 410
+      redirect:
+        scheme: https
+        hostname: error.test.ishioni.casa
+        path:
+          type: ReplaceFullPath
+          replaceFullPath: /400.html
+        statusCode: 302
