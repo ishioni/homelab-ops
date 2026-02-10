@@ -60,6 +60,7 @@ spec:
               - kind: Service
                 name: error-pages
                 namespace: network
+                port: 8080
             matches:
               - path:
                   type: PathPrefix
