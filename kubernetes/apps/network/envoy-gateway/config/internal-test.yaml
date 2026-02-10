@@ -42,3 +42,29 @@ spec:
           requestRedirect:
             scheme: https
             statusCode: 301
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: envoy
+spec:
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      matchLabels:
+        type: internal-test
+  responseOverride:
+    - match:
+        statusCodes:
+          - type: Range
+            range:
+              end: 510
+              start: 500
+      redirect:
+        scheme: https
+        hostname: error.test.ishioni.casa
+        path:
+          type: ReplaceFullPath
+          replaceFullPath: /500.html
+        statusCode: 302
