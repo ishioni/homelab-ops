@@ -77,9 +77,13 @@ spec:
               start: 400
       redirect:
         scheme: http
-        hostname: error-pages.network.svc.cluster.local
-        port: 8080
+        hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
           replaceFullPath: /400.html
         statusCode: 302
+      response:
+        header:
+          set:
+            - name: Host
+              value: whoami.ishioni.casa
