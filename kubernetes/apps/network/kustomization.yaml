@@ -10,6 +10,6 @@ resources:
   - ./cdn-proxy/ks.yaml
   - ./cert-manager/ks.yaml
   - ./envoy-gateway/ks.yaml
-  - ./erro-pages/ks.yaml
+  - ./error-pages/ks.yaml
   - ./external-dns/ks.yaml
   - ./hass-proxy/ks.yaml
