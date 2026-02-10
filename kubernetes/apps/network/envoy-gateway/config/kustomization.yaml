@@ -6,5 +6,6 @@ resources:
   - ./envoy.yaml
   - ./external.yaml
   - ./internal.yaml
+  - ./internal-test.yaml
   - ./grafanadashboard.yaml
   - ./monitoring.yaml
