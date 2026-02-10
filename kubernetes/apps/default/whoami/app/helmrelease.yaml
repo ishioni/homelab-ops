@@ -47,3 +47,20 @@ spec:
           - name: envoy-internal-test
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: whoami
+                namespace: default
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+          - backendRefs:
+              - kind: Service
+                name: error-pages
+                namespace: network
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /error
