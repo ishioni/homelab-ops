@@ -62,8 +62,9 @@ spec:
               end: 510
               start: 500
       redirect:
-        scheme: https
-        hostname: error.test.ishioni.casa
+        scheme: http
+        hostname: error-pages.network.svc.cluster.local
+        port: 8080
         path:
           type: ReplaceFullPath
           replaceFullPath: /500.html
@@ -75,8 +76,9 @@ spec:
               end: 410
               start: 400
       redirect:
-        scheme: https
-        hostname: error.test.ishioni.casa
+        scheme: http
+        hostname: error-pages.network.svc.cluster.local
+        port: 8080
         path:
           type: ReplaceFullPath
           replaceFullPath: /400.html
