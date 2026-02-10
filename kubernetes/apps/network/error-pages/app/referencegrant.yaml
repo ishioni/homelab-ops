@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: error-pages
+  namespace: network
+spec:
+  from:
+    - group: gateway.envoyproxy.io
+      kind: HTTPRoute
+      namespace: "default"
+  to:
+    - group: ""
+      kind: Service
+      name: error-pages
