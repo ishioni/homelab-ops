@@ -15,6 +15,7 @@ metadata:
   name: envoy-external
   labels:
     type: external
+    role: production
 spec:
   gatewayClassName: envoy
   infrastructure:

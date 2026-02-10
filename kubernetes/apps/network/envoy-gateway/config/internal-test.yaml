@@ -5,7 +5,7 @@ kind: Gateway
 metadata:
   name: envoy-internal-test
   labels:
-    type: internal-test
+    role: test
 spec:
   gatewayClassName: envoy
   listeners:
@@ -53,7 +53,7 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       matchLabels:
-        type: internal-test
+        role: test
   responseOverride:
     - match:
         statusCodes:

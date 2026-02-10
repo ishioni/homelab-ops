@@ -52,6 +52,8 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
+      matchLabels:
+        role: production
   compression:
     - type: Brotli
     - type: Gzip

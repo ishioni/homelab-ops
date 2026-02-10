@@ -15,6 +15,7 @@ metadata:
           send-on-resolved: true
   labels:
     type: internal
+    role: production
 spec:
   gatewayClassName: envoy
   listeners:
