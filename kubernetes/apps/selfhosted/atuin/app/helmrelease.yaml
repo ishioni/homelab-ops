@@ -75,9 +75,6 @@ spec:
       app:
         hostnames: ["${HOSTNAME}"]
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-internal-test
             namespace: network
             sectionName: https
-    persistence:
-      config:
-        type: emptyDir
