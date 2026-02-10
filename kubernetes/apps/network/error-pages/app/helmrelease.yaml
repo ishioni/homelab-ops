@@ -58,6 +58,6 @@ spec:
       app:
         hostnames: ["${HOSTNAME}"]
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal-test
             namespace: network
             sectionName: https
