@@ -41,3 +41,9 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+      test:
+        hostnames: [whoami.test.ishioni.casa]
+        parentRefs:
+          - name: envoy-internal-test
+            namespace: network
+            sectionName: https
