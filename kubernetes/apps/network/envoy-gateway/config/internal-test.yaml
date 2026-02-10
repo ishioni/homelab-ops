@@ -63,8 +63,7 @@ spec:
               start: 500
       redirect:
         scheme: http
-        hostname: error-pages.network.svc.cluster.local
-        port: 8080
+        hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
           replaceFullPath: /500.html
