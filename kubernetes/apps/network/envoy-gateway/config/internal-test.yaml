@@ -72,8 +72,8 @@ spec:
         statusCodes:
           - type: Range
             range:
-              end: 400
-              start: 410
+              end: 410
+              start: 400
       redirect:
         scheme: https
         hostname: error.test.ishioni.casa
