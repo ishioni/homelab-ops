@@ -62,7 +62,7 @@ spec:
               end: 510
               start: 500
       redirect:
-        scheme: http
+        scheme: https
         hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
@@ -75,7 +75,7 @@ spec:
               end: 410
               start: 400
       redirect:
-        scheme: http
+        scheme: https
         hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
