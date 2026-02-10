@@ -40,7 +40,6 @@ spec:
               # ATUIN_METRICS__PORT: &metricsPort 8081
             envFrom: *envFrom
             args:
-              - server
               - start
             probes:
               liveness: &probes
