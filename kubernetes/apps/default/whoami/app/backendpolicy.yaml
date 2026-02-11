@@ -17,7 +17,8 @@ spec:
               end: 410
               start: 400
       redirect:
+        hostname: error.test.ishioni.casa
         path:
           type: ReplaceFullPath
-          replaceFullPath: /error
+          replaceFullPath: /404.html
         statusCode: 302
