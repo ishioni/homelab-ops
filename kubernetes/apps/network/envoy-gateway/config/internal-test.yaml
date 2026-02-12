@@ -94,8 +94,8 @@ spec:
         statusCodes:
           - type: Range
             range:
-              end: 400
-              start: 410
+              end: 510
+              start: 500
       redirect:
         path:
           type: ReplaceFullPath
