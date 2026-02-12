@@ -64,5 +64,5 @@ spec:
                 port: 8080
             matches:
               - path:
-                  type: PathPrefix
-                  value: /error
+                  type: Exact
+                  value: /500.html
