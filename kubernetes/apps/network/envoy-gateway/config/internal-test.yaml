@@ -89,7 +89,6 @@ spec:
         path:
           type: ReplaceFullPath
           replaceFullPath: /400.html
-        statusCode: 302
     - match:
         statusCodes:
           - type: Range
@@ -100,4 +99,3 @@ spec:
         path:
           type: ReplaceFullPath
           replaceFullPath: /500.html
-        statusCode: 302
