@@ -37,6 +37,19 @@ spec:
       namespace: network
       sectionName: http
   rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: error-pages
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: Exact
+            value: /500.html
+        - path:
+            type: Exact
+            value: /400.html
     - filters:
         - type: RequestRedirect
           requestRedirect:

@@ -57,12 +57,3 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
-          - backendRefs:
-              - kind: Service
-                name: error-pages
-                namespace: network
-                port: 8080
-            matches:
-              - path:
-                  type: Exact
-                  value: /500.html
