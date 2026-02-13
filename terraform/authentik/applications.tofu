@@ -206,21 +206,21 @@ module "oauth2-vaultwarden" {
   access_token_validity = "hours=1"
 }
 
-module "oauth2-openwebui" {
-  source             = "./oauth2_application"
-  name               = "OpenWebUI"
-  icon_url           = "https://raw.githubusercontent.com/open-webui/open-webui/refs/heads/main/static/favicon.png"
-  launch_url         = "https://ai.${var.public_domain}"
-  description        = "AI-powered web interface"
-  newtab             = true
-  group              = "Selfhosted"
-  auth_groups        = [authentik_group.users.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = module.secret_openwebui.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_openwebui.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://ai.${var.public_domain}/oauth/oidc/callback"]
-}
+# module "oauth2-openwebui" {
+#   source             = "./oauth2_application"
+#   name               = "OpenWebUI"
+#   icon_url           = "https://raw.githubusercontent.com/open-webui/open-webui/refs/heads/main/static/favicon.png"
+#   launch_url         = "https://ai.${var.public_domain}"
+#   description        = "AI-powered web interface"
+#   newtab             = true
+#   group              = "Selfhosted"
+#   auth_groups        = [authentik_group.users.id]
+#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+#   client_id          = module.secret_openwebui.fields["OIDC_CLIENT_ID"]
+#   client_secret      = module.secret_openwebui.fields["OIDC_CLIENT_SECRET"]
+#   redirect_uris      = ["https://ai.${var.public_domain}/oauth/oidc/callback"]
+# }
 
 module "oauth2-opencloud" {
   source             = "./oauth2_application"
