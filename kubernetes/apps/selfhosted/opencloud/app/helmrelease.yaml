@@ -22,21 +22,22 @@ spec:
             fsGroup: *uid
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          # webfiger-proxy:
-          #   image:
-          #     repository: ghcr.io/2bros-group/opencloud-oidc-webfinger-proxy
-          #     tag: v1.0.0
-          #   env:
-          #     PORT: "9201"
-          #     UPSTREAM_URL: https://${HOSTNAME}
-          #     HREF_PATTERN: &href https://${AUTH_HOSTNAME}/application/o/
-          #     HREF_REPLACEMENT: *href
-          #     DEFAULT_SUFFIX: opencloud
+          webfiger-proxy:
+            image:
+              repository: ghcr.io/2bros-group/opencloud-oidc-webfinger-proxy
+              tag: v1.0.0
+            env:
+              PORT: "9201"
+              UPSTREAM_URL: https://${HOSTNAME}
+              HREF_PATTERN: &href https://${AUTH_HOSTNAME}/application/o/
+              HREF_REPLACEMENT: *href
+              DEFAULT_SUFFIX: opencloud
           opencloud:
             image:
               repository: docker.io/opencloudeu/opencloud-rolling
               tag: 5.1.0@sha256:6229e937e32e5e114ddac81af7e851fb9346a818c58a36b784529d5503530f93
-            command: ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
+            command:
+              ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
             envFrom:
               - secretRef:
                   name: *secret
@@ -86,8 +87,8 @@ spec:
         ports:
           http:
             port: *port
-          # webfinger:
-          #   port: 9201
+          webfinger:
+            port: 9201
     route:
       app:
         annotations:
@@ -123,59 +124,59 @@ spec:
           #           - name: X-Issuer-Suffix
           #             value: opencloud
           # desktop UA
-          # - backendRefs:
-          #     - identifier: app
-          #       port: 9201
-          #   matches:
-          #     - path:
-          #         type: Exact
-          #         value: /.well-known/webfinger
-          #       headers:
-          #         - type: RegularExpression
-          #           name: User-Agent
-          #           value: ".*mirall.*OpenCloud.*"
-          #   filters:
-          #     - type: RequestHeaderModifier
-          #       requestHeaderModifier:
-          #         add:
-          #           - name: X-Issuer-Suffix
-          #             value: openclouddesktop
-          # # Android UA
-          # - backendRefs:
-          #     - identifier: app
-          #       port: 9201
-          #   matches:
-          #     - path:
-          #         type: Exact
-          #         value: /.well-known/webfinger
-          #       headers:
-          #         - type: RegularExpression
-          #           name: User-Agent
-          #           value: ".*OpenCloud-android.*"
-          #   filters:
-          #     - type: RequestHeaderModifier
-          #       requestHeaderModifier:
-          #         add:
-          #           - name: X-Issuer-Suffix
-          #             value: opencloudandroid
-          # # iOS UA
-          # - backendRefs:
-          #     - identifier: app
-          #       port: 9201
-          #   matches:
-          #     - path:
-          #         type: Exact
-          #         value: /.well-known/webfinger
-          #       headers:
-          #         - type: RegularExpression
-          #           name: User-Agent
-          #           value: ".*OpenCloudApp"
-          #   filters:
-          #     - type: RequestHeaderModifier
-          #       requestHeaderModifier:
-          #         add:
-          #           - name: X-Issuer-Suffix
-          #             value: opencloudios
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                headers:
+                  - type: RegularExpression
+                    name: User-Agent
+                    value: ".*mirall.*OpenCloud.*"
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: openclouddesktop
+          # Android UA
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                headers:
+                  - type: RegularExpression
+                    name: User-Agent
+                    value: ".*OpenCloud-android.*"
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: opencloudandroid
+          # iOS UA
+          - backendRefs:
+              - identifier: app
+                port: 9201
+            matches:
+              - path:
+                  type: Exact
+                  value: /.well-known/webfinger
+                headers:
+                  - type: RegularExpression
+                    name: User-Agent
+                    value: ".*OpenCloudApp"
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Issuer-Suffix
+                      value: opencloudios
     persistence:
       config:
         type: configMap
