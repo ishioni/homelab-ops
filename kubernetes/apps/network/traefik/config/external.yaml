@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: external.movishell.pl
+    gatus.home-operations.com/endpoint: |-
+      client:
+        dns-resolver: tcp://10.1.2.1:53
+      group: external
+      alerts:
+        - type: pushover
+          send-on-resolved: true
+  name: envoy-external
+  labels:
+    type: external
+    role: production
+spec:
+  gatewayClassName: envoy
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
+      lbipam.cilium.io/ips: 10.84.2.2
+    labels:
+      io.cilium/ippool: public
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: default-public-certificate
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: envoy-external
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
