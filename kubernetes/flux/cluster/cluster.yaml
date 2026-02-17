@@ -30,7 +30,7 @@ spec:
                   name: _
                 spec:
                   install:
-                    crds: CreateReplace
+
                     strategy:
                       name: RetryOnFailure
                   maxHistory: 3
@@ -42,7 +42,7 @@ spec:
                     keepHistory: false
                   upgrade:
                     cleanupOnFail: true
-                    crds: CreateReplace
+
                     strategy:
                       name: RemediateOnFailure
                     remediation:
