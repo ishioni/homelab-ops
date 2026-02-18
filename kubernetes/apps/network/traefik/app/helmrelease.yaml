@@ -40,6 +40,15 @@ spec:
                 loadBalancer:
                   servers:
                     - url: http://error-pages.network.svc.cluster.local:8080
+    ports:
+      web:
+        http:
+          middlewares:
+            - global-errors:
+                errors:
+                  status: ["401", "403", "404", "500-599"]
+                  service: global-error-pages
+                  query: "/{status}.html"
 
     logs:
       access:
