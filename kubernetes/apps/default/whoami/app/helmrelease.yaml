@@ -47,7 +47,10 @@ spec:
         hosts:
           - host: whoami.traefik.ishioni.casa
             paths:
-              - /
+              - path: /
+                service:
+                  name: app
+                  port: *port
         tls:
           - hosts:
               - whoami.traefik.ishioni.casa
