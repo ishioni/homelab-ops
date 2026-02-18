@@ -24,7 +24,7 @@ spec:
       kubernetesIngress:
         allowExternalNameServices: true
       file:
-        enabled: true
+        enabled: false
         content: |
           http:
             middlewares:
