@@ -23,7 +23,7 @@ spec:
               tag: v1.10.1
             env:
               TZ: ${CONFIG_TIMEZONE}
-              HOMEPAGE_ALLOWED_HOSTS: ${HOSTNAME}, "home.traefik.ishioni.casa"
+              HOMEPAGE_ALLOWED_HOSTS: ${HOSTNAME},home.traefik.ishioni.casa
               # LOG_LEVEL: debug
             envFrom:
               - secretRef:
