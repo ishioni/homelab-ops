@@ -47,6 +47,10 @@ spec:
         http:
           middlewares:
             - network-errorpages@kubernetescrd
+      websecure:
+        http:
+          middlewares:
+            - network-errorpages@kubernetescrd
 
     logs:
       access:
