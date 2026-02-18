@@ -69,8 +69,8 @@ spec:
             paths:
               - path: /
                 service:
-                  name: app
-                  port: 300
+                  name: homepage
+                  port: 3000
         tls:
           - hosts:
               - home.traefik.ishioni.casa
