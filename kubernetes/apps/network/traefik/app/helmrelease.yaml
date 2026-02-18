@@ -23,6 +23,23 @@ spec:
         enabled: false
       kubernetesIngress:
         allowExternalNameServices: true
+      file:
+        enabled: true
+        content: |
+          http:
+            middlewares:
+              test-errors:
+                errors:
+                  status: ["401", "403", "404", "500-599"]
+                  service: error-pages
+                  query: "/{status}.html"
+
+            services:
+              error-pages:
+                loadBalancer:
+                  servers:
+                    - url: http://error-pages.network.svc.cluster.local:8080
+
     logs:
       access:
         enabled: true
