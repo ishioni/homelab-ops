@@ -8,6 +8,7 @@ spec:
   errors:
     status: ["400-499", "500-599"]
     service:
-      name: error-pages
+      name: whoami
+      namespace: default
       port: 8080 # : "{{ .appName }}-service", port: 8080}
-    query: "/{status}.html"
+    query: /
