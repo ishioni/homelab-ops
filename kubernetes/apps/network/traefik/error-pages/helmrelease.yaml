@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.6.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: error-pages
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: error-pages
+  interval: 30m
+  values:
+    controllers:
+      error-pages:
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: ghcr.io/tarampampam/error-pages
+              tag: 3.8.0
+            env:
+              LOG_LEVEL: debug
+              TEMPLATE_NAME: connection
+              SHOW_DETAILS: "true"
+              PROXY_HTTP_HEADERS: "*"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 65534
+              runAsGroup: 65534
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              seccompProfile:
+                type: RuntimeDefault
+              capabilities:
+                drop: ["ALL"]
+    service:
+      app:
+        controller: error-pages
+        ports:
+          http:
+            port: &port 8080
