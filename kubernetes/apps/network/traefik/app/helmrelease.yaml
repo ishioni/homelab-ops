@@ -46,7 +46,7 @@ spec:
       web:
         http:
           middlewares:
-            - errorpages@kubernetescrd
+            - network-errorpages@kubernetescrd
 
     logs:
       access:
