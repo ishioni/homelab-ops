@@ -10,6 +10,8 @@ spec:
     name: traefik
   interval: 30m
   values:
+    api:
+      insecure: true
     deployment:
       replicas: 1
     ingressClass:

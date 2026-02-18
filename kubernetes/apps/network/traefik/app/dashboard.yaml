@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-dashboard
+spec:
+  ports:
+    - name: dashboard
+      port: 8080
+      targetPort: traefik
+      protocol: TCP
+  selector:
+    app.kubernetes.io/instance: traefik-network
+    app.kubernetes.io/name: traefik
+---
+apiVersion: networking.k8s.io/v1
+king: Ingress
+metadata:
+  name: traefik-dashboard
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: dashboard.traefik.ishioni.casa
+      http:
+        paths:
+          - backend:
+              service:
+                name: traefik-dashboard
+                port:
+                  name: dashboard
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: [dashboard.traefik.ishioni.casa]
+      secretName: dashboard.traefik.ishioni.casa
