@@ -6,7 +6,7 @@ metadata:
   name: errorpages
 spec:
   errors:
-    status: ["401", "403", "404", "500-599"]
+    status: ["400-499", "500-599"]
     service:
       name: error-pages
       port: 8080 # : "{{ .appName }}-service", port: 8080}
