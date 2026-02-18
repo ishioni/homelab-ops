@@ -10,7 +10,7 @@ spec:
     name: traefik
   interval: 30m
   values:
-    deployments:
+    deployment:
       replicas: 1
     ingressClass:
       name: traefik
