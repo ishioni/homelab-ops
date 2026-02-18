@@ -10,3 +10,19 @@ spec:
     name: traefik
   interval: 30m
   values:
+    deployments:
+      replicas: 1
+    ingressClass:
+      name: traefik
+    gateway:
+      enabled: false
+    gatewayClass:
+      enabled: false
+    providers:
+      kubernetesCRD:
+        enabled: false
+      kubernetesIngress:
+        allowExternalNameServices: true
+    logs:
+      access:
+        enabled: true
