@@ -44,11 +44,7 @@ spec:
       web:
         http:
           middlewares:
-            - global-errors:
-                errors:
-                  status: ["401", "403", "404", "500-599"]
-                  service: global-error-pages
-                  query: "/{status}.html"
+            - error-pages
 
     logs:
       access:
