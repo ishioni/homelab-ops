@@ -59,6 +59,22 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+    ingress:
+      app:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+        className: traefik
+        hosts:
+          - host: home.traefik.ishioni.casa
+            paths:
+              - path: /
+                service:
+                  name: app
+                  port: 300
+        tls:
+          - hosts:
+              - home.traefik.ishioni.casa
+            secretName: home.traefik.ishioni.casa
     persistence:
       config:
         enabled: true
