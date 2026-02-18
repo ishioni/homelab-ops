@@ -45,11 +45,10 @@ spec:
       app:
         className: traefik
         hosts:
-          - whoami.traefik.ishioni.casa
+          - host: whoami.traefik.ishioni.casa
+            paths:
+              - /
         tls:
           - hosts:
               - whoami.traefik.ishioni.casa
             secretName: whoami.traefik.ishioni.casa
-        defaultBackend:
-          service:
-            name: app
