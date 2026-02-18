@@ -63,7 +63,7 @@ spec:
       app:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.middlewares: ""
+          traefik.ingress.kubernetes.io/router.middlewares: "network-errorpages-less@kubernetescrd"
         className: traefik
         hosts:
           - host: home.traefik.ishioni.casa
