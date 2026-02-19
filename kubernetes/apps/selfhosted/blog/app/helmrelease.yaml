@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.5.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app blog
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: blog
+  interval: 30m
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsGroup: 101
+        runAsUser: 101
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+    controllers:
+      blog:
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ishioni/yellingatclouds
+              tag: 2026.02.192342
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            probes:
+              liveness: &probes
+                enabled: true
+              readiness: *probes
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: &port 8080
+    route:
+      app:
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      tmp:
+        type: emptyDir

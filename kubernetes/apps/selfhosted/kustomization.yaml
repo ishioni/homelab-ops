@@ -8,6 +8,7 @@ components:
   - ../../components/namespace
 resources:
   - ./atuin/ks.yaml
+  - ./blog/ks.yaml
   - ./convertx/ks.yaml
   - ./go2rtc/ks.yaml
   - ./immich/ks.yaml
