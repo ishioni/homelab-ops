@@ -14,7 +14,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      HOSTNAME: blog.${PRIVATE_DOMAIN}
+      HOSTNAME: blog.${PUBLIC_DOMAIN}
   prune: true
   sourceRef:
     kind: GitRepository
