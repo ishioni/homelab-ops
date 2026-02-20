@@ -44,6 +44,19 @@
       ignoreTests: true,
     },
     {
+      description: "Auto-merge blog",
+      matchDatasources: ["docker"],
+      automerge: true,
+      //automergeType: "branch",
+      matchUpdateTypes: ["major", "minor", "patch", "digest"],
+      matchPackageNames: ["ghcr.io/ishioni/yellingatclouds"],
+      minimumReleaseAge: null,
+      minimumReleaseAgeBehaviour: "timestamp-optional",
+      internalChecksFilter: "none"
+      ignoreTests: true,
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+    },
+    {
       description: "Auto-merge OCI Charts",
       matchDatasources: ["docker"],
       automerge: true,
