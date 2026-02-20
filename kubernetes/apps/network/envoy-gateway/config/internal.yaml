@@ -62,7 +62,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: external
+      name: internal
   lua:
     - type: Inline
       inline: |
