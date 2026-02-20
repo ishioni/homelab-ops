@@ -36,7 +36,7 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["${HOSTNAME}", "whoami.ishioni.casa"]
+        hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
