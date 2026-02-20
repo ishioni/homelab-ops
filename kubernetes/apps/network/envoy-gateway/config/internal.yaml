@@ -52,3 +52,13 @@ spec:
           requestRedirect:
             scheme: https
             statusCode: 301
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            remove:
+              - x-powered-by
+              - server
+              - via
+              - DP-SSO-Domain
+            add:
+              - name: Strict-Transport-Security
+                value: max-age=31536000; includeSubDomains; preload
