@@ -60,7 +60,7 @@ metadata:
   name: a-crazy-idea
 spec:
   hostnames:
-    - *movishell.pl
+    - *.movishell.pl
   parentRefs:
     - name: envoy-internal
       namespace: network
