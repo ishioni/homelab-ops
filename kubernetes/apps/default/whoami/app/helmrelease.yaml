@@ -77,33 +77,44 @@ spec:
   lua:
     - type: Inline
       inline: |
-        local host_country_map = {
-            ["movishell.pl"] = "pl",
-            ["ishioni.casa"] = "casa",
+        -- Lua patterns are not regex!
+        -- . must be escaped as %.
+        -- * = repeat
+        -- .* = wildcard like regex
+        -- ^ and $ still work for anchoring
+        local host_country_patterns = {
+            -- root domain
+            { pattern = "^movishell%.pl$", country = "test1" },
+            -- subdomains
+            { pattern = "^.*%.movishell%.pl$", country = "test1" },
+
+            -- root domain
+            { pattern = "^ishioni%.casa$", country = "test2" },
+            -- subdomains
+            { pattern = "^.*%.ishioni%.casa$", country = "test2" },
         }
         -- Function called on each HTTP request
         function envoy_on_request(request_handle)
             request_handle:logInfo("Lua filter executing...")
 
             local host = request_handle:headers():get("host")
-
             if not host then
                 request_handle:logInfo("No Host header found.")
                 return
             end
 
-            request_handle:logInfo("Host header received: " .. host)
+            request_handle:logInfo("Raw Host header: " .. host)
 
-            -- Normalize host just in case (not required but useful for debugging)
             host = host:lower()
 
-            local country = host_country_map[host]
-
-            if country then
-                request_handle:logInfo("Matched host: " .. host .. " → country: " .. country)
-                request_handle:headers():add("X-App-Id", country)
-                request_handle:logInfo("Added header X-App-Id: " .. country)
-            else
-                request_handle:logInfo("No mapping found for host: " .. host)
+            for _, entry in ipairs(host_country_patterns) do
+                if string.match(host, entry.pattern) then
+                    request_handle:logInfo("Matched pattern: " .. entry.pattern ..
+                                           " → country: " .. entry.country)
+                    request_handle:headers():add("X-App-Id", entry.country)
+                    return
+                end
             end
+
+            request_handle:logInfo("No matching host pattern for: " .. host)
         end
