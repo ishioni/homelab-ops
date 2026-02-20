@@ -83,19 +83,27 @@ spec:
         }
         -- Function called on each HTTP request
         function envoy_on_request(request_handle)
-            -- Get the host header from the incoming request
+            request_handle:logInfo("Lua filter executing...")
+
             local host = request_handle:headers():get("host")
 
-            if host then
-                -- Look up the country code for this host
-                local country = host_country_map[host]
+            if not host then
+                request_handle:logInfo("No Host header found.")
+                return
+            end
 
-                if country then
-                    -- Add X-App-Id header with the country code
-                    request_handle:headers():add("X-App-Id", country)
-                end
+            request_handle:logInfo("Host header received: " .. host)
+
+            -- Normalize host just in case (not required but useful for debugging)
+            host = host:lower()
+
+            local country = host_country_map[host]
+
+            if country then
+                request_handle:logInfo("Matched host: " .. host .. " → country: " .. country)
+                request_handle:headers():add("X-App-Id", country)
+                request_handle:logInfo("Added header X-App-Id: " .. country)
             else
-                -- Optional: handle requests with no host header
-                request_handle:headers():add("X-App-Id", "unknown")
+                request_handle:logInfo("No mapping found for host: " .. host)
             end
         end
