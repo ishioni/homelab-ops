@@ -81,6 +81,17 @@ spec:
   connection:
     bufferLimit: 64Mi
     maxAcceptPerSocketEvent: 0
+  headers:
+    lateResponseHeaders:
+      add:
+        - name: Strict-Transport-Security
+          value: "max-age=31536000; includeSubDomains; preload"
+      remove:
+        - x-powered-by
+        - server
+        - via
+        - DP-SSO-Domain
+
   http2:
     initialStreamWindowSize: 2Mi
     initialConnectionWindowSize: 32Mi
