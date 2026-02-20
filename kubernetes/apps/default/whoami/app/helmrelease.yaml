@@ -46,12 +46,17 @@ spec:
               - kind: Service
                 name: whoami
                 port: *port
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: X-Foo
-                      value: bar
+      app-internal:
+        hostnames: ["whoami.ishioni.casa"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: whoami
+                port: *port
 
     ingress:
       app:
@@ -69,21 +74,3 @@ spec:
           - hosts:
               - whoami.traefik.ishioni.casa
             secretName: whoami.traefik.ishioni.casa
----
-# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyExtensionPolicy
-metadata:
-  name: lua-test
-spec:
-  targetRefs:
-    - group: gateway.networking.k8s.io
-      kind: HTTPRoute
-      name: whoami
-  lua:
-    - type: Inline
-      inline: |
-        function envoy_on_request(request_handle)
-          request_handle:logInfo("Hello World.")
-          request_handle:headers():add("X-App-Id", "pl")
-        end
