@@ -35,6 +35,8 @@ spec:
         certificateRefs:
           - kind: Secret
             name: default-private-certificate
+          - kind: Secret
+            name: default-public-certificate
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -52,39 +54,3 @@ spec:
           requestRedirect:
             scheme: https
             statusCode: 301
----
-# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyExtensionPolicy
-metadata:
-  name: lua-test-internal
-spec:
-  targetRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
-  lua:
-    - type: Inline
-      inline: |
-        local host_country_map = {
-            ["movishell.pl"] = "pl",
-            ["ishioni.casa"] = "casa",
-        }
-        -- Function called on each HTTP request
-        function envoy_on_request(request_handle)
-            -- Get the host header from the incoming request
-            local host = request_handle:headers():get("host")
-
-            if host then
-                -- Look up the country code for this host
-                local country = host_country_map[host]
-
-                if country then
-                    -- Add X-App-Id header with the country code
-                    request_handle:headers():add("X-App-Id", country)
-                end
-            else
-                -- Optional: handle requests with no host header
-                request_handle:headers():add("X-App-Id", "unknown")
-            end
-        end

@@ -36,18 +36,7 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["${HOSTNAME}"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - kind: Service
-                name: whoami
-                port: *port
-      app-internal:
-        hostnames: ["whoami.ishioni.casa"]
+        hostnames: ["${HOSTNAME}", "whoami.ishioni.casa"]
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -74,3 +63,39 @@ spec:
           - hosts:
               - whoami.traefik.ishioni.casa
             secretName: whoami.traefik.ishioni.casa
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: lua-test
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: whoami
+  lua:
+    - type: Inline
+      inline: |
+        local host_country_map = {
+            ["movishell.pl"] = "pl",
+            ["ishioni.casa"] = "casa",
+        }
+        -- Function called on each HTTP request
+        function envoy_on_request(request_handle)
+            -- Get the host header from the incoming request
+            local host = request_handle:headers():get("host")
+
+            if host then
+                -- Look up the country code for this host
+                local country = host_country_map[host]
+
+                if country then
+                    -- Add X-App-Id header with the country code
+                    request_handle:headers():add("X-App-Id", country)
+                end
+            else
+                -- Optional: handle requests with no host header
+                request_handle:headers():add("X-App-Id", "unknown")
+            end
+        end
