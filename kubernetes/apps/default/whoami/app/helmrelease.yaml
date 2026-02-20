@@ -41,6 +41,18 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: whoami
+                port: *port
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  add:
+                    - name: X-Foo
+                      value: bar
+
     ingress:
       app:
         annotations:
