@@ -53,25 +53,27 @@ spec:
             scheme: https
             statusCode: 301
 ---
-# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/httproute_v1.json
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoypatchpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyPatchPolicy
 metadata:
-  name: envoy-internal-headers
+  name: global-sec-headers
 spec:
-  parentRefs:
-    - name: envoy-internal
-      namespace: network
-      sectionName: https
-  rules:
-    - filters:
-        - type: ResponseHeaderModifier
-          responseHeaderModifier:
-            remove:
-              - x-powered-by
-              - server
-              - via
-              - DP-SSO-Domain
-            add:
-              - name: Strict-Transport-Security
-                value: max-age=31536000; includeSubDomains; preload
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: add-sts
+  type: JSONPatch
+  jsonPatches:
+    - type: "type.googleapis.com/envoy.config.listener.v3.Listener"
+      name: network/envoy-internal/https
+      operation:
+        op: add
+        path: "/default_filter_chain/filters/0/typed_config/http_filters/-"
+        value:
+          name: envoy.filters.http.header_to_add
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.header_to_add.v3.HeaderToAdd
+            header:
+              key: Strict-Transport-Security
+              value: "max-age=31536000; includeSubDomains; preload"

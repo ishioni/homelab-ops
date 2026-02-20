@@ -19,5 +19,6 @@ spec:
               type: GatewayNamespace
         extensionApis:
           enableBackend: true
+          enableEnvoyPatchPolicy: true
     global:
       imageRegistry: mirror.gcr.io
