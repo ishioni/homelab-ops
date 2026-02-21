@@ -1,0 +1,27 @@
+---
+services:
+  registry:
+    image: docker.io/registry:3.0.0
+    container_name: registry
+    restart: unless-stopped
+    networks:
+      apps:
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Warsaw
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - ${REGISTRY_DATA_PATH}:/var/lib/registry
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.registry.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.registry.entrypoints: https
+      traefik.http.routers.registry.rule: Host(`${HOST}`)
+      traefik.http.routers.registry.tls: true
+      traefik.http.routers.registry.service: registry
+
+networks:
+  apps:
+    external: true
