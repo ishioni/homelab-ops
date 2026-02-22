@@ -1,3 +1,47 @@
+locals {
+  favicons = {
+    arr       = "^/Content/Images/Icons/*"
+    qbt       = "^/(favicon\\.ico|icon\\.svg|apple-touch-icon\\.png)$"
+    bazaar    = "^/images/(favicon\\.ico|icon\\.svg|apple-touch-icon-.*\\.png)$"
+    homepage  = "^/(homepage\\.ico|favicon-.*\\.png|apple-touch-icon\\.png)(\\?.*)?$"
+    navidrome = "^/app/(favicon-.*\\.png|apple-touch-icon\\.png|android-chrome-.*\\.png)$"
+  }
+}
+
+# Proxy apps
+
+module "proxy-homepage" {
+  source             = "./proxy_application"
+  name               = "Home"
+  description        = "Homepage"
+  icon_url           = "https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-192x192.png"
+  group              = "Selfhosted"
+  slug               = "home"
+  domain             = var.public_domain
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  auth_groups        = [authentik_group.users.id]
+  ignore_paths       = local.favicons.homepage
+}
+
+module "proxy-navidrome" {
+  source             = "./proxy_application"
+  name               = "Navidrome"
+  description        = "Music player"
+  icon_url           = "https://github.com/navidrome/navidrome/raw/master/resources/logo-192x192.png"
+  group              = "Selfhosted"
+  slug               = "navidrome"
+  domain             = var.public_domain
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  auth_groups        = [authentik_group.users.id]
+  ignore_paths       = <<-EOT
+  /rest/*
+  /share/*
+  ${local.favicons.navidrome}
+  EOT
+}
+
 module "proxy-qbittorrent" {
   source             = "./proxy_application"
   name               = "QBittorrent"
@@ -9,6 +53,7 @@ module "proxy-qbittorrent" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.qbt
 }
 
 module "proxy-prowlarr" {
@@ -22,6 +67,7 @@ module "proxy-prowlarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.arr
 }
 
 module "proxy-radarr" {
@@ -35,6 +81,7 @@ module "proxy-radarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.arr
 }
 
 module "proxy-sonarr" {
@@ -48,6 +95,7 @@ module "proxy-sonarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.arr
 }
 
 module "proxy-lidarr" {
@@ -61,6 +109,7 @@ module "proxy-lidarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.arr
 }
 
 module "proxy-bazarr" {
@@ -74,7 +123,10 @@ module "proxy-bazarr" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.bazaar
 }
+
+# OAuth apps
 
 module "oauth2-qui" {
   source             = "./oauth2_application"
@@ -92,35 +144,6 @@ module "oauth2-qui" {
   redirect_uris      = ["https://qui.${var.private_domain}/api/auth/oidc/callback"]
 }
 
-module "proxy-navidrome" {
-  source             = "./proxy_application"
-  name               = "Navidrome"
-  description        = "Music player"
-  icon_url           = "https://github.com/navidrome/navidrome/raw/master/resources/logo-192x192.png"
-  group              = "Selfhosted"
-  slug               = "navidrome"
-  domain             = var.public_domain
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.users.id]
-  ignore_paths       = <<-EOT
-  /rest/*
-  /share/*
-  EOT
-}
-
-module "proxy-homepage" {
-  source             = "./proxy_application"
-  name               = "Home"
-  description        = "Homepage"
-  icon_url           = "https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-192x192.png"
-  group              = "Selfhosted"
-  slug               = "home"
-  domain             = var.public_domain
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.users.id]
-}
 
 module "oauth2-grafana" {
   source             = "./oauth2_application"
