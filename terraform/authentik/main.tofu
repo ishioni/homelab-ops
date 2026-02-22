@@ -34,12 +34,6 @@ module "secret_grafana" {
   item   = "grafana"
 }
 
-module "secret_proxmox" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
-  vault  = "Homelab"
-  item   = "pve"
-}
-
 module "secret_nextcloud" {
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = "Homelab"
