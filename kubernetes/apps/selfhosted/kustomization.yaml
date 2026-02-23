@@ -16,5 +16,6 @@ resources:
   - ./navidrome/ks.yaml
   - ./opencloud/ks.yaml
   - ./paperless/ks.yaml
+  - ./resume/ks.yaml
   - ./searxng/ks.yaml
   - ./selfhosted-pvc/ks.yaml
