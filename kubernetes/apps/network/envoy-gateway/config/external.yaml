@@ -73,7 +73,6 @@ spec:
   parentRefs:
     - name: envoy-external
       namespace: network
-      sectionName: http
   rules:
     - filters:
         - type: RequestRedirect
