@@ -66,6 +66,58 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: http-debug-app
+  lua:
+    - type: Inline
+      inline: |
+        -- Lua patterns are not regex!
+        -- . must be escaped as %.
+        -- * = repeat
+        -- .* = wildcard like regex
+        -- ^ and $ still work for anchoring
+        local host_country_patterns = {
+            -- root domain
+            { pattern = "^movishell%.pl$", country = "movishell" },
+            -- subdomains
+            { pattern = "^.*%.movishell%.pl$", country = "movishell" },
+
+            -- root domain
+            { pattern = "^ishioni%.casa$", country = "ishioni" },
+            -- subdomains
+            { pattern = "^.*%.ishioni%.casa$", country = "ishioni" },
+        }
+        -- Function called on each HTTP request
+        function envoy_on_request(request_handle)
+            request_handle:logInfo("Lua filter executing...")
+
+            local host = request_handle:headers():get("host")
+            if not host then
+                request_handle:logInfo("No Host header found.")
+                return
+            end
+
+            request_handle:logInfo("Raw Host header: " .. host)
+
+            host = host:lower()
+
+            for _, entry in ipairs(host_country_patterns) do
+                if string.match(host, entry.pattern) then
+                    request_handle:logInfo("Matched pattern: " .. entry.pattern ..
+                                           " → country: " .. entry.country)
+                    request_handle:headers():add("X-App-Id", entry.country)
+                    return
+                end
+            end
+
+            request_handle:logInfo("No matching host pattern for: " .. host)
+        end
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: lua-test-internal
+spec:
+  targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: http-debug-internal
