@@ -55,6 +55,28 @@ spec:
               - kind: Service
                 name: *app
                 port: *port
+      pl:
+        hostnames: ["pl.http-debug.${PUBLIC_DOMAIN}"]
+        parentRefs:
+          - kind: XListenerSet
+            name: http-debug-listener-public
+            sectionName: https
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: *app
+                port: *port
+      es:
+        hostnames: ["es.http-debug.${PUBLIC_DOMAIN}"]
+        parentRefs:
+          - kind: XListenerSet
+            name: http-debug-listener-public
+            sectionName: https
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: *app
+                port: *port
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -69,6 +91,12 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: http-debug-app-internal
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: http-debug-app-pl
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: http-debug-app-es
   lua:
     - type: Inline
       inline: |
