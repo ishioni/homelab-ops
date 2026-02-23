@@ -17,6 +17,9 @@ metadata:
     type: external
     role: production
 spec:
+  allowedListeners:
+    namespaces:
+      from: All
   gatewayClassName: envoy
   infrastructure:
     annotations:
