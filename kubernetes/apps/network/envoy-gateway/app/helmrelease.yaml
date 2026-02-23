@@ -20,5 +20,8 @@ spec:
         extensionApis:
           enableBackend: true
           enableEnvoyPatchPolicy: true
+        gatewayAPI:
+          enabled:
+            - XListenerSet
     global:
       imageRegistry: mirror.gcr.io
