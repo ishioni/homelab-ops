@@ -34,6 +34,8 @@ spec:
             port: *port
     route:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames: ["http-debug.${PUBLIC_DOMAIN}"]
         parentRefs:
           - name: envoy-external
