@@ -45,6 +45,8 @@ spec:
                 name: *app
                 port: *port
       pl:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames: ["pl.http-debug.${PUBLIC_DOMAIN}"]
         parentRefs:
           - group: gateway.networking.x-k8s.io
@@ -58,6 +60,8 @@ spec:
                 name: *app
                 port: *port
       es:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames: ["es.http-debug.${PUBLIC_DOMAIN}"]
         parentRefs:
           - group: gateway.networking.x-k8s.io
