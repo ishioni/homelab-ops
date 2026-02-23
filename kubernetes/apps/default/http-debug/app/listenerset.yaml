@@ -31,38 +31,6 @@ spec:
     name: envoy-external
     namespace: network
 ---
-# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.x-k8s.io/xlistenerset_v1alpha1.json
-apiVersion: gateway.networking.x-k8s.io/v1alpha1
-kind: XListenerSet
-metadata:
-  name: http-debug-listener-private
-spec:
-  listeners:
-    - name: http
-      port: 80
-      protocol: HTTP
-      hostname: "*.http-debug.${PRIVATE_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-    - name: https
-      port: 443
-      protocol: HTTPS
-      hostname: "*.http-debug.${PRIVATE_DOMAIN}"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - kind: Secret
-            name: debug-certificate
-  parentRef:
-    group: gateway.networking.k8s.io
-    kind: Gateway
-    name: envoy-internal
-    namespace: network
----
 # yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -72,9 +40,6 @@ spec:
   parentRefs:
     - kind: XListenerSet
       name: http-debug-listener-public
-      sectionName: http
-    - kind: XListenerSet
-      name: http-debug-listener-private
       sectionName: http
   rules:
     - filters:

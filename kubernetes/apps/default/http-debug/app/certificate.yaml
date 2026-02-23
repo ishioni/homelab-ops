@@ -8,8 +8,6 @@ spec:
   dnsNames:
     - "http-debug.${PUBLIC_DOMAIN}"
     - "*.http-debug.${PUBLIC_DOMAIN}"
-    - "http-debug.${PRIVATE_DOMAIN}"
-    - "*.http-debug.${PRIVATE_DOMAIN}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
