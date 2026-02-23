@@ -34,7 +34,7 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["http-debug.${PUBLIC_DOMAIN"]
+        hostnames: ["http-debug.${PUBLIC_DOMAIN}"]
         parentRefs:
           - name: envoy-external
             namespace: network
@@ -45,7 +45,7 @@ spec:
                 name: *app
                 port: *port
       app-internal:
-        hostnames: ["http-debug.${PRIVATE_DOMAIN"]
+        hostnames: ["http-debug.${PRIVATE_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
