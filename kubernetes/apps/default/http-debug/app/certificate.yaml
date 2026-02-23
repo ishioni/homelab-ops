@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: &name debug-certificate
+spec:
+  dnsNames:
+    - "http-debug.${PUBLIC_DOMAIN}"
+    - "*.http-debug.${PUBLIC_DOMAIN}"
+    - "http-debug.${PRIVATE_DOMAIN}"
+    - "*.http-debug.${PRIVATE_DOMAIN}"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretName: *name
