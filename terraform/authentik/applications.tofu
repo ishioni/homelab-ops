@@ -161,6 +161,22 @@ module "oauth2-grafana" {
   redirect_uris      = ["https://grafana.${var.private_domain}/login/generic_oauth"]
 }
 
+module "oauth2-flux" {
+  source             = "./oauth2_application"
+  name               = "FluxCD"
+  icon_url           = "https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/refs/heads/main/web/public/favicon.svg"
+  launch_url         = "https://flux-operator.${var.private_domain}"
+  description        = "Kubernetes managment"
+  newtab             = true
+  group              = "Infrastructure"
+  auth_groups        = [authentik_group.infrastructure.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_fluxcd.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_fluxcd.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://flux-operator.${var.private_domain}/oauth2/callback"]
+}
+
 module "oauth2-immich" {
   source             = "./oauth2_application"
   name               = "Immich"

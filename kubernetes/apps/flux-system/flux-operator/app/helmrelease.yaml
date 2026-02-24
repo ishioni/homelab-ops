@@ -13,5 +13,6 @@ spec:
     serviceMonitor:
       create: true
     web:
+      configSecretName: flux-web-secret
       networkPolicy:
         create: false
