@@ -174,7 +174,7 @@ module "oauth2-flux" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_fluxcd.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_fluxcd.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://flux-operator.${var.private_domain}/oauth2/callback"]
+  redirect_uris      = ["https://flux-operator.${var.private_domain}//oauth2/callback"]
 }
 
 module "oauth2-immich" {
