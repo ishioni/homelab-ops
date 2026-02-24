@@ -88,6 +88,12 @@ module "secret_qui" {
   item = "qui"
 }
 
+module "secret_fluxcd" {
+  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  vault = "Homelab"
+  item = "flux"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["ENDPOINT_URL"]
   token = module.secret_authentik.fields["TERRAFORM_TOKEN"]
