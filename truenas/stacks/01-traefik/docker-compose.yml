@@ -4,7 +4,7 @@ services:
     env_file:
       - path: ./secrets.env
         required: true
-    image: traefik:v3.6.8
+    image: traefik:v3.6.9
     container_name: traefik
     restart: always
     environment:
