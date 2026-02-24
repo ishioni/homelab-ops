@@ -66,6 +66,8 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
+  annotations:
+    gatus.home-operations.com/enabled: "false"
   name: redirect-to-resume
 spec:
   hostnames:
