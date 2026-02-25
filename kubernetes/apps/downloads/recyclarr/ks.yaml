@@ -18,6 +18,7 @@ spec:
   path: ./kubernetes/apps/downloads/recyclarr/app
   postBuild:
     substitute:
+      APP: *app
       PVC_CLAIM: recyclarr-config
       PVC_STORAGECLASS: &sc dcsi-nfs
       VOLSYNC_SNAPSHOTCLASS: *sc
