@@ -46,7 +46,7 @@ spec:
               capabilities: {drop: ["ALL"]}
     persistence:
       config:
-        type: emptyDir
+        existingClaim: ${PVC_CLAIM}
       config-file:
         type: configMap
         name: *configmap
