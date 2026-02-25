@@ -16,7 +16,7 @@ sonarr:
         reset_unmatched_scores:
           enabled: true
       - name: WEB-2160p
-        trash_id: c4cadd6b35b95f62c3d47a408ea53e2f7
+        trash_id: c4cadd6b35b95f62c3d47a408e53e2f7
         reset_unmatched_scores:
           enabled: true
 
