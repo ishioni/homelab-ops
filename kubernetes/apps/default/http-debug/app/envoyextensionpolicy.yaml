@@ -8,7 +8,64 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: http-debug-app
+      name: http-debug-pl
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: http-debug-es
+  lua:
+    - type: Inline
+      inline: |
+        -- Lua patterns are not regex!
+        -- . must be escaped as %.
+        -- * = repeat
+        -- .* = wildcard like regex
+        -- ^ and $ still work for anchoring
+        --local host_country_patterns = {
+        --    -- root domain
+        --    { pattern = "^movishell%.pl$", country = "movishell" },
+        --    -- subdomains
+        --    { pattern = "^.*%.movishell%.pl$", country = "movishell" },
+        --}
+        local host_country_patterns = {
+            -- Match pl.<anything>
+            { pattern = "^pl%..+$", country = "pl" },
+
+            -- Match es.<anything>
+            { pattern = "^es%..+$", country = "es" },
+        }
+        -- Function called on each HTTP request
+        function envoy_on_request(request_handle)
+            request_handle:logInfo("Lua filter executing...")
+
+            local host = request_handle:headers():get("host")
+            if not host then
+                request_handle:logInfo("No Host header found.")
+                return
+            end
+
+            request_handle:logInfo("Raw Host header: " .. host)
+
+            host = host:lower()
+
+            for _, entry in ipairs(host_country_patterns) do
+                if string.match(host, entry.pattern) then
+                    request_handle:logInfo("Matched pattern: " .. entry.pattern ..
+                                           " → country: " .. entry.country)
+                    request_handle:headers():add("X-App-Id", entry.country)
+                    return
+                end
+            end
+
+            request_handle:logInfo("No matching host pattern for: " .. host)
+        end
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: lua-test-second
+spec:
+  targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: http-debug-pl
@@ -54,7 +111,7 @@ spec:
                 if string.match(host, entry.pattern) then
                     request_handle:logInfo("Matched pattern: " .. entry.pattern ..
                                            " → country: " .. entry.country)
-                    request_handle:headers():add("X-App-Id", entry.country)
+                    request_handle:headers():add("X-App-Id-Second", entry.country)
                     return
                 end
             end
