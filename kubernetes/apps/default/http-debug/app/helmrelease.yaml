@@ -76,3 +76,18 @@ spec:
               - kind: Service
                 name: *app
                 port: *port
+      tr:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+        hostnames: ["es.http-debug.${PUBLIC_DOMAIN}"]
+        parentRefs:
+          - group: gateway.networking.x-k8s.io
+            kind: XListenerSet
+            name: http-debug-listener-public
+            namespace: default
+            sectionName: https
+        rules:
+          - backendRefs:
+              - kind: Service
+                name: *app
+                port: *port
