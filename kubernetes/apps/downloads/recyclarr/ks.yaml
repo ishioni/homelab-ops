@@ -19,6 +19,8 @@ spec:
   postBuild:
     substitute:
       PVC_CLAIM: recyclarr-config
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
   prune: true
   sourceRef:
     kind: GitRepository
