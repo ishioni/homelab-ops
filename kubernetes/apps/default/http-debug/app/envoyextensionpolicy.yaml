@@ -70,10 +70,10 @@ spec:
       kind: HTTPRoute
       name: http-debug-tr
   wasm:
-    - name: wasm-experiment
-      rootID: my_root_id
+    - name: wasm-experiment14
+      rootID: my_root_id14
       code:
         type: Image
         image:
-          url: registry.ishioni.casa/error-pages:0.0.7
+          url: registry.ishioni.casa/error-pages:0.0.14
       failOpen: false
