@@ -73,6 +73,6 @@ spec:
     - code:
         type: Image
         image:
-          url: registry.ishioni.casa/error-pages:0.0.2
+          url: registry.ishioni.casa/error-pages:0.0.3
       failOpen: false
       name: errorpages
