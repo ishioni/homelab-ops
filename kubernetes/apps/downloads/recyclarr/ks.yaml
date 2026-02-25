@@ -9,11 +9,19 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
   interval: 30m
   path: ./kubernetes/apps/downloads/recyclarr/app
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_CLAIM: recyclarr-config
+      PVC_STORAGECLASS: &sc dcsi-nfs
+      VOLSYNC_SNAPSHOTCLASS: *sc
   prune: true
   sourceRef:
     kind: GitRepository
