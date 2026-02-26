@@ -75,5 +75,5 @@ spec:
       code:
         type: Image
         image:
-          url: registry.ishioni.casa/error-pages:328d106
+          url: registry.ishioni.casa/error-wasm-error-pages:328d106
       failOpen: false
