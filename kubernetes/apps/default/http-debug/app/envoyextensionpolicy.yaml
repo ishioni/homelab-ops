@@ -63,15 +63,15 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyExtensionPolicy
 metadata:
-  name: wasm-test
+  name: wasm-error-pages
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: http-debug-tr
   wasm:
-    - name: wasm-experiment3
-      rootID: my_root_id3
+    - name: wasm-error-pages
+      rootID: my_root_id
       code:
         type: Image
         image:
