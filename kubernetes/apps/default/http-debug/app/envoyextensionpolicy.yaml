@@ -70,8 +70,8 @@ spec:
       kind: HTTPRoute
       name: http-debug-tr
   wasm:
-    - name: wasm-experiment328d106
-      rootID: my_root_id328d106
+    - name: wasm-experiment3
+      rootID: my_root_id3
       code:
         type: Image
         image:
