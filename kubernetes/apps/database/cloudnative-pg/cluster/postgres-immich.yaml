@@ -13,7 +13,7 @@ spec:
     podAntiAffinityType: required
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.0-standard-trixie
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie
   plugins:
     - enabled: true
       isWALArchiver: true
