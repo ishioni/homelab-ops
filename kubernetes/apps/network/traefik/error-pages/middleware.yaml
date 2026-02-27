@@ -13,5 +13,6 @@ spec:
       - "505-599"
     query: /{status}.html
     service:
-      name: error-pages.network
+      name: error-pages
+      namespace: network
       port: 8080
