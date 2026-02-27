@@ -59,23 +59,6 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-    ingress:
-      app:
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.middlewares: "network-errorpages-less@kubernetescrd"
-        className: traefik
-        hosts:
-          - host: home.traefik.ishioni.casa
-            paths:
-              - path: /
-                service:
-                  name: homepage
-                  port: 3000
-        tls:
-          - hosts:
-              - home.traefik.ishioni.casa
-            secretName: home.traefik.ishioni.casa
     persistence:
       config:
         enabled: true
