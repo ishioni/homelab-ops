@@ -7,4 +7,5 @@ resources:
   - ./envoyextensionpolicy.yaml
   - ./helmrelease.yaml
   - ./listenerset.yaml
+  - ./middleware.yaml
   - ./ocirepository.yaml

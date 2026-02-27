@@ -81,5 +81,5 @@ spec:
       code:
         type: Image
         image:
-          url: registry.ishioni.casa/envoy-wasm-error-pages:23c987c
+          url: registry.ishioni.casa/envoy-wasm-error-pages:b580d15
       failOpen: false

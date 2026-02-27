@@ -46,20 +46,3 @@ spec:
               - kind: Service
                 name: whoami
                 port: *port
-
-    ingress:
-      app:
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-        className: traefik
-        hosts:
-          - host: whoami.traefik.ishioni.casa
-            paths:
-              - path: /
-                service:
-                  name: whoami
-                  port: *port
-        tls:
-          - hosts:
-              - whoami.traefik.ishioni.casa
-            secretName: whoami.traefik.ishioni.casa
