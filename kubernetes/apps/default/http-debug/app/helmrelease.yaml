@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/http-debug
-              tag: 0.0.2
+              tag: 0.0.3
             probes:
               liveness: &probes
                 enabled: true
