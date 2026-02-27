@@ -102,7 +102,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: whoami
+                  name: *app
                   port: *port
         tls:
           - hosts:
