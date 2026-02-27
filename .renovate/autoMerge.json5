@@ -67,7 +67,6 @@
       minimumReleaseAgeBehaviour: "timestamp-optional",
       internalChecksFilter: "none",
       ignoreTests: true,
-      ignoreTests: true,
     }
     {
       description: "Auto-merge GitHub Actions",
