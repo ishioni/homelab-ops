@@ -67,7 +67,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: ["ghcr.io/starosdev/scrutiny"],
+      matchPackageNames: ["ghcr.io/starosdev/scrutiny", "ghcr.io/renovatebot/renovate"],
       minimumReleaseAge: null,
       minimumReleaseAgeBehaviour: "timestamp-optional",
       internalChecksFilter: "none",
