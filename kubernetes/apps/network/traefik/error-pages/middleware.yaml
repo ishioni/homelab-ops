@@ -6,30 +6,12 @@ metadata:
   name: errorpages
 spec:
   errors:
-    status: ["400-499", "500-599"]
-    statusRewrites:
-      "400-409": 404
-      "410": 410
-      "411-499": 404
-      "500-599": 500
+    status:
+      - "500"
+      - "501"
+      - "503"
+      - "505-599"
+    query: /{status}.html
     service:
-      name: whoami
-      namespace: default
-      port: 8080 # : "{{ .appName }}-service", port: 8080}
-    query: /{status}
----
-# yaml-language-server: $schema=https://crd.movishell.pl/traefik.io/middleware_v1alpha1.json
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: errorpages-less
-spec:
-  errors:
-    status: ["500-599"]
-    statusRewrites:
-      "500-599": 500
-    service:
-      name: whoami
-      namespace: default
-      port: 8080 # : "{{ .appName }}-service", port: 8080}
-    query: /{status}
+      name: error-handler-service.network
+      port: 80
