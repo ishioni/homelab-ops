@@ -13,5 +13,5 @@ spec:
       - "505-599"
     query: /{status}.html
     service:
-      name: error-handler-service.network
-      port: 80
+      name: error-pages.network
+      port: 8080
