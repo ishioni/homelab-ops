@@ -9,8 +9,6 @@ services:
     restart: unless-stopped
     networks:
       apps:
-    env_file:
-      - ./secrets.env
     environment:
       OPENWEBRX_ADMIN_USER: ${OWRX_USER}
       OPENWEBRX_ADMIN_PASSWORD: ${OWRX_PASSWORD}
