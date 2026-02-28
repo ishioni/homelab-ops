@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
+services:
+  scrutiny:
+    image: ghcr.io/starosdev/scrutiny:1.36.0-omnibus@sha256:3f7dd8828f9da5829b2d2468f6354410bce5a840cff77cb2d399d29f3516f9b3
+    container_name: scrutiny
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    restart: unless-stopped
+    networks:
+      apps:
+    environment:
+      TZ: Europe/Warsaw
+      COLLECTOR_CRON_SCHEDULE: "0 * * * *"
+      SCRUTINY_NOTIFY_URLS: "pushover://shoutrrr:${PUSHOVER_USER_KEY}@${PUSHOVER_SCRUTINY_KEY}/"
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - /run/udev:/run/udev:ro
+      - ${DATA_PATH}/config:/opt/scrutiny/config
+      - ${DATA_PATH}/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/nvme0"
+      - "/dev/nvme1"
+      - "/dev/nvme2"
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.scrutiny.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.scrutiny.entrypoints: https
+      traefik.http.routers.scrutiny.rule: Host(`${HOST}`)
+      traefik.http.routers.scrutiny.tls: true
+      traefik.http.routers.scrutiny.service: scrutiny
+
+networks:
+  apps:
+    external: true

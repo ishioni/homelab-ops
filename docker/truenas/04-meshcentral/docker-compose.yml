@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
+services:
+  meshcentral:
+    image: ghcr.io/ylianst/meshcentral:1.1.57@sha256:b2ed98974f85a04d78698ae441931e98d3d536ef5561f5b4e93e2985c1173734
+    container_name: meshcentral
+    restart: unless-stopped
+    networks:
+      apps:
+    environment:
+      NODE_ENV: production
+      TZ: Europe/Warsaw
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - ./config/meshcentral.json:/opt/meshcentral/meshcentral-data/config.json
+      - ${DATA_PATH}/data:/opt/meshcentral/meshcentral-data
+      - ${DATA_PATH}/files:/opt/meshcentral/meshcentral-files
+      - ${DATA_PATH}/backups:/opt/meshcentral/meshcentral-backups
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.meshcentral.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.meshcentral.entrypoints: https
+      traefik.http.routers.meshcentral.rule: Host(`${HOST}`)
+      traefik.http.routers.meshcentral.tls: true
+      traefik.http.routers.meshcentral.service: meshcentral
+
+networks:
+  apps:
+    external: true

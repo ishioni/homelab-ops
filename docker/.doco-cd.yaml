@@ -1,0 +1,14 @@
+---
+working_dir: ./docker/truenas
+auto_discover: true
+auto_discover_opts:
+  depth: 1
+  delete: true
+external_secrets:
+  TRAEFIK_CF_DNS_API_TOKEN: op://Homelab/cloudflare/API Tokens/LEO_DNS
+  MINIO_ROOT_USER: op://Homelab/minio/MINIO_ROOT_USER
+  MINIO_ROOT_PASSWORD: op://Homelab/minio/MINIO_ROOT_PASSWORD
+  PUSHOVER_USER_KEY: op://Homelab/Pushover/USER_KEY
+  PUSHOVER_SCRUTINY_KEY: op://Homelab/Pushover/SCRUTINY_KEY
+  OWRX_USER: op://Homelab/openwebrx/username
+  OWRX_PASSWORD: op://Homelab/openwebrx/password
