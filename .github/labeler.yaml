@@ -10,7 +10,7 @@ area/kubernetes:
       - any-glob-to-any-file: "kubernetes/**/*"
 area/truenas:
   - changed-files:
-      - any-glob-to-any-file: "truenas/**/*"
+      - any-glob-to-any-file: "docker/**/*"
 area/taskfiles:
   - changed-files:
       - any-glob-to-any-file:

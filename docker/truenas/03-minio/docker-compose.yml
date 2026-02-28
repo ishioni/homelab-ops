@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
+services:
+  minio:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z@sha256:a1ea29fa28355559ef137d71fc570e508a214ec84ff8083e39bc5428980b015e
+    command: ["minio", "server", "/data", "--console-address", ":9001"]
+    container_name: minio
+    restart: unless-stopped
+    environment:
+      MINIO_API_CORS_ALLOW_ORIGIN: https://${S3_HOST},https://${CONSOLE_HOST}
+      MINIO_BROWSER_REDIRECT_URL: https://${CONSOLE_HOST}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_DOMAIN: ${S3_HOST}
+      MINIO_UPDATE: "off"
+      MINIO_PROMETHEUS_JOB_ID: minio
+      MINIO_PROMETHEUS_AUTH_TYPE: public
+      GOMEMLIMIT: 2GiB
+    networks:
+      apps:
+    expose:
+      - &s3port 9000
+      - &consoleport 9001
+    volumes:
+      - ${DATA_PATH}:/data
+    labels:
+      traefik.enable: "true"
+      # S3
+      traefik.http.services.s3.loadbalancer.server.port: *s3port
+      traefik.http.routers.s3.entrypoints: https
+      traefik.http.routers.s3.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
+      traefik.http.routers.s3.tls.certresolver: letsencrypt
+      traefik.http.routers.s3.tls.domains[0].main: ${S3_HOST}
+      traefik.http.routers.s3.tls.domains[0].sans: "*.${S3_HOST}"
+      traefik.http.routers.s3.service: s3
+      # Dashboard
+      traefik.http.services.minio.loadbalancer.server.port: *consoleport
+      traefik.http.routers.minio.entrypoints: https
+      traefik.http.routers.minio.rule: Host(`${CONSOLE_HOST}`)
+      traefik.http.routers.minio.service: minio
+      traefik.http.routers.minio.tls: true
+
+networks:
+  apps:
+    external: true

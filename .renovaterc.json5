@@ -21,7 +21,7 @@
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
-  ignorePaths: ["archive/**", "truenas/archive/**"],
+  ignorePaths: ["archive/**", "truenas/archive/**", "docker/archive/**"],
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
