@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
 services:
   minio:
-    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z@sha256:a1ea29fa28355559ef137d71fc570e508a214ec84ff8083e39bc5428980b015e
+    image: pgsty/minio:RELEASE.2026-02-14T12-00-00Z@sha256:00c404465c4e7c4fd716d98caec2928e9e0f82c3548615662fdd3866ea9a28c0
     command: ["minio", "server", "/data", "--console-address", ":9001"]
     container_name: minio
     restart: unless-stopped
