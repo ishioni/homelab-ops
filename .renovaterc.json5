@@ -21,11 +21,11 @@
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
-  ignorePaths: ["archive/**", "truenas/archive/**", "docker/archive/**"],
+  ignorePaths: ["archive/**", "docker/archive/**"],
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
-  "helm-values": {
+  helm-values: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
   kubernetes: {
