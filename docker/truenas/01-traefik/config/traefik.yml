@@ -19,6 +19,7 @@ entryPoints:
           scheme: https
   https:
     address: ":443"
+    http3:
 providers:
   docker:
     network: apps
