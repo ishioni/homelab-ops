@@ -7,6 +7,7 @@ configs:
     content: |
       - run_once: true
         url: https://github.com/ishioni/homelab-ops.git
+        reference: refs/heads/master
 secrets:
   1pw_token:
     file: /mnt/SSD/Userhomes/movi/.config/doco-cd/1pw_token
