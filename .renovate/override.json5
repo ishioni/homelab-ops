@@ -18,6 +18,28 @@
       matchManagers: ["kubernetes"],
       matchDatasources: ["kubernetes-api"],
       enabled: false,
-    }
+    },
+    {
+      description: "Vectorchord imageVolume pg extension",
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["tensorchord/vchord-scratch"],
+      versioning: "regex:^pg18-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+    },
+    {
+      description: "Vectorchord imageVolume pg extension (immich versioned)",
+      matchDatasources: ["docker"],
+      matchPackagePatterns: ["tensorchord/vchord-scratch"],
+      matchFileNames: ["**/immich/**"],
+      versioning: "regex:^pg18-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
+      // https://github.com/immich-app/immich/blob/main/server/src/constants.ts
+      allowedVersions: "/^pg18-v1\\.\\d+\\.\\d+$/",
+    },
+    {
+      description: "VectorChord CNPG extension (immich versioned)",
+      matchDatasources: ["github-releases"],
+      matchPackagePatterns: ["tensorchord/VectorChord"],
+      matchFileNames: ["**/immich/**"],
+      allowedVersions: "/^1\\.\\d+\\.\\d+$/",
+    },
   ],
 }
