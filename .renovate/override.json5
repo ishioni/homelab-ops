@@ -14,12 +14,6 @@
       overridePackageName: "ghcr.io/siderolabs/installer",
     },
     {
-      description: "Disable kubernetes-api",
-      matchManagers: ["kubernetes"],
-      matchDatasources: ["kubernetes-api"],
-      enabled: false,
-    },
-    {
       description: "Vectorchord imageVolume pg extension",
       matchDatasources: ["docker"],
       matchPackagePatterns: ["tensorchord/vchord-scratch"],
