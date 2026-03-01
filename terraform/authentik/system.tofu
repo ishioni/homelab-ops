@@ -22,6 +22,27 @@ resource "authentik_service_connection_kubernetes" "local" {
   local = true
 }
 
+## Since the external outpost uses only shm session store and not DB backed store, use embedded
+## with the following settings
+## Reconsider once external outsposts do DB-backed session stores
+#
+# log_level: warning
+# authentik_host: https://auth.movishell.pl
+# kubernetes_replicas: 1
+# kubernetes_namespace: security
+# object_naming_template: ak-outpost-%(name)s
+# kubernetes_service_type: ClusterIP
+# kubernetes_disabled_components:
+#   - ingress
+# kubernetes_httproute_annotations:
+#   gatus.home-operations.com/enabled: "false"
+# kubernetes_httproute_parent_refs:
+#   - kind: Gateway
+#     name: envoy-external
+#     group: gateway.networking.k8s.io
+#     namespace: network
+#     sectionName: https
+
 # resource "authentik_outpost" "proxyoutpost" {
 #   name               = "proxy-outpost"
 #   type               = "proxy"
