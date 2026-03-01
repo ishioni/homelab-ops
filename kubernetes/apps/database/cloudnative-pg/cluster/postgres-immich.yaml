@@ -25,7 +25,7 @@ spec:
     extensions:
       - name: vchord
         image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3@sha256:c310ede47f7f82bd257c3e53806d60680d5899c318ca946fb313efad9a90a78e
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1@sha256:bdea43bed2a414e21bbf71767bf6f0739747ac480b267b51772dc214ac28dcb3
         dynamic_library_path:
           - /usr/lib/postgresql/18/lib
         extension_control_path:
