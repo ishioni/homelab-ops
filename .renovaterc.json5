@@ -25,7 +25,7 @@
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
-  helm-values: {
+  "helm-values": {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
   kubernetes: {
