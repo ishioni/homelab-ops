@@ -13,8 +13,7 @@ spec:
     podAntiAffinityType: required
   enableSuperuserAccess: true
   instances: 3
-  # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3
   plugins:
     - enabled: true
       isWALArchiver: true
