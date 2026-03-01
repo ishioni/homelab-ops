@@ -6,6 +6,10 @@ terraform {
   }
 }
 
+data "authentik_outpost" "embedded" {
+  name = "authentik Embedded Outpost"
+}
+
 resource "authentik_provider_proxy" "proxy_provider" {
   name                  = var.name
   external_host         = "https://${var.slug}.${var.domain}"
@@ -31,4 +35,9 @@ resource "authentik_policy_binding" "proxy_application" {
   group  = var.auth_groups[count.index]
   order  = count.index
   count  = length(var.auth_groups)
+}
+
+resource "authentik_outpost_provider_attachment" "attachment_embedded" {
+  outpost           = data.authentik_outpost.embedded.id
+  protocol_provider = authentik_provider_proxy.proxy_provider.id
 }

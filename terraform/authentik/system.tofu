@@ -22,40 +22,40 @@ resource "authentik_service_connection_kubernetes" "local" {
   local = true
 }
 
-resource "authentik_outpost" "proxyoutpost" {
-  name               = "proxy-outpost"
-  type               = "proxy"
-  service_connection = authentik_service_connection_kubernetes.local.id
-  protocol_providers = [
-    module.proxy-qbittorrent.id,
-    module.proxy-prowlarr.id,
-    module.proxy-radarr.id,
-    module.proxy-sonarr.id,
-    module.proxy-lidarr.id,
-    module.proxy-bazarr.id,
-    module.proxy-navidrome.id,
-    module.proxy-homepage.id
-  ]
-  config = jsonencode({
-    authentik_host         = "https://auth.${var.public_domain}",
-    log_level              = "warning",
-    object_naming_template = "ak-outpost-%(name)s",
-    kubernetes_replicas    = 1,
-    kubernetes_namespace   = "security",
-    kubernetes_httproute_parent_refs = [{
-      group       = "gateway.networking.k8s.io"
-      kind        = "Gateway"
-      name        = "envoy-external"
-      namespace   = "network"
-      sectionName = "https"
-    }]
-    kubernetes_httproute_annotations = {
-      "gatus.home-operations.com/enabled" = "false"
-    }
-    kubernetes_service_type        = "ClusterIP",
-    kubernetes_disabled_components = ["ingress"],
-  })
-}
+# resource "authentik_outpost" "proxyoutpost" {
+#   name               = "proxy-outpost"
+#   type               = "proxy"
+#   service_connection = authentik_service_connection_kubernetes.local.id
+#   protocol_providers = [
+#   #   module.proxy-qbittorrent.id,
+#   #   module.proxy-prowlarr.id,
+#   #   module.proxy-radarr.id,
+#   #   module.proxy-sonarr.id,
+#   #   module.proxy-lidarr.id,
+#   #   module.proxy-bazarr.id,
+#   #   module.proxy-navidrome.id,
+#   #   module.proxy-homepage.id
+#   # ]
+#   config = jsonencode({
+#     authentik_host         = "https://auth.${var.public_domain}",
+#     log_level              = "warning",
+#     object_naming_template = "ak-outpost-%(name)s",
+#     kubernetes_replicas    = 1,
+#     kubernetes_namespace   = "security",
+#     kubernetes_httproute_parent_refs = [{
+#       group       = "gateway.networking.k8s.io"
+#       kind        = "Gateway"
+#       name        = "envoy-external"
+#       namespace   = "network"
+#       sectionName = "https"
+#     }]
+#     kubernetes_httproute_annotations = {
+#       "gatus.home-operations.com/enabled" = "false"
+#     }
+#     kubernetes_service_type        = "ClusterIP",
+#     kubernetes_disabled_components = ["ingress"],
+#   })
+# }
 
 resource "authentik_system_settings" "settings" {
   avatars                   = "attributes.avatar, initials"
