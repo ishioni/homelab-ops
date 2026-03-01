@@ -35,5 +35,14 @@
       ],
       datasourceTemplate: "docker",
     },
+    {
+      customType: "regex",
+      description: ["Process CNPG imageName"],
+      fileMatch: [".*"], // process regex from everywhere
+      matchStrings: [
+        "imageName:\\s+(?<depName>[^:@\\s]+):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:\\S+))?",
+      ],
+      datasourceTemplate: "docker",
+    },
   ],
 }
