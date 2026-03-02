@@ -17,9 +17,8 @@ resource "authentik_brand" "home" {
   flow_user_settings  = authentik_flow.user-settings.uuid
 }
 
-resource "authentik_service_connection_kubernetes" "local" {
-  name  = "local"
-  local = true
+data "authentik_service_connection_kubernetes" "local" {
+  name  = "Local Kubernetes Cluster"
 }
 
 ## Since the external outpost uses only shm session store and not DB backed store, use embedded
@@ -46,7 +45,7 @@ resource "authentik_service_connection_kubernetes" "local" {
 # resource "authentik_outpost" "proxyoutpost" {
 #   name               = "proxy-outpost"
 #   type               = "proxy"
-#   service_connection = authentik_service_connection_kubernetes.local.id
+#   service_connection = data.authentik_service_connection_kubernetes.local.id
 #   protocol_providers = [
 #   #   module.proxy-qbittorrent.id,
 #   #   module.proxy-prowlarr.id,
