@@ -11,5 +11,6 @@ spec:
   interval: 30m
   values:
     replicaCount: 2
-    serviceMonitor:
-      enabled: true
+    monitoring:
+      serviceMonitor:
+        enabled: true
