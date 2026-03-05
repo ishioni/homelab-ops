@@ -64,7 +64,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 404"]
+            conditions: ["[STATUS] == 200"]
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
