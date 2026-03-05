@@ -3,7 +3,6 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 
 talos_dir := justfile_dir() + '/talos'
 secret_id := 'talos'
-controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 
 [private]
 default:
@@ -61,7 +60,7 @@ shutdown-node node *args:
 
 [doc('Upgrade Kubernetes version on the cluster')]
 upgrade-k8s version:
-    talosctl -n "{{ controller }}" upgrade-k8s --to {{ version }}
+    talosctl -n "$(talosctl config info -o yaml | yq -e '.endpoints[0]')" upgrade-k8s --to {{ version }}
 
 [doc('Upgrade Talos version on a node')]
 upgrade-node node *args:
