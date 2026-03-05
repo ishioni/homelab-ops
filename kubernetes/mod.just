@@ -1,7 +1,7 @@
 set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-kubernetes_dir := justfile_dir() + '/kubernetes'
+kubernetes_dir := justfile_directory() + '/kubernetes'
 
 [private]
 default:

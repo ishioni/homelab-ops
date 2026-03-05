@@ -1,7 +1,7 @@
 set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-talos_dir := justfile_dir() + '/talos'
+talos_dir := justfile_directory() + '/talos'
 secret_id := 'talos'
 
 [private]
