@@ -22,3 +22,11 @@ spec:
           sectionName: https
     webhook:
       enabled: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      dashboard:
+        enabled: true
+        grafanaDashboard:
+          allowCrossNamespaceImport: true
