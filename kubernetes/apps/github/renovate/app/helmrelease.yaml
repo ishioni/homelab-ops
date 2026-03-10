@@ -30,3 +30,4 @@ spec:
         enabled: true
         grafanaDashboard:
           allowCrossNamespaceImport: true
+          folder: Operators
