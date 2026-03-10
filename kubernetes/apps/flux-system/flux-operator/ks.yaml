@@ -13,6 +13,9 @@ spec:
   interval: 30m
   timeout: 5m
   path: ./kubernetes/apps/flux-system/flux-operator/app
+  postBuild:
+    substitute:
+      HOSTNAME: flux.${PRIVATE_DOMAIN}
   prune: false # Never delete this
   sourceRef:
     kind: GitRepository

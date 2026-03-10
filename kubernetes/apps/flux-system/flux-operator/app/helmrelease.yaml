@@ -13,6 +13,16 @@ spec:
     serviceMonitor:
       create: true
     web:
+      httpRoute:
+        enabled: true
+        annotations:
+        gatus.home-operations.com/endpoint: |-
+          name: flux-operator
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        hostnames: ["${HOSTNAME}"]
       # configSecretName: flux-web-secret
       networkPolicy:
         create: false
