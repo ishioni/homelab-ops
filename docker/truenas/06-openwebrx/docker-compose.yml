@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
 services:
   openwebrx:
-    image: slechev/openwebrxplus-softmbe:1.2.109@sha256:1ce133c08f60864fcbe95d25e6f2257bab53126de41ea5f13c06b0d4249eb504
+    image: slechev/openwebrxplus-softmbe:1.2.110@sha256:a71c9aa09640a232ba5896e8432bea752ecc785e4ddd5f9ee656d3fab9e47069
     container_name: openwebrx
     devices:
       - /dev/bus/usb:/dev/bus/usb
