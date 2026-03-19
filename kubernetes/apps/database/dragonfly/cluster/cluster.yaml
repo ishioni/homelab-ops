@@ -30,6 +30,7 @@ spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.37.0
   labels:
     dragonflydb.io/cluster: dragonfly
+  networkPolicyEnabled: false
   replicas: 3
   resources:
     requests:
