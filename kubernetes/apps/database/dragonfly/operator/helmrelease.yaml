@@ -16,7 +16,7 @@ spec:
       image:
         repository: ghcr.io/dragonflydb/operator
     serviceMonitor:
-      enabled: true
+      enabled: false
     grafanaDashboard:
       enabled: true
       folder: Storage
