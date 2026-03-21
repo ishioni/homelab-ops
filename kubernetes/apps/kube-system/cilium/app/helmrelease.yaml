@@ -32,9 +32,12 @@ spec:
       annotations:
         grafana_folder: Networking
     devices: enp3s0
+    enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     envoy:
+      enabled: false
+    gatewayAPI:
       enabled: false
     hubble:
       enabled: false
@@ -48,14 +51,12 @@ spec:
     l2announcements:
       enabled: true
     loadBalancer:
+      acceleration: best-effort
       algorithm: maglev
       mode: dsr
-      serviceTopology: true
-    localRedirectPolicy: true
-    operator:
+    localRedirectPolicies:
       enabled: true
-      replicas: 2
-      rollOutPods: true
+    operator:
       dashboards:
         enabled: true
         annotations:
@@ -64,6 +65,8 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      replicas: 2
+      rollOutPods: true
     pmtuDiscovery:
       enabled: true
     prometheus:
@@ -92,3 +95,6 @@ spec:
             SETUID,
           ]
         cleanCiliumState: [NET_ADMIN, SYS_ADMIN, SYS_RESOURCE]
+    socketLB:
+      enabled: true
+      hostNamespaceOnly: true
