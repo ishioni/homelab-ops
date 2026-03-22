@@ -8,5 +8,4 @@ components:
   - ../../components/namespace
 resources:
   - ./homepage/ks.yaml
-  - ./http-debug/ks.yaml
   - ./whoami/ks.yaml
