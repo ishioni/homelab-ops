@@ -99,7 +99,7 @@ spec:
           tika:
             image:
               repository: docker.io/apache/tika
-              tag: 3.2.3.0-full
+              tag: 3.3.0.0-full
             securityContext:
               runAsUser: 65534
               runAsGroup: 65534
