@@ -22,7 +22,7 @@ networks:
 
 services:
   traefik:
-    image: traefik:v3.6.11@sha256:acfc80650104f0194a15f73dc1648f517561bc1645391a15705332a064cfc33c
+    image: traefik:v3.6.12@sha256:eb37f58646a901dc7727cf448cae36daaefaba79de33b5058dab79aa4c04aefb
     container_name: traefik
     restart: always
     environment:
