@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app slskd
+  namespace: &namespace downloads
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/authentik-proxy
+    - ../../../../components/pvc
+  dependsOn:
+    - name: external-secrets
+      namespace: security
+  interval: 30m
+  path: ./kubernetes/apps/downloads/slskd/app
+  postBuild:
+    substitute:
+      APP: *app
+      HOSTNAME: slskd.${PUBLIC_DOMAIN}
+      PVC_CLAIM: slskd-config
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
