@@ -4,7 +4,8 @@
     {
       description: "Disable digest-only updates for docker images",
       matchDatasources: ["docker"],
-      ignoreUpdateTypes: ["digest"],
+      matchUpdateTypes: ["digest"],
+      enabled: false,
     },
     {
       description: "Override Helmfile Dependency Name",
