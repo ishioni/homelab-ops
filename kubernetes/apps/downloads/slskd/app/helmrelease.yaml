@@ -116,9 +116,6 @@ spec:
             directories:
               downloads: /media/Downloads/soulseek/complete
               incomplete: /media/Downloads/soulseek/incomplete
-            permissions:
-              file:
-                mode: 750
             shares:
               directories:
                 - /media/Music
