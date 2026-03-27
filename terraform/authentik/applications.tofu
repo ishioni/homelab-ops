@@ -56,6 +56,20 @@ module "proxy-qbittorrent" {
   ignore_paths       = local.favicons.qbt
 }
 
+module "proxy-slskd" {
+  source             = "./proxy_application"
+  name               = "Soulseek"
+  description        = "Soulseek client"
+  icon_url           = "https://raw.githubusercontent.com/slskd/slskd/refs/heads/master/etc/icon.svg"
+  group              = "Downloads"
+  slug               = "slskd"
+  domain             = var.public_domain
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  auth_groups        = [authentik_group.downloads.id]
+  ignore_paths       = local.favicons.qbt
+}
+
 module "proxy-prowlarr" {
   source             = "./proxy_application"
   name               = "Prowlarr"
