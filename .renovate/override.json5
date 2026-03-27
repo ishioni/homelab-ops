@@ -2,6 +2,11 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
+      description: "Disable digest-only updates for docker images",
+      matchDatasources: ["docker"],
+      ignoreUpdateTypes: ["digest"],
+    },
+    {
       description: "Override Helmfile Dependency Name",
       matchDatasources: ["docker"],
       matchManagers: ["helmfile"],
