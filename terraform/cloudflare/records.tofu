@@ -276,8 +276,8 @@ resource "cloudflare_record" "hass-cname" {
 }
 
 resource "cloudflare_record" "hass-acme" {
-  name    = "_acme-challenge.homeassistant.movishell.pl"
+  name    = "_acme-challenge.homeassistant.${var.public_domain}"
   content = "_acme-challenge.yci3lqdd8qfgt582mf0kg36ks27v6kr4.ui.nabu.casa"
-  type    = "TXT"
+  type    = "CNAME"
   zone_id = local.public_domain_zone
 }
