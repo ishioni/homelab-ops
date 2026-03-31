@@ -7,10 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: sonarr
-  dependsOn:
-    - name: prowlarr
-    - name: qbittorrent
+    name: slskd
   interval: 30m
   values:
     controllers:
