@@ -13,7 +13,7 @@ data "http" "ipv4" {
 resource "cloudflare_record" "root" {
   name    = var.public_domain
   content = chomp(data.http.ipv4.response_body)
-  ttl     = 60
+  ttl     = 1
   type    = "A"
   zone_id = local.public_domain_zone
 }
@@ -21,7 +21,7 @@ resource "cloudflare_record" "root" {
 resource "cloudflare_record" "external" {
   name    = "external"
   content = chomp(data.http.ipv4.response_body)
-  ttl     = 60
+  ttl     = 1
   type    = "A"
   zone_id = local.public_domain_zone
 }
@@ -266,4 +266,18 @@ resource "cloudflare_record" "fastmail-submission" {
     port     = 587
     target   = "smtp.fastmail.com"
   }
+}
+
+resource "cloudflare_record" "hass-cname" {
+  name    = "homeassistant.${var.public_domain}"
+  content = "yci3lqdd8qfgt582mf0kg36ks27v6kr4.ui.nabu.casa"
+  type    = "CNAME"
+  zone_id = local.public_domain_zone
+}
+
+resource "cloudflare_record" "hass-acme" {
+  name    = "_acme-challenge.homeassistant.movishell.pl"
+  content = "_acme-challenge.yci3lqdd8qfgt582mf0kg36ks27v6kr4.ui.nabu.casa"
+  type    = "TXT"
+  zone_id = local.public_domain_zone
 }
