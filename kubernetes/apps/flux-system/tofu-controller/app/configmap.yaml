@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: flux-system
+  name: branch-planner
+data:
+  secretName: tofu-branch-token
+  resources: |-
+    - namespace: security
+    - namespace: flux-system
