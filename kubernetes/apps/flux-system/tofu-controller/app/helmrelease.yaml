@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tofu-controller
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: tofu-controller
+  interval: 30m
+  values:
+    awsPackage:
+      install: false
+    branchPlaner:
+      enabled: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        interval: 1m
