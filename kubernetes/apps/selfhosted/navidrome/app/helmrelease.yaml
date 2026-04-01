@@ -38,8 +38,8 @@ spec:
               ND_ENABLETRANSCODINGCONFIG: "false"
               ND_LOGLEVEL: info
               ND_PROMETHEUS_ENABLED: true
-              ND_REVERSEPROXYUSERHEADER: "X-authentik-username"
-              ND_REVERSEPROXYWHITELIST: "172.16.0.0/16"
+              ND_EXTAUTH_USERHEADER: "X-authentik-username"
+              ND_EXTAUTH_TRUSTEDSOURCES: "172.16.0.0/16"
               ND_AUTHREQUESTLIMIT: 0
               ND_ENABLEINSIGHTSCOLLECTOR: "false"
             probes:
