@@ -5,7 +5,7 @@ kind: RenovateJob
 metadata:
   name: ishioni
 spec:
-  discoverTopics: renovate
+  discoverTopics: [renovate]
   provider:
     name: github
   extraEnv:
