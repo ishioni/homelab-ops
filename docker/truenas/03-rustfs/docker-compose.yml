@@ -7,6 +7,8 @@ services:
     environment:
       RUSTFS_SERVER_DOMAINS: ${S3_HOST}
       RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY}
+      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY}
     networks:
       apps:
     expose:
