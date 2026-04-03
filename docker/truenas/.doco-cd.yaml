@@ -8,6 +8,8 @@ external_secrets:
   TRAEFIK_CF_DNS_API_TOKEN: op://Homelab/cloudflare/API Tokens/LEO_DNS
   MINIO_ROOT_USER: op://Homelab/minio/MINIO_ROOT_USER
   MINIO_ROOT_PASSWORD: op://Homelab/minio/MINIO_ROOT_PASSWORD
+  RUSTFS_ACCESS_KEY: op://Homelab/rustfs/RUSTFS_ACCESS_KEY
+  RUSTFS_SECRET_KEY: op://Homelab/rustfs/RUSTFS_SECRET_KEY
   PUSHOVER_USER_KEY: op://Homelab/Pushover/USER_KEY
   PUSHOVER_SCRUTINY_KEY: op://Homelab/Pushover/SCRUTINY_KEY
   OWRX_USER: op://Homelab/openwebrx/username
