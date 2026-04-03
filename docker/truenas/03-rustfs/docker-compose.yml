@@ -1,0 +1,36 @@
+---
+services:
+  rustfs:
+    image: docker.io/rustfs/rustfs:1.0.0-alpha.90
+    container_name: rustfs
+    restart: unless-stopped
+    environment:
+      RUSTFS_SERVER_DOMAINS: ${S3_HOST}
+      RUSTFS_CONSOLE_ENABLE: "true"
+    networks:
+      apps:
+    expose:
+      - &s3port 9000
+      - &consoleport 9001
+    volumes:
+      - ${DATA_PATH}:/data
+    labels:
+      traefik.enable: "true"
+      # S3
+      traefik.http.services.rustfs.loadbalancer.server.port: *s3port
+      traefik.http.routers.rustfs.entrypoints: https
+      traefik.http.routers.rustfs.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
+      traefik.http.routers.rustfs.tls.certresolver: letsencrypt
+      traefik.http.routers.rustfs.tls.domains[0].main: ${S3_HOST}
+      traefik.http.routers.rustfs.tls.domains[0].sans: "*.${S3_HOST}"
+      traefik.http.routers.rustfs.service: rustfs
+      # Dashboard
+      traefik.http.services.rustfsconsole.loadbalancer.server.port: *consoleport
+      traefik.http.routers.rustfsconsole.entrypoints: https
+      traefik.http.routers.rustfsconsole.rule: Host(`${CONSOLE_HOST}`)
+      traefik.http.routers.rustfsconsole.service: rustfsconsole
+      traefik.http.routers.rustfsconsole.tls: true
+
+networks:
+  apps:
+    external: true
