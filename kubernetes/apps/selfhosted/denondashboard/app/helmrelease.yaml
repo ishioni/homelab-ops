@@ -1,0 +1,58 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.5.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: denondashboard
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: denondashboard
+  interval: 30m
+  values:
+    controllers:
+      denondashboard:
+        pod:
+          securityContext:
+            runAsUser: 2000
+            runAsGroup: &gid 2000
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          app:
+            image:
+              repository: ghcr.io/oxygenlack/denon-dashboard
+              tag: 1.0.0@sha256:66fd042cddd45d0e50996c614d670888108cb898ffcc3283bc14586101daf4dd
+            env:
+              DENON_DASHBOARD_DENON_HOST: 10.1.3.4
+              DENON_DASHBOARD_PORT: &port 8080
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v1/health
+                    port: *port
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 300Mi
+    service:
+      app:
+        controller: denondashboard
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
