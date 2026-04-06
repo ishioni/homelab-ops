@@ -53,6 +53,6 @@ spec:
           gatus.home-operations.com/enabled: "false"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
             sectionName: https
