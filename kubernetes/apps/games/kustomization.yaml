@@ -6,6 +6,4 @@ namespace: games
 components:
   - ../../components/alerts
   - ../../components/namespace
-resources:
-  # - ./minecraft/ks.yaml
-  # - ./minecraft-test/ks.yaml
+resources: []
