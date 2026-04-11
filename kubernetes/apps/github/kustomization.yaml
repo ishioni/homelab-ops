@@ -8,6 +8,6 @@ components:
   - ../../components/namespace
 resources:
   - ./arc/ks.yaml
-  - ./crd-schema-publisher/ks.yaml
+  - ./kubernetes-schemas/ks.yaml
   - ./renovate/ks.yaml
   - ./webhook/ks.yaml
