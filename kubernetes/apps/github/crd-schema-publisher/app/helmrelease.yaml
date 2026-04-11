@@ -12,7 +12,7 @@ spec:
   values:
     controllers:
       crd-schema-publisher:
-        strategy: RollingUpdates
+        strategy: RollingUpdate
         annotations:
           secret.reloader.stakater.com/reload: &secret crd-schema-publisher
         containers:
