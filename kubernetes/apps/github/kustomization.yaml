@@ -8,5 +8,6 @@ components:
   - ../../components/namespace
 resources:
   - ./arc/ks.yaml
+  - ./kubernetes-schemas/ks.yaml
   - ./renovate/ks.yaml
   - ./webhook/ks.yaml
