@@ -69,6 +69,13 @@ spec:
             name: kubernetes-schemas
           subjects:
             - identifier: kubernetes-schemas
+        kubernetes-schemas-leader-election:
+          type: RoleBinding
+          roleRef:
+            kind: Role
+            name: kubernetes-schemas-leader-election
+          subjects:
+            - identifier: kubernetes-schemas
       roles:
         kubernetes-schemas:
           type: ClusterRole
