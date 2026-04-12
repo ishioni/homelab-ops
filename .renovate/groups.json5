@@ -40,7 +40,7 @@
         "/kube-controller-manager/",
         "/kube-proxy/",
         "/kube-scheduler/",
-        "/kubelet/",
+        "/siderolabs\/kubelet/",
       ],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
