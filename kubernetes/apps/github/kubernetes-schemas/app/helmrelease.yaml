@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/sholdee/crd-schema-publisher
-              tag: v2026.0413.054329@sha256:f4462a688e4ae8f0443ff33eef0a33ea7ce669560f68e4060c1a72bd74b5137d
+              tag: v2026.413.191615@sha256:33e9aae56cc497c0471ca91fd19f023573f638514f1b6f7c2376acce5350e2e7
             args: [watch]
             env:
               CF_PAGES_PROJECT: homelab-schema
