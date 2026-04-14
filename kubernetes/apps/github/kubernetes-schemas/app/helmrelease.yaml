@@ -14,6 +14,7 @@ spec:
       cfPagesProject: homelab-schema
     existingSecret:
       name: kubernetes-schemas
+    fullnameOverride: "kubernetes-schemas"
     metrics:
       podMonitor:
         enabled: true
