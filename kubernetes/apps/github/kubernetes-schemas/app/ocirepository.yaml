@@ -10,10 +10,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 4.6.2
-  url: oci://ghcr.io/bjw-s-labs/helm/app-template
-  verify:
-    provider: cosign
-    matchOIDCIdentity:
-      - issuer: https://token.actions.githubusercontent.com
-        subject: https://github.com/bjw-s-labs/helm.*
+    tag: 2026.414.180015
+  url: oci://ghcr.io/sholdee/charts/crd-schema-publisher

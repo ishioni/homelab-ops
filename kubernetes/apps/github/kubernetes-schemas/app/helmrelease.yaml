@@ -10,85 +10,14 @@ spec:
     name: kubernetes-schemas
   interval: 30m
   values:
-    controllers:
-      kubernetes-schemas:
-        strategy: RollingUpdate
-        annotations:
-          secret.reloader.stakater.com/reload: &secret kubernetes-schemas
-        containers:
-          app:
-            image:
-              repository: ghcr.io/sholdee/crd-schema-publisher
-              tag: v2026.0413.054329@sha256:f4462a688e4ae8f0443ff33eef0a33ea7ce669560f68e4060c1a72bd74b5137d
-            args: [watch]
-            env:
-              CF_PAGES_PROJECT: homelab-schema
-              POD_NAME:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: metadata.name
-              POD_NAMESPACE:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: metadata.namespace
-            envFrom:
-              - secretRef:
-                  name: *secret
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                path: /healthz
-                port: &port 8080
-              readiness:
-                enabled: true
-                custom: true
-                path: /readyz
-                port: *port
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop: [ALL]
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
-        fsGroup: 65534
-        seccompProfile:
-          type: RuntimeDefault
-    persistence:
-      output:
-        type: emptyDir
-    rbac:
-      bindings:
-        kubernetes-schemas:
-          type: ClusterRoleBinding
-          roleRef:
-            kind: ClusterRole
-            name: kubernetes-schemas
-          subjects:
-            - identifier: kubernetes-schemas
-        leader-election:
-          type: RoleBinding
-          roleRef:
-            kind: Role
-            name: kubernetes-schemas-leader-election
-          subjects:
-            - identifier: kubernetes-schemas
-      roles:
-        kubernetes-schemas:
-          type: ClusterRole
-          rules:
-            - apiGroups: [apiextensions.k8s.io]
-              resources: [customresourcedefinitions]
-              verbs: [get, list, watch]
-        leader-election:
-          type: Role
-          rules:
-            - apiGroups: [coordination.k8s.io]
-              resources: [leases]
-              verbs: [get, create, update]
-    serviceAccount:
-      kubernetes-schemas: {}
+    config:
+      cfPagesProject: homelab-schema
+    existingSecret:
+      name: kubernetes-schemas
+    fullnameOverride: "kubernetes-schemas"
+    metrics:
+      podMonitor:
+        enabled: true
+    grafana:
+      dashboard:
+        enabled: true
