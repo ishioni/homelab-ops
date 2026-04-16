@@ -13,8 +13,6 @@ spec:
       value: debug
     - name: RENOVATE_ALLOWED_COMMANDS
       value: '["pnpm run bundle"]'
-    - name: RENOVATE_PLATFORM_COMMIT
-      value: "true"
     - name: RENOVATE_REDIS_URL
       value: redis://dragonfly.database.svc.cluster.local:6379/8
   image: ghcr.io/renovatebot/renovate:43.126.0
