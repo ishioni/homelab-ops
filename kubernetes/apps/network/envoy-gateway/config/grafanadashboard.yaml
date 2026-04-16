@@ -61,7 +61,7 @@ spec:
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
-  url: https://grafana.com/api/dashboards/24457/revisions/3/download
+  url: https://grafana.com/api/dashboards/24457/revisions/4/download
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
