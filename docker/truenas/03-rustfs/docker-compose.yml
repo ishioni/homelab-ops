@@ -1,7 +1,7 @@
 ---
 services:
   rustfs:
-    image: docker.io/rustfs/rustfs:1.0.0-alpha.90
+    image: docker.io/rustfs/rustfs:1.0.0-alpha.94
     container_name: rustfs
     restart: unless-stopped
     environment:
