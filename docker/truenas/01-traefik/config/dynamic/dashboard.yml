@@ -11,6 +11,7 @@ http:
           - main: ishioni.casa
             sans:
               - "*.ishioni.casa"
+              - "*.movishell.pl"
     metrics:
       rule: Host(`traefik.ishioni.casa`) && PathPrefix(`/metrics`)
       service: prometheus@internal
