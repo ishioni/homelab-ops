@@ -89,5 +89,6 @@ spec:
                 resources:
                   requests:
                     storage: 1Gi
+                volumeMode: Filesystem
       tmp:
         type: emptyDir
