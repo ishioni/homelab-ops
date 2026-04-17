@@ -81,7 +81,7 @@ spec:
         globalMounts:
           - path: /app/data
         volumeSpec:
-          name: scratch-volume
+          name: convertx
           ephemeral:
             volumeClaimTemplate:
               spec:
