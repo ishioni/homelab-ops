@@ -77,8 +77,18 @@ spec:
                 port: *port
     persistence:
       data:
-        existingClaim: ${PVC_CLAIM}
+        type: custom
         globalMounts:
           - path: /app/data
+        volumeSpec:
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes: [ReadWriteOnce]
+                storageClassName: openebs-hostpath
+                resources:
+                  requests:
+                    storage: 1Gi
+                volumeMode: Filesystem
       tmp:
         type: emptyDir

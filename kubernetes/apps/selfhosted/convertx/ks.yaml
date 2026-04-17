@@ -11,7 +11,6 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gpu
-    - ../../../../components/pvc
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
@@ -21,9 +20,6 @@ spec:
     substitute:
       APP: *app
       HOSTNAME: convert.${PRIVATE_DOMAIN}
-      PVC_CLAIM: convertx-data
-      PVC_STORAGECLASS: dcsi-nfs
-      PVC_ACCESSMODES: ReadWriteMany
   prune: true
   sourceRef:
     kind: GitRepository
