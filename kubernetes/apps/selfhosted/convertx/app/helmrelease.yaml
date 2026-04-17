@@ -81,7 +81,6 @@ spec:
         globalMounts:
           - path: /app/data
         volumeSpec:
-          name: convertx
           ephemeral:
             volumeClaimTemplate:
               spec:
