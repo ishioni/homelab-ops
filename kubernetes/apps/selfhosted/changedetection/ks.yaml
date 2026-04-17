@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: dcsi-iscsi
+    - name: dcsi-nfs
       namespace: storage
     - name: volsync
       namespace: storage
@@ -26,7 +26,7 @@ spec:
       APP_GID: "2000"
       PVC_CLAIM: changedetection-data
       PVC_CAPACITY: 1Gi
-      PVC_STORAGECLASS: &sc dcsi-iscsi
+      PVC_STORAGECLASS: &sc dcsi-nfs
       VOLSYNC_SNAPSHOTCLASS: *sc
   prune: true
   sourceRef:
