@@ -9,7 +9,7 @@ components:
 resources:
   - ./atuin/ks.yaml
   - ./blog/ks.yaml
-  - ./changedetection/ks.yaml
+  # - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
   - ./denondashboard/ks.yaml
   - ./go2rtc/ks.yaml
