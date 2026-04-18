@@ -5,7 +5,7 @@ services:
     container_name: rustfs
     restart: unless-stopped
     environment:
-      RUSTFS_SERVER_DOMAINS: ${S3_HOST}
+      # RUSTFS_SERVER_DOMAINS: ${S3_HOST}
       RUSTFS_REGION: "eu-central-1"
       RUSTFS_CONSOLE_ENABLE: "true"
       RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY}
