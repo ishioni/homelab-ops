@@ -19,7 +19,7 @@ spec:
       isWALArchiver: true
       name: barman-cloud.cloudnative-pg.io
       parameters: &barmanParameters
-        barmanObjectName: minio
+        barmanObjectName: rustfs
         serverName: postgres-v1
   postgresql:
     parameters:
