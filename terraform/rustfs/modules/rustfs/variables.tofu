@@ -11,10 +11,12 @@ variable "user_name" {
 variable "user_secret_item" {
   type      = string
   sensitive = true
+  default   = null
 }
 
 variable "vault" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "acl" {
@@ -25,4 +27,9 @@ variable "acl" {
 variable "versioning" {
   type    = bool
   default = false
+}
+
+variable "create_user" {
+  type    = bool
+  default = true
 }

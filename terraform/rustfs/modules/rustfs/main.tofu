@@ -7,6 +7,7 @@ terraform {
 }
 
 module "onepassword" {
+  count  = var.create_user ? 1 : 0
   source = "github.com/bjw-s/terraform-1password-item?ref=main"
   vault  = var.vault
   item   = var.user_name != null ? var.user_name : var.bucket_name
@@ -27,7 +28,8 @@ resource "minio_s3_bucket_versioning" "bucket" {
 }
 
 resource "minio_iam_policy" "rw_policy" {
-  name = format("%s-private", var.bucket_name)
+  count = var.create_user ? 1 : 0
+  name  = format("%s-private", var.bucket_name)
   policy = jsonencode({
     ID      = ""
     Version = "2012-10-17"
@@ -47,14 +49,14 @@ resource "minio_iam_policy" "rw_policy" {
 }
 
 resource "minio_iam_user" "user" {
+  count         = var.create_user ? 1 : 0
   name          = var.user_name != null ? var.user_name : var.bucket_name
   force_destroy = true
-  secret        = module.onepassword.fields[var.user_secret_item]
-  #   secret        = var.user_secret
+  secret        = module.onepassword[0].fields[var.user_secret_item]
 }
 
-
 resource "minio_iam_user_policy_attachment" "user_rw" {
-  user_name   = minio_iam_user.user.id
-  policy_name = minio_iam_policy.rw_policy.id
+  count       = var.create_user ? 1 : 0
+  user_name   = minio_iam_user.user[0].id
+  policy_name = minio_iam_policy.rw_policy[0].id
 }
