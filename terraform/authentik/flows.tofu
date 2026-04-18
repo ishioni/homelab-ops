@@ -1,7 +1,7 @@
 ## Authenticator setup
 #
 locals {
-  default_flow_background = "https://cdn.movishell.pl/branding/Beachfront.webp"
+  default_flow_background = "https://public.rcdn.movishell.pl/branding/Beachfront.webp"
 }
 
 resource "authentik_flow" "authenticator-totp-setup" {

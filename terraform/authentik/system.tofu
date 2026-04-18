@@ -7,9 +7,9 @@ resource "authentik_brand" "home" {
   default        = false
   branding_title = "Movishell"
   # branding_custom_css              = file("./styles/glassmorphism.css")
-  branding_logo                    = "https://cdn.${var.public_domain}/branding/Pacifico.svg"
-  branding_favicon                 = "https://cdn.${var.public_domain}/branding/favicon.png"
-  branding_default_flow_background = "https://cdn.${var.public_domain}/branding/Beachfront.webp"
+  branding_logo                    = "https://public.rcdn.${var.public_domain}/branding/Pacifico.svg"
+  branding_favicon                 = "https://public.rcdn.${var.public_domain}/branding/favicon.png"
+  branding_default_flow_background = "https://public.rcdn.${var.public_domain}/branding/Beachfront.webp"
 
   flow_authentication = authentik_flow.authentication.uuid
   flow_invalidation   = authentik_flow.invalidation.uuid
