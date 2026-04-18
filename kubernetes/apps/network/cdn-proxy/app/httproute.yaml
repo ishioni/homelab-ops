@@ -34,6 +34,7 @@ kind: HTTPRoute
 metadata:
   annotations:
     gatus.home-operations.com/enabled: "false"
+    unifi.external-dns.alpha.kubernetes.io/exclude: "true"
   name: rcdn-proxy
 spec:
   hostnames: [rcdn.movishell.pl, "*.rcdn.movishell.pl"]
