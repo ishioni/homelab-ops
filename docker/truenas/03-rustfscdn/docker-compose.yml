@@ -23,7 +23,7 @@ services:
       traefik.http.services.rcdn.loadbalancer.server.port: *s3port
       traefik.http.routers.rcdn.entrypoints: https
       traefik.http.routers.rcdn.rule: Host(`${S3_HOST}`)
-      traefik.http.routers.rcdn.service: rustfs
+      traefik.http.routers.rcdn.service: rcdn
       traefik.http.routers.rcdn.tls: true
       # Dashboard
       traefik.http.services.rcdnconsole.loadbalancer.server.port: *consoleport
