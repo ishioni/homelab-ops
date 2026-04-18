@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name rustfs
+spec:
+  staticConfigs: [targets: ["otel.ishioni.casa"]]
+  metricsPath: /metrics
+  scheme: HTTPS
+  honorTimestamps: true
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name

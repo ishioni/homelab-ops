@@ -10,14 +10,10 @@ services:
       RUSTFS_CONSOLE_ENABLE: "true"
       RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY}
       RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY}
-      RUSTFS_OBS_ENDPOINT: https://${PROMETHEUS_HOST}/api/v1/otlp
-      RUSTFS_OBS_METRICS_EXPORT_ENABLED: "true"
-      RUSTFS_OBS_METRIC_ENDPOINT: https://${PROMETHEUS_HOST}/api/v1/otlp/v1/metrics
+      RUSTFS_OBS_ENDPOINT: http://otel-collector:4318
       RUSTFS_OBS_TRACES_EXPORT_ENABLED: "false"
       RUSTFS_OBS_LOGS_EXPORT_ENABLED: "false"
       RUSTFS_OBS_PROFILING_EXPORT_ENABLED: "false"
-      RUSTFS_OBS_USE_STDOUT: "false"
-      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
     networks:
       apps:
     expose:

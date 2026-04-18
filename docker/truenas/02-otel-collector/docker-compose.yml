@@ -1,0 +1,24 @@
+---
+services:
+  otel-collector:
+    image: docker.io/otel/opentelemetry-collector-contrib:0.127.0
+    container_name: otel-collector
+    restart: unless-stopped
+    networks:
+      apps:
+    expose:
+      - &metricsport ${APP_PORT}
+      - ${INGEST_PORT}
+    volumes:
+      - ./config.yaml:/etc/otelcol-contrib/config.yaml:ro
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.otel-collector.loadbalancer.server.port: *metricsport
+      traefik.http.routers.otel-collector.entrypoints: https
+      traefik.http.routers.otel-collector.rule: Host(`${HOST}`)
+      traefik.http.routers.otel-collector.tls: true
+      traefik.http.routers.otel-collector.service: otel-collector
+
+networks:
+  apps:
+    external: true
