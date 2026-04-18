@@ -9,7 +9,4 @@ spec:
   metricsPath: /metrics
   scheme: HTTPS
   honorTimestamps: true
-  relabelings:
-    - action: replace
-      targetLabel: job
-      replacement: *name
+  honorLabels: true
