@@ -9,7 +9,7 @@ resource "authentik_policy_password" "password-complexity" {
 
 resource "authentik_policy_expression" "user-settings-avatar-authorization" {
   name       = "user-settings-avatar-authorization"
-  expression = file("./expressions/user-settings-avatar-authorization.py")
+  expression = file("./expressions/user-settings-avatar-authorization-s3.py")
 }
 
 resource "authentik_policy_expression" "user-settings-authorization" {

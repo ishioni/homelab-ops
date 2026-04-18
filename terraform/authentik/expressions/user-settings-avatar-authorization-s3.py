@@ -13,11 +13,15 @@ from botocore.exceptions import BotoCoreError, ClientError
 
 # === CONFIGURATION ===
 S3_ENDPOINT = environ.get(
-    "AUTHENTIK_STORAGE__MEDIA__S3__ENDPOINT", "https://rs3.movishell.pl"
+    "AUTHENTIK_STORAGE__S3__ENDPOINT", "https://rcdn.movishell.pl"
 )
-S3_BUCKET = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__BUCKET_NAME", "authentik")
-S3_ACCESS_KEY = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__ACCESS_KEY", "")
-S3_SECRET_KEY = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__SECRET_KEY", "")
+S3_BUCKET = environ.get("AUTHENTIK_STORAGE__S3__BUCKET_NAME", "authentik")
+S3_ACCESS_KEY = environ.get("AUTHENTIK_STORAGE__S3__ACCESS_KEY", "")
+S3_SECRET_KEY = environ.get("AUTHENTIK_STORAGE__S3__SECRET_KEY", "")
+
+if not S3_ACCESS_KEY or not S3_SECRET_KEY:
+    ak_message("S3 credentials are not configured.")
+    return False
 S3_KEY_PREFIX = "user-avatars/"
 S3_URL_EXPIRY = int(environ.get("AUTHENTIK_AVATAR__S3__URL_EXPIRY", 3153600000))  # ~100 years
 
