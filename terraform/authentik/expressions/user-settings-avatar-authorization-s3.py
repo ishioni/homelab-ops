@@ -8,16 +8,18 @@ from urllib.parse import urlparse
 from uuid import uuid4
 
 import boto3
+from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 
 # === CONFIGURATION ===
 S3_ENDPOINT = environ.get(
-    "AUTHENTIK_STORAGE__MEDIA__S3__ENDPOINT", "https://s3.ishioni.casa"
+    "AUTHENTIK_STORAGE__MEDIA__S3__ENDPOINT", "https://rs3.movishell.pl"
 )
-S3_BUCKET = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__BUCKET_NAME", "cdn")
+S3_BUCKET = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__BUCKET_NAME", "authentik")
 S3_ACCESS_KEY = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__ACCESS_KEY", "")
 S3_SECRET_KEY = environ.get("AUTHENTIK_STORAGE__MEDIA__S3__SECRET_KEY", "")
 S3_KEY_PREFIX = "user-avatars/"
+S3_URL_EXPIRY = int(environ.get("AUTHENTIK_AVATAR__S3__URL_EXPIRY", 3153600000))  # ~100 years
 
 URL_BASE = f"{S3_ENDPOINT}/{S3_BUCKET}/{S3_KEY_PREFIX}"
 
@@ -39,6 +41,7 @@ s3_client = boto3.client(
     endpoint_url=S3_ENDPOINT,
     aws_access_key_id=S3_ACCESS_KEY,
     aws_secret_access_key=S3_SECRET_KEY,
+    config=Config(signature_version="s3v4"),
 )
 
 
@@ -55,8 +58,12 @@ def format_size(size_bytes):
 
 
 def generate_avatar_url(filename):
-    """Generates a public URL for the avatar on S3."""
-    return f"{URL_BASE}{filename}"
+    """Generates a presigned URL for the avatar on S3."""
+    return s3_client.generate_presigned_url(
+        "get_object",
+        Params={"Bucket": S3_BUCKET, "Key": f"{S3_KEY_PREFIX}{filename}"},
+        ExpiresIn=S3_URL_EXPIRY,
+    )
 
 
 def extract_filename_from_avatar_url(avatar_url):
@@ -158,7 +165,7 @@ if "avatar" in prompt_data.get("attributes", {}):
         if not upload_avatar_to_s3(avatar_filename, avatar_binary, avatar_mimetype):
             return False
 
-        # 5. Delete old avatar and set new public URL
+        # 5. Delete old avatar and set new presigned URL
         avatar_overwritten = True
         delete_old_avatar()
         prompt_data["attributes"]["avatar"] = generate_avatar_url(avatar_filename)
