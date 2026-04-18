@@ -10,3 +10,19 @@ spec:
   scheme: HTTPS
   honorTimestamps: true
   honorLabels: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/grafana.integreatly.org/grafanadashboard_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: rustfs
+spec:
+  allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
+  folder: Storage
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+  url: https://raw.githubusercontent.com/rustfs/rustfs/refs/heads/main/.docker/observability/grafana/dashboards/rustfs.json
