@@ -34,10 +34,34 @@ kind: HTTPRoute
 metadata:
   annotations:
     gatus.home-operations.com/enabled: "false"
-    unifi.external-dns.alpha.kubernetes.io/exclude: "true"
   name: rcdn-proxy
 spec:
-  hostnames: [rcdn.movishell.pl, "*.rcdn.movishell.pl"]
+  hostnames: [rcdn.movishell.pl]
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: https
+  rules:
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: rcdn-proxy
+          port: 443
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    gatus.home-operations.com/enabled: "false"
+    unifi.external-dns.alpha.kubernetes.io/exclude: "true"
+  name: rcdn-proxy-wildcard
+spec:
+  hostnames: ["*.rcdn.movishell.pl"]
   parentRefs:
     - name: envoy-external
       namespace: network
