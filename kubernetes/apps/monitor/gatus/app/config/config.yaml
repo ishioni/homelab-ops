@@ -16,9 +16,20 @@ connectivity:
     target: 1.1.1.1:53
     interval: 1m
 endpoints:
-  - name: minio
+  - name: rustfs
     group: Services
-    url: https://minio.${PRIVATE_DOMAIN}/minio/health/live
+    url: https://rustfs.${PRIVATE_DOMAIN}/health
+    interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
+    client:
+      dns-resolver: tcp://10.1.2.1:53
+    conditions:
+      - "[STATUS] == 200"
+  - name: rustcdn
+    group: Services
+    url: https://rcdnconsole.${PRIVATE_DOMAIN}/health
     interval: 1m
     ui:
       hide-hostname: true
