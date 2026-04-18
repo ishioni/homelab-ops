@@ -36,7 +36,7 @@ metadata:
     gatus.home-operations.com/enabled: "false"
   name: rcdn-proxy
 spec:
-  hostnames: [rcdn.movishell.pl]
+  hostnames: [rcdn.movishell.pl, "*.rcdn.movishell.pl"]
   parentRefs:
     - name: envoy-external
       namespace: network
@@ -51,10 +51,3 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      filters:
-        - type: URLRewrite
-          urlRewrite:
-            hostname: rcdn.${PUBLIC_DOMAIN}
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            remove: [Set-Cookie]
