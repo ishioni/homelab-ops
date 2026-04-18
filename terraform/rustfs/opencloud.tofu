@@ -1,5 +1,5 @@
 module "s3_opencloud" {
-  source      = "./modules/minio"
+  source      = "./modules/rustfs"
   vault       = "Homelab"
   bucket_name = "opencloud"
   # The OP provider converts the fields with toLower!

@@ -1,5 +1,5 @@
 module "cdn" {
-  source      = "./modules/minio"
+  source      = "./modules/rustfs"
   vault       = "Homelab"
   bucket_name = "cdn"
   # The OP provider converts the fields with toLower!

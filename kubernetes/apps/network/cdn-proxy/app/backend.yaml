@@ -11,3 +11,16 @@ spec:
         port: 443
   tls:
     insecureSkipVerify: true
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: rcdn-proxy
+spec:
+  endpoints:
+    - fqdn:
+        hostname: traefik.${PRIVATE_DOMAIN}
+        ip:
+        port: 443
+  tls:
+    insecureSkipVerify: true

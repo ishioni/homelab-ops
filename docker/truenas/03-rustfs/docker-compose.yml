@@ -21,10 +21,7 @@ services:
       # S3
       traefik.http.services.rustfs.loadbalancer.server.port: *s3port
       traefik.http.routers.rustfs.entrypoints: https
-      traefik.http.routers.rustfs.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
-      traefik.http.routers.rustfs.tls.certresolver: letsencrypt
-      traefik.http.routers.rustfs.tls.domains[0].main: ${S3_HOST}
-      traefik.http.routers.rustfs.tls.domains[0].sans: "*.${S3_HOST}"
+      traefik.http.routers.rustfs.rule: Host(`${S3_HOST}`)
       traefik.http.routers.rustfs.service: rustfs
       # Dashboard
       traefik.http.services.rustfsconsole.loadbalancer.server.port: *consoleport

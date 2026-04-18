@@ -1,5 +1,5 @@
 module "s3_dragonfly" {
-  source      = "./modules/minio"
+  source      = "./modules/rustfs"
   vault       = "Homelab"
   bucket_name = "dragonfly"
   # The OP provider converts the fields with toLower!

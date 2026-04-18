@@ -1,0 +1,36 @@
+---
+services:
+  rustfs-cdn:
+    image: docker.io/rustfs/rustfs:1.0.0-alpha.94
+    container_name: rustfscdn
+    restart: unless-stopped
+    environment:
+      RUSTFS_SERVER_DOMAINS: ${S3_HOST}
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY}
+      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY}
+    networks:
+      apps:
+    expose:
+      - &s3port 9000
+      - &consoleport 9001
+    volumes:
+      - ${DATA_PATH}:/data
+    labels:
+      traefik.enable: "true"
+      # S3
+      traefik.http.services.rcdn.loadbalancer.server.port: *s3port
+      traefik.http.routers.rcdn.entrypoints: https
+      traefik.http.routers.rcdn.rule: Host(`${S3_HOST}`)
+      traefik.http.routers.rcdn.service: rustfs
+      traefik.http.routers.rcdn.tls: true
+      # Dashboard
+      traefik.http.services.rcdnconsole.loadbalancer.server.port: *consoleport
+      traefik.http.routers.rcdnconsole.entrypoints: https
+      traefik.http.routers.rcdnconsole.rule: Host(`${CONSOLE_HOST}`)
+      traefik.http.routers.rcdnconsole.service: rcdnconsole
+      traefik.http.routers.rcdnconsole.tls: true
+
+networks:
+  apps:
+    external: true

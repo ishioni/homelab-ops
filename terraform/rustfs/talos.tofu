@@ -1,5 +1,5 @@
 module "talos" {
-  source      = "./modules/minio"
+  source      = "./modules/rustfs"
   vault       = "Homelab"
   bucket_name = "talos"
   # The OP provider converts the fields with toLower!

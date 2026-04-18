@@ -27,3 +27,32 @@ spec:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             remove: [Set-Cookie]
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rcdn-proxy
+spec:
+  hostnames: [rcdn.movishell.pl]
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: https
+  rules:
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: rcdn-proxy
+          port: 443
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: rcdn.${PUBLIC_DOMAIN}
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            remove: [Set-Cookie]

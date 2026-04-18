@@ -1,5 +1,5 @@
 module "s3_thanos" {
-  source      = "./modules/minio"
+  source      = "./modules/rustfs"
   vault       = "Homelab"
   bucket_name = "thanos"
   # The OP provider converts the fields with toLower!

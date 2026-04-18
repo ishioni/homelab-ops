@@ -1,5 +1,5 @@
 module "s3_cloudnative-pg" {
-  source      = "./modules/minio"
+  source      = "./modules/rustfs"
   vault       = "Homelab"
   bucket_name = "cloudnative-pg"
   # The OP provider converts the fields with toLower!
