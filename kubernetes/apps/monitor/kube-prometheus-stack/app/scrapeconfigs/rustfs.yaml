@@ -4396,7 +4396,7 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
-              "expr": "rustfs_zero_copy_memory_saved_bytes{job=~\"$job\"}",
+              "expr": "rustfs_zero_copy_memory_saved_bytes_total{job=~\"$job\"}",
               "legendFormat": "Memory Saved ({{operation}})",
               "refId": "A"
             }
