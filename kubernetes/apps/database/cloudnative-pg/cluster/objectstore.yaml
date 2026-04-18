@@ -15,7 +15,7 @@ spec:
     data:
       compression: bzip2
     destinationPath: s3://cloudnative-pg/
-    endpointURL: https://s3.${PRIVATE_DOMAIN}
+    endpointURL: https://rs3.${PRIVATE_DOMAIN}
     s3Credentials:
       accessKeyId:
         name: cloudnative-pg-secret
