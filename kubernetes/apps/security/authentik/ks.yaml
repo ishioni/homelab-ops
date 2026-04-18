@@ -14,8 +14,6 @@ spec:
   dependsOn:
     - name: postgres-cluster
       namespace: database
-    - name: dragonfly-cluster
-      namespace: database
     - name: external-secrets
       namespace: security
   interval: 30m
