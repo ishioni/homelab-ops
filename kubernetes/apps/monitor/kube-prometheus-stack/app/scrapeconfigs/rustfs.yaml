@@ -1855,7 +1855,7 @@ spec:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (bucket) (rustfs_bucket_usage_bytes{job=~\"$job\", bucket=~\"$bucket\"})",
+              "expr": "sum by (bucket) (rustfs_bucket_api_usage_bytes{job=~\"$job\", bucket=~\"$bucket\"})",
               "legendFormat": "{{bucket}}",
               "range": true,
               "refId": "A"
