@@ -16,13 +16,13 @@ spec:
       envFrom:
         - secretRef:
             name: *secret
-      volumes:
-        - name: media
-          persistentVolumeClaim:
-            claimName: authentik-media
-      volumeMounts:
-        - name: media
-          mountPath: /media
+      # volumes:
+      #   - name: media
+      #     persistentVolumeClaim:
+      #       claimName: authentik-media
+      # volumeMounts:
+      #   - name: media
+      #     mountPath: /media
     server:
       replicas: 1
       initContainers:
@@ -74,8 +74,6 @@ spec:
           memory: 1500Mi
     # authentik:
     #   # log_level: debug
-    #   redis:
-    #     host: dragonfly.database.svc.cluster.local
     prometheus:
       rules:
         enabled: true
