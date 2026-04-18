@@ -20,7 +20,6 @@ spec:
   endpoints:
     - fqdn:
         hostname: traefik.${PRIVATE_DOMAIN}
-        ip:
         port: 443
   tls:
     insecureSkipVerify: true
