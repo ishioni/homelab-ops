@@ -26,20 +26,24 @@ resource "minio_s3_bucket_versioning" "bucket" {
   count = var.versioning ? 1 : 0
 }
 
-data "minio_iam_policy_document" "rw_policy" {
-  statement {
-    effect  = "Allow"
-    actions = ["s3:*"]
-    resources = [
-      "arn:aws:s3:::${minio_s3_bucket.bucket.bucket}",
-      "arn:aws:s3:::${minio_s3_bucket.bucket.bucket}/*"
-    ]
-  }
-}
-
 resource "minio_iam_policy" "rw_policy" {
-  name   = format("%s-private", var.bucket_name)
-  policy = data.minio_iam_policy_document.rw_policy.json
+  name = format("%s-private", var.bucket_name)
+  policy = jsonencode({
+    ID      = ""
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = ""
+        Effect    = "Allow"
+        Action    = ["s3:*"]
+        Condition = {}
+        Resource = [
+          "arn:aws:s3:::${minio_s3_bucket.bucket.bucket}",
+          "arn:aws:s3:::${minio_s3_bucket.bucket.bucket}/*"
+        ]
+      }
+    ]
+  })
 }
 
 resource "minio_iam_user" "user" {

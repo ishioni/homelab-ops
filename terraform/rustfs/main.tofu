@@ -8,11 +8,7 @@ terraform {
   }
 
   required_providers {
-    rustfs = {
-      source  = "aminueza/minio"
-      version = "3.32.1"
-    }
-    rustfscdn = {
+    minio = {
       source  = "aminueza/minio"
       version = "3.32.1"
     }
@@ -25,14 +21,15 @@ module "onepassword_item_rustfs" {
   item   = "rustfs"
 }
 
-provider "rustfs" {
+provider "minio" {
   minio_server   = "rs3.ishioni.casa"
   minio_user     = module.onepassword_item_rustfs.fields.username
   minio_password = module.onepassword_item_rustfs.fields.password
   minio_ssl      = true
 }
 
-provider "rustfscdn" {
+provider "minio" {
+  alias          = "cdn"
   minio_server   = "rcdn.movishell.pl"
   minio_user     = module.onepassword_item_rustfs.fields.username
   minio_password = module.onepassword_item_rustfs.fields.password
