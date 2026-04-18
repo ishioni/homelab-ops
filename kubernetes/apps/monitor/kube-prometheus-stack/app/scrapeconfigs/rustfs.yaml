@@ -120,7 +120,7 @@ spec:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "rustfs_system_process_uptime_seconds{job=~\"$job\"}",
+              "expr": "rustfs_process_uptime_seconds{job=~\"$job\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
