@@ -22,10 +22,14 @@ S3_SECRET_KEY = environ.get("AUTHENTIK_STORAGE__S3__SECRET_KEY", "")
 if not S3_ACCESS_KEY or not S3_SECRET_KEY:
     ak_message("S3 credentials are not configured.")
     return False
+S3_CUSTOM_DOMAIN = environ.get("AUTHENTIK_STORAGE__S3__CUSTOM_DOMAIN", "")
 S3_KEY_PREFIX = "user-avatars/"
 S3_URL_EXPIRY = int(environ.get("AUTHENTIK_AVATAR__S3__URL_EXPIRY", 3153600000))  # ~100 years
 
-URL_BASE = f"{S3_ENDPOINT}/{S3_BUCKET}/{S3_KEY_PREFIX}"
+if S3_CUSTOM_DOMAIN:
+    URL_BASE = f"https://{S3_CUSTOM_DOMAIN}/{S3_KEY_PREFIX}"
+else:
+    URL_BASE = f"{S3_ENDPOINT.rstrip('/')}/{S3_BUCKET}/{S3_KEY_PREFIX}"
 
 MAX_UPLOAD_SIZE = 5 * 1024 * 1024  # 5 MB
 ACCEPTED_FILE_TYPES = {
@@ -45,7 +49,10 @@ s3_client = boto3.client(
     endpoint_url=S3_ENDPOINT,
     aws_access_key_id=S3_ACCESS_KEY,
     aws_secret_access_key=S3_SECRET_KEY,
-    config=Config(signature_version="s3v4"),
+    config=Config(
+        signature_version="s3v4",
+        s3={"addressing_style": "virtual" if S3_CUSTOM_DOMAIN else "path"},
+    ),
 )
 
 
