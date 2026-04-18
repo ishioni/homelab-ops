@@ -1,16 +1,3 @@
-# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/backend_v1alpha1.json
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: Backend
-metadata:
-  name: cdn-proxy
-spec:
-  endpoints:
-    - fqdn:
-        hostname: cdn.s3.${PRIVATE_DOMAIN}
-        port: 443
-  tls:
-    insecureSkipVerify: true
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
