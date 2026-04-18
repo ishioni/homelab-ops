@@ -11,7 +11,7 @@ spec:
   interval: 30m
   values:
     logLevel: &logLevel info
-    annotationFilter: unifi.external-dns.alpha.kubernetes.io/exclude!=true
+    annotationFilter: unifi.external-dns.alpha.kubernetes.io/exclude notin (true)
     domainFilters: ["${PUBLIC_DOMAIN}", "${PRIVATE_DOMAIN}"]
     policy: sync
     sources: [gateway-httproute, service, ingress]
