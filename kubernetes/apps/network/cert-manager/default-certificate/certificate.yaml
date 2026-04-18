@@ -8,6 +8,7 @@ spec:
   dnsNames:
     - "${PUBLIC_DOMAIN}"
     - "*.${PUBLIC_DOMAIN}"
+    - "*.rcdn.${PUBLIC_DOMAIN}"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
