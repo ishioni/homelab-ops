@@ -16,6 +16,8 @@ services:
       RUSTFS_OBS_TRACES_EXPORT_ENABLED: "false"
       RUSTFS_OBS_LOGS_EXPORT_ENABLED: "false"
       RUSTFS_OBS_PROFILING_EXPORT_ENABLED: "false"
+      RUSTFS_OBS_USE_STDOUT: "false"
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
     networks:
       apps:
     expose:
