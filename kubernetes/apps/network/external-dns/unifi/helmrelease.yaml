@@ -11,7 +11,7 @@ spec:
   interval: 30m
   values:
     logLevel: &logLevel info
-    domainFilters: ["${PUBLIC_DOMAIN}", "${PRIVATE_DOMAIN}", "*.traefik.${PRIVATE_DOMAIN}"]
+    domainFilters: ["${PUBLIC_DOMAIN}", "*.rcdn.${PUBLIC_DOMAIN}", "${PRIVATE_DOMAIN}"]
     policy: sync
     sources: [gateway-httproute, service, ingress]
     triggerLoopOnEvent: true

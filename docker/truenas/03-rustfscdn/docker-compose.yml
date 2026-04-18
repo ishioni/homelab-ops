@@ -5,7 +5,7 @@ services:
     container_name: rustfscdn
     restart: unless-stopped
     environment:
-      # RUSTFS_SERVER_DOMAINS: ${S3_HOST}
+      RUSTFS_SERVER_DOMAINS: ${S3_HOST}
       RUSTFS_REGION: "eu-central-1"
       RUSTFS_CONSOLE_ENABLE: "true"
       RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY}
@@ -22,7 +22,10 @@ services:
       # S3
       traefik.http.services.rcdn.loadbalancer.server.port: *s3port
       traefik.http.routers.rcdn.entrypoints: https
-      traefik.http.routers.rcdn.rule: Host(`${S3_HOST}`)
+      traefik.http.routers.rcdn.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
+      traefik.http.routers.rcdn.tls.certresolver: letsencrypt
+      traefik.http.routers.rcdn.tls.domains[0].main: ${S3_HOST}
+      traefik.http.routers.rcdn.tls.domains[0].sans: "*.${S3_HOST}"
       traefik.http.routers.rcdn.service: rcdn
       traefik.http.routers.rcdn.tls: true
       # Dashboard
