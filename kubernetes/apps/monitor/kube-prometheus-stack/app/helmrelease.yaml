@@ -129,6 +129,7 @@ spec:
         scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        enableOTLPReceiver: true
         enabledFeatures:
           - memory-snapshot-on-shutdown
         retention: 2d
