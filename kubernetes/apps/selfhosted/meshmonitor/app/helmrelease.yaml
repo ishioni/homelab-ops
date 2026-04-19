@@ -12,6 +12,17 @@ spec:
   values:
     controllers:
       meshmonitor:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret meshmonitor-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18.3@sha256:6fa1f331cddd2eb0b6afa7b8d3685c864127a81ab01c3d9400bc3ff5263a51cf
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
         pod:
           securityContext:
             runAsUser: 1000
@@ -32,6 +43,9 @@ spec:
               COOKIE_SECURE: "true"
               ALLOWED_ORIGINS: https://${HOSTNAME}
               TZ: ${CONFIG_TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: *secret
             probes:
               liveness: &probes
                 enabled: true
