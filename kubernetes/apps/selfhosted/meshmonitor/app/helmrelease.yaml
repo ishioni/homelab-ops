@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.6.2/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: meshmonitor
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: meshmonitor
+  interval: 30m
+  values:
+    controllers:
+      meshmonitor:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret meshmonitor-secret
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18.3@sha256:6fa1f331cddd2eb0b6afa7b8d3685c864127a81ab01c3d9400bc3ff5263a51cf
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: *secret
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: &gid 1000
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          app:
+            image:
+              repository: ghcr.io/yeraze/meshmonitor
+              tag: 4.0.0-beta6
+            env:
+              MESHTASTIC_NODE_IP: 10.1.3.22
+              MESHTASTIC_USE_TLS: "true"
+              NODE_ENV: production
+              PORT: &port 3001
+              TRUST_PROXY: "true"
+              COOKIE_SECURE: "true"
+              ALLOWED_ORIGINS: https://${HOSTNAME}
+              TZ: ${CONFIG_TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: *secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 500Mi
+              limits:
+                memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              runAsNonRoot: true
+              capabilities: {drop: ["ALL"]}
+    service:
+      app:
+        controller: meshmonitor
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Meshmonitor
+          gethomepage.dev/icon: meshmonitor.svg
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    persistence:
+      data:
+        existingClaim: ${PVC_CLAIM}

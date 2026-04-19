@@ -14,6 +14,7 @@ resources:
   - ./go2rtc/ks.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
+  - ./meshmonitor/ks.yaml
   - ./navidrome/ks.yaml
   - ./opencloud/ks.yaml
   - ./paperless/ks.yaml

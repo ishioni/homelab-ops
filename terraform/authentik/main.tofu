@@ -12,86 +12,96 @@ terraform {
       source  = "goauthentik/authentik"
       version = "2025.12.1"
     }
+    onepassword = {
+      source = "1Password/onepassword"
+      version = "3.3.1"
+    }
   }
 }
 
 module "secret_authentik" {
   # Remember to export OP_CONNECT_HOST and OP_CONNECT_TOKEN
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "authentik"
 }
 
 module "secret_immich" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "immich"
 }
 
 module "secret_grafana" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "grafana"
 }
 
 module "secret_nextcloud" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "nextcloud"
 }
 
 module "secret_tandoor" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "tandoor"
 }
 
 module "secret_audiobookshelf" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "audiobookshelf"
 }
 
 module "secret_paperless" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "paperless"
 }
 
 module "secret_romm" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "romm"
 }
 
 module "secret_vaultwarden" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "vaultwarden"
 }
 
 module "secret_openwebui" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "openwebui"
 }
 
 module "secret_readur" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault = "Homelab"
   item = "readur"
 }
 
 module "secret_qui" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault = "Homelab"
   item = "qui"
 }
 
 module "secret_fluxcd" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault = "Homelab"
   item = "flux"
+}
+
+module "secret_meshmonitor" {
+  source = "./modules/1password-item"
+  vault = "Homelab"
+  item = "meshmonitor"
 }
 
 provider "authentik" {
