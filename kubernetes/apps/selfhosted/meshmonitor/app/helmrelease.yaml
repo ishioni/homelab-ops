@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.6.2/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: meshmonitor
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: meshmonitor
+  interval: 30m
+  values:
+    controllers:
+      meshmonitor:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/yeraze/meshmonitor
+              tag: 4.0.0-beta6
+            env:
+              MESHTASTIC_NODE_IP: 10.1.3.22
+              MESHTASTIC_USE_TLS: "true"
+              NODE_ENV: production
+              PORT: &port 3001
+              TRUST_PROXY: "true"
+              COOKIE_SECURE: "true"
+              ALLOWED_ORIGINS: https://${HOSTNAME}
+              TZ: ${CONFIG_TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 300Mi
+    service:
+      app:
+        controller: navidrome
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/name: Meshmonitor
+          gethomepage.dev/icon: meshmonitor.svg
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    persistence:
+      data:
+        existingClaim: ${PVC_CLAIM}

@@ -94,6 +94,12 @@ module "secret_fluxcd" {
   item = "flux"
 }
 
+module "secret_meshmonitor" {
+  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  vault = "Homelab"
+  item = "meshmonitor"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["ENDPOINT_URL"]
   token = module.secret_authentik.fields["TERRAFORM_TOKEN"]

@@ -210,6 +210,22 @@ module "oauth2-immich" {
   ]
 }
 
+module "oauth2-meshmonitor" {
+  source             = "./oauth2_application"
+  name               = "Meshmonitor"
+  icon_url           = "https://raw.githubusercontent.com/Yeraze/meshmonitor/refs/heads/main/public/meshtastic-logo.svg"
+  launch_url         = "https://meshmonitor.${var.public_domain}"
+  description        = "Meshtastic client"
+  newtab             = true
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.infrastructure.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_meshmonitor.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_meshmonitor.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://meshmonitor.${var.public_domain}/api/auth/oidc/callback"]
+}
+
 module "oauth2-paperless" {
   source             = "./oauth2_application"
   name               = "Paperless"
