@@ -54,7 +54,7 @@ spec:
               capabilities: {drop: ["ALL"]}
     service:
       app:
-        controller: navidrome
+        controller: meshmonitor
         ports:
           http:
             port: *port
