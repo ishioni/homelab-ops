@@ -12,6 +12,12 @@ spec:
   values:
     controllers:
       meshmonitor:
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: &gid 1000
+            fsGroup: *gid
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
@@ -41,6 +47,11 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              runAsNonRoot: true
+              capabilities: {drop: ["ALL"]}
     service:
       app:
         controller: navidrome
