@@ -62,6 +62,12 @@
       ignoreTests: true,
     },
     {
+      description: "Cap renovate container at 43.129.0 until issue is resolved",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/renovatebot/renovate"],
+      allowedVersions: "<= 43.129.0",
+    },
+    {
       description: "Auto-merge high-frequency docker images",
       matchDatasources: ["docker"],
       automerge: true,
