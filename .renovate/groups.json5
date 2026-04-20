@@ -22,6 +22,16 @@
       minimumGroupSize: 2,
     },
     {
+      description: "Toolhive Group",
+      groupName: "toolhive",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/toolhive-operator/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Flux Operator Group",
       groupName: "flux-operator",
       matchDatasources: ["docker"],
