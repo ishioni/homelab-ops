@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/slskd/slskd
-              tag: 0.24.5@sha256:17ef977563be206f3b5932080b1e23883b2cb39dc9010640f6f39b4eaec887e3
+              tag: 0.25.1@sha256:ab9ed50e028b524cefdb7c1dd8ebca368a076e18441ee8ac2326473eb850b4c3
             env:
               DOTNET_BUNDLE_EXTRACT_BASE_DIR: /tmp/.net
               TZ: ${CONFIG_TIMEZONE}
@@ -67,7 +67,7 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
+        runAsUser: 1000
         runAsGroup: 5000
         fsGroup: 5000
         fsGroupChangePolicy: OnRootMismatch
