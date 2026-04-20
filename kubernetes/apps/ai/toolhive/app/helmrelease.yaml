@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: toolhive-operator-crds
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: toolhive-operator-crds
+  interval: 30m
+  values:
+    resources:
+      limits:
+        cpu:
+        memory: 512Mi
+    gc:
+      gomemlimit: 480Mi
