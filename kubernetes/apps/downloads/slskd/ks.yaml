@@ -20,6 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      APP_UID: "1000"
       HOSTNAME: slskd.${PUBLIC_DOMAIN}
       PVC_CLAIM: slskd-config
   prune: true
