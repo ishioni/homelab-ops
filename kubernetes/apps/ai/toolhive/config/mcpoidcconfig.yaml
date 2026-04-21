@@ -7,7 +7,7 @@ metadata:
 spec:
   type: inline
   inline:
-    issuer: https://${AUTH_HOSTNAME}/application/o/toolhive/
+    issuer: https://${HOSTNAME}
     clientId: toolhive
     clientSecretRef:
       key: OIDC_CLIENT_SECRET
