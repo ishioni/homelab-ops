@@ -10,5 +10,5 @@ spec:
       app.kubernetes.io/name: virtualmcpserver
       app.kubernetes.io/instance: mcp-gateway
   podMetricsEndpoints:
-    - port: "8080"
+    - port: "4483"
       path: /metrics
