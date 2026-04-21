@@ -255,7 +255,7 @@ module "oauth2-toolhive" {
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = module.secret_toolhive.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_toolhive.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://mcp.${var.private_domain}/oauth/callback"]
+  redirect_uris      = ["https://mcp.${var.public_domain}/oauth/callback"]
 }
 
 # module "oauth2-romm" {

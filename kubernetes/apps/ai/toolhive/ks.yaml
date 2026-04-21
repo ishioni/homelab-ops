@@ -53,7 +53,7 @@ spec:
       app.kubernetes.io/name: *app
   postBuild:
     substitute:
-      HOSTNAME: mcp.${PRIVATE_DOMAIN}
+      HOSTNAME: mcp.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
   dependsOn:
     - name: toolhive-operator
