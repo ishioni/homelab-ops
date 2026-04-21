@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/toolhive.stacklok.dev/virtualmcpserver_v1alpha1.json
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/virtualmcpserver_v1alpha1.json
 apiVersion: toolhive.stacklok.dev/v1alpha1
 kind: VirtualMCPServer
 metadata:
@@ -9,10 +9,10 @@ spec:
     issuer: https://${HOSTNAME}
     signingKeySecretRefs:
       - name: toolhive-secret
-        key: signing-key
+        key: EC_SIGNING_KEY
     hmacSecretRefs:
       - name: toolhive-secret
-        key: hmac-key
+        key: HMAC_KEY
     tokenLifespans:
       accessTokenLifespan: 1h
       refreshTokenLifespan: 168h
@@ -21,21 +21,22 @@ spec:
       - name: authentik
         type: oidc
         oidcConfig:
-          issuerUrl: https://${AUTH_HOSTNAME}
-          clientId: b503054f-dc60-4c71-8e60-47d38fdbcdfe
+          issuerUrl: https://${AUTH_HOSTNAME}/application/o/toolhive/
+          clientId: toolhive
           clientSecretRef:
             name: toolhive-secret
-            key: client-secret
-          redirectUri: https://${HOSTNAME/oauth/callback
+            key: OIDC_CLIENT_SECRET
+          redirectUri: https://${HOSTNAME}/oauth/callback
           scopes:
             - openid
             - profile
             - email
+            - offline_access
   config:
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
-        prefixFormat: "{workload}_"
+        prefixFormat: "{workload}."
   groupRef:
     name: mcp-tools
   incomingAuth:
@@ -43,19 +44,17 @@ spec:
     oidcConfigRef:
       name: authentik
       audience: "toolhive"
-    # oidcConfig:
-    #   type: inline
-    #   resourceUrl: https://mcp.${SECRET_DOMAIN}/mcp
-    #   inline:
-    #     audience: https://mcp.${SECRET_DOMAIN}/mcp
-    #     issuer: https://mcp.${SECRET_DOMAIN}
-    #     jwksAllowPrivateIP: true
   outgoingAuth:
     source: discovered
-  podTemplateSpec:
-    spec:
-      containers:
-        - name: vmcp
-          env:
-            - name: INSECURE_DISABLE_URL_VALIDATION
-              value: "true"
+  sessionStorage:
+    address: dragonfly.database.svc.cluster.local:6379
+    db: 9
+    provider: redis
+    keyPrefix: vmcp-sessions
+  # podTemplateSpec:
+  #   spec:
+  #     containers:
+  #       - name: vmcp
+  #         env:
+  #           - name: INSECURE_DISABLE_URL_VALIDATION
+  #             value: "true"
