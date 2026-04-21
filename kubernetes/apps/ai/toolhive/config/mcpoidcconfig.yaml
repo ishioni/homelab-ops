@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpoidcconfig_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPOIDCConfig
+metadata:
+  name: authentik
+spec:
+  type: inline
+  inline:
+    issuer: https://${AUTH_HOSTNAME}/application/o/toolhive/
+    clientId: toolhive
+    clientSecretRef:
+      key: OIDC_CLIENT_SECRET
+      name: toolhive-secret

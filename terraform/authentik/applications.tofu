@@ -242,6 +242,22 @@ module "oauth2-paperless" {
   redirect_uris      = ["https://documents.${var.private_domain}/accounts/oidc/authentik/login/callback/"]
 }
 
+module "oauth2-toolhive" {
+  source             = "./oauth2_application"
+  name               = "Toolhive"
+  icon_url           = "https://raw.githubusercontent.com/stacklok/toolhive/refs/heads/main/docs/images/stacklok-favicon.svg"
+  launch_url         = "https://mcp.${var.private_domain}"
+  description        = "MCPs for Clankers"
+  newtab             = true
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.infrastructure.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_toolhive.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_toolhive.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://mcp.${var.private_domain}/oauth/callback"]
+}
+
 # module "oauth2-romm" {
 #   source             = "./oauth2_application"
 #   name               = "Romm"

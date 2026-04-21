@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/virtualmcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: VirtualMCPServer
+metadata:
+  name: mcp-gateway
+spec:
+  authServerConfig:
+    issuer: https://${HOSTNAME}
+    signingKeySecretRefs:
+      - name: toolhive-secret
+        key: EC_SIGNING_KEY
+    hmacSecretRefs:
+      - name: toolhive-secret
+        key: HMAC_KEY
+    tokenLifespans:
+      accessTokenLifespan: 1h
+      refreshTokenLifespan: 168h
+      authCodeLifespan: 10m
+    upstreamProviders:
+      - name: authentik
+        type: oidc
+        oidcConfig:
+          issuerUrl: https://${AUTH_HOSTNAME}/application/o/toolhive/
+          clientId: toolhive
+          clientSecretRef:
+            name: toolhive-secret
+            key: OIDC_CLIENT_SECRET
+          redirectUri: https://${HOSTNAME}/oauth/callback
+          scopes:
+            - openid
+            - profile
+            - email
+            - offline_access
+  config:
+    aggregation:
+      conflictResolution: prefix
+      conflictResolutionConfig:
+        prefixFormat: "{workload}."
+  groupRef:
+    name: mcp-tools
+  incomingAuth:
+    type: oidc
+    oidcConfigRef:
+      name: authentik
+      audience: "toolhive"
+  outgoingAuth:
+    source: discovered
+  sessionStorage:
+    address: dragonfly.database.svc.cluster.local:6379
+    db: 9
+    provider: redis
+    keyPrefix: vmcp-sessions
+  # podTemplateSpec:
+  #   spec:
+  #     containers:
+  #       - name: vmcp
+  #         env:
+  #           - name: INSECURE_DISABLE_URL_VALIDATION
+  #             value: "true"

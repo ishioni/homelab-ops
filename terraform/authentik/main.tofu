@@ -104,6 +104,12 @@ module "secret_meshmonitor" {
   item = "meshmonitor"
 }
 
+module "secret_toolhive" {
+  source = "./modules/1password-item"
+  vault = "Homelab"
+  item = "toolhive"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["ENDPOINT_URL"]
   token = module.secret_authentik.fields["TERRAFORM_TOKEN"]
