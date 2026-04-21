@@ -6,7 +6,7 @@ metadata:
   name: mcp-gateway
 spec:
   authServerConfig:
-    issuer: https://${HOSTNAME}
+    issuer: https://${AUTH_HOSTNAME}/application/o/toolhive/
     signingKeySecretRefs:
       - name: toolhive-secret
         key: EC_SIGNING_KEY
