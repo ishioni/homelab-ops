@@ -28,8 +28,9 @@
     {
       description: "Pin Cloudflare Terraform provider to 4.52.x (hold off on v5)",
       matchDatasources: ["terraform-provider"],
-      matchPackageNames: ["cloudflare"],
-      allowedVersions: "~4.52",
+      matchDepNames: ["cloudflare"],
+      matchDepTypes: ["required_provider"],
+      allowedVersions: "<4.53",
     },
   ],
 }
