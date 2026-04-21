@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: flux-operator
 spec:
-  image: ghcr.io/controlplaneio-fluxcd/flux-operator-mcp:v0.47.0
+  image: ghcr.io/controlplaneio-fluxcd/flux-operator-mcp:v0.48.0
   transport: stdio
   groupRef:
     name: mcp-tools
