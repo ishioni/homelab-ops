@@ -28,3 +28,5 @@ Chart.lock
 Brewfile.lock.json
 # tf locks
 .terraform.lock.hcl
+#Clankers
+.claude

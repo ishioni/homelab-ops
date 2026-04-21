@@ -66,5 +66,10 @@
       matchPackageNames: ["/scrutiny/"],
       sourceUrl: "https://github.com/Starosdev/scrutiny",
     },
+    {
+      description: "Changelog for toolhive",
+      matchPackageNames: ["/toolhive/"],
+      sourceUrl: "https://github.com/stacklok/toolhive",
+    },
   ],
 }
