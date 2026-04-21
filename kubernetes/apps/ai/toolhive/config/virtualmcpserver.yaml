@@ -49,6 +49,8 @@ spec:
       resourceUrl: https://${HOSTNAME}/mcp
       scopes:
         - openid
+        - profile
+        - email
         - offline_access
   outgoingAuth:
     source: discovered
