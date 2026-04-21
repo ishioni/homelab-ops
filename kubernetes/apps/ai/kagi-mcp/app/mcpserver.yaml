@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserver_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServer
+metadata:
+  name: kagi
+spec:
+  image: ghcr.io/ishioni/kagi-search-mcp:0.1.5
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  secrets:
+    - name: kagi-mcp-secret
+      key: KAGI_API_KEY
