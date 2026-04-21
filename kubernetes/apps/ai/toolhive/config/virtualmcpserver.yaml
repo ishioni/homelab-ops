@@ -45,6 +45,9 @@ spec:
       name: authentik
       audience: https://${HOSTNAME}/mcp
       resourceUrl: https://${HOSTNAME}/mcp
+      scopes:
+        - openid
+        - offline_access
   outgoingAuth:
     source: discovered
   sessionStorage:
