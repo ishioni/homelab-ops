@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: toolhive-operator-crds
+  name: toolhive-operator
 spec:
   interval: 1h
   layerSelector:
