@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: flux-operator
+spec:
+  image: ghcr.io/controlplaneio-fluxcd/flux-operator-mcp:v0.47.0
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  args:
+    - serve
+    - --read-only
+  serviceAccount: flux-operator-mcp-sa
