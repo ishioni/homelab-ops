@@ -8,3 +8,4 @@ spec:
   type: inline
   inline:
     issuer: https://${HOSTNAME}
+    jwksAllowPrivateIP: true
