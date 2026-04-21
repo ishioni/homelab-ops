@@ -52,10 +52,10 @@ spec:
     db: 9
     provider: redis
     keyPrefix: vmcp-sessions
-  # podTemplateSpec:
-  #   spec:
-  #     containers:
-  #       - name: vmcp
-  #         env:
-  #           - name: INSECURE_DISABLE_URL_VALIDATION
-  #             value: "true"
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: vmcp
+          env:
+            - name: INSECURE_DISABLE_URL_VALIDATION
+              value: "true"

@@ -9,4 +9,4 @@ spec:
   inline:
     issuer: https://${HOSTNAME}
     jwksAllowPrivateIP: true
-    protectedResourceAllowPrivateIP: true
+    # protectedResourceAllowPrivateIP: true
