@@ -43,7 +43,8 @@ spec:
     type: oidc
     oidcConfigRef:
       name: authentik
-      audience: "toolhive"
+      audience: https://${HOSTNAME}/mcp
+      resourceUrl: https://${HOSTNAME}/mcp
   outgoingAuth:
     source: discovered
   sessionStorage:
