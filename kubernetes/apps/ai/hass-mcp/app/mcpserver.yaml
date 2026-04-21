@@ -3,7 +3,7 @@
 apiVersion: toolhive.stacklok.dev/v1alpha1
 kind: MCPServer
 metadata:
-  name: hass-mcp
+  name: hass
 spec:
   image: ghcr.io/homeassistant-ai/ha-mcp:7.3.0
   transport: streamable-http
