@@ -31,7 +31,6 @@ spec:
             - openid
             - profile
             - email
-            - offline_access
   config:
     aggregation:
       conflictResolution: prefix
