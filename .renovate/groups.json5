@@ -35,7 +35,10 @@
       description: "Flux Operator Group",
       groupName: "flux-operator",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/flux-instance/", "/flux-operator/"],
+      matchPackageNames: [
+        "ghcr.io/controlplaneio-fluxcd/charts/flux-instance",
+        "ghcr.io/controlplaneio-fluxcd/charts/flux-operator",
+      ],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
