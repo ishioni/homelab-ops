@@ -51,7 +51,7 @@ spec:
     address: dragonfly.database.svc.cluster.local:6379
     db: 9
     provider: redis
-    keyPrefix: vmcp-sessions
+    keyPrefix: "vmcp-sessions:"
   podTemplateSpec:
     spec:
       containers:
