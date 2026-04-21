@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: prometheus-mcp
+spec:
+  image: ghcr.io/pab1it0/prometheus-mcp-server:1.6.0
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: PROMETHEUS_URL
+      value: http://thanos-query.monitor.svc.cluster.local:10902
+    - name: PROMETHEUS_DISABLE_LINKS
+      value: "true"
