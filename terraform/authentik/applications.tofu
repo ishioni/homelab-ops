@@ -246,7 +246,7 @@ module "oauth2-toolhive" {
   source             = "./oauth2_application"
   name               = "Toolhive"
   icon_url           = "https://raw.githubusercontent.com/stacklok/toolhive/refs/heads/main/docs/images/stacklok-favicon.svg"
-  launch_url         = "https://mcp.${var.private_domain}"
+  launch_url         = "https://mcp.${var.public_domain}"
   description        = "MCPs for Clankers"
   newtab             = true
   group              = "Selfhosted"
