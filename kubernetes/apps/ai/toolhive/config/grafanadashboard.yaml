@@ -6,6 +6,7 @@ metadata:
   name: mcp-gateway
 spec:
   allowCrossNamespaceImport: true
+  folder: Operators
   instanceSelector:
     matchLabels:
       dashboards: grafana
