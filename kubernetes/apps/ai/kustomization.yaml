@@ -7,6 +7,7 @@ components:
   - ../../components/alerts
   - ../../components/namespace
 resources:
+  - ./context7-mcp/ks.yaml
   - ./hass-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
