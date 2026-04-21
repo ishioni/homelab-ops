@@ -34,5 +34,5 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - name: vmcp-mcp-gateway
+        - name: vmcp-mcp-gateway-internal
           port: 4483
