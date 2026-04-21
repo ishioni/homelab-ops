@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserver_v1alpha1.json
+apiVersion: toolhive.stacklok.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: github
+spec:
+  image: ghcr.io/github/github-mcp-server:v1.0.1@sha256:3cbaa5d2d80a2308eca3cdb57b8dce3333a4eb2cfa163653a9122b0d1704bba5
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  secrets:
+    - name: github-mcp-secret
+      key: GITHUB_PERSONAL_ACCESS_TOKEN
