@@ -12,3 +12,17 @@ spec:
   podMetricsEndpoints:
     - port: http
       path: /metrics
+---
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/monitoring.coreos.com/podmonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: mcp-gateway-internal
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: virtualmcpserver
+      app.kubernetes.io/instance: mcp-gateway-internal
+  podMetricsEndpoints:
+    - port: http
+      path: /metrics
