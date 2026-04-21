@@ -6,6 +6,9 @@ metadata:
   name: mcp-gateway
 spec:
   allowCrossNamespaceImport: true
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
   folder: Operators
   instanceSelector:
     matchLabels:
