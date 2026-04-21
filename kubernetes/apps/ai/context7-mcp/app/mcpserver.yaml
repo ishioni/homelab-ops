@@ -7,6 +7,8 @@ metadata:
 spec:
   image: ghcr.io/stacklok/dockyard/npx/context7:2.1.4
   transport: stdio
+  groupRef:
+    name: mcp-tools
   proxyPort: 8080
   secrets:
     - name: context7-mcp-secret
