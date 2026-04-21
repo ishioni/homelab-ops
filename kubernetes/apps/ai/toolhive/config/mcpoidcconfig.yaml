@@ -8,7 +8,3 @@ spec:
   type: inline
   inline:
     issuer: https://${HOSTNAME}
-    clientId: toolhive
-    clientSecretRef:
-      key: OIDC_CLIENT_SECRET
-      name: toolhive-secret
