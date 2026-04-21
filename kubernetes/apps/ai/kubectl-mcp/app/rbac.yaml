@@ -95,5 +95,5 @@ roleRef:
   name: kubectl-mcp-write-restricted
 subjects:
   - kind: ServiceAccount
-    name: kubectl-mcp-sa
+    name: kubectl-sa
     namespace: ai
