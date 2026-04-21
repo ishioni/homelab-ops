@@ -25,5 +25,11 @@
       matchPackagePatterns: ["tensorchord/vchord-scratch"],
       versioning: "regex:^pg18-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
     },
+    {
+      description: "Pin Cloudflare Terraform provider to 4.52.x (hold off on v5)",
+      matchDatasources: ["terraform-provider"],
+      matchPackageNames: ["cloudflare"],
+      allowedVersions: "~4.52",
+    },
   ],
 }
