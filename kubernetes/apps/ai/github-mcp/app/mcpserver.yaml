@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: github
 spec:
-  image: ghcr.io/github/github-mcp-server:v1.0.1@sha256:3cbaa5d2d80a2308eca3cdb57b8dce3333a4eb2cfa163653a9122b0d1704bba5
+  image: ghcr.io/github/github-mcp-server:v1.0.2@sha256:26db03408086a99cf1916348dcc4f9614206658f9082a8060dc7c81ad787f4ba
   transport: stdio
   groupRef:
     name: mcp-tools
