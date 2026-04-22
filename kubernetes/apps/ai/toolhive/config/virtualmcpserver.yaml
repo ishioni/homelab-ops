@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/virtualmcpserver_v1alpha1.json
-apiVersion: toolhive.stacklok.dev/v1alpha1
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/virtualmcpserver_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
 kind: VirtualMCPServer
 metadata:
   name: mcp-gateway
