@@ -11,7 +11,6 @@ resources:
   - ./flux-operator-mcp/ks.yaml
   - ./github-mcp/ks.yaml
   - ./hass-mcp/ks.yaml
-  - ./kagi-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
   - ./toolhive/ks.yaml
