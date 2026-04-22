@@ -13,4 +13,5 @@ resources:
   - ./hass-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
+  - ./searxng-mcp/ks.yaml
   - ./toolhive/ks.yaml
