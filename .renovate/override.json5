@@ -26,6 +26,12 @@
       versioning: "regex:^pg18-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
     },
     {
+      description: "Use loose versioning for SearXNG date+commit image tags",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/searxng/searxng"],
+      versioning: "loose",
+    },
+    {
       description: "Pin Cloudflare Terraform provider to 4.52.x (hold off on v5)",
       matchDatasources: ["terraform-provider"],
       matchDepNames: ["cloudflare"],
