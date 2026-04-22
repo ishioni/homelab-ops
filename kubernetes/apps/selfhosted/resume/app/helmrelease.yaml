@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/resume
-              tag: 2026.04.162353
+              tag: 2026.04.221334
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
