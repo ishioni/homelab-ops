@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserver_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServer
+metadata:
+  name: searxng
+spec:
+  image: docker.io/isokoliuk/mcp-searxng:1.0.3
+  transport: stdio
+  groupRef:
+    name: mcp-tools
+  env:
+    - name: SEARXNG_URL
+      value: http://searxng.selfhosted.svc.cluster.local:8080
