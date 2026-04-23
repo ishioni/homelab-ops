@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app homelab-dashboard
+  namespace: &namespace monitor
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitor
+  interval: 30m
+  path: ./kubernetes/apps/monitor/homelab-dashboard/app
+  postBuild:
+    substitute:
+      HOSTNAME: homelab-dashboard.${PUBLIC_DOMAIN}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
+  wait: true
