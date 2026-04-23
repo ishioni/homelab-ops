@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/homelab-dashboard
-              tag: 0.1.0
+              tag: 0.2.0
             env:
               PROMETHEUS_URL: http://prometheus-operated.monitor.svc.cluster.local:9090
               PORT: &port 8080
