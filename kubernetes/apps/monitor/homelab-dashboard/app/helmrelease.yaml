@@ -66,6 +66,8 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+    serviceAccount:
+      homelab-dashboard: {}
     rbac:
       bindings:
         homelab-dashboard:
