@@ -27,7 +27,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthz
-                    port: *healthPort
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -77,8 +77,8 @@ spec:
             - identifier: homelab-dashboard
       roles:
         homelab-dashboard:
-           type: ClusterRole
-           rules:
+          type: ClusterRole
+          rules:
             - apiGroups: [""]
               resources:
                 - namespaces
