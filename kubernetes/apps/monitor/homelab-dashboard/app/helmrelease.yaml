@@ -1,0 +1,88 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.6.2/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homelab-dashboard
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: kromgo
+  interval: 30m
+  values:
+    controllers:
+      homelab-dashboard:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ishioni/homelab-dashboard
+              tag: 0.1.0
+            env:
+              PROMETHEUS_URL: http://prometheus-operated.monitor.svc.cluster.local:9090
+              PORT: &port 8080
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *healthPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+        serviceAccount:
+          identifier: homelab-dashboard
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: {type: RuntimeDefault}
+    service:
+      app:
+        controller: homelab-dashboard
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 200"]
+        hostnames: ["${HOSTNAME}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+    rbac:
+      bindings:
+        homelab-dashboard:
+          type: ClusterRoleBinding
+          roleRef:
+            kind: ClusterRole
+            name: homelab-dashboard
+          subjects:
+            - identifier: homelab-dashboard
+      roles:
+        homelab-dashboard:
+           type: ClusterRole
+           rules:
+            - apiGroups: [""]
+              resources:
+                - namespaces
+                - nodes
+                - pods
+                - events
+              verbs: ["get", "list", "watch"]
