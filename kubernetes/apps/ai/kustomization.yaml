@@ -12,6 +12,7 @@ resources:
   - ./github-mcp/ks.yaml
   - ./hass-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
+  - ./playwright-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml
   - ./searxng-mcp/ks.yaml
   - ./toolhive/ks.yaml
