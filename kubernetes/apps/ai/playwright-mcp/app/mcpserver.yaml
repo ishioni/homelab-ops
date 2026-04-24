@@ -18,3 +18,15 @@ spec:
     - "0.0.0.0"
     - "--allowed-hosts"
     - "*"
+  podTemplateSpec:
+    spec:
+      volumes:
+        - name: playwright-output
+          persistentVolumeClaim:
+            claimName: playwright-output-claim
+      containers:
+        - name: mcp
+          volumeMounts:
+            - mountPath: /browser-output
+              name: playwright-output
+              readOnly: false
