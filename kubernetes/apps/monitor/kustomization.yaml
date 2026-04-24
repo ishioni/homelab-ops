@@ -9,7 +9,6 @@ components:
 resources:
   - ./gatus/ks.yaml
   - ./grafana-operator/ks.yaml
-  - ./homelab-dashboard/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./nut-exporter/ks.yaml
