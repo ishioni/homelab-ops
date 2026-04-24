@@ -20,6 +20,7 @@ services:
         target: /poll-config.yml
     container_name: doco-cd
     environment:
+      GIT_CLONE_DEPTH: 1
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
