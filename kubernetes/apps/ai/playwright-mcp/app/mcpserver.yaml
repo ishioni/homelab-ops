@@ -6,6 +6,8 @@ metadata:
   name: playwright
 spec:
   image: mcr.microsoft.com/playwright/mcp:v0.0.70
+  groupRef:
+    name: mcp-tools
   transport: streamable-http
   mcpPort: 8931
   proxyPort: 8080
