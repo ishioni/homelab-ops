@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: kromgo
+    name: homelab-dashboard
   interval: 30m
   values:
     controllers:
@@ -16,8 +16,9 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/homelab-dashboard
-              tag: 0.2.0
+              tag: 0.3.0
             env:
+              CLUSTER_NAME: talos
               PROMETHEUS_URL: http://prometheus-operated.monitor.svc.cluster.local:9090
               PORT: &port 8080
             probes:
