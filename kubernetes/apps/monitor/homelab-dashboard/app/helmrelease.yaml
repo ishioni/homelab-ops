@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/homelab-dashboard
-              tag: 0.3.1
+              tag: 0.4.0
             env:
               CLUSTER_NAME: talos
               PROMETHEUS_URL: http://prometheus-operated.monitor.svc.cluster.local:9090
