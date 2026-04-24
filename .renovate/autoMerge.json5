@@ -48,6 +48,18 @@
       versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
     },
     {
+      description: "Auto-merge clanker test site",
+      matchDatasources: ["docker"],
+      automerge: true,
+      //automergeType: "branch",
+      matchUpdateTypes: ["major", "minor", "patch", "digest"],
+      matchPackageNames: ["ghcr.io/ishioni/homelab-dashboard"],
+      minimumReleaseAge: null,
+      minimumReleaseAgeBehaviour: "timestamp-optional",
+      internalChecksFilter: "none",
+      ignoreTests: true,
+    },
+    {
       description: "Auto-merge high-frequency OCI Charts",
       matchDatasources: ["docker"],
       automerge: true,
