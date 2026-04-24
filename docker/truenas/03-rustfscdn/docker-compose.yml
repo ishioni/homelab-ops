@@ -1,7 +1,7 @@
 ---
 services:
   rustfs-cdn:
-    image: docker.io/rustfs/rustfs:1.0.0-alpha.94
+    image: docker.io/rustfs/rustfs:1.0.0-alpha.98
     container_name: rustfscdn
     restart: unless-stopped
     environment:
