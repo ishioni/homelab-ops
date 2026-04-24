@@ -11,7 +11,7 @@ resources:
   - ./blog/ks.yaml
   - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
-  - ./denondashboard/ks.html
+  - ./denondashboard/ks.yaml
   - ./go2rtc/ks.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
