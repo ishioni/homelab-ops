@@ -16,9 +16,8 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/homelab-dashboard
-              tag: 0.3.0
+              tag: 0.2.0
             env:
-              CLUSTER_NAME: Talos
               PROMETHEUS_URL: http://prometheus-operated.monitor.svc.cluster.local:9090
               PORT: &port 8080
             probes:
@@ -84,27 +83,8 @@ spec:
           rules:
             - apiGroups: [""]
               resources:
+                - namespaces
+                - nodes
+                - pods
                 - events
-              verbs: ["get", "list", "watch"]
-            - apiGroups: ["kustomize.toolkit.fluxcd.io"]
-              resources:
-                - kustomizations
-              verbs: ["get", "list", "watch"]
-            - apiGroups: ["helm.toolkit.fluxcd.io"]
-              resources:
-                - helmreleases
-              verbs: ["get", "list", "watch"]
-            - apiGroups: ["source.toolkit.fluxcd.io"]
-              resources:
-                - gitrepositories
-                - ocirepositories
-              verbs: ["get", "list", "watch"]
-            - apiGroups: ["volsync.backube"]
-              resources:
-                - replicationsources
-              verbs: ["get", "list", "watch"]
-            - apiGroups: ["external-secrets.io"]
-              resources:
-                - externalsecrets
-                - clustersecretstores
               verbs: ["get", "list", "watch"]
