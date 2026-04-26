@@ -87,4 +87,4 @@ spec:
             sectionName: https
     persistence:
       data:
-        existingClaim: ${PVC_CLAIM}
+        type: emptyDir
