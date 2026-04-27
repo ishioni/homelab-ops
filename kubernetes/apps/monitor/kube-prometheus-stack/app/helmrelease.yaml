@@ -97,6 +97,11 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+    prometheusOperator:
+      thanosImage:
+        registry: quay.io
+        repository: thanos/thanos
+        tag: v0.41.0
     prometheus:
       route:
         main:
@@ -141,7 +146,6 @@ spec:
                 requests:
                   storage: 10Gi
         thanos:
-          image: quay.io/thanos/thanos:v0.41.0
           objectStorageConfig:
             existingSecret:
               name: thanos-objectstore-secret
