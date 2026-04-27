@@ -62,7 +62,7 @@ machine:
     extraConfig:
       serializeImagePulls: false
       imageMaximumGCAge: 24h
-    image: ghcr.io/siderolabs/kubelet:v1.35.4
+    image: ghcr.io/siderolabs/kubelet:v1.36.0
     nodeIP:
       validSubnets: ["10.1.2.0/24"]
   nodeLabels:
@@ -138,11 +138,11 @@ cluster:
     extraArgs:
       enable-aggregator-routing: "true"
       feature-gates: HPAScaleToZero=true
-    image: registry.k8s.io/kube-apiserver:v1.35.4
+    image: registry.k8s.io/kube-apiserver:v1.36.0
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-controller-manager:v1.35.4
+    image: registry.k8s.io/kube-controller-manager:v1.36.0
   etcd:
     advertisedSubnets: ["10.1.2.0/24"]
     ca:
@@ -152,7 +152,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.35.4
+    image: registry.k8s.io/kube-proxy:v1.36.0
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -165,7 +165,7 @@ cluster:
                 - name: ImageLocality
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.35.4
+    image: registry.k8s.io/kube-scheduler:v1.36.0
   secretboxEncryptionSecret: op://homelab/talos/SECRETBOX_ENCRYPTION_SECRET
   serviceAccount:
     key: op://homelab/talos/SERVICEACCOUNT_KEY
