@@ -32,5 +32,6 @@ spec:
     kind: GitRepository
     name: homelab-ops
     namespace: flux-system
+  timeout: 10m
   targetNamespace: *namespace
   wait: true
