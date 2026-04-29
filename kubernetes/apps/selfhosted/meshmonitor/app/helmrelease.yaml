@@ -9,6 +9,7 @@ spec:
     kind: OCIRepository
     name: meshmonitor
   interval: 30m
+  timeout: 10m
   values:
     controllers:
       meshmonitor:
@@ -55,6 +56,17 @@ spec:
                     path: /api/health
                     port: *port
               readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: *port
+                  initialDelaySeconds: 1
+                  periodSeconds: 5
+                  successThreshold: 1
+                  failureThreshold: 15
             resources:
               requests:
                 cpu: 50m
