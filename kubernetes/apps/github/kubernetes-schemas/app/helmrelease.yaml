@@ -9,23 +9,6 @@ spec:
     kind: OCIRepository
     name: kubernetes-schemas
   interval: 30m
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              group: grafana.integreatly.org
-              version: v1beta1
-              kind: GrafanaDashboard
-              name: kubernetes-schemas-dashboard
-            patch: |
-              - op: replace
-                path: /spec/instanceSelector
-                value:
-                  matchLabels:
-                    grafana.internal/instance: grafana
-              - op: add
-                path: /spec/folder
-                value: Operators
   values:
     config:
       cfPagesProject: homelab-schema
@@ -39,6 +22,9 @@ spec:
       dashboard:
         operator:
           enabled: true
+          defaultInstanceSelector:
+            enabled: false
+          folder: Operators
           instanceSelector:
             matchLabels:
               grafana.internal/instance: grafana
