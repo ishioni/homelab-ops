@@ -23,6 +23,9 @@ spec:
                 value:
                   matchLabels:
                     grafana.internal/instance: grafana
+              - op: add
+                path: /spec/folder
+                value: Operators
   values:
     config:
       cfPagesProject: homelab-schema
@@ -39,7 +42,6 @@ spec:
           instanceSelector:
             matchLabels:
               grafana.internal/instance: grafana
-          folderRef: Operators
           datasources:
             - datasourceName: prometheus
               inputName: DS_PROMETHEUS
