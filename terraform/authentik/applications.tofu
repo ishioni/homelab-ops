@@ -142,21 +142,21 @@ module "proxy-bazarr" {
 
 # OAuth apps
 
-module "oauth2-qui" {
-  source             = "./oauth2_application"
-  name               = "Qui"
-  icon_url           = "https://raw.githubusercontent.com/autobrr/qui/refs/heads/main/web/public/qui.png"
-  launch_url         = "https://qui.${var.private_domain}"
-  description        = "Torrent UI"
-  newtab             = true
-  group              = "Downloads"
-  auth_groups        = [authentik_group.downloads.id]
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = module.secret_qui.fields["OIDC_CLIENT_ID"]
-  client_secret      = module.secret_qui.fields["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://qui.${var.private_domain}/api/auth/oidc/callback"]
-}
+# module "oauth2-qui" {
+#   source             = "./oauth2_application"
+#   name               = "Qui"
+#   icon_url           = "https://raw.githubusercontent.com/autobrr/qui/refs/heads/main/web/public/qui.png"
+#   launch_url         = "https://qui.${var.private_domain}"
+#   description        = "Torrent UI"
+#   newtab             = true
+#   group              = "Downloads"
+#   auth_groups        = [authentik_group.downloads.id]
+#   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+#   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+#   client_id          = module.secret_qui.fields["OIDC_CLIENT_ID"]
+#   client_secret      = module.secret_qui.fields["OIDC_CLIENT_SECRET"]
+#   redirect_uris      = ["https://qui.${var.private_domain}/api/auth/oidc/callback"]
+# }
 
 
 module "oauth2-grafana" {
@@ -229,7 +229,7 @@ module "oauth2-meshmonitor" {
 module "oauth2-paperless" {
   source             = "./oauth2_application"
   name               = "Paperless"
-  icon_url           = "https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/dev/resources/logo/web/svg/Color%20logo%20-%20no%20background.svg"
+  icon_url           = "https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/src/paperless/static/paperless/img/favicon.ico"
   launch_url         = "https://documents.${var.private_domain}"
   description        = "Documents"
   newtab             = true
@@ -320,7 +320,6 @@ module "oauth2-opencloud" {
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
   client_id          = "web"
-  # additional_property_mappings = formatlist(authentik_scope_mapping.openid-nextcloud.id)
   redirect_uris = [
     "https://opencloud.${var.public_domain}",
     "https://opencloud.${var.public_domain}/oidc-callback.html",

@@ -38,58 +38,16 @@ module "secret_grafana" {
   item   = "grafana"
 }
 
-module "secret_nextcloud" {
-  source = "./modules/1password-item"
-  vault  = "Homelab"
-  item   = "nextcloud"
-}
-
-module "secret_tandoor" {
-  source = "./modules/1password-item"
-  vault  = "Homelab"
-  item   = "tandoor"
-}
-
-module "secret_audiobookshelf" {
-  source = "./modules/1password-item"
-  vault  = "Homelab"
-  item   = "audiobookshelf"
-}
-
 module "secret_paperless" {
   source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "paperless"
 }
 
-module "secret_romm" {
-  source = "./modules/1password-item"
-  vault  = "Homelab"
-  item   = "romm"
-}
-
 module "secret_vaultwarden" {
   source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "vaultwarden"
-}
-
-module "secret_openwebui" {
-  source = "./modules/1password-item"
-  vault  = "Homelab"
-  item   = "openwebui"
-}
-
-module "secret_readur" {
-  source = "./modules/1password-item"
-  vault = "Homelab"
-  item = "readur"
-}
-
-module "secret_qui" {
-  source = "./modules/1password-item"
-  vault = "Homelab"
-  item = "qui"
 }
 
 module "secret_fluxcd" {
