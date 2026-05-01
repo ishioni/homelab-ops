@@ -1,5 +1,7 @@
 ---
-role_quotas: {}
+role_quotas:
+  "71881883-1768-46bd-a24d-a356a2afdf7f": 20000000000
+  "d7beeea8-8ff4-406b-8fb6-ab2dd81e6b11": 10000000000
 role_assignment:
   driver: oidc
   oidc_role_mapper:
