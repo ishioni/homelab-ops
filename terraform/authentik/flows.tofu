@@ -148,38 +148,59 @@ resource "authentik_flow_stage_binding" "recovery-flow-binding-30" {
   order  = 30
 }
 
-## Invitation flow
-resource "authentik_flow" "enrollment-invitation" {
-  name               = "enrollment-invitation-flow"
-  title              = "Enrollment invitation"
-  slug               = "enrollmment-invitation"
+## Invitation flow with email verification
+resource "authentik_flow" "enrollment-invitation-verify" {
+  name               = "enrollment-invitation-verify-flow"
+  title              = "Welcome to Movishell"
+  slug               = "enrollment-invitation-verify"
   designation        = "enrollment"
+  authentication     = "require_unauthenticated"
   compatibility_mode = true
-  background = local.default_flow_background
+  background         = local.default_flow_background
 }
 
-resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-00" {
-  target = authentik_flow.enrollment-invitation.uuid
-  stage  = authentik_stage_invitation.enrollment-invitation.id
+resource "authentik_flow_stage_binding" "enrollment-invitation-verify-binding-00" {
+  target = authentik_flow.enrollment-invitation-verify.uuid
+  stage  = authentik_stage_invitation.enrollment-invitation-verify.id
   order  = 0
 }
 
-resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-10" {
-  target = authentik_flow.enrollment-invitation.uuid
-  stage  = authentik_stage_prompt.source-enrollment-prompt.id
+resource "authentik_flow_stage_binding" "enrollment-invitation-verify-binding-10" {
+  target = authentik_flow.enrollment-invitation-verify.uuid
+  stage  = authentik_stage_prompt.source-enrollment-verify-prompt.id
   order  = 10
 }
 
-resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-20" {
-  target = authentik_flow.enrollment-invitation.uuid
-  stage  = authentik_stage_user_write.enrollment-user-write.id
+resource "authentik_flow_stage_binding" "enrollment-invitation-verify-binding-20" {
+  target = authentik_flow.enrollment-invitation-verify.uuid
+  stage  = authentik_stage_user_write.enrollment-verify-user-write.id
   order  = 20
 }
 
-resource "authentik_flow_stage_binding" "enrollment-invitation-flow-binding-30" {
-  target = authentik_flow.enrollment-invitation.uuid
-  stage  = authentik_stage_user_login.source-enrollment-login.id
+resource "authentik_flow_stage_binding" "enrollment-invitation-verify-binding-30" {
+  target = authentik_flow.enrollment-invitation-verify.uuid
+  stage  = authentik_stage_email.enrollment-verify-email.id
   order  = 30
+}
+
+resource "authentik_flow_stage_binding" "enrollment-invitation-verify-binding-40" {
+  target               = authentik_flow.enrollment-invitation-verify.uuid
+  stage                = authentik_stage_user_write.enrollment-verify-confirmed-write.id
+  order                = 40
+  evaluate_on_plan     = false
+  re_evaluate_policies = true
+}
+
+resource "authentik_policy_binding" "enrollment-invitation-verify-binding-40-set-email-verified" {
+  target = authentik_flow_stage_binding.enrollment-invitation-verify-binding-40.id
+  policy = authentik_policy_expression.enrollment-set-email-verified.id
+  order  = 0
+}
+
+resource "authentik_flow_stage_binding" "enrollment-invitation-verify-binding-50" {
+  target = authentik_flow.enrollment-invitation-verify.uuid
+  stage  = authentik_stage_user_login.source-enrollment-verify-login.id
+  order  = 50
 }
 
 ## User settings flow

@@ -103,37 +103,51 @@ resource "authentik_stage_user_write" "password-change-write" {
   create_users_as_inactive = false
 }
 
-## Invitation stages
-resource "authentik_stage_invitation" "enrollment-invitation" {
-  name                             = "enrollment-invitation"
+## Invitation flow with email verification
+resource "authentik_stage_invitation" "enrollment-invitation-verify" {
+  name                             = "enrollment-invitation-verify"
   continue_flow_without_invitation = false
 }
 
-resource "authentik_stage_prompt" "source-enrollment-prompt" {
-  name = "source-enrollment-prompt"
+resource "authentik_stage_prompt" "source-enrollment-verify-prompt" {
+  name = "source-enrollment-verify-prompt"
   fields = [
     resource.authentik_stage_prompt_field.username.id,
     resource.authentik_stage_prompt_field.name.id,
     resource.authentik_stage_prompt_field.email.id,
     resource.authentik_stage_prompt_field.password.id,
     resource.authentik_stage_prompt_field.password-repeat.id,
-    resource.authentik_stage_prompt_field.avatar.id
+    resource.authentik_stage_prompt_field.avatar.id,
   ]
   validation_policies = [
     resource.authentik_policy_password.password-complexity.id,
-    resource.authentik_policy_expression.user-settings-avatar-authorization.id
+    resource.authentik_policy_expression.user-settings-avatar-authorization.id,
   ]
 }
 
-resource "authentik_stage_user_write" "enrollment-user-write" {
-  name                     = "enrollment-user-write"
-  create_users_as_inactive = false
+resource "authentik_stage_user_write" "enrollment-verify-user-write" {
+  name                     = "enrollment-verify-user-write"
+  create_users_as_inactive = true
   create_users_group       = authentik_group.users.id
   user_type                = "internal"
 }
 
-resource "authentik_stage_user_login" "source-enrollment-login" {
-  name             = "source-enrollment-login"
+resource "authentik_stage_email" "enrollment-verify-email" {
+  name                     = "enrollment-verify-email"
+  activate_user_on_success = true
+  use_global_settings      = true
+  template                 = "email/account_confirmation.html"
+  subject                  = var.enrollment_verify_email_subject
+  token_expiry             = var.enrollment_verify_email_token_expiry
+}
+
+resource "authentik_stage_user_write" "enrollment-verify-confirmed-write" {
+  name               = "enrollment-verify-confirmed-write"
+  user_creation_mode = "never_create"
+}
+
+resource "authentik_stage_user_login" "source-enrollment-verify-login" {
+  name             = "source-enrollment-verify-login"
   session_duration = "seconds=0"
 }
 
