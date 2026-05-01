@@ -17,6 +17,11 @@ resource "authentik_policy_expression" "user-settings-authorization" {
   expression = file("./expressions/user-settings-authorization.py")
 }
 
+resource "authentik_policy_expression" "enrollment-set-email-verified" {
+  name       = "enrollment-set-email-verified"
+  expression = file("./expressions/enrollment-set-email-verified.py")
+}
+
 resource "authentik_property_mapping_provider_scope" "profile" {
   name       = "OAuth Mapping: OpenID 'profile'"
   scope_name = "profile"
