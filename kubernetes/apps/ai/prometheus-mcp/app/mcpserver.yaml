@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: prometheus
 spec:
-  image: ghcr.io/pab1it0/prometheus-mcp-server:1.6.0
+  image: ghcr.io/pab1it0/prometheus-mcp-server:1.6.1
   transport: stdio
   groupRef:
     name: mcp-tools
