@@ -3,14 +3,30 @@ terraform {
     minio = {
       source = "aminueza/minio"
     }
+    onepassword = {
+      source = "1Password/onepassword"
+    }
   }
 }
 
-module "onepassword" {
-  count  = var.create_user ? 1 : 0
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
-  vault  = var.vault
-  item   = var.user_name != null ? var.user_name : var.bucket_name
+data "onepassword_vault" "vault" {
+  count = var.create_user ? 1 : 0
+  name  = var.vault
+}
+
+data "onepassword_item" "item" {
+  count = var.create_user ? 1 : 0
+  vault = data.onepassword_vault.vault[0].uuid
+  title = var.user_name != null ? var.user_name : var.bucket_name
+}
+
+locals {
+  user_secret = var.create_user ? sensitive(one([
+    for field in flatten([
+      for section in data.onepassword_item.item[0].section : section.field
+    ]) : field.value
+    if field.label == var.user_secret_item
+  ])) : null
 }
 
 resource "minio_s3_bucket" "bucket" {
@@ -52,7 +68,7 @@ resource "minio_iam_user" "user" {
   count         = var.create_user ? 1 : 0
   name          = var.user_name != null ? var.user_name : var.bucket_name
   force_destroy = true
-  secret        = module.onepassword[0].fields[var.user_secret_item]
+  secret        = local.user_secret
 }
 
 resource "minio_iam_user_policy_attachment" "user_rw" {

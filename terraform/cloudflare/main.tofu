@@ -16,12 +16,15 @@ terraform {
       source  = "hashicorp/http"
       version = "3.5.0"
     }
+    onepassword = {
+      source  = "1Password/onepassword"
+      version = "3.3.1"
+    }
   }
 }
 
 module "secret_cf" {
-  # Remember to export OP_CONNECT_HOST and OP_CONNECT_TOKEN
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "cloudflare"
 }

@@ -20,7 +20,6 @@ terraform {
 }
 
 module "secret_authentik" {
-  # Remember to export OP_CONNECT_HOST and OP_CONNECT_TOKEN
   source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "authentik"

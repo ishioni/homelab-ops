@@ -12,11 +12,15 @@ terraform {
       source  = "aminueza/minio"
       version = "3.33.1"
     }
+    onepassword = {
+      source  = "1Password/onepassword"
+      version = "3.3.1"
+    }
   }
 }
 
 module "onepassword_item_rustfs" {
-  source = "github.com/bjw-s/terraform-1password-item?ref=main"
+  source = "./modules/1password-item"
   vault  = "Homelab"
   item   = "rustfs"
 }
