@@ -1,4 +1,4 @@
 variable "public_domain" {
-  type = string
+  type    = string
   default = "movishell.pl"
 }

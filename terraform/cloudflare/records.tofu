@@ -1,5 +1,5 @@
 data "cloudflare_zone" "domain" {
-    name = var.public_domain
+  name = var.public_domain
 }
 
 locals {
@@ -60,8 +60,8 @@ resource "cloudflare_record" "mail-1" {
 
 resource "cloudflare_record" "caa" {
   name    = var.public_domain
-  type = "CAA"
-  ttl  = 43200
+  type    = "CAA"
+  ttl     = 43200
   zone_id = local.public_domain_zone
   data {
     flags = "0"
@@ -138,8 +138,8 @@ resource "cloudflare_record" "txt_dmarc" {
 
 resource "cloudflare_record" "fastmail-caldavs" {
   name    = "_caldavs._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -151,8 +151,8 @@ resource "cloudflare_record" "fastmail-caldavs" {
 
 resource "cloudflare_record" "fastmail-caldav" {
   name    = "_caldav._tcp.module.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -165,8 +165,8 @@ resource "cloudflare_record" "fastmail-caldav" {
 
 resource "cloudflare_record" "fastmail-carddavs" {
   name    = "_carddavs._tcp.{$var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -179,8 +179,8 @@ resource "cloudflare_record" "fastmail-carddavs" {
 
 resource "cloudflare_record" "fastmail-carddav" {
   name    = "_carddav._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -192,8 +192,8 @@ resource "cloudflare_record" "fastmail-carddav" {
 
 resource "cloudflare_record" "fastmail-imaps" {
   name    = "_imaps._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -205,8 +205,8 @@ resource "cloudflare_record" "fastmail-imaps" {
 
 resource "cloudflare_record" "fastmail-imap" {
   name    = "_imap._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -218,8 +218,8 @@ resource "cloudflare_record" "fastmail-imap" {
 
 resource "cloudflare_record" "fastmail-jmap" {
   name    = "_jmap._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -231,8 +231,8 @@ resource "cloudflare_record" "fastmail-jmap" {
 
 resource "cloudflare_record" "fastmail-pop3s" {
   name    = "_pop3s._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -244,8 +244,8 @@ resource "cloudflare_record" "fastmail-pop3s" {
 
 resource "cloudflare_record" "fastmail-pop3" {
   name    = "_pop3._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0
@@ -257,8 +257,8 @@ resource "cloudflare_record" "fastmail-pop3" {
 
 resource "cloudflare_record" "fastmail-submission" {
   name    = "_submission._tcp.${var.public_domain}"
-  ttl  = 3600
-  type = "SRV"
+  ttl     = 3600
+  type    = "SRV"
   zone_id = local.public_domain_zone
   data {
     priority = 0

@@ -22,6 +22,6 @@ module "onepassword_item_garage" {
 }
 
 provider "garage" {
-  endpoint   = "https://garage-api.ishioni.casa"
-  token     = module.onepassword_item_garage.fields.GARAGE_ADMIN_TOKEN
+  endpoint = "https://garage-api.ishioni.casa"
+  token    = module.onepassword_item_garage.fields.GARAGE_ADMIN_TOKEN
 }

@@ -33,7 +33,15 @@ rules:
     resources: ["ingresses", "networkpolicies"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["gateway.networking.k8s.io"]
-    resources: ["gateways", "httproutes", "grpcroutes", "tcproutes", "tlsroutes", "referencegrants"]
+    resources:
+      [
+        "gateways",
+        "httproutes",
+        "grpcroutes",
+        "tcproutes",
+        "tlsroutes",
+        "referencegrants",
+      ]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["storage.k8s.io"]
     resources: ["storageclasses"]

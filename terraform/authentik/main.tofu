@@ -13,7 +13,7 @@ terraform {
       version = "2025.12.1"
     }
     onepassword = {
-      source = "1Password/onepassword"
+      source  = "1Password/onepassword"
       version = "3.3.1"
     }
   }
@@ -52,20 +52,20 @@ module "secret_vaultwarden" {
 
 module "secret_fluxcd" {
   source = "./modules/1password-item"
-  vault = "Homelab"
-  item = "flux"
+  vault  = "Homelab"
+  item   = "flux"
 }
 
 module "secret_meshmonitor" {
   source = "./modules/1password-item"
-  vault = "Homelab"
-  item = "meshmonitor"
+  vault  = "Homelab"
+  item   = "meshmonitor"
 }
 
 module "secret_toolhive" {
   source = "./modules/1password-item"
-  vault = "Homelab"
-  item = "toolhive"
+  vault  = "Homelab"
+  item   = "toolhive"
 }
 
 provider "authentik" {

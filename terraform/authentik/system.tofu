@@ -18,7 +18,7 @@ resource "authentik_brand" "home" {
 }
 
 data "authentik_service_connection_kubernetes" "local" {
-  name  = "Local Kubernetes Cluster"
+  name = "Local Kubernetes Cluster"
 }
 
 ## Since the external outpost uses only shm session store and not DB backed store, use embedded

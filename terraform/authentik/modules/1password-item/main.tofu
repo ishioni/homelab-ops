@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     onepassword = {
-      source  = "1Password/onepassword"
+      source = "1Password/onepassword"
     }
   }
 }
