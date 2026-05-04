@@ -17,6 +17,7 @@ spec:
       promethetusRule:
         enabled: true
       dashboards:
+        enabled: true
         grafanaOperator:
           enabled: true
           folder: Operators
