@@ -25,6 +25,8 @@ services:
       POLL_CONFIG_FILE: /poll-config.yml
       SECRET_PROVIDER: 1password
       SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1pw_token
+      SECRET_PROVIDER_CACHE_ENABLED: "true"
+      SECRET_PROVIDER_CACHE_TTL: "6h"
       WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
       DEPLOY_CONFIG_BASE_DIR: ./docker/truenas/
     healthcheck:
