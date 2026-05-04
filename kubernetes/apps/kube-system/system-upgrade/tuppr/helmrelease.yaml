@@ -16,3 +16,9 @@ spec:
         enabled: true
       promethetusRule:
         enabled: true
+      dashboards:
+        grafanaOperator:
+          enabled: true
+          folder: Operators
+          matchLabels:
+            grafana.internal/instance: grafana
