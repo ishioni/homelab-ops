@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/yeraze/meshmonitor
-              tag: 4.2.0
+              tag: 4.2.1
             env:
               MESHTASTIC_NODE_IP: 10.1.3.22
               MESHTASTIC_USE_TLS: "true"
