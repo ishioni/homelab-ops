@@ -97,6 +97,9 @@ spec:
           gethomepage.dev/group: Downloads
           gethomepage.dev/name: Slskd
           gethomepage.dev/icon: slskd.svg
+          gethomepage.dev/widget.type: slskd
+          gethomepage.dev/widget.url: http://slskd.downloads
+          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_SLSKD_API_KEY}}`}}"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
