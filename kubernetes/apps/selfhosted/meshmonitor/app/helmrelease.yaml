@@ -92,7 +92,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: Meshmonitor
-          gethomepage.dev/icon: meshmonitor.svg
+          gethomepage.dev/icon: meshtastic.svg
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
