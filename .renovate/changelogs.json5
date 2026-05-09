@@ -71,5 +71,10 @@
       matchPackageNames: ["/toolhive/"],
       sourceUrl: "https://github.com/stacklok/toolhive",
     },
+    {
+      description: "Changelog for meshmonitor",
+      matchPackageNames: ["/ghcr.io/yeraze/meshmonitor/"],
+      sourceUrl: "https://github.com/yeraze/meshmonitor",
+    },
   ],
 }
