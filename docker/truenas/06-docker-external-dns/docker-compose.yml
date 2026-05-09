@@ -1,7 +1,7 @@
 ---
 services:
   docker-external-dns:
-    image: ghcr.io/ishioni/docker-external-dns:v0.1.1
+    image: ghcr.io/ishioni/docker-external-dns:v0.1.1@sha256-cf8158972bc26320e28b16ac83991a38aea04dc071d3443cdee4f1959eb4e87d.sig
     container_name: docker-external-dns
     restart: unless-stopped
     environment:
