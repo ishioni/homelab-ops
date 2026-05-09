@@ -35,6 +35,7 @@ services:
       traefik.http.routers.scrutiny.rule: Host(`${HOST}`)
       traefik.http.routers.scrutiny.tls: true
       traefik.http.routers.scrutiny.service: scrutiny
+      external-dns.enabled: "true"
 
 networks:
   apps:
