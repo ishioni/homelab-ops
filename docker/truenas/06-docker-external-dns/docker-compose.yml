@@ -15,7 +15,7 @@ services:
       TXT_PREFIX: leo.
       POLICY: sync
       LOG_LEVEL: debug
-      DRY_RUN: true
+      DRY_RUN: false
       METRICS_ADDR: :4320
     ports:
       - "4320:4320"
