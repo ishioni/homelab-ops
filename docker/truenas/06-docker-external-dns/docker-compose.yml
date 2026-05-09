@@ -1,0 +1,23 @@
+---
+services:
+  docker-external-dns:
+    image: ghcr.io/ishioni/docker-external-dns:v0.1.1
+    container_name: docker-external-dns
+    restart: unless-stopped
+    environment:
+      # Required
+      UNIFI_HOST: ${UNIFI_HOST}
+      UNIFI_API_KEY: ${UNIFI_TOKEN}
+      DEFAULT_TARGET: ${DEFAULT_TARGET}
+
+      # Optional (shown with defaults)
+      UNIFI_INSECURE_SKIP_VERIFY: false
+      TXT_PREFIX: leo.
+      POLICY: sync
+      LOG_LEVEL: debug
+      DRY_RUN: true
+      METRICS_ADDR: :4320
+    ports:
+      - "4320:4320"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro

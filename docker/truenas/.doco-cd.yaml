@@ -6,6 +6,7 @@ auto_discovery:
   delete: true
 external_secrets:
   TRAEFIK_CF_DNS_API_TOKEN: op://Homelab/cloudflare/API Tokens/LEO_DNS
+  UNIFI_TOKEN: op://Homelab/unifi/EXTERNALDNS_KEY
   RUSTFS_ACCESS_KEY: op://Homelab/rustfs/RUSTFS_ACCESS_KEY
   RUSTFS_SECRET_KEY: op://Homelab/rustfs/RUSTFS_SECRET_KEY
   PUSHOVER_USER_KEY: op://Homelab/Pushover/USER_KEY
