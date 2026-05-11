@@ -40,7 +40,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - certs:/certs
     labels:
-      dexd.enable: "true"
+      dexd.enabled: "true"
       dexd.hosts.dashboard.hostnames: "traefik.ishioni.casa"
 
 volumes:
