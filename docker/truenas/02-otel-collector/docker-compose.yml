@@ -18,7 +18,7 @@ services:
       traefik.http.routers.otel-collector.rule: Host(`${HOST}`)
       traefik.http.routers.otel-collector.tls: true
       traefik.http.routers.otel-collector.service: otel-collector
-      external-dns.enabled: "true"
+      dexd.enabled: "true"
 
 networks:
   apps:

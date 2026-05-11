@@ -24,7 +24,7 @@ services:
       traefik.http.routers.meshcentral.rule: Host(`${HOST}`)
       traefik.http.routers.meshcentral.tls: true
       traefik.http.routers.meshcentral.service: meshcentral
-      external-dns.enabled: "true"
+      dexd.enabled: "true"
 
 networks:
   apps:

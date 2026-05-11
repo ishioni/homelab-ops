@@ -39,7 +39,7 @@ services:
       traefik.http.routers.rustfsconsole.rule: Host(`${CONSOLE_HOST}`)
       traefik.http.routers.rustfsconsole.service: rustfsconsole
       traefik.http.routers.rustfsconsole.tls: true
-      external-dns.enabled: "true"
+      dexd.enabled: "true"
 
 networks:
   apps:
