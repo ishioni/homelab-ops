@@ -35,7 +35,6 @@ services:
       traefik.http.routers.rcdn.tls.domains[0].sans: "*.${S3_HOST}"
       traefik.http.routers.rcdn.service: rcdn
       traefik.http.routers.rcdn.tls: "true"
-      dexd.routers.rcdn.skip: "true"
       # Dashboard
       traefik.http.services.rcdnconsole.loadbalancer.server.port: *consoleport
       traefik.http.routers.rcdnconsole.entrypoints: https
