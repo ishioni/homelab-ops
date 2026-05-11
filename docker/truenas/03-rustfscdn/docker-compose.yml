@@ -23,12 +23,13 @@ services:
     volumes:
       - ${DATA_PATH}:/data
     labels:
-      traefik.enable: "true"
       dexd.enabled: "true"
+      traefik.enable: "true"
       # S3
       traefik.http.services.rcdn.loadbalancer.server.port: *s3port
       traefik.http.routers.rcdn.entrypoints: https
       traefik.http.routers.rcdn.rule: Host(`${S3_HOST}`) || HostRegexp(`^.+\.${S3_HOST}$`)
+      dexd.routers.rcdn.extra-hostnames: "*.${S3_HOST}"
       traefik.http.routers.rcdn.tls.certresolver: letsencrypt
       traefik.http.routers.rcdn.tls.domains[0].main: ${S3_HOST}
       traefik.http.routers.rcdn.tls.domains[0].sans: "*.${S3_HOST}"
