@@ -1,21 +1,16 @@
 ---
 services:
   docker-external-dns:
-    image: ghcr.io/ishioni/docker-external-dns:v0.1.2@sha256:0c64432e788f6d37d99ae812b33944135d8d62496339e153e08e3a9217a583fa
-    container_name: docker-external-dns
+    image: ghcr.io/ishioni/dexd:v0.2.0@sha256:9894dacd2c154bbdddd6a93f797598e5301fd27fb7f3d63639be28539aed6710
+    container_name: dexd
     restart: unless-stopped
     environment:
       # Required
       UNIFI_HOST: ${UNIFI_HOST}
       UNIFI_API_KEY: ${UNIFI_TOKEN}
       DEFAULT_TARGET: ${DEFAULT_TARGET}
-
-      # Optional (shown with defaults)
       UNIFI_INSECURE_SKIP_VERIFY: false
       TXT_PREFIX: leo.
-      POLICY: sync
-      LOG_LEVEL: debug
-      DRY_RUN: false
       METRICS_ADDR: :4320
     ports:
       - "4320:4320"
