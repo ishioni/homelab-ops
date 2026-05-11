@@ -4,6 +4,8 @@ auto_discovery:
   enabled: true
   depth: 1
   delete: true
+destroy:
+  enabled: true
 external_secrets:
   TRAEFIK_CF_DNS_API_TOKEN: op://Homelab/cloudflare/API Tokens/LEO_DNS
   UNIFI_TOKEN: op://Homelab/unifi/EXTERNALDNS_KEY
