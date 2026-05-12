@@ -6,7 +6,7 @@ metadata:
   name: &name unpoller
 spec:
   jobName: unpoller
-  scrapeInterval: 30s
+  scrapeInterval: 60s
   staticConfigs:
     - targets:
         - https://unifi.${PRIVATE_DOMAIN}
