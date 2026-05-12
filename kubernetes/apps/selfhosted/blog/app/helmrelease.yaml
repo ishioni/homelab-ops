@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ishioni/yellingatclouds
-              tag: 2026.04.242154
+              tag: 2026.05.121516
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
