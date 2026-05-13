@@ -37,8 +37,6 @@ spec:
       enabled: true
     envoy:
       enabled: false
-    gatewayAPI:
-      enabled: false
     hubble:
       enabled: false
     ipam:
@@ -48,10 +46,7 @@ spec:
     k8sServicePort: 7445
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    l2announcements:
-      enabled: true
     loadBalancer:
-      acceleration: best-effort
       algorithm: maglev
       mode: dsr
     localRedirectPolicies:
