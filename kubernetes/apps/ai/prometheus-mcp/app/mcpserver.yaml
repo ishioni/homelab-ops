@@ -6,7 +6,7 @@ metadata:
   name: prometheus
 spec:
   image: ghcr.io/pab1it0/prometheus-mcp-server:1.6.1
-  transport: stdio
+  transport: streamable-http
   groupRef:
     name: mcp-tools
   env:
@@ -14,3 +14,7 @@ spec:
       value: http://kube-prometheus-stack-prometheus.monitor.svc.cluster.local:9090
     - name: PROMETHEUS_DISABLE_LINKS
       value: "true"
+    - name: PROMETHEUS_MCP_SERVER_TRANSPORT
+      value: "http"
+    - name: PROMETHEUS_MCP_BIND_HOST
+      value: "0.0.0.0"
