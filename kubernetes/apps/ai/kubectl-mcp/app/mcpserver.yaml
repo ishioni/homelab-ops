@@ -6,7 +6,7 @@ metadata:
   name: kubectl
 spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:1.24.0
-  args: [--transport, streamable-http, --port 8000]
+  args: [--transport, streamable-http, --port, "8080"]
   transport: streamable-http
   groupRef:
     name: mcp-tools
