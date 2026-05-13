@@ -6,9 +6,10 @@ metadata:
   name: flux-operator
 spec:
   image: ghcr.io/controlplaneio-fluxcd/flux-operator-mcp:v0.49.0
-  transport: streamable-http
-  mcpPort: 9090
+  transport: stdio
+  args: [serve, --read-only]
+  # mcpPort: 9090
   groupRef:
     name: mcp-tools
-  args: [serve, --read-only, --transport=http, --port=9090]
+  # args: [serve, --read-only, --transport=http, --port=9090]
   serviceAccount: flux-operator-mcp-sa
