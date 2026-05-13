@@ -6,7 +6,7 @@ metadata:
   name: searxng
 spec:
   image: docker.io/isokoliuk/mcp-searxng:1.0.3
-  transport: stdio
+  transport: streamable-http
   groupRef:
     name: mcp-tools
   env:
