@@ -6,9 +6,11 @@ metadata:
   name: searxng
 spec:
   image: docker.io/isokoliuk/mcp-searxng:1.0.3
-  transport: stdio
+  transport: streamable-http
   groupRef:
     name: mcp-tools
   env:
     - name: SEARXNG_URL
       value: http://searxng.selfhosted.svc.cluster.local:8080
+    - name: MCP_HTTP_PORT"
+      value: "8080"
