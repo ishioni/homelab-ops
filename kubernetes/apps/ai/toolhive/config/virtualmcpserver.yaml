@@ -85,5 +85,10 @@ spec:
     type: anonymous
   outgoingAuth:
     source: discovered
+  sessionStorage:
+    address: dragonfly.database.svc.cluster.local:6379
+    db: 10
+    provider: redis
+    keyPrefix: "vmcp-sessions:"
   telemetryConfigRef:
     name: prometheus
