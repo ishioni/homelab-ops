@@ -12,4 +12,4 @@ spec:
   groupRef:
     name: mcp-tools
   # args: [serve, --read-only, --transport=http, --port=9090]
-  serviceAccount: flux-operator-mcp-sa
+  serviceAccount: flux-operator-mcp
