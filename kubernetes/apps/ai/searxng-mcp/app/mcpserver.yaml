@@ -12,5 +12,3 @@ spec:
   env:
     - name: SEARXNG_URL
       value: http://searxng.selfhosted.svc.cluster.local:8080
-    - name: "MCP_HTTP_PORT"
-      value: "8080"
