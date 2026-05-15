@@ -10,5 +10,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 2026.508.01348
+    tag: 2026.515.13351
   url: oci://ghcr.io/sholdee/charts/crd-schema-publisher
