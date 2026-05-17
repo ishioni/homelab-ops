@@ -38,6 +38,7 @@
       versioning: "semver",
       ignoreUnstable: false,
       respectLatest: false,
+      allowedVersions: "/^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.]+)?$/",
     },
     {
       description: "Pin Cloudflare Terraform provider to 4.52.x (hold off on v5)",
