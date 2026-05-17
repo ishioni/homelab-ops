@@ -32,6 +32,14 @@
       versioning: "loose",
     },
     {
+      description: "Use semver prerelease handling for RustFS image tags",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["docker.io/rustfs/rustfs"],
+      versioning: "semver",
+      ignoreUnstable: false,
+      respectLatest: false,
+    },
+    {
       description: "Pin Cloudflare Terraform provider to 4.52.x (hold off on v5)",
       matchDatasources: ["terraform-provider"],
       matchDepNames: ["cloudflare"],
