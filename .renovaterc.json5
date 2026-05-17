@@ -12,6 +12,7 @@
     "github>ishioni/homelab-ops//.renovate/labels.json5",
     "github>ishioni/homelab-ops//.renovate/override.json5",
     "github>ishioni/homelab-ops//.renovate/semanticCommits.json5",
+    "github>ishioni/homelab-ops//.renovate/talosFactory.json5",
     ":automergeBranch",
     ":dependencyDashboard",
     ":disableRateLimiting",
