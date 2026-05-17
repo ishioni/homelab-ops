@@ -36,7 +36,7 @@ spec:
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
-        prefixFormat: "{workload}."
+        prefixFormat: "{workload}_"
   telemetryConfigRef:
     name: prometheus
   groupRef:
@@ -78,7 +78,7 @@ spec:
     aggregation:
       conflictResolution: prefix
       conflictResolutionConfig:
-        prefixFormat: "{workload}."
+        prefixFormat: "{workload}_"
   groupRef:
     name: mcp-tools
   incomingAuth:
