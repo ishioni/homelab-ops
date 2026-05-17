@@ -76,5 +76,10 @@
       matchPackageNames: ["/ghcr.io/yeraze/meshmonitor/"],
       sourceUrl: "https://github.com/yeraze/meshmonitor",
     },
+    {
+      description: "Changelog for rustfs",
+      matchPackageNames: ["docker.io/rustfs/rustfs"],
+      sourceUrl: "https://github.com/rustfs/rustfs",
+    },
   ],
 }
