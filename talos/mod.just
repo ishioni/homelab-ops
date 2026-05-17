@@ -1,5 +1,4 @@
-set lazy
-set positional-arguments
+
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
@@ -8,7 +7,6 @@ talos_dir := justfile_directory() + '/talos'
 secret_id := 'talos'
 
 [private]
-[script]
 default:
     just -l talos
 
@@ -32,17 +30,13 @@ apply-node node *args:
     just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
 
 [doc('Download Talos machine image')]
-download-image version schematic:
-    gum spin --title "Downloading Talos {{ version }} ..." --
-    curl -sfL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors \
-        -o "{{ talos_dir }}/talos-{{ version }}-{{ replace_regex(schematic, '^(.{8}).*', '$1') }}.iso" \
-        "https://factory.talos.dev/image/{{ schematic }}/{{ version }}/metal-amd64-secureboot.iso"
-    just log info "Downloaded Talos" version "{{ version }}" schematic "{{ schematic }}"
-
-[doc('Generate schematic ID from Talos schematic')]
 [script]
-gen-schematic-id:
-    curl -sX POST --data-binary @<(just template "{{ talos_dir }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
+download-image version:
+    export SCHEMATIC="$(just talos schematic-id)"
+    curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
+        -o "{{ talos_dir }}/talos-{{ version }}-${SCHEMATIC:0:8}.iso" \
+        "https://factory.talos.dev/image/${SCHEMATIC}/{{ version }}/metal-amd64-secureboot.iso"
+    just log info "Downloaded Talos" version "{{ version }}" schematic "${SCHEMATIC}"
 
 [doc('Reboot a node')]
 [script]
@@ -54,6 +48,7 @@ reboot-node node:
 [script]
 render-config node:
     export IS_CONTROLLER="$(just talos machine-controller {{ node }})";
+    export SCHEMATIC="$(just talos schematic-id)"
     talosctl machineconfig patch <(just template "{{ talos_dir }}/machineconfig.yaml.j2") -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2")
 
 [doc('Reset a node')]
@@ -79,6 +74,10 @@ upgrade-node node *args:
     talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image)" -m powercycle --timeout=10m {{ args }}
 
 [private]
+schematic-id:
+    curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
+
+[private]
 [script]
 machine-controller node:
     just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2" | yq -e 'select(.machine) | (.machine.type == "controlplane") // ""'
@@ -86,4 +85,5 @@ machine-controller node:
 [private]
 [script]
 machine-image:
+    export SCHEMATIC="$(just talos schematic-id)"
     just template "{{ talos_dir }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'

@@ -61,15 +61,6 @@
       minimumGroupSize: 5,
     },
     {
-      description: "Talos Group",
-      groupName: "talos",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/installer/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-    },
-    {
       description: "Immich group",
       groupName: "immich",
       matchPackageNames: ["/immich/"],
