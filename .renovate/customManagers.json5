@@ -19,12 +19,14 @@
     },
     {
       customType: "regex",
-      description: "Process yaml-language-server schema versions from GitHub tags URLs",
-      fileMatch: [".yaml"],
+      description: "Process app-template schema annotations using the OCI chart version stream",
+      managerFilePatterns: ["/helmrelease\\.ya?ml$/"],
       matchStrings: [
-        "\\$schema=https://raw\\.githubusercontent\\.com/(?<depName>[^/]+/[^/]+)/refs/tags/(?<currentValue>[^/]+)/",
+        "\\$schema=https://raw\\.githubusercontent\\.com/bjw-s-labs/helm-charts/app-template-(?<currentValue>[^/]+)/charts/other/app-template/schemas/helmrelease-helm-v2\\.schema\\.json",
       ],
-      datasourceTemplate: "github-tags",
+      depNameTemplate: "ghcr.io/bjw-s-labs/helm/app-template",
+      datasourceTemplate: "docker",
+      versioningTemplate: "semver",
     },
     {
       customType: "regex",
