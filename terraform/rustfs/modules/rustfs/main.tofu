@@ -10,20 +10,24 @@ terraform {
 }
 
 data "onepassword_vault" "vault" {
-  count = var.create_user ? 1 : 0
   name  = var.vault
+  lifecycle {
+    enabled = var.create_user
+  }
 }
 
 data "onepassword_item" "item" {
-  count = var.create_user ? 1 : 0
-  vault = data.onepassword_vault.vault[0].uuid
+  vault = data.onepassword_vault.vault.uuid
   title = var.user_name != null ? var.user_name : var.bucket_name
+  lifecycle {
+    enabled = var.create_user
+  }
 }
 
 locals {
   user_secret = var.create_user ? sensitive(one([
     for field in flatten([
-      for section in data.onepassword_item.item[0].section : section.field
+      for section in data.onepassword_item.item.section : section.field
     ]) : field.value
     if field.label == var.user_secret_item
   ])) : null
@@ -40,11 +44,12 @@ resource "minio_s3_bucket_versioning" "bucket" {
   versioning_configuration {
     status = "Enabled"
   }
-  count = var.versioning ? 1 : 0
+  lifecycle {
+    enabled = var.versioning
+  }
 }
 
 resource "minio_iam_policy" "rw_policy" {
-  count = var.create_user ? 1 : 0
   name  = format("%s-private", var.bucket_name)
   policy = jsonencode({
     ID      = ""
@@ -62,17 +67,24 @@ resource "minio_iam_policy" "rw_policy" {
       }
     ]
   })
+  lifecycle {
+    enabled = var.create_user
+  }
 }
 
 resource "minio_iam_user" "user" {
-  count         = var.create_user ? 1 : 0
   name          = var.user_name != null ? var.user_name : var.bucket_name
   force_destroy = true
   secret        = local.user_secret
+  lifecycle {
+    enabled = var.create_user
+  }
 }
 
 resource "minio_iam_user_policy_attachment" "user_rw" {
-  count       = var.create_user ? 1 : 0
-  user_name   = minio_iam_user.user[0].id
-  policy_name = minio_iam_policy.rw_policy[0].id
+  user_name   = minio_iam_user.user.id
+  policy_name = minio_iam_policy.rw_policy.id
+  lifecycle {
+    enabled = var.create_user
+  }
 }
