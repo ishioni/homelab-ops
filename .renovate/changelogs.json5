@@ -9,7 +9,7 @@
     {
       description: "Changelog URL for Spegel",
       matchPackageNames: ["/spegel/"],
-      changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
+      sourceUrl: "https://github.com/spegel-org/spegel",
     },
     {
       description: "Changelog for Envoy",
