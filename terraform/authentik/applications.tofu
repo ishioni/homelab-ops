@@ -324,8 +324,6 @@ module "oauth2-opencloud" {
     { matching_mode = "strict", url = "https://opencloud.${var.public_domain}"},
     { matching_mode = "strict", url = "https://opencloud.${var.public_domain}/oidc-callback.html"},
     { matching_mode = "strict", url = "https://opencloud.${var.public_domain}/oidc-silent-redirect.html"},
-    { matching_mode = "regex", url = "http://127.0.0.1(:.*)?" },
-    { matching_mode = "regex", url = "http://localhost(:.*)?" },
     { matching_mode = "strict", url = "oc://android.opencloud.eu"},
     { matching_mode = "strict", url = "oc://ios.opencloud.eu"}
   ]
@@ -344,28 +342,4 @@ module "oauth2-opencloud-desktop" {
     { matching_mode = "regex", url = "http://127.0.0.1(:.*)?" },
     { matching_mode = "regex", url = "http://localhost(:.*)?" }
   ]
-}
-
-module "oauth2-opencloud-android" {
-  source             = "./modules/oauth2_application"
-  name               = "OpenCloudAndroid"
-  launch_url         = "blank://blank"
-  auth_groups        = [authentik_group.users.id]
-  client_type        = "public"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = "OpenCloudAndroid"
-  redirect_uris      = ["oc://android.opencloud.eu"]
-}
-
-module "oauth2-opencloud-ios" {
-  source             = "./modules/oauth2_application"
-  name               = "OpenCloudIOS"
-  launch_url         = "blank://blank"
-  auth_groups        = [authentik_group.users.id]
-  client_type        = "public"
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = "OpenCloudIOS"
-  redirect_uris      = ["oc://ios.opencloud.eu"]
 }
