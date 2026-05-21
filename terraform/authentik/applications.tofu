@@ -319,11 +319,15 @@ module "oauth2-opencloud" {
   client_type        = "public"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
   invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  client_id          = "web"
+  client_id          = "opencloud"
   redirect_uris = [
-    "https://opencloud.${var.public_domain}",
-    "https://opencloud.${var.public_domain}/oidc-callback.html",
-    "https://opencloud.${var.public_domain}/oidc-silent-redirect.html"
+    { matching_mode = "strict", url = "https://opencloud.${var.public_domain}"},
+    { matching_mode = "strict", url = "https://opencloud.${var.public_domain}/oidc-callback.html"},
+    { matching_mode = "strict", url = "https://opencloud.${var.public_domain}/oidc-silent-redirect.html"},
+    { matching_mode = "regex", url = "http://127.0.0.1(:.*)?" },
+    { matching_mode = "regex", url = "http://localhost(:.*)?" },
+    { matching_mode = "strict", url = "oc://android.opencloud.eu"},
+    { matching_mode = "strict", url = "oc://ios.opencloud.eu"}
   ]
 }
 
