@@ -33,10 +33,10 @@ spec:
                 name: *secret
       resources:
         requests:
-          cpu: 50m
-          memory: 500Mi
+          cpu: 100m
+          memory: 1Gi
         limits:
-          memory: 1200Mi
+          memory: 1500Mi
       metrics:
         enabled: true
         serviceMonitor:
