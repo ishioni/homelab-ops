@@ -142,6 +142,22 @@ module "proxy-bazarr" {
 
 # OAuth apps
 
+module "oauth2-bookboss" {
+  source             = "./modules/oauth2_application"
+  name               = "Bookboss"
+  icon_url           = "https://raw.githubusercontent.com/szinn/BookBoss/refs/heads/main/assets-source/BookBoss-96x96.png"
+  launch_url         = "https://books.${var.private_domain}"
+  description        = "Book manager"
+  newtab             = true
+  group              = "Downloads"
+  auth_groups        = [authentik_group.users.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_bookboss.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_bookboss.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://bookboss.${var.public_domain}/auth/oidc/callback"]
+}
+
 # module "oauth2-qui" {
 #   source             = "./modules/oauth2_application"
 #   name               = "Qui"
