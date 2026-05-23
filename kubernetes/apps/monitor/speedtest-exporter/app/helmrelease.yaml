@@ -25,7 +25,7 @@ spec:
                 cpu: 15m
                 memory: 64Mi
               limits:
-                memory: 64Mi
+                memory: 128Mi
     service:
       app:
         ports:
