@@ -39,6 +39,7 @@ spec:
             env:
               BOOKBOSS__FRONTEND__BASE_URL: "https://${HOSTNAME}"
               BOOKBOSS__LIBRARY__LIBRARY_PATH: "/media/Books"
+              BOOKBOSS__IMPORT__BOOKDROP_PATH: "/media/Downloads/books"
               TZ: ${CONFIG_TIMEZONE}
             envFrom:
               - secretRef:
