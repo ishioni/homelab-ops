@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/szinn/bookboss
-              tag: v0.8.28@sha256:829e2df5f025ac035bb9443f6622be50de87073ef7e162ea22fc7a0c599c9474
+              tag: v0.8.30@sha256:073a9e71fb731e624fe5d8f415df457685b5b3c66a613f610c3188a6c689a3db
             env:
               BOOKBOSS__FRONTEND__BASE_URL: "https://${HOSTNAME}"
               BOOKBOSS__LIBRARY__LIBRARY_PATH: "/media/Books"
