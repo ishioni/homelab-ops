@@ -8,6 +8,7 @@ components:
   - ../../components/namespace
 resources:
   - ./bazarr/ks.yaml
+  - ./bookboss/ks.yaml
   - ./downloads-pvc/ks.yaml
   - ./lidarr/ks.yaml
   - ./prowlarr/ks.yaml

@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/grpcroute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: bookboss
+spec:
+  hostnames:
+    - ${HOSTNAME}
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: grpc
+  rules:
+    - backendRefs:
+        - name: bookboss
+          port: 8081
