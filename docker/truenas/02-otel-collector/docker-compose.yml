@@ -1,7 +1,7 @@
 ---
 services:
   otel-collector:
-    image: docker.io/otel/opentelemetry-collector-contrib:0.152.1@sha256:490081bff8d48baac6c53d870e8c45893841e8dbc79686c2fac14188739e28c3
+    image: docker.io/otel/opentelemetry-collector-contrib:0.153.0@sha256:2e9646ff882e043b5e046dbad14cf76b59f6cc108053e1e3a863b14d532b43ec
     container_name: otel-collector
     restart: unless-stopped
     networks:
