@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
 services:
   meshcentral:
-    image: ghcr.io/ylianst/meshcentral:1.1.59@sha256:7a619610e187fece8d3a15b3ac9448412d32baa1a9e63c1922b328eaeea17f10
+    image: ghcr.io/ylianst/meshcentral:1.2.0@sha256:8c84cb45be6c84dc94de38452a9ac0abd16aae7733dd5de97cf4d7ed77250a4b
     container_name: meshcentral
     restart: unless-stopped
     networks:
