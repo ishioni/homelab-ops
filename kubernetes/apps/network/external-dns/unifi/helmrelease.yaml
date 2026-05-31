@@ -22,8 +22,8 @@ spec:
       name: webhook
       webhook:
         image:
-          repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.9.0
+          repository: ghcr.io/home-operations/external-dns-unifi-webhook
+          tag: v0.10.0
         env:
           - name: LOG_LEVEL
             value: *logLevel
