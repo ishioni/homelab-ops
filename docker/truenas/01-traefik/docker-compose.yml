@@ -6,6 +6,7 @@ configs:
 
 networks:
   apps:
+    external: true
     name: apps
   traefik_macvlan:
     driver: ipvlan

@@ -5,14 +5,18 @@
 configs:
   poll-config.yml:
     content: |
-      - run_once: true
-        url: https://github.com/ishioni/homelab-ops.git
-        reference: refs/heads/master
+      - url: https://github.com/ishioni/homelab-ops.git
+        reference: master
+        interval: 3600
 secrets:
   1pw_token:
     file: /mnt/SSD/Userhomes/movi/.config/doco-cd/1pw_token
   webhook_secret:
     file: /mnt/SSD/Userhomes/movi/.config/doco-cd/webhook_secret
+networks:
+  apps:
+    name: apps
+
 services:
   app:
     configs:

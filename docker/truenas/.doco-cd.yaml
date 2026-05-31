@@ -13,3 +13,7 @@ external_secrets:
   PUSHOVER_SCRUTINY_KEY: op://Homelab/Pushover/SCRUTINY_KEY
   OWRX_USER: op://Homelab/openwebrx/username
   OWRX_PASSWORD: op://Homelab/openwebrx/password
+force_recreate: false
+reconciliation:
+  enabled: true
+  interval: 3600
