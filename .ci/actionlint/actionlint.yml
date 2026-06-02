@@ -1,5 +1,0 @@
----
-self-hosted-runner:
-  labels:
-    - arc-homelab
-    - arc-homelab-dind

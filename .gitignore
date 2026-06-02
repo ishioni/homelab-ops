@@ -4,29 +4,17 @@ Thumbs.db
 # k8s
 kubeconfig
 talosconfig
-# vscode-sops
-secrets.env
-.decrypted~*.*
-.config.env
-*.agekey
-*.pub
-*.key
-github-deploy-key*
 # Terraform
 .terraform
 .terraform.tfstate*
 terraform.tfstate*
-megalinter-reports
+.terraform.lock.hcl
 # Helm
 Chart.lock
 *.tgz
-# Tasks
-.task
 # env variables
 .devcontainer/devcontainer.env
 # Brewfile
 Brewfile.lock.json
-# tf locks
-.terraform.lock.hcl
 #Clankers
 .claude

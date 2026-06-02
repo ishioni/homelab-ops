@@ -2,22 +2,6 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "Auto merge pre-commits",
-      matchDatasources: ["github-releases", "github-tags"],
-      automerge: true,
-      automergeType: "branch",
-      matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: [
-        "sirosen/texthooks",
-        "gruntwork-io/pre-commit",
-        "zricethezav/gitleaks",
-        "Lucas-C/pre-commit-hooks",
-        "adrienverge/yamllint",
-        "pre-commit/pre-commit-hooks",
-      ],
-      ignoreTests: true,
-    },
-    {
       description: "Auto merge terraform providers",
       matchDatasources: ["terraform-provider"],
       automerge: true,
@@ -67,7 +51,11 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: ["ghcr.io/starosdev/scrutiny", "ghcr.io/renovatebot/renovate", "ghcr.io/searxng/searxng"],
+      matchPackageNames: [
+        "ghcr.io/starosdev/scrutiny",
+        "ghcr.io/renovatebot/renovate",
+        "ghcr.io/searxng/searxng",
+      ],
       minimumReleaseAge: null,
       minimumReleaseAgeBehaviour: "timestamp-optional",
       internalChecksFilter: "none",
