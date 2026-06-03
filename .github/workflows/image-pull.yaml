@@ -30,64 +30,24 @@ jobs:
     needs: filter
     name: Image Pull - Extract Images
     runs-on: arc-homelab-dind
-    strategy:
-      matrix:
-        branch: ["default", "pull"]
-      fail-fast: false
     outputs:
-      default: ${{ steps.extract.outputs.default }}
-      pull: ${{ steps.extract.outputs.pull }}
+      images: ${{ steps.extract.outputs.images }}
     steps:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
+          fetch-depth: 0
           persist-credentials: false
-          ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
 
-      - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
-        with:
-          args: >-
-            get cluster
-            --all-namespaces
-            --path /github/workspace/kubernetes/flux/cluster
-            --enable-images
-            --only-images
-            --output json
-            --output-file images.json
+      - name: Install Flate
+        uses: home-operations/flate/action@ff3803f19b3e933da5a90085e275def2d89ef17e # 0.2.6
 
       - name: Extract Images
         id: extract
         run: |
-          echo "${{ matrix.branch }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
-
-          echo '## Branch ${{ matrix.branch }} images' >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          jq '.' images.json >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-
-  diff:
-    if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
-    needs: extract
-    name: Image Pull - Diff Images
-    runs-on: arc-homelab-dind
-    outputs:
-      images: ${{ steps.diff.outputs.images }}
-    steps:
-      - name: Diff Images
-        id: diff
-        run: |
-          images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract.outputs.default }}' \
-              --argjson f2 '${{ needs.extract.outputs.pull }}' \
-              '$f2 - $f1' \
-          )
-          echo "images=${images}" >> $GITHUB_OUTPUT
-
-          echo '## New images to Pull' >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          echo $images | jq >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo 'images<<EOF' >> $GITHUB_OUTPUT
+          flate diff images --path ./kubernetes/flux/cluster --output json >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.diff.outputs.images != '[]' }}
@@ -96,7 +56,7 @@ jobs:
     runs-on: arc-homelab
     strategy:
       matrix:
-        image: ${{ fromJSON(needs.diff.outputs.images) }}
+        image: ${{ fromJSON(needs.extract.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     env:
