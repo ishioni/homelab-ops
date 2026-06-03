@@ -13,7 +13,7 @@ spec:
     config:
       cfPagesProject: homelab-schema
       includeBuiltins: true
-      includeKustomize: false
+      includeKustomize: true
     existingSecret:
       name: kubernetes-schemas
     fullnameOverride: "kubernetes-schemas"
