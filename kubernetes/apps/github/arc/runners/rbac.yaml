@@ -1,9 +1,11 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/serviceaccount_v1.json
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: actions-runner
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/rbac.authorization.k8s.io/clusterrolebinding_v1.json
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -17,6 +19,7 @@ subjects:
     name: actions-runner
     namespace: github
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/talos.dev/serviceaccount_v1alpha1.json
 apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:

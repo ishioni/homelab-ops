@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/batch/cronjob_v1.json
 apiVersion: batch/v1
 kind: CronJob
 metadata:
