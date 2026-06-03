@@ -50,8 +50,8 @@ jobs:
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: diff
+    if: ${{ needs.extract.outputs.images != '[]' }}
+    needs: extract
     name: Image Pull - Pull Images
     runs-on: arc-homelab
     strategy:
