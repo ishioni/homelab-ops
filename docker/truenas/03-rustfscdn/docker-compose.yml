@@ -1,7 +1,7 @@
 ---
 services:
   rustfs-cdn:
-    image: docker.io/rustfs/rustfs:1.0.0-beta.6@sha256:e620d37756fff072b10bf648c7bb9d370d7e91a928b7e6a5e1ac85bdfb4e4dab
+    image: docker.io/rustfs/rustfs:1.0.0-beta.7@sha256:69e7d8168b9285bf0b95c9d98309c599704d17c0aa9a8614fbee376c0c43e5a1
     container_name: rustfscdn
     restart: unless-stopped
     environment:
