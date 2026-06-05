@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/kashalls/kromgo
-              tag: v0.10.0
+              repository: ghcr.io/home-operations/kromgo
+              tag: 0.14.3@sha256:c91e3b4e8a85668006d6223da67eb4b479d52f75fa89a1582a390fd4a0d1454a
             env:
               PROMETHEUS_URL: http://prometheus-operated.monitor.svc.cluster.local:9090
               SERVER_PORT: &serverPort 80
@@ -39,7 +39,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -50,7 +50,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 65534
         runAsGroup: 65534
-        seccompProfile: {type: RuntimeDefault}
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: kromgo
