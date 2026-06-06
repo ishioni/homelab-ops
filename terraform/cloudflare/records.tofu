@@ -7,7 +7,7 @@ locals {
 }
 
 data "http" "ipv4" {
-  url = "http://ipv4.icanhazip.com"
+  url = "https://ipv4.icanhazip.com"
 }
 
 resource "cloudflare_record" "root" {
@@ -129,7 +129,7 @@ resource "cloudflare_record" "txt_spf" {
 }
 
 resource "cloudflare_record" "txt_dmarc" {
-  name    = var.public_domain
+  name    = "_dmarc.${var.public_domain}"
   content = "v=DMARC1; p=quarantine; pct=100; rua=mailto:postmaster@${var.public_domain}; ruf=mailto:postmaster@${var.public_domain}"
   type    = "TXT"
   ttl     = 43200
@@ -150,7 +150,7 @@ resource "cloudflare_record" "fastmail-caldavs" {
 }
 
 resource "cloudflare_record" "fastmail-caldav" {
-  name    = "_caldav._tcp.module.${var.public_domain}"
+  name    = "_caldav._tcp.${var.public_domain}"
   ttl     = 3600
   type    = "SRV"
   zone_id = local.public_domain_zone
@@ -164,7 +164,7 @@ resource "cloudflare_record" "fastmail-caldav" {
 }
 
 resource "cloudflare_record" "fastmail-carddavs" {
-  name    = "_carddavs._tcp.{$var.public_domain}"
+  name    = "_carddavs._tcp.${var.public_domain}"
   ttl     = 3600
   type    = "SRV"
   zone_id = local.public_domain_zone
