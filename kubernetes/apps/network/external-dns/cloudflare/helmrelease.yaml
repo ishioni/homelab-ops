@@ -15,7 +15,7 @@ spec:
     policy: sync
     sources: [gateway-httproute]
     triggerLoopOnEvent: true
-    txtPrefix: talos.
+    txtPrefix: talos.%{record_type}-
     txtOwnerId: talos
     extraArgs:
       - --gateway-name=envoy-external

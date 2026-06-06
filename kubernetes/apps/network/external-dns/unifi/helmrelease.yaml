@@ -16,7 +16,7 @@ spec:
     policy: sync
     sources: [gateway-httproute, service, ingress]
     triggerLoopOnEvent: true
-    txtPrefix: talos.
+    txtPrefix: talos.%{record_type}-
     txtOwnerId: talos
     provider:
       name: webhook
