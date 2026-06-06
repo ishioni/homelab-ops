@@ -95,6 +95,7 @@ spec:
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/name: OpenCloud
           gethomepage.dev/icon: sh-opencloud.svg
+          gatus.home-operations.com/enabled: "false"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
