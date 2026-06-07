@@ -70,17 +70,17 @@ spec:
           id: cluster_alert_count
           query: alertmanager_alerts{state="active"} - 1 # Ignore Watchdog
           colorExpr: 'colorScale(result, [1.0], ["green", "red"])'
-      httpRoute:
-        enabled: true
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-        hostnames: ["${HOSTNAME}"]
-      resources:
-        requests:
-          cpu: 10m
-        limits:
-          memory: 64Mi
+    httpRoute:
+      enabled: true
+      annotations:
+        gatus.home-operations.com/endpoint: |-
+          conditions: ["[STATUS] == 200"]
+      parentRefs:
+        - name: envoy-external
+          namespace: network
+      hostnames: ["${HOSTNAME}"]
+    resources:
+      requests:
+        cpu: 10m
+      limits:
+        memory: 64Mi
