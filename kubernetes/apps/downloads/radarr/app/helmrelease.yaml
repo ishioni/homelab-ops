@@ -32,7 +32,7 @@ spec:
             runAsNonRoot: true
             runAsUser: 568
             runAsGroup: 5000
-            fsGroup: 1000
+            fsGroup: 2000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
