@@ -3,22 +3,6 @@
   customManagers: [
     {
       customType: "regex",
-      description: "Process annotated dependencies",
-      managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-      matchStrings: [
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+ (?<currentValue>[v|\\d]\\S+)",
-      ],
-      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-    },
-    {
-      customType: "regex",
-      description: "Process OCI dependencies",
-      managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-      matchStrings: ["oci://(?<depName>[^:]+):(?<currentValue>\\S+)"],
-      datasourceTemplate: "docker",
-    },
-    {
-      customType: "regex",
       description: "Process app-template schema annotations using the OCI chart version stream",
       managerFilePatterns: ["/helmrelease\\.ya?ml$/"],
       matchStrings: [
@@ -27,24 +11,6 @@
       depNameTemplate: "ghcr.io/bjw-s-labs/helm/app-template",
       datasourceTemplate: "docker",
       versioningTemplate: "semver",
-    },
-    {
-      customType: "regex",
-      description: ["Process CNPG imageVolume extensions"],
-      fileMatch: [".*"], // process regex from everywhere
-      matchStrings: [
-        "reference:\\s+(?<depName>[^:@\\s]+):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:\\S+))?",
-      ],
-      datasourceTemplate: "docker",
-    },
-    {
-      customType: "regex",
-      description: ["Process CNPG imageName"],
-      fileMatch: [".*"], // process regex from everywhere
-      matchStrings: [
-        "imageName:\\s+(?<depName>[^:@\\s]+):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:\\S+))?",
-      ],
-      datasourceTemplate: "docker",
     },
   ],
 }

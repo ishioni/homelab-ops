@@ -8,24 +8,6 @@
       enabled: false,
     },
     {
-      description: "Override Helmfile Dependency Name",
-      matchDatasources: ["docker"],
-      matchManagers: ["helmfile"],
-      overrideDepName: "{{packageName}}",
-    },
-    {
-      description: "Vectorchord imageVolume pg extension",
-      matchDatasources: ["docker"],
-      matchPackagePatterns: ["tensorchord/vchord-scratch"],
-      versioning: "regex:^pg18-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
-    },
-    {
-      description: "Use loose versioning for SearXNG date+commit image tags",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["ghcr.io/searxng/searxng"],
-      versioning: "loose",
-    },
-    {
       description: "Use semver prerelease handling for RustFS image tags",
       matchDatasources: ["docker"],
       matchPackageNames: ["docker.io/rustfs/rustfs"],

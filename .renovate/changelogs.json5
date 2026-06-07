@@ -2,12 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: "Changelog URL for 1Password Connect",
-      matchPackageNames: ["/1password/"],
-      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
-    },
-    {
-      description: "Changelog URL for Spegel",
+      description: "Changelog for Spegel",
       matchPackageNames: ["/spegel/"],
       sourceUrl: "https://github.com/spegel-org/spegel",
     },
@@ -55,11 +50,6 @@
       description: "Changelog for ollama",
       matchPackageNames: ["/ollama/"],
       sourceUrl: "https://github.com/ollama/ollama",
-    },
-    {
-      description: "Changelog for renovate-operator",
-      matchPackageNames: ["/renovate-operator/"],
-      sourceUrl: "https://github.com/mogenius/renovate-operator",
     },
     {
       description: "Changelog for scrutiny",
