@@ -32,7 +32,7 @@ spec:
             runAsNonRoot: true
             runAsUser: 568
             runAsGroup: 5000
-            fsGroup: 5000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
@@ -69,7 +69,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
