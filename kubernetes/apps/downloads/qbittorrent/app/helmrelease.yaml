@@ -66,11 +66,11 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
-                memory: 500Mi
+                memory: 1500Mi
               limits:
                 memory: 8152Mi
           vuetorrent:
