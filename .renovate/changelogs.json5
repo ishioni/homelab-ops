@@ -71,5 +71,10 @@
       matchPackageNames: ["docker.io/rustfs/rustfs"],
       sourceUrl: "https://github.com/rustfs/rustfs",
     },
+    {
+      description: "Changelog for tofu-controller",
+      matchPackageNames: ["ghcr.io/flux-iac/charts/tofu-controller"],
+      changelogUrl: "https://github.com/flux-iac/tofu-controller/blob/main/CHANGELOG.md",
+    },
   ],
 }
