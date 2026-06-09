@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: flux-operator
 spec:
-  image: ghcr.io/controlplaneio-fluxcd/flux-operator-mcp:v0.50.0
+  image: ghcr.io/controlplaneio-fluxcd/flux-operator-mcp:v0.51.0
   transport: streamable-http
   # args: [serve, --read-only]
   # mcpPort: 9090
