@@ -5,8 +5,7 @@ name: Konflate
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main
+    branches: [master]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
