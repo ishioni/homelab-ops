@@ -14,8 +14,8 @@ services:
       TZ: Europe/Warsaw
       HF_HOME: /root/.cache/huggingface
       LLAMA_CACHE: /root/.cache/llama.cpp
-      LLAMA_ARG_HF_REPO: ggml-org/gemma-3-4b-it-GGUF:Q4_K_M
-      LLAMA_ARG_ALIAS: gemma-3-4b-it-q4-k-m
+      LLAMA_ARG_HF_REPO: google/gemma-4-12b-it-qat-q4_0-gguf
+      LLAMA_ARG_ALIAS: gemma-4-12b-it-q4_0
       LLAMA_ARG_HOST: 0.0.0.0
       LLAMA_ARG_PORT: ${APP_PORT}
       LLAMA_ARG_CTX_SIZE: 8192
