@@ -76,5 +76,10 @@
       matchPackageNames: ["ghcr.io/flux-iac/charts/tofu-controller"],
       changelogUrl: "https://github.com/flux-iac/tofu-controller/blob/main/CHANGELOG.md",
     },
+    {
+      description: "Changelog for llama.cpp",
+      matchPackageNames: ["ghcr.io/ggml-org/llama.cpp"],
+      sourceUrl: "https://github.com/ggml-org/llama.cpp",
+    },
   ],
 }

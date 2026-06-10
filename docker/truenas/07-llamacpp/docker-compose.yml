@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
+services:
+  llamacpp:
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan-b9570@sha256:5e6de18a610baece861f7566a8c51c11e548b8afc163d85378eea8a2ac694893
+    container_name: llamacpp
+    restart: unless-stopped
+    devices:
+      - /dev/dri
+    networks:
+      apps:
+    environment:
+      TZ: Europe/Warsaw
+      HF_HOME: /root/.cache/huggingface
+      LLAMA_CACHE: /root/.cache/llama.cpp
+      LLAMA_ARG_HF_REPO: ggml-org/gemma-3-4b-it-GGUF:Q4_K_M
+      LLAMA_ARG_ALIAS: gemma-3-4b-it-q4-k-m
+      LLAMA_ARG_HOST: 0.0.0.0
+      LLAMA_ARG_PORT: ${APP_PORT}
+      LLAMA_ARG_CTX_SIZE: 8192
+      LLAMA_ARG_THREADS: 6
+      LLAMA_ARG_THREADS_BATCH: 6
+      LLAMA_ARG_N_PARALLEL: 1
+      LLAMA_ARG_N_GPU_LAYERS: auto
+      LLAMA_ARG_FIT_TARGET: 4096
+      LLAMA_ARG_CACHE_RAM: 2048
+      LLAMA_ARG_ENDPOINT_METRICS: 1
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - ${DATA_PATH}/cache:/root/.cache
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.llamacpp.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.llamacpp.entrypoints: https
+      traefik.http.routers.llamacpp.rule: Host(`${HOST}`)
+      traefik.http.routers.llamacpp.tls: true
+      traefik.http.routers.llamacpp.service: llamacpp
+      dexd.enabled: "true"
+
+networks:
+  apps:
+    external: true
