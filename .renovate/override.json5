@@ -17,6 +17,12 @@
       allowedVersions: "/^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.]+)?$/",
     },
     {
+      description: "Use regex versioning for llama.cpp Docker build tags",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/ggml-org/llama.cpp"],
+      versioning: "regex:^(?<compatibility>server-vulkan)-b(?<major>\\d+)$",
+    },
+    {
       description: "Pin Cloudflare Terraform provider to 4.52.x (hold off on v5)",
       matchDatasources: ["terraform-provider"],
       matchDepNames: ["cloudflare"],
