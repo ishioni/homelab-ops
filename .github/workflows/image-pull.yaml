@@ -40,7 +40,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Flate
-        uses: home-operations/flate/action@cb51c417b0ff69e73e0569fdb4f95defd9efa90f # v0.4.1
+        uses: home-operations/flate/action@dead45661b4ba1bec3fd47c3ca5ce43c7cccdc6b # v0.4.2
 
       - name: Extract Images
         id: extract
