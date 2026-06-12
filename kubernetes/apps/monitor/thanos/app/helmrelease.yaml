@@ -32,7 +32,7 @@ spec:
       persistence:
         enabled: true
         storageClass: dcsi-iscsi
-        size: 30Gi
+        size: 60Gi
     # query:
     #   extraArgs: --alert.query-url=http://thanos.${PUBLIC_DOMAIN}
     # queryFrontend:
