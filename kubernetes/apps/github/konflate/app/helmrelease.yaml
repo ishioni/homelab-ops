@@ -12,6 +12,9 @@ spec:
   values:
     config:
       repo: github://ishioni/homelab-ops
+      statusChecks: true
+      prComments: true
+      publicUrl: https://${HOSTNAME}
     secret:
       existingSecret: konflate-secret
     httpRoute:
