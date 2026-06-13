@@ -7,7 +7,7 @@ components:
   - ../../components/alerts
   - ../../components/namespace
 resources:
-  - ./bazarr/ks.yaml
+  # - ./bazarr/ks.yaml
   - ./downloads-pvc/ks.yaml
   - ./lidarr/ks.yaml
   - ./prowlarr/ks.yaml
