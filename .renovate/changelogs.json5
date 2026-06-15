@@ -81,5 +81,10 @@
       matchPackageNames: ["ghcr.io/ggml-org/llama.cpp"],
       sourceUrl: "https://github.com/ggml-org/llama.cpp",
     },
+    {
+      description: "Changelog for llama.cpp",
+      matchPackageNames: ["ghcr.io/home-operations/gatus-sidecar"],
+      sourceUrl: "https://github.com/home-operations/gatus-sidecar",
+    },
   ],
 }
