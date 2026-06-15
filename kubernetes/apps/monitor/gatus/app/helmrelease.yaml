@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-5.0.1/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,126 +10,58 @@ spec:
     name: gatus
   interval: 30m
   values:
-    controllers:
-      gatus:
-        annotations:
-          secret.reloader.stakater.com/reload: &secret gatus-secret
-          configmap.reloader.stakater.com/reload: &configmap gatus-configmap
-        pod:
-          automountServiceAccountToken: true
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18.4@sha256:5086f94abc783f1147d7c2a32c01db00ab594820026e4f6a82ac2af3dbde7fc7
-            envFrom: &envfrom
-              - secretRef:
-                  name: *secret
-          gatus-sidecar:
-            image:
-              repository: ghcr.io/home-operations/gatus-sidecar
-              tag: 0.3.2@sha256:c6550b40f444337d953e622b3ad6dd9b28e80a664dfcd59d0f8551997e870b8e
-            args:
-              - --auto-httproute
-              - --enable-httproute
-              - --enable-service
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 64Mi
-            restartPolicy: Always
-        containers:
-          app:
-            image:
-              repository: ghcr.io/twin/gatus
-              tag: v5.36.0@sha256:c5f210d095fa78e6efaa20ffeb14803f2ba4f10615e16a6d12087697149617f0
-            env:
-              GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
-              GATUS_WEB_PORT: &port 80
-              TZ: ${CONFIG_TIMEZONE}
-              PUBLIC_DOMAIN: ${PUBLIC_DOMAIN}
-              PRIVATE_DOMAIN: ${PRIVATE_DOMAIN}
-            envFrom: *envfrom
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
-            resources:
-              requests:
-                cpu: 100m
-                memory: 100Mi
-              limits:
-                memory: 250Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
-    service:
-      app:
-        controller: gatus
-        ports:
-          http:
-            port: *port
-    serviceMonitor:
-      app:
-        serviceName: gatus
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
-    route:
-      app:
-        hostnames: ["${HOSTNAME}"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-            sectionName: https
-    rbac:
-      bindings:
-        gatus:
-          type: ClusterRoleBinding
-          roleRef:
-            kind: ClusterRole
-            name: gatus
-          subjects:
-            - identifier: gatus
-      roles:
-        gatus:
-          type: ClusterRole
-          rules:
-            - apiGroups: [""]
-              resources: ["services"]
-              verbs: ["get", "watch", "list"]
-            - apiGroups: ["gateway.networking.k8s.io"]
-              resources: ["gateways", "httproutes"]
-              verbs: ["get", "watch", "list"]
-    serviceAccount:
-      gatus: {}
-    persistence:
-      config:
-        type: emptyDir
-      config-file:
-        type: configMap
-        name: *configmap
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
-            readOnly: true
+    fullnameOverride: gatus
+
+    deploymentAnnotations:
+      secret.reloader.stakater.com/reload: &secret gatus-secret
+      configmap.reloader.stakater.com/reload: &configmap gatus-configmap
+
+    gatus:
+      delayStartSeconds: "5"
+      env:
+        TZ: ${CONFIG_TIMEZONE}
+        PUBLIC_DOMAIN: ${PUBLIC_DOMAIN}
+        PRIVATE_DOMAIN: ${PRIVATE_DOMAIN}
+      envFrom:
+        - secretRef:
+            name: *secret
+
+    sidecar:
+      kinds:
+        httproute:
+          enable: true
+
+    initContainers:
+      - name: init-db
+        image: ghcr.io/home-operations/postgres-init:18.4@sha256:5086f94abc783f1147d7c2a32c01db00ab594820026e4f6a82ac2af3dbde7fc7
+        envFrom:
+          - secretRef:
+              name: *secret
+
+    config:
+      existingConfigMap: *configmap
+      items:
+        - key: config.yaml
+          path: config.yaml
+
+    resources:
+      requests:
+        cpu: 110m
+        memory: 100Mi
+      limits:
+        memory: 314Mi
+
+    monitoring:
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+        scrapeTimeout: 10s
+        path: /metrics
+
+    httpRoute:
+      enabled: true
+      hostnames: ["${HOSTNAME}"]
+      parentRefs:
+        - name: envoy-external
+          namespace: network
+          sectionName: https
