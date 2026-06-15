@@ -17,11 +17,6 @@ spec:
       configmap.reloader.stakater.com/reload: &configmap gatus-configmap
 
     gatus:
-      image:
-        repository: ghcr.io/twin/gatus
-        tag: v5.36.0
-        digest: sha256:c5f210d095fa78e6efaa20ffeb14803f2ba4f10615e16a6d12087697149617f0
-      port: &port 80
       delayStartSeconds: "5"
       env:
         TZ: ${CONFIG_TIMEZONE}
@@ -30,30 +25,10 @@ spec:
       envFrom:
         - secretRef:
             name: *secret
-      livenessProbe: &probes
-        httpGet:
-          path: /health
-          port: http
-        initialDelaySeconds: 0
-        periodSeconds: 10
-        timeoutSeconds: 1
-        failureThreshold: 3
-      readinessProbe: *probes
-      securityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities: { drop: ["ALL"] }
 
     sidecar:
-      image:
-        repository: ghcr.io/home-operations/gatus-sidecar
-        tag: 0.3.2
-        digest: sha256:c6550b40f444337d953e622b3ad6dd9b28e80a664dfcd59d0f8551997e870b8e
       kinds:
         httproute:
-          enable: true
-          auto: true
-        service:
           enable: true
 
     initContainers:
@@ -63,12 +38,11 @@ spec:
           - secretRef:
               name: *secret
 
-    podSecurityContext:
-      runAsNonRoot: true
-      runAsUser: 65534
-      runAsGroup: 65534
-      fsGroup: 65534
-      fsGroupChangePolicy: OnRootMismatch
+    config:
+      existingConfigMap: *configmap
+      items:
+        - key: config.yaml
+          path: config.yaml
 
     resources:
       requests:
@@ -76,16 +50,6 @@ spec:
         memory: 100Mi
       limits:
         memory: 314Mi
-
-    serviceAccount:
-      automount: true
-
-    rbac:
-      create: true
-      type: ClusterRole
-
-    service:
-      port: *port
 
     monitoring:
       serviceMonitor:
@@ -101,9 +65,3 @@ spec:
         - name: envoy-external
           namespace: network
           sectionName: https
-
-    config:
-      existingConfigMap: *configmap
-      items:
-        - key: config.yaml
-          path: config.yaml
