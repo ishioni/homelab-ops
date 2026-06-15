@@ -25,7 +25,7 @@ spec:
       envFrom:
         - secretRef:
             name: *secret
-      logLevel: ""
+      logLevel: WARN
 
     sidecar:
       kinds:
