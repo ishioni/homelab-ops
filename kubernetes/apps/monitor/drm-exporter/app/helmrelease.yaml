@@ -25,6 +25,7 @@ spec:
         enabled: true
         grafanaOperator:
           enabled: true
+          folder: System
           matchLabels:
             grafana.internal/instance: grafana
     resources:
