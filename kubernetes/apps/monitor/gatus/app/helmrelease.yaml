@@ -16,6 +16,9 @@ spec:
       secret.reloader.stakater.com/reload: &secret gatus-secret
       configmap.reloader.stakater.com/reload: &configmap gatus-configmap
 
+    strategy:
+      type: RollingUpdate
+
     gatus:
       delayStartSeconds: "5"
       env:
