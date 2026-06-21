@@ -10,7 +10,6 @@ spec:
   staticConfigs:
     - targets:
         - https://unifi.${PRIVATE_DOMAIN}
-        - https://unifi.ostroda.${PRIVATE_DOMAIN}
   metricsPath: /scrape
   relabelings:
     - sourceLabels: [__address__]
@@ -24,7 +23,3 @@ spec:
       regex: 'Default \(default\);https://unifi\.ishioni\.casa'
       targetLabel: site_name
       replacement: MoviNet
-    - sourceLabels: [site_name, instance]
-      regex: 'Default \(default\);https://unifi\.ostroda\.ishioni\.casa'
-      targetLabel: site_name
-      replacement: Ostróda
