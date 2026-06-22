@@ -19,18 +19,6 @@ spec:
       - rabbitmq_prometheus
   service:
     type: ClusterIP
-  override:
-    statefulSet:
-      spec:
-        template:
-          spec:
-            containers:
-              - name: rabbitmq
-                env:
-                  - name: RABBITMQ_DEFAULT_USER
-                    value: "admin"
-                  - name: RABBITMQ_DEFAULT_PASS
-                    value: "adminpass"
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/user_v1beta1.json
 apiVersion: rabbitmq.com/v1beta1

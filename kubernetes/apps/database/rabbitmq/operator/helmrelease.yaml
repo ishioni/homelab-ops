@@ -36,6 +36,9 @@ spec:
         privileged: false
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
+      extraEnvVars:
+        - name: MESSAGING_DOMAIN_NAME
+          value: cluster.local
       metrics:
         service:
           enabled: true
