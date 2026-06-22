@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rabbitmq-operator
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: rabbitmq-operator
+  interval: 30m
+  maxHistory: 3
+  values:
+    clusterOperator:
+      image:
+        repository: ghcr.io/rabbitmq/cluster-operator
+        tag: 2.21.1
+      podSecurityContext:
+        fsGroup: 1000
+      containerSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        privileged: false
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+      metrics:
+        service:
+          enabled: true
+        serviceMonitor:
+          enabled: true
+    msgTopologyOperator:
+      image:
+        repository: ghcr.io/rabbitmq/messaging-topology-operator
+        tag: 1.19.3
+      podSecurityContext:
+        fsGroup: 1000
+      containerSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        privileged: false
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+      metrics:
+        service:
+          enabled: true
+        serviceMonitor:
+          enabled: true
+    rabbitmqImage:
+      repository: rabbitmq
+      tag: 4.3.2-management-alpine
+    credentialUpdaterImage:
+      repository: rabbitmqoperator/default-user-credential-updater
+      tag: 1.0.13
