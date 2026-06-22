@@ -51,6 +51,16 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/vhost_v1beta1.json
+apiVersion: rabbitmq.com/v1beta1
+kind: Vhost
+metadata:
+  name: shared
+spec:
+  name: shared
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+---
 # yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/permission_v1beta1.json
 apiVersion: rabbitmq.com/v1beta1
 kind: Permission
@@ -60,6 +70,21 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
   vhost: integrations-app
+  user: integrations-app
+  permissions:
+    configure: ".*"
+    read: ".*"
+    write: ".*"
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/permission_v1beta1.json
+apiVersion: rabbitmq.com/v1beta1
+kind: Permission
+metadata:
+  name: integrations-app
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+  vhost: shared
   user: integrations-app
   permissions:
     configure: ".*"
