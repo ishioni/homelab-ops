@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/rabbitmqcluster_v1beta1.json
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq-cluster
+  annotations:
+    rabbitmq.com/topology-allowed-namespaces: "databases"
+spec:
+  delayStartSeconds: 30
+  replicas: 1
+  terminationGracePeriodSeconds: 604800
+  persistence:
+    storage: 2Gi
+    storageClassName: tns-iscsi
+  rabbitmq:
+    additionalPlugins:
+      - rabbitmq_management
+      - rabbitmq_prometheus
+  service:
+    type: ClusterIP
+  override:
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: rabbitmq
+                env:
+                  - name: RABBITMQ_DEFAULT_USER
+                    value: "admin"
+                  - name: RABBITMQ_DEFAULT_PASS
+                    value: "adminpass"

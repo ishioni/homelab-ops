@@ -1,0 +1,19 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rabbitmq
+spec:
+  hostnames:
+    - mq.${PRIVATE_DOMAIN}
+  parentRefs:
+    - name: envoy-internal
+      namespace: networking
+  rules:
+    - backendRefs:
+        - name: rabbitmq
+          port: 15672
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
