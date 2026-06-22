@@ -5,7 +5,7 @@ kind: RabbitmqCluster
 metadata:
   name: rabbitmq-cluster
   annotations:
-    rabbitmq.com/topology-allowed-namespaces: "databases"
+    rabbitmq.com/topology-allowed-namespaces: "database"
 spec:
   delayStartSeconds: 30
   replicas: 1
