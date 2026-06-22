@@ -19,6 +19,18 @@ spec:
       - rabbitmq_prometheus
   service:
     type: ClusterIP
+  override:
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: rabbitmq
+                env:
+                  - name: RABBITMQ_DEFAULT_USER
+                    value: "admin"
+                  - name: RABBITMQ_DEFAULT_PASS
+                    value: "adminpass"
 ---
 apiVersion: v1
 kind: Secret
