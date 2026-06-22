@@ -8,7 +8,8 @@ spec:
     - mq.${PRIVATE_DOMAIN}
   parentRefs:
     - name: envoy-internal
-      namespace: networking
+      namespace: network
+      sectionName: https
   rules:
     - backendRefs:
         - name: rabbitmq
