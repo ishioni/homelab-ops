@@ -80,7 +80,7 @@ spec:
 apiVersion: rabbitmq.com/v1beta1
 kind: Permission
 metadata:
-  name: integrations-app
+  name: shared
 spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
