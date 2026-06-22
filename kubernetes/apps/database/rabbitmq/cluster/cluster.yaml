@@ -38,6 +38,8 @@ spec:
     name: rabbitmq-cluster
   importCredentialsSecret:
     name: integrations-app-user-import
+    tags:
+      - management
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/vhost_v1beta1.json
 apiVersion: rabbitmq.com/v1beta1
@@ -46,16 +48,6 @@ metadata:
   name: integrations-app
 spec:
   name: integrations-app
-  rabbitmqClusterReference:
-    name: rabbitmq-cluster
----
-# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/vhost_v1beta1.json
-apiVersion: rabbitmq.com/v1beta1
-kind: Vhost
-metadata:
-  name: shared
-spec:
-  name: shared
   rabbitmqClusterReference:
     name: rabbitmq-cluster
 ---
@@ -68,22 +60,6 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
   vhost: integrations-app
-  userReference:
-    name: integrations-app
-  permissions:
-    configure: ".*"
-    read: ".*"
-    write: ".*"
----
-# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/permission_v1beta1.json
-apiVersion: rabbitmq.com/v1beta1
-kind: Permission
-metadata:
-  name: shared
-spec:
-  rabbitmqClusterReference:
-    name: rabbitmq-cluster
-  vhost: shared
   userReference:
     name: integrations-app
   permissions:
