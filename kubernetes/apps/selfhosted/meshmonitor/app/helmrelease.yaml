@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/yeraze/meshmonitor
-              tag: 4.11.3
+              tag: 4.11.4
             env:
               DISABLE_LOCAL_AUTH: "true"
               MESHTASTIC_NODE_IP: 10.1.3.22
