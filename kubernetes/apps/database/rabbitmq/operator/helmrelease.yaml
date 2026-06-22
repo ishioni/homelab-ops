@@ -12,9 +12,6 @@ spec:
   maxHistory: 3
   values:
     clusterOperator:
-      image:
-        repository: ghcr.io/rabbitmq/cluster-operator
-        tag: 2.21.1
       podSecurityContext:
         fsGroup: 1000
       containerSecurityContext:
@@ -30,9 +27,6 @@ spec:
         serviceMonitor:
           enabled: true
     msgTopologyOperator:
-      image:
-        repository: ghcr.io/rabbitmq/messaging-topology-operator
-        tag: 1.19.3
       podSecurityContext:
         fsGroup: 1000
       containerSecurityContext:
@@ -47,9 +41,3 @@ spec:
           enabled: true
         serviceMonitor:
           enabled: true
-    rabbitmqImage:
-      repository: rabbitmq
-      tag: 4.3.2-management-alpine
-    credentialUpdaterImage:
-      repository: rabbitmqoperator/default-user-credential-updater
-      tag: 1.0.13
