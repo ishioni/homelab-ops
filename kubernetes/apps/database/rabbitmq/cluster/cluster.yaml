@@ -31,3 +31,37 @@ spec:
                     value: "admin"
                   - name: RABBITMQ_DEFAULT_PASS
                     value: "adminpass"
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/user_v1beta1.json
+apiVersion: rabbitmq.com/v1beta1
+kind: User
+metadata:
+  name: integrations-app
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/vhost_v1beta1.json
+apiVersion: rabbitmq.com/v1beta1
+kind: Vhost
+metadata:
+  name: integrations-app
+spec:
+  name: integrations-app
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/permission_v1beta1.json
+apiVersion: rabbitmq.com/v1beta1
+kind: Permission
+metadata:
+  name: integrations-app
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+  vhost: integrations-app
+  user: integrations-app
+  permissions:
+    configure: ".*"
+    read: ".*"
+    write: ".*"
