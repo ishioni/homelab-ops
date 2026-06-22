@@ -12,7 +12,7 @@ spec:
   terminationGracePeriodSeconds: 604800
   persistence:
     storage: 2Gi
-    storageClassName: tns-iscsi
+    storageClassName: dcsi-iscsi
   rabbitmq:
     additionalPlugins:
       - rabbitmq_management
