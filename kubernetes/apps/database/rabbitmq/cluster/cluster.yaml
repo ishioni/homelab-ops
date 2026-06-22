@@ -20,6 +20,14 @@ spec:
   service:
     type: ClusterIP
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: integrations-app-user-import
+stringData:
+  username: integrations-app
+  password: integrations-app
+---
 # yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/user_v1beta1.json
 apiVersion: rabbitmq.com/v1beta1
 kind: User
@@ -28,6 +36,8 @@ metadata:
 spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
+  importCredentialsSecret:
+    name: integrations-app-user-import
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/vhost_v1beta1.json
 apiVersion: rabbitmq.com/v1beta1
@@ -58,7 +68,8 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
   vhost: integrations-app
-  user: integrations-app
+  userReference:
+    name: integrations-app
   permissions:
     configure: ".*"
     read: ".*"
@@ -73,7 +84,8 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq-cluster
   vhost: shared
-  user: integrations-app
+  userReference:
+    name: integrations-app
   permissions:
     configure: ".*"
     read: ".*"
