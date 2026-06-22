@@ -50,8 +50,8 @@ spec:
     name: rabbitmq-cluster
   importCredentialsSecret:
     name: integrations-app-user-import
-    tags:
-      - management
+  tags:
+    - management
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/rabbitmq.com/vhost_v1beta1.json
 apiVersion: rabbitmq.com/v1beta1
