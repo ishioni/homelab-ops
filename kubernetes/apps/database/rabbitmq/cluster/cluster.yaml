@@ -17,20 +17,27 @@ spec:
     additionalPlugins:
       - rabbitmq_management
       - rabbitmq_prometheus
+  secretBackend:
+    externalSecret:
+      name: rabbitmq-cluster-admin
   service:
     type: ClusterIP
-  override:
-    statefulSet:
-      spec:
-        template:
-          spec:
-            containers:
-              - name: rabbitmq
-                env:
-                  - name: RABBITMQ_DEFAULT_USER
-                    value: "admin"
-                  - name: RABBITMQ_DEFAULT_PASS
-                    value: "adminpass"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rabbitmq-cluster-admin
+stringData:
+  default_user.conf: |
+    default_user = admin
+    default_pass = adminpass
+  username: admin
+  password: adminpass
+  host: rabbitmq-cluster.database.svc.cluster.local
+  port: "5672"
+  provider: rabbitmq
+  type: rabbitmq
+  connection_string: amqp://admin:adminpass@rabbitmq-cluster.database.svc.cluster.local:5672/
 ---
 apiVersion: v1
 kind: Secret
