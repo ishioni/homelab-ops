@@ -12,7 +12,7 @@ spec:
       sectionName: https
   rules:
     - backendRefs:
-        - name: rabbitmq
+        - name: rabbitmq-cluster
           port: 15672
       matches:
         - path:
