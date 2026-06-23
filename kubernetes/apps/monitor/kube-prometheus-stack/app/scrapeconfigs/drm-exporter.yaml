@@ -16,3 +16,7 @@ spec:
       regex: '([^:]+):\d+'
       replacement: "$1"
       targetLabel: instance
+    - sourceLabels: [__address__]
+      regex: '([^.]+)(?:\..*)?:\d+'
+      replacement: "$1"
+      targetLabel: node
