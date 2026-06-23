@@ -17,11 +17,6 @@
       sourceUrl: "https://github.com/siderolabs/talos",
     },
     {
-      description: "Changelog for OIDCWarden",
-      matchPackageNames: ["/oidcwarden/"],
-      changelogUrl: "https://github.com/Timshel/OIDCWarden/blob/main/CHANGELOG.md",
-    },
-    {
       description: "Changelog for it-tools",
       matchPackageNames: ["/it-tools/"],
       sourceUrl: "https://github.com/sharevb/it-tools",
