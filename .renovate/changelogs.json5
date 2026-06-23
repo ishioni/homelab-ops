@@ -13,7 +13,7 @@
     },
     {
       description: "Changelog for Talos",
-      matchPackageNames: ["/installer/"],
+      matchDepNames: ["siderolabs/talos"],
       sourceUrl: "https://github.com/siderolabs/talos",
     },
     {
