@@ -1,7 +1,7 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>home-operations/renovate-presets#2.0.1",
+    "github>home-operations/renovate-presets#2.1.0",
     "github>ishioni/homelab-ops//.renovate/autoMerge.json5",
     "github>ishioni/homelab-ops//.renovate/changelogs.json5",
     "github>ishioni/homelab-ops//.renovate/customManagers.json5",
