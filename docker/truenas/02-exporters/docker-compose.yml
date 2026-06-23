@@ -30,3 +30,19 @@ services:
     privileged: true
     restart: unless-stopped
     user: root
+
+  drm-exporter:
+    image: ghcr.io/home-operations/drm-exporter:0.2.4@sha256:1ccf3c6db20bcd95bc4d69eac7a5288c92543b34adbe053004c1b739fd0208ef
+    container_name: drm-exporter
+    restart: unless-stopped
+    user: root
+    environment:
+      DRM_EXPORTER_PORT: 9087
+      DRM_EXPORTER_INTERVAL_SECONDS: 5
+      RUST_LOG: info
+    ports:
+      - 9087:9087
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /sys:/sys:ro

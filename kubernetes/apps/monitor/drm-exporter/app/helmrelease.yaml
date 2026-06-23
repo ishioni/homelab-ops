@@ -17,7 +17,6 @@ spec:
       capabilities:
         add:
           - PERFMON
-          - SYS_RAWIO
     monitoring:
       serviceMonitor:
         enabled: true
