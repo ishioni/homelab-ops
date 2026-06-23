@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./dexd.yaml
   - ./dococd.yaml
+  - ./drm-exporter.yaml
   - ./node-exporter.yaml
   - ./rustfs.yaml
   - ./smartctl-exporter.yaml
