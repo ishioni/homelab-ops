@@ -267,17 +267,3 @@ resource "cloudflare_record" "fastmail-submission" {
     target   = "smtp.fastmail.com"
   }
 }
-
-resource "cloudflare_record" "hass-cname" {
-  name    = "homeassistant.${var.public_domain}"
-  content = "yci3lqdd8qfgt582mf0kg36ks27v6kr4.ui.nabu.casa"
-  type    = "CNAME"
-  zone_id = local.public_domain_zone
-}
-
-resource "cloudflare_record" "hass-acme" {
-  name    = "_acme-challenge.homeassistant.${var.public_domain}"
-  content = "_acme-challenge.yci3lqdd8qfgt582mf0kg36ks27v6kr4.ui.nabu.casa"
-  type    = "CNAME"
-  zone_id = local.public_domain_zone
-}
