@@ -77,9 +77,14 @@
       sourceUrl: "https://github.com/ggml-org/llama.cpp",
     },
     {
-      description: "Changelog for llama.cpp",
+      description: "Changelog for gatus-sidecar",
       matchPackageNames: ["ghcr.io/home-operations/gatus-sidecar"],
       sourceUrl: "https://github.com/home-operations/gatus-sidecar",
+    },
+    {
+      description: "Changelog for searxng-mcp",
+      matchPackageNames: ["docker.io/isokoliuk/mcp-searxng"],
+      sourceUrl: "https://github.com/ihor-sokoliuk/mcp-searxng",
     },
   ],
 }
