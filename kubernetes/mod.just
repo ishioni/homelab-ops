@@ -44,6 +44,21 @@ snapshot:
         kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
     done
 
+[doc("Plan NAS-backed workload shutdown (discovers PVC users on dcsi-iscsi/dcsi-nfs)")]
+[script]
+nas-plan *args:
+    bash ../hack/nas-storage-maintenance.sh plan {{ args }}
+
+[doc("Scale down NAS-backed workloads: operators -> deployments -> statefulsets")]
+[script]
+nas-down *args:
+    bash ../hack/nas-storage-maintenance.sh down {{ args }}
+
+[doc("Restore NAS-backed workloads in reverse: statefulsets -> deployments -> operators")]
+[script]
+nas-up *args:
+    bash ../hack/nas-storage-maintenance.sh up {{ args }}
+
 [doc('Suspend or resume VolSync')]
 [script]
 volsync state:
