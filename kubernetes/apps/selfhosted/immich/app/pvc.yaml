@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/core/persistentvolume_v1.json
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-data
+spec:
+  capacity:
+    storage: 4000Gi
+  volumeMode: Filesystem
+  accessModes: [ReadWriteMany]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  nfs:
+    server: "${CONFIG_TRUENAS_IP}"
+    path: /mnt/SSD/talos/volumes/immich
+  mountOptions: [nfsvers=4.2, nconnect=8, hard, noatime, nodiratime]
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/core/persistentvolumeclaim_v1.json
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-data
+spec:
+  accessModes: [ReadWriteMany]
+  resources:
+    requests:
+      storage: 4000Gi
+  storageClassName: nfs
+  volumeMode: Filesystem
+  volumeName: selfhosted-pvc

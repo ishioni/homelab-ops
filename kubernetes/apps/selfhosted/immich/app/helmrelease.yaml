@@ -237,9 +237,7 @@ spec:
               - path: /config/immich-config.yaml
                 subPath: immich-config.yaml
       library:
-        type: nfs
-        server: ${CONFIG_TRUENAS_IP}
-        path: /mnt/SSD/talos/volumes/immich
+        existingClaim: immich-data
         advancedMounts:
           server:
             server:
