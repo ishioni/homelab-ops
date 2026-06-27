@@ -28,4 +28,4 @@ spec:
       storage: 4000Gi
   storageClassName: nfs
   volumeMode: Filesystem
-  volumeName: selfhosted-pvc
+  volumeName: immich-data
