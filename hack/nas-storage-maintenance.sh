@@ -9,6 +9,7 @@ readonly DEFAULT_STATE_NAMESPACE="kube-system"
 readonly DEFAULT_STATE_CONFIGMAP="nas-storage-maintenance-state"
 readonly WAIT_TIMEOUT_SECONDS="${WAIT_TIMEOUT_SECONDS:-300}"
 readonly WAIT_INTERVAL_SECONDS="${WAIT_INTERVAL_SECONDS:-5}"
+readonly SPINNER_INTERVAL_SECONDS="${SPINNER_INTERVAL_SECONDS:-0.1}"
 
 MODE=""
 KUBECTL_BIN="${KUBECTL:-kubectl}"
@@ -22,7 +23,15 @@ STORAGE_CLASSES=()
 OPERATORS=()
 
 log() {
-  printf '[%s] %s\n' "$(date +'%Y-%m-%dT%H:%M:%S%z')" "$*" >&2
+  gum log --time rfc3339 --level info "$*" >&2
+}
+
+log_warn() {
+  gum log --time rfc3339 --level warn "$*" >&2
+}
+
+log_error() {
+  gum log --time rfc3339 --level error "$*" >&2
 }
 
 usage() {
@@ -65,7 +74,7 @@ require_bin() {
   local bin
   for bin in "$@"; do
     if ! command -v "$bin" >/dev/null 2>&1; then
-      log "Missing required binary: $bin"
+      log_error "Missing required binary: $bin"
       exit 1
     fi
   done
@@ -125,7 +134,7 @@ parse_args() {
         exit 0
         ;;
       *)
-        log "Unknown argument: $1"
+        log_error "Unknown argument: $1"
         usage
         exit 1
         ;;
@@ -151,7 +160,7 @@ parse_args() {
   case "$MODE" in
     plan|down|up) ;;
     *)
-      log "Unknown mode: $MODE"
+      log_error "Unknown mode: $MODE"
       usage
       exit 1
       ;;
@@ -174,7 +183,7 @@ operators_json() {
     if [[ "$entry" == */* ]]; then
       valid+=("$entry")
     else
-      log "Ignoring invalid operator reference '$entry' (expected namespace/name)"
+      log_warn "Ignoring invalid operator reference '$entry' (expected namespace/name)"
     fi
   done
 
@@ -294,6 +303,35 @@ fetch_operator_state_json() {
   '
 }
 
+json_array_field() {
+  local json="$1"
+  local field="$2"
+
+  jq -c --arg field "$field" '.[$field] // []' <<<"$json"
+}
+
+workload_records_tsv() {
+  local items_json="$1"
+
+  jq -r '.[]? | [.namespace, .name, (.replicas // "")] | @tsv' <<<"$items_json"
+}
+
+kind_label() {
+  local kind="$1"
+
+  case "$kind" in
+    deployment)
+      printf 'Deployment\n'
+      ;;
+    statefulset)
+      printf 'StatefulSet\n'
+      ;;
+    *)
+      printf '%s\n' "$kind"
+      ;;
+  esac
+}
+
 print_plan() {
   local discovery_json operator_json
   discovery_json="$1"
@@ -329,39 +367,87 @@ print_plan() {
   ' <<<"$discovery_json"
 }
 
-wait_for_scaled_replicas() {
+workload_is_scaled() {
   local kind="$1" namespace="$2" name="$3" expected="$4"
+  local observed ready
 
-  if [[ "$NO_WAIT" == "true" ]]; then
+  observed="$(kc -n "$namespace" get "$kind" "$name" -o json | jq -r '.spec.replicas // 0')"
+  ready="$(kc -n "$namespace" get "$kind" "$name" -o json | jq -r '.status.readyReplicas // 0')"
+
+  if [[ "$observed" != "$expected" ]]; then
+    return 1
+  fi
+
+  if [[ "$expected" == "0" ]]; then
+    [[ "$ready" == "0" ]]
     return
   fi
 
-  local started now observed ready
+  [[ "$ready" == "$expected" ]]
+}
+
+wait_for_phase() {
+  local kind="$1"
+  local target_replicas="$2"
+  local items_file="$3"
+  local count="$4"
+
+  if [[ "$NO_WAIT" == "true" || "$DRY_RUN" == "true" ]]; then
+    return
+  fi
+
+  local started now namespace name item_replicas replicas remaining completed frame_index tick_counter poll_every_ticks line label
+  local -a frames=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
   started="$(date +%s)"
+  label="$(kind_label "$kind")"
+  frame_index=0
+  tick_counter=999999
+  remaining="$count"
+  completed=0
+  poll_every_ticks="$(awk -v wait="$WAIT_INTERVAL_SECONDS" -v spin="$SPINNER_INTERVAL_SECONDS" 'BEGIN {
+    v = wait / spin;
+    if (v < 1) v = 1;
+    printf "%d", v;
+  }')"
 
   while true; do
-    observed="$(kc -n "$namespace" get "$kind" "$name" -o json | jq -r '.spec.replicas // 0')"
-    ready="$(kc -n "$namespace" get "$kind" "$name" -o json | jq -r '.status.readyReplicas // 0')"
+    if (( tick_counter >= poll_every_ticks )); then
+      remaining=0
 
-    if [[ "$observed" == "$expected" ]]; then
-      if [[ "$expected" == "0" ]]; then
-        if [[ "$ready" == "0" ]]; then
-          return
+      while IFS=$'\t' read -r namespace name item_replicas; do
+        replicas="$target_replicas"
+
+        if [[ "$target_replicas" == "__from_item__" ]]; then
+          replicas="$item_replicas"
         fi
-      else
-        if [[ "$ready" == "$expected" ]]; then
-          return
+
+        if ! workload_is_scaled "$kind" "$namespace" "$name" "$replicas"; then
+          remaining=$((remaining + 1))
         fi
-      fi
+      done < "$items_file"
+
+      completed=$((count - remaining))
+      tick_counter=0
+    fi
+
+    line="${frames[$frame_index]} ${label}: ${completed}/${count} (${remaining} remaining)"
+    printf '\r\033[2K%s' "$line" >&2
+
+    if (( remaining == 0 )); then
+      printf '\r\033[2K%s\n' "$(gum style --foreground 42 --bold "✓ ${label}: ${count}/${count} complete")" >&2
+      return
     fi
 
     now="$(date +%s)"
     if (( now - started >= WAIT_TIMEOUT_SECONDS )); then
-      log "Timed out waiting for $kind/$namespace/$name to reach replicas=$expected (spec=$observed ready=$ready)"
+      printf '\r\033[2K' >&2
+      log_error "Timed out waiting for ${kind} workloads to settle (${completed}/${count} complete)"
       exit 1
     fi
 
-    sleep "$WAIT_INTERVAL_SECONDS"
+    frame_index=$(((frame_index + 1) % ${#frames[@]}))
+    tick_counter=$((tick_counter + 1))
+    sleep "$SPINNER_INTERVAL_SECONDS"
   done
 }
 
@@ -373,8 +459,7 @@ scale_workload() {
     return
   fi
 
-  log "Scaling $kind $namespace/$name -> $replicas"
-  kc -n "$namespace" scale "$kind" "$name" --replicas "$replicas"
+  kc -n "$namespace" scale "$kind" "$name" --replicas "$replicas" >/dev/null
 }
 
 scale_phase() {
@@ -382,48 +467,30 @@ scale_phase() {
   local target_replicas="$2"
   local items_json="$3"
 
-  local -a items=()
-  local item namespace name replicas
+  local items_file count namespace name item_replicas replicas
+  items_file="$(mktemp)"
+  workload_records_tsv "$items_json" > "$items_file"
+  count="$(wc -l < "$items_file" | tr -d ' ')"
 
-  while IFS= read -r item; do
-    items+=("$item")
-  done < <(jq -c '.[]?' <<<"$items_json")
-
-  if [[ ${#items[@]} -eq 0 ]]; then
+  if [[ "$count" == "0" ]]; then
+    rm -f "$items_file"
     return
   fi
 
-  log "Scaling ${#items[@]} $kind workload(s) in parallel"
+  log "Scaling ${count} $kind workload(s) in parallel"
 
-  for item in "${items[@]}"; do
-    namespace="$(jq -r '.namespace' <<<"$item")"
-    name="$(jq -r '.name' <<<"$item")"
+  while IFS=$'\t' read -r namespace name item_replicas; do
     replicas="$target_replicas"
 
     if [[ "$target_replicas" == "__from_item__" ]]; then
-      replicas="$(jq -r '.replicas' <<<"$item")"
+      replicas="$item_replicas"
     fi
 
     scale_workload "$kind" "$namespace" "$name" "$replicas"
-  done
+  done < "$items_file"
 
-  if [[ "$NO_WAIT" == "true" || "$DRY_RUN" == "true" ]]; then
-    return
-  fi
-
-  log "Waiting for ${#items[@]} $kind workload(s)"
-
-  for item in "${items[@]}"; do
-    namespace="$(jq -r '.namespace' <<<"$item")"
-    name="$(jq -r '.name' <<<"$item")"
-    replicas="$target_replicas"
-
-    if [[ "$target_replicas" == "__from_item__" ]]; then
-      replicas="$(jq -r '.replicas' <<<"$item")"
-    fi
-
-    wait_for_scaled_replicas "$kind" "$namespace" "$name" "$replicas"
-  done
+  wait_for_phase "$kind" "$target_replicas" "$items_file" "$count"
+  rm -f "$items_file"
 }
 
 save_state_configmap() {
@@ -495,15 +562,15 @@ run_down() {
   print_plan "$discovery_json" "$operator_json"
 
   if [[ "$(jq -r '(.deployments | length) + (.statefulsets | length)' <<<"$discovery_json")" == "0" ]]; then
-    log "No deployments or statefulsets found using target storage classes."
+    log_warn "No deployments or statefulsets found using target storage classes."
   fi
 
   state_json="$(build_state_json "$discovery_json" "$operator_json")"
   save_state_configmap "$state_json"
 
   scale_phase deployment 0 "$operator_json"
-  scale_phase deployment 0 "$(jq -c '.deployments' <<<"$discovery_json")"
-  scale_phase statefulset 0 "$(jq -c '.statefulsets' <<<"$discovery_json")"
+  scale_phase deployment 0 "$(json_array_field "$discovery_json" deployments)"
+  scale_phase statefulset 0 "$(json_array_field "$discovery_json" statefulsets)"
 
   log "Scale-down complete."
 }
@@ -516,16 +583,16 @@ run_up() {
 
   log "Restoring workloads from ConfigMap $STATE_NAMESPACE/$STATE_CONFIGMAP"
 
-  scale_phase statefulset __from_item__ "$(jq -c '.statefulsets' <<<"$state_json")"
-  scale_phase deployment __from_item__ "$(jq -c '.deployments' <<<"$state_json")"
-  scale_phase deployment __from_item__ "$(jq -c '.operators' <<<"$state_json")"
+  scale_phase statefulset __from_item__ "$(json_array_field "$state_json" statefulsets)"
+  scale_phase deployment __from_item__ "$(json_array_field "$state_json" deployments)"
+  scale_phase deployment __from_item__ "$(json_array_field "$state_json" operators)"
 
   log "Restore complete."
 }
 
 main() {
   parse_args "$@"
-  require_bin "$KUBECTL_BIN" jq
+  require_bin "$KUBECTL_BIN" jq gum
 
   case "$MODE" in
     plan)
