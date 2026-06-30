@@ -27,4 +27,4 @@ spec:
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
-  url: https://raw.githubusercontent.com/rustfs/rustfs/refs/tags/1.0.0-beta.8/.docker/observability/grafana/dashboards/rustfs.json
+  url: https://raw.githubusercontent.com/rustfs/rustfs/refs/heads/main/.docker/observability/grafana/dashboards/rustfs.json
