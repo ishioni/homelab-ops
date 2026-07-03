@@ -5,7 +5,7 @@ kind: MCPServer
 metadata:
   name: context7
 spec:
-  image: ghcr.io/stacklok/dockyard/npx/context7:2.2.4
+  image: ghcr.io/stacklok/dockyard/npx/context7:3.2.2
   transport: stdio
   groupRef:
     name: mcp-tools
