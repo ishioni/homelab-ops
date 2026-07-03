@@ -5,10 +5,12 @@ kind: MCPServer
 metadata:
   name: searxng
 spec:
-  image: docker.io/isokoliuk/mcp-searxng:1.8.0
+  image: docker.io/isokoliuk/mcp-searxng:1.9.0
   transport: stdio
   groupRef:
     name: mcp-tools
   env:
     - name: SEARXNG_URL
       value: http://searxng.selfhosted.svc.cluster.local:8080
+    - name: MCP_HTTP_TRUST_PROXY
+      value: "True"
