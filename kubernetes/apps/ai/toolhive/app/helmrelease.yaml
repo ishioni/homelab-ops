@@ -10,8 +10,11 @@ spec:
     name: toolhive-operator
   interval: 30m
   values:
-    resources:
-      limits:
-        memory: 512Mi
-    gc:
-      gomemlimit: 480Mi
+    operator:
+      resources:
+        requests:
+          memory: 256Mi
+        limits:
+          memory: 512Mi
+      gc:
+        gomemlimit: 480MiB
