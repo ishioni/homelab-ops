@@ -1,3 +1,4 @@
+set default-list
 set lazy
 set positional-arguments
 set quiet
@@ -8,11 +9,6 @@ bootstrap_dir := justfile_directory() + '/bootstrap'
 kubernetes_dir := justfile_directory() + '/kubernetes'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
-
-[private]
-[script]
-default:
-    just -l bootstrap
 
 [doc('Bootstrap Cluster')]
 [script]

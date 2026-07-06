@@ -1,13 +1,9 @@
+set default-list
 set lazy
 set positional-arguments
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
-
-[private]
-[script]
-default:
-    just -l kube
 
 [doc('Apply local Flux Kustomization')]
 [script]

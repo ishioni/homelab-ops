@@ -1,5 +1,6 @@
 #!/usr/bin/env -S just --justfile
 
+set default-list
 set lazy
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
@@ -13,11 +14,6 @@ mod kube "kubernetes"
 
 [group: 'talos']
 mod talos "talos"
-
-[private]
-[script]
-default:
-    just -l
 
 [private]
 [script]

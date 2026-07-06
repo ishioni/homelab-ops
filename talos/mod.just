@@ -1,14 +1,10 @@
-
+set default-list
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 talos_dir := justfile_directory() + '/talos'
 secret_id := 'talos'
-
-[private]
-default:
-    just -l talos
 
 [doc('Generate talosconfig for the cluster')]
 [script]
