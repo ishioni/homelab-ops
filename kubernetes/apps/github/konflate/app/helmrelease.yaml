@@ -15,6 +15,7 @@ spec:
       statusChecks: true
       prComments: true
       publicUrl: https://${HOSTNAME}
+      verifyImages: true
     secret:
       existingSecret: konflate-secret
     httpRoute:
