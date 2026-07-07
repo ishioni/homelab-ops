@@ -9,8 +9,8 @@ spec:
     name: mcp-tools
   remoteUrl: https://api.githubcopilot.com/mcp/
   transport: streamable-http
-  externalAuthConfigRef:
-    name: github-ishioni-pat
+  # externalAuthConfigRef:
+  #   name: github-ishioni-pat
   headerForward:
     addHeadersFromSecret:
       - headerName: Authorization
