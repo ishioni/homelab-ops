@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserverentry_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: github-remote
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: https://api.githubcopilot.com/mcp/
+  transport: streamable-http
+  externalAuthConfigRef:
+    name: github-ishioni-pat
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpexternalauthconfig_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPExternalAuthConfig
+metadata:
+  name: github-ishioni-pat
+spec:
+  type: bearerToken
+  bearerToken:
+    tokenSecretRef:
+      key: GITHUB_PERSONAL_ACCESS_TOKEN
+      name: github-mcp-secret
