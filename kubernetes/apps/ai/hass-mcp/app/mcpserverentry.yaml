@@ -7,5 +7,5 @@ metadata:
 spec:
   groupRef:
     name: mcp-tools
-  remoteUrl: http://haos.ishioni.casa:9584/private_Pzj-IDYaV1piG7cerqQeVA
+  remoteUrl: http://haos.ishioni.casa:9583/private_OANH8rU37hGrRZes3LZZzQ
   transport: streamable-http
