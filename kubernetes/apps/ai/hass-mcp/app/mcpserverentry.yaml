@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserverentry_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServerEntry
+metadata:
+  name: homeassistant
+spec:
+  groupRef:
+    name: mcp-tools
+  remoteUrl: http://haos.ishioni.casa:9583/private_OANH8rU37hGrRZes3LZZzQ
+  transport: streamable-http
