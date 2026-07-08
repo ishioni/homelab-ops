@@ -17,11 +17,6 @@ spec:
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
-    kubeApiServer:
-      serviceMonitor:
-        selector:
-          matchLabels:
-            k8s-app: kube-apiserver
     kubeScheduler:
       service:
         selector:
