@@ -6,9 +6,6 @@ metadata:
   name: &app spegel
   namespace: &namespace kube-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/kube-system/spegel/app
   prune: true
@@ -17,4 +14,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

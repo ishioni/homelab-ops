@@ -6,9 +6,6 @@ metadata:
   name: &app envoy-gateway
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: default-certificate
       namespace: network
@@ -29,9 +26,6 @@ metadata:
   name: &app envoy-gateway-config
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: envoy-gateway
       namespace: network
@@ -45,4 +39,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

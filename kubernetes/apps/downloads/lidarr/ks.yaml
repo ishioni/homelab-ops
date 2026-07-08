@@ -6,9 +6,6 @@ metadata:
   name: &app lidarr
   namespace: &namespace downloads
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/authentik-proxy
     - ../../../../components/pvc
@@ -34,4 +31,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

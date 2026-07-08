@@ -6,9 +6,6 @@ metadata:
   name: &app gatus
   namespace: &namespace monitor
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -25,4 +22,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

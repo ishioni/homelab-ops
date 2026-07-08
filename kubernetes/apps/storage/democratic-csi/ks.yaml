@@ -6,9 +6,6 @@ metadata:
   name: &app dcsi-nfs
   namespace: &namespace storage
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -34,9 +31,6 @@ metadata:
   name: &app dcsi-iscsi
   namespace: &namespace storage
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: security

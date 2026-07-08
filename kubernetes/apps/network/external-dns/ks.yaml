@@ -6,9 +6,6 @@ metadata:
   name: &app external-dns-cloudflare
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -29,9 +26,6 @@ metadata:
   name: &app external-dns-unifi
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: security

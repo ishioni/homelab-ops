@@ -6,9 +6,6 @@ metadata:
   name: &app slskd
   namespace: &namespace downloads
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/authentik-proxy
     - ../../../../components/pvc

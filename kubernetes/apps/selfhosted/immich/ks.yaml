@@ -6,9 +6,6 @@ metadata:
   name: &app immich
   namespace: &namespace selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/gpu
   dependsOn:
@@ -34,4 +31,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

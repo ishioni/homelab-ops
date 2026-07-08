@@ -6,9 +6,6 @@ metadata:
   name: &app grafana-operator
   namespace: &namespace monitor
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/monitor/grafana-operator/app
   prune: true
@@ -26,9 +23,6 @@ metadata:
   name: &app grafana-instance
   namespace: &namespace monitor
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: grafana-operator
       namespace: monitor
@@ -48,4 +42,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

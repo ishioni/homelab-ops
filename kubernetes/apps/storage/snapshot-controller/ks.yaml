@@ -6,9 +6,6 @@ metadata:
   name: &app snapshot-controller
   namespace: &namespace storage
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/storage/snapshot-controller/app
   prune: true

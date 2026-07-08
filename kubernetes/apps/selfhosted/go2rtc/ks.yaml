@@ -6,9 +6,6 @@ metadata:
   name: &app go2rtc
   namespace: &namespace selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: security

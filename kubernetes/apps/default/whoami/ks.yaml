@@ -6,9 +6,6 @@ metadata:
   name: &app whoami
   namespace: &namespace default
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/whoami/app
   postBuild:
@@ -20,4 +17,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true
