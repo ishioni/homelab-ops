@@ -10,10 +10,7 @@ spec:
     name: external-secrets
   interval: 30m
   values:
-    installCRDs: true
     leaderElect: true
-    image:
-      repository: ghcr.io/external-secrets/external-secrets
     replicaCount: 2
     topologySpreadConstraints:
       - maxSkew: 1
@@ -31,14 +28,10 @@ spec:
       annotations:
         grafana_folder: Networking
     certController:
-      image:
-        repository: ghcr.io/external-secrets/external-secrets
       serviceMonitor:
         enabled: true
         interval: 1m
     webhook:
-      image:
-        repository: ghcr.io/external-secrets/external-secrets
       replicaCount: 2
       topologySpreadConstraints:
         - maxSkew: 1
