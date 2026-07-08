@@ -6,9 +6,6 @@ metadata:
   name: &app meshmonitor
   namespace: &namespace selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -34,4 +31,3 @@ spec:
     namespace: flux-system
   timeout: 10m
   targetNamespace: *namespace
-  wait: true

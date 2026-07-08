@@ -6,9 +6,6 @@ metadata:
   name: &app prowlarr
   namespace: &namespace downloads
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/authentik-proxy
   dependsOn:
@@ -28,4 +25,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

@@ -7,11 +7,7 @@ metadata:
   namespace: &namespace flux-system
 spec:
   targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *appname
   interval: 30m
-  timeout: 5m
   path: ./kubernetes/apps/flux-system/flux-operator/app
   postBuild:
     substitute:

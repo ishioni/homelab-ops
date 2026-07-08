@@ -6,9 +6,6 @@ metadata:
   name: &app navidrome
   namespace: &namespace selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/authentik-proxy
     - ../../../../components/volsync
@@ -41,4 +38,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

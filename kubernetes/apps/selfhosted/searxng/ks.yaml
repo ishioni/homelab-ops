@@ -6,9 +6,6 @@ metadata:
   name: &app searxng
   namespace: &namespace selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/selfhosted/searxng/app
   postBuild:
@@ -20,4 +17,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

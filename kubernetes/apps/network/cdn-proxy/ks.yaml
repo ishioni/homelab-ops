@@ -6,9 +6,6 @@ metadata:
   name: &app cdn-proxy
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/network/cdn-proxy/app
   postBuild:

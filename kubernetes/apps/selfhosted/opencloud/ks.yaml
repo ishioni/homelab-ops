@@ -6,9 +6,6 @@ metadata:
   name: &app opencloud
   namespace: selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:

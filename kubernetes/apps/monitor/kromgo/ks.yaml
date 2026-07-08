@@ -6,9 +6,6 @@ metadata:
   name: &app kromgo
   namespace: &namespace monitor
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
       namespace: monitor
@@ -23,4 +20,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

@@ -6,9 +6,6 @@ metadata:
   name: &app github-arc
   namespace: &namespace github
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -29,9 +26,6 @@ metadata:
   name: &app arc-runners
   namespace: &namespace github
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: github-arc
       namespace: *namespace

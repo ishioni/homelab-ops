@@ -6,9 +6,6 @@ metadata:
   name: &app drm-exporter
   namespace: &namespace monitor
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
@@ -20,4 +17,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

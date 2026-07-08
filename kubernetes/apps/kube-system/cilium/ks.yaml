@@ -6,9 +6,6 @@ metadata:
   name: &app cilium
   namespace: &namespace kube-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/kube-system/cilium/app
   prune: true
@@ -26,9 +23,6 @@ metadata:
   name: &app cilium-config
   namespace: &namespace kube-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cilium
       namespace: *namespace
@@ -40,4 +34,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true

@@ -6,9 +6,6 @@ metadata:
   name: &app speedtest-exporter
   namespace: &namespace monitor
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/monitor/speedtest-exporter/app
   prune: true
@@ -17,4 +14,3 @@ spec:
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
-  wait: true
