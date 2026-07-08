@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/qbittorrent
-              tag: 5.2.2
+              tag: 5.2.3
             env:
               TZ: ${CONFIG_TIMEZONE}
               QBITTORRENT__PORT: &port 80
