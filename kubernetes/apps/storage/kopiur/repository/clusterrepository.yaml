@@ -14,7 +14,7 @@ spec:
           name: kopiur-repository-secret
           namespace: storage
       bucket: kopiur
-      endpoint: leo.ishioni.casa
+      endpoint: rs3.ishioni.casa
       region: us-central-1
   encryption:
     passwordSecretRef:
