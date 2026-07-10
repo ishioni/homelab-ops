@@ -15,3 +15,19 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app kopiur-repository
+  namespace: &namespace storage
+spec:
+  interval: 30m
+  path: ./kubernetes/apps/storage/kopiur/repository
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
