@@ -21,7 +21,7 @@ releases:
   - name: kube-prometheus-stack
     namespace: observability
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
-    version: 87.12.5
+    version: 87.13.0
 
   - name: cloudnative-pg
     namespace: database
