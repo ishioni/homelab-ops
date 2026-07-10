@@ -12,12 +12,14 @@ spec:
       auth:
         secretRef:
           name: kopiur-repository-secret
+          namespace: storage
       bucket: kopiur
       endpoint: leo.ishioni.casa
       region: us-central-1
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret
+      namespace: storage
       key: KOPIA_PASSWORD
   scheduleDefaults:
     timezone: Europe/Warsaw
