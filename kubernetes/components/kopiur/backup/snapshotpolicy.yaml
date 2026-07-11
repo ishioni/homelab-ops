@@ -19,10 +19,7 @@ spec:
     kind: ClusterRepository
     name: leo
   retention:
-    keepLatest: 3
-    keepHourly: 24
     keepDaily: 7
-    keepWeekly: 4
   sources:
     - pvc:
         name: ${PVC_CLAIM:=${APP}}
