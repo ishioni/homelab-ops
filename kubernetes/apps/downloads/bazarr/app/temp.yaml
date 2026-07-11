@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kopiur.home-operations.com/snapshotpolicy_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotPolicy
+metadata:
+  name: bazarr
+spec:
+  compression:
+    compressor: zstd
+  mover:
+    cache:
+      capacity: 1Gi
+      mode: Ephemeral
+      storageClassName: openebs-hostpath
+    securityContext:
+      runAsUser: 568
+      runAsGroup: 5000
+  repository:
+    kind: ClusterRepository
+    name: leo
+  retention:
+    keepLatest: 3
+    keepHourly: 24
+    keepDaily: 7
+    keepWeekly: 4
+  sources:
+    - pvc:
+        name: bazarr-config
+  volumeSnapshotClassName: dcsi-nfs
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kopiur.home-operations.com/snapshotschedule_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotSchedule
+metadata:
+  name: bazarr
+spec:
+  policyRef:
+    name: bazarr
+  schedule:
+    cron: 0 2 * * *
