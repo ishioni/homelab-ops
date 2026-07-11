@@ -7,8 +7,8 @@ metadata:
   namespace: selfhosted
 spec:
   components:
-    - ../../../../components/kopiur/backup
-    # - ../../../../components/volsync
+    # - ../../../../components/kopiur/backup
+    - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
