@@ -88,6 +88,18 @@ sync-oci:
 view-secret namespace secret:
     kubectl view-secret -n {{ namespace }} {{ secret }}
 
+[doc('Trigger Kopiur Snapshotpolicy')]
+[script]
+snapshot-kopiur ns name:
+    kopiur -n "{{ ns }}" snapshot now --policy "{{ name }}"
+
+[doc('Trigger all Kopiur Snapshotpolicies')]
+[script]
+snapshot-kopiur-all:
+    kubectl get snapshotpolicies.kopiur.home-operations.com --no-headers -A | while read -r ns name _; do
+      just kube snapshot-kopiur "$ns" "$name"
+    done
+
 [private]
 render-local-ks ns ks:
     flate build ks --namespace "{{ ns }}" --output yaml "{{ ks }}"
