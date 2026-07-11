@@ -80,5 +80,16 @@ spec:
     persistence:
       data:
         existingClaim: "${PVC_CLAIM}"
-        globalMounts:
-          - path: /datastore
+        advancedMounts:
+          changedetection:
+            changedetection:
+              - path: /datastore
+                subPath: changedetection
+            browser:
+              - path: /downloads
+                subPath: downloads
+              - path: /profile
+                subPath: profile
+      tmp:
+        type: emptyDir
+        medium: Memory
