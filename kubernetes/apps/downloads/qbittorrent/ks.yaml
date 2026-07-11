@@ -28,7 +28,6 @@ spec:
       PVC_CLAIM: qbittorrent-config
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      KOPIUR_TIME: 0 4 * * *
       VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 4 * * *
   prune: true

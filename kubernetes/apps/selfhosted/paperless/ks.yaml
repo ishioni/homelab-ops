@@ -36,7 +36,6 @@ spec:
       VOLSYNC_CACHE_CAPACITY: 5Gi
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      KOPIUR_TIME: 0 3 * * *
       VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 3 * * *
   prune: true

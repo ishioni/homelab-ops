@@ -28,7 +28,6 @@ spec:
       PVC_ACCESSMODES: ReadWriteMany
       PVC_STORAGECLASS: &nfs dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *nfs
-      KOPIUR_TIME: 0 15 * * *
       VOLSYNC_SNAPSHOTCLASS: *nfs
       VOLSYNC_TIME: 0 15 * * *
   prune: true

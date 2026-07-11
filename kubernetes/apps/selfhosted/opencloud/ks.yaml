@@ -35,7 +35,6 @@ spec:
       KOPIUR_SNAPSHOTCLASS: *sc
       VOLSYNC_SNAPSHOTCLASS: *sc
       PVC_ACCESSMODES: ReadWriteMany
-      KOPIUR_TIME: 0 13 * * *
       VOLSYNC_TIME: 0 13 * * *
   prune: true
   sourceRef:

@@ -32,7 +32,6 @@ spec:
       PVC_CLAIM: bazarr-config
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      KOPIUR_TIME: 0 2 * * *
       VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 2 * * *
   prune: true
