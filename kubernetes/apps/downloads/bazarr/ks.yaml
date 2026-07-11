@@ -8,7 +8,7 @@ metadata:
 spec:
   components:
     - ../../../../components/authentik-proxy
-    - ../../../../components/kopiur/backup
+    # - ../../../../components/kopiur/backup
     # - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
