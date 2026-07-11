@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: security
 components:
   - ../../components/alerts
+  - ../../components/kopiur/secret
   - ../../components/namespace
 resources:
   - ./authentik/ks.yaml
