@@ -8,7 +8,7 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/volsync
+    # - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
