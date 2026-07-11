@@ -12,32 +12,52 @@ spec:
   values:
     controllers:
       changedetection:
+        annotations:
+          secret.reloader.stakater.com/reload: &secret changedetection
         containers:
           app:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
               tag: 0.55.7@sha256:736331d2787f94d3201b64aa641e090f67e28577ba505bd7ba5d7c1841e1e0ca
             env:
-              TZ: ${CONFIG_TIMEZONE}
+              BASE_URL: "https://${HOSTNAME}"
+              DISABLE_VERSION_CHECK: "true"
               PORT: &port 5000
               USE_X_SETTINGS: 1
-              PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true&--user-data-dir=~/browserless-cache-123
+              TZ: ${CONFIG_TIMEZONE}
+            envFrom: &envFrom
+              - secretRef:
+                  name: changedetection
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+              readOnlyRootFilesystem: true
           browser:
             image:
               repository: mirror.gcr.io/browserless/chrome
               tag: latest@sha256:57d19e414d9fe4ae9d2ab12ba768c97f38d51246c5b31af55a009205c136012f
               pullPolicy: IfNotPresent
             env:
-              - {name: SCREEN_WIDTH, value: "1920"}
-              - {name: SCREEN_HEIGHT, value: "1024"}
-              - {name: SCREEN_DEPTH, value: "16"}
-              - {name: ENABLE_DEBUGGER, value: "false"}
-              - {name: PREBOOT_CHROME, value: "true"}
-              - {name: CONNECTION_TIMEOUT, value: "300000"}
-              - {name: MAX_CONCURRENT_SESSIONS, value: "10"}
-              - {name: CHROME_REFRESH_TIME, value: "600000"}
-              - {name: DEFAULT_BLOCK_ADS, value: "true"}
-              - {name: DEFAULT_STEALTH, value: "true"}
+              - { name: SCREEN_WIDTH, value: "1920" }
+              - { name: SCREEN_HEIGHT, value: "1024" }
+              - { name: SCREEN_DEPTH, value: "16" }
+              - { name: ENABLE_DEBUGGER, value: "false" }
+              - { name: PREBOOT_CHROME, value: "true" }
+              - { name: CONNECTION_TIMEOUT, value: "300000" }
+              - { name: MAX_CONCURRENT_SESSIONS, value: "10" }
+              - { name: CHROME_REFRESH_TIME, value: "600000" }
+              - { name: DEFAULT_BLOCK_ADS, value: "true" }
+              - { name: DEFAULT_STEALTH, value: "true" }
+            envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: changedetection
