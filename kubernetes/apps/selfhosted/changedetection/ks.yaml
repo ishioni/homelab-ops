@@ -14,8 +14,6 @@ spec:
       namespace: storage
     - name: kopiur
       namespace: storage
-    - name: kopiur-repository
-      namespace: storage
     - name: volsync
       namespace: storage
   interval: 30m

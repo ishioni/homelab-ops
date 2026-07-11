@@ -16,8 +16,6 @@ spec:
       namespace: security
     - name: kopiur
       namespace: storage
-    - name: kopiur-repository
-      namespace: storage
   interval: 30m
   path: ./kubernetes/apps/security/vaultwarden/app
   postBuild:
