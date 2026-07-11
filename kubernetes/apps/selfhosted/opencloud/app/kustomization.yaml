@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./gatus.yaml
-  # - ./helmrelease.yaml
+  - ./helmrelease.yaml
   - ./ocirepository.yaml
 configMapGenerator:
   - name: opencloud
