@@ -5,6 +5,11 @@ kind: Restore
 metadata:
   name: ${APP}
 spec:
+  mover:
+    podSecurityContext:
+      runAsUser: ${APP_UID:=568}
+      runAsGroup: ${APP_GID:=568}
+      fsGroup: ${APP_GID:=568}
   policy:
     onMissingSnapshot: Continue
   source:

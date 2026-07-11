@@ -12,9 +12,10 @@ spec:
       capacity: ${KOPIUR_CAPACITY:=1Gi}
       mode: Ephemeral
       storageClassName: openebs-hostpath
-    securityContext:
+    podSecurityContext:
       runAsUser: ${APP_UID:=568}
       runAsGroup: ${APP_GID:=568}
+      fsGroup: ${APP_GID:=568}
   repository:
     kind: ClusterRepository
     name: leo
