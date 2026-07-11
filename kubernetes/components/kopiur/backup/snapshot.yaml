@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kopiur.home-operations.com/snapshot_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Snapshot
+metadata:
+  name: ${APP}-oneshot
+spec:
+  policyRef:
+    name: ${APP}
+  tags:
+    reason: "Migration snapshot"
+  deletionPolicy: Delete
