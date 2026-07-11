@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: selfhosted
 components:
   - ../../components/alerts
+  - ../../components/kopiur/secret
   - ../../components/namespace
 resources:
   - ./atuin/ks.yaml

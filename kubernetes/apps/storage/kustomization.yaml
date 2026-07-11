@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: storage
 components:
   - ../../components/alerts
+  - ../../components/kopiur/secret
   - ../../components/namespace
 resources:
   - ./democratic-csi/ks.yaml
