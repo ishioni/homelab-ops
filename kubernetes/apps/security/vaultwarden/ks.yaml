@@ -8,7 +8,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    # - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -28,8 +27,6 @@ spec:
       PVC_ACCESSMODES: ReadWriteMany
       PVC_STORAGECLASS: &nfs dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *nfs
-      VOLSYNC_SNAPSHOTCLASS: *nfs
-      VOLSYNC_TIME: 0 15 * * *
   prune: true
   sourceRef:
     kind: GitRepository

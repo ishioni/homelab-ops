@@ -8,15 +8,12 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    # - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
     - name: dcsi-nfs
       namespace: storage
     - name: kopiur
-      namespace: storage
-    - name: volsync
       namespace: storage
   interval: 30m
   path: ./kubernetes/apps/selfhosted/opencloud/app
@@ -30,12 +27,9 @@ spec:
       PVC_CLAIM: opencloud-data
       PVC_CAPACITY: &size 20Gi
       KOPIUR_CAPACITY: *size
-      VOLSYNC_CACHE_CAPACITY: *size
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      VOLSYNC_SNAPSHOTCLASS: *sc
       PVC_ACCESSMODES: ReadWriteMany
-      VOLSYNC_TIME: 0 13 * * *
   prune: true
   sourceRef:
     kind: GitRepository

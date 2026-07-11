@@ -20,10 +20,7 @@ spec:
       HOSTNAME: meshmonitor.${PUBLIC_DOMAIN}
       PVC_CLAIM: meshmonitor-data
       PVC_CAPACITY: 1Gi
-      VOLSYNC_CACHE_CAPACITY: 1Gi
       PVC_STORAGECLASS: &sc dcsi-iscsi
-      VOLSYNC_SNAPSHOTCLASS: *sc
-      VOLSYNC_TIME: 0 1 * * *
   prune: true
   sourceRef:
     kind: GitRepository

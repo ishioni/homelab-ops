@@ -9,7 +9,6 @@ spec:
   components:
     - ../../../../components/authentik-proxy
     - ../../../../components/kopiur/backup
-    # - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -18,8 +17,6 @@ spec:
     - name: dcsi-nfs
       namespace: storage
     - name: kopiur
-      namespace: storage
-    - name: volsync
       namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/bazarr/app
@@ -32,8 +29,6 @@ spec:
       PVC_CLAIM: bazarr-config
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      VOLSYNC_SNAPSHOTCLASS: *sc
-      VOLSYNC_TIME: 0 2 * * *
   prune: true
   sourceRef:
     kind: GitRepository

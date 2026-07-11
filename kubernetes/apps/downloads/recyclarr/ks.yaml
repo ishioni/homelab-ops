@@ -8,7 +8,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    # - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -22,7 +21,6 @@ spec:
       PVC_CLAIM: recyclarr-config
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      VOLSYNC_SNAPSHOTCLASS: *sc
   prune: true
   sourceRef:
     kind: GitRepository

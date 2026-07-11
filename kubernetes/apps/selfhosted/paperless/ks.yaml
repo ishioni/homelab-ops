@@ -8,7 +8,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    # - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
       namespace: database
@@ -19,8 +18,6 @@ spec:
     - name: dcsi-nfs
       namespace: storage
     - name: kopiur
-      namespace: storage
-    - name: volsync
       namespace: storage
   interval: 30m
   path: ./kubernetes/apps/selfhosted/paperless/app
@@ -33,11 +30,8 @@ spec:
       PVC_CLAIM: paperless-data
       PVC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
-      VOLSYNC_CACHE_CAPACITY: 5Gi
       PVC_STORAGECLASS: &sc dcsi-nfs
       KOPIUR_SNAPSHOTCLASS: *sc
-      VOLSYNC_SNAPSHOTCLASS: *sc
-      VOLSYNC_TIME: 0 3 * * *
   prune: true
   sourceRef:
     kind: GitRepository
