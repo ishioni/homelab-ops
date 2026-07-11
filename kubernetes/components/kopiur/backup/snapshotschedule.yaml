@@ -9,4 +9,3 @@ spec:
     name: ${APP}
   schedule:
     cron: ${KOPIUR_TIME:=H H * * *}
-    runOnCreate: true
