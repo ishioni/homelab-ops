@@ -15,6 +15,9 @@ spec:
       paperless:
         annotations:
           secret.reloader.stakater.com/reload: &secret paperless-secret
+        pod:
+          securityContext:
+            supplementalGroups: [568]
         initContainers:
           01-init-db:
             image:
@@ -61,8 +64,6 @@ spec:
                 memory: 1000Mi
               limits:
                 memory: 5000Mi
-            securityContext:
-              supplementalGroups: ["568"]
             probes:
               liveness: &probes
                 enabled: true
@@ -92,7 +93,7 @@ spec:
               repository: docker.io/thecodingmachine/gotenberg
               tag: 8.30.1
             env:
-              - {name: DISABLE_GOOGLE_CHROME, value: "1"}
+              - { name: DISABLE_GOOGLE_CHROME, value: "1" }
             securityContext:
               runAsUser: 65534
               runAsGroup: 65534
