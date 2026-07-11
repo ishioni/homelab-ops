@@ -8,6 +8,7 @@ metadata:
 spec:
   components:
     - ../../../../components/authentik-proxy
+    - ../../../../components/kopiur/backup
     - ../../../../components/volsync
   dependsOn:
     - name: postgres-cluster
@@ -15,6 +16,10 @@ spec:
     - name: external-secrets
       namespace: security
     - name: dcsi-iscsi
+      namespace: storage
+    - name: kopiur
+      namespace: storage
+    - name: kopiur-repository
       namespace: storage
     - name: volsync
       namespace: storage
@@ -28,8 +33,11 @@ spec:
       APP_GID: "5000"
       PVC_CLAIM: navidrome-config
       PVC_CAPACITY: 5Gi
+      KOPIUR_CAPACITY: 5Gi
       VOLSYNC_CACHE_CAPACITY: 5Gi
       PVC_STORAGECLASS: &sc dcsi-iscsi
+      KOPIUR_SNAPSHOTCLASS: *sc
+      KOPIUR_TIME: 0 1 * * *
       VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 1 * * *
   prune: true
