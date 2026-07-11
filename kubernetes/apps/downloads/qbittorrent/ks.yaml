@@ -8,9 +8,12 @@ metadata:
 spec:
   components:
     - ../../../../components/authentik-proxy
+    - ../../../../components/kopiur/backup
     - ../../../../components/volsync
   dependsOn:
     - name: dcsi-nfs
+      namespace: storage
+    - name: kopiur
       namespace: storage
     - name: volsync
       namespace: storage
@@ -24,6 +27,7 @@ spec:
       HOSTNAME: torrent.${PUBLIC_DOMAIN}
       PVC_CLAIM: qbittorrent-config
       PVC_STORAGECLASS: &sc dcsi-nfs
+      KOPIUR_SNAPSHOTCLASS: *sc
       VOLSYNC_SNAPSHOTCLASS: *sc
       VOLSYNC_TIME: 0 4 * * *
   prune: true

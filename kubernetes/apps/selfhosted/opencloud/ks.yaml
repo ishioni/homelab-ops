@@ -7,11 +7,14 @@ metadata:
   namespace: selfhosted
 spec:
   components:
+    - ../../../../components/kopiur/backup
     - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
       namespace: security
     - name: dcsi-nfs
+      namespace: storage
+    - name: kopiur
       namespace: storage
     - name: volsync
       namespace: storage
@@ -26,8 +29,10 @@ spec:
       APP_GID: "1000"
       PVC_CLAIM: opencloud-data
       PVC_CAPACITY: &size 20Gi
+      KOPIUR_CAPACITY: *size
       VOLSYNC_CACHE_CAPACITY: *size
       PVC_STORAGECLASS: &sc dcsi-nfs
+      KOPIUR_SNAPSHOTCLASS: *sc
       VOLSYNC_SNAPSHOTCLASS: *sc
       PVC_ACCESSMODES: ReadWriteMany
       VOLSYNC_TIME: 0 13 * * *

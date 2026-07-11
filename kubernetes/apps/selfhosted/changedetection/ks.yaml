@@ -7,9 +7,12 @@ metadata:
   namespace: &namespace selfhosted
 spec:
   components:
+    - ../../../../components/kopiur/backup
     - ../../../../components/volsync
   dependsOn:
     - name: dcsi-nfs
+      namespace: storage
+    - name: kopiur
       namespace: storage
     - name: volsync
       namespace: storage
@@ -24,6 +27,7 @@ spec:
       PVC_CLAIM: changedetection-data
       PVC_CAPACITY: 1Gi
       PVC_STORAGECLASS: &sc dcsi-nfs
+      KOPIUR_SNAPSHOTCLASS: *sc
       VOLSYNC_SNAPSHOTCLASS: *sc
   prune: true
   sourceRef:
