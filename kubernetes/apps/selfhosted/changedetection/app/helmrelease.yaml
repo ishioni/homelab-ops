@@ -82,7 +82,7 @@ spec:
         existingClaim: "${PVC_CLAIM}"
         advancedMounts:
           changedetection:
-            changedetection:
+            app:
               - path: /datastore
                 subPath: changedetection
             browser:
