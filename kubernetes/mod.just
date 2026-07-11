@@ -33,13 +33,6 @@ prune-pods:
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
     done
 
-[doc('Snapshot VolSync PVCs')]
-[script]
-snapshot:
-    kubectl get replicationsources --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
-    done
-
 [doc("Plan NAS-backed workload shutdown (discovers PVC users on dcsi-iscsi/dcsi-nfs)")]
 [script]
 nas-plan *args:
@@ -54,13 +47,6 @@ nas-down *args:
 [script]
 nas-up *args:
     ../hack/nas-storage-maintenance.sh up {{ args }}
-
-[doc('Suspend or resume VolSync')]
-[script]
-volsync state:
-    flux -n volsync-system {{ state }} kustomization volsync
-    flux -n volsync-system {{ state }} helmrelease volsync
-    kubectl -n volsync-system scale deployment volsync --replicas {{ if state != "suspend" { "1" } else { "0" } }}
 
 [doc('Sync ExternalSecrets')]
 [script]
