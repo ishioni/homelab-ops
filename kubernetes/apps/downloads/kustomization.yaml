@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: downloads
 components:
   - ../../components/alerts
-  - ../../components/kopiur/secret
   - ../../components/namespace
 resources:
   - ./bazarr/ks.yaml

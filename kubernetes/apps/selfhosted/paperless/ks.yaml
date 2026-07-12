@@ -7,7 +7,7 @@ metadata:
   namespace: &namespace selfhosted
 spec:
   components:
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur
   dependsOn:
     - name: postgres-cluster
       namespace: database

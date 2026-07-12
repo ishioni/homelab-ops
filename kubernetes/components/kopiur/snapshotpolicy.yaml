@@ -8,10 +8,6 @@ spec:
   compression:
     compressor: zstd
   mover:
-    cache:
-      capacity: ${KOPIUR_CAPACITY:=1Gi}
-      mode: Ephemeral
-      storageClassName: openebs-hostpath
     podSecurityContext:
       runAsUser: ${APP_UID:=568}
       runAsGroup: ${APP_GID:=568}

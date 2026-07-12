@@ -23,3 +23,11 @@ spec:
       key: KOPIA_PASSWORD
   scheduleDefaults:
     timezone: Europe/Warsaw
+  moverDefaults:
+    cache:
+      capacity: 1Mi
+      mode: Ephemeral
+      storageClassName: openebs-hostpath
+    scratch:
+      capacity: 1Mi
+      storageClassName: openebs-hostpath
