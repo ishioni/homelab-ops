@@ -10,6 +10,9 @@ spec:
     name: kopiur
   interval: 30m
   values:
+    features:
+      credentialProjection:
+        enabled: true
     monitoring:
       dashboards:
         enabled: true

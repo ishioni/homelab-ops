@@ -8,7 +8,7 @@ metadata:
 spec:
   components:
     - ../../../../components/authentik-proxy
-    - ../../../../components/kopiur/backup
+    - ../../../../components/kopiur
   dependsOn:
     - name: dcsi-nfs
       namespace: storage

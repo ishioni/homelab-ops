@@ -5,6 +5,8 @@ kind: Restore
 metadata:
   name: ${APP}
 spec:
+  credentialProjection:
+    enabled: true
   mover:
     podSecurityContext:
       runAsUser: ${APP_UID:=568}
