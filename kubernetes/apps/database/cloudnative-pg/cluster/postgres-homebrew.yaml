@@ -129,7 +129,7 @@ metadata:
 spec:
   cluster:
     name: postgres-homebrew
-  name: mydb
+  name: cookbook
   owner: cookbook
   ensure: present
   databaseReclaimPolicy: delete
@@ -156,4 +156,4 @@ spec:
           cnpg.io/reload: "true"
   dataFrom:
     - extract:
-        key: cloudnative-pg
+        key: cookbook
