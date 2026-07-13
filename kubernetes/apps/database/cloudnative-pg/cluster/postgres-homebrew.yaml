@@ -48,18 +48,6 @@ spec:
               name: *pgname
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: postgres-homebrew.${PRIVATE_DOMAIN}
-                gatus.home-operations.com/enabled: "true"
-                gatus.home-operations.com/endpoint: |
-                  name: postgres
-                  conditions:
-                    - "[CONNECTED] == true"
-                  group: Services
-                  ui:
-                    hide-hostname: true
-                    hide-url: true
-                  alerts:
-                    - type: pushover
-                      send-on-resolved: true
             spec:
               type: LoadBalancer
           updateStrategy: patch
