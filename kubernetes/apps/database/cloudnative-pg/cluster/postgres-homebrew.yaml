@@ -1,0 +1,159 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: &pgname postgres-homebrew
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+spec:
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+  enableSuperuserAccess: true
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.4-standard-trixie@sha256:58c9a9e29a23b814f8f335ce178727d83bc40d96ed7fe8977192d2d8cdcb3927
+  plugins:
+    - enabled: true
+      isWALArchiver: true
+      name: barman-cloud.cloudnative-pg.io
+      parameters: &barmanParameters
+        barmanObjectName: rustfs
+        serverName: postgres-v1
+  postgresql:
+    parameters:
+      max_connections: "300"
+      work_mem: 64MB
+      shared_buffers: 128MB
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+  resources:
+    requests:
+      cpu: 200m
+      memory: 500Mi
+    limits:
+      memory: 2Gi
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  superuserSecret:
+    name: cloudnative-pg-secret
+  managed:
+    services:
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: *pgname
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: postgres-homebrew.${PRIVATE_DOMAIN}
+                gatus.home-operations.com/enabled: "true"
+                gatus.home-operations.com/endpoint: |
+                  name: postgres
+                  conditions:
+                    - "[CONNECTED] == true"
+                  group: Services
+                  ui:
+                    hide-hostname: true
+                    hide-url: true
+                  alerts:
+                    - type: pushover
+                      send-on-resolved: true
+            spec:
+              type: LoadBalancer
+          updateStrategy: patch
+      disabledDefaultServices: ["r", "ro"]
+  # bootstrap:
+  #   recovery:
+  #     source: source
+  # externalClusters:
+  #   - name: source
+  #     plugin:
+  #       enabled: true
+  #       isWALArchiver: true
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters: *barmanParameters
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: &cluster postgres-homebrew
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+  selector:
+    matchLabels:
+      cnpg.io/cluster: *cluster
+      cnpg.io/podRole: instance
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/scheduledbackup_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: &cluster postgres-homebrew
+spec:
+  backupOwnerReference: self
+  cluster:
+    name: *cluster
+  immediate: true
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  schedule: "@daily"
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: postgres-homebrew-cookbook
+spec:
+  cluster:
+    name: postgres-homebrew
+  name: cookbook
+  ensure: present
+  login: true
+  superuser: false
+  createdb: false
+  createrole: false
+  passwordSecret:
+    name: postgres-homebrew-cookbook
+  databaseRoleReclaimPolicy: retain
+
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: postgres-homebrew-cookbook
+spec:
+  cluster:
+    name: postgres-homebrew
+  name: mydb
+  owner: cookbook
+  ensure: present
+  databaseReclaimPolicy: delete
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: &name postgres-homebrew-cookbook
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword
+  target:
+    name: *name
+    creationPolicy: Owner
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: "{{ .POSTGRES_USER }}"
+        password: "{{ .POSTGRES_PASS }}"
+      metadata:
+        labels:
+          cnpg.io/reload: "true"
+  dataFrom:
+    - extract:
+        key: cloudnative-pg
