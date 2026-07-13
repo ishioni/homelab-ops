@@ -101,3 +101,33 @@ spec:
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
   schedule: "@daily"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: postgres-homebrew-cookbook
+spec:
+  cluster:
+    name: postgres-homebrew
+  name: cookbook
+  ensure: present
+  login: true
+  superuser: false
+  createdb: false
+  createrole: false
+  passwordSecret:
+    name: postgres-homebrew-cookbook
+  databaseRoleReclaimPolicy: retain
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: postgres-homebrew-mydb
+spec:
+  cluster:
+    name: postgres-homebrew
+  name: mydb
+  owner: cookbook
+  ensure: present
+  databaseReclaimPolicy: retain
