@@ -88,6 +88,11 @@ variable "access_token_validity" {
   default = "hours=1"
 }
 
+variable "grant_types" {
+  type    = list(string)
+  default = ["authorization_code", "refresh_token"]
+}
+
 variable "additional_property_mappings" {
   type    = list(string)
   default = []
