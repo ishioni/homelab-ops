@@ -77,8 +77,13 @@ data "authentik_service_connection_kubernetes" "local" {
 #   })
 # }
 
-resource "authentik_system_settings" "settings" {
-  avatars                   = "attributes.avatar, initials"
-  default_user_change_email = true
-  event_retention           = "days=14"
-}
+# `authentik_system_settings` is intentionally unmanaged here.
+# Provider v2026.5.0 fails to read `/api/v3/admin/settings/` against this
+# Authentik deployment because the API omits `flags.core_default_app_access`.
+#
+# Uncomment once the provider/API mismatch is fixed.
+# resource "authentik_system_settings" "settings" {
+#   avatars                   = "attributes.avatar, initials"
+#   default_user_change_email = true
+#   event_retention           = "days=14"
+# }

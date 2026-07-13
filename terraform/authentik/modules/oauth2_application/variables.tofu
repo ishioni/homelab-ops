@@ -17,6 +17,11 @@ variable "description" {
   default = ""
 }
 
+variable "meta_hide" {
+  type    = bool
+  default = false
+}
+
 variable "newtab" {
   type    = bool
   default = true
@@ -112,11 +117,13 @@ locals {
   allowed_redirect_uris = [
     for uri in var.redirect_uris : (
       can(uri.url) ? {
-        matching_mode = lookup(uri, "matching_mode", "strict")
-        url           = uri.url
+        matching_mode     = lookup(uri, "matching_mode", "strict")
+        redirect_uri_type = lookup(uri, "redirect_uri_type", "authorization")
+        url               = uri.url
         } : {
-        matching_mode = "strict"
-        url           = trim(uri, " ")
+        matching_mode     = "strict"
+        redirect_uri_type = "authorization"
+        url               = trim(uri, " ")
       }
     )
   ]

@@ -333,6 +333,7 @@ module "oauth2-opencloud-desktop" {
   source             = "./modules/oauth2_application"
   name               = "OpenCloudDesktop"
   launch_url         = "blank://blank"
+  meta_hide          = true
   auth_groups        = [authentik_group.users.id]
   client_type        = "public"
   authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid

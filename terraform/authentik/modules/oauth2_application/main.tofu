@@ -54,6 +54,7 @@ resource "authentik_application" "oauth2-application" {
   group             = var.group
   protocol_provider = authentik_provider_oauth2.oauth2-application.id
   meta_icon         = var.icon_url
+  meta_hide         = var.meta_hide
   meta_description  = var.description
   meta_launch_url   = var.launch_url
   open_in_new_tab   = var.newtab
