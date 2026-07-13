@@ -102,6 +102,7 @@ spec:
     name: barman-cloud.cloudnative-pg.io
   schedule: "@daily"
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/databaserole_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: DatabaseRole
 metadata:
@@ -120,14 +121,39 @@ spec:
   databaseRoleReclaimPolicy: retain
 
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/database_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: postgres-homebrew-mydb
+  name: postgres-homebrew-cookbook
 spec:
   cluster:
     name: postgres-homebrew
   name: mydb
   owner: cookbook
   ensure: present
-  databaseReclaimPolicy: retain
+  databaseReclaimPolicy: delete
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: &name postgres-homebrew-cookbook
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword
+  target:
+    name: *name
+    creationPolicy: Owner
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: "{{ .POSTGRES_USER }}"
+        password: "{{ .POSTGRES_PASS }}"
+      metadata:
+        labels:
+          cnpg.io/reload: "true"
+  dataFrom:
+    - extract:
+        key: cloudnative-pg
