@@ -23,6 +23,6 @@ spec:
             namespace: network
             sectionName: https
         hostnames: ["${HOSTNAME}"]
-      # configSecretName: flux-web-secret
+      configSecretName: flux-web-secret
       networkPolicy:
         create: false
