@@ -6,7 +6,7 @@ return {
     "given_name": request.user.name,
     "preferred_username": request.user.username,
     "nickname": request.user.username,
-    "groups": [group.name for group in request.user.ak_groups.all()],
+    "groups": [group.name for group in request.user.groups.all()],
     "picture": user.attributes.get("avatar"),
     "quota": user.attributes.get("storageQuota",user.group_attributes().get("storageQuota"))
 }
