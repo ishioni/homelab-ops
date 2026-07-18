@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-5.0.1/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,37 +10,20 @@ spec:
     name: speedtest-exporter
   interval: 30m
   values:
-    controllers:
-      speedtest-exporter:
-        strategy: RollingUpdate
-        containers:
-          app:
-            image:
-              repository: ghcr.io/miguelndecarvalho/speedtest-exporter
-              tag: v3.5.4
-            env:
-              TZ: ${CONFIG_TIMEZONE}
-            resources:
-              requests:
-                cpu: 15m
-                memory: 64Mi
-              limits:
-                memory: 128Mi
-    service:
-      app:
-        ports:
-          http:
-            port: 9798
-    serviceMonitor:
-      app:
-        serviceName: speedtest-exporter
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 60m
-            scrapeTimeout: 1m
-            relabelings:
-              - action: replace
-                targetLabel: instance
-                replacement: speedtest-exporter
+    fullnameOverride: speedtest-exporter
+    config:
+      cacheFor: 5m
+    monitoring:
+      serviceMonitor:
+        enabled: true
+        interval: 30m
+        scrapeTimeout: 120s
+      prometheusRule:
+        enabled: true
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          folder: Networking
+          matchLabels:
+            grafana.internal/instance: grafana
