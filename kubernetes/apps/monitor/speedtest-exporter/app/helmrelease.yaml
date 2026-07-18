@@ -16,10 +16,15 @@ spec:
     monitoring:
       serviceMonitor:
         enabled: true
-        interval: 1m
-        scrapeTimeout: 30s
       prometheusRule:
         enabled: true
+        alerts:
+          slowDownload:
+            threshold: 500
+            window: 90m
+          slowUpload:
+            threshold: 200
+            window: 90m
       dashboards:
         enabled: true
         grafanaOperator:
