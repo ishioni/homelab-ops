@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpexternalauthconfig_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPExternalAuthConfig
+metadata:
+  name: homeassistant
+spec:
+  type: bearerToken
+  bearerToken:
+    tokenSecretRef:
+      name: haos-mcp-secret
+      key: HOMEASSISTANT_TOKEN

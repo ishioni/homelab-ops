@@ -7,5 +7,7 @@ metadata:
 spec:
   groupRef:
     name: mcp-tools
-  remoteUrl: http://haos.ishioni.casa:9583/private_OANH8rU37hGrRZes3LZZzQ
+  remoteUrl: https://homeassistant.movishell.pl/api/webhook/mcp_383d1f2431b4ac760ee1134800fd561a
   transport: streamable-http
+  externalAuthConfigRef:
+    name: homeassistant
