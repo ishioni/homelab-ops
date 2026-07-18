@@ -14,6 +14,7 @@ spec:
     monitoring:
       serviceMonitor:
         enabled: true
+        interval: 1m
       promethetusRule:
         enabled: true
       dashboards:

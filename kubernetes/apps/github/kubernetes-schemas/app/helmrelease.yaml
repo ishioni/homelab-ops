@@ -20,6 +20,7 @@ spec:
     metrics:
       podMonitor:
         enabled: true
+        interval: 1m
     grafana:
       dashboard:
         operator:

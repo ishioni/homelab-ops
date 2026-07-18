@@ -120,7 +120,8 @@ spec:
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "__replica__"
-        scrapeInterval: 30s
+        scrapeInterval: 1m
+        evaluationInterval: 1m
         podAntiAffinity: hard
         externalUrl: https://prometheus.${PRIVATE_DOMAIN}/
         ruleSelectorNilUsesHelmValues: false

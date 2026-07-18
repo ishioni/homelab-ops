@@ -40,7 +40,7 @@ spec:
       metrics:
         enabled: true
         serviceMonitor:
-          enabled: true
+          enabled: false
       route:
         main:
           enabled: true
