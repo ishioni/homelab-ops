@@ -59,10 +59,19 @@ spec:
     db: 9
     provider: redis
     keyPrefix: "vmcp-sessions:"
+  # Keep Zed's cached MCP session alive across normal periods of inactivity.
+  # Remove this override once https://github.com/zed-industries/zed/issues/57180 is fixed.
+  # podTemplateSpec replaces the container args list, so retain all operator-generated args here.
   podTemplateSpec:
     spec:
       containers:
         - name: vmcp
+          args:
+            - serve
+            - --config=/etc/vmcp-config/config.yaml
+            - --host=0.0.0.0
+            - --port=4483
+            - --session-ttl=168h
           env:
             - name: INSECURE_DISABLE_URL_VALIDATION
               value: "true"
@@ -92,3 +101,16 @@ spec:
     keyPrefix: "vmcp-sessions:"
   telemetryConfigRef:
     name: prometheus
+  # Keep Zed's cached MCP session alive across normal periods of inactivity.
+  # Remove this override once https://github.com/zed-industries/zed/issues/57180 is fixed.
+  # podTemplateSpec replaces the container args list, so retain all operator-generated args here.
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: vmcp
+          args:
+            - serve
+            - --config=/etc/vmcp-config/config.yaml
+            - --host=0.0.0.0
+            - --port=4483
+            - --session-ttl=168h
