@@ -12,11 +12,11 @@ spec:
   values:
     fullnameOverride: speedtest-exporter
     config:
-      cacheFor: 5m
+      cacheFor: 1m
     monitoring:
       serviceMonitor:
         enabled: true
-        interval: 30m
+        interval: 5m
         scrapeTimeout: 120s
       prometheusRule:
         enabled: true
