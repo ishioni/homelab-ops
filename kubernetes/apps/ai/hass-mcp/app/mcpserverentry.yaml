@@ -9,5 +9,9 @@ spec:
     name: mcp-tools
   remoteUrl: https://homeassistant.movishell.pl/api/webhook/mcp_383d1f2431b4ac760ee1134800fd561a
   transport: streamable-http
-  externalAuthConfigRef:
-    name: homeassistant
+  headerForward:
+    addHeadersFromSecret:
+      - headerName: Authorization
+        valueSecretRef:
+          name: haos-mcp-secret
+          key: HOMEASSISTANT_AUTHORIZATION
