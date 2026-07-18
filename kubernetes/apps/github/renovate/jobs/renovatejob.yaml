@@ -11,8 +11,10 @@ spec:
   extraEnv:
     - name: LOG_LEVEL
       value: debug
+    - name: RENOVATE_ALLOWED_UNSAFE_EXECUTIONS
+      value: '["goGenerate", "mise"]'
     - name: RENOVATE_ALLOWED_COMMANDS
-      value: '["pnpm run bundle"]'
+      value: '["^helm-docs ", "^helm-schema "]'
     - name: RENOVATE_REDIS_URL
       value: redis://dragonfly.database.svc.cluster.local:6379/8
   image: ghcr.io/renovatebot/renovate:43.268.2
