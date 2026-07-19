@@ -9,3 +9,7 @@ spec:
     kind: OCIRepository
     name: snapshot-controller
   interval: 30m
+  values:
+    monitoring:
+      serviceMonitor:
+        enabled: true
