@@ -7,7 +7,27 @@ metadata:
 spec:
   interval: 30m
   backendConfig:
-    disable: true
+    customConfiguration: |
+      backend "s3" {
+        bucket                      = "terraform"
+        key                         = "rustfs/state.tfstate"
+        region                      = "eu-central-1"
+        endpoint                    = "https://rs3.ishioni.casa"
+        skip_credentials_validation = true
+        skip_metadata_api_check     = true
+        skip_region_validation      = true
+        skip_requesting_account_id  = true
+        force_path_style            = true
+        skip_s3_checksum            = true
+      }
+  backendConfigsFrom:
+    - kind: Secret
+      name: tofu-s3-secret
+      keys:
+        - access_key
+        - secret_key
+  branchPlanner:
+    enablePathScope: true
   path: ./terraform/rustfs
   planOnly: true
   storeReadablePlan: human
