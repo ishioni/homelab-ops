@@ -7,7 +7,18 @@ metadata:
 spec:
   interval: 30m
   backendConfig:
-    disable: true
+    customConfiguration: |
+      backend "s3" {
+        bucket                      = "terraform"
+        key                         = "rustfs/state.tfstate"
+        region                      = "eu-central-1"
+        endpoint                    = "https://rs3.ishioni.casa"
+        skip_credentials_validation = true
+        skip_metadata_api_check     = true
+        skip_region_validation      = true
+      }
+  branchPlanner:
+    enablePathScope: true
   path: ./terraform/rustfs
   planOnly: true
   storeReadablePlan: human
