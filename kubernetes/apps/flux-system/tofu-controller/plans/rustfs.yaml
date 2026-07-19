@@ -6,6 +6,8 @@ metadata:
   name: rustfs
 spec:
   interval: 30m
+  backendConfig:
+    disable: true
   path: ./terraform/rustfs
   planOnly: true
   storeReadablePlan: human
