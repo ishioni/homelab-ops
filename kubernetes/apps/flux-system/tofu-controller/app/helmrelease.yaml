@@ -12,7 +12,7 @@ spec:
   values:
     awsPackage:
       install: false
-    branchPlaner:
+    branchPlanner:
       enabled: true
     metrics:
       enabled: true
