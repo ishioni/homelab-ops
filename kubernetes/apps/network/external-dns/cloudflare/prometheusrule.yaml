@@ -10,8 +10,8 @@ spec:
       rules:
         - alert: ExternalDNSStale
           expr: |
-            time() - external_dns_controller_last_sync_timestamp_seconds > 60
-          for: 5m
+            time() - external_dns_controller_last_sync_timestamp_seconds > 5m
+          for: 0m
           annotations:
             summary: >-
               ExternalDNS ({{ $labels.job }}) has not synced successfully in the last five minutes
