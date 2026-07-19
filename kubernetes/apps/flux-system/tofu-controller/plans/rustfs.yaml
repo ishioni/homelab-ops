@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/infra.contrib.fluxcd.io/terraform_v1alpha2.json
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: rustfs
+spec:
+  interval: 30m
+  path: ./terraform/rustfs
+  planOnly: true
+  storeReadablePlan: human
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  runnerPodTemplate:
+    spec:
+      envFrom:
+        - secretRef:
+            name: tofu-op-secret
+        - secretRef:
+            name: tofu-s3-secret

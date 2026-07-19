@@ -14,3 +14,22 @@ spec:
     kind: GitRepository
     name: homelab-ops
     namespace: flux-system
+  wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tofu-plans
+  namespace: flux-system
+spec:
+  targetNamespace: flux-system
+  dependsOn:
+    - name: tofu-controller
+  interval: 30m
+  path: ./kubernetes/apps/flux-system/tofu-controller/plans
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
