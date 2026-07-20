@@ -20,7 +20,6 @@ spec:
   branchPlanner:
     enablePathScope: true
   path: ./terraform/rustfs
-  planOnly: true
   storeReadablePlan: human
   sourceRef:
     kind: GitRepository
