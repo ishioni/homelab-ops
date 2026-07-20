@@ -1,7 +1,7 @@
 ---
 services:
   docker-external-dns:
-    image: ghcr.io/ishioni/dexd:v0.3.1@sha256:0572b1fc6a64508f0bf42da7dc60b9de9aad042cd2961e72d7de71ca483e8239
+    image: ghcr.io/ishioni/dexd:0.4.0@sha256:e645dab009d373cca6c6ee6814375cac1201755c1dfde5a5843c2c9e29ccf00e
     container_name: dexd
     restart: unless-stopped
     environment:
