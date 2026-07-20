@@ -33,15 +33,7 @@ rules:
     resources: ["ingresses", "networkpolicies"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["gateway.networking.k8s.io"]
-    resources:
-      [
-        "gateways",
-        "httproutes",
-        "grpcroutes",
-        "tcproutes",
-        "tlsroutes",
-        "referencegrants",
-      ]
+    resources: ["gateways", "httproutes", "grpcroutes", "tcproutes", "tlsroutes", "referencegrants"]
     verbs: ["get", "list", "watch"]
   - apiGroups: ["storage.k8s.io"]
     resources: ["storageclasses"]
@@ -58,8 +50,165 @@ rules:
   - apiGroups: ["kustomize.toolkit.fluxcd.io"]
     resources: ["kustomizations"]
     verbs: ["get", "list", "watch"]
+  - apiGroups: ["source.toolkit.fluxcd.io"]
+    resources:
+      [
+        "buckets",
+        "externalartifacts",
+        "gitrepositories",
+        "helmcharts",
+        "helmrepositories",
+        "ocirepositories",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["notification.toolkit.fluxcd.io"]
+    resources: ["alerts", "providers", "receivers"]
+    verbs: ["get", "list", "watch"]
   - apiGroups: ["external-secrets.io"]
-    resources: ["externalsecrets"]
+    resources:
+      [
+        "externalsecrets",
+        "clusterexternalsecrets",
+        "clusterpushsecrets",
+        "clustersecretstores",
+        "pushsecrets",
+        "secretstores",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificaterequests", "certificates", "clusterissuers", "issuers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["toolhive.stacklok.dev"]
+    resources:
+      [
+        "embeddingservers",
+        "mcpauthzconfigs",
+        "mcpexternalauthconfigs",
+        "mcpgroups",
+        "mcpoidcconfigs",
+        "mcpregistries",
+        "mcpremoteproxies",
+        "mcpserverentries",
+        "mcpservers",
+        "mcptelemetryconfigs",
+        "mcptoolconfigs",
+        "mcpwebhookconfigs",
+        "virtualmcpcompositetooldefinitions",
+        "virtualmcpservers",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["monitoring.coreos.com"]
+    resources:
+      [
+        "alertmanagerconfigs",
+        "alertmanagers",
+        "podmonitors",
+        "probes",
+        "prometheusagents",
+        "prometheuses",
+        "prometheusrules",
+        "scrapeconfigs",
+        "servicemonitors",
+        "thanosrulers",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["grafana.integreatly.org"]
+    resources:
+      [
+        "grafanaalertrulegroups",
+        "grafanacontactpoints",
+        "grafanadashboards",
+        "grafanadatasources",
+        "grafanafolders",
+        "grafanalibrarypanels",
+        "grafanamanifests",
+        "grafanamutetimings",
+        "grafananotificationpolicies",
+        "grafananotificationpolicyroutes",
+        "grafananotificationtemplates",
+        "grafanas",
+        "grafanaserviceaccounts",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["gateway.envoyproxy.io"]
+    resources:
+      [
+        "backends",
+        "backendtrafficpolicies",
+        "clienttrafficpolicies",
+        "envoyextensionpolicies",
+        "envoypatchpolicies",
+        "envoyproxies",
+        "httproutefilters",
+        "securitypolicies",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["gateway.networking.k8s.io"]
+    resources: ["backendtlspolicies", "gatewayclasses", "listenersets", "udproutes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["cilium.io"]
+    resources:
+      [
+        "ciliumbgpadvertisements",
+        "ciliumbgpclusterconfigs",
+        "ciliumbgpnodeconfigoverrides",
+        "ciliumbgpnodeconfigs",
+        "ciliumbgppeerconfigs",
+        "ciliumbgppeeringpolicies",
+        "ciliumcidrgroups",
+        "ciliumclusterwidenetworkpolicies",
+        "ciliumendpoints",
+        "ciliumexternalworkloads",
+        "ciliumidentities",
+        "ciliuml2announcementpolicies",
+        "ciliumloadbalancerippools",
+        "ciliumlocalredirectpolicies",
+        "ciliumnetworkpolicies",
+        "ciliumnodeconfigs",
+        "ciliumnodes",
+        "ciliumpodippools",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["postgresql.cnpg.io"]
+    resources:
+      [
+        "backups",
+        "clusterimagecatalogs",
+        "clusters",
+        "databaseroles",
+        "databases",
+        "failoverquorums",
+        "imagecatalogs",
+        "poolers",
+        "publications",
+        "scheduledbackups",
+        "subscriptions",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["barmancloud.cnpg.io"]
+    resources: ["objectstores"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["infra.contrib.fluxcd.io"]
+    resources: ["terraforms"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["kopiur.home-operations.com"]
+    resources:
+      [
+        "clusterrepositories",
+        "maintenances",
+        "repositories",
+        "repositoryreplications",
+        "restores",
+        "snapshotpolicies",
+        "snapshots",
+        "snapshotschedules",
+      ]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["tuppr.home-operations.com"]
+    resources: ["kubernetesupgrades", "talosupgrades"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["dragonflydb.io"]
+    resources: ["dragonflies"]
     verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
