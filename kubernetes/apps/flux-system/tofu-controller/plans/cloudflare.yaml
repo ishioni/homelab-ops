@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/infra.contrib.fluxcd.io/terraform_v1alpha2.json
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: cloudflare
+spec:
+  interval: 30m
+  backendConfig:
+    customConfiguration: |
+      backend "s3" {
+        bucket                      = "terraform"
+        key                         = "cloudflare/state.tfstate"
+        region                      = "eu-central-1"
+        endpoint                    = "https://rs3.ishioni.casa"
+        skip_credentials_validation = true
+        skip_metadata_api_check     = true
+        skip_region_validation      = true
+      }
+  branchPlanner:
+    enablePathScope: true
+  path: ./terraform/cloudflare
+  approvePlan: auto
+  storeReadablePlan: human
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  runnerPodTemplate:
+    spec:
+      envFrom:
+        - secretRef:
+            name: tofu-op-secret
+        - secretRef:
+            name: tofu-s3-secret
