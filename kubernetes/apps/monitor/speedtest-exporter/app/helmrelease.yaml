@@ -13,6 +13,7 @@ spec:
     fullnameOverride: speedtest-exporter
     config:
       cacheFor: 30m
+      logLevel: debug
     monitoring:
       serviceMonitor:
         enabled: true
