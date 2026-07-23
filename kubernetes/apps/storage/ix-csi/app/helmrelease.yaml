@@ -1,0 +1,71 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &release ix-csi
+  namespace: storage
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: ix-csi
+  dependsOn:
+    - name: snapshot-controller
+  interval: 30m
+  values:
+    nameOverride: *release
+    image:
+      repository: ghcr.io/ishioni/ix-csi
+      tag: v1.1.2
+    config:
+      truenasURL: wss://leo.ishioni.casa/api/current
+      truenasInsecure: false
+      defaultPool: SSD
+      nfsServer: leo.ishioni.casa
+      iscsiPortal: 10.1.2.2:3260
+      nvmeofPortal: 10.1.2.2:4420
+      iscsiIQNBase: iqn.2011-08.org.truenas.ctl
+    secret:
+      existingSecret:
+        name: ix-csi
+        key: API_TOKEN
+    node:
+      kubeletRootDir: /var/lib/kubelet
+      iscsiDir: /var/iscsi
+      extraEnv:
+        - name: ISCSIADM_HOST_PATH
+          value: /usr/local/sbin/iscsiadm
+    storageClasses:
+      - name: ix-iscsi
+        defaultClass: false
+        volumeBindingMode: WaitForFirstConsumer
+        parameters:
+          protocol: iscsi
+          pool: SSD
+          datasetPath: ix-csi
+          compression: LZ4
+          volblocksize: 16K
+          sparse: "true"
+          iscsi.blocksize: "4096"
+      - name: ix-nfs
+        defaultClass: false
+        volumeBindingMode: WaitForFirstConsumer
+        mountOptions: [nfsvers=4.2, nconnect=8, hard, noatime, nodiratime]
+        parameters:
+          protocol: nfs
+          pool: SSD
+          datasetPath: ix-csi
+          compression: LZ4
+          nfs.networks: 10.1.2.0/24
+      - name: ix-nvmeof
+        defaultClass: false
+        volumeBindingMode: WaitForFirstConsumer
+        parameters:
+          protocol: nvmeof
+          pool: SSD
+          datasetPath: ix-csi
+          volblocksize: 16K
+          sparse: "true"
+    volumeSnapshotClasses:
+      - name: ix-csi
+        deletionPolicy: Delete
