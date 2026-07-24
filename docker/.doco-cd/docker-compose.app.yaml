@@ -1,6 +1,6 @@
 ---
-# This file is not managed by doco-cd because it can't manage itself
-# Instead it is deployed through the TrueNAS SCALE UI
+# Main Doco-CD instance. It is deployed by doco-cd-updater through
+# .doco-cd.updater.yaml; the TrueNAS SCALE UI runs the updater instance.
 
 configs:
   poll-config.yml:

@@ -1,0 +1,8 @@
+---
+# This target is used by the bootstrap updater instance to deploy the main
+# Doco-CD instance. It deliberately does not deploy the application stacks.
+name: doco-cd
+reference: master
+working_dir: ./docker/.doco-cd
+compose_files:
+  - docker-compose.app.yaml
