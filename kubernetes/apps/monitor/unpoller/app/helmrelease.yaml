@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v3.3.3
+              tag: v3.3.4
             env:
               TZ: ${CONFIG_TIMEZONE}
               UP_INFLUXDB_DISABLE: true
