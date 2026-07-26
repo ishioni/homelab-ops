@@ -9,6 +9,7 @@ spec:
   components:
     - ../../../../components/gpu
     - ../../../../components/kopiur
+    - ../../../../components/authentik-proxy
   dependsOn:
     - name: dcsi-iscsi
       namespace: storage

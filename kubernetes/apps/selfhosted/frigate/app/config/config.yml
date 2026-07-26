@@ -3,7 +3,19 @@ mqtt:
   enabled: false
 
 auth:
-  enabled: true
+  enabled: false
+  trusted_proxies:
+    - 172.16.0.0/16
+
+proxy:
+  header_map:
+    user: X-authentik-username
+    role: X-authentik-groups
+  role_map:
+    admin:
+      - infrastructure
+  separator: "|"
+  default_role: viewer
 
 tls:
   enabled: false
