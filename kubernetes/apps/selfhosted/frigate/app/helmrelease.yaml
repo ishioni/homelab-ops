@@ -58,6 +58,10 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 8Gi
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
     service:
       frigate:
         controller: frigate
