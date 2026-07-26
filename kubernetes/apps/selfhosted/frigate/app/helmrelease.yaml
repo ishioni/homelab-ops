@@ -70,6 +70,8 @@ spec:
             appProtocol: kubernetes.io/ws
             port: 5000
             primary: true
+          auth:
+            port: 8971
           go2rtc:
             port: 1984
           rtsp:
@@ -91,7 +93,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: frigate
-                port: http
+                port: auth
     persistence:
       config:
         existingClaim: ${PVC_CLAIM}

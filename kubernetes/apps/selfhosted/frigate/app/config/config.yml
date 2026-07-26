@@ -2,6 +2,12 @@
 mqtt:
   enabled: false
 
+auth:
+  enabled: true
+
+tls:
+  enabled: false
+
 database:
   path: /config/frigate.db
 
