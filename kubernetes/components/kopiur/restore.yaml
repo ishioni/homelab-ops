@@ -9,9 +9,13 @@ spec:
     enabled: true
   mover:
     podSecurityContext:
-      runAsUser: ${APP_UID:=568}
-      runAsGroup: ${APP_GID:=568}
-      fsGroup: ${APP_GID:=568}
+      runAsUser: ${KOPIUR_MOVER_UID:=${APP_UID:=568}}
+      runAsGroup: ${KOPIUR_MOVER_GID:=${APP_GID:=568}}
+      fsGroup: ${KOPIUR_MOVER_GID:=${APP_GID:=568}}
+    securityContext:
+      runAsUser: ${KOPIUR_MOVER_UID:=${APP_UID:=568}}
+      runAsGroup: ${KOPIUR_MOVER_GID:=${APP_GID:=568}}
+      runAsNonRoot: ${KOPIUR_MOVER_NON_ROOT:=true}
   policy:
     onMissingSnapshot: Continue
   source:

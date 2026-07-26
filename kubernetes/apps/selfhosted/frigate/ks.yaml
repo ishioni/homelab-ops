@@ -28,25 +28,9 @@ spec:
       PVC_CAPACITY: 5Gi
       PVC_STORAGECLASS: &sc dcsi-iscsi
       KOPIUR_SNAPSHOTCLASS: *sc
-  patches:
-    - patch: |
-        apiVersion: kopiur.home-operations.com/v1alpha1
-        kind: SnapshotPolicy
-        metadata:
-          name: frigate
-          annotations:
-            kopiur.home-operations.com/allow-identity-change: "true"
-        spec:
-          mover:
-            inheritSecurityContextFrom:
-              pvcConsumer:
-                container: app
-            securityContext:
-              runAsNonRoot: false
-      target:
-        group: kopiur.home-operations.com
-        version: v1alpha1
-        kind: SnapshotPolicy
+      KOPIUR_MOVER_UID: "0"
+      KOPIUR_MOVER_GID: "0"
+      KOPIUR_MOVER_NON_ROOT: "false"
   prune: true
   sourceRef:
     kind: GitRepository
