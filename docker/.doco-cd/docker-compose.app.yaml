@@ -24,6 +24,9 @@ services:
         target: /poll-config.yml
     container_name: doco-cd
     environment:
+      GIT_ACCESS_TOKEN: ${GIT_ACCESS_TOKEN}
+      GIT_COMMIT_STATUS: "true"
+      GIT_SCM_PROVIDER: github
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml

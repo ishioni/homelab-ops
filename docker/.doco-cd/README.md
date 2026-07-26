@@ -15,9 +15,17 @@ auto-discovery would otherwise try to deploy a second updater.
 ## Before starting
 
 1. Make sure the changes for this setup have been merged to `master`.
-2. Confirm that the repository is cloneable by Doco-CD. The current setup does
-   not configure `GIT_ACCESS_TOKEN`, so this requires a publicly cloneable
-   repository or credentials supplied separately in the updater app.
+2. Confirm that the updater can read the 1Password item referenced by
+   `.doco-cd.updater.yaml`:
+
+   ```text
+   op://Homelab/flux/GITHUB_TOKEN
+   ```
+
+   That token must have GitHub permission to write commit statuses for this
+   repository. The repository also needs to be publicly cloneable unless Git
+   credentials are added separately to the updater.
+
 3. Save the existing TrueNAS Doco-CD app configuration before changing it.
 4. From the TrueNAS Shell, inspect the current main container and record its
    `/data` volume. The main instance may otherwise receive a new Compose-named
@@ -40,7 +48,9 @@ main instance through the cutover at the same time.
 
 1. Open the existing Doco-CD application in the TrueNAS SCALE UI.
 2. Replace its Compose YAML with the contents of
-   `docker-compose.updater.yaml` from this directory.
+   `docker-compose.updater.yaml` from this directory. This definition now also
+   mounts the existing 1Password service-account token at
+   `/run/secrets/1pw_token`.
 3. Apply/deploy the application. This stops the old UI-managed `doco-cd`
    container and starts `doco-cd-updater` instead.
 4. If TrueNAS leaves the old container behind, stop and remove only the old
@@ -83,6 +93,13 @@ The main instance also keeps `WEBHOOK_SECRET_FILE` and the existing secret file
 mount, so the Kubernetes webhook's `GITHUB_WEBHOOK_SECRET` must continue to
 contain the same value as the TrueNAS `/mnt/SSD/Userhomes/movi/.config/doco-cd/webhook_secret`
 file.
+
+The updater resolves `GIT_ACCESS_TOKEN` from 1Password when it deploys the main
+instance. The main instance receives that value through its environment and
+uses it for `GIT_COMMIT_STATUS=true`; no GitHub-token file is needed on the
+NAS. The main instance still receives the 1Password service-account token
+because it needs to resolve application secrets for deployments under
+`docker/truenas/`.
 
 A push therefore has two paths: the webhook immediately asks the main instance
 to deploy the application configuration, while the updater's poll detects the

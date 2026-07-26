@@ -6,3 +6,5 @@ reference: master
 working_dir: ./docker/.doco-cd
 compose_files:
   - docker-compose.app.yaml
+external_secrets:
+  GIT_ACCESS_TOKEN: op://Homelab/flux/GITHUB_TOKEN
