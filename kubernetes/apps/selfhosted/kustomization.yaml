@@ -12,6 +12,7 @@ resources:
   - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
   # - ./denondashboard/ks.yaml
+  - ./frigate/ks.yaml
   - ./go2rtc/ks.yaml
   - ./immich/ks.yaml
   - ./it-tools/ks.yaml
