@@ -140,6 +140,19 @@ module "proxy-bazarr" {
   ignore_paths       = local.favicons.bazaar
 }
 
+module "proxy-frigate" {
+  source             = "./modules/proxy_application"
+  name               = "Frigate"
+  description        = "Camera surveillance"
+  icon_url           = "https://raw.githubusercontent.com/blakeblackshear/frigate/refs/heads/dev/web/images/branding/apple-touch-icon.png"
+  group              = "Infrastructure"
+  slug               = "frigate"
+  domain             = var.private_domain
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  auth_groups        = [authentik_group.infrastructure.id]
+}
+
 # OAuth apps
 
 # module "oauth2-qui" {
