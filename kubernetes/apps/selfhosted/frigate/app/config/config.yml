@@ -38,6 +38,8 @@ model:
 
 ffmpeg:
   hwaccel_args: preset-vaapi
+  output_args:
+    record: preset-record-generic-audio-copy
 
 detect:
   enabled: true
@@ -45,6 +47,39 @@ detect:
 
 record:
   enabled: true
+  continuous:
+    days: 1
+  motion:
+    days: 10
+  alerts:
+    pre_capture: 30
+    post_capture: 30
+  detections:
+    pre_capture: 30
+    post_capture: 30
+
+audio:
+  enabled: true
+  min_volume: 500
+  max_not_heard: 30
+  listen:
+    # Sleep and respiratory sounds
+    - snoring
+    - breathing
+    - wheeze
+    - gasp
+    - cough
+    - sneeze
+    # Voices and nearby activity
+    - speech
+    - whispering
+    - yell
+    - crying
+    - laughter
+    - footsteps
+  filters:
+    snoring:
+      threshold: 0.7
 
 snapshots:
   enabled: true
@@ -57,6 +92,7 @@ cameras:
           roles:
             - detect
             - record
+            - audio
   bedroom:
     ffmpeg:
       inputs:
@@ -64,3 +100,4 @@ cameras:
           roles:
             - detect
             - record
+            - audio
