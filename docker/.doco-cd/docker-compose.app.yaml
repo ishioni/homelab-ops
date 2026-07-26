@@ -8,11 +8,7 @@ configs:
       - url: https://github.com/ishioni/homelab-ops.git
         reference: master
         interval: 3600
-secrets:
-  1pw_token:
-    file: /mnt/SSD/Userhomes/movi/.config/doco-cd/1pw_token
-  webhook_secret:
-    file: /mnt/SSD/Userhomes/movi/.config/doco-cd/webhook_secret
+
 networks:
   apps:
     name: apps
@@ -24,14 +20,17 @@ services:
         target: /poll-config.yml
     container_name: doco-cd
     environment:
+      GIT_ACCESS_TOKEN: ${GIT_ACCESS_TOKEN}
+      GIT_COMMIT_STATUS: "true"
+      GIT_SCM_PROVIDER: github
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
       SECRET_PROVIDER: 1password
-      SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1pw_token
+      SECRET_PROVIDER_ACCESS_TOKEN: ${SECRET_PROVIDER_ACCESS_TOKEN}
       SECRET_PROVIDER_CACHE_ENABLED: "true"
       SECRET_PROVIDER_CACHE_TTL: "6h"
-      WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
       DEPLOY_CONFIG_BASE_DIR: ./docker/truenas/
     healthcheck:
       test:
@@ -47,9 +46,6 @@ services:
       - 8080:8080
       - 9120:9120
     restart: unless-stopped
-    secrets:
-      - 1pw_token
-      - webhook_secret
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - data:/data

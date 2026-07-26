@@ -10,6 +10,10 @@ configs:
         interval: 3600
         target: updater
 
+secrets:
+  1pw_token:
+    file: /mnt/SSD/Userhomes/movi/.config/doco-cd/1pw_token
+
 services:
   app:
     configs:
@@ -17,11 +21,15 @@ services:
         target: /poll-config.yml
     container_name: doco-cd-updater
     environment:
-      DEPLOY_CONFIG_BASE_DIR: /
+      DEPLOY_CONFIG_BASE_DIR: ./docker/.doco-cd/
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
       SCHEDULER_ENABLED: "false"
+      SECRET_PROVIDER: 1password
+      SECRET_PROVIDER_ACCESS_TOKEN_FILE: /run/secrets/1pw_token
+      SECRET_PROVIDER_CACHE_ENABLED: "true"
+      SECRET_PROVIDER_CACHE_TTL: "6h"
     healthcheck:
       test:
         - CMD
@@ -33,6 +41,8 @@ services:
       retries: 3
     image: ghcr.io/kimdre/doco-cd:0.102.0@sha256:b04aeb9ed9d09af0b2213240bd2b05e5d9dac3d1b8d1750f7559e24239d3adb4
     restart: unless-stopped
+    secrets:
+      - 1pw_token
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - updater-data:/data
