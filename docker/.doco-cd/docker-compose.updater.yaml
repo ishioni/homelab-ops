@@ -31,7 +31,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    image: ghcr.io/kimdre/doco-cd:0.101.1@sha256:3ff91174c0ea2ce1cebdf9bee0ae8693b1715593181b9d812ddfe5fb509fb023
+    image: ghcr.io/kimdre/doco-cd:0.102.0@sha256:b04aeb9ed9d09af0b2213240bd2b05e5d9dac3d1b8d1750f7559e24239d3adb4
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
