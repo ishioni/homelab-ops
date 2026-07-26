@@ -1,0 +1,40 @@
+---
+mqtt:
+  enabled: false
+
+database:
+  path: /config/frigate.db
+
+detectors:
+  ov:
+    type: openvino
+    device: GPU
+
+ffmpeg:
+  hwaccel_args: preset-vaapi
+
+detect:
+  enabled: true
+  fps: 5
+
+record:
+  enabled: true
+
+snapshots:
+  enabled: true
+
+cameras:
+  kids:
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_KIDS_RTSP_USER}:{FRIGATE_KIDS_RTSP_PASSWORD}@camera-kids.ishioni.casa/live0
+          roles:
+            - detect
+            - record
+  bedroom:
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_BEDROOM_RTSP_USER}:{FRIGATE_BEDROOM_RTSP_PASSWORD}@camera-bedroom.ishioni.casa/live0
+          roles:
+            - detect
+            - record
