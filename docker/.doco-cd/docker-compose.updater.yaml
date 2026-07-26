@@ -21,7 +21,7 @@ services:
         target: /poll-config.yml
     container_name: doco-cd-updater
     environment:
-      DEPLOY_CONFIG_BASE_DIR: /
+      DEPLOY_CONFIG_BASE_DIR: ./docker/.doco-cd/
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml
