@@ -11,9 +11,9 @@ proxy:
   header_map:
     user: X-authentik-username
     role: X-authentik-groups
-  role_map:
-    admin:
-      - infrastructure
+    role_map:
+      admin:
+        - infrastructure
   separator: "|"
   default_role: viewer
 
