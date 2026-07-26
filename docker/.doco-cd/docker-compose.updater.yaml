@@ -1,0 +1,41 @@
+---
+# This is the bootstrap Doco-CD instance deployed through the TrueNAS SCALE UI.
+# It polls the repository and deploys the main Doco-CD instance through the
+# `updater` deployment target in .doco-cd.updater.yaml.
+configs:
+  poll-config.yml:
+    content: |
+      - url: https://github.com/ishioni/homelab-ops.git
+        reference: master
+        interval: 3600
+        target: updater
+
+services:
+  app:
+    configs:
+      - source: poll-config.yml
+        target: /poll-config.yml
+    container_name: doco-cd-updater
+    environment:
+      DEPLOY_CONFIG_BASE_DIR: /
+      HTTP_PORT: 8080
+      LOG_LEVEL: info
+      POLL_CONFIG_FILE: /poll-config.yml
+      SCHEDULER_ENABLED: "false"
+    healthcheck:
+      test:
+        - CMD
+        - /doco-cd
+        - healthcheck
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    image: ghcr.io/kimdre/doco-cd:0.101.1@sha256:3ff91174c0ea2ce1cebdf9bee0ae8693b1715593181b9d812ddfe5fb509fb023
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - updater-data:/data
+
+volumes:
+  updater-data: {}
