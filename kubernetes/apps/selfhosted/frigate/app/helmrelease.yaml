@@ -71,7 +71,6 @@ spec:
             port: 5000
             primary: true
           auth:
-            appProtocol: kubernetes.io/ws
             port: 8971
           go2rtc:
             port: 1984
