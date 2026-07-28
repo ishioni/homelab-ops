@@ -56,7 +56,7 @@ spec:
     source: discovered
   sessionStorage:
     address: dragonfly.database.svc.cluster.local:6379
-    db: 9
+    db: 3
     provider: redis
     keyPrefix: "vmcp-sessions:"
   # Keep Zed's cached MCP session alive across normal periods of inactivity.
