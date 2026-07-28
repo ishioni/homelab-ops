@@ -24,6 +24,6 @@ streams:
   bedroom:
     - $${RTSP_PATHS_BEDROOM_SOURCE}
     - ffmpeg:bedroom#audio=opus
-  thingino-kids:
-    - $${RTSP_PATHS_THINGIO_KIDS_SOURCE}
-    - ffmpeg:thingino-kids#audio=opus
+  bedcam:
+    - $${RTSP_PATHS_BEDCAM_SOURCE}
+    - ffmpeg:bedcam#audio=opus
