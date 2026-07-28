@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: ai
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./context7-mcp/ks.yaml
   - ./flux-operator-mcp/ks.yaml
   - ./github-mcp/ks.yaml

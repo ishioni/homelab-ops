@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./homepage/ks.yaml
   - ./whoami/ks.yaml

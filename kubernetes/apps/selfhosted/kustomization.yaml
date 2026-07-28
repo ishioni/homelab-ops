@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: selfhosted
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./atuin/ks.yaml
   - ./blog/ks.yaml
   - ./changedetection/ks.yaml
