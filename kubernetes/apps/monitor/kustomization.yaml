@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: monitor
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./drm-exporter/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana-operator/ks.yaml

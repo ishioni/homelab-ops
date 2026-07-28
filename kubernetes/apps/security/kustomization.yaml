@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: security
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./authentik/ks.yaml
   - ./external-secrets/ks.yaml
   - ./onepassword/ks.yaml

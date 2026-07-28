@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: games
 components:
   - ../../components/alerts
-  - ../../components/namespace
-resources: []
+resources:
+  - ./namespace.yaml

@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: github
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./arc/ks.yaml
   - ./konflate/ks.yaml
   - ./kubernetes-schemas/ks.yaml

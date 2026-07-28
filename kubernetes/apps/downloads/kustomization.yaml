@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: downloads
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./bazarr/ks.yaml
   - ./downloads-pvc/ks.yaml
   - ./lidarr/ks.yaml

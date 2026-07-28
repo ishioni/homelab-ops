@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: storage
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./democratic-csi/ks.yaml
   - ./kopiur/ks.yaml
   - ./openebs/ks.yaml
