@@ -32,7 +32,7 @@ services:
     user: root
 
   drm-exporter:
-    image: ghcr.io/home-operations/drm-exporter:0.3.2@sha256:e18a7028bc214a6e9302b8e0116d79e40a7de3e9e9b248ce15f3ab1ec217dbfa
+    image: ghcr.io/home-operations/drm-exporter:0.3.3@sha256:7229811068328ff3d9f9ac70b17319bb036e5e13dff6d743d5c5e3705d961488
     container_name: drm-exporter
     restart: unless-stopped
     user: root
