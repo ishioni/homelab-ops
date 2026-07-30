@@ -150,6 +150,8 @@ cluster:
       key: op://homelab/talos/ETCD_CA_KEY
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
+      auto-compaction-mode: periodic
+      auto-compaction-retention: 1h
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.36.3
