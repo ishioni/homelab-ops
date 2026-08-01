@@ -55,6 +55,7 @@ spec:
           datasetPath: ix-csi
           compression: LZ4
           nfs.networks: 10.1.2.0/24
+          detachedVolumes: "true"
       - name: ix-nvmeof
         defaultClass: false
         volumeBindingMode: WaitForFirstConsumer
