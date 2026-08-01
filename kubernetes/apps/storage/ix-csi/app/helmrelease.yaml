@@ -44,6 +44,7 @@ spec:
           volblocksize: 16K
           sparse: "true"
           iscsi.blocksize: "4096"
+          detachedVolumes: "true"
       - name: ix-nfs
         defaultClass: false
         volumeBindingMode: WaitForFirstConsumer
@@ -63,6 +64,7 @@ spec:
           datasetPath: ix-csi
           volblocksize: 16K
           sparse: "true"
+          detachedVolumes: "true"
     volumeSnapshotClasses:
       - name: ix-csi
         deletionPolicy: Delete
