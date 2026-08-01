@@ -14,9 +14,6 @@ spec:
   interval: 30m
   values:
     nameOverride: *release
-    image:
-      repository: ghcr.io/ishioni/ix-csi
-      tag: v1.1.2
     config:
       truenasURL: wss://leo.ishioni.casa/api/current
       truenasInsecure: false
