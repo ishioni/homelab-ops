@@ -40,21 +40,21 @@ spec:
         parameters:
           protocol: nfs
           pool: SSD
-          datasetPath: ix-csi
+          datasetPath: talos/volumes
           compression: LZ4
           nfs.networks: 10.1.2.0/24
           nfs.rootSquash: "false"
-          detachedVolumes: "false"
+          detachedVolumes: "true"
       - name: ix-nvmeof
         defaultClass: false
         volumeBindingMode: WaitForFirstConsumer
         parameters:
           protocol: nvmeof
           pool: SSD
-          datasetPath: ix-csi
+          datasetPath: talos/volumes
           volblocksize: 16K
           sparse: "true"
-          detachedVolumes: "false"
+          detachedVolumes: "true"
     volumeSnapshotClasses:
       - name: ix-csi
         deletionPolicy: Delete
