@@ -33,18 +33,6 @@ spec:
         - name: ISCSIADM_HOST_PATH
           value: /usr/local/sbin/iscsiadm
     storageClasses:
-      - name: ix-iscsi
-        defaultClass: false
-        volumeBindingMode: WaitForFirstConsumer
-        parameters:
-          protocol: iscsi
-          pool: SSD
-          datasetPath: ix-csi
-          compression: LZ4
-          volblocksize: 16K
-          sparse: "true"
-          iscsi.blocksize: "4096"
-          detachedVolumes: "false"
       - name: ix-nfs
         defaultClass: false
         volumeBindingMode: WaitForFirstConsumer
