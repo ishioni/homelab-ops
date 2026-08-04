@@ -8,6 +8,7 @@ components:
 resources:
   - ./namespace.yaml
   - ./democratic-csi/ks.yaml
+  - ./ix-csi/ks.yaml
   - ./kopiur/ks.yaml
   - ./openebs/ks.yaml
   - ./snapshot-controller/ks.yaml
