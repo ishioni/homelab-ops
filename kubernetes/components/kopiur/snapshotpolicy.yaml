@@ -26,4 +26,4 @@ spec:
   sources:
     - pvc:
         name: ${PVC_CLAIM:=${APP}}
-  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=dcsi-iscsi}
+  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=ix-csi}

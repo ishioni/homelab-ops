@@ -2,12 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
   name: ${PVC_CLAIM:-${APP}}
 spec:
   accessModes: ["${PVC_ACCESSMODES:-ReadWriteOnce}"]
-  storageClassName: ${PVC_STORAGECLASS:-dcsi-iscsi}
+  storageClassName: ${PVC_STORAGECLASS:-ix-nvmeof}
   resources:
     requests:
       storage: ${PVC_CAPACITY:-1Gi}

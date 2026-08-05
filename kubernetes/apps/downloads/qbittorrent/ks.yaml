@@ -10,7 +10,7 @@ spec:
     - ../../../../components/authentik-proxy
     - ../../../../components/kopiur
   dependsOn:
-    - name: dcsi-nfs
+    - name: ix-csi
       namespace: storage
     - name: kopiur
       namespace: storage
@@ -23,8 +23,8 @@ spec:
       APP_GID: "5000"
       HOSTNAME: torrent.${PUBLIC_DOMAIN}
       PVC_CLAIM: qbittorrent-config
-      PVC_STORAGECLASS: &sc dcsi-nfs
-      KOPIUR_SNAPSHOTCLASS: *sc
+      PVC_STORAGECLASS: ix-nfs
+      KOPIUR_SNAPSHOTCLASS: ix-csi
   prune: true
   sourceRef:
     kind: GitRepository

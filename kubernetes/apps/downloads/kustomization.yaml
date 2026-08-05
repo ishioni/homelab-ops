@@ -9,10 +9,10 @@ resources:
   - ./namespace.yaml
   # - ./bazarr/ks.yaml
   - ./downloads-pvc/ks.yaml
-  # - ./lidarr/ks.yaml
+  - ./lidarr/ks.yaml
   - ./prowlarr/ks.yaml
-  # - ./qbittorrent/ks.yaml
-  # - ./radarr/ks.yaml
+  - ./qbittorrent/ks.yaml
+  - ./radarr/ks.yaml
   # - ./recyclarr/ks.yaml
   # - ./slskd/ks.yaml
-  # - ./sonarr/ks.yaml
+  - ./sonarr/ks.yaml

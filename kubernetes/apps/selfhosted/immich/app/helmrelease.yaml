@@ -269,7 +269,7 @@ spec:
         suffix: mlcache
         size: 10Gi
         accessMode: ReadWriteMany
-        storageClass: dcsi-nfs
+        storageClass: ix-nfs
         type: persistentVolumeClaim
         advancedMounts:
           machine-learning:
