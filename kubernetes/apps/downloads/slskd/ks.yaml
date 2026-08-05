@@ -10,16 +10,23 @@ spec:
     - ../../../../components/authentik-proxy
     - ../../../../components/pvc
   dependsOn:
+    - name: dcsi-iscsi
+      namespace: storage
     - name: external-secrets
       namespace: security
+    - name: kopiur
+      namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/slskd/app
   postBuild:
     substitute:
       APP: *app
       APP_UID: "1000"
+      APP_GID: "5000"
       HOSTNAME: slskd.${PUBLIC_DOMAIN}
       PVC_CLAIM: slskd-config
+      PVC_STORAGECLASS: &sc dcsi-iscsi
+      KOPIUR_SNAPSHOTCLASS: *sc
   prune: true
   sourceRef:
     kind: GitRepository
