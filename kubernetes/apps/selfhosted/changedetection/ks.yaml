@@ -9,7 +9,7 @@ spec:
   components:
     - ../../../../components/kopiur
   dependsOn:
-    - name: dcsi-nfs
+    - name: ix-csi
       namespace: storage
     - name: kopiur
       namespace: storage
@@ -23,8 +23,8 @@ spec:
       APP_GID: "999"
       PVC_CLAIM: changedetection-data
       PVC_CAPACITY: 1Gi
-      PVC_STORAGECLASS: &sc dcsi-nfs
-      KOPIUR_SNAPSHOTCLASS: *sc
+      PVC_STORAGECLASS: ix-nfs
+
   prune: true
   sourceRef:
     kind: GitRepository

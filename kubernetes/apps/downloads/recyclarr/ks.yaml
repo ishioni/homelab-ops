@@ -9,6 +9,8 @@ spec:
   components:
     - ../../../../components/kopiur
   dependsOn:
+    - name: ix-csi
+      namespace: storage
     - name: external-secrets
       namespace: security
     - name: kopiur
@@ -19,8 +21,8 @@ spec:
     substitute:
       APP: *app
       PVC_CLAIM: recyclarr-config
-      PVC_STORAGECLASS: &sc dcsi-nfs
-      KOPIUR_SNAPSHOTCLASS: *sc
+      PVC_STORAGECLASS: ix-nfs
+
   prune: true
   sourceRef:
     kind: GitRepository

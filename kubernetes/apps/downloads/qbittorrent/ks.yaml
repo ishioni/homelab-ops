@@ -19,12 +19,12 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      APP_UID: "568"
+
       APP_GID: "5000"
       HOSTNAME: torrent.${PUBLIC_DOMAIN}
       PVC_CLAIM: qbittorrent-config
       PVC_STORAGECLASS: ix-nfs
-      KOPIUR_SNAPSHOTCLASS: ix-csi
+
   prune: true
   sourceRef:
     kind: GitRepository

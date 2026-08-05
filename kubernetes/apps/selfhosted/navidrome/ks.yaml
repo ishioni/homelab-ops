@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: dcsi-iscsi
+    - name: ix-csi
       namespace: storage
     - name: kopiur
       namespace: storage
@@ -24,13 +24,12 @@ spec:
     substitute:
       APP: *app
       HOSTNAME: navidrome.${PUBLIC_DOMAIN}
-      APP_UID: "568"
+
       APP_GID: "5000"
       PVC_CLAIM: navidrome-config
       PVC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
-      PVC_STORAGECLASS: &sc dcsi-iscsi
-      KOPIUR_SNAPSHOTCLASS: *sc
+
   prune: true
   sourceRef:
     kind: GitRepository

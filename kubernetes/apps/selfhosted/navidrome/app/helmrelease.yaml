@@ -14,7 +14,7 @@ spec:
       navidrome:
         pod:
           securityContext:
-            runAsUser: 568
+            runAsUser: 1000
             runAsGroup: &gid 5000
             fsGroup: *gid
             fsGroupChangePolicy: OnRootMismatch
@@ -85,7 +85,7 @@ spec:
       cache:
         suffix: cache
         type: persistentVolumeClaim
-        storageClass: dcsi-nfs
+        storageClass: ix-nfs
         accessMode: ReadWriteOnce
         size: 10G
       config:

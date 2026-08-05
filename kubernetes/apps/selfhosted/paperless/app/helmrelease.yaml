@@ -17,7 +17,7 @@ spec:
           secret.reloader.stakater.com/reload: &secret paperless-secret
         pod:
           securityContext:
-            supplementalGroups: [568]
+            supplementalGroups: [1000]
         initContainers:
           01-init-db:
             image:
@@ -53,8 +53,8 @@ spec:
               PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: ${CONFIG_TIMEZONE}
               PAPERLESS_URL: https://${HOSTNAME}
-              USERMAP_UID: 568
-              USERMAP_GID: 568
+              USERMAP_UID: 1000
+              USERMAP_GID: 1000
             envFrom:
               - secretRef:
                   name: *secret

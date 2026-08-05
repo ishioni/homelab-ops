@@ -15,7 +15,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: dcsi-nfs
+    - name: ix-csi
       namespace: storage
     - name: kopiur
       namespace: storage
@@ -25,13 +25,12 @@ spec:
     substitute:
       APP: *app
       HOSTNAME: documents.${PRIVATE_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
+
       PVC_CLAIM: paperless-data
       PVC_CAPACITY: 5Gi
       KOPIUR_CAPACITY: 5Gi
-      PVC_STORAGECLASS: &sc dcsi-nfs
-      KOPIUR_SNAPSHOTCLASS: *sc
+      PVC_STORAGECLASS: ix-nfs
+
   prune: true
   sourceRef:
     kind: GitRepository
