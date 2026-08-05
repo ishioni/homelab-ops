@@ -12,7 +12,7 @@ resources:
   # - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
   - ./go2rtc/ks.yaml
-  - ./immich/ks.yaml
+  # - ./immich/ks.yaml
   - ./it-tools/ks.yaml
   - ./meshmonitor/ks.yaml
   # - ./navidrome/ks.yaml
