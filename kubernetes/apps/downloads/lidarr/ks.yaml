@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: dcsi-nfs
+    - name: ix-csi
       namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/lidarr/app
@@ -24,7 +24,7 @@ spec:
       HOSTNAME: music.${PUBLIC_DOMAIN}
       PVC_CAPACITY: 5Gi
       PVC_CLAIM: lidarr-config
-      PVC_STORAGECLASS: dcsi-nfs
+      PVC_STORAGECLASS: ix-nfs
   prune: true
   sourceRef:
     kind: GitRepository

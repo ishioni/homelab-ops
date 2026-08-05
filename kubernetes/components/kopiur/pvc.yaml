@@ -7,7 +7,7 @@ metadata:
   name: ${PVC_CLAIM:=${APP}}
 spec:
   accessModes: ["${PVC_ACCESSMODES:=ReadWriteOnce}"]
-  storageClassName: ${PVC_STORAGECLASS:=dcsi-iscsi}
+  storageClassName: ${PVC_STORAGECLASS:=ix-nvmeof}
   resources:
     requests:
       storage: ${PVC_CAPACITY:=1Gi}

@@ -7,7 +7,7 @@ metadata:
   namespace: &namespace monitor
 spec:
   dependsOn:
-    - name: dcsi-iscsi
+    - name: ix-csi
       namespace: storage
     - name: external-secrets
       namespace: security

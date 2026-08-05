@@ -14,7 +14,7 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
-    - name: dcsi-nfs
+    - name: ix-csi
       namespace: storage
   interval: 30m
   path: ./kubernetes/apps/downloads/sonarr/app
@@ -23,7 +23,7 @@ spec:
       APP: *app
       HOSTNAME: tv.${PUBLIC_DOMAIN}
       PVC_CLAIM: sonarr-config
-      PVC_STORAGECLASS: dcsi-nfs
+      PVC_STORAGECLASS: ix-nfs
   prune: true
   sourceRef:
     kind: GitRepository

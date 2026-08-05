@@ -89,7 +89,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: dcsi-iscsi
+              storageClassName: ix-nvmeof
               resources:
                 requests:
                   storage: 1Gi
@@ -138,7 +138,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: dcsi-iscsi
+              storageClassName: ix-nvmeof
               resources:
                 requests:
                   storage: 10Gi

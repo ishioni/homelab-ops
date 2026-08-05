@@ -31,7 +31,7 @@ spec:
         - --downsampling.disable
       persistence:
         enabled: true
-        storageClass: dcsi-iscsi
+        storageClass: ix-nvmeof
         size: 60Gi
     # query:
     #   extraArgs: --alert.query-url=http://thanos.${PUBLIC_DOMAIN}
