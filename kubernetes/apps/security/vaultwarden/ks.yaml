@@ -13,6 +13,8 @@ spec:
       namespace: database
     - name: external-secrets
       namespace: security
+    - name: ix-csi
+      namespace: storage
     - name: kopiur
       namespace: storage
   interval: 30m
@@ -21,12 +23,11 @@ spec:
     substitute:
       APP: *app
       HOSTNAME: passwords.${PUBLIC_DOMAIN}
-      APP_UID: "568"
-      APP_GID: "568"
+
       PVC_CLAIM: vaultwarden-data
       PVC_ACCESSMODES: ReadWriteMany
-      PVC_STORAGECLASS: &nfs dcsi-nfs
-      KOPIUR_SNAPSHOTCLASS: *nfs
+      PVC_STORAGECLASS: ix-nfs
+
   prune: true
   sourceRef:
     kind: GitRepository

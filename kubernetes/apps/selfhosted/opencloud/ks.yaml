@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: external-secrets
       namespace: security
-    - name: dcsi-nfs
+    - name: ix-csi
       namespace: storage
     - name: kopiur
       namespace: storage
@@ -22,13 +22,12 @@ spec:
       APP: *app
       HOSTNAME: opencloud.${PUBLIC_DOMAIN}
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
-      APP_UID: "1000"
-      APP_GID: "1000"
+
       PVC_CLAIM: opencloud-data
       PVC_CAPACITY: &size 20Gi
       KOPIUR_CAPACITY: *size
-      PVC_STORAGECLASS: &sc dcsi-nfs
-      KOPIUR_SNAPSHOTCLASS: *sc
+      PVC_STORAGECLASS: ix-nfs
+
       PVC_ACCESSMODES: ReadWriteMany
   prune: true
   sourceRef:
