@@ -10,7 +10,7 @@
     {
       description: "Use semver prerelease handling for RustFS image tags",
       matchDatasources: ["docker"],
-      matchPackageNames: ["docker.io/rustfs/rustfs"],
+      matchPackageNames: ["ghcr.io/rustfs/rustfs"],
       versioning: "semver",
       ignoreUnstable: false,
       respectLatest: false,

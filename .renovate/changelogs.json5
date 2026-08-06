@@ -63,7 +63,7 @@
     },
     {
       description: "Changelog for rustfs",
-      matchPackageNames: ["docker.io/rustfs/rustfs"],
+      matchPackageNames: ["ghcr.io/rustfs/rustfs"],
       sourceUrl: "https://github.com/rustfs/rustfs",
     },
     {
