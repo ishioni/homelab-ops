@@ -26,6 +26,17 @@ spec:
       existingSecret:
         name: ix-csi
         key: API_TOKEN
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      dashboards:
+        enabled: true
+        annotations:
+          grafana_folder: Storage
+      grafanaDashboard:
+        enabled: true
+        folder: Storage
     node:
       kubeletRootDir: /var/lib/kubelet
       iscsiDir: /var/iscsi
@@ -45,6 +56,7 @@ spec:
           nfs.networks: 10.1.2.0/24
           nfs.rootSquash: "false"
           detachedVolumes: "true"
+          datasetDescription: "{{ .pvc.namespace }}/{{ .pvc.name }}"
       - name: ix-nvmeof
         defaultClass: false
         volumeBindingMode: WaitForFirstConsumer
@@ -55,6 +67,7 @@ spec:
           volblocksize: 16K
           sparse: "true"
           detachedVolumes: "true"
+          datasetDescription: "{{ .pvc.namespace }}/{{ .pvc.name }}"
     volumeSnapshotClasses:
       - name: ix-csi
         deletionPolicy: Delete
