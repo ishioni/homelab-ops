@@ -36,7 +36,15 @@ spec:
           grafana_folder: Storage
       grafanaDashboard:
         enabled: true
+        allowCrossNamespaceImport: true
+        datasources:
+          - datasourceName: prometheus
+            inputName: DS_PROMETHEUS
         folder: Storage
+        resyncPeriod: 10m
+        instanceSelector:
+          matchLabels:
+            grafana.internal/instance: grafana
     node:
       kubeletRootDir: /var/lib/kubelet
       iscsiDir: /var/iscsi
