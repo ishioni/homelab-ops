@@ -17,7 +17,7 @@ spec:
       value: '["^helm-docs ", "^helm-schema "]'
     - name: RENOVATE_REDIS_URL
       value: redis://dragonfly.database.svc.cluster.local:6379/1
-  image: ghcr.io/renovatebot/renovate:44.23.3
+  image: ghcr.io/renovatebot/renovate:44.24.0
   parallelism: 5
   resources:
     requests:
