@@ -3,9 +3,9 @@
 apiVersion: toolhive.stacklok.dev/v1beta1
 kind: MCPServerEntry
 metadata:
-  name: grafana
+  name: grafana-mcp
 spec:
   groupRef:
     name: mcp-tools
-  remoteUrl: http://mcp-grafana-proxy.monitor.svc.cluster.local:8080/mcp
+  remoteUrl: http://mcp-grafana-mcp-proxy.monitor.svc.cluster.local:8080/mcp
   transport: streamable-http

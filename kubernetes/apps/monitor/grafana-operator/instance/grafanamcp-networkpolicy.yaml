@@ -8,7 +8,7 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: mcpserver
-      app.kubernetes.io/instance: grafana
+      app.kubernetes.io/instance: grafana-mcp
   policyTypes:
     - Ingress
   ingress:

@@ -3,13 +3,13 @@
 apiVersion: toolhive.stacklok.dev/v1beta1
 kind: MCPServer
 metadata:
-  name: grafana
+  name: grafana-mcp
 spec:
   image: docker.io/grafana/mcp-grafana:1.1.0
   transport: streamable-http
   proxyPort: 8080
   mcpPort: 8000
-  serviceAccount: grafana-mcp-sa
+
   secrets:
     - name: grafana-mcp-token
       key: token
