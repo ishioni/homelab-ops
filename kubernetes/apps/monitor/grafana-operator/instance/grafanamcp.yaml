@@ -9,6 +9,7 @@ spec:
   transport: streamable-http
   proxyPort: 8080
   mcpPort: 8000
+  serviceAccount: grafana-mcp-sa
   secrets:
     - name: grafana-mcp-token
       key: token
