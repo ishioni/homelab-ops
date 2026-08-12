@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/networking.k8s.io/networkpolicy_v1.json
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: grafana-mcp
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: mcpserver
+      app.kubernetes.io/instance: grafana
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ai
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitor
+      ports:
+        - port: 8080
+          protocol: TCP

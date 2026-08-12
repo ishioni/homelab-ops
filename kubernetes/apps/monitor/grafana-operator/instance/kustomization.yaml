@@ -5,5 +5,8 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./grafana.yaml
+  - ./grafanaserviceaccount.yaml
+  - ./grafanamcp.yaml
+  - ./grafanamcp-networkpolicy.yaml
   - ./grafanadatasource.yaml
   - ./servicemonitor.yaml

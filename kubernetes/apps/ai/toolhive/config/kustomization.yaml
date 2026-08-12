@@ -9,5 +9,6 @@ resources:
   - ./mcpgroup.yaml
   - ./mcpoidcconfig.yaml
   - ./mcptelemetry.yaml
+  - ./grafana-mcpserverentry.yaml
   - ./podmonitor.yaml
   - ./virtualmcpserver.yaml

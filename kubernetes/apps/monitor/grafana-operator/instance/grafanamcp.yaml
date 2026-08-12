@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/mcpserver_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: MCPServer
+metadata:
+  name: grafana
+spec:
+  image: docker.io/grafana/mcp-grafana:v1.1.0
+  transport: streamable-http
+  proxyPort: 8080
+  mcpPort: 8000
+  secrets:
+    - name: grafana-mcp-token
+      key: token
+      targetEnvName: GRAFANA_SERVICE_ACCOUNT_TOKEN
+  env:
+    - name: GRAFANA_URL
+      value: http://grafana-service.monitor.svc.cluster.local:3000
+
+  args:
+    - --transport
+    - streamable-http
+    - --address
+    - 0.0.0.0:8000
+    # ToolHive is the trusted reverse proxy and may rewrite the Host header.
+    - --allowed-hosts
+    - "*"
