@@ -69,7 +69,7 @@ spec:
               ports:
                 - name: renderer
                   containerPort: 8081
-              startupProbe:
+              startupProbe: &rendererProbe
                 httpGet:
                   path: /healthz
                   port: renderer
@@ -77,18 +77,12 @@ spec:
                 timeoutSeconds: 5
                 failureThreshold: 30
               readinessProbe:
-                httpGet:
-                  path: /healthz
-                  port: renderer
+                <<: *rendererProbe
                 periodSeconds: 10
-                timeoutSeconds: 5
                 failureThreshold: 6
               livenessProbe:
-                httpGet:
-                  path: /healthz
-                  port: renderer
+                <<: *rendererProbe
                 periodSeconds: 30
-                timeoutSeconds: 5
                 failureThreshold: 3
               resources:
                 requests:
