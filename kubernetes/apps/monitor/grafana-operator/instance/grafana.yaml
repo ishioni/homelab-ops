@@ -55,34 +55,17 @@ spec:
               envFrom:
                 - secretRef:
                     name: grafana-secret
-              env:
-                - name: GF_RENDERING_CALLBACK_URL
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-image-renderer
-                      key: GF_RENDERING_CALLBACK_URL
-                - name: GF_RENDERING_RENDERER_TOKEN
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-image-renderer
-                      key: GF_RENDERING_RENDERER_TOKEN
-                - name: GF_RENDERING_SERVER_URL
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-image-renderer
-                      key: GF_RENDERING_SERVER_URL
+                - secretRef:
+                    name: grafana-image-renderer
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
                 capabilities: { drop: ["ALL"] }
             - name: image-renderer
               image: docker.io/grafana/grafana-image-renderer:v5.12.0
-              env:
-                - name: AUTH_TOKEN
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-image-renderer
-                      key: AUTH_TOKEN
+              envFrom:
+                - secretRef:
+                    name: grafana-image-renderer
               ports:
                 - name: renderer
                   containerPort: 8081
