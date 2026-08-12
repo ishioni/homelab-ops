@@ -16,9 +16,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: ai
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: monitor
       ports:
         - port: 8080
           protocol: TCP

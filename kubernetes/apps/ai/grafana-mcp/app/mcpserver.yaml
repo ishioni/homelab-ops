@@ -9,7 +9,8 @@ spec:
   transport: streamable-http
   proxyPort: 8080
   mcpPort: 8000
-
+  groupRef:
+    name: mcp-tools
   secrets:
     - name: grafana-mcp-token
       key: token
@@ -17,7 +18,6 @@ spec:
   env:
     - name: GRAFANA_URL
       value: http://grafana-service.monitor.svc.cluster.local:3000
-
   args:
     - --transport
     - streamable-http
