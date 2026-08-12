@@ -7,6 +7,12 @@ metadata:
   namespace: &namespace ai
 spec:
   dependsOn:
+    - name: external-secrets
+      namespace: security
+    - name: grafana-instance
+      namespace: monitor
+    - name: toolhive-operator
+      namespace: ai
     - name: toolhive-operator-crds
   interval: 30m
   path: ./kubernetes/apps/ai/grafana-mcp/app

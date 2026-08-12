@@ -26,8 +26,6 @@ spec:
   dependsOn:
     - name: grafana-operator
       namespace: monitor
-    - name: toolhive-operator
-      namespace: ai
     - name: postgres-cluster
       namespace: database
     - name: external-secrets

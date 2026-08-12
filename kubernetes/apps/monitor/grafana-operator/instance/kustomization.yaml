@@ -6,8 +6,8 @@ resources:
   - ./externalsecret.yaml
   - ./grafana-image-renderer-externalsecret.yaml
   - ./grafana.yaml
+  - ./grafanamcp-role.yaml
+  - ./grafanamcp-rolebinding.yaml
   - ./grafanaserviceaccount.yaml
-  - ./grafanamcp.yaml
-  - ./grafanamcp-networkpolicy.yaml
   - ./grafanadatasource.yaml
   - ./servicemonitor.yaml
