@@ -55,14 +55,85 @@ spec:
               envFrom:
                 - secretRef:
                     name: grafana-secret
+              env:
+                - name: GF_RENDERING_CALLBACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-image-renderer
+                      key: GF_RENDERING_CALLBACK_URL
+                - name: GF_RENDERING_RENDERER_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-image-renderer
+                      key: GF_RENDERING_RENDERER_TOKEN
+                - name: GF_RENDERING_SERVER_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-image-renderer
+                      key: GF_RENDERING_SERVER_URL
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
-                capabilities: {drop: ["ALL"]}
+                capabilities: { drop: ["ALL"] }
+            - name: image-renderer
+              image: docker.io/grafana/grafana-image-renderer:v5.12.0
+              env:
+                - name: AUTH_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-image-renderer
+                      key: AUTH_TOKEN
+              ports:
+                - name: renderer
+                  containerPort: 8081
+              startupProbe:
+                httpGet:
+                  path: /healthz
+                  port: renderer
+                periodSeconds: 5
+                timeoutSeconds: 5
+                failureThreshold: 30
+              readinessProbe:
+                httpGet:
+                  path: /healthz
+                  port: renderer
+                periodSeconds: 10
+                timeoutSeconds: 5
+                failureThreshold: 6
+              livenessProbe:
+                httpGet:
+                  path: /healthz
+                  port: renderer
+                periodSeconds: 30
+                timeoutSeconds: 5
+                failureThreshold: 3
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 1Gi
+                limits:
+                  cpu: "2"
+                  memory: 2Gi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsUser: 65532
+                runAsGroup: 65532
+                capabilities: { drop: ["ALL"] }
+              volumeMounts:
+                - name: image-renderer-home
+                  mountPath: /home/nonroot
+                - name: image-renderer-tmp
+                  mountPath: /tmp
           securityContext:
             runAsNonRoot: true
             runAsUser: 2000
             runAsGroup: 2000
+          volumes:
+            - name: image-renderer-home
+              emptyDir: {}
+            - name: image-renderer-tmp
+              emptyDir: {}
   httpRoute:
     metadata:
       annotations:
