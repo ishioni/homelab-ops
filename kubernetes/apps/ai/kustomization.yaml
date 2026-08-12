@@ -10,6 +10,7 @@ resources:
   - ./context7-mcp/ks.yaml
   - ./flux-operator-mcp/ks.yaml
   - ./github-mcp/ks.yaml
+  - ./grafana-mcp/ks.yaml
   - ./hass-mcp/ks.yaml
   - ./kubectl-mcp/ks.yaml
   - ./prometheus-mcp/ks.yaml

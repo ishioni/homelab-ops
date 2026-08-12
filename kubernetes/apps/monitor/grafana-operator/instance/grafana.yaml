@@ -55,14 +55,62 @@ spec:
               envFrom:
                 - secretRef:
                     name: grafana-secret
+                - secretRef:
+                    name: grafana-image-renderer
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
-                capabilities: {drop: ["ALL"]}
+                capabilities: { drop: ["ALL"] }
+            - name: image-renderer
+              image: docker.io/grafana/grafana-image-renderer:v5.12.0
+              envFrom:
+                - secretRef:
+                    name: grafana-image-renderer
+              ports:
+                - name: renderer
+                  containerPort: 8081
+              startupProbe: &rendererProbe
+                httpGet:
+                  path: /healthz
+                  port: renderer
+                periodSeconds: 5
+                timeoutSeconds: 5
+                failureThreshold: 30
+              readinessProbe:
+                <<: *rendererProbe
+                periodSeconds: 10
+                failureThreshold: 6
+              livenessProbe:
+                <<: *rendererProbe
+                periodSeconds: 30
+                failureThreshold: 3
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 1Gi
+                limits:
+                  cpu: "2"
+                  memory: 2Gi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsUser: 65532
+                runAsGroup: 65532
+                capabilities: { drop: ["ALL"] }
+              volumeMounts:
+                - name: image-renderer-home
+                  mountPath: /home/nonroot
+                - name: image-renderer-tmp
+                  mountPath: /tmp
           securityContext:
             runAsNonRoot: true
             runAsUser: 2000
             runAsGroup: 2000
+          volumes:
+            - name: image-renderer-home
+              emptyDir: {}
+            - name: image-renderer-tmp
+              emptyDir: {}
   httpRoute:
     metadata:
       annotations:
