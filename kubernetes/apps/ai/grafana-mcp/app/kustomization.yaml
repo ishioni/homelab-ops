@@ -5,6 +5,5 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./mcpserver.yaml
-  - ./networkpolicy.yaml
   - ./secretstore.yaml
   - ./serviceaccount.yaml
