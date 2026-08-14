@@ -6,8 +6,6 @@ metadata:
   name: &app homepage
   namespace: &namespace default
 spec:
-  components:
-    - ../../../../components/authentik-proxy
   dependsOn:
     - name: external-secrets
       namespace: security

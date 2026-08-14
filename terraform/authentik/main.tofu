@@ -25,6 +25,12 @@ module "secret_authentik" {
   item   = "authentik"
 }
 
+module "secret_homepage" {
+  source = "./modules/1password-item"
+  vault  = "Homelab"
+  item   = "homepage"
+}
+
 module "secret_immich" {
   source = "./modules/1password-item"
   vault  = "Homelab"

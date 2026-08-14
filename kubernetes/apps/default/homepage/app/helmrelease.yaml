@@ -22,10 +22,12 @@ spec:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v1.13.2
+              tag: v2.0.0
             env:
               TZ: ${CONFIG_TIMEZONE}
               HOMEPAGE_ALLOWED_HOSTS: ${HOSTNAME}
+              HOMEPAGE_AUTH_ENABLED: "true"
+              HOMEPAGE_EXTERNAL_URL: https://${HOSTNAME}
               # LOG_LEVEL: debug
             envFrom:
               - secretRef:
@@ -55,7 +57,9 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/enabled: "false"
+          gatus.home-operations.com/endpoint: |-
+            name: homepage
+            url: https://home.${PUBLIC_DOMAIN}/api/healthcheck
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external
