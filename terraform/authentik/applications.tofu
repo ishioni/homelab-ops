@@ -3,26 +3,11 @@ locals {
     arr       = "^/Content/Images/Icons/*"
     qbt       = "^/(favicon\\.ico|icon\\.svg|apple-touch-icon\\.png)$"
     bazaar    = "^/images/(favicon\\.ico|icon\\.svg|apple-touch-icon-.*\\.png)$"
-    homepage  = "^/(homepage\\.ico|favicon-.*\\.png|apple-touch-icon\\.png)(\\?.*)?$"
     navidrome = "^/app/(favicon-.*\\.png|apple-touch-icon\\.png|android-chrome-.*\\.png)$"
   }
 }
 
 # Proxy apps
-
-module "proxy-homepage" {
-  source             = "./modules/proxy_application"
-  name               = "Home"
-  description        = "Homepage"
-  icon_url           = "https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-192x192.png"
-  group              = "Selfhosted"
-  slug               = "home"
-  domain             = var.public_domain
-  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
-  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
-  auth_groups        = [authentik_group.users.id]
-  ignore_paths       = local.favicons.homepage
-}
 
 module "proxy-navidrome" {
   source             = "./modules/proxy_application"
@@ -173,6 +158,22 @@ module "oauth2-grafana" {
   client_id          = module.secret_grafana.fields["OIDC_CLIENT_ID"]
   client_secret      = module.secret_grafana.fields["OIDC_CLIENT_SECRET"]
   redirect_uris      = ["https://grafana.${var.private_domain}/login/generic_oauth"]
+}
+
+module "oauth2-homepage" {
+  source             = "./modules/oauth2_application"
+  name               = "Home"
+  description        = "Homepage"
+  newtab             = true
+  icon_url           = "https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-192x192.png"
+  launch_url         = "https://home.${var.public_domain}"
+  group              = "Selfhosted"
+  auth_groups        = [authentik_group.users.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_homepage.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_homepage.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://home.${var.public_domain}/api/auth/callback/homepage-oidc"]
 }
 
 module "oauth2-flux" {

@@ -26,6 +26,8 @@ spec:
             env:
               TZ: ${CONFIG_TIMEZONE}
               HOMEPAGE_ALLOWED_HOSTS: ${HOSTNAME}
+              HOMEPAGE_AUTH_ENABLED: "true"
+              HOMEPAGE_EXTERNAL_URL: https://${HOSTNAME}
               # LOG_LEVEL: debug
             envFrom:
               - secretRef:
