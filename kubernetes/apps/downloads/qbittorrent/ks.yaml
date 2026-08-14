@@ -1,33 +1,33 @@
----
-# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app qbittorrent
-  namespace: &namespace downloads
-spec:
-  components:
-    - ../../../../components/authentik-proxy
-    - ../../../../components/kopiur
-  dependsOn:
-    - name: ix-csi
-      namespace: storage
-    - name: kopiur
-      namespace: storage
-  interval: 30m
-  path: ./kubernetes/apps/downloads/qbittorrent/app
-  postBuild:
-    substitute:
-      APP: *app
-
-      APP_GID: "5000"
-      HOSTNAME: torrent.${PUBLIC_DOMAIN}
-      PVC_CLAIM: qbittorrent-config
-      PVC_STORAGECLASS: ix-nfs
-
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
-    namespace: flux-system
-  targetNamespace: *namespace
+# ---
+# # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &app qbittorrent
+#   namespace: &namespace downloads
+# spec:
+#   components:
+#     - ../../../../components/authentik-proxy
+#     - ../../../../components/kopiur
+#   dependsOn:
+#     - name: ix-csi
+#       namespace: storage
+#     - name: kopiur
+#       namespace: storage
+#   interval: 30m
+#   path: ./kubernetes/apps/downloads/qbittorrent/app
+#   postBuild:
+#     substitute:
+#       APP: *app
+#
+#       APP_GID: "5000"
+#       HOSTNAME: torrent.${PUBLIC_DOMAIN}
+#       PVC_CLAIM: qbittorrent-config
+#       PVC_STORAGECLASS: ix-nfs
+#
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: homelab-ops
+#     namespace: flux-system
+#   targetNamespace: *namespace

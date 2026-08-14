@@ -1,33 +1,33 @@
----
-# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app lidarr
-  namespace: &namespace downloads
-spec:
-  components:
-    - ../../../../components/authentik-proxy
-    - ../../../../components/pvc
-  dependsOn:
-    - name: postgres-cluster
-      namespace: database
-    - name: external-secrets
-      namespace: security
-    - name: ix-csi
-      namespace: storage
-  interval: 30m
-  path: ./kubernetes/apps/downloads/lidarr/app
-  postBuild:
-    substitute:
-      APP: *app
-      HOSTNAME: music.${PUBLIC_DOMAIN}
-      PVC_CAPACITY: 5Gi
-      PVC_CLAIM: lidarr-config
-      PVC_STORAGECLASS: ix-nfs
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
-    namespace: flux-system
-  targetNamespace: *namespace
+# ---
+# # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &app lidarr
+#   namespace: &namespace downloads
+# spec:
+#   components:
+#     - ../../../../components/authentik-proxy
+#     - ../../../../components/pvc
+#   dependsOn:
+#     - name: postgres-cluster
+#       namespace: database
+#     - name: external-secrets
+#       namespace: security
+#     - name: ix-csi
+#       namespace: storage
+#   interval: 30m
+#   path: ./kubernetes/apps/downloads/lidarr/app
+#   postBuild:
+#     substitute:
+#       APP: *app
+#       HOSTNAME: music.${PUBLIC_DOMAIN}
+#       PVC_CAPACITY: 5Gi
+#       PVC_CLAIM: lidarr-config
+#       PVC_STORAGECLASS: ix-nfs
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: homelab-ops
+#     namespace: flux-system
+#   targetNamespace: *namespace
