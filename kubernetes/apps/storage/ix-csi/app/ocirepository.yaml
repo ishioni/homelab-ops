@@ -11,5 +11,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.5.4
-  url: oci://ghcr.io/ishioni/charts/truenas-csi
+    tag: 1.6.0
+  url: oci://ghcr.io/ishioni/charts/ix-csi
