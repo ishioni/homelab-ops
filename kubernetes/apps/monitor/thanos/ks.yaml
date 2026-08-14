@@ -1,23 +1,23 @@
----
-# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app thanos
-  namespace: &namespace monitor
-spec:
-  dependsOn:
-    - name: ix-csi
-      namespace: storage
-    - name: external-secrets
-      namespace: security
-    - name: kube-prometheus-stack
-      namespace: monitor
-  interval: 30m
-  path: ./kubernetes/apps/monitor/thanos/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
-    namespace: flux-system
-  targetNamespace: *namespace
+# ---
+# # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: &app thanos
+#   namespace: &namespace monitor
+# spec:
+#   dependsOn:
+#     - name: ix-csi
+#       namespace: storage
+#     - name: external-secrets
+#       namespace: security
+#     - name: kube-prometheus-stack
+#       namespace: monitor
+#   interval: 30m
+#   path: ./kubernetes/apps/monitor/thanos/app
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: homelab-ops
+#     namespace: flux-system
+#   targetNamespace: *namespace
