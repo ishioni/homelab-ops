@@ -32,16 +32,13 @@ spec:
         enabled: true
       dashboards:
         enabled: true
-        annotations:
-          grafana_folder: Storage
       grafanaDashboard:
         enabled: true
         allowCrossNamespaceImport: true
         datasources:
           - datasourceName: prometheus
             inputName: DS_PROMETHEUS
-        folder: Storage
-        resyncPeriod: 10m
+        folder: Kubernetes
         instanceSelector:
           matchLabels:
             grafana.internal/instance: grafana
