@@ -18,7 +18,7 @@ spec:
         enabled: true
         grafanaOperator:
           enabled: true
-          folder: Storage
+          folder: Operators
           matchLabels:
             grafana.internal/instance: grafana
       prometheusRule:
