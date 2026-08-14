@@ -1,33 +1,33 @@
-# ---
-# # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: &app immich
-#   namespace: &namespace selfhosted
-# spec:
-#   components:
-#     - ../../../../components/gpu
-#   dependsOn:
-#     - name: postgres-cluster
-#       namespace: database
-#     - name: dragonfly-cluster
-#       namespace: database
-#     - name: external-secrets
-#       namespace: security
-#     - name: ix-csi
-#       namespace: storage
-#     - name: intel-gpu-resource-driver
-#       namespace: kube-system
-#   interval: 30m
-#   path: ./kubernetes/apps/selfhosted/immich/app
-#   postBuild:
-#     substitute:
-#       APP: *app
-#       HOSTNAME: photos.${PUBLIC_DOMAIN}
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: homelab-ops
-#     namespace: flux-system
-#   targetNamespace: *namespace
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app immich
+  namespace: &namespace selfhosted
+spec:
+  components:
+    - ../../../../components/gpu
+  dependsOn:
+    - name: postgres-cluster
+      namespace: database
+    - name: dragonfly-cluster
+      namespace: database
+    - name: external-secrets
+      namespace: security
+    - name: ix-csi
+      namespace: storage
+    - name: intel-gpu-resource-driver
+      namespace: kube-system
+  interval: 30m
+  path: ./kubernetes/apps/selfhosted/immich/app
+  postBuild:
+    substitute:
+      APP: *app
+      HOSTNAME: photos.${PUBLIC_DOMAIN}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: *namespace
