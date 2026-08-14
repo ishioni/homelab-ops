@@ -5,6 +5,10 @@ kind: MCPServer
 metadata:
   name: grafana-mcp
 spec:
+  podTemplateSpec:
+    metadata:
+      annotations:
+        secret.reloader.stakater.com/reload: grafana-mcp-token
   image: docker.io/grafana/mcp-grafana:1.1.0
   transport: streamable-http
   proxyPort: 8080
