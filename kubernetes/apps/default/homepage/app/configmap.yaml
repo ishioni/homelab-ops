@@ -4,20 +4,6 @@ kind: ConfigMap
 metadata:
   name: homepage-config
 data:
-  bookmarks.yaml: |
-    - Media:
-        - YouTube:
-            - href: https://youtube.com/feed/subscriptions
-        - Rumble:
-            - href: https://rumble.com
-    - Tech:
-        - HackerNews:
-            - href: https://news.ycombinator.com
-        - Moronix:
-            - href: https://www.phoronix.com
-    - Social:
-        - Kiwi:
-            - href: https://kiwifarms.st
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
