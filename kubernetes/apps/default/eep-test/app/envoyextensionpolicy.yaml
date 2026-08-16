@@ -1,0 +1,25 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: eep-test
+  labels:
+    app.kubernetes.io/name: eep-test
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: eep-test
+  wasm:
+    - name: eep
+      rootID: eep
+      code:
+        type: Image
+        image:
+          url: oci://ghcr.io/ishioni/eep:sha256-7cbc6649435c0307cca06b4971fa2aa65f3346173ae0ce18bf39fb2903982b70
+          sha256: 56c902b93714c2064c9cd0c11f5ebaae24a7108287c7299961b544f698c193c2
+      config:
+        theme: ghost
+        showDetails: true
+        locale: auto
+      failOpen: false
