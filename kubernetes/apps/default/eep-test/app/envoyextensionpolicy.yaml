@@ -17,7 +17,7 @@ spec:
         type: Image
         image:
           url: oci://ghcr.io/ishioni/eep:sha256-7cbc6649435c0307cca06b4971fa2aa65f3346173ae0ce18bf39fb2903982b70
-          sha256: 56c902b93714c2064c9cd0c11f5ebaae24a7108287c7299961b544f698c193c2
+          sha256: 63f672143def5c55ab7b8ed8e738f260210bbdafb211e55dfd16124eb0369978
       config:
         theme: ghost
         showDetails: true
