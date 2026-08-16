@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/gateway.envoyproxy.io/envoyextensionpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: eep
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
+  wasm:
+    - name: eep
+      rootID: eep
+      code:
+        type: Image
+        image:
+          url: oci://ghcr.io/ishioni/eep:0.1.0
+      config:
+        theme: lost-in-space
+        showDetails: true
+        locale: auto
+      failOpen: false
