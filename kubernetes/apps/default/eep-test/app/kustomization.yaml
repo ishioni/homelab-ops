@@ -6,4 +6,3 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
-  - ./envoyextensionpolicy.yaml
