@@ -7,6 +7,5 @@ components:
   - ../../components/alerts
 resources:
   - ./namespace.yaml
-  - ./eep-test/ks.yaml
   - ./homepage/ks.yaml
   - ./whoami/ks.yaml
