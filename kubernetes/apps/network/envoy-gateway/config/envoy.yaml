@@ -53,12 +53,13 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      matchLabels:
-        role: production
-  compression:
-    - type: Brotli
-    - type: Gzip
+  compressor:
     - type: Zstd
+      zstd: {}
+    - type: Gzip
+      gzip: {}
+    - type: Brotli
+      brotli: {}
   connection:
     bufferLimit: 8Mi
   tcpKeepalive: {}
