@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly DEFAULT_STORAGE_CLASSES=("dcsi-iscsi" "dcsi-nfs" "nfs")
+# Keep legacy classes during the CSI migration so NAS maintenance also covers
+# workloads whose existing PVCs have not yet moved to ix-csi.
+readonly DEFAULT_STORAGE_CLASSES=("ix-nfs" "ix-nvmeof" "dcsi-iscsi" "dcsi-nfs" "nfs")
 readonly DEFAULT_OPERATORS=(
   "monitor/kube-prometheus-stack-operator"
 )
@@ -50,7 +52,7 @@ Modes:
 
 Options:
   --storageclass <name>      Target a storage class (repeatable).
-                             Defaults: dcsi-iscsi, dcsi-nfs, nfs.
+                             Defaults: ix-nfs, ix-nvmeof, dcsi-iscsi, dcsi-nfs, nfs.
   --operator <namespace/name>
                              Deployment to scale before statefulsets (repeatable).
                              Default: monitor/kube-prometheus-stack-operator.

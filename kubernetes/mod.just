@@ -33,7 +33,7 @@ prune-pods:
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
     done
 
-[doc("Plan NAS-backed workload shutdown (discovers PVC users on dcsi-iscsi/dcsi-nfs)")]
+[doc("Plan NAS-backed workload shutdown (discovers PVC users on ix-csi and legacy NAS storage classes)")]
 [script]
 nas-plan *args:
     ../hack/nas-storage-maintenance.sh plan {{ args }}
