@@ -1,7 +1,7 @@
 ---
 services:
   rustfs-cdn:
-    image: ghcr.io/rustfs/rustfs:1.0.0-rc.2@sha256:a257b87295b387ae6b603a2d3cd287c194b9eae5e199e444d61a18bc52068301
+    image: ghcr.io/rustfs/rustfs:1.0.0-rc.3@sha256:800cf3f352a0a27e3275ca854a51f0027975d7acc7a0d52089a35bcc9fcbf0b5
     container_name: rustfscdn
     restart: unless-stopped
     environment:
