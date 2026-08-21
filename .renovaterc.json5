@@ -1,11 +1,11 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "github>home-operations/renovate-presets#8.0.0",
-    "github>home-operations/renovate-presets//apps/cnpg.json5#8.0.0",
-    "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#8.0.0",
-    "github>home-operations/renovate-presets//apps/searxng.json5#8.0.0",
-    "github>home-operations/renovate-presets//apps/talosFactory.json5#8.0.0",
+    "github>home-operations/renovate-presets#8.1.0",
+    "github>home-operations/renovate-presets//apps/cnpg.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/searxng.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/talosFactory.json5#8.1.0",
     "github>ishioni/homelab-ops//.renovate/autoMerge.json5",
     "github>ishioni/homelab-ops//.renovate/changelogs.json5",
     "github>ishioni/homelab-ops//.renovate/customManagers.json5",
