@@ -131,6 +131,79 @@ url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/505259830"
 [tools.flux2."platforms.windows-x64".provenance.slsa]
 url = "https://github.com/fluxcd/flux2/releases/download/v2.9.4/provenance.intoto.jsonl"
 
+[[tools."github:home-operations/flate"]]
+version = "0.6.0"
+backend = "github:home-operations/flate"
+
+[tools."github:home-operations/flate"."platforms.linux-arm64"]
+checksum = "sha256:0edd48e734b3073ea592aeff0307e6e6e88c4d644d49da088a735b5c720a4a93"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062161"
+
+[tools."github:home-operations/flate"."platforms.linux-arm64-musl"]
+checksum = "sha256:0edd48e734b3073ea592aeff0307e6e6e88c4d644d49da088a735b5c720a4a93"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062161"
+
+[tools."github:home-operations/flate"."platforms.linux-x64"]
+checksum = "sha256:ae3bb7372b34cfa18cabae6b3d4e65ac5c473f422c296d0d589074299f358c24"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062157"
+
+[tools."github:home-operations/flate"."platforms.linux-x64-musl"]
+checksum = "sha256:ae3bb7372b34cfa18cabae6b3d4e65ac5c473f422c296d0d589074299f358c24"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062157"
+
+[tools."github:home-operations/flate"."platforms.macos-arm64"]
+checksum = "sha256:3ce7750365ad59b21f9865a33cd1a1947d1a11a3f2abfe565a5ea591c798fcca"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062159"
+
+[tools."github:home-operations/flate"."platforms.macos-x64"]
+checksum = "sha256:8ea1dbb4d296047758fb94a877251ecc20c88326e49027d0e4c4ba74d8596cd4"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062160"
+
+[tools."github:home-operations/flate"."platforms.windows-x64"]
+checksum = "sha256:16794d8aa17a5a4f2cc5996af56219f95d00eeb09f7118e43285ef14df55dff4"
+url = "https://github.com/home-operations/flate/releases/download/v0.6.0/flate_0.6.0_windows_amd64.zip"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/525062169"
+
+[[tools."github:home-operations/kopiur"]]
+version = "0.10.3"
+backend = "github:home-operations/kopiur"
+
+[tools."github:home-operations/kopiur"."platforms.linux-arm64"]
+checksum = "sha256:0b6c1562e999bdeaa7d3b411df53bb180641d4b75b436c4617cb14c000e14207"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.3/kubectl-kopiur_0.10.3_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/519610891"
+
+[tools."github:home-operations/kopiur"."platforms.linux-arm64-musl"]
+checksum = "sha256:0b6c1562e999bdeaa7d3b411df53bb180641d4b75b436c4617cb14c000e14207"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.3/kubectl-kopiur_0.10.3_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/519610891"
+
+[tools."github:home-operations/kopiur"."platforms.linux-x64"]
+checksum = "sha256:1935f0177e1db5950105c04c07680d335bb7ccd2eca4b615b00c164b9101a530"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.3/kubectl-kopiur_0.10.3_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/519610890"
+
+[tools."github:home-operations/kopiur"."platforms.linux-x64-musl"]
+checksum = "sha256:1935f0177e1db5950105c04c07680d335bb7ccd2eca4b615b00c164b9101a530"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.3/kubectl-kopiur_0.10.3_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/519610890"
+
+[tools."github:home-operations/kopiur"."platforms.macos-arm64"]
+checksum = "sha256:097fb2b1ab6ff1bf449fbc3beb142d6e254b6d2f870c4376e53ae0e40051996a"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.3/kubectl-kopiur_0.10.3_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/519610896"
+
+[tools."github:home-operations/kopiur"."platforms.macos-x64"]
+checksum = "sha256:129a2d6143bcf3bae0dc670e9bab4cfb3976893d0907453e602241940f79c058"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.3/kubectl-kopiur_0.10.3_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/519610889"
+
 [[tools."github:mitsuhiko/minijinja"]]
 version = "2.24.0"
 backend = "github:mitsuhiko/minijinja"
