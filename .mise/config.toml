@@ -1,0 +1,30 @@
+[env]
+FLATE_PATH = '{{config_root}}/kubernetes/flux/cluster'
+KUBECONFIG = "{{config_root}}/kubeconfig"
+MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
+TALOSCONFIG = "{{config_root}}/talosconfig"
+JUST_UNSTABLE = "1"
+
+[hooks]
+postinstall = "lefthook install"
+
+[tools]
+"1password-cli" = "2.35.0"
+actionlint = "1.7.12"
+"github:mitsuhiko/minijinja" = "2.24.0"
+flux2 = "2.9.4"
+gum = "2.0.0"
+helm = "4.2.4"
+helmfile = "1.7.4"
+jq = "1.8.2"
+just = "1.58.0"
+kubectl = "1.36.4"
+kustomize = "5.8.1"
+lefthook = "2.1.11"
+node = "26.7.0"
+opentofu = "1.12.6"
+oxfmt = "0.64.0"
+shellcheck = "0.11.0"
+talos = "1.13.9"
+yq = "4.53.6"
+zizmor = "1.29.0"
