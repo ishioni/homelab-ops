@@ -18,7 +18,7 @@ spec:
       code:
         type: Image
         image:
-          url: oci://ghcr.io/ishioni/eep:0.2.1
+          url: oci://ghcr.io/ishioni/eep:0.3.0
       config:
         theme: lost-in-space
         showDetails: true
