@@ -1,7 +1,7 @@
 ---
 services:
   dexd:
-    image: ghcr.io/ishioni/dexd:0.4.2@sha256:dd24dc7920d4cdb4b128c7302ba17c054580dd31350ad5c56a983ddfc751effa
+    image: ghcr.io/ishioni/dexd:0.4.3@sha256:6a45117b0f96babadc79a510d712f7ddfcc7c908c1e9e0c8e9714459a0af1b20
     container_name: dexd
     restart: unless-stopped
     environment:
