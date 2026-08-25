@@ -2,5 +2,9 @@
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.config.k8s.io/kustomization_v1beta1.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: kyverno
+components:
+  - ../../components/alerts
 resources:
-  - ./helmrelease.yaml
+  - ./namespace.yaml
+  - ./kyverno/ks.yaml
