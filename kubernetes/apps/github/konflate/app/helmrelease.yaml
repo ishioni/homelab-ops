@@ -12,6 +12,7 @@ spec:
   values:
     config:
       repo: github://ishioni/homelab-ops
+      clusterPath: ./kubernetes/flux/cluster
       statusChecks: true
       prComments: true
       publicUrl: https://${HOSTNAME}
