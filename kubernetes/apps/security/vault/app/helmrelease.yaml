@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vault
+spec:
+  chart:
+    spec:
+      chart: vault
+      # renovate: datasource=helm depName=vault registryUrl=https://helm.releases.hashicorp.com
+      version: 0.34.1
+      sourceRef:
+        kind: HelmRepository
+        name: vault
+        namespace: security
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    global:
+      tlsDisable: true
+
+    injector:
+      enabled: true
+      replicas: 1
+      resources:
+        requests:
+          cpu: 25m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
+
+    server:
+      enabled: true
+      updateStrategyType: RollingUpdate
+      extraSecretEnvironmentVars:
+        - envName: VAULT_OIDC_DISCOVERY_URL
+          secretName: vault-secret
+          secretKey: OIDC_DISCOVERY_URL
+        - envName: VAULT_OIDC_CLIENT_ID
+          secretName: vault-secret
+          secretKey: OIDC_CLIENT_ID
+        - envName: VAULT_OIDC_CLIENT_SECRET
+          secretName: vault-secret
+          secretKey: OIDC_CLIENT_SECRET
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 1Gi
+      dataStorage:
+        enabled: true
+        size: 10Gi
+        storageClass: ix-nvmeof
+        accessMode: ReadWriteOnce
+      ha:
+        enabled: true
+        replicas: 1
+        disruptionBudget:
+          enabled: false
+        raft:
+          enabled: true
+          setNodeId: true
+          config: |-
+            ui = true
+
+            listener "tcp" {
+              tls_disable = 1
+              address = "[::]:8200"
+              cluster_address = "[::]:8201"
+            }
+
+            storage "raft" {
+              path = "/vault/data"
+            }
+
+            service_registration "kubernetes" {}
+
+      httproute:
+        enabled: true
+        activeService: false
+        hostnames:
+          - vault.ishioni.casa
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+
+    ui:
+      enabled: true
+      serviceType: ClusterIP

@@ -292,6 +292,23 @@ module "oauth2-vaultwarden" {
   access_token_validity = "hours=1"
 }
 
+module "oauth2-vault" {
+  source                = "./modules/oauth2_application"
+  name                  = "Vault"
+  icon_url              = "https://www.vaultproject.io/favicon.ico"
+  launch_url            = "https://vault.${var.private_domain}"
+  description           = "Secrets management"
+  newtab                = true
+  group                 = "Infrastructure"
+  auth_groups           = [authentik_group.infrastructure.id]
+  authorization_flow    = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow     = resource.authentik_flow.provider-invalidation.uuid
+  client_id             = module.secret_vault.fields["OIDC_CLIENT_ID"]
+  client_secret         = module.secret_vault.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris         = ["https://vault.${var.private_domain}/ui/vault/auth/oidc/oidc/callback"]
+  access_token_validity = "hours=1"
+}
+
 # module "oauth2-openwebui" {
 #   source             = "./modules/oauth2_application"
 #   name               = "OpenWebUI"

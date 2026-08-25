@@ -55,6 +55,12 @@ module "secret_vaultwarden" {
   item   = "vaultwarden"
 }
 
+module "secret_vault" {
+  source = "./modules/1password-item"
+  vault  = "Homelab"
+  item   = "vault"
+}
+
 module "secret_fluxcd" {
   source = "./modules/1password-item"
   vault  = "Homelab"
