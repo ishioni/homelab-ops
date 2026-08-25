@@ -1,0 +1,10 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.config.k8s.io/kustomization_v1beta1.json
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: cosign-a
+components:
+  - ../../components/alerts
+resources:
+  - ./namespace.yaml
+  - ./http-debug/ks.yaml

@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kyverno.io/policy_v1.json
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: verify-http-debug-signature
+  annotations:
+    pod-policies.kyverno.io/autogen-controllers: none
+spec:
+  background: false
+  webhookConfiguration:
+    failurePolicy: Fail
+    timeoutSeconds: 30
+  rules:
+    - name: verify-signature
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      verifyImages:
+        - imageReferences:
+            - ghcr.io/ishioni/http-debug:*
+            - ghcr.io/ishioni/http-debug@*
+          failureAction: Enforce
+          mutateDigest: true
+          required: true
+          verifyDigest: true
+          attestors:
+            - count: 1
+              entries:
+                - keys:
+                    publicKeys: k8s://cosign-c/cosign-public-key
+                    rekor:
+                      ignoreTlog: true
