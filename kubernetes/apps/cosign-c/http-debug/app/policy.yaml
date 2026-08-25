@@ -1,35 +1,54 @@
 ---
-# yaml-language-server: $schema=https://crd.movishell.pl/kyverno.io/policy_v1.json
-apiVersion: kyverno.io/v1
-kind: Policy
+# yaml-language-server: $schema=https://crd.movishell.pl/policies.kyverno.io/namespacedimagevalidatingpolicy_v1.json
+apiVersion: policies.kyverno.io/v1
+kind: NamespacedImageValidatingPolicy
 metadata:
   name: verify-http-debug-signature
-  annotations:
-    pod-policies.kyverno.io/autogen-controllers: none
 spec:
-  background: false
+  autogen:
+    podControllers:
+      controllers: []
+  failurePolicy: Fail
+  evaluation:
+    background:
+      enabled: false
   webhookConfiguration:
-    failurePolicy: Fail
     timeoutSeconds: 30
-  rules:
-    - name: verify-signature
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      verifyImages:
-        - imageReferences:
-            - ghcr.io/ishioni/http-debug:*
-            - ghcr.io/ishioni/http-debug@*
-          failureAction: Enforce
-          mutateDigest: true
-          required: true
-          verifyDigest: true
-          attestors:
-            - count: 1
-              entries:
-                - keys:
-                    publicKeys: k8s://cosign-c/cosign-public-key
-                    rekor:
-                      ignoreTlog: true
+  validationActions:
+    - Deny
+  matchConstraints:
+    resourceRules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - pods
+  matchImageReferences:
+    - glob: ghcr.io/ishioni/http-debug:*
+    - glob: ghcr.io/ishioni/http-debug@*
+  variables:
+    - name: keySecret
+      expression: >-
+        resource.get("v1", "secrets", "cosign-public-key")
+  attestors:
+    - name: cosign
+      cosign:
+        key:
+          expression: >-
+            string(base64.decode(variables.keySecret.data["cosign.pub"]))
+        ctlog:
+          insecureIgnoreTlog: true
+  validationConfigurations:
+    mutateDigest: true
+    required: true
+    verifyDigest: true
+  validations:
+    - expression: >-
+        images.containers.map(image,
+          verifyImageSignatures(image, [attestors.cosign])
+        ).all(result, result > 0)
+      message: failed to verify image signature
