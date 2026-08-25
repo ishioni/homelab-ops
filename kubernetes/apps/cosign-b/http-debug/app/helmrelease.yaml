@@ -27,22 +27,3 @@ spec:
                     path: /readyz
                     port: &port 8080
               readiness: *probes
-    service:
-      app:
-        controller: http-debug
-        ports:
-          http:
-            port: *port
-    route:
-      app:
-        hostnames:
-          - "${HOSTNAME}"
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - kind: Service
-                name: http-debug
-                port: *port
