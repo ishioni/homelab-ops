@@ -36,5 +36,11 @@
       matchDepTypes: ["required_provider"],
       allowedVersions: "3.38.6",
     },
+    {
+      description: "1Password CLI is not resolvable on GitHub, bump manually",
+      matchManagers: ["mise"],
+      matchDepNames: ["1password-cli"],
+      enabled: false,
+    },
   ],
 }
