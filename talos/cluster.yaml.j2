@@ -1,0 +1,183 @@
+---
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  ca:
+    crt: op://homelab/talos/MACHINE_CA_CRT
+  certSANs:
+    - talos-api.ishioni.casa
+    - 127.0.0.1
+  features:
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    rbac: true
+  token: op://homelab/talos/MACHINE_TOKEN
+cluster:
+  ca:
+    crt: op://homelab/talos/CLUSTER_CA_CRT
+  token: op://homelab/talos/CLUSTER_TOKEN
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+searchDomains:
+  domains: []
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true
+  resolveMemberNames: true
+---
+apiVersion: v1alpha1
+kind: DiscoveryServiceConfig
+name: default
+endpoint: https://discovery.talos.dev/
+---
+apiVersion: v1alpha1
+kind: DiscoveryIdentityConfig
+clusterID: op://homelab/talos/CLUSTER_ID
+clusterSecret: op://homelab/talos/CLUSTER_SECRET
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: factory.talos.dev/metal-installer-secureboot/{{ ENV.SCHEMATIC }}:v1.14.0
+provisioning:
+  diskSelector:
+    match: disk.model == "KINGSTON SKC3000S512G"
+  wipe: false
+---
+apiVersion: v1alpha1
+kind: FilesystemTrimConfig
+interval: 168h0m0s
+---
+apiVersion: v1alpha1
+kind: EtcFileConfig
+name: nfsmount.conf
+mode: 0o644
+contents: |
+  [ NFSMount_Global_Options ]
+  nfsvers=4.2
+  hard=True
+  nconnect=16
+  noatime=True
+---
+apiVersion: v1alpha1
+kind: CRICustomizationConfig
+name: containerd
+content: |
+  [plugins."io.containerd.cri.v1.images"]
+    discard_unpacked_layers = false
+  [plugins."io.containerd.cri.v1.runtime"]
+    device_ownership_from_security_context = true
+---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
+  fs.inotify.max_queued_events: "1048576"
+  fs.inotify.max_user_instances: "8192"
+  fs.inotify.max_user_watches: "1048576"
+  net.core.default_qdisc: fq
+  net.core.rmem_max: "67108864"
+  net.core.wmem_max: "67108864"
+  net.ipv4.tcp_congestion_control: bbr
+  net.ipv4.tcp_fastopen: "3"
+  net.ipv4.tcp_mtu_probing: "1"
+  net.ipv4.tcp_rmem: 4096 87380 33554432
+  net.ipv4.tcp_window_scaling: "1"
+  net.ipv4.tcp_wmem: 4096 65536 33554432
+  vm.nr_hugepages: "1024"
+---
+apiVersion: v1alpha1
+kind: SysfsConfig
+params:
+  class.scsi_host.host0.link_power_management_policy: med_power_with_dipm
+  class.scsi_host.host1.link_power_management_policy: med_power_with_dipm
+  class.scsi_host.host2.link_power_management_policy: med_power_with_dipm
+  class.scsi_host.host3.link_power_management_policy: med_power_with_dipm
+  devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_power
+  devices.system.cpu.intel_pstate.hwp_dynamic_boost: "0"
+  devices.system.cpu.intel_pstate.no_turbo: "0"
+---
+apiVersion: v1alpha1
+kind: KubeClusterConfig
+clusterName: talos
+endpoint: https://talos-api.ishioni.casa:6443
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets: ["10.1.2.0/24"]
+labels:
+  node.kubernetes.io/gpu: "true"
+  node.kubernetes.io/exclude-from-external-load-balancers: ""
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+image: ghcr.io/siderolabs/kubelet:v1.37.0
+defaultRuntimeSeccompProfileEnabled: true
+extraArgs:
+  rotate-server-certificates: "true"
+config:
+  serializeImagePulls: false
+  imageMaximumGCAge: 24h
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local
+podSubnets: ["172.16.0.0/16"]
+serviceSubnets: ["10.100.0.0/16"]
+---
+apiVersion: v1alpha1
+kind: KubePrismConfig
+port: 7445
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: lldpd
+configFiles:
+  - content: |
+      configure lldpd portidsubtype ifname
+      configure system description "Talos Node"
+    mountPath: /usr/local/etc/lldpd/lldpd.conf
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 128GB
+  maxSize: 128GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 1GB
+  grow: true
+filesystem:
+  type: xfs
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: net0
+up: true
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: net0
+---
+apiVersion: v1alpha1
+kind: OOMConfig
+triggerExpression: "false"
+cgroupRankingExpression: "0.0"
+sampleInterval: "5s"
