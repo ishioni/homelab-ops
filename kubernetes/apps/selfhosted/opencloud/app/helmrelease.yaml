@@ -89,14 +89,6 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /
     persistence:
       config:
         type: configMap

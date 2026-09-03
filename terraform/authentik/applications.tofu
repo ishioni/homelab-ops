@@ -329,3 +329,19 @@ module "oauth2-opencloud" {
     { matching_mode = "strict", url = "oc://ios.opencloud.eu"}
   ]
 }
+
+module "oauth2-opencloud-desktop" {
+  source             = "./modules/oauth2_application"
+  name               = "OpenCloudDesktop"
+  launch_url         = "blank://blank"
+  meta_hide          = true
+  auth_groups        = [authentik_group.users.id]
+  client_type        = "public"
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = "OpenCloudDesktop"
+  redirect_uris = [
+    { matching_mode = "regex", url = "http://127.0.0.1(:.*)?" },
+    { matching_mode = "regex", url = "http://localhost(:.*)?" }
+  ]
+}
