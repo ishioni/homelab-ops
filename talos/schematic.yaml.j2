@@ -5,12 +5,9 @@ customization:
     - init_on_free=0
     - mitigations=off
     - module_blacklist=e1000e
-    - -lockdown # Disable talos default
-    - lockdown=integrity # Cilium BPF
   systemExtensions:
     officialExtensions:
       - siderolabs/i915
       - siderolabs/intel-ucode
       - siderolabs/mei
-      - siderolabs/iscsi-tools
       - siderolabs/lldpd
