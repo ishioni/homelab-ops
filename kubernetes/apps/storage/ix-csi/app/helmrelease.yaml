@@ -19,7 +19,6 @@ spec:
       truenasInsecure: false
       defaultPool: SSD
       nfsServer: leo.ishioni.casa
-      iscsiPortal: 10.1.2.2:3260
       nvmeofPortal: 10.1.2.2:4420
       iscsiIQNBase: iqn.2011-08.org.truenas.ctl
     secret:
