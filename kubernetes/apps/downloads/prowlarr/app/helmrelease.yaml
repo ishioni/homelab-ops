@@ -44,7 +44,9 @@ spec:
               PROWLARR__LOG__ANALYTICSENABLED: "False"
               PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__ALLOWEDHOSTS: ${HOSTNAME},prowlarr.downloads.svc.cluster.local
               PROWLARR__SERVER__PORT: &port 80
+              PROWLARR__SERVER__TRUSTEDNETWORKS: 172.16.0.0/16
               TZ: ${CONFIG_TIMEZONE}
             envFrom:
               - secretRef:
@@ -67,7 +69,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m

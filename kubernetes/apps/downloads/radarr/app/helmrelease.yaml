@@ -46,7 +46,9 @@ spec:
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
+              RADARR__SERVER__ALLOWEDHOSTS: ${HOSTNAME},radarr.downloads.svc.cluster.local
               RADARR__SERVER__PORT: &port 80
+              RADARR__SERVER__TRUSTEDNETWORKS: 172.16.0.0/16
               TZ: ${CONFIG_TIMEZONE}
             envFrom:
               - secretRef:
