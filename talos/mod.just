@@ -45,9 +45,12 @@ reboot-node node:
 render-config node:
     export SCHEMATIC="$(just talos schematic-id)"
     export SERVICEACCOUNT_KEY="$(op read op://homelab/talos/SERVICEACCOUNT_KEY | base64 -d)"
+    # Talos v1.14's machineconfig patch encoder drops explicit empty slices.
+    # Should be fixed in v1.14.1 so remove it then
     talosctl machineconfig patch <(just template "{{ talos_dir }}/cluster.yaml.j2") \
         -p @<(just template "{{ talos_dir }}/controlplane.yaml.j2") \
-        -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2")
+        -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2") | \
+        yq '(select(.kind == "ResolverConfig") | .searchDomains.domains) = []'
 
 [doc('Reset a node')]
 [script]
