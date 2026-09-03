@@ -44,6 +44,7 @@ reboot-node node:
 [script]
 render-config node:
     export SCHEMATIC="$(just talos schematic-id)"
+    export SERVICEACCOUNT_KEY="$(op read op://homelab/talos/SERVICEACCOUNT_KEY | base64 -d)"
     talosctl machineconfig patch <(just template "{{ talos_dir }}/cluster.yaml.j2") \
         -p @<(just template "{{ talos_dir }}/controlplane.yaml.j2") \
         -p @<(just template "{{ talos_dir }}/nodes/{{ node }}.yaml.j2")

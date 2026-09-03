@@ -22,8 +22,6 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
       auto-compaction-mode: periodic
       auto-compaction-retention: 1h
-  serviceAccount:
-    key: op://homelab/talos/SERVICEACCOUNT_KEY
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
@@ -87,6 +85,13 @@ config:
         - identity: {}
       resources:
         - secrets
+---
+apiVersion: v1alpha1
+kind: KubeServiceAccountConfig
+issuer:
+  privateKey: |
+{{ ENV.SERVICEACCOUNT_KEY | indent(width=4, first=true) }}
+  issuerURL: https://talos-api.ishioni.casa:6443
 ---
 apiVersion: v1alpha1
 kind: KubeProxyConfig
