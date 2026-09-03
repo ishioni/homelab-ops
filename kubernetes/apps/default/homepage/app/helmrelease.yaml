@@ -71,8 +71,6 @@ spec:
         type: configMap
         name: *configmap
         globalMounts:
-          - subPath: bookmarks.yaml
-            path: /app/config/bookmarks.yaml
           - subPath: docker.yaml
             path: /app/config/docker.yaml
           - subPath: kubernetes.yaml
