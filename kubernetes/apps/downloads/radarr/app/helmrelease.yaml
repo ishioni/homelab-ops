@@ -96,7 +96,7 @@ spec:
           gethomepage.dev/name: Radarr
           gethomepage.dev/icon: radarr.svg
           gethomepage.dev/widget.type: radarr
-          gethomepage.dev/widget.url: http://radarr.downloads
+          gethomepage.dev/widget.url: http://radarr.downloads.svc.cluster.local
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_RADARR_TOKEN}}`}}"
         hostnames: ["${HOSTNAME}"]
         parentRefs:

@@ -97,7 +97,7 @@ spec:
           gethomepage.dev/name: Sonarr
           gethomepage.dev/icon: sonarr.svg
           gethomepage.dev/widget.type: sonarr
-          gethomepage.dev/widget.url: http://sonarr.downloads
+          gethomepage.dev/widget.url: http://sonarr.downloads.svc.cluster.local
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_SONARR_TOKEN}}`}}"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
