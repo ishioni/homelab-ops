@@ -20,6 +20,17 @@ spec:
         - name: envoy-internal
           namespace: network
           sectionName: https
+    auth:
+      oidc:
+        enabled: true
+        issuerUrl: https://auth.movishell.pl/application/o/renovate-operator/
+        clientId: renovate-operator
+        existingSecret: renovate-operator-oidc
+        secretKey: client-secret
+        sessionSecretKey: session-secret
+        redirectScheme: https
+    authorization:
+      enabled: false
     webhook:
       enabled: true
     metrics:
