@@ -17,6 +17,9 @@ spec:
       literal: true
   values:
     fullnameOverride: renovate-operator
+    deployment:
+      annotations:
+        secret.reloader.stakater.com/reload: renovate-operator-oidc
     route:
       annotations:
         gatus.home-operations.com/endpoint: "name: renovate-operator"

@@ -195,6 +195,7 @@ module "oauth2-flux" {
 module "oauth2-renovate-operator" {
   source             = "./modules/oauth2_application"
   name               = "Renovate Operator"
+  icon_url           = "https://raw.githubusercontent.com/mogenius/renovate-operator/main/src/static/assets/favicon.png"
   slug               = "renovate-operator"
   description        = "Renovate dependency update dashboard"
   launch_url         = "https://renovate.${var.private_domain}"
