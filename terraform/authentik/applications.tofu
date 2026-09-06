@@ -192,6 +192,21 @@ module "oauth2-flux" {
   redirect_uris      = ["https://flux.${var.private_domain}/oauth2/callback"]
 }
 
+module "oauth2-renovate-operator" {
+  source             = "./modules/oauth2_application"
+  name               = "Renovate Operator"
+  slug               = "renovate-operator"
+  description        = "Renovate dependency update dashboard"
+  launch_url         = "https://renovate.${var.private_domain}"
+  group              = "Infrastructure"
+  auth_groups        = [authentik_group.infrastructure.id]
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  client_id          = module.secret_renovate_operator.fields["OIDC_CLIENT_ID"]
+  client_secret      = module.secret_renovate_operator.fields["OIDC_CLIENT_SECRET"]
+  redirect_uris      = ["https://renovate.${var.private_domain}/auth/callback"]
+}
+
 module "oauth2-immich" {
   source             = "./modules/oauth2_application"
   name               = "Immich"

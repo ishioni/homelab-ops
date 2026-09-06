@@ -9,6 +9,12 @@ spec:
     kind: OCIRepository
     name: renovate-operator
   interval: 30m
+  valuesFrom:
+    - kind: Secret
+      name: renovate-operator-oidc
+      valuesKey: client-id
+      targetPath: auth.oidc.clientId
+      literal: true
   values:
     fullnameOverride: renovate-operator
     route:
@@ -24,7 +30,6 @@ spec:
       oidc:
         enabled: true
         issuerUrl: https://auth.movishell.pl/application/o/renovate-operator/
-        clientId: renovate-operator
         existingSecret: renovate-operator-oidc
         secretKey: client-secret
         sessionSecretKey: session-secret
