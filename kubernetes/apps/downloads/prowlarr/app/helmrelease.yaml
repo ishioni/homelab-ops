@@ -44,7 +44,7 @@ spec:
               PROWLARR__LOG__ANALYTICSENABLED: "False"
               PROWLARR__LOG__DBENABLED: "False"
               PROWLARR__LOG__LEVEL: info
-              PROWLARR__SERVER__ALLOWEDHOSTS: ${HOSTNAME},prowlarr.downloads.svc.cluster.local
+              PROWLARR__SERVER__ALLOWEDHOSTS: ${HOSTNAME},prowlarr.downloads
               PROWLARR__SERVER__PORT: &port 80
               PROWLARR__SERVER__TRUSTEDNETWORKS: 172.16.0.0/16
               TZ: ${CONFIG_TIMEZONE}
@@ -94,7 +94,7 @@ spec:
           gethomepage.dev/name: Prowlarr
           gethomepage.dev/icon: prowlarr.svg
           gethomepage.dev/widget.type: prowlarr
-          gethomepage.dev/widget.url: http://prowlarr.downloads.svc.cluster.local
+          gethomepage.dev/widget.url: http://prowlarr.downloads
           gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_PROWLARR_TOKEN}}`}}"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
