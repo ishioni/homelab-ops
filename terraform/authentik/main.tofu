@@ -73,6 +73,12 @@ module "secret_toolhive" {
   item   = "toolhive"
 }
 
+module "secret_renovate_operator" {
+  source = "./modules/1password-item"
+  vault  = "Homelab"
+  item   = "renovate-operator"
+}
+
 provider "authentik" {
   url   = module.secret_authentik.fields["ENDPOINT_URL"]
   token = module.secret_authentik.fields["TERRAFORM_TOKEN"]

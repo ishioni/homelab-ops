@@ -9,8 +9,17 @@ spec:
     kind: OCIRepository
     name: renovate-operator
   interval: 30m
+  valuesFrom:
+    - kind: Secret
+      name: renovate-operator-oidc
+      valuesKey: client-id
+      targetPath: auth.oidc.clientId
+      literal: true
   values:
     fullnameOverride: renovate-operator
+    deployment:
+      annotations:
+        secret.reloader.stakater.com/reload: renovate-operator-oidc
     route:
       annotations:
         gatus.home-operations.com/endpoint: "name: renovate-operator"
@@ -20,6 +29,16 @@ spec:
         - name: envoy-internal
           namespace: network
           sectionName: https
+    auth:
+      oidc:
+        enabled: true
+        issuerUrl: https://auth.movishell.pl/application/o/renovate-operator/
+        existingSecret: renovate-operator-oidc
+        secretKey: client-secret
+        sessionSecretKey: session-secret
+        redirectScheme: https
+    authorization:
+      enabled: false
     webhook:
       enabled: true
     metrics:
