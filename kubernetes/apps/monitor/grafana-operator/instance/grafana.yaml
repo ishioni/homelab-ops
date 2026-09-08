@@ -62,7 +62,7 @@ spec:
                 readOnlyRootFilesystem: true
                 capabilities: { drop: ["ALL"] }
             - name: image-renderer
-              image: docker.io/grafana/grafana-image-renderer:v5.12.2
+              image: docker.io/grafana/grafana-image-renderer:v5.12.3
               envFrom:
                 - secretRef:
                     name: grafana-image-renderer
