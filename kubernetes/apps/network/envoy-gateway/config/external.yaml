@@ -4,7 +4,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/target: external.movishell.pl
+    external-dns.kubernetes.io/target: external.movishell.pl
     gatus.home-operations.com/endpoint: |-
       client:
         dns-resolver: tcp://10.1.2.1:53
@@ -22,7 +22,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: external.movishell.pl
+      external-dns.kubernetes.io/hostname: external.movishell.pl
       lbipam.cilium.io/ips: 10.84.2.2
     labels:
       io.cilium/ippool: public

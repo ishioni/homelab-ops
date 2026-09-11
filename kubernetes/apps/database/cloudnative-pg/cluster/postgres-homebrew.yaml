@@ -49,7 +49,7 @@ spec:
             metadata:
               name: *pgname
               annotations:
-                external-dns.alpha.kubernetes.io/hostname: postgres-homebrew.${PRIVATE_DOMAIN}
+                external-dns.kubernetes.io/hostname: postgres-homebrew.${PRIVATE_DOMAIN}
             spec:
               type: LoadBalancer
           updateStrategy: patch

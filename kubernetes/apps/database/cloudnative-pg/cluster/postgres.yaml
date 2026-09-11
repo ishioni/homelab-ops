@@ -49,7 +49,7 @@ spec:
             metadata:
               name: *pgname
               annotations:
-                external-dns.alpha.kubernetes.io/hostname: postgres.${PRIVATE_DOMAIN}
+                external-dns.kubernetes.io/hostname: postgres.${PRIVATE_DOMAIN}
                 gatus.home-operations.com/enabled: "true"
                 gatus.home-operations.com/endpoint: |
                   name: postgres
