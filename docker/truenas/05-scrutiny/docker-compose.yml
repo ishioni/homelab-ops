@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
 services:
   scrutiny:
-    image: ghcr.io/starosdev/scrutiny:1.73.0-omnibus@sha256:0cfd3d6346b8a8af0b5fe2711a79f337e26631242d68dac61c4d89f1fb06539a
+    image: ghcr.io/starosdev/scrutiny:1.74.1-omnibus@sha256:bf4e9a96e0d4df6a5a7f8a1845874c700f39954137f5f5f67413aab0a94bf35c
     container_name: scrutiny
     cap_add:
       - SYS_RAWIO
