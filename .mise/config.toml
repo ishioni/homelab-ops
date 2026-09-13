@@ -1,3 +1,7 @@
+[settings]
+lockfile_mode = "generate"
+lockfile_platforms = ["linux-x64", "linux-arm64", "macos-arm64"]
+
 [env]
 FLATE_PATH = '{{config_root}}/kubernetes/flux/cluster'
 KUBECONFIG = "{{config_root}}/kubeconfig"
