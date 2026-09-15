@@ -80,6 +80,7 @@
       matchPackageNames: ["/immich/"],
       matchDatasources: ["docker"],
       group: { commitMessageTopic: "{{{groupName}}} group" },
+      minimumGroupSize: 2,
       separateMinorPatch: true,
       sourceUrl: "https://github.com/immich-app/immich",
     },
