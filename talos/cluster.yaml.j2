@@ -40,7 +40,7 @@ clusterSecret: op://homelab/talos/CLUSTER_SECRET
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
-  image: factory.talos.dev/metal-installer-secureboot/{{ ENV.SCHEMATIC }}:v1.14.0
+  image: factory.talos.dev/metal-installer-secureboot/{{ ENV.SCHEMATIC }}:v1.14.1
 provisioning:
   diskSelector:
     match: disk.model == "KINGSTON SKC3000S512G"
