@@ -80,11 +80,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Infrastructure
-          gethomepage.dev/name: Vaultwarden
-          gethomepage.dev/icon: vaultwarden.svg
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-external

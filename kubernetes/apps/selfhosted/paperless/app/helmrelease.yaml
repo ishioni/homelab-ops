@@ -112,14 +112,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Selfhosted
-          gethomepage.dev/name: Paperless
-          gethomepage.dev/icon: paperless-ngx.png
-          gethomepage.dev/widget.type: paperlessngx
-          gethomepage.dev/widget.url: http://paperless.selfhosted:8000
-          gethomepage.dev/widget.key: "{{`{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}`}}"
         hostnames: ["${HOSTNAME}"]
         parentRefs:
           - name: envoy-internal

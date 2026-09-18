@@ -52,9 +52,6 @@ data:
         - MeshCentral:
             href: https://meshcentral.${PRIVATE_DOMAIN}
             icon: meshcentral.png
-        - Minio:
-            href: https://minio.${PRIVATE_DOMAIN}
-            icon: minio.svg
   settings.yaml: |
     title: Dashboard
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
