@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/searxng/searxng
-              tag: 2026.9.19-367fb6537@sha256:6869f20676fd91e3f856bcaefc510bc363fdd126f7bd860f49f2ffcb3b305da0
+              tag: 2026.9.20-e75fd22d0@sha256:394bc18556af80cd1cd448daf5b69ead7f65d990912851a47ba1ec79c85fec44
             env:
               TZ: ${CONFIG_TIMEZONE}
               SEARXNG_BASE_URL: https://${HOSTNAME}
