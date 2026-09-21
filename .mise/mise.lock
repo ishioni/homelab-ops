@@ -355,9 +355,9 @@ url = "https://github.com/opentofu/opentofu/releases/download/v1.12.6/tofu_1.12.
 url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/520762710"
 
 [[tools.oxfmt]]
-version = "0.69.0"
+version = "0.70.0"
 backend = "npm:oxfmt"
-specifiers = ["0.69.0"]
+specifiers = ["0.70.0"]
 
 [[tools.shellcheck]]
 version = "0.11.0"
