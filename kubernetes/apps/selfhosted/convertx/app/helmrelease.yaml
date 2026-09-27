@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/c4illin/convertx
-              tag: v0.18.0
+              tag: v0.19.0
             env:
               TZ: ${CONFIG_TIMEZONE}
               ACCOUNT_REGISTRATION: false
@@ -36,7 +36,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             probes:
               liveness: &probes
                 enabled: true
