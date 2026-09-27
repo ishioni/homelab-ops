@@ -43,6 +43,7 @@ spec:
               PORT: &port 3001
               TRUST_PROXY: "true"
               COOKIE_SECURE: "true"
+              SESSION_MAX_AGE: "1209600000"
               ALLOWED_ORIGINS: https://${HOSTNAME}
               TZ: ${CONFIG_TIMEZONE}
               # LOG_LEVEL: debug
