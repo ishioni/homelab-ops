@@ -8,15 +8,6 @@
       enabled: false,
     },
     {
-      description: "Use semver prerelease handling for RustFS image tags",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["ghcr.io/rustfs/rustfs"],
-      versioning: "semver",
-      ignoreUnstable: false,
-      respectLatest: false,
-      allowedVersions: "/^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.]+)?$/",
-    },
-    {
       description: "Use regex versioning for llama.cpp Docker build tags",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/ggml-org/llama.cpp"],
