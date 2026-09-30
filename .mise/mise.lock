@@ -335,24 +335,24 @@ checksum = "sha256:751fdf7439f115d87ee2a8f3f18c065b6151852068e3e666ac60ac2996f75
 url = "https://nodejs.org/dist/v26.10.0/node-v26.10.0-darwin-arm64.tar.gz"
 
 [[tools.opentofu]]
-version = "1.12.6"
+version = "1.13.0"
 backend = "aqua:opentofu/opentofu"
-specifiers = ["1.12.6"]
+specifiers = ["1.13.0"]
 
 [tools.opentofu."platforms.linux-arm64"]
-checksum = "sha256:9bd0228a81bcd0c88f7045c74378f45a815779f19897191dff7d9efba9976b9e"
-url = "https://github.com/opentofu/opentofu/releases/download/v1.12.6/tofu_1.12.6_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/520762688"
+checksum = "sha256:ea1c9a95e38d5d890b2eccbeec4d65481ad56bf6775dfbb15c4d9e34ff793dc6"
+url = "https://github.com/opentofu/opentofu/releases/download/v1.13.0/tofu_1.13.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/601021551"
 
 [tools.opentofu."platforms.linux-x64"]
-checksum = "sha256:50a6106fa4de523d09c87af85f3db1dd47535fc005727fdca6852146476b88ec"
-url = "https://github.com/opentofu/opentofu/releases/download/v1.12.6/tofu_1.12.6_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/520762723"
+checksum = "sha256:1f0cb37fc85dea4e7633a72aca2332b801f72650a32be911b8b9b32907f214fb"
+url = "https://github.com/opentofu/opentofu/releases/download/v1.13.0/tofu_1.13.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/601021472"
 
 [tools.opentofu."platforms.macos-arm64"]
-checksum = "sha256:f958ec5e511063be9feb180ca015a4cb7977566a9cf6a8550bba8c2a9b5aba74"
-url = "https://github.com/opentofu/opentofu/releases/download/v1.12.6/tofu_1.12.6_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/520762710"
+checksum = "sha256:b30ee6ee0b40545673b2934f0f0cdbd785d02b58d8930aab0e1679eda76cd7e4"
+url = "https://github.com/opentofu/opentofu/releases/download/v1.13.0/tofu_1.13.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/601021648"
 
 [[tools.oxfmt]]
 version = "0.71.0"
