@@ -199,6 +199,21 @@ version = "1.8.1"
 backend = "aqua:helmfile/helmfile"
 specifiers = ["1.8.1"]
 
+[tools.helmfile."platforms.linux-arm64"]
+checksum = "sha256:2217788de9fb42cd0b3d84f1ee99c63617e19dea7af4995a59e45e4952c86ec4"
+url = "https://github.com/helmfile/helmfile/releases/download/v1.8.1/helmfile_1.8.1_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/599703527"
+
+[tools.helmfile."platforms.linux-x64"]
+checksum = "sha256:ccabbe75dddbc25008d055fe92a44f95a184342211e7244d32b870409239c7a3"
+url = "https://github.com/helmfile/helmfile/releases/download/v1.8.1/helmfile_1.8.1_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/599703520"
+
+[tools.helmfile."platforms.macos-arm64"]
+checksum = "sha256:62a6b086bdd7a934ff4a36d4974446d7271566b88db200b3956053a9b388fed8"
+url = "https://github.com/helmfile/helmfile/releases/download/v1.8.1/helmfile_1.8.1_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/599703536"
+
 [[tools.jq]]
 version = "1.8.2"
 backend = "aqua:jqlang/jq"
@@ -370,12 +385,21 @@ backend = "aqua:siderolabs/talos"
 specifiers = ["1.14.2"]
 
 [tools.talos."platforms.linux-arm64"]
+checksum = "sha256:5b7119f9cc68c1e6dcd394564208a9ae417c5cc9e8e2585fa173082e53f5e6d7"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.2/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/599059725"
 provenance = "cosign"
 
 [tools.talos."platforms.linux-x64"]
+checksum = "sha256:c6c9552b0e5f767352c595fa1c0af4f186f697488646872955057d23990a66c4"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.2/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/599059721"
 provenance = "cosign"
 
 [tools.talos."platforms.macos-arm64"]
+checksum = "sha256:4b509e96912278f2af58dc0005be5252124bcba4b87a7f877674160bbf000b6f"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.2/talosctl-darwin-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/599059741"
 provenance = "cosign"
 
 [[tools.yq]]
