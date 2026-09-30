@@ -195,24 +195,9 @@ checksum = "sha256:d3870437e1e95b67f8edbde964156c84a26503f560821d40c542441658934
 url = "https://get.helm.sh/helm-v4.3.0-darwin-arm64.tar.gz"
 
 [[tools.helmfile]]
-version = "1.8.0"
+version = "1.8.1"
 backend = "aqua:helmfile/helmfile"
-specifiers = ["1.8.0"]
-
-[tools.helmfile."platforms.linux-arm64"]
-checksum = "sha256:01037dc187840a778ec65eae66b549b63d619a853540c8983f90d73ccbce5033"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.8.0/helmfile_1.8.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/560342817"
-
-[tools.helmfile."platforms.linux-x64"]
-checksum = "sha256:35d5d39fc608342b23fc7ce1dd0c3bf0c96cc07ec3796507ab6894a5d172bf20"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.8.0/helmfile_1.8.0_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/560342815"
-
-[tools.helmfile."platforms.macos-arm64"]
-checksum = "sha256:b377e295940018fb0e49ca9e0aabdabb00fc612af3d9e12003f01635dc87e1ef"
-url = "https://github.com/helmfile/helmfile/releases/download/v1.8.0/helmfile_1.8.0_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/560342814"
+specifiers = ["1.8.1"]
 
 [[tools.jq]]
 version = "1.8.2"
