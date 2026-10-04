@@ -16,17 +16,24 @@ jobs:
   filter:
     name: Image Pull - Filter
     runs-on: arc-homelab-dind
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
-      changed-files: ${{ steps.changed-files.outputs.changed_files }}
+      any-changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: Get Changed Files
         id: changed-files
-        uses: bjw-s-labs/action-changed-files@147be9638332cf68fd60714a610509d7a9360d60 # v0.7.0
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
-          patterns: kubernetes/**/*
+          files: kubernetes/**
 
   extract:
-    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    if: >-
+      ${{
+        needs.filter.outputs.any-changed == 'true' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      }}
     needs: filter
     name: Image Pull - Extract Images
     runs-on: arc-homelab-dind
@@ -45,9 +52,11 @@ jobs:
       - name: Extract Images
         id: extract
         run: |
-          echo 'images<<EOF' >> $GITHUB_OUTPUT
-          flate diff images --path ./kubernetes/flux/cluster --output json >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
+          {
+            echo 'images<<EOF'
+            flate diff images --path ./kubernetes/flux/cluster --output json
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
 
   pull:
     if: ${{ needs.extract.outputs.images != '[]' }}
@@ -66,7 +75,7 @@ jobs:
         run: curl -fsSL https://talos.dev/install | sh
 
       - name: Pull Image
-        run: talosctl --nodes $NODE_IP image pull "${MATRIX_IMAGE}"
+        run: talosctl --nodes "$NODE_IP" image pull "${MATRIX_IMAGE}"
 
   success:
     if: ${{ !cancelled() }}
