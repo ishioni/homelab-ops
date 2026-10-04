@@ -21,13 +21,6 @@
       allowedVersions: "<4.53",
     },
     {
-      description: "Pin MinIO Terraform provider for RustFS compatibility",
-      matchDatasources: ["terraform-provider"],
-      matchPackageNames: ["aminueza/minio"],
-      matchDepTypes: ["required_provider"],
-      allowedVersions: "3.38.6",
-    },
-    {
       description: "1Password CLI is not resolvable on GitHub, bump manually",
       matchManagers: ["mise"],
       matchDepNames: ["1password-cli"],
