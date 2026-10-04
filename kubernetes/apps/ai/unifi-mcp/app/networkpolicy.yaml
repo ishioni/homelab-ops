@@ -7,14 +7,14 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: unifi-network
-      app.kubernetes.io/name: mcpserver
+      toolhive-basename: unifi-network
   policyTypes: [Ingress]
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              toolhive-basename: unifi-network
+              app.kubernetes.io/instance: unifi-network
+              app.kubernetes.io/name: mcpserver
       ports:
         - protocol: TCP
           port: 3000
