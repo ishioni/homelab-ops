@@ -3,21 +3,21 @@
 lockfile_version = 1
 
 [[tools.1password-cli]]
-version = "2.35.0"
-backend = "vfox:1password-cli"
-specifiers = ["2.35.0"]
+version = "2.40.0"
+backend = "vfox:mise-plugins/vfox-1password"
+specifiers = ["2.40.0"]
 
 [tools.1password-cli."platforms.linux-arm64"]
-checksum = "sha256:28153b3e1b379cc117a2b8478fc29c73e4a391d0a9b7876c360d305e98390a78"
-url = "https://cache.agilebits.com/dist/1P/op2/pkg/v2.35.0/op_linux_arm64_v2.35.0.zip"
+checksum = "sha256:0e8ac99ee93d661aa725dc24a5ef8bf344741d224064a5dfb469dc689faec86a"
+url = "https://cache.agilebits.com/dist/1P/op2/pkg/v2.40.0/op_linux_arm64_v2.40.0.zip"
 
 [tools.1password-cli."platforms.linux-x64"]
-checksum = "sha256:4457ade59850b852c64c77164235b34dd0b984ef7826eb0ccd32f1fd78a2ceb7"
-url = "https://cache.agilebits.com/dist/1P/op2/pkg/v2.35.0/op_linux_amd64_v2.35.0.zip"
+checksum = "sha256:74277219e8da60958c00f9aee9d2023225e98fdda8bfd2156a5d9e85e0edaab3"
+url = "https://cache.agilebits.com/dist/1P/op2/pkg/v2.40.0/op_linux_amd64_v2.40.0.zip"
 
 [tools.1password-cli."platforms.macos-arm64"]
-checksum = "sha256:6dcb9528c1ace2f18f7808418afe5dd58ed1376038aa4f907af7e0462582712b"
-url = "https://cache.agilebits.com/dist/1P/op2/pkg/v2.35.0/op_darwin_arm64_v2.35.0.zip"
+checksum = "sha256:43b9e7c245b48207c789ba1b8a481ccf4a658f60dbed8cc8b70d36044548a994"
+url = "https://cache.agilebits.com/dist/1P/op2/pkg/v2.40.0/op_darwin_arm64_v2.40.0.zip"
 
 [[tools.actionlint]]
 version = "1.7.12"
