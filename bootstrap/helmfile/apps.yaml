@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+helmDefaults:
+  cleanupOnFail: true
+  forceConflicts: true
+  wait: true
+  waitForJobs: true
+
+bases: [default.yaml]
+
+defaultInherit: default
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    hooks:
+      - command: kubectl
+        args:
+          - wait
+          - --for=create
+          - crd/ciliumbgpadvertisements.cilium.io
+          - crd/ciliumbgpclusterconfigs.cilium.io
+          - crd/ciliumbgppeerconfigs.cilium.io
+          - crd/ciliumloadbalancerippools.cilium.io
+          - --timeout=2m
+        events: [postsync]
+        showlogs: true
+      # Apply cilium network configuration
+      - command: kubectl
+        args:
+          - apply
+          - --namespace={{ .Release.Namespace }}
+          - --server-side
+          - --force-conflicts
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/config/
+        events: [postsync]
+        showlogs: true
+
+  - name: kubelet-csr-approver
+    namespace: kube-system
+    needs: ["kube-system/cilium"]
+
+  - name: spegel
+    namespace: kube-system
+    needs: ["kube-system/cilium"]
+
+  - name: cert-manager
+    namespace: network
+    needs: ["kube-system/spegel"]
+
+  - name: external-secrets
+    namespace: security
+    needs: ["kube-system/spegel"]
+
+  - name: onepassword
+    namespace: security
+    hooks:
+      # Wait for the chart-managed ExternalSecrets CRD before creating the store
+      - command: kubectl
+        args:
+          - wait
+          - --for=create
+          - crd/clustersecretstores.external-secrets.io
+          - --timeout=2m
+        events: [postsync]
+        showlogs: true
+      # Apply ExternalSecret Resources
+      - command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/app/clustersecretstore.yaml
+        events: [postsync]
+        showlogs: true
+    needs: ["security/external-secrets"]
+
+  - name: flux-operator
+    namespace: flux-system
+    needs: ["network/cert-manager", "security/onepassword"]
+
+  - name: flux-instance
+    namespace: flux-system
+    wait: false
+    needs: ["flux-system/flux-operator"]
