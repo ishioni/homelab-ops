@@ -18,5 +18,3 @@ Chart.lock
 Brewfile.lock.json
 #Clankers
 .claude
-# Local bootstrap comparison checkout
-.tmp/home-ops-reference/
