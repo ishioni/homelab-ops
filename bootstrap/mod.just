@@ -14,7 +14,6 @@ nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 [script]
 cluster: talos kube (kubeconfig "node") wait namespaces resources crds apps kubeconfig
 
-
 [private]
 [script]
 talos:
@@ -76,7 +75,7 @@ namespaces:
 [script]
 resources:
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! just template "{{ bootstrap_dir }}/resources.yaml.j2" | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
+    if ! kustomize build "{{ bootstrap_dir }}/kustomize/personal" | just template - | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
         just log fatal "Failed to apply resources" "stage" "$(basename "$0")"
     fi;
 
@@ -84,7 +83,7 @@ resources:
 [script]
 crds:
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/00-crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
+    if ! helmfile -f "{{ bootstrap_dir }}/helmfile/crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
         just log fatal "Failed to apply crds" "stage" "$(basename "$0")"
     fi;
 
@@ -92,6 +91,6 @@ crds:
 [script]
 apps:
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then
+    if ! helmfile -f "{{ bootstrap_dir }}/helmfile/apps.yaml" sync --hide-notes; then
         just log fatal "Failed to sync helmfile" "stage" "$(basename "$0")"
     fi

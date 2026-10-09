@@ -11,14 +11,6 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
-    - apiVersion: external-secrets.io/v1
-      kind: ClusterSecretStore
-      name: onepassword
-  healthCheckExprs:
-    - apiVersion: external-secrets.io/v1
-      kind: ClusterSecretStore
-      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
-      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   interval: 30m
   path: ./kubernetes/apps/security/external-secrets/app
   prune: true

@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+# This helmfile is for installing Custom Resource Definitions (CRDs) from Helm charts.
+# It is not intended to be used with helmfile apply or sync.
+
+helmDefaults:
+  args: ["--include-crds", "--no-hooks"] # Prevent helmfile apply or sync
+
+templates:
+  crd:
+    chart: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).chart }}'
+    version: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).version }}'
+
+defaultInherit: crd
+
+releases:
+  - name: envoy-gateway
+    namespace: network
+
+  - name: grafana-operator
+    namespace: monitor
+
+  - name: kube-prometheus-stack
+    namespace: monitor
+
+  - name: cloudnative-pg
+    namespace: database
+
+  - name: barman-cloud
+    namespace: database
+
+  - name: snapshot-controller
+    namespace: storage
+
+  - name: kopiur
+    namespace: storage

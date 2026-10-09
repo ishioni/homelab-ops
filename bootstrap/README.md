@@ -1,0 +1,11 @@
+# Bootstrap
+
+Run `just bootstrap cluster` from the repository root after configuring Talos and signing in to the 1Password CLI. The bootstrap recipes apply node configuration, fetch a node-addressed kubeconfig, wait for the nodes, create application namespaces, build `bootstrap/kustomize/personal` and inject and apply the 1Password credentials Secret, pre-apply shared CRDs, install the minimum applications with Helmfile, and finally refresh the kubeconfig for the Cilium API VIP.
+
+`helmfile/apps.yaml` installs Cilium (including the BGP/LB configuration), kubelet CSR approver, Spegel, cert-manager, external-secrets, 1Password Connect, Flux Operator and Flux Instance. The onepassword release creates the ClusterSecretStore after external-secrets has installed its CRD. The Flux Operator waits for 1Password Connect so that Flux does not start reconciling secret-dependent workloads first.
+
+`helmfile/crds.yaml` only renders CRDs for charts consumed elsewhere by Flux; it is not a list of bootstrap applications. External-secrets is intentionally **not** in that list: its Helm chart installs its own CRDs as part of `helmfile/apps.yaml`, before the ClusterSecretStore is applied. Keep it in the apps file unless the secret-provider bootstrap is redesigned. Pre-applying the same CRDs separately risks conflicting ownership and adds another version to keep in sync. Flux's external-secrets Kustomization checks the HelmRelease only; its dependent onepassword Kustomization checks the ClusterSecretStore. Waiting for the store in both places would deadlock first boot.
+
+The `personal/security` Kustomization sets the Secret's namespace; the preceding `namespaces` stage creates `security` from `kubernetes/apps/security/namespace.yaml`. The built manifest is piped through `just template -` (`minijinja-cli` and `op inject`) before being applied, so 1Password values are not stored in Git.
+
+These stages are not an exact copy of onedr0p/home-ops: this cluster uses its existing `security`, `network`, `monitor`, and `database` layout and a 1Password Connect bootstrap Secret. Keep the generated bootstrap Secret and the chart's `credentialsName` aligned if changing the provider. After bootstrap, Flux manages the same Helm releases from `kubernetes/apps/`.

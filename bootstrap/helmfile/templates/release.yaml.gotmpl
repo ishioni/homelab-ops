@@ -1,0 +1,9 @@
+{{- $path := printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name -}}
+{{- if eq .Release.Name "cloudnative-pg" -}}
+  {{- $path = "../../kubernetes/apps/database/cloudnative-pg/operator/ocirepository.yaml" -}}
+{{- else if eq .Release.Name "barman-cloud" -}}
+  {{- $path = "../../kubernetes/apps/database/cloudnative-pg/barman-cloud/ocirepository.yaml" -}}
+{{- end -}}
+{{- $oci := fromYaml (readFile $path) -}}
+chart: {{ $oci.spec.url }}
+version: {{ $oci.spec.ref.tag }}
