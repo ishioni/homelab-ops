@@ -26,4 +26,9 @@ spec:
   sources:
     - pvc:
         name: ${PVC_CLAIM:=${APP}}
+  verification:
+    quick:
+      schedule:
+        cron: H H * * 0
+        jitter: 30m
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=ix-csi}

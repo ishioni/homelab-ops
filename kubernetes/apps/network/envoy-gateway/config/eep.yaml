@@ -23,4 +23,6 @@ spec:
         theme: lost-in-space
         showDetails: true
         locale: auto
+        # Kopiur uses typed 4xx problem bodies for normal UI states (e.g. no browse session).
+        excludeDomains: ['(?i)^kopiur\.ishioni\.casa(:[0-9]+)?$']
       failOpen: false
