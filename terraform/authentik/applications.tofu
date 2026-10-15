@@ -125,6 +125,18 @@ module "proxy-bazarr" {
   ignore_paths       = local.favicons.bazaar
 }
 
+module "proxy-kopiur" {
+  source             = "./modules/proxy_application"
+  name               = "Kopiur"
+  description        = "Backup management"
+  group              = "Infrastructure"
+  slug               = "kopiur"
+  domain             = var.private_domain
+  authorization_flow = resource.authentik_flow.provider-authorization-implicit-consent.uuid
+  invalidation_flow  = resource.authentik_flow.provider-invalidation.uuid
+  auth_groups        = [authentik_group.infrastructure.id]
+}
+
 # OAuth apps
 
 # module "oauth2-qui" {
