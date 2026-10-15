@@ -42,8 +42,7 @@ spec:
         # The app port is reachable only from the internal Envoy proxy pods.
         acknowledgeNoProxySecret: true
       rbac:
-        # Creates the role only; browsing requires an explicit namespaced RoleBinding.
-        browseRole: true
+        browseRole: false
         bindings:
           - role: user
             groups: [infrastructure]
