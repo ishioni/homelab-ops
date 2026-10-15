@@ -7,6 +7,7 @@ components:
   - ../../components/alerts
 resources:
   - ./namespace.yaml
+  - ./kopiur-browse-rolebinding.yaml
   - ./bazarr/ks.yaml
   - ./downloads-pvc/ks.yaml
   - ./lidarr/ks.yaml
