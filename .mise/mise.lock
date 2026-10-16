@@ -417,9 +417,9 @@ url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/597222609"
 provenance = "cosign"
 
 [[tools.zizmor]]
-version = "1.31.0"
+version = "1.31.1"
 backend = "aqua:zizmorcore/zizmor"
-specifiers = ["1.31.0"]
+specifiers = ["1.31.1"]
 
 [tools.zizmor."platforms.linux-arm64"]
 provenance = "github-attestations"
