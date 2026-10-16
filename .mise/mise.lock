@@ -376,12 +376,21 @@ backend = "aqua:siderolabs/talos"
 specifiers = ["1.14.3"]
 
 [tools.talos."platforms.linux-arm64"]
+checksum = "sha256:4ee491f125b88a262d8879fb1dcfa8bf211fecfd624bb5786588aa157326a14d"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.3/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/645214021"
 provenance = "cosign"
 
 [tools.talos."platforms.linux-x64"]
+checksum = "sha256:a81b58b5d30af849cb5565a13fbd4bb3ca6b623881fa15c4244c890081684d7b"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.3/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/645214005"
 provenance = "cosign"
 
 [tools.talos."platforms.macos-arm64"]
+checksum = "sha256:a326e3ab4e5b4f341a523bbe48ce7357968a04af4536476b7846e428d784282f"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.3/talosctl-darwin-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/645214033"
 provenance = "cosign"
 
 [[tools.yq]]
@@ -413,10 +422,19 @@ backend = "aqua:zizmorcore/zizmor"
 specifiers = ["1.31.1"]
 
 [tools.zizmor."platforms.linux-arm64"]
+checksum = "sha256:37eebbd5762a44f262d94875431b14a6d2402991e90a685113ea97b8b41be833"
+url = "https://github.com/zizmorcore/zizmor/releases/download/v1.31.1/zizmor-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/zizmorcore/zizmor/releases/assets/645467282"
 provenance = "github-attestations"
 
 [tools.zizmor."platforms.linux-x64"]
+checksum = "sha256:d185f726bdaf92df78273217dfdd24ebcd6b0ef48cf3ce776ff5762b6e138c99"
+url = "https://github.com/zizmorcore/zizmor/releases/download/v1.31.1/zizmor-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/zizmorcore/zizmor/releases/assets/645467284"
 provenance = "github-attestations"
 
 [tools.zizmor."platforms.macos-arm64"]
+checksum = "sha256:ad5aa633cd56215b11e6c51d51f90c7e6b22904a75047d1215abbd422f61d698"
+url = "https://github.com/zizmorcore/zizmor/releases/download/v1.31.1/zizmor-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/zizmorcore/zizmor/releases/assets/645467283"
 provenance = "github-attestations"
