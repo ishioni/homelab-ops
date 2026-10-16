@@ -1,7 +1,7 @@
 ---
 services:
   rustfs:
-    image: ghcr.io/rustfs/rustfs:1.0.1@sha256:1803faef57627e2d9c2e7d89d655d712ddded5389040054987163043fecb6a3c
+    image: ghcr.io/rustfs/rustfs:1.0.2@sha256:7e948dad4748bda48f8985fda7195f8cf2e4259427011f6120acc2c9acf51587
     container_name: rustfs
     restart: unless-stopped
     environment:
