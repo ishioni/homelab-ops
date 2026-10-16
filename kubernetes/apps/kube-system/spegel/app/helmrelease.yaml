@@ -23,10 +23,3 @@ spec:
         hostPort: 29999
     serviceMonitor:
       enabled: true
-    grafanaDashboard:
-      enabled: true
-      mode: GrafanaOperator
-      grafanaOperator:
-        matchLabels:
-          grafana.internal/instance: grafana
-        folder: Kubernetes
