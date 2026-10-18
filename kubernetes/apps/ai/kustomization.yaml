@@ -16,4 +16,3 @@ resources:
   - ./prometheus-mcp/ks.yaml
   - ./searxng-mcp/ks.yaml
   - ./toolhive/ks.yaml
-  - ./unifi-mcp/ks.yaml
