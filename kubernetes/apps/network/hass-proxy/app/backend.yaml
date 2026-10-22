@@ -10,4 +10,7 @@ spec:
   endpoints:
     - ip:
         address: 10.1.3.2
-        port: 8123
+        port: 443
+  tls:
+    wellKnownCACertificates: System
+    sni: ${HOSTNAME}
