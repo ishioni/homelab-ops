@@ -16,6 +16,7 @@ S3_ENDPOINT = environ.get(
     "AUTHENTIK_STORAGE__S3__ENDPOINT", "https://rcdn.movishell.pl"
 )
 S3_BUCKET = environ.get("AUTHENTIK_STORAGE__S3__BUCKET_NAME", "authentik")
+S3_REGION = environ.get("AUTHENTIK_STORAGE__S3__REGION", "eu-central-1")
 S3_ACCESS_KEY = environ.get("AUTHENTIK_STORAGE__S3__ACCESS_KEY", "")
 S3_SECRET_KEY = environ.get("AUTHENTIK_STORAGE__S3__SECRET_KEY", "")
 
@@ -24,7 +25,6 @@ if not S3_ACCESS_KEY or not S3_SECRET_KEY:
     return False
 S3_CUSTOM_DOMAIN = environ.get("AUTHENTIK_STORAGE__S3__CUSTOM_DOMAIN", "")
 S3_KEY_PREFIX = "user-avatars/"
-S3_URL_EXPIRY = int(environ.get("AUTHENTIK_AVATAR__S3__URL_EXPIRY", 3153600000))  # ~100 years
 
 if S3_CUSTOM_DOMAIN:
     URL_BASE = f"https://{S3_CUSTOM_DOMAIN}/{S3_KEY_PREFIX}"
@@ -47,6 +47,7 @@ EMPTY_FILE = "data:application/octet-stream;base64,"
 s3_client = boto3.client(
     "s3",
     endpoint_url=S3_ENDPOINT,
+    region_name=S3_REGION,
     aws_access_key_id=S3_ACCESS_KEY,
     aws_secret_access_key=S3_SECRET_KEY,
     config=Config(
@@ -69,12 +70,8 @@ def format_size(size_bytes):
 
 
 def generate_avatar_url(filename):
-    """Generates a presigned URL for the avatar on S3."""
-    return s3_client.generate_presigned_url(
-        "get_object",
-        Params={"Bucket": S3_BUCKET, "Key": f"{S3_KEY_PREFIX}{filename}"},
-        ExpiresIn=S3_URL_EXPIRY,
-    )
+    """Generates a stable URL for an avatar in the public-read S3 prefix."""
+    return f"{URL_BASE}{filename}"
 
 
 def extract_filename_from_avatar_url(avatar_url):
@@ -138,8 +135,16 @@ if "avatar" in prompt_data.get("attributes", {}):
     avatar = prompt_data["attributes"]["avatar"]
 
     if avatar == EMPTY_FILE:
-        # No file uploaded, ignore field
-        del prompt_data["attributes"]["avatar"]
+        # No file uploaded. Preserve the existing avatar, but migrate a managed
+        # presigned URL to the stable public URL when the user next saves.
+        current_avatar = request.user.attributes.get("avatar", None)
+        current_filename = extract_filename_from_avatar_url(current_avatar)
+        if current_filename:
+            prompt_data["attributes"]["avatar"] = generate_avatar_url(
+                current_filename
+            )
+        else:
+            del prompt_data["attributes"]["avatar"]
     else:
         # 1. Validate MIME type
         try:
