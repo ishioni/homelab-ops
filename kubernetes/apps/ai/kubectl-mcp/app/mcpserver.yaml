@@ -7,6 +7,14 @@ metadata:
 spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:2.0.0
   args: [--transport, streamable-http, --port, "8080"]
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: mcp
+          # The v2 image owns /home/mcp as UID 10001; ToolHive defaults to UID 1000.
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
   env:
     # vMCP authenticates external clients; v2 requires this to bind to the pod network.
     - name: MCP_ALLOW_UNAUTHENTICATED
