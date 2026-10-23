@@ -8,7 +8,7 @@ spec:
   image: ghcr.io/rohitg00/kubectl-mcp-server:2.0.0
   args: [--transport, streamable-http, --port, "8080"]
   env:
-    # vMCP authenticates clients; the NetworkPolicy limits direct access to the ToolHive proxy.
+    # vMCP authenticates external clients; v2 requires this to bind to the pod network.
     - name: MCP_ALLOW_UNAUTHENTICATED
       value: "true"
     - name: MCP_TOOLSETS
