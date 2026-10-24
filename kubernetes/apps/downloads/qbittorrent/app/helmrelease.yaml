@@ -83,6 +83,7 @@ spec:
               - --ref=latest-release
               - --period=86400s
               - --root=/addons
+              - --git-config-add=safe.directory:/addons
             resources:
               requests:
                 cpu: 10m
