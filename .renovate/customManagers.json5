@@ -12,5 +12,15 @@
       datasourceTemplate: "docker",
       versioningTemplate: "semver",
     },
+    {
+      customType: "regex",
+      description: "Process annotated container image dependencies (repo:tag@digest)",
+      managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+      matchStrings: [
+        "# renovate-image: depName=(?<depName>\\S+)\\n[ \\t]*version:[ \\t]*[^:\\s]+:(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]{64})",
+      ],
+      datasourceTemplate: "docker",
+      versioningTemplate: "docker",
+    },
   ],
 }
