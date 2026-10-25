@@ -22,6 +22,8 @@ services:
     container_name: doco-cd-updater
     environment:
       DEPLOY_CONFIG_BASE_DIR: ./docker/.doco-cd/
+      GIT_AUTH_DOMAINS: |
+        - domains: [github.com]
       HTTP_PORT: 8080
       LOG_LEVEL: info
       POLL_CONFIG_FILE: /poll-config.yml

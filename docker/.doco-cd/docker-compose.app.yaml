@@ -21,6 +21,8 @@ services:
     container_name: doco-cd
     environment:
       GIT_ACCESS_TOKEN: ${GIT_ACCESS_TOKEN}
+      GIT_AUTH_DOMAINS: |
+        - domains: [github.com]
       GIT_COMMIT_STATUS: "true"
       GIT_SCM_PROVIDER: github
       HTTP_PORT: 8080
