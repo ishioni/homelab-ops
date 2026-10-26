@@ -22,6 +22,7 @@ spec:
         type: oidc
         oidcConfig:
           issuerUrl: https://${AUTH_HOSTNAME}/application/o/toolhive/
+          allowPrivateIPs: true
           clientId: toolhive
           clientSecretRef:
             name: toolhive-secret
@@ -72,6 +73,3 @@ spec:
             - --host=0.0.0.0
             - --port=4483
             - --session-ttl=168h
-          env:
-            - name: INSECURE_DISABLE_URL_VALIDATION
-              value: "true"
