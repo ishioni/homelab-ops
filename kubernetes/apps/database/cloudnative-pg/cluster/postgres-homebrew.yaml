@@ -6,6 +6,7 @@ metadata:
   name: &pgname postgres-homebrew
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+    cnpg.io/hibernation: "on"
 spec:
   affinity:
     enablePodAntiAffinity: true
