@@ -151,7 +151,6 @@ spec:
             opencloud:
               - path: /tmp
                 subPath: tmp
-          tika:
             tika:
               - path: /tmp
                 subPath: tika
