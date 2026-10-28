@@ -1,6 +1,6 @@
 # CrowdSec
 
-This first stage deploys CrowdSec and the Envoy bouncer without an Envoy Gateway `SecurityPolicy`. It does not block public requests. The agent reads public Envoy pod logs through the Kubernetes API; its namespaced role can read logs from any pod in `network`, although acquisition is restricted to the public Envoy selector.
+CrowdSec reads public Envoy logs and enforces decisions using a fail-open `SecurityPolicy` on `envoy-external`. Route-level security policies take precedence over the Gateway policy: routes protected by Authentik retain their authentication but do not use the CrowdSec bouncer. Check the Gateway policy's `Overridden` condition for affected routes. The agent reads public Envoy pod logs through the Kubernetes API; its namespaced role can read logs from any pod in `network`, although acquisition is restricted to the public Envoy selector.
 
 ## Prerequisite
 
@@ -16,9 +16,8 @@ A dedicated three-instance CloudNativePG cluster stores its data on `openebs-hos
 
 No CrowdSec-specific network policies are included in this initial deployment. LAPI and the bouncer are ClusterIP services but remain reachable from cluster workloads unless existing cluster policies restrict them. Kubernetes API access is limited by the agent's Role. Add and test Cilium policies separately after verifying the required traffic paths.
 
-## Before enabling enforcement
+## Follow-up validation
 
-1. Check that both Helm releases and ExternalSecrets are healthy; confirm the agent acquires and parses public Envoy logs and the bouncer connects to LAPI.
-2. Attach a temporary fail-open Envoy Gateway `SecurityPolicy` to a test HTTPRoute, not the whole Gateway. Ensure the ext-auth gRPC request contains Envoy's `X-Envoy-External-Address`; the bouncer trusts that header and falls back to XFF if it is absent.
-3. From a controlled, non-exempt client address, add a temporary LAPI ban decision and verify that requests are denied, including requests with spoofed `X-Forwarded-For` and `X-Envoy-External-Address` headers. Remove the decision and verify access returns. `10.1.0.0/16` and `172.16.0.0/16` are exempt from bouncer evaluation.
-4. Test bouncer unavailability and recovery, then decide whether to apply a fail-open `SecurityPolicy` to `envoy-external`. Do not target `envoy-internal`. Re-check address ranges and whether internal clients should be exempt before enabling enforcement.
+1. Check the Helm releases and ExternalSecrets, agent acquisition and parser metrics, and the bouncer's LAPI connection.
+2. From a controlled, non-exempt client address, add a temporary LAPI ban decision and verify that an unprotected test route is denied, including requests with spoofed `X-Forwarded-For` and `X-Envoy-External-Address` headers. Remove the decision and verify access returns. The bouncer trusts Envoy's `X-Envoy-External-Address` and falls back to XFF if it is absent. `10.1.0.0/16` and `172.16.0.0/16` are exempt from bouncer evaluation.
+3. Test bouncer unavailability and recovery, and verify Authentik redirects and authenticated requests continue to work. Coverage of Authentik-protected routes requires a separate solution; do not replace their route policies with CrowdSec.
