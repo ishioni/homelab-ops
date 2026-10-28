@@ -6,9 +6,9 @@ This first stage deploys CrowdSec and the Envoy bouncer without an Envoy Gateway
 
 Create a `crowdsec` item in the `onepassword` secret store with three independently generated strong secrets before merging:
 
-- `CROWDSEC_BOUNCER_KEY`: shared by LAPI and the Envoy bouncer.
-- `CROWDSEC_POSTGRES_PASSWORD`: the dedicated PostgreSQL application user's password.
-- `CROWDSEC_LAPI_PASSWORD`: the local `cscli` LAPI user's password.
+- `BOUNCER_KEY`: shared by LAPI and the Envoy bouncer.
+- `POSTGRES_PASS`: the dedicated PostgreSQL application user's password.
+- `LAPI_PASSWORD`: the local `cscli` LAPI user's password.
 
 External Secrets supplies the database password to both the `database` and `network` namespaces and creates the LAPI and bouncer credentials. Do not put secrets in Git. The PostgreSQL cluster and Helm releases cannot become ready without them. Key rotation must be coordinated with the bouncer registration persisted in PostgreSQL; updating the secret alone may not replace an existing registered key. The chart's CAPI registration hook also creates a Kubernetes Secret; back up the database and these credentials and test recovery together.
 
