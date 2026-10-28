@@ -1,23 +1,34 @@
 ---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumnetworkpolicy_v2.json
 apiVersion: cilium.io/v2
-kind: CiliumClusterwideNetworkPolicy
+kind: CiliumNetworkPolicy
 metadata:
   name: grafana-mcp-proxy
 spec:
-  # Apply only the targeted deny rule without isolating unrelated pod egress.
+  # Deny direct proxy access without blocking replies to ephemeral client ports.
   enableDefaultDeny:
-    egress: false
+    ingress: false
   endpointSelector:
-    matchExpressions:
-      - key: io.cilium.k8s.policy.serviceaccount
-        operator: NotIn
-        values: [mcp-gateway-vmcp]
-  egressDeny:
-    - toEndpoints:
+    matchLabels:
+      app.kubernetes.io/instance: grafana-mcp
+      app.kubernetes.io/name: mcpserver
+  ingressDeny:
+    - fromEndpoints:
+        - matchExpressions:
+            - key: k8s:io.kubernetes.pod.namespace
+              operator: NotIn
+              values: [ai]
         - matchLabels:
-            app.kubernetes.io/instance: grafana-mcp
-            app.kubernetes.io/name: mcpserver
             k8s:io.kubernetes.pod.namespace: ai
+          matchExpressions:
+            - key: k8s:io.cilium.k8s.policy.serviceaccount
+              operator: NotIn
+              values: [mcp-gateway-vmcp]
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+    - fromEntities: [remote-node, world]
       toPorts:
         - ports:
             - port: "8080"
