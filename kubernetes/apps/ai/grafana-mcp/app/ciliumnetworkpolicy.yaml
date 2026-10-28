@@ -39,15 +39,29 @@ kind: CiliumNetworkPolicy
 metadata:
   name: grafana-mcp-backend
 spec:
+  # Deny direct backend access without blocking replies to ephemeral client ports.
+  enableDefaultDeny:
+    ingress: false
   endpointSelector:
     matchLabels:
       toolhive-basename: grafana-mcp
-  ingress:
+  ingressDeny:
     - fromEndpoints:
+        - matchExpressions:
+            - key: k8s:io.kubernetes.pod.namespace
+              operator: NotIn
+              values: [ai]
         - matchLabels:
-            app.kubernetes.io/instance: grafana-mcp
-            app.kubernetes.io/name: mcpserver
             k8s:io.kubernetes.pod.namespace: ai
+          matchExpressions:
+            - key: k8s:io.cilium.k8s.policy.serviceaccount
+              operator: NotIn
+              values: [grafana-mcp-proxy-runner]
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+    - fromEntities: [remote-node, world]
       toPorts:
         - ports:
             - port: "8000"
