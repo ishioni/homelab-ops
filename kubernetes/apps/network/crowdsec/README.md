@@ -4,9 +4,15 @@ This first stage deploys CrowdSec and the Envoy bouncer without an Envoy Gateway
 
 ## Prerequisite
 
-Create a `crowdsec` item in the `onepassword` secret store with a strong, randomly generated `CROWDSEC_BOUNCER_KEY` field before merging. External Secrets writes the same key to `crowdsec-secret` for both LAPI registration and the bouncer. Do not put the key in Git. The Helm releases will not become ready without this secret. Key rotation must also be coordinated with the bouncer registration persisted in the LAPI database; updating the secret alone may not replace an existing registered key.
+Create a `crowdsec` item in the `onepassword` secret store with three independently generated strong secrets before merging:
 
-LAPI stores its SQLite database and configuration on two `openebs-hostpath` PVCs. These are node-local: a node failure can leave LAPI unavailable until the volumes are recovered or recreated. Include the data in your backup and recovery plan. CrowdSec's online community API is enabled and the agent downloads its collection from the CrowdSec Hub; Console enrollment and AppSec are not configured.
+- `CROWDSEC_BOUNCER_KEY`: shared by LAPI and the Envoy bouncer.
+- `CROWDSEC_POSTGRES_PASSWORD`: the dedicated PostgreSQL application user's password.
+- `CROWDSEC_LAPI_PASSWORD`: the local `cscli` LAPI user's password.
+
+External Secrets supplies the database password to both the `database` and `network` namespaces and creates the LAPI and bouncer credentials. Do not put secrets in Git. The PostgreSQL cluster and Helm releases cannot become ready without them. Key rotation must be coordinated with the bouncer registration persisted in PostgreSQL; updating the secret alone may not replace an existing registered key. The chart's CAPI registration hook also creates a Kubernetes Secret; back up the database and these credentials and test recovery together.
+
+A dedicated three-instance CloudNativePG cluster stores its data on `openebs-hostpath`, archives WAL to the existing `rustfs` object store, and runs daily backups. LAPI uses PostgreSQL and has no data or configuration PVC; its configuration is supplied through chart-generated ConfigMaps and Secrets. One LAPI replica remains a single point of failure. Database PVCs are node-local, so recovery still depends on healthy replicas and tested backups. LAPI uses TLS to PostgreSQL with `sslmode: require` (encryption without certificate identity verification). CrowdSec's online community API is enabled and the agent downloads its collection from the CrowdSec Hub; Console enrollment and AppSec are not configured.
 
 The ingress policies allow the agent and bouncer to connect to LAPI, public Envoy to the bouncer, Prometheus to metrics, and node-origin traffic to probe ports. Outbound traffic is not restricted. Kubernetes API access is limited by the agent's Role, not by an egress network policy.
 

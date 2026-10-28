@@ -3,11 +3,33 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: crowdsec-postgres
+  namespace: network
+spec:
+  dependsOn:
+    - name: postgres-cluster
+      namespace: database
+  interval: 30m
+  path: ./kubernetes/apps/network/crowdsec/database
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: database
+  wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app crowdsec
   namespace: &namespace network
 spec:
   dependsOn:
     - name: envoy-gateway-config
+      namespace: network
+    - name: crowdsec-postgres
       namespace: network
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2

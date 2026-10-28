@@ -17,20 +17,46 @@ spec:
     container_runtime: containerd
     image:
       repository: mirror.gcr.io/crowdsecurity/crowdsec
+    config:
+      config.yaml.local: |
+        db_config:
+          type: postgresql
+          user: crowdsec
+          password: ${DB_PASSWORD}
+          db_name: crowdsec
+          host: crowdsec-postgres-rw.database.svc.cluster.local
+          port: 5432
+          sslmode: require
+        api:
+          server:
+            auto_registration:
+              enabled: true
+              token: "${REGISTRATION_TOKEN}"
+              allowed_ranges:
+                - 127.0.0.1/32
+                - 172.16.0.0/16
     lapi:
-      env:
-        - name: USE_WAL
-          value: "true"
+      storeCAPICredentialsInSecret: true
+      storeLAPICscliCredentialsInSecret: false
+      extraVolumes:
+        - name: cscli-credentials
+          secret:
+            secretName: crowdsec-lapi-cscli-credentials
+      extraVolumeMounts:
+        - name: cscli-credentials
+          mountPath: /staging/etc/crowdsec/local_api_credentials.yaml
+          subPath: local_api_credentials.yaml
+          readOnly: true
       envFrom:
         - secretRef:
             name: &secret crowdsec-secret
       podAnnotations:
-        secret.reloader.stakater.com/reload: *secret
+        secret.reloader.stakater.com/reload: crowdsec-secret,crowdsec-lapi-cscli-credentials
       persistentVolume:
         data:
-          storageClassName: openebs-hostpath
+          enabled: false
         config:
-          storageClassName: openebs-hostpath
+          enabled: false
       resources:
         requests:
           cpu: 10m
