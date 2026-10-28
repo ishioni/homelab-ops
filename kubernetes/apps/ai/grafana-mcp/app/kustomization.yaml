@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./mcpserver.yaml
+  - ./ciliumclusterwidenetworkpolicy.yaml
   - ./ciliumnetworkpolicy.yaml
   - ./secretstore.yaml
   - ./serviceaccount.yaml
