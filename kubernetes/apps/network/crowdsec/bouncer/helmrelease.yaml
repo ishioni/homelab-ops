@@ -11,6 +11,9 @@ spec:
   interval: 30m
   values:
     fullnameOverride: *app
+    grafana:
+      dashboard:
+        enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: crowdsec-secret
     resources:
