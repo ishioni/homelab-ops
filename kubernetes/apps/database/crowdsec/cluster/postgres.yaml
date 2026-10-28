@@ -4,8 +4,6 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: crowdsec-postgres
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   affinity:
     enablePodAntiAffinity: true
@@ -45,8 +43,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: crowdsec-postgres
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   podMetricsEndpoints:
     - port: metrics
@@ -60,8 +56,6 @@ apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
   name: crowdsec-postgres
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   backupOwnerReference: self
   cluster:
