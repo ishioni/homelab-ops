@@ -39,6 +39,7 @@ spec:
               OCIS_LOG_PRETTY: false
               SEARCH_EXTRACTOR_TYPE: tika
               SEARCH_EXTRACTOR_TIKA_TIKA_URL: http://localhost:9998
+              FRONTEND_FULL_TEXT_SEARCH_ENABLED: true
 
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
