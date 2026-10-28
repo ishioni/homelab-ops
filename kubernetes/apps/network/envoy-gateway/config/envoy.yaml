@@ -72,8 +72,7 @@ metadata:
   name: envoy
 spec:
   clientIPDetection:
-    xForwardedFor:
-      numTrustedHops: 1
+    directSourceIP: {}
   path:
     disableMergeSlashes: true
     escapedSlashesAction: KeepUnchanged
