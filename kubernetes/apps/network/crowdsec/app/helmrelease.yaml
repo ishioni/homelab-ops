@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: crowdsec
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: crowdsec
+  install:
+    disableSchemaValidation: true
+  interval: 30m
+  upgrade:
+    disableSchemaValidation: true
+  values:
+    container_runtime: containerd
+    image:
+      repository: mirror.gcr.io/crowdsecurity/crowdsec
+    config:
+      config.yaml.local: |
+        db_config:
+          type: postgresql
+          user: crowdsec
+          password: ${DB_PASSWORD}
+          db_name: crowdsec
+          host: crowdsec-postgres-rw.database.svc.cluster.local
+          port: 5432
+          sslmode: require
+        api:
+          server:
+            auto_registration:
+              enabled: true
+              token: "${REGISTRATION_TOKEN}"
+              allowed_ranges:
+                - 127.0.0.1/32
+                - 172.16.0.0/16
+    lapi:
+      storeCAPICredentialsInSecret: true
+      storeLAPICscliCredentialsInSecret: false
+      extraVolumes:
+        - name: cscli-credentials
+          secret:
+            secretName: crowdsec-lapi-cscli-credentials
+      extraVolumeMounts:
+        - name: cscli-credentials
+          mountPath: /staging/etc/crowdsec/local_api_credentials.yaml
+          subPath: local_api_credentials.yaml
+          readOnly: true
+      envFrom:
+        - secretRef:
+            name: &secret crowdsec-secret
+      podAnnotations:
+        secret.reloader.stakater.com/reload: crowdsec-secret,crowdsec-lapi-cscli-credentials
+      persistentVolume:
+        data:
+          enabled: false
+        config:
+          enabled: false
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128Mi
+        limits:
+          memory: 500Mi
+      metrics:
+        serviceMonitor:
+          enabled: true
+    agent:
+      isDeployment: true
+      hostVarLog: false
+      serviceAccountName: crowdsec-agent
+      additionalAcquisition:
+        - source: kubernetes
+          namespace: network
+          selector: gateway.envoyproxy.io/owning-gateway-name=envoy-external
+          labels:
+            type: envoy
+      env:
+        - name: COLLECTIONS
+          value: yanis-kouidri/envoy
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128Mi
+        limits:
+          memory: 250Mi
+      metrics:
+        serviceMonitor:
+          enabled: true
