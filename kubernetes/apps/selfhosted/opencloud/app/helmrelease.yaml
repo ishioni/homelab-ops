@@ -37,6 +37,8 @@ spec:
               OCIS_LOG_COLOR: false
               OCIS_LOG_LEVEL: info
               OCIS_LOG_PRETTY: false
+              SEARCH_EXTRACTOR_TYPE: tika
+              SEARCH_EXTRACTOR_TIKA_TIKA_URL: http://localhost:9998
 
               GATEWAY_GRPC_ADDR: 0.0.0.0:9142
               OC_ENABLE_OCM: false
@@ -70,6 +72,37 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+          tika:
+            image:
+              repository: docker.io/apache/tika
+              tag: 3.3.3.0-full
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+            probes:
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /tika
+                    port: 9998
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /tika
+                    port: 9998
+                  periodSeconds: 5
+                  timeoutSeconds: 2
+                  failureThreshold: 30
     service:
       app:
         controller: opencloud
@@ -93,22 +126,32 @@ spec:
       config:
         type: configMap
         name: opencloud
-        globalMounts:
-          - path: /etc/opencloud/proxy.yaml
-            subPath: proxy.yaml
-            readOnly: true
-          - path: /etc/opencloud/csp.yaml
-            subPath: csp.yaml
-            readOnly: true
+        advancedMounts:
+          opencloud:
+            opencloud:
+              - path: /etc/opencloud/proxy.yaml
+                subPath: proxy.yaml
+                readOnly: true
+              - path: /etc/opencloud/csp.yaml
+                subPath: csp.yaml
+                readOnly: true
       data:
         existingClaim: ${PVC_CLAIM}
-        globalMounts:
-          - path: /var/lib/opencloud
-            subPath: data
-          - path: /etc/opencloud
-            subPath: config
+        advancedMounts:
+          opencloud:
+            opencloud:
+              - path: /var/lib/opencloud
+                subPath: data
+              - path: /etc/opencloud
+                subPath: config
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
-            subPath: tmp
+        advancedMounts:
+          opencloud:
+            opencloud:
+              - path: /tmp
+                subPath: tmp
+          tika:
+            tika:
+              - path: /tmp
+                subPath: tika
