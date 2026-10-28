@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: grafana-mcp-proxy
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: grafana-mcp
+      app.kubernetes.io/name: mcpserver
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: mcp-gateway
+            app.kubernetes.io/name: virtualmcpserver
+            k8s:io.kubernetes.pod.namespace: ai
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: grafana-mcp-backend
+spec:
+  endpointSelector:
+    matchLabels:
+      toolhive-basename: grafana-mcp
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: grafana-mcp
+            app.kubernetes.io/name: mcpserver
+            k8s:io.kubernetes.pod.namespace: ai
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
