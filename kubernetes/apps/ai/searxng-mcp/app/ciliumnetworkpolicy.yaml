@@ -5,16 +5,30 @@ kind: CiliumNetworkPolicy
 metadata:
   name: searxng-mcp-proxy
 spec:
+  # Deny direct proxy access without blocking replies to ephemeral client ports.
+  enableDefaultDeny:
+    ingress: false
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: searxng
       app.kubernetes.io/name: mcpserver
-  ingress:
+  ingressDeny:
     - fromEndpoints:
+        - matchExpressions:
+            - key: k8s:io.kubernetes.pod.namespace
+              operator: NotIn
+              values: [ai]
         - matchLabels:
-            app.kubernetes.io/instance: mcp-gateway
-            app.kubernetes.io/name: virtualmcpserver
             k8s:io.kubernetes.pod.namespace: ai
+          matchExpressions:
+            - key: k8s:io.cilium.k8s.policy.serviceaccount
+              operator: NotIn
+              values: [mcp-gateway-vmcp]
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+    - fromEntities: [remote-node, world]
       toPorts:
         - ports:
             - port: "8080"
