@@ -10,8 +10,6 @@ spec:
     name: cert-manager
   interval: 30m
   values:
-    # Keep ClusterIssuer account and DNS credentials in network during the controller move.
-    clusterResourceNamespace: network
     crds:
       enabled: true
     dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query

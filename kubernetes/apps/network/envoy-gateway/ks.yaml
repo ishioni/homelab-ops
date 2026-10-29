@@ -6,9 +6,6 @@ metadata:
   name: &app envoy-gateway
   namespace: &namespace network
 spec:
-  dependsOn:
-    - name: default-certificate
-      namespace: network
   interval: 30m
   path: ./kubernetes/apps/network/envoy-gateway/app
   prune: true
@@ -29,8 +26,8 @@ spec:
   dependsOn:
     - name: envoy-gateway
       namespace: network
-    - name: default-certificate
-      namespace: network
+    - name: cert-manager
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/network/envoy-gateway/config
   prune: true
