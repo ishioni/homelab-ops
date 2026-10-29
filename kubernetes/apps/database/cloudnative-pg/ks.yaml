@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager
-      namespace: network
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/barman-cloud
   prune: true
