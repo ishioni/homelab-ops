@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: internal-ca-reader
+  namespace: security
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: internal-ca-reader
+  namespace: security
+rules:
+  - apiGroups: [""]
+    resources: [secrets]
+    resourceNames: [internal-ca-key-pair]
+    verbs: [get]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: internal-ca-reader
+  namespace: security
+subjects:
+  - kind: ServiceAccount
+    name: internal-ca-reader
+    namespace: security
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: internal-ca-reader
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: internal-ca-reader-reviews
+rules:
+  - apiGroups: [authorization.k8s.io]
+    resources: [selfsubjectrulesreviews, selfsubjectaccessreviews]
+    verbs: [create]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: internal-ca-reader-reviews
+subjects:
+  - kind: ServiceAccount
+    name: internal-ca-reader
+    namespace: security
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: internal-ca-reader-reviews

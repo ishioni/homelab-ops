@@ -47,6 +47,8 @@ spec:
       AUTH_HOSTNAME: auth.${PUBLIC_DOMAIN}
   dependsOn:
     - name: toolhive-operator
+    - name: internal-ca
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/ai/toolhive/config
   prune: true
