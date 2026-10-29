@@ -16,7 +16,10 @@ spec:
     - name: RENOVATE_ALLOWED_COMMANDS
       value: '["^helm-docs ", "^helm-schema "]'
     - name: RENOVATE_REDIS_URL
-      value: redis://dragonfly.database.svc.cluster.local:6379/1
+      valueFrom:
+        secretKeyRef:
+          name: ishioni-bot-token
+          key: RENOVATE_REDIS_URL
   image: ghcr.io/renovatebot/renovate:44.193.0
   parallelism: 5
   resources:

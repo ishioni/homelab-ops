@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: dragonfly
+spec:
+  endpointSelector:
+    matchLabels:
+      dragonflydb.io/cluster: dragonfly
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: selfhosted
+            app.kubernetes.io/instance: immich
+            app.kubernetes.io/name: immich
+          matchExpressions:
+            - key: app.kubernetes.io/controller
+              operator: In
+              values: [server, microservices]
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: selfhosted
+            app.kubernetes.io/instance: paperless
+            app.kubernetes.io/name: paperless
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: selfhosted
+            app.kubernetes.io/instance: searxng
+            app.kubernetes.io/name: searxng
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: github
+            renovate-operator.mogenius.com/renovatejob: ishioni
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: ai
+            app.kubernetes.io/instance: mcp-gateway
+            app.kubernetes.io/name: virtualmcpserver
+        # Gatus checks the Redis service; peers may replicate over the Redis port.
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitor
+            app.kubernetes.io/instance: gatus
+            app.kubernetes.io/name: gatus-sidecar
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            dragonflydb.io/cluster: dragonfly
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            dragonflydb.io/cluster: dragonfly
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            app.kubernetes.io/instance: dragonfly-operator
+            app.kubernetes.io/name: dragonfly-operator
+            control-plane: controller-manager
+        # The Dragonfly PodMonitor scrapes the admin port.
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitor
+            app.kubernetes.io/name: prometheus
+            prometheus: kube-prometheus-stack
+      toPorts:
+        - ports:
+            - port: "9999"
+              protocol: TCP

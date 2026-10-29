@@ -5,6 +5,10 @@ kind: Dragonfly
 metadata:
   name: dragonfly
 spec:
+  authentication:
+    passwordFromSecret:
+      name: dragonfly-secret
+      key: REDIS_PASSWORD
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=2
