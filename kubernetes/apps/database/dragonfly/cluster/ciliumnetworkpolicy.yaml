@@ -9,6 +9,12 @@ spec:
     matchLabels:
       dragonflydb.io/cluster: dragonfly
   ingress:
+    # DNS replies can arrive from CoreDNS to an ephemeral client port without
+    # a matching Cilium connection-tracking entry. Permit both UDP and TCP.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: selfhosted
