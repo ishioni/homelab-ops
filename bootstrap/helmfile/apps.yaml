@@ -46,7 +46,7 @@ releases:
     needs: ["kube-system/cilium"]
 
   - name: cert-manager
-    namespace: network
+    namespace: security
     needs: ["kube-system/spegel"]
 
   - name: external-secrets
@@ -78,7 +78,7 @@ releases:
 
   - name: flux-operator
     namespace: flux-system
-    needs: ["network/cert-manager", "security/onepassword"]
+    needs: ["security/cert-manager", "security/onepassword"]
 
   - name: flux-instance
     namespace: flux-system
