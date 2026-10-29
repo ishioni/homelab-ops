@@ -59,6 +59,9 @@ spec:
     address: dragonfly.database.svc.cluster.local:6379
     db: 3
     provider: redis
+    passwordRef:
+      name: toolhive-secret
+      key: REDIS_PASSWORD
     keyPrefix: "vmcp-sessions:"
   # Keep Zed's cached MCP session alive across normal periods of inactivity.
   # Remove this override once https://github.com/zed-industries/zed/issues/57180 is fixed.
