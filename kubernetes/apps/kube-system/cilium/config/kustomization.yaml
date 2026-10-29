@@ -5,5 +5,6 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./bgpconfig.yaml
+  - ./ciliumnetworkpolicy.yaml
   # - ./l2config.yaml
   - ./vip.yaml

@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumclusterwidenetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-coredns-return-traffic
+spec:
+  endpointSelector: {}
+  enableDefaultDeny:
+    ingress: false
+    egress: false
+  ingress:
+    # DNS replies can reach ephemeral ports without a matching connection-tracking entry.
+    # This also permits CoreDNS pods to initiate connections to any pod port.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
