@@ -15,11 +15,24 @@ spec:
       value: '["goGenerate", "mise"]'
     - name: RENOVATE_ALLOWED_COMMANDS
       value: '["^helm-docs ", "^helm-schema "]'
+    - name: NODE_EXTRA_CA_CERTS
+      value: /etc/internal-ca/ca.crt
     - name: RENOVATE_REDIS_URL
       valueFrom:
         secretKeyRef:
           name: ishioni-bot-token
           key: RENOVATE_REDIS_URL
+  extraVolumes:
+    - name: internal-ca
+      secret:
+        secretName: renovate-internal-ca
+        items:
+          - key: ca.crt
+            path: ca.crt
+  extraVolumeMounts:
+    - name: internal-ca
+      mountPath: /etc/internal-ca
+      readOnly: true
   image: ghcr.io/renovatebot/renovate:44.198.0
   parallelism: 5
   resources:

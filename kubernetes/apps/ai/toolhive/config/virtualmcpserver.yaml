@@ -65,6 +65,10 @@ spec:
       name: toolhive-secret
       key: REDIS_PASSWORD
     keyPrefix: "vmcp-sessions:"
+    tls:
+      caCertSecretRef:
+        name: toolhive-internal-ca
+        key: ca.crt
   # Keep Zed's cached MCP session alive across normal periods of inactivity.
   # Remove this override once https://github.com/zed-industries/zed/issues/57180 is fixed.
   # podTemplateSpec replaces the container args list, so retain all operator-generated args here.

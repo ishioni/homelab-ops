@@ -56,6 +56,7 @@ spec:
             env:
               IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_INCLUDE: api
+              NODE_EXTRA_CA_CERTS: /etc/internal-ca/ca.crt
             resources:
               requests:
                 cpu: 100m
@@ -109,6 +110,7 @@ spec:
             env:
               IMMICH_CONFIG_FILE: /config/immich-config.yaml
               IMMICH_WORKERS_EXCLUDE: api
+              NODE_EXTRA_CA_CERTS: /etc/internal-ca/ca.crt
             resources:
               claims:
                 - name: gpu
@@ -233,6 +235,18 @@ spec:
               - identifier: server
                 port: *serverport
     persistence:
+      internal-ca:
+        type: secret
+        name: immich-internal-ca
+        advancedMounts:
+          server:
+            server:
+              - path: /etc/internal-ca
+                readOnly: true
+          microservices:
+            microservices:
+              - path: /etc/internal-ca
+                readOnly: true
       config:
         type: secret
         name: immich-secret

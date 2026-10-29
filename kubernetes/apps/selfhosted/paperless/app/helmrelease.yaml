@@ -117,6 +117,14 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: paperless-internal-ca
+        advancedMounts:
+          paperless:
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
       library:
         existingClaim: ${PVC_CLAIM}
         advancedMounts:

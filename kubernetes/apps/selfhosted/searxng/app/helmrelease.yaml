@@ -52,7 +52,7 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
               readOnlyRootFilesystem: false
     service:
       app:
@@ -69,6 +69,12 @@ spec:
             readOnly: true
           - path: /etc/searxng/limiter.toml
             subPath: limiter.toml
+            readOnly: true
+      internal-ca:
+        type: secret
+        name: searxng-internal-ca
+        globalMounts:
+          - path: /etc/internal-ca
             readOnly: true
       tmpfs:
         type: emptyDir
