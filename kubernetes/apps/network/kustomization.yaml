@@ -8,7 +8,7 @@ components:
 resources:
   - ./namespace.yaml
   - ./cdn-proxy/ks.yaml
-  - ./default-certificate/ks.yaml
+
   - ./crowdsec/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./external-dns/ks.yaml
