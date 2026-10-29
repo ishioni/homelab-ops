@@ -38,6 +38,8 @@ spec:
       conflictResolution: prefix
       conflictResolutionConfig:
         prefixFormat: "{workload}_"
+  embeddingServerRef:
+    name: vmcp-embeddings
   telemetryConfigRef:
     name: prometheus
   groupRef:

@@ -1,0 +1,7 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/toolhive.stacklok.dev/embeddingserver_v1beta1.json
+apiVersion: toolhive.stacklok.dev/v1beta1
+kind: EmbeddingServer
+metadata:
+  name: vmcp-embeddings
+spec: {}
