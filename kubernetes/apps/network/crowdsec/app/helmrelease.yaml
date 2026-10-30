@@ -24,7 +24,7 @@ spec:
           user: crowdsec
           password: $${DB_PASSWORD}
           db_name: crowdsec
-          host: crowdsec-postgres-rw.database.svc.cluster.local
+          host: postgres-crowdsec-rw.database.svc.cluster.local
           port: 5432
           sslmode: require
         api:
