@@ -3,11 +3,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: crowdsec-postgres
+  name: postgres-crowdsec
 spec:
   backupOwnerReference: self
   cluster:
-    name: crowdsec-postgres
+    name: postgres-crowdsec
   immediate: true
   method: plugin
   pluginConfiguration:
