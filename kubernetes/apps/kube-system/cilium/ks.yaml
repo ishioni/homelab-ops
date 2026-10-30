@@ -45,8 +45,6 @@ spec:
   dependsOn:
     - name: cilium
       namespace: kube-system
-    - name: envoy-gateway-config
-      namespace: network
   interval: 30m
   path: ./kubernetes/apps/kube-system/cilium/ui
   prune: true
