@@ -38,30 +38,3 @@ spec:
   storage:
     size: 5Gi
     storageClass: openebs-hostpath
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: crowdsec-postgres
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-  selector:
-    matchLabels:
-      cnpg.io/cluster: crowdsec-postgres
-      cnpg.io/podRole: instance
----
-# yaml-language-server: $schema=https://crd.movishell.pl/postgresql.cnpg.io/scheduledbackup_v1.json
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
-metadata:
-  name: crowdsec-postgres
-spec:
-  backupOwnerReference: self
-  cluster:
-    name: crowdsec-postgres
-  immediate: true
-  method: plugin
-  pluginConfiguration:
-    name: barman-cloud.cloudnative-pg.io
-  schedule: "0 0 0 * * *"

@@ -13,9 +13,6 @@ spec:
     crds:
       create: true
     replicaCount: 2
-    config:
-      data:
-        INHERITED_ANNOTATIONS: kyverno.io/ignore
     resources:
       requests:
         cpu: 15m
@@ -24,3 +21,14 @@ spec:
         memory: 500Mi
     monitoring:
       podMonitorEnabled: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: barman-cloud
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: cloudnative-pg-barman-cloud
+  interval: 30m

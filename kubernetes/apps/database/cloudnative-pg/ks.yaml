@@ -6,61 +6,11 @@ metadata:
   name: &app cloudnative-pg
   namespace: &namespace database
 spec:
-  interval: 30m
-  path: ./kubernetes/apps/database/cloudnative-pg/operator
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
-    namespace: flux-system
-  targetNamespace: *namespace
-  wait: true
----
-# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app cloudnative-pg-barman-cloud
-  namespace: &namespace database
-spec:
   dependsOn:
     - name: cert-manager
       namespace: security
   interval: 30m
-  path: ./kubernetes/apps/database/cloudnative-pg/barman-cloud
-  prune: true
-  retryInterval: 5m
-  sourceRef:
-    kind: GitRepository
-    name: homelab-ops
-    namespace: flux-system
-  targetNamespace: *namespace
----
-# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app postgres-cluster
-  namespace: &namespace database
-spec:
-  dependsOn:
-    - name: cloudnative-pg
-      namespace: database
-    - name: openebs
-      namespace: storage
-    - name: external-secrets
-      namespace: security
-  healthChecks:
-    - apiVersion: postgresql.cnpg.io/v1
-      kind: Cluster
-      name: postgres
-      namespace: database
-    - apiVersion: postgresql.cnpg.io/v1
-      kind: Cluster
-      name: postgres-immich
-      namespace: database
-  interval: 30m
-  path: ./kubernetes/apps/database/cloudnative-pg/cluster
+  path: ./kubernetes/apps/database/cloudnative-pg/app
   prune: true
   sourceRef:
     kind: GitRepository
