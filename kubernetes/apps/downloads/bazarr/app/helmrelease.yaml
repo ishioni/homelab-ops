@@ -96,6 +96,17 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: bazarr-internal-ca
+        advancedMounts:
+          bazarr:
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
       config:
         enabled: true
         existingClaim: ${PVC_CLAIM}

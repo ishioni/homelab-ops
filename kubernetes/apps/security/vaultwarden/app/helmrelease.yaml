@@ -86,5 +86,16 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: vaultwarden-internal-ca
+        advancedMounts:
+          vaultwarden:
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
       data:
         existingClaim: ${PVC_CLAIM}

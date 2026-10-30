@@ -125,6 +125,9 @@ spec:
             app:
               - path: /etc/internal-ca
                 readOnly: true
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
       library:
         existingClaim: ${PVC_CLAIM}
         advancedMounts:

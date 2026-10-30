@@ -104,6 +104,17 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: radarr-internal-ca
+        advancedMounts:
+          radarr:
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
       config:
         existingClaim: ${PVC_CLAIM}
       logs:
