@@ -42,6 +42,8 @@ spec:
       memory: 512Mi
   snapshot:
     dir: "s3://dragonfly"
+  tlsSecretRef:
+    name: dragonfly-server-tls
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: "kubernetes.io/hostname"

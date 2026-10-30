@@ -1,6 +1,6 @@
 # Dragonfly access
 
-Dragonfly uses the `REDIS_PASSWORD` field in the existing `dragonfly` 1Password item. External Secrets distributes it to the database and client namespaces; do not commit the password. Client traffic uses plaintext Redis, so the password and data are not encrypted in transit. Cilium restricts ingress to the configured clients, Dragonfly peers, the operator, and monitoring; the operator's admin port remains unauthenticated and unencrypted.
+Dragonfly uses the `REDIS_PASSWORD` field in the existing `dragonfly` 1Password item. External Secrets distributes it to the database and client namespaces; do not commit the password. Clients use verified TLS and password authentication on port 6379. Cilium restricts ingress to the configured clients, Dragonfly peers, the operator, and monitoring; the operator's admin and replication port remains unauthenticated and unencrypted.
 
 ## Initial cutover
 
@@ -8,6 +8,12 @@ Dragonfly uses the `REDIS_PASSWORD` field in the existing `dragonfly` 1Password 
 2. Schedule a maintenance window. Flux reconciles the server and client Kustomizations independently, and External Secrets refreshes asynchronously. Clients may temporarily fail whether they switch before or after the server; Paperless jobs and ToolHive sessions are affected. Confirm backups and replication health before proceeding.
 3. Merge and reconcile the changes. Check that the ExternalSecrets for Dragonfly, Immich, Paperless, SearXNG, Renovate, and ToolHive are ready and that the generated Secrets have the expected keys, without printing their values. The Dragonfly operator manages its own rolling update even though its StatefulSet uses `OnDelete`; do not manually delete pods while it is rolling. Check that replicas are synchronized and the cluster is healthy throughout.
 4. Verify each application, a Renovate job, ToolHive sessions, Dragonfly replication, Gatus, and Prometheus. Confirm that the normal Redis port rejects unauthenticated commands and accepts authenticated commands from an authorized client. The monitoring TCP check alone does not test authentication. Review Cilium policy drops if connectivity fails.
+
+## TLS cutover and certificate renewal
+
+The internal CA, ESO-managed CA Secrets, and server certificate are described in `kubernetes/apps/security/cert-manager/internal-ca/README.md`. Before deploying TLS, test all five clients against a non-production TLS-enabled Dragonfly, including failed verification with a wrong CA and hostname. Flux and External Secrets reconcile independently, and the operator changes the existing listener rather than adding a parallel TLS port. Schedule a maintenance window and expect temporary client failures. Verify the CA Secret in every client namespace, the server certificate and Secret, the operator rollout, and each application's Redis operations. Gatus's TCP check does not verify TLS or authentication.
+
+The server certificate lasts one year and renews 15 days before expiry. Updated Secret files do not automatically reload Dragonfly's TLS context. After the renewed files are projected, an authorized administrator must run `CONFIG SET tls true` on each Dragonfly process via its protected admin port, then verify the served certificate on each pod. Never set TLS to false. Test this process and alert on certificate expiry before relying on it; the branch does not automate reload. ESO refreshes the CA Secrets hourly, but processes that cache their CA roots, including Immich, Renovate, and ToolHive, must be restarted after updates. ToolHive uses a subPath mount that does not update in running containers. Coordinate CA rotation with overlapping trust and see the CA runbook.
 
 ## Rotation and rollback
 
