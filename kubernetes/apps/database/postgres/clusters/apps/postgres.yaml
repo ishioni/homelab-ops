@@ -52,26 +52,4 @@ spec:
     name: cloudnative-pg-secret
   managed:
     services:
-      additional:
-        - selectorType: rw
-          serviceTemplate:
-            metadata:
-              name: postgres-apps
-              annotations:
-                external-dns.kubernetes.io/hostname: postgres-apps.${PRIVATE_DOMAIN}
-                gatus.home-operations.com/enabled: "true"
-                gatus.home-operations.com/endpoint: |
-                  name: postgres-apps
-                  conditions:
-                    - "[CONNECTED] == true"
-                  group: Services
-                  ui:
-                    hide-hostname: true
-                    hide-url: true
-                  alerts:
-                    - type: pushover
-                      send-on-resolved: true
-            spec:
-              type: LoadBalancer
-          updateStrategy: patch
       disabledDefaultServices: ["r", "ro"]

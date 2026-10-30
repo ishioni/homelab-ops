@@ -16,6 +16,18 @@ connectivity:
     target: 1.1.1.1:53
     interval: 1m
 endpoints:
+  - name: postgres-apps
+    group: Services
+    url: tcp://postgres-apps-rw.database.svc.cluster.local:5432
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    ui:
+      hide-hostname: true
+      hide-url: true
+    alerts:
+      - type: pushover
+        send-on-resolved: true
   - name: rustfs
     group: Services
     url: https://rustfs.${PRIVATE_DOMAIN}/health
