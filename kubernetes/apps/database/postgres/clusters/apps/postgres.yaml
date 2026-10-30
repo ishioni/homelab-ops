@@ -35,6 +35,8 @@ spec:
         barmanObjectName: rustfs
         serverName: postgres-apps-v1
   postgresql:
+    pg_hba:
+      - hostnossl all all all reject
     parameters:
       archive_timeout: "1min"
       max_connections: "300"
