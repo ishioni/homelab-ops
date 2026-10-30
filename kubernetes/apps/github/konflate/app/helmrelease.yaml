@@ -17,6 +17,11 @@ spec:
       prComments: true
       publicUrl: https://${HOSTNAME}
       verifyImages: true
+    resources:
+      requests:
+        memory: 1Gi
+      limits:
+        memory: 2Gi
     secret:
       existingSecret: konflate-secret
     httpRoute:
