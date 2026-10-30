@@ -28,6 +28,8 @@ spec:
       namespace: *namespace
     - name: external-secrets
       namespace: security
+    - name: internal-ca
+      namespace: security
   # healthCheckExprs:
   #   - apiVersion: dragonflydb.io/v1alpha1
   #     kind: Dragonfly

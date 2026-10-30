@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: internal-ca
+  namespace: security
+spec:
+  isCA: true
+  commonName: homelab internal CA
+  secretName: internal-ca-key-pair
+  duration: 87600h
+  renewBefore: 8760h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Never
+  issuerRef:
+    name: internal-ca-bootstrap
+    kind: ClusterIssuer
+    group: cert-manager.io
