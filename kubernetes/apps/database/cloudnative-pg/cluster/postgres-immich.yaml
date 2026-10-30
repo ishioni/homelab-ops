@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: &pgname postgres-immich
+  name: postgres-immich
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: enabled
 spec:
@@ -57,28 +57,6 @@ spec:
     name: cloudnative-pg-secret
   managed:
     services:
-      additional:
-        - selectorType: rw
-          serviceTemplate:
-            metadata:
-              name: *pgname
-              annotations:
-                external-dns.kubernetes.io/hostname: postgres-immich.${PRIVATE_DOMAIN}
-                gatus.home-operations.com/enabled: "true"
-                gatus.home-operations.com/endpoint: |
-                  name: postgres-immich
-                  conditions:
-                    - "[CONNECTED] == true"
-                  group: Services
-                  ui:
-                    hide-hostname: true
-                    hide-url: true
-                  alerts:
-                    - type: pushover
-                      send-on-resolved: true
-            spec:
-              type: LoadBalancer
-          updateStrategy: patch
       disabledDefaultServices: ["r", "ro"]
   # bootstrap:
   #   recovery:
@@ -117,3 +95,32 @@ spec:
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
   schedule: "@daily"
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-immich-server
+spec:
+  secretName: postgres-immich-server-tls
+  secretTemplate:
+    labels:
+      cnpg.io/reload: ""
+  duration: 8760h
+  renewBefore: 360h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  usages:
+    - digital signature
+    - server auth
+  dnsNames:
+    - postgres-immich-rw
+    - postgres-immich-rw.database
+    - postgres-immich-rw.database.svc
+    - postgres-immich-rw.database.svc.cluster.local
+  issuerRef:
+    name: internal-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
