@@ -35,6 +35,8 @@ spec:
         extension_control_path:
           - /usr/share/postgresql/18/
     shared_preload_libraries: ["vchord.so"]
+    pg_hba:
+      - hostnossl all all all reject
     parameters:
       archive_timeout: "1min"
       autovacuum_vacuum_scale_factor: "0.1"
