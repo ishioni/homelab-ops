@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: grafana-operator
       namespace: monitor
-    - name: postgres-cluster
+    - name: postgres-apps
       namespace: database
     - name: external-secrets
       namespace: security

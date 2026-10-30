@@ -10,7 +10,7 @@ spec:
     - ../../../../components/authentik-proxy
     - ../../../../components/pvc
   dependsOn:
-    - name: postgres-cluster
+    - name: postgres-apps
       namespace: database
     - name: external-secrets
       namespace: security
