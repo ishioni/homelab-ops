@@ -41,9 +41,6 @@ spec:
         envFrom:
           - secretRef:
               name: *secret
-        env:
-          - name: PGSSLMODE
-            value: require
 
     config:
       existingConfigMap: *configmap

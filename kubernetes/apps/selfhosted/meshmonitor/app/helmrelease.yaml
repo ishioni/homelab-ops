@@ -24,9 +24,6 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-            env:
-              PGSSLMODE: verify-full
-              PGSSLROOTCERT: /etc/internal-ca/ca.crt
         pod:
           securityContext:
             runAsUser: 1000
