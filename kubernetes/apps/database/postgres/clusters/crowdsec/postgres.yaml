@@ -10,6 +10,9 @@ spec:
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: required
   instances: 3
+  certificates:
+    serverCASecret: postgres-crowdsec-server-tls
+    serverTLSSecret: postgres-crowdsec-server-tls
   bootstrap:
     initdb:
       database: crowdsec
@@ -40,6 +43,8 @@ spec:
         barmanObjectName: rustfs
         serverName: postgres-crowdsec-v1
   postgresql:
+    pg_hba:
+      - hostnossl all all all reject
     parameters:
       archive_timeout: "1min"
   primaryUpdateStrategy: unsupervised

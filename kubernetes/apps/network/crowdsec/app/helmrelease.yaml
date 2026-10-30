@@ -26,7 +26,8 @@ spec:
           db_name: crowdsec
           host: postgres-crowdsec-rw.database.svc.cluster.local
           port: 5432
-          sslmode: require
+          sslmode: verify-full
+          ssl_ca_cert: /etc/internal-ca/ca.crt
         api:
           server:
             auto_registration:
@@ -42,10 +43,16 @@ spec:
         - name: cscli-credentials
           secret:
             secretName: crowdsec-lapi-cscli-credentials
+        - name: internal-ca
+          secret:
+            secretName: crowdsec-internal-ca
       extraVolumeMounts:
         - name: cscli-credentials
           mountPath: /staging/etc/crowdsec/local_api_credentials.yaml
           subPath: local_api_credentials.yaml
+          readOnly: true
+        - name: internal-ca
+          mountPath: /etc/internal-ca
           readOnly: true
       envFrom:
         - secretRef:
