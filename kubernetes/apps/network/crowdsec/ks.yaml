@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: envoy-gateway-config
       namespace: network
-    - name: crowdsec-postgres
+    - name: postgres-crowdsec
       namespace: database
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
