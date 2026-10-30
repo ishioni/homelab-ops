@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./postgres.yaml
   - ./backup.yaml
+  - ./certificate.yaml

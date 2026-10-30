@@ -78,5 +78,16 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: atuin-internal-ca
+        advancedMounts:
+          atuin:
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
       config:
         type: emptyDir

@@ -102,6 +102,17 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: prowlarr-internal-ca
+        advancedMounts:
+          prowlarr:
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
       config:
         enabled: true
         type: emptyDir

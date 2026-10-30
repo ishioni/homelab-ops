@@ -16,6 +16,14 @@ spec:
       envFrom:
         - secretRef:
             name: *secret
+      volumes:
+        - name: internal-ca
+          secret:
+            secretName: authentik-internal-ca
+      volumeMounts:
+        - name: internal-ca
+          mountPath: /etc/internal-ca
+          readOnly: true
       # volumes:
       #   - name: media
       #     persistentVolumeClaim:
@@ -31,6 +39,10 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+          volumeMounts:
+            - name: internal-ca
+              mountPath: /etc/internal-ca
+              readOnly: true
       resources:
         requests:
           cpu: 100m
