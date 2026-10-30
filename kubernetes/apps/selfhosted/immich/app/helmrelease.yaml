@@ -31,6 +31,9 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
+            env:
+              PGSSLMODE: verify-full
+              PGSSLROOTCERT: /etc/internal-ca/ca.crt
         pod:
           securityContext:
             runAsUser: 1000
@@ -240,6 +243,9 @@ spec:
         name: immich-internal-ca
         advancedMounts:
           server:
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
             server:
               - path: /etc/internal-ca
                 readOnly: true
