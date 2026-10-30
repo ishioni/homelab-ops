@@ -52,6 +52,33 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: postgres-apps
+  namespace: database
+spec:
+  dependsOn:
+    - name: cloudnative-pg-shared
+      namespace: database
+    - name: openebs
+      namespace: storage
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres-apps
+      namespace: database
+  interval: 30m
+  path: ./kubernetes/apps/database/postgres/clusters/apps
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: database
+  wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: postgres-immich
   namespace: database
 spec:

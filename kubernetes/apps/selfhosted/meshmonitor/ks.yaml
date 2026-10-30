@@ -7,7 +7,7 @@ metadata:
   namespace: &namespace selfhosted
 spec:
   dependsOn:
-    - name: postgres-cluster
+    - name: postgres-apps
       namespace: database
     - name: external-secrets
       namespace: security
