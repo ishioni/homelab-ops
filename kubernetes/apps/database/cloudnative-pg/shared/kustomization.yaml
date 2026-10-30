@@ -6,5 +6,5 @@ resources:
   - ./externalsecret.yaml
   - ./grafanadashboard.yaml
   - ./objectstore.yaml
-  - ./postgres.yaml
+  - ./podmonitor.yaml
   - ./prometheusrule.yaml

@@ -6,6 +6,9 @@ metadata:
   name: &app cloudnative-pg
   namespace: &namespace database
 spec:
+  dependsOn:
+    - name: cert-manager
+      namespace: security
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/operator
   prune: true
@@ -20,21 +23,23 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudnative-pg-barman-cloud
-  namespace: &namespace database
+  name: cloudnative-pg-shared
+  namespace: database
 spec:
   dependsOn:
-    - name: cert-manager
+    - name: cloudnative-pg
+      namespace: database
+    - name: external-secrets
       namespace: security
   interval: 30m
-  path: ./kubernetes/apps/database/cloudnative-pg/barman-cloud
+  path: ./kubernetes/apps/database/cloudnative-pg/shared
   prune: true
-  retryInterval: 5m
   sourceRef:
     kind: GitRepository
     name: homelab-ops
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: database
+  wait: true
 ---
 # yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -44,24 +49,66 @@ metadata:
   namespace: &namespace database
 spec:
   dependsOn:
-    - name: cloudnative-pg
+    - name: cloudnative-pg-shared
       namespace: database
     - name: openebs
       namespace: storage
-    - name: external-secrets
-      namespace: security
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
       name: postgres
       namespace: database
   interval: 30m
-  path: ./kubernetes/apps/database/cloudnative-pg/cluster
-  # Restore pruning once the old inventory no longer contains Immich or Homebrew resources.
+  path: ./kubernetes/apps/database/cloudnative-pg/clusters/postgres
+  # Restore pruning after the old inventory clears; remove orphaned per-cluster PodMonitors after verifying shared scrapes.
   prune: false
   sourceRef:
     kind: GitRepository
     name: homelab-ops
     namespace: flux-system
   targetNamespace: *namespace
+  wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: postgres-immich
+  namespace: database
+spec:
+  dependsOn:
+    - name: cloudnative-pg-shared
+      namespace: database
+    - name: openebs
+      namespace: storage
+  interval: 30m
+  path: ./kubernetes/apps/database/cloudnative-pg/clusters/immich
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: database
+  wait: true
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crowdsec-postgres
+  namespace: database
+spec:
+  dependsOn:
+    - name: cloudnative-pg-shared
+      namespace: database
+    - name: openebs
+      namespace: storage
+  interval: 30m
+  path: ./kubernetes/apps/database/cloudnative-pg/clusters/crowdsec
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: homelab-ops
+    namespace: flux-system
+  targetNamespace: database
   wait: true

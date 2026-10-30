@@ -27,9 +27,6 @@ releases:
   - name: cloudnative-pg
     namespace: database
 
-  - name: barman-cloud
-    namespace: database
-
   - name: snapshot-controller
     namespace: storage
 
