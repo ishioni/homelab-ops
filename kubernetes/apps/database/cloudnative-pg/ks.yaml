@@ -60,8 +60,7 @@ spec:
       namespace: database
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/clusters/postgres
-  # Restore pruning after the old inventory clears; remove orphaned per-cluster PodMonitors after verifying shared scrapes.
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: homelab-ops
