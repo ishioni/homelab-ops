@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-apps-server
+spec:
+  secretName: postgres-apps-server-tls
+  secretTemplate:
+    labels:
+      cnpg.io/reload: ""
+  duration: 8760h
+  renewBefore: 360h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  usages:
+    - digital signature
+    - server auth
+  dnsNames:
+    - postgres-apps-rw
+    - postgres-apps-rw.database
+    - postgres-apps-rw.database.svc
+    - postgres-apps-rw.database.svc.cluster.local
+  issuerRef:
+    name: internal-ca
+    kind: ClusterIssuer
+    group: cert-manager.io

@@ -31,6 +31,9 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+          env:
+            - name: PGSSLMODE
+              value: require
       resources:
         requests:
           cpu: 100m

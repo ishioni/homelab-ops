@@ -24,6 +24,9 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
+            env:
+              PGSSLMODE: verify-full
+              PGSSLROOTCERT: /etc/internal-ca/ca.crt
         pod:
           securityContext:
             runAsUser: 1000
@@ -101,5 +104,16 @@ spec:
             namespace: network
             sectionName: https
     persistence:
+      internal-ca:
+        type: secret
+        name: meshmonitor-internal-ca
+        advancedMounts:
+          meshmonitor:
+            01-init-db:
+              - path: /etc/internal-ca
+                readOnly: true
+            app:
+              - path: /etc/internal-ca
+                readOnly: true
       data:
         type: emptyDir
