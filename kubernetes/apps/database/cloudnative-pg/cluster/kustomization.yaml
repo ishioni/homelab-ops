@@ -7,6 +7,4 @@ resources:
   - ./grafanadashboard.yaml
   - ./objectstore.yaml
   - ./postgres.yaml
-  - ./postgres-homebrew.yaml
-  - ./postgres-immich.yaml
   - ./prometheusrule.yaml

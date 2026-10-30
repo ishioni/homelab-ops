@@ -9,7 +9,7 @@ spec:
   components:
     - ../../../../components/gpu
   dependsOn:
-    - name: postgres-cluster
+    - name: postgres-immich
       namespace: database
     - name: dragonfly-cluster
       namespace: database

@@ -55,13 +55,10 @@ spec:
       kind: Cluster
       name: postgres
       namespace: database
-    - apiVersion: postgresql.cnpg.io/v1
-      kind: Cluster
-      name: postgres-immich
-      namespace: database
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
-  prune: true
+  # Restore pruning once the old inventory no longer contains Immich or Homebrew resources.
+  prune: false
   sourceRef:
     kind: GitRepository
     name: homelab-ops

@@ -10,3 +10,5 @@ resources:
   - ./cloudnative-pg/ks.yaml
   - ./crowdsec/ks.yaml
   - ./dragonfly/ks.yaml
+  - ./homebrew/ks.yaml
+  - ./immich/ks.yaml
