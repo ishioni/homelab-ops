@@ -33,7 +33,7 @@ spec:
     - name: internal-ca
       mountPath: /etc/internal-ca
       readOnly: true
-  image: ghcr.io/renovatebot/renovate:44.198.1
+  image: ghcr.io/renovatebot/renovate:44.198.2
   parallelism: 5
   resources:
     requests:
