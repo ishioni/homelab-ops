@@ -10,7 +10,7 @@ terraform {
   required_providers {
     minio = {
       source  = "aminueza/minio"
-      version = "3.45.1"
+      version = "3.46.0"
     }
     onepassword = {
       source  = "1Password/onepassword"
