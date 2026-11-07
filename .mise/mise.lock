@@ -132,27 +132,27 @@ url = "https://github.com/home-operations/kopiur/releases/download/0.10.17/kubec
 url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/699595115"
 
 [[tools."github:mitsuhiko/minijinja"]]
-version = "3.0.5"
+version = "3.1.0"
 backend = "github:mitsuhiko/minijinja"
-specifiers = ["3.0.5"]
+specifiers = ["3.1.0"]
 
 [tools."github:mitsuhiko/minijinja"."platforms.linux-arm64"]
-checksum = "sha256:b964a51b340675ab2748f6276119570effbc068c9a9bbbf15b134dd41513e24b"
+checksum = "sha256:d863547c6256887fcb3299413072134af8fef389254ed948f0a1a4e2f9ffb823"
 checksum_source = "mise-versions"
-url = "https://github.com/mitsuhiko/minijinja/releases/download/3.0.5/minijinja-cli-aarch64-unknown-linux-gnu.tar.xz"
-url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/690302335"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/3.1.0/minijinja-cli-aarch64-unknown-linux-gnu.tar.xz"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/721736738"
 
 [tools."github:mitsuhiko/minijinja"."platforms.linux-x64"]
-checksum = "sha256:d25b5e931f8f3f4df9d25db4c81e5bcb01a752aad9c05312234321d9bb869d14"
+checksum = "sha256:a888c04a302c90ab63e0c1fd676a7e198771c15930a9e27730276589a8e4a141"
 checksum_source = "mise-versions"
-url = "https://github.com/mitsuhiko/minijinja/releases/download/3.0.5/minijinja-cli-x86_64-unknown-linux-gnu.tar.xz"
-url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/690302426"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/3.1.0/minijinja-cli-x86_64-unknown-linux-gnu.tar.xz"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/721736803"
 
 [tools."github:mitsuhiko/minijinja"."platforms.macos-arm64"]
-checksum = "sha256:8aaea548d724f730a623d4d34bd1311ce9c51c9eaa9f4687b9beb74a073c94d9"
+checksum = "sha256:a6635d71a21b89ce5276b66ce7795ff32d988a61afc38cc63e6bc5e900d3ee02"
 checksum_source = "mise-versions"
-url = "https://github.com/mitsuhiko/minijinja/releases/download/3.0.5/minijinja-cli-aarch64-apple-darwin.tar.xz"
-url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/690302314"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/3.1.0/minijinja-cli-aarch64-apple-darwin.tar.xz"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/721736720"
 
 [[tools.gum]]
 version = "2.0.2"
