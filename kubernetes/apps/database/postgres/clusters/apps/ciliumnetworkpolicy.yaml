@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://crd.movishell.pl/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: postgres-apps
+spec:
+  endpointSelector:
+    matchLabels:
+      cnpg.io/cluster: postgres-apps
+      cnpg.io/podRole: instance
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: downloads
+          matchExpressions:
+            - key: app.kubernetes.io/instance
+              operator: In
+              values: [bazarr, lidarr, prowlarr, radarr, sonarr]
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: selfhosted
+          matchExpressions:
+            - key: app.kubernetes.io/instance
+              operator: In
+              values: [atuin, meshmonitor, paperless]
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: security
+            app.kubernetes.io/instance: authentik
+            app.kubernetes.io/name: authentik
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: security
+            app.kubernetes.io/instance: vaultwarden
+            app.kubernetes.io/name: vaultwarden
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            cnpg.io/cluster: postgres-apps
+            cnpg.io/podRole: instance
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitor
+            app.kubernetes.io/instance: gatus
+            app.kubernetes.io/name: gatus-sidecar
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitor
+            app.kubernetes.io/name: prometheus
+            prometheus: kube-prometheus-stack
+      toPorts:
+        - ports:
+            - port: "9187"
+              protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            app.kubernetes.io/instance: cloudnative-pg
+            app.kubernetes.io/name: cloudnative-pg
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            app.kubernetes.io/instance: barman-cloud
+            app.kubernetes.io/name: plugin-barman-cloud
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            cnpg.io/cluster: postgres-apps
+            cnpg.io/podRole: instance
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+    - fromEntities: [host]
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
