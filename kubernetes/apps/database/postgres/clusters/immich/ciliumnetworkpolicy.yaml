@@ -53,7 +53,11 @@ spec:
             k8s:io.kubernetes.pod.namespace: database
             cnpg.io/cluster: postgres-immich
             cnpg.io/podRole: instance
-      fromEntities: [host]
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+    - fromEntities: [host]
       toPorts:
         - ports:
             - port: "8000"
