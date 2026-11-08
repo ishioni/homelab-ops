@@ -89,24 +89,27 @@ url = "https://github.com/fluxcd/flux2/releases/download/v2.10.0/flux_2.10.0_dar
 url_api = "https://api.github.com/repos/fluxcd/flux2/releases/assets/678609572"
 
 [[tools."github:home-operations/flate"]]
-version = "0.6.5"
+version = "0.7.0"
 backend = "github:home-operations/flate"
-specifiers = ["v0.6.5"]
+specifiers = ["v0.7.0"]
 
 [tools."github:home-operations/flate"."platforms.linux-arm64"]
-checksum = "sha256:7f514814890df4a095887943ae606be1a8af878606b7bd0575efe75402cd38dc"
-url = "https://github.com/home-operations/flate/releases/download/v0.6.5/flate_0.6.5_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/541337295"
+checksum = "sha256:bde2f9f1b200af5258bb03f8e942583ba2c560b3141569a0be98ab9d0e3f3c3f"
+checksum_source = "mise-versions"
+url = "https://github.com/home-operations/flate/releases/download/v0.7.0/flate_0.7.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/725251295"
 
 [tools."github:home-operations/flate"."platforms.linux-x64"]
-checksum = "sha256:37eb0cd91a6752340754375743aa616c263cd8367ce594abd42ee955e1ec0099"
-url = "https://github.com/home-operations/flate/releases/download/v0.6.5/flate_0.6.5_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/541337294"
+checksum = "sha256:f88682d08a7946ad0b8bec15947feda8d76f27922da6596d26d333e770257c82"
+checksum_source = "mise-versions"
+url = "https://github.com/home-operations/flate/releases/download/v0.7.0/flate_0.7.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/725251297"
 
 [tools."github:home-operations/flate"."platforms.macos-arm64"]
-checksum = "sha256:76274be5ef8b016e80ea0abf7b6f612adc76a89f7613d2e7f7e3550af5b9e186"
-url = "https://github.com/home-operations/flate/releases/download/v0.6.5/flate_0.6.5_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/541337298"
+checksum = "sha256:f3b30813d81bc71456de24070de96732de0a19b13ea4bdbc6d52e1f3b5c69a26"
+checksum_source = "mise-versions"
+url = "https://github.com/home-operations/flate/releases/download/v0.7.0/flate_0.7.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/725251294"
 
 [[tools."github:home-operations/kopiur"]]
 version = "0.10.17"
