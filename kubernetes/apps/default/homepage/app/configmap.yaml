@@ -29,7 +29,7 @@ data:
             icon: home-assistant.svg
             widget:
               type: homeassistant
-              url: http://haos.${PRIVATE_DOMAIN}:8123
+              url: https://homeassistant.${PUBLIC_DOMAIN}
               key: {{HOMEPAGE_VAR_HASS_TOKEN}}
     - Infrastructure:
         - Unifi:
