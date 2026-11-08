@@ -6,3 +6,4 @@ resources:
   - ./postgres.yaml
   - ./backup.yaml
   - ./certificate.yaml
+  - ./ciliumnetworkpolicy.yaml
