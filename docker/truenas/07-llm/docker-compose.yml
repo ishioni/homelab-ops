@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json
+services:
+  llm:
+    # Switch to CPU Qwen: use server-b9570@sha256:4c52f549b6612fc1b4aee696c4cfb4a9dceecb10216bb7e677cf97db909e1b4a,
+    # remove devices, --n-gpu-layers and --chat-template-kwargs below, change
+    # the model repo/alias as noted there, and reduce mem_limit to 24g.
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan-b9570@sha256:5e6de18a610baece861f7566a8c51c11e548b8afc163d85378eea8a2ac694893
+    container_name: llm
+    restart: unless-stopped
+    # The iGPU shares host RAM: Docker does not reliably count/limit Vulkan GTT.
+    # Leo's TrueNAS ZFS ARC max is separately set to 16 GiB (min 4 GiB).
+    # For CPU Qwen, 24g was tested; keep the host-memory check for either model.
+    mem_limit: 28g
+    cpus: 4
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    security_opt:
+      - no-new-privileges:true
+
+    networks:
+      apps:
+    environment:
+      TZ: Europe/Warsaw
+      HF_HOME: /root/.cache/huggingface
+      LLAMA_CACHE: /root/.cache/llama.cpp
+      # CPU Qwen: unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M
+      # with alias qwen3-coder-30b-a3b-q4-k-m (same 16K context/4 threads).
+      LLAMA_ARG_HF_REPO: unsloth/gemma-4-26B-A4B-it-GGUF:Q4_K_M
+      LLAMA_ARG_ALIAS: gemma-4-26b-a4b-q4-k-m
+      LLAMA_ARG_HOST: 0.0.0.0
+      LLAMA_ARG_PORT: ${APP_PORT}
+      LLAMA_ARG_CTX_SIZE: 16384
+      LLAMA_ARG_THREADS: 4
+      LLAMA_ARG_THREADS_BATCH: 4
+      LLAMA_ARG_N_PARALLEL: 1
+
+      LLAMA_ARG_CACHE_RAM: 512
+    command:
+      # Full offload was tested with the 16 GiB ARC cap; remove these two
+      # entries when switching to CPU-only Qwen.
+      - --n-gpu-layers
+      - "99"
+      - --jinja
+      # Match the Gemma benchmarks: short requests should return answers, not
+      # spend their entire output budget on thinking (clients may override this).
+      # Remove both entries for the tested CPU-only Qwen configuration.
+      - --chat-template-kwargs
+      - '{"enable_thinking":false}'
+      - --no-ui
+      - --poll
+      - "0"
+      - --sleep-idle-seconds
+      - "300"
+    expose:
+      - ${APP_PORT}
+    volumes:
+      - ${DATA_PATH}/cache:/root/.cache
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.llm.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.routers.llm.entrypoints: https
+      # Stable endpoint across Gemma/Qwen. Keep LAN-restricted: this API has no auth.
+      traefik.http.routers.llm.rule: Host(`llm.ishioni.casa`)
+      traefik.http.routers.llm.tls: "true"
+      traefik.http.routers.llm.service: llm
+      traefik.http.routers.llm.middlewares: llm-lan
+      traefik.http.middlewares.llm-lan.ipallowlist.sourcerange: 10.1.0.0/16
+      dexd.enabled: "true"
+
+networks:
+  apps:
+    external: true
