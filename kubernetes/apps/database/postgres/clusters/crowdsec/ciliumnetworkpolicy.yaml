@@ -20,6 +20,10 @@ spec:
             cnpg.io/cluster: postgres-crowdsec
             cnpg.io/podRole: instance
         - matchLabels:
+            k8s:io.kubernetes.pod.namespace: database
+            cnpg.io/cluster: postgres-crowdsec
+            cnpg.io/jobRole: join
+        - matchLabels:
             k8s:io.kubernetes.pod.namespace: monitor
             app.kubernetes.io/instance: gatus
             app.kubernetes.io/name: gatus-sidecar
