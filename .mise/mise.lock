@@ -112,27 +112,27 @@ url = "https://github.com/home-operations/flate/releases/download/v0.7.3/flate_0
 url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/727305351"
 
 [[tools."github:home-operations/kopiur"]]
-version = "0.10.20"
+version = "0.10.21"
 backend = "github:home-operations/kopiur"
-specifiers = ["0.10.20"]
+specifiers = ["0.10.21"]
 
 [tools."github:home-operations/kopiur"."platforms.linux-arm64"]
-checksum = "sha256:cbccf3e1812ea4ce91dd4fe5d14049590bcac2505e3c35b3d0613d508b049112"
+checksum = "sha256:5de04a972b71ddd8fd66ca4c880e56beedbda81983088f69fba32f77df6e20a3"
 checksum_source = "mise-versions"
-url = "https://github.com/home-operations/kopiur/releases/download/0.10.20/kubectl-kopiur_0.10.20_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/738325000"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.21/kubectl-kopiur_0.10.21_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/745158237"
 
 [tools."github:home-operations/kopiur"."platforms.linux-x64"]
-checksum = "sha256:ceebabe53ebfa62ab7ce4bcd70e60c8f32f411147f731406638cd5db3de288c6"
+checksum = "sha256:f5d50159fab46fc3ff59b5b365b6ce70aad1e657603fe11430b6d8e287d7c138"
 checksum_source = "mise-versions"
-url = "https://github.com/home-operations/kopiur/releases/download/0.10.20/kubectl-kopiur_0.10.20_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/738324998"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.21/kubectl-kopiur_0.10.21_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/745158233"
 
 [tools."github:home-operations/kopiur"."platforms.macos-arm64"]
-checksum = "sha256:2129350a381e6909a228143ab303d886493790b4266940543ec8c8ec384d18a8"
+checksum = "sha256:2d28222fdaffd3e3443e3877db351b4f521549bbea7bf7f1f39b79ebd48b1b6d"
 checksum_source = "mise-versions"
-url = "https://github.com/home-operations/kopiur/releases/download/0.10.20/kubectl-kopiur_0.10.20_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/738324995"
+url = "https://github.com/home-operations/kopiur/releases/download/0.10.21/kubectl-kopiur_0.10.21_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/745158248"
 
 [[tools."github:mitsuhiko/minijinja"]]
 version = "3.1.0"
