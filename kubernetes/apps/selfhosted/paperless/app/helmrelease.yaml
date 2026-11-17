@@ -71,6 +71,9 @@ spec:
                   httpGet:
                     path: /
                     port: *port
+                    httpHeaders:
+                      - name: Host
+                        value: ${HOSTNAME}
                   initialDelaySeconds: 0
                   periodSeconds: 30
                   timeoutSeconds: 2
@@ -83,6 +86,9 @@ spec:
                   httpGet:
                     path: /
                     port: *port
+                    httpHeaders:
+                      - name: Host
+                        value: ${HOSTNAME}
                   initialDelaySeconds: 0
                   timeoutSeconds: 1
                   failureThreshold: 10
