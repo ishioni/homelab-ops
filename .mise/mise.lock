@@ -111,6 +111,28 @@ checksum_source = "mise-versions"
 url = "https://github.com/home-operations/flate/releases/download/v0.7.3/flate_0.7.3_darwin_arm64.tar.gz"
 url_api = "https://api.github.com/repos/home-operations/flate/releases/assets/727305351"
 
+[[tools."github:home-operations/kopiur"]]
+version = "0.11.0"
+backend = "github:home-operations/kopiur"
+specifiers = ["0.11.0"]
+
+[tools."github:home-operations/kopiur"."platforms.linux-arm64"]
+checksum = "sha256:4d030ed1f1e0276036b54078eda969e37f487e93f96cc7937974a6301645204f"
+checksum_source = "mise-versions"
+url = "https://github.com/home-operations/kopiur/releases/download/0.11.0/kubectl-kopiur_0.11.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/750874381"
+
+[tools."github:home-operations/kopiur"."platforms.linux-x64"]
+checksum = "sha256:90cc67dd440458d590151e0bad570ea3cb7528ffbeaa010eb2d580375e6e3dce"
+checksum_source = "mise-versions"
+url = "https://github.com/home-operations/kopiur/releases/download/0.11.0/kubectl-kopiur_0.11.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/750874382"
+
+[tools."github:home-operations/kopiur"."platforms.macos-arm64"]
+checksum = "sha256:536571227006d55df532aa5f839abbe917c2cd72a5c7bd07667bc3b25473d4e3"
+url = "https://github.com/home-operations/kopiur/releases/download/0.11.0/kubectl-kopiur_0.11.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/home-operations/kopiur/releases/assets/750874380"
+
 [[tools."github:mitsuhiko/minijinja"]]
 version = "3.1.0"
 backend = "github:mitsuhiko/minijinja"
@@ -372,12 +394,21 @@ backend = "aqua:siderolabs/talos"
 specifiers = ["1.14.6"]
 
 [tools.talos."platforms.linux-arm64"]
+checksum = "sha256:fd22e0678d783105646d824c23ee45cf7a57f737edae274ca41376d03a4def65"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.6/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/736672986"
 provenance = "cosign"
 
 [tools.talos."platforms.linux-x64"]
+checksum = "sha256:11acde7f7578ffe9cbe6fb8349b34595065f597de0842615982e350b365de987"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.6/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/736672969"
 provenance = "cosign"
 
 [tools.talos."platforms.macos-arm64"]
+checksum = "sha256:dd290798702d60ce8c1f59f4c223d5bdbc9c0638db45a9827d7f6cb4bd4a3f39"
+url = "https://github.com/siderolabs/talos/releases/download/v1.14.6/talosctl-darwin-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/736672987"
 provenance = "cosign"
 
 [[tools.yq]]
@@ -386,12 +417,21 @@ backend = "aqua:mikefarah/yq"
 specifiers = ["4.54.3"]
 
 [tools.yq."platforms.linux-arm64"]
+checksum = "sha256:89f69310b61b68d1245065a1241d1fc843f7a36cd6103ffd77ad987613bd1b67"
+url = "https://github.com/mikefarah/yq/releases/download/v4.54.3/yq_linux_arm64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/726219924"
 provenance = "cosign"
 
 [tools.yq."platforms.linux-x64"]
+checksum = "sha256:129534601871538efe0ba4c5e62a34fb1d5f469bcb975c4fddeb467d82974973"
+url = "https://github.com/mikefarah/yq/releases/download/v4.54.3/yq_linux_amd64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/726219936"
 provenance = "cosign"
 
 [tools.yq."platforms.macos-arm64"]
+checksum = "sha512:03ed7026ba8be7b8d534ed029a950115e7fb2838bd84555e012004751fd073c6240b2f020d2f6a70ed394e76550a55b66427a4fe82b481e1560c53e8e220cfdf"
+url = "https://github.com/mikefarah/yq/releases/download/v4.54.3/yq_darwin_arm64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/726219940"
 provenance = "cosign"
 
 [[tools.zizmor]]
