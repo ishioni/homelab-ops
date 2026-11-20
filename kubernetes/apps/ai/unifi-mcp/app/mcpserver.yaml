@@ -43,3 +43,5 @@ spec:
       value: "false"
     - name: UNIFI_POLICY_NETWORK_DELETE
       value: "false"
+    - name: UNIFI_NETWORK_WEBSOCKET_ENABLED
+      value: "true"
