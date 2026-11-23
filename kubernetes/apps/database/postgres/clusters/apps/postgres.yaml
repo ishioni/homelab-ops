@@ -15,7 +15,7 @@ spec:
     serverTLSSecret: postgres-apps-server-tls
   instances: 3
   smartShutdownTimeout: 30
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.7-standard-trixie@sha256:23719505c7cc417b043ffd9998b44ab8d57fec1d92f0bf11b231a1754a5962f2
+  imageName: ghcr.io/cloudnative-pg/postgresql:19.0-standard-trixie@sha256:6f17393bf934a41fec47439306a17e087c5c2f419ddd5bf4b8dc0241da4bceb0
   # For a future recovery, archive to a new serverName instead of writing to the source archive.
   # bootstrap:
   #   recovery:
