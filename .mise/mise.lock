@@ -43,26 +43,26 @@ url_api = "https://api.github.com/repos/rhysd/actionlint/releases/assets/3849248
 provenance = "github-attestations"
 
 [[tools.cosign]]
-version = "3.1.5"
+version = "3.1.6"
 backend = "aqua:sigstore/cosign"
-specifiers = ["3.1.5"]
+specifiers = ["3.1.6"]
 
 [tools.cosign."platforms.linux-arm64"]
-checksum = "sha256:516893301e9ec0f2594edfcf8f943ec3b3ba96f3aad2b507eff2b71e644e5fca"
-url = "https://github.com/sigstore/cosign/releases/download/v3.1.5/cosign-linux-arm64"
-url_api = "https://api.github.com/repos/sigstore/cosign/releases/assets/787761744"
+checksum = "sha256:bbb2ebc765f483cf9fac42da8763dddc2b55b350ee12ea0c44a520a6d6d52334"
+url = "https://github.com/sigstore/cosign/releases/download/v3.1.6/cosign-linux-arm64"
+url_api = "https://api.github.com/repos/sigstore/cosign/releases/assets/793285314"
 provenance = "cosign"
 
 [tools.cosign."platforms.linux-x64"]
-checksum = "sha256:912502def4baf810eaf36b210a4f51e1da214f9f6d664e2a9a2154cfc67ee0d6"
-url = "https://github.com/sigstore/cosign/releases/download/v3.1.5/cosign-linux-amd64"
-url_api = "https://api.github.com/repos/sigstore/cosign/releases/assets/787764286"
+checksum = "sha256:318a99ade4156a0c4113aa983b46c0a0830fa7896a096c63121ee47b610a94c6"
+url = "https://github.com/sigstore/cosign/releases/download/v3.1.6/cosign-linux-amd64"
+url_api = "https://api.github.com/repos/sigstore/cosign/releases/assets/793284664"
 provenance = "cosign"
 
 [tools.cosign."platforms.macos-arm64"]
-checksum = "sha256:35cfceffe68448019f75bcbb2c470045ee2f4264cf5ad6d564f08f327f97d13f"
-url = "https://github.com/sigstore/cosign/releases/download/v3.1.5/cosign-darwin-arm64"
-url_api = "https://api.github.com/repos/sigstore/cosign/releases/assets/787761392"
+checksum = "sha256:0ce6045c42e9f21427b3a8b70d54b130ca35cdd88a38358cc303fc6fec7366ba"
+url = "https://github.com/sigstore/cosign/releases/download/v3.1.6/cosign-darwin-arm64"
+url_api = "https://api.github.com/repos/sigstore/cosign/releases/assets/793283593"
 provenance = "cosign"
 
 [[tools.flux2]]
