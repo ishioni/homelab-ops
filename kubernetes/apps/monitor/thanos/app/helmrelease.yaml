@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: thanos
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: thanos
+    spec:
+      url: oci://ghcr.io/stevehipwell/helm-charts/thanos
+      ref:
+        tag: 1.24.3
+      interval: 1h
   dependsOn:
     - name: kube-prometheus-stack
   interval: 30m

@@ -5,9 +5,12 @@ kind: HelmRelease
 metadata:
   name: toolhive-operator
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: toolhive-operator
+    spec:
+      url: oci://ghcr.io/stacklok/toolhive/toolhive-operator
+      ref:
+        tag: 0.70.0
   interval: 30m
   values:
     operator:

@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: speedtest-exporter
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: speedtest-exporter
+    spec:
+      url: oci://ghcr.io/ishioni/charts/speedtest-exporter
+      ref:
+        tag: 0.2.8
+      interval: 1h
   interval: 30m
   values:
     fullnameOverride: speedtest-exporter

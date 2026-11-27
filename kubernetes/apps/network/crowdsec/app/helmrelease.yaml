@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: crowdsec
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: crowdsec
+    spec:
+      url: oci://ghcr.io/crowdsecurity/helm-charts/crowdsec
+      ref:
+        tag: 0.24.3
+      interval: 1h
   install:
     disableSchemaValidation: true
   interval: 30m

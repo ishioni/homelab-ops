@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: tofu-controller
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: tofu-controller
+    spec:
+      url: oci://ghcr.io/ishioni/charts/tofu-controller
+      ref:
+        tag: 0.16.5-ishioni.2
+      interval: 1h
   interval: 30m
   values:
     awsPackage:

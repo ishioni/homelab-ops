@@ -8,7 +8,6 @@ resources:
   - ./externalsecret.yaml
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
-  - ./ocirepository.yaml
   - ./scrapeconfigs
 configMapGenerator:
   - name: kube-state-metrics-config

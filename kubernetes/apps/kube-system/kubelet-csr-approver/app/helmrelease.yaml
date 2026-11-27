@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: kubelet-csr-approver
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: kubelet-csr-approver
+    spec:
+      url: oci://ghcr.io/postfinance/charts/kubelet-csr-approver
+      ref:
+        tag: 1.2.16
+      interval: 1h
   interval: 30m
   values:
     providerRegex: |
