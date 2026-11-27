@@ -15,7 +15,11 @@ spec:
   interval: 30m
   values:
     fullnameOverride: reloader
-    resources:
-      limits:
-        cpu: 50m
-        memory: 50Mi
+    reloader:
+      readOnlyRootFileSystem: true
+      reloadStrategy: annotations
+    deployment:
+      resources:
+        limits:
+          cpu: 50m
+          memory: 50Mi
