@@ -10,7 +10,7 @@ spec:
     spec:
       url: oci://ghcr.io/stacklok/toolhive/toolhive-operator
       ref:
-        tag: 0.70.0
+        tag: 0.70.1
   interval: 30m
   values:
     operator:
