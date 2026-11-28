@@ -10,6 +10,6 @@ spec:
     spec:
       url: oci://ghcr.io/stacklok/toolhive/toolhive-operator-crds
       ref:
-        tag: 0.70.0
+        tag: 0.70.1
       interval: 1h
   interval: 30m
