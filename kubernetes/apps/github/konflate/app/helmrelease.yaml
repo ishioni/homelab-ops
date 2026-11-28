@@ -14,10 +14,6 @@ spec:
       interval: 1h
   interval: 30m
   values:
-    image:
-      tag: "main"
-      digest: ""
-      pullPolicy: Always
     config:
       repo: github://ishioni/homelab-ops
       clusterPath: ./kubernetes/flux/cluster
