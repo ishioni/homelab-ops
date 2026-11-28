@@ -12,11 +12,6 @@ spec:
       ref:
         tag: 2.15.0
       interval: 1h
-      verify:
-        provider: cosign
-        matchOIDCIdentity:
-          - issuer: ^https://token.actions.githubusercontent.com$
-            subject: ^https://github.com/external-secrets/external-secrets.*$
   interval: 30m
   values:
     leaderElect: true
