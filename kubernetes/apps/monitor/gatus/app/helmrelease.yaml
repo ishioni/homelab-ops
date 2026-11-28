@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: gatus
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: gatus
+    spec:
+      url: oci://ghcr.io/home-operations/charts/gatus-sidecar
+      ref:
+        tag: 0.6.1
+      interval: 1h
   interval: 30m
   values:
     fullnameOverride: gatus

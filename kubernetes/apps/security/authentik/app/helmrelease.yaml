@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: authentik
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: authentik
+    spec:
+      url: oci://ghcr.io/goauthentik/helm-charts/authentik
+      ref:
+        tag: 2026.8.7
+      interval: 1h
   interval: 30m
   values:
     global:

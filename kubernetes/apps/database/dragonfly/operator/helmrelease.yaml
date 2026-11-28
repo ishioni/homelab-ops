@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: dragonfly-operator
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: dragonfly-operator
+    spec:
+      url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm/dragonfly-operator
+      ref:
+        tag: v1.8.0
+      interval: 1h
   interval: 30m
   maxHistory: 3
   values:

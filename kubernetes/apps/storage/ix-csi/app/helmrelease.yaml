@@ -6,9 +6,13 @@ metadata:
   name: &release ix-csi
   namespace: storage
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: ix-csi
+    spec:
+      url: oci://ghcr.io/ishioni/charts/ix-csi
+      ref:
+        tag: 1.7.2
+      interval: 1h
   dependsOn:
     - name: snapshot-controller
   interval: 30m

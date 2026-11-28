@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: external-dns-unifi
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: external-dns-unifi
+    spec:
+      url: oci://ghcr.io/home-operations/charts-mirror/external-dns
+      ref:
+        tag: 1.24.0
+      interval: 1h
   interval: 30m
   values:
     logLevel: &logLevel info

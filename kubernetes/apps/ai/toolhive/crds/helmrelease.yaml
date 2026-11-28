@@ -5,7 +5,11 @@ kind: HelmRelease
 metadata:
   name: toolhive-operator-crds
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: toolhive-operator-crds
+    spec:
+      url: oci://ghcr.io/stacklok/toolhive/toolhive-operator-crds
+      ref:
+        tag: 0.70.0
+      interval: 1h
   interval: 30m

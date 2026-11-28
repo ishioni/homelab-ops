@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: &app crowdsec-bouncer
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: crowdsec-bouncer
+    spec:
+      url: oci://ghcr.io/kdwils/charts/envoy-proxy-bouncer
+      ref:
+        tag: 0.8.4
+      interval: 1h
   interval: 30m
   values:
     fullnameOverride: *app

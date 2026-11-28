@@ -5,9 +5,13 @@ kind: HelmRelease
 metadata:
   name: onepassword
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: onepassword-connect
+    spec:
+      url: oci://ghcr.io/1password/connect
+      ref:
+        tag: 2.4.3
+      interval: 1h
   interval: 30m
   values:
     connect:

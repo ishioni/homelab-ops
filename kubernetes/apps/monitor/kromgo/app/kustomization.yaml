@@ -5,4 +5,3 @@ kind: Kustomization
 namespace: monitor
 resources:
   - ./helmrelease.yaml
-  - ./ocirepository.yaml

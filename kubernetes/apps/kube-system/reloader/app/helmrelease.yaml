@@ -5,13 +5,21 @@ kind: HelmRelease
 metadata:
   name: reloader
 spec:
-  chartRef:
+  chart:
     kind: OCIRepository
-    name: reloader
+    spec:
+      url: oci://ghcr.io/stakater/charts/reloader
+      ref:
+        tag: 2.2.21
+      interval: 1h
   interval: 30m
   values:
     fullnameOverride: reloader
-    resources:
-      limits:
-        cpu: 50m
-        memory: 50Mi
+    reloader:
+      readOnlyRootFileSystem: true
+      reloadStrategy: annotations
+    deployment:
+      resources:
+        limits:
+          cpu: 50m
+          memory: 50Mi
